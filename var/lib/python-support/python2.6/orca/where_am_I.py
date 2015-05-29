@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/where_am_I.py

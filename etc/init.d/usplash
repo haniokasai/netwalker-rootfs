@@ -1,0 +1,114 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          usplash
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Integrate usplash into the boot process
+# Description: This script deals with some awkward details of integrating
+#              the userspace bootsplash screen into the boot process. On
+#              start it stops the usplash daemon (counter-intuitive, but
+#              usplash was already started in the initramfs); on stop, it
+#              calls usplash_down (unless usplash is already running).
+### END INIT INFO
+# 
+# The usplash script makes sure that usplash exits at the end of 
+# the boot sequence and re-run the console-screen.sh script to make
+# sure that the console fonts are actually set
+#
+#		Written by Miquel van Smoorenburg <miquels@cistron.nl>.
+#		Modified for Debian 
+#		by Ian Murdock <imurdock@gnu.ai.mit.edu>.
+#
+# Version:	@(#)skeleton  1.9  26-Feb-2001  miquels@cistron.nl
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/sbin/usplash
+NAME=usplash
+DESC="Userspace bootsplash utility"
+
+test -x $DAEMON || exit 0
+
+set -e
+
+usplash_quit() {
+	# first some sanity checks if we actually have usplash on the system
+	# 
+	# check if usplash is runing and if it does, exit it
+	# then re-run console-screen.sh because it can't set console-fonts
+	# properly while the screen is in graphics mode
+	# 
+	# also check if we are ended up in console 8. This means that 
+	# no gdm/kdm/xdm was started (otherwise we would be on vt7).
+	# It happens when e.g. usplash timed out
+	if type setupcon >/dev/null 2>&1; then
+	    CONSOLE_SCREEN=
+	elif [ -x /etc/init.d/console-screen.sh ]; then
+	    CONSOLE_SCREEN="/etc/init.d/console-screen.sh start"
+	else
+	    CONSOLE_SCREEN=
+	fi
+	if type usplash >/dev/null 2>&1 && 
+           ( pidof usplash > /dev/null || [ "$(fgconsole 2>/dev/null)" = "8" ] ); then
+	   	# Clear VT 8 of any console messages
+		clear >/dev/tty8
+
+		# ask usplash to go away
+		usplash_write QUIT
+
+		# wait until it is really gone or kill it if it dosn't exit
+		i=0
+		while pidof usplash > /dev/null; do
+			i=$(($i + 1))
+			if [ $i -gt 100 ]; then
+				kill -9 `pidof usplash`
+				break
+			fi
+			sleep 0.1
+		done
+
+		# reset all our virtual consoles, yay!
+		if [ "$CONSOLE_SCREEN" ]; then
+			$CONSOLE_SCREEN
+		fi
+		if [ "$(fgconsole 2>/dev/null)" = "8" ] && [ "$DO_NOT_SWITCH_VT" != "yes" ]; then
+		    chvt 1
+		fi
+	fi
+}
+
+case "$1" in
+  start)
+	usplash_quit
+	;;
+  stop)
+	SPLASH=false
+	if [ -f /proc/cmdline ] ; then
+	    for x in $(cat /proc/cmdline); do
+		case $x in
+		    nosplash*)
+			SPLASH=false
+			;;
+		    splash*)
+			SPLASH=true
+			;;
+		esac
+	    done
+	fi
+
+	if [ "$SPLASH" = "true" ] ; then
+		pidof usplash > /dev/null || usplash_down
+		usplash_write "TIMEOUT 15"
+	fi
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	# echo "Usage: $N {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $N {start|stop}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

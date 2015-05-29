@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Passwords and Encryption Keys">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="fr">
+	<articleinfo>
+		<title>Manuel de Mots de passe et clés de chiffrement</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins et Adam Schreiber</holder>
+		</copyright><copyright><year>2007-2008</year><holder>Claude Paroz (claude@2xlibre.net)</holder></copyright><copyright><year>2007</year><holder>Yann Simon (yann.simon.fr@gmail.com)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Projet Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Permission vous est donnée de copier, distribuer et/ou modifier ce document selon les termes de la Licence GNU Free Documentation License, Version 1.1 ou ultérieure publiée par la Free Software Foundation sans section inaltérable, sans texte de première page de couverture ni texte de dernière page de couverture. Vous trouverez un exemplaire de cette licence en suivant ce <ulink type="help" url="ghelp:fdl">lien</ulink> ou dans le fichier COPYING-DOCS fourni avec le présent manuel.</para>
+         <para>Ce manuel fait partie de la collection de manuels GNOME distribués selon les termes de la licence de documentation libre GNU. Si vous souhaitez distribuer ce manuel indépendamment de la collection, vous devez joindre un exemplaire de la licence au document, comme indiqué dans la section 6 de celle-ci.</para>
+
+	<para>La plupart des noms utilisés par les entreprises pour distinguer leurs produits et services sont des marques déposées. Lorsque ces noms apparaissent dans la documentation GNOME et que les membres du projet de Documentation GNOME sont informés de l'existence de ces marques déposées, soit ces noms entiers, soit leur première lettre est en majuscule.</para>
+
+	<para>LE PRÉSENT DOCUMENT ET SES VERSIONS MODIFIÉES SONT FOURNIS SELON LES TERMES DE LA LICENCE DE DOCUMENTATION LIBRE GNU SACHANT QUE : <orderedlist>
+		<listitem>
+		  <para>LE PRÉSENT DOCUMENT EST FOURNI « TEL QUEL », SANS AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, Y COMPRIS, ET SANS LIMITATION, LES GARANTIES DE MARCHANDABILITÉ, D'ADÉQUATION À UN OBJECTIF PARTICULIER OU DE NON INFRACTION DU DOCUMENT OU DE SA VERSION MODIFIÉE. L'UTILISATEUR ASSUME TOUT RISQUE RELATIF À LA QUALITÉ, À LA PERTINENCE ET À LA PERFORMANCE DU DOCUMENT OU DE SA VERSION DE MISE À JOUR. SI LE DOCUMENT OU SA VERSION MODIFIÉE S'AVÉRAIT DÉFECTUEUSE, L'UTILISATEUR (ET NON LE RÉDACTEUR INITIAL, L'AUTEUR, NI TOUT AUTRE PARTICIPANT) ENDOSSERA LES COÛTS DE TOUTE INTERVENTION, RÉPARATION OU CORRECTION NÉCESSAIRE. CETTE DÉNÉGATION DE RESPONSABILITÉ CONSTITUE UNE PARTIE ESSENTIELLE DE CETTE LICENCE. AUCUNE UTILISATION DE CE DOCUMENT OU DE SA VERSION MODIFIÉE N'EST AUTORISÉE AUX TERMES DU PRÉSENT ACCORD, EXCEPTÉ SOUS CETTE DÉNÉGATION DE RESPONSABILITÉ ; </para>
+		</listitem>
+		<listitem>
+		  <para>EN AUCUNE CIRCONSTANCE ET SOUS AUCUNE INTERPRÉTATION DE LA LOI, QU'IL S'AGISSE D'UN DÉLIT CIVIL (Y COMPRIS LA NÉGLIGENCE), CONTRACTUEL OU AUTRE, L'AUTEUR, LE RÉDACTEUR INITIAL, TOUT PARTICIPANT OU TOUT DISTRIBUTEUR DE CE DOCUMENT OU DE SA VERSION MODIFIÉE, OU TOUT FOURNISSEUR DE L'UNE DE CES PARTIES NE POURRA ÊTRE TENU RESPONSABLE À L'ÉGARD DE QUICONQUE POUR TOUT DOMMAGE DIRECT, INDIRECT, PARTICULIER, OU ACCIDENTEL DE TOUT TYPE Y COMPRIS, SANS LIMITATION, LES DOMMAGES LIÉS À LA PERTE DE CLIENTÈLE, À UN ARRÊT DE TRAVAIL, À UNE DÉFAILLANCE OU UN MAUVAIS FONCTIONNEMENT INFORMATIQUE, OU À TOUT AUTRE DOMMAGE OU PERTE LIÉE À L'UTILISATION DU DOCUMENT ET DE SES VERSIONS MODIFIÉES, MÊME SI LADITE PARTIE A ÉTÉ INFORMÉE DE L'ÉVENTUALITÉ DE TELS DOMMAGES.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Projet Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Projet Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Projet Seahorse</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement v0.10.1</revnumber>
+				<date>Août 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.9.1</revnumber>
+				<date>Novembre 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.9.0</revnumber>
+				<date>Juillet 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Projet Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.7.0</revnumber>
+				<date>Février 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Projet Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Ce manuel documente la version 2.24 de Mots de passe et clés de chiffrement</releaseinfo>
+		<legalnotice>
+			<title>Votre avis</title>
+			<para>Pour rapporter une anomalie ou émettre une suggestion concernant <application>Mots de passe et clés de chiffrement</application> ou ce manuel, procédez comme indiqué sur la <ulink url="ghelp:gnome-feedback" type="help">page de réactions sur GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Mots de passe et clés de chiffrement</application> est l'application de gestion des clés de chiffrement du bureau GNOME</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Clés de chiffrement</primary>
+	</indexterm>
+
+  <sect1 id="introduction">
+    <title>Introduction</title>
+    <para>Vous pouvez utiliser <application>Mots de passe et clés de chiffrement</application> pour créer et gérer des clés <acronym>PGP</acronym> et <acronym>SSH</acronym>.</para>
+    <para><application>Mots de passe et clés de chiffrement</application> fournit une interface pour la plupart des fonctionnalités de <ulink url="http://www.gnupg.org" type="http">Gnu Privacy Guard (GPG)</ulink> et s'intègre avec plusieurs composants du bureau <ulink url="http://www.gnome.org">GNOME</ulink>.</para>
+			<para>Avec <application>Mots de passe et clés de chiffrement</application>, vous pouvez : <itemizedlist>
+				
+				<listitem>
+					<para>Créer et gérer des clés PGP et SSH</para>
+				</listitem>
+				<listitem>
+					<para>Exporter et importer des clés PGP et SSH</para>
+				</listitem>
+				<listitem>
+					<para>Partager vos clés avec d'autres</para>
+				</listitem>
+				<listitem>
+					<para>Sauvegarder vos clés et trousseaux</para>
+				</listitem>
+				</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="seahorse-getting-started">
+		<title>Premiers pas</title>
+		<sect2 id="seahorse-start">
+			<title>Démarrage de <application>Mots de passe et clés de chiffrement</application></title>
+			<para>Vous pouvez lancer <application>Mots de passe et clés de chiffrement</application> à l'aide des procédures suivantes :</para>
+			<variablelist>
+				<varlistentry>
+					<term>Menu <guimenu>Applications</guimenu></term>
+					<listitem>
+						<para>Choisissez <menuchoice><guimenu>Autres</guimenu><guimenuitem>Mots de passe et clés de chiffrement</guimenuitem></menuchoice>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Ligne de commande</term>
+					<listitem>
+						<para>Saisissez <command>seahorse</command>, puis appuyez sur <keycap>Entrée</keycap>.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="seahorse-when-start">
+			<title>Après le démarrage de <application>Mots de passe et clés de chiffrement</application></title>
+			<para>Au démarrage de <application>Mots de passe et clés de chiffrement</application>, la fenêtre ci-dessous apparaît.</para>
+			
+			<figure id="seahorse-window">
+			<title>La fenêtre de <application>Mots de passe et clés de chiffrement</application></title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+					<imagedata fileref="figures/seahorse-window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Montre la fenêtre de <application>Mots de passe et clés de chiffrement</application>.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+			</figure>
+			
+			<para>La fenêtre de <application>Mots de passe et clés de chiffrement</application> contient les éléments suivants :</para>
+			
+	    <variablelist>
+		<varlistentry><term>Barre de menus</term>
+		    <listitem>
+			<para>Les menus de la barre de menus contiennent toutes les commandes nécessaires à l'utilisation de <application>Mots de passe et clés de chiffrement</application>.</para>
+		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Barre d'outils</term>
+		    <listitem>
+			<para>Utilisez la barre d'outils pour accéder rapidement aux commandes les plus fréquemment utilisées.</para>
+		    </listitem>	
+		</varlistentry> 		
+		<varlistentry><term>Onglets Clés et mots de passe</term>
+  		    <listitem>
+			<para>Donnent accès aux clés et aux mots de passe du trousseau.</para>
+  		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Options de premier démarrage</term>
+  		    <listitem>
+			<para>Donnent un accès rapide aux opérations pertinentes pour débuter. À partir de là, vous pouvez :</para>
+			<itemizedlist>
+			    <listitem>
+				<para>Naviguer dans le système d'aide</para>
+			    </listitem>
+			    <listitem>
+				<para>Importer des clés dans le trousseau</para>
+			    </listitem>
+			    <listitem>
+				<para>Créer de nouvelles clés</para>
+			    </listitem>
+			</itemizedlist>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
+	</sect2>
+    </sect1>
+
+  <sect1 id="pgp-generate">
+    <title>Création de clés OpenPGP</title>
+    <para>OpenPGP est un protocole non propriétaire pour chiffrer des courriels via une cryptographie à clé publique basée sur <acronym>PGP</acronym>. Il définit des formats standards de messages chiffrés, de signatures, de clé privées et de certificats pour échanger des clés publiques.</para>
+    <para>La cryprographie à clé publique est un concept qui implique l'utilisation de deux clés : une <emphasis>clé publique</emphasis> que vous pouvez transmettre à tous ceux avec qui vous voulez communiquer, et une <emphasis>clé privée</emphasis> qui est privée et doit rester secrète.</para>
+    <para>Pour créer des clés OpenPGP : <orderedlist>
+	<listitem>
+	  <para>Choisissez <menuchoice><guimenu>Clé</guimenu><guimenuitem>Créer une nouvelle clé</guimenuitem></menuchoice></para>
+	</listitem>
+	<listitem>
+	  <para>Sélectionnez <guilabel>Clé PGP</guilabel> et cliquez sur <guibutton>Continuer</guibutton></para>
+	</listitem>
+	<listitem>
+	  <para>Saisissez votre nom complet (prénom - nom), votre adresse électronique et toute information supplémentaire. Vous pouvez aussi spécifier des options avancées pour la clé (voir ci-après).</para>
+	</listitem>
+	<listitem>
+	  <para>Cliquez sur <guibutton>Créer</guibutton> pour créer une nouvelle paire de clés.</para>
+	</listitem>
+	<listitem>
+	  <para>La boîte de dialogue <guilabel>Phrase de passe pour la nouvelle clé PGP</guilabel> apparaît. Saisissez deux fois la phrase de passe pour la nouvelle clé.</para>
+	</listitem>
+      </orderedlist></para>
+    <tip>
+      <para>Utilisez pour les phrases de passe les mêmes techniques que pour la génération de mots de passe solides. La différence principale entre un mot de passe et une phrase de passe est que dans cette dernière, les espaces sont des caractères valides.</para>				
+    </tip>
+    
+    <sect2 id="seahorse-pgp-advanced-mode">
+      <title>Options avancées</title>
+      <para>Étendez la section <guibutton>Options avancées de clé</guibutton> pour spécifier les options suivantes d'une nouvelle clé :</para>
+      <variablelist>
+	<varlistentry>
+	  <term><guilabel>Type de chiffrement</guilabel></term>
+	  <listitem>
+	    <para>Ce champ spécifie l'algorithme de chiffrement utilisé pour générer vos clés.</para>
+	    <variablelist>
+	      <varlistentry>
+		<term><acronym>DSA</acronym> ElGamal</term>
+		<listitem>
+		  <para>Ce choix suggéré vous permettra de chiffer, déchiffrer, signer et vérifier selon vos besoins.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>DSA</acronym></term>
+		<listitem>
+		  <para>Ne permet que la signature.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>RSA</acronym></term>
+		<listitem>
+		  <para>Ne permet que la signature.</para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Force de la clé (bits)</guilabel></term>
+	  <listitem>
+	    <para>C'est la longueur de la clé en bits. Plus la clé est longue, plus elle sera sûre, pour autant que la phrase de passe utilisée soit solide. Par contre, les opérations utilisant une plus longue clé prennent aussi plus de temps à s'exécuter qu'avec une clé courte. Les valeurs acceptables se situent entre 1024 et 4096 bits. La recommandation est d'au moins 2048 bits.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Date d'expiration</guilabel></term>
+	  <listitem>
+	    <para>C'est la date à partir de laquelle la clé cessera d'être utilisable pour effectuer des opérations de chiffrement ou de signature. Six mois est une durée raisonnable. Passé ce délai, vous devrez soit changer la date d'expiration, soit générer une nouvelle clé ou sous-clé. <note>
+		<para>Signez votre nouvelle clé avec l'ancienne avant qu'elle expire pour préserver son capital de confiance.</para>
+	      </note></para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+	
+	
+	<sect1 id="ssh-generate">
+	<title>Création de clés Secure Shell</title>
+	<para>Secure Shell (<acronym>SSH</acronym>) est une manière de se connecter à un ordinateur distant pour exécuter des commandes sur cette machine. Les clés SSH sont utilisées dans des systèmes basés sur l'authentification par clés, en alternative du système par défaut d'authentification par mot de passe. Avec l'authentification basée sur les clés, il n'est pas nécessaire de saisir manuellement un mot de passe pour être authentifié.</para>
+	<para>Les clés Secure Shell sont composées de deux clés : une <emphasis>clé privée</emphasis>, qui doit être gardée secrète, et une <emphasis>clé publique</emphasis> qui peut être envoyée vers tout ordinateur auquel vous avez besoin d'accéder.</para>
+    <para>Pour créer une clé Secure Shell :</para>
+    <orderedlist>
+      <listitem>
+        <para>Choisissez <menuchoice><guimenu>Clé</guimenu><guimenuitem>Créer une nouvelle clé</guimenuitem></menuchoice></para>
+      </listitem>
+      <listitem>
+        <para>Sélectionnez <guilabel>clé Secure Shell</guilabel> et cliquez sur <guibutton>Continuer</guibutton></para>
+      </listitem>
+      <listitem>
+        <para>Saisissez une description décrivant l'usage prévu de la clé. Vous pouvez utiliser votre courriel ou tout autre indice. Vous pouvez également spécifier des options avancées pour la clé (voir ci-après).</para>
+      </listitem>
+      <listitem>
+        <para>Cliquez sur <guibutton>Créer seulement</guibutton> pour créer la nouvelle clé ou sur <guibutton>Créer et configurer</guibutton> pour créer la clé et configurer un autre ordinateur pour qu'il reconnaisse cette clé lors de l'authentification.</para>
+      </listitem>
+      <listitem>
+        <para>La boîte de dialogue <guilabel>Phrase de passe pour la nouvelle clé Secure Shell</guilabel> apparaît. Saisissez deux fois la phrase de passe pour votre nouvelle clé.</para>
+			<tip>
+				<para>Utilisez pour les phrases de passe les mêmes techniques que pour la génération de mots de passe solides. La différence principale entre un mot de passe et une phrase de passe est que dans cette dernière, les espaces sont des caractères valides.</para>				
+			</tip>
+      </listitem>
+    </orderedlist>
+    
+
+		
+		<sect2 id="seahorse-ssh-advanced-options">
+		<title>Options avancées</title>
+			<para>Développez la section <guilabel>Options avancées de clé</guilabel> afin de spécifier les options suivantes pour une nouvelle clé :</para>
+		
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Type de chiffrement</guilabel></term>
+				<listitem>
+				<para>Ce champ spécifie l'algorithme de chiffrement utilisé pour générer la clé.</para>
+				<variablelist>
+					<varlistentry>
+						<term><acronym>RSA</acronym></term>
+						<listitem>
+							<para>Utilise l'algorithme <emphasis>Rivest-ShamirAdleman</emphasis> (<acronym>RSA</acronym>) pour créer la clé SSH. C'est le choix préconisé et le plus sûr.</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><acronym>DSA</acronym></term>
+						<listitem>
+							<para>Utilise l'algorithme <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>) pour créer la clé SSH.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Force de la clé (bits)</guilabel></term>
+				<listitem>
+				<para>C'est la longueur de la clé en bits. Plus la clé est longue, plus elle sera sûre, pour autant que la phrase de passe utilisée soit solide. Par contre, les opérations utilisant une plus longue clé prennent aussi plus de temps à s'exécuter qu'avec une clé courte. Les valeurs acceptables se situent entre 1024 et 4096 bits. La recommandation est d'au moins 2048 bits.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	
+	
+
+	<sect1 id="seahorse-key-properties">
+		<title>Propriétés de clé OpenPGP</title>
+		<para>Les descriptions dans cette section s'appliquent à toutes les clés OpenPGP.</para>
+		
+		<para>Pour afficher les propriétés d'une clé <acronym>PGP</acronym> : <itemizedlist>
+			<listitem>
+				<para>Sélectionnez la clé <acronym>PGP</acronym> dans la fenêtre principale ;</para>
+			</listitem>
+			<listitem>
+				<para>Double-cliquez sur la clé ou choisissez <guilabel>Propriétés</guilabel> dans la barre d'outils ;</para> 
+			</listitem>
+			<listitem>
+				<para>Sélectionnez l'onglet <guilabel>Détails</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="pgp-public-key-properties">
+		<title id="pgp-private-key-properties">Propriétés</title>
+		<para>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Empreinte</guilabel></term>
+				<listitem>
+					<para>L'empreinte est une chaîne de caractères unique qui identifie précisément une clé.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Identifiant de clé</guilabel></term>
+				<listitem>
+					<para>L'identifiant de la clé (KeyID) est comparable à l'empreinte. Cependant, l'identifiant ne contient que les 8 derniers caractères de l'empreinte. Il est possible la plupart du temps d'identifier une clé uniquement avec l'identifiant de clé, mais il peut arriver que deux clés possèdent le même identifiant.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Type</guilabel></term>
+				<listitem>
+					<para>Spécifie l'algorithme de chiffrement utilisé pour générer la clé. Les clés DSA ne peuvent que signer. Les clés ElGamal sont utilisées pour chiffrer.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Créée le</guilabel></term>
+				<listitem>
+					<para>Indique la date de création de la clé.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Expiration</guilabel></term>
+				<listitem>
+				<para>Indique la date à partir de laquelle la clé ne pourra plus être utilisée.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Force</guilabel></term>
+				<listitem>
+					<para>Indique la longueur de la clé en bits. En général, plus la clé est longue, plus elle offre de sécurité. <note>
+							<para>Une clé longue ne suffit pas à compenser la faiblesse d'une phrase de passe.</para>
+						</note></para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="change-owner-trust">
+		<title>Confiance</title>
+		<para>La confiance est une indication de votre certitude qu'une personne est capable d'étendre le réseau de confiance. Lorsque vous rencontrez une clé que vous n'avez pas signée, la validité de la clé de cette personne sera déterminée sur la base des signatures qu'elle a collectée et sur la confiance dont vous faites preuve envers les signataires. Par défaut, une clé inconnue nécessite 3 signatures avec une valeur de confiance marginale ou une signature complètement fiable.</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Inconnu</guilabel> : vous n'avez aucune idée de la capacité de cette personne à signer correctement des clés.</para></listitem>
+			<listitem><para><guilabel>Jamais</guilabel> : cette personne n'est pas apte à signer correctement des clés.</para></listitem>
+			<listitem><para><guilabel>Marginale</guilabel> : cette personne contrôle la photo de l'identifiant avant de signer une clé, mais n'examine pas nécessairement l'identifiant de manière minutieuse.</para></listitem>
+			<listitem><para><guilabel>Complète</guilabel> : cette personne examine attentivement la photo attachée à l'identifiant de chaque personne avant de signer une clé (par exemple, elle ne signe que les clés qui appartiennent réellement à la personne demandant la signature).</para></listitem>
+			<listitem><para><guilabel>Ultime</guilabel> : ce niveau de confiance ne devrait s'appliquer qu'à vos propres clés.</para></listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="disable-key">
+		<title>Activation et désactivation de clés</title>
+		<para>Lorsqu'une clé est active, elle peut être utilisée pour effectuer des opérations de chiffrement. Lorsqu'elle n'est plus active, elle ne peut plus être utilisée pour chiffrer ou pour vérifier des signatures qu'elle a produites.</para>
+	</sect2>
+
+	<sect2 id="change-expires">
+		<title>Date d'expiration</title>
+		<para>Après son expiration, une clé ne peut plus être utilisée pour effectuer des opérations de clé. La modification de la date d'expiration d'une clé vers une date future la réactive. Un bon principe général serait d'avoir une clé principale qui n'expire jamais et plusieurs sous-clés avec expiration et signées par la clé principale.</para>
+	</sect2>
+
+	<sect2 id="userid-properties">
+		<title>Identifiants utilisateur</title>
+		<para>Les identifiants utilisateur permettent d'avoir plusieurs identités et adresses électroniques dans une même clé.</para>
+		<para>Ils se présentent habituellement sous la forme suivante : <programlisting>Nom (commentaire) &lt;adresse électronique&gt;</programlisting></para>
+			
+		<sect3 id="add-uid">
+			<title>Ajout d'un identifiant utilisateur</title>
+				<para>L'ajout d'un identifiant utilisateur est utile lorsque vous voulez disposer d'une identité pour votre travail et d'une autre pour vos amis.</para>
+				<para>Pour ajouter un identifiant utilisateur à une clé : <itemizedlist>
+						<listitem>
+							<para>Sélectionnez la clé dans la fenêtre principale ;</para>
+						</listitem>
+						<listitem>
+							<para>Double-cliquez sur la clé ou choisissez <guibutton>Propriétés</guibutton> dans la barre d'outils ;</para>
+						</listitem>
+						<listitem>
+							<para>Sélectionnez l'onglet <guilabel>Noms et signatures</guilabel> ;</para>
+						</listitem>
+						<listitem>
+							<para>Cliquez sur <guibutton>Ajouter nom</guibutton>.</para>
+						</listitem>
+					</itemizedlist></para>
+				<para>Après avoir suivi les instructions ci-dessus, une boîte de dialogue apparaît dans laquelle vous devez compléter des champs comme détaillé ci-dessous.</para>
+				<variablelist>
+					<varlistentry>
+						<term><guilabel>Nom complet</guilabel></term>
+						<listitem>
+							<para>Saisissez votre nom complet sous la forme <programlisting>&lt;prénom&gt; &lt;nom&gt;</programlisting> Un deuxième nom ou une initiale sont facultatifs.</para>
+							<para>
+								<note>
+									<para>Vous devez saisir au moins 5 caractères dans ce champ.</para>
+								</note> 
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Adresse électronique</guilabel></term>
+						<listitem>
+							<para>Votre adresse électronique est le moyen privilégié de découvrir votre clé sur un serveur de clé ou un autre service similaire. Assurez-vous qu'elle soit correcte avant de continuer.</para>
+							<para>
+								<note>
+									<para>Elle devrait apparaître sous la forme <programlisting><replaceable>&lt;nom-d'utilisateur&gt;</replaceable>@<replaceable>&lt;nom-de-domaine&gt;</replaceable></programlisting></para>
+								</note>
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Commentaire</guilabel></term>
+						<listitem>
+							<para>Le champ commentaire peut être employé pour fournir toute information supplémentaire dans le nom de votre nouvel identifiant. Cette information peut être recherchée sur les serveurs de clés.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</sect3>
+		</sect2>
+
+    <sect2 id="photoid-properties">
+      <title>Identifiants photo</title>
+      <para>Un identifiant photo permet à un propriétaire de clé d'insérer une ou plusieurs images portraits dans une clé. Ces identifiants peuvent être signés comme un identifiant utilisateur normal. Un identifiant photo doit être en format JPEG et il est recommandé que sa taille ne dépasse pas 240x288 pixels.</para>
+      <para>Si l'image choisie n'est pas du bon type de fichier ou de la bonne taille, <application>Mots de passe et clés de chiffrement</application> peut la redimensionner et la convertir à la volée à partir de n'importe quel format d'image pris en charge par la bibliothèque <acronym>GDK</acronym>.</para>
+    </sect2>
+		
+		<sect2 id="change-passphrase">
+			<title>Modification de la phrase de passe</title>
+			<para>Pour modifier la phrase de passe attribuée à une clé : <itemizedlist>
+					<listitem>
+						<para>Sélectionnez la clé dans la fenêtre principale ;</para>
+					</listitem>
+					<listitem>
+						<para>Double-cliquez sur la clé ou choisissez <guilabel>Propriétés</guilabel> dans la barre d'outils ;</para>
+					</listitem>
+					<listitem>
+						<para>Cliquez sur <guibutton>Changer la phrase de passe</guibutton>.</para>
+					</listitem>
+				</itemizedlist></para>
+			<para>Saisissez la nouvelle phrase de passe et cliquez sur <guibutton>Valider</guibutton>.</para>
+		</sect2>
+
+		<sect2 id="delete">
+			<title>Suppression d'une clé</title>
+			<para>Pour supprimer une clé de votre trousseau : <itemizedlist>
+				<listitem>
+					<para>Sélectionnez la clé dans la fenêtre principale ;</para>
+				</listitem>
+				<listitem>
+					<para>Faites un clic droit sur la clé et choisissez <guilabel>Effacer la clé</guilabel> ou choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Effacer la clé</guimenuitem></menuchoice>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Vous pouvez supprimer vos clés, les clés de confiance et les clés récoltées.</para>		
+			</note> 
+		</sect2>
+	</sect1>
+		
+	<sect1 id="subkey-properties">
+		<title>Propriétés des sous-clés OpenPGP</title>
+		<para>Chaque clé OpenPGP dispose d'une clé principale unique utilisée seulement pour signer. Les sous-clés sont utilisées pour chiffrer et également pour signer. Ainsi, si une sous-clé est compromise, vous n'avez pas besoin de révoquer votre clé principale.</para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Identifiant</guilabel></term>
+			<listitem>
+				<para>C'est l'identifiant de la sous-clé.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Type</guilabel></term>
+			<listitem>
+				<para>Spécifie l'algorithme de chiffrement utilisé pour générer une sous-clé. Les clés <acronym>DSA</acronym> ne peuvent que signer, les clés ElGamal permettent de chiffrer, alors que les clés <acronym>RSA</acronym> peuvent signer et chiffrer.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Créée le</guilabel></term>
+			<listitem>
+				<para>Indique la date de création de la clé.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Expiration</guilabel></term>
+			<listitem>
+				<para>Indique la date à partir de laquelle la clé ne pourra plus être utilisée.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>État</guilabel></term>
+			<listitem>
+				<para>Indique l'état de la clé.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Force</guilabel></term>
+			<listitem>
+				<para>Indique la longueur de la clé en bits. En général, plus la clé est longue, plus elle offre de sécurité. <note>
+						<para>Une clé longue ne suffit pas à compenser la faiblesse d'une phrase de passe.</para>
+					</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		
+		<sect2 id="add-subkey">
+			<title>Ajout d'une sous-clé</title>
+			<para>Pour ajouter une sous-clé à une clé, cliquez sur le bouton <guibutton>Ajouter</guibutton> de la section <guilabel>Sous-clés</guilabel>.</para>
+			<para>Après avoir suivi les instructions ci-dessus, une boîte de dialogue apparaît dans laquelle vous devez compléter des champs comme détaillé ci-dessous.</para>
+			<variablelist>
+			<varlistentry>
+				<term>Type de clé</term>
+				<listitem>
+					<para>Indique l'algorithme de chiffrement utilisé pour générer la sous-clé.</para>
+				<variablelist>
+				<varlistentry>
+					<term><acronym>DSA</acronym></term>
+					<listitem>
+						<para>Utilise l'algorithme <acronym>DSA</acronym> (<emphasis>Digital Signature Algorithm</emphasis>) pour créer la sous-clé. Une sous-clé de ce type peut uniquement signer.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>ElGamal</term>
+					<listitem>
+						<para>Utilise l'algorithme <emphasis>ElGamal</emphasis> pour créer la sous-clé. Ce type de sous-clé peut uniquement chiffrer.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RSA</term>
+					<listitem>
+						<para>Utilise l'algorithme <acronym>RSA</acronym> (<emphasis>Rivest-Shamir Adleman</emphasis>) pour créer la sous-clé. Ce type de sous-clé peut signer ou chiffrer, mais vous devez alors créer deux sous-clés différentes.</para>
+					</listitem>
+				</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Longueur de clé</term>
+				<listitem>
+					<para>Indique la longueur de la sous-clé en bits. En général, plus la clé est longue, plus elle offre de sécurité.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Date d'expiration</term>
+				<listitem>
+					<para>Indique la date à partir de laquelle la sous-clé ne peut plus être utilisée.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="change-subkey-expires">
+			<title>Modification de la date d'expiration d'une sous-clé</title>
+			<para>Pour modifier la date d'expiration d'une sous-clé, sélectionnez la sous-clé dans la section <guilabel>Sous-clés</guilabel>, puis : <itemizedlist>
+				<listitem>
+					<para>Cliquez sur le bouton <guibutton>Expiration</guibutton> sur la gauche</para>
+				</listitem>
+				<listitem>
+					<para>Dans la boîte de dialogue de date, choisissez la nouvelle date d'expiration ou sélectionnez <guilabel>N'expire jamais</guilabel> si vous souhaitez que la clé n'expire jamais.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+
+		<sect2 id="revoke-subkey">
+			<title>Révocation d'une sous-clé</title>
+			<para>Pour révoquer une sous-clé, sélectionnez-la dans la section des <guilabel>Sous-clés</guilabel>, puis : <itemizedlist>
+				<listitem>
+					<para>Cliquez sur le bouton <guibutton>Révoquer</guibutton> sur la gauche</para>
+				</listitem>
+				<listitem>
+					<para>Choisissez la raison de révocation de la sous-clé :</para>
+					<para>
+					<variablelist>
+						<varlistentry>
+							<term>Aucune raison</term>
+							<listitem>
+								<para>Il n'y a aucune raison particulière de révoquer la clé.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Compromise</term>
+							<listitem>
+								<para>La clé a été compromise.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Remplacée</term>
+							<listitem>
+								<para>La clé a été remplacée par une autre.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Non utilisée</term>
+							<listitem>
+								<para>La clé n'est plus utilisée.</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Saisissez une description expliquant la révocation de la clé</para>
+				</listitem>
+				<listitem>
+					<para>Cliquez sur le bouton <guibutton>Révoquer</guibutton>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>L'effet de révocation d'une sous-clé est immédiat.</para>
+			</note>
+		</sect2>
+
+		<sect2 id="delete-subkey">
+			<title>Suppression d'une sous-clé</title>
+			<para>Pour supprimer une sous-clé, sélectionnez-la dans la section des <guilabel>Sous-clés</guilabel>, puis : <itemizedlist>
+				<listitem>
+					<para>Cliquez sur le bouton <guibutton>Supprimer</guibutton> sur la gauche.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="ssh-key-properties">
+	    <title>Propriétés de clé Secure Shell</title>
+	    <para>Les descriptions de cette section sont applicables à toutes les clés <acronym>SSH</acronym>.</para>
+	    <para>Pour afficher les propriétés d'une clé <acronym>SSH</acronym> : <itemizedlist>
+			<listitem>
+				<para>Sélectionnez la clé Secure Shell dans la fenêtre principale</para>
+			</listitem>
+			<listitem>
+				<para>Double-cliquez sur la clé ou choisissez <guilabel>Propriétés</guilabel> dans la barre d'outils ;</para> 
+			</listitem>
+			<listitem>
+				<para>Sélectionnez l'onglet <guilabel>Détails</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="properties">
+		<title>Propriétés</title>
+		<para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Empreinte</guilabel></term>
+			<listitem>
+				<para>L'empreinte est une chaîne de caractères unique qui identifie précisément une clé.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Algorithme</guilabel></term>
+			<listitem>
+				<para>Indique l'algorithme de chiffrement utilisé pour générer la clé.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Emplacement</guilabel></term>
+			<listitem>
+				<para>C'est l'emplacement de stockage de la <emphasis>clé privée</emphasis>.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Force</guilabel></term>
+			<listitem>
+				<para>Indique la longueur de la clé en bits. En général, plus la clé est longue, plus elle offre de sécurité. <note>
+					<para>Une clé longue ne suffit pas à compenser la faiblesse d'une phrase de passe.</para>
+				</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="delete-ssh-key">
+		<title>Suppression d'une clé Secure Shell</title>
+		<para>Pour supprimer une clé Secure Shell : <itemizedlist>
+				<listitem>
+				<para>Sélectionnez la clé <acronym>SSH</acronym> dans la fenêtre principale</para>
+			</listitem>
+			<listitem>
+				<para>Faites un clic droit sur la clé et choisissez <guilabel>Effacer la clé</guilabel> ou choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Effacer la clé</guimenuitem></menuchoice>.</para>
+			</listitem>
+			</itemizedlist></para>
+	</sect2>
+	</sect1>
+
+        <sect1 id="import">
+		<title>Importation de clés</title>
+		<para>Pour importer des clés, choisissez <menuchoice><guimenu>Clé</guimenu><guimenuitem>Importer</guimenuitem></menuchoice> et choisissez dans le sélecteur de fichiers un fichier contenant au moins une clé publique avec armure ASCII.</para>
+		<para>L'importation peut aussi être effectuée en collant les clés dans <application>Mots de passe et clés de chiffrement</application> : <itemizedlist>
+		<listitem>
+			<para>Sélectionnez un bloc de texte avec armure ASCII publique</para>
+		</listitem>
+		<listitem>
+			<para>Copiez-le dans le presse-papiers</para>
+		</listitem>
+		<listitem>
+			<para>Choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Coller les clés</guimenuitem></menuchoice>.</para>
+		</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="export">
+		<title>Exportation de clés</title>
+		<para>Pour exporter des clés, sélectionnez-les dans la fenêtre principale et choisissez <menuchoice><guimenu>Clé</guimenu><guimenuitem>Exporter la clé publique</guimenuitem></menuchoice>.</para>
+		<para>Vous pouvez aussi exporter des clés dans le presse-papiers dans un bloc de texte avec armure ASCII : <itemizedlist>
+			<listitem>
+				<para>Sélectionnez les clés dans la fenêtre principale</para>
+			</listitem>
+			<listitem>
+				<para>Choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Copier les clés</guimenuitem></menuchoice>.</para>
+			</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="backup">
+		<title>Sauvegarde de trousseaux</title>
+		<para>Pour sauvegarder vos trousseaux de clés publiques et privés dans un fichier archive : <itemizedlist>
+			<listitem>
+				<para>Choisissez <menuchoice><guimenu>Clé</guimenu><guimenuitem>Sauvegarder le trousseau</guimenuitem></menuchoice></para>
+			</listitem>
+			<listitem>
+				<para>Saisissez un nom de fichier avec une extension d'archive valide et indiquez l'emplacement de sauvegarde de l'archive.</para>
+			</listitem>
+		</itemizedlist><note>
+				<para>Vous pouvez choisir tout type d'archive pris en charge par <application>file-roller</application> (Gestionnaire d'archives).</para>
+			</note></para>
+	</sect1>
+
+	<sect1 id="sign">
+		<title>Signature d'une clé</title>
+		<para>La signature de la clé d'une autre personne signifie que vous avez confiance en cette personne. Avant de signer une clé, vous devez vérifier soigneusement l'empreinte de la clé afin de vous assurer qu'elle appartient réellement à cette personne.</para>
+		<para>Pour signer une clé de votre trousseau : <itemizedlist>
+				<listitem>
+				<para>Sélectionnez la clé que vous souhaitez signer dans les onglets <guilabel>Clés de confiance</guilabel> ou <guilabel>Autres clés obtenues</guilabel></para>
+				</listitem>
+				<listitem>
+				<para>Choisissez <guibutton>Signer</guibutton> dans la barre d'outils ou <menuchoice><guimenu>Clé</guimenu><guimenuitem>Signer</guimenuitem></menuchoice></para>
+				</listitem>
+				<listitem>
+				<para>Sélectionnez le degré de précaution avec lequel la clé a été vérifiée</para>
+				</listitem>
+				<listitem>
+				<para>Indiquez si la signature doit se limiter localement à votre trousseau et si la signature peut être révoquée</para>
+				</listitem>
+				<listitem>
+				<para>Cliquez sur le bouton <guibutton>Signer</guibutton>.</para>
+				</listitem>
+			</itemizedlist></para>
+	</sect1>
+  
+  <sect1 id="prefs">
+    <title>Préférences</title>
+    <para>Cette section décrit les préférences configurables dans <application>Mots de passe et clés de chiffrement</application> en choisissant <menuchoice><guimenu>Édition</guimenu><guimenuitem>Préférences</guimenuitem></menuchoice> à partir de <application>Mots de passe et clés de chiffrement</application>.</para>
+
+        <sect2 id="keyring">
+        	<title>Trousseaux de mots de passe</title>
+        	<sect3>
+        	    <title>Création de trousseaux</title>
+            	<para>Vous pouvez créer un nouveau trousseau de clés en cliquant sur <guibutton>Ajouter un trousseau</guibutton>. Saisissez un nom pour le nouveau trousseau, puis cliquez sur  <guibutton>Ajouter</guibutton>.</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Modification des mots de passe de trousseau</title>
+            	<para>Pour changer le mot de passe de déverrouillage du trousseau, sélectionnez d'abord le trousseau concerné, puis cliquez sur le bouton <guibutton>Modifier le mot de passe de déverrouillage</guibutton>. Vous devez alors saisir l'ancien mot de passe dans la zone de texte <guilabel>Ancien mot de passe</guilabel>, le nouveau mot de passe dans la zone de texte <guilabel>Nouveau mot de passe</guilabel> et confirmer ce dernier dans la zone <guilabel>Confirmer le mot de passe</guilabel>. Pour appliquer le changement, cliquez sur <guibutton>Modifier</guibutton>. Si l'ancien mot de passe a été correctement saisi, vous obtenez un message vous indiquant que l'opération a réussi. Dans le cas contraire, on vous demande de ressaisir correctement ce mot de passe.</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Suppression de trousseaux</title>
+        	    <para>Pour supprimer un trousseau, sélectionnez d'abord le trousseau concerné, puis cliquez sur <guibutton>Supprimer le trousseau</guibutton>.</para>
+        	</sect3>
+        </sect2>
+
+    <sect2 id="key-servers">
+	<title>Serveurs de clés</title>
+	<para>Gardez à jour vos clés et celles que vous avez récoltées en les synchronisant périodiquement avec des serveurs de clés distants. La synchronisation permet de s'assurer d'avoir les dernières signatures sur toutes les clés afin de tirer le plus grand bénéfice du « réseau de confiance ».</para>
+	<para><application>Mots de passe et clés de chiffrement</application> prend en charge les serveurs de clés HKP et LDAP.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis>Serveurs HKP</emphasis></term>
+	    <listitem>
+	      <para>Les serveurs de clés HKP sont des serveurs Web ordinaires tels que le populaire <ulink url="hkp://pgp.mit.edu:11371" type="hkp">hkp://pgp.mit.edu:11371</ulink>, également accessible à l'adresse <ulink url="http://pgp.mit.edu" type="http">http://pgp.mit.edu</ulink>.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis>Serveurs de clés <acronym>LDAP</acronym></emphasis></term>
+	    <listitem>
+	      <para>Les serveurs de clés <acronym>LDAP</acronym> sont moins courants, mais utilisent le protocole LDAP standard pour fournir les clés. <ulink url="ldap://keyserver.pgp.com" type="ldap">ldap://keyserver.pgp.com</ulink> est un bon serveur LDAP.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect2>
+
+      <sect2 id="key-sharing">
+	<title>Partage de clés</title>
+	<para>Le partage de clés est fourni par DNS-SD, également connu sous le nom de Bonjour ou Rendezvous. L'activation du partage de clés ajoute les trousseaux locaux de clés publiques des utilisateurs de <application>Mots de passe et clés de chiffrement</application> à la boîte de dialogue de recherche de clés distantes. L'utilisation de ces « serveurs de clés » locaux est probablement plus rapide que l'accès à des serveurs distants.</para>
+      </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>À propos de Mots de passe et clés de chiffrement</title>
+    <para><application>Mots de passe et clés de chiffrement</application>, ses greffons, l'applet des préférences et l'applet de tableau de bord sont connus globalement sous le nom de Seahorse. Seahorse a été écrit par Jacob Perkins. Les mainteneurs actuels sont Stef Walter et Adam Schreiber. Ce manuel a été écrit par Adam Schreiber. Le site Web du projet a été conçu par Jim Pharis. Pour trouver plus d'informations à propos du projet Seahorse, consultez la <ulink url="http://www.gnome.org/projects/seahorse/" type="http">page Web de Seahorse</ulink> [en anglais].</para>
+    <para>Pour rapporter une anomalie ou émettre une suggestion concernant cette application ou ce manuel, procédez comme indiqué dans la <ulink url="ghelp:gnome-feedback" type="help">section sur les rapports d'anomalie du Guide d'utilisation du bureau GNOME</ulink>.</para>
+    <para>Ce programme est distribué selon les termes de la GNU General Public License, tels que publiés par la Free Software Foundation ; soit la version 2 de cette licence ou (à votre choix) toute version ultérieure. Une <ulink url="ghelp:gpl" type="help">copie de cette licence</ulink> est inclue dans cette documentation ; une autre se trouve dans le fichier COPYING inclus dans le code source de ce programme.</para>
+  </sect1>
+</article>

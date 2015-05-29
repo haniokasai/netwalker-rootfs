@@ -1,0 +1,32 @@
+#!/bin/sh
+# postrm script for gnome-cpufreq-selector 
+
+set -e
+
+prog=/usr/bin/cpufreq-selector
+
+case "$1" in
+        purge)
+                if dpkg-statoverride --list $prog > /dev/null; then
+                        dpkg-statoverride --remove $prog
+                fi;
+        ;;
+        remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        ;;
+        *)
+                echo "postrm called with unknown argument \`$1'" >&2
+                exit 1
+esac
+
+# Automatically added by dh_installdebconf
+if [ "$1" = purge ] && [ -e /usr/share/debconf/confmodule ]; then
+	. /usr/share/debconf/confmodule
+	db_purge
+fi
+# End automatically added section
+# Automatically added by dh_gconf
+if which update-gconf-defaults >/dev/null 2>&1; then
+	update-gconf-defaults
+fi
+# End automatically added section
+

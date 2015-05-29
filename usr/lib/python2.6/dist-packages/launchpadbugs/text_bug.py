@@ -1,0 +1,1 @@
+/usr/share/pyshared/launchpadbugs/text_bug.py

@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+ <META NAME="GENERATOR" CONTENT="LinuxDoc-Tools 0.9.50">
+ <TITLE>Manuel de référence de BRLTTY: Braille abrégé</TITLE>
+ <LINK HREF="BRLTTY-8.html" REL=next>
+ <LINK HREF="BRLTTY-6.html" REL=previous>
+ <LINK HREF="BRLTTY.html#toc7" REL=contents>
+</HEAD>
+<BODY>
+<A HREF="BRLTTY-8.html">Page suivante</A>
+<A HREF="BRLTTY-6.html">Page précédente</A>
+<A HREF="BRLTTY.html#toc7">Table des matières</A>
+<HR>
+<H2><A NAME="contraction"></A> <A NAME="s7">7.</A> <A HREF="BRLTTY.html#toc7">Braille abrégé</A></H2>
+
+<P>BRLTTY peut afficher le braille abrégé sur la ligne. IL le fait si:
+<UL>
+<LI>Une table d'abrégé a été sélectionnée.
+Voir l'option 
+<A HREF="BRLTTY-4.html#options-contraction-table">-c</A> en ligne
+de commande et la ligne
+<A HREF="BRLTTY-4.html#configure-contraction-table">contraction-table</A> du
+fichier de configuration pour des détails.</LI>
+<LI>La possibilité braille 6 points a été activée. Voir la commande
+<A HREF="BRLTTY-4.html#command-SIXDOTS">SIXDOTS</A> et la préférence
+<A HREF="BRLTTY-5.html#preference-text-style">Text Style</A> pour des détails.</LI>
+</UL>
+
+Cette possibilité n'est pas disponible si vous avez spécifié l'option de
+compilation
+<A HREF="BRLTTY-3.html#build-contracted-braille">--disable-contracted-braille</A>.</P>
+<P>Les tables d'abrégé suivantes sont fournies:
+<DL>
+<DT><B>big5</B><DD>
+<P>Chinois</P>
+<DT><B>compress</B><DD>
+<P>Enlève les blancs en trop</P>
+<DT><B>en-uebc-g2</B><DD>
+<P>Braille abrégé anglais unifié</P>
+<DT><B>fr-abrege</B><DD>
+<P>Français unifié abrégé</P>
+<DT><B>fr-integral</B><DD>
+<P>Français unifié désabrégé</P>
+<DT><B>zh-tw</B><DD>
+<P>Chinois Thaïwanais</P>
+<DT><B>zh-tw-ucb</B><DD>
+<P>Braille Chinois Thaïwanais "Unique"</P>
+</DL>
+</P>
+
+<H2><A NAME="ss7.1">7.1</A> <A HREF="BRLTTY.html#toc7.1">Format de fichier</A>
+</H2>
+
+<P>Les lignes vides sont ignorées.
+Tout espace au début ou à la fin (n'importe quel nombre d'espaces ou tabulations)
+est ignoré.
+Les lignes commençant par un dièse (<CODE>#</CODE>) sont ignorées, 
+ce sont des commentaires.
+<BLOCKQUOTE><CODE>
+# C'est un commentaire.
+</CODE></BLOCKQUOTE>
+
+Toutes les autres lignes définissent des entrées de table.</P>
+<P>La forme générale d'une entrée de table est un opcode, suivi de ses opérateurs.
+Le opcode et son opérateur sont séparés par des espaces.
+Chaque opcode a un nombre spécifique d'opérateurs, et tout texte suivant son
+dernier opérateur est traité comme un commentaire.
+<BLOCKQUOTE><CODE>
+<EM>opcode</EM> <EM>operateur</EM> ... <EM>commentaire</EM>
+</CODE></BLOCKQUOTE>
+</P>
+<P>Les types d'opérateur suivant sont supportés:
+<DL>
+<DT><B>string</B><DD>
+<P>Une séquence de caractères différent d'un espace (qui finit la chaîne) et
+d'une barre oblique inversée (<CODE>\</CODE>).
+Les représentations spéciales suivantes sont aussi supportées:
+<DL>
+<DT><B><CODE>\\</CODE></B><DD>
+<P>barre oblique inversée</P>
+<DT><B><CODE>\f</CODE></B><DD>
+<P>saut de page</P>
+<DT><B><CODE>\n</CODE></B><DD>
+<P>nouvelle ligne</P>
+<DT><B><CODE>\o</CODE><EM>ooo</EM></B><DD>
+<P>valeur d'octet sur 3 chiffres</P>
+<DT><B><CODE>\r</CODE></B><DD>
+<P>retour chariot</P>
+<DT><B><CODE>\s</CODE></B><DD>
+<P>vide (espace)</P>
+<DT><B><CODE>\t</CODE></B><DD>
+<P>tabulation horizontale</P>
+<DT><B><CODE>\v</CODE></B><DD>
+<P>tabulation verticale</P>
+<DT><B><CODE>\x</CODE><EM>xx</EM></B><DD>
+<P>valeur hexadecimale</P>
+</DL>
+</P>
+<DT><B>number</B><DD>
+<P>Un entier. Il peut être spécifié d'une des façons suivantes:
+<DL>
+<DT><B>decimal</B><DD>
+<P>Une séquence de chiffres décimaux (<CODE>0</CODE>-<CODE>9</CODE>), le premier chiffre
+étant différent de zéro (<CODE>1</CODE>-<CODE>9</CODE>).</P>
+<DT><B>hexadecimal</B><DD>
+<P>Une séquence de chiffres hexadécimaux        (<CODE>0</CODE>-<CODE>9</CODE>, et soit
+<CODE>a</CODE>-<CODE>f</CODE> soit <CODE>A</CODE>-<CODE>F</CODE>), précédé soit par <CODE>0x</CODE> soit par
+<CODE>0X</CODE>.</P>
+<DT><B>octal</B><DD>
+<P>Une séquence de chiffres en octet (<CODE>0</CODE>-<CODE>7</CODE>), le premier chiffre
+étant zéro  (<CODE>0</CODE>).</P>
+</DL>
+</P>
+<DT><B>dots</B><DD>
+<P>Un symbole braille. Les points braille doivent être spécifiés par leur
+numéro standard (voir la 
+<A HREF="BRLTTY-14.html#dots">Convention du nombre de points braille Standard</A>),
+et, pour un symbole multicellules, les spécifications de la cellule doivent
+être séparées par un tiret (<CODE>-</CODE>).
+Par exemple, l'abréviation du mot anglais <CODE>lord</CODE> (la lettre <CODE>l</CODE>
+précédée du point 5) serait spécifiée comme <CODE>5-123</CODE>.
+Vous pouvez spécifier un espace avec le numéro de point spécial <CODE>0</CODE>.</P>
+</DL>
+</P>
+
+<H2><A NAME="contraction-opcodes"></A> <A NAME="ss7.2">7.2</A> <A HREF="BRLTTY.html#toc7.2">Opcodes</A>
+</H2>
+
+<P>Un opcode est un mot-clé qui dit au traducteur comment interpréter les
+opérateurs. Les opcodes sont groupés ici par leur fonction.</P>
+
+<H3><A NAME="contraction-opcodes-administration"></A> Administration de la table</H3>
+
+<P>Ces opérateurs facilitent l'écriture des tables d'abrégé.
+Ils n'ont pas d'effet direct sur la traduction de caractère.
+<DL>
+<DT><B><CODE>include</CODE> <EM>path</EM>
+<A NAME="contraction-opcode-include"></A> </B><DD>
+<P>Inclut le contenu d'un autre fichier.
+L'inclusion peut se faire à n'importe quel niveau.
+Les chemins relatifs sont déterminés par rapport au répertoire du fichier incluS.</P>
+<DT><B><CODE>locale</CODE> <EM>locale</EM>
+<A NAME="contraction-opcode-locale"></A> </B><DD>
+<P>Définit la locale pour l'interprétation d'un caractère (minuscule,
+majuscule, numérique, etc). La locale peut être définie comme:
+<DL>
+<DT><B><EM>langue</EM>[<CODE>_</CODE><EM>pays</EM>][<CODE>.</CODE><EM>charset</EM>][<CODE>@</CODE><EM>modifier</EM>]</B><DD>
+<P>La composante <EM>langue</EM> est requise et devrait être un code de
+langue à deux lettres <CODE>ISO-639</CODE>.
+La composante <EM>pays</EM> est facultative et devrait être un code de
+pays à deux lettres <CODE>ISO-3166</CODE>.
+La composante <EM>charset</EM> est optionnelle est devrait être le nom
+d'une table de caractères, comme <CODE>ISO-8859-1</CODE>.</P>
+<DT><B>C</B><DD>
+<P>7-bit ASCII.</P>
+<DT><B>-</B><DD>
+<P>Aucune locale.</P>
+</DL>
+
+La dernière spécification de locale s'applique à toute la table. Si
+vous n'utilisez pas cet opcode, la locale <CODE>C</CODE> est utilisée.</P>
+</DL>
+</P>
+
+<H3><A NAME="contraction-opcodes-symbols"></A> Définition de caractères spéciaux</H3>
+
+<P>Ces opcodes définissent les caractères spéciaux qui doivent être insérés dans
+le texte braille afin de le rendre plus clair.
+<DL>
+<DT><B><CODE>capsign</CODE> <EM>points</EM>
+<A NAME="contraction-opcode-capsign"></A> </B><DD>
+<P>Le symbole qui met en majuscule une seule lettre.</P>
+<DT><B><CODE>begcaps</CODE> <EM>points</EM>
+<A NAME="contraction-opcode-begcaps"></A> </B><DD>
+<P>Le symbole qui commence un bloc de lettres en majuscule à l'intérieur d'un
+mot.</P>
+<DT><B><CODE>endcaps</CODE> <EM>points</EM>
+<A NAME="contraction-opcode-endcaps"></A> </B><DD>
+<P>Le symbole qui termine un bloc de lettres en majuscules à l'intérieur
+d'un mot.</P>
+<DT><B><CODE>letsign</CODE> <EM>points</EM>
+<A NAME="contraction-opcode-letsign"></A> </B><DD>
+<P>Le symbole qui désigne une lettre ne faisant pas partie du mot.</P>
+
+<P>Le symbole marquant le début d'un nombre.</P>
+<DT><B><CODE>lastlargesign</CODE> <EM>points</EM>
+<A NAME="contraction-opcode-numsign"></A> </B><DD>
+<P>Traduit les caractères quelque soit l'endroit où ils apparaissent.
+Supprime les espaces qui les précède si le mot précédent a été marqué
+par le code "largesign".</P>
+</DL>
+</P>
+
+<H3><A NAME="contraction-opcodes-translation"></A> Traduction de caractère</H3>
+
+<P>Ces opcodes définissent les représentations braille des séquences de caractères.
+Chacun d'eux définit une entrée à l'intérieur de la table d'abrégé.
+Ces entrées peuvent être définit dans n'importe quel ordre, sauf, comme
+remarqué ci-dessous, lorsqu'elles définissent des représentations
+alternatives de la même séquence de caractères.</P>
+<P>Chacun de ces opcodes a un opérateurs <EM>caractères</EM> (qui doit être
+spécifié comme une <EM>chaîne</EM>), et une condition de configuration dirigeant
+son utilisation.
+Le texte est traduit strictement de la gauche vers la droite, caractère par
+caractère, avec l'entrée la plus acceptable pour chaque position utilisée.
+S'il y a plus d'une entrée acceptable pour une position donnée, celle ayant la
+chaîne de caractères la plus longue est utilisée. S'il y a plus d'une
+entrée acceptable pour la même chaîne de caractères, celle définie le plus
+au début de la table est utilisée (c'est la seule dépendance de l'ordre).</P>
+<P>Beaucoup de ces opcodes ont un opérateur <EM>points</EM> qui définit la
+représentation braille de son opérateur <EM>caractères</EM>. Il peut
+être aussi spécifié comme un signe égal (<CODE>=</CODE>), au quel cas il
+signifie l'une des deux choses. Si l'entrée est pour un seul caractère,
+cela signifie que la représentation du braille informatique sélectionnée
+(voir l'option 
+<A HREF="BRLTTY-4.html#options-text-table">-t</A> en ligne de
+commande et la ligne 
+<A HREF="BRLTTY-4.html#configure-text-table">text-table</A>
+du fichier de configuration) de ce caractère doit être utilisée. Si
+c'est pour une séquence multi-caractères, la représentation par défaut
+de chaque caractère (voir 
+<A HREF="#contraction-opcode-always">always</A>) dans une séquence doit être utilisée.</P>
+<P>Certains termes spéciaux sont utilisés à l'intérieur des descriptions de ces
+opcodes.
+<DL>
+<DT><B>word</B><DD>
+<P>Une séquence maximale d'une ou plusieurs lettres à la suite.</P>
+</DL>
+</P>
+<P>Enfin, voici maintenant la description des opcodes eux-mêmes:
+<DL>
+<DT><B><CODE>literal</CODE> <EM>caractères</EM>
+<A NAME="contraction-opcode-literal"></A> </B><DD>
+<P>Traduit ce qui est lié à l'espace et qui contient une séquence de
+caractères en braille informatique (voir l'option
+<A HREF="BRLTTY-4.html#options-text-table">-t</A> en ligne de commande et la ligne
+<A HREF="BRLTTY-4.html#configure-text-table">text-table</A> du fichier de
+configuration).</P>
+<DT><B><CODE>replace</CODE> <EM>caractères</EM> <EM>caractères</EM>
+<A NAME="contraction-opcode-replace"></A> </B><DD>
+<P>Remplace la première valeur des caractères, quelque soit l'endroit où ils
+apparaissent, par la seconde. Les caractères remplacés ne sont pas
+réinsérés.</P>
+<DT><B><CODE>always</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-always"></A> </B><DD>
+<P>Traduit les caractères quelque soit l'endroit où ils apparaissent.
+S'il n'y a qu'un caractère, alors, en plus, définit la représentation par
+défaut de ce caractère.</P>
+<DT><B><CODE>repeatable</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-repeated"></A> </B><DD>
+<P>Traduit les caractères quelque soit l'endroit où ils apparaissent. Ignore toute
+répétition immédiate de la même séquence.</P>
+<DT><B><CODE>largesign</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-largesign"></A> </B><DD>
+<P>Traduit les caractères quelque soit l'endroit où ils apparaissent. Supprime les
+espaces entre les mots qui se suivent et qui sont gérés par cet opcode.</P>
+<DT><B><CODE>word</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-word"></A> </B><DD>
+<P>Traduit les caractères s'ils forment un mot.</P>
+<DT><B><CODE>joinword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-joinword"></A> </B><DD>
+<P>Traduit les caractères s'ils forment un mot. Supprime l'espace suivant si
+le premier caractère le suit est une lettre.</P>
+<DT><B><CODE>lowword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-lowword"></A> </B><DD>
+<P>Traduit les caractères s'ils forment un mot lié à un espace. </P>
+<DT><B><CODE>contraction</CODE> <EM>caractères</EM>
+<A NAME="contraction-opcode-contraction"></A> </B><DD>
+<P>Fait précéder les caractères d'un signe-lettre (voir
+<A HREF="#contraction-opcode-letsign">letsign</A>) s'ils forment un mot.</P>
+<DT><B><CODE>sufword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-sufword"></A> </B><DD>
+<P>Traduit les caractères s'ils forment soit un mot, soit s'ils sont au
+début d'un mot.</P>
+<DT><B><CODE>prfword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-prfword"></A> </B><DD>
+<P>Traduit les caractères s'ils forment soit un mot, soit s'ils sont à la
+fin d'un mot.</P>
+<DT><B><CODE>begword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-begword"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au début d'un mot.</P>
+<DT><B><CODE>begmidword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-begmidword"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au début ou au milieu d'un mot.</P>
+<DT><B><CODE>midword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-midword"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au milieu d'un mot.</P>
+<DT><B><CODE>midendword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-midendword"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au milieu ou à la fin d'un mot.</P>
+<DT><B><CODE>endword</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-endword"></A> </B><DD>
+<P>Traduit les caractères s'ils sont à la fin d'un mot.</P>
+<DT><B><CODE>prepunc</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-prepunc"></A> </B><DD>
+<P>Traduit les caractères s'ils font partie de la ponctuation au début d'un
+mot.</P>
+<DT><B><CODE>postpunc</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-postpunc"></A> </B><DD>
+<P>Traduit les caractères s'ils font partie de la ponctuation à la fin d'un
+mot.</P>
+<DT><B><CODE>begnum</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-begnum"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au début d'un nombre.</P>
+<DT><B><CODE>midnum</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-midnum"></A> </B><DD>
+<P>Traduit les caractères s'ils sont au milieu d'un nombre.</P>
+<DT><B><CODE>endnum</CODE> <EM>caractères</EM> <EM>points</EM>
+<A NAME="contraction-opcode-endnum"></A> </B><DD>
+<P>Traduit les caractères s'ils sont à la fin d'un nombre.</P>
+</DL>
+</P>
+
+<H3><A NAME="contraction-opcodes-classes"></A> Classes de caractère</H3>
+
+<P>Ces opcodes définissent et utilisent des classes de caractère. Une classe de
+caractère associe un type de caractère à un nom. Le nom se réfère alors à
+n'importe quel caractère à l'intérieur de la classe. Un caractère peut
+appartenir à plus d'une classe.</P>
+<P>Les classes de caractère suivantes sont automatiquement prédéfinies, basées sur
+la locale sélectionnée.
+<DL>
+<DT><B>digit</B><DD>
+<P>Caractères numériques.</P>
+<DT><B>letter</B><DD>
+<P>Les caractères alphabétiques majuscule ou minuscule.
+Certaines locales ont des lettres supplémentaires qui ne sont ni en majuscule
+ni en minuscule.</P>
+<DT><B>lowercase</B><DD>
+<P>Les caractères alphabétiques minuscules.</P>
+<DT><B>punctuation</B><DD>
+<P>Caractères imprimables qui ne sont ni des espaces ni alphanumériques.</P>
+<DT><B>space</B><DD>
+<P>Caractères d'espacement.
+Dans la locale par défaut, il s'agit de: espace, tabulation horizontale, tabulation
+verticale, retour chariot, nouvelle ligne, saut de page.</P>
+<DT><B>uppercase</B><DD>
+<P>Caractères alphabétiques en majuscules.</P>
+</DL>
+</P>
+<P>Les opcodes qui définissent et utilisent des classes de caractères sont:
+<DL>
+<DT><B><CODE>class</CODE> <EM>nom</EM> <EM>caractères</EM>
+<A NAME="contraction-opcode-class"></A> </B><DD>
+<P>Définit une nouvelle classe de caractère. L'opérateur <EM>caractères</EM>
+doit être spécifié comme une <EM>chaîne</EM>. Une classe de caractère ne peut
+pas être utilisée tant qu'elle n'est pas définie.</P>
+<DT><B><CODE>after</CODE> <EM>class</EM> <EM>opcode</EM> ...
+<A NAME="contraction-opcode-after"></A> </B><DD>
+<P>L'opcode spécifié est assez contraint dans le sens où la séquence de
+caractères adéquat doit être immédiatement précédée par un caractère
+appartenant à la classe spécifiée.
+Si vous utilisez plus d'une fois cet opcode sur la même ligne, l'union des
+caractères de toute la classe est utilisée.</P>
+<DT><B><CODE>before</CODE> <EM>class</EM> <EM>opcode</EM> ...
+<A NAME="contraction-opcode-before"></A> </B><DD>
+<P>L'opcode spécifié est assez contraint dans le sens où la séquence de
+caractères adéquat doit être immédiatement suivie par un caractère
+appartenant à la classe spécifiée.
+Si vous utilisez plus d'une fois cet opcode sur la même ligne, l'union des
+caractères de toute la classe est utilisée.</P>
+</DL>
+</P>
+<HR>
+<A HREF="BRLTTY-8.html">Page suivante</A>
+<A HREF="BRLTTY-6.html">Page précédente</A>
+<A HREF="BRLTTY.html#toc7">Table des matières</A>
+</BODY>
+</HTML>

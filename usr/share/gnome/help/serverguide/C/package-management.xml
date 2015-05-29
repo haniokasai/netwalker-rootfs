@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="package-management" status="review">
+	<title>Package Management</title>
+        <para>Ubuntu features a comprehensive package management system for the installation, upgrade, configuration, and removal of software.  In addition to providing access to an organized base of over 24,000 software packages for your Ubuntu computer, the package management facilities also feature dependency resolution capabilities and software update checking.
+        </para>
+        <para>
+        Several tools are available for interacting with Ubuntu's package management system, from simple command-line utilities which may be easily automated by system administrators, to a simple graphical interface which is easy to use by those new to Ubuntu.
+        </para>
+  <sect1 id="package-management-introduction" status="review">
+	<title>Introduction</title>
+        <para>
+        Ubuntu's package management system is derived from the same system used by the Debian GNU/Linux distribution.  The package files contain all of the necessary files, meta-data, and instructions to implement a particular functionality or software application on your Ubuntu computer.
+        </para>
+        <para>
+        Debian package files typically have the extension '.deb', and typically exist in <emphasis role="italics">repositories</emphasis> which are collections of packages found on various media, such as CD-ROM discs, or online.  Packages are normally of the pre-compiled binary format; thus installation is quick and requires no compiling of software.
+        </para>
+        <para>
+        Many complex packages use the concept of <emphasis role="italics">dependencies</emphasis>.  Dependencies are additional packages required by the principal package in order to function properly.  For example, the speech synthesis package <application>Festival</application> depends upon the package <application>libasound2</application>, which is a package supplying the <application>ALSA</application> sound library needed for audio playback.  In order for <application>Festival</application> to function, it and all of its dependencies must be installed. The software management tools in Ubuntu will do this automatically.
+        </para>
+  </sect1>
+  <sect1 id="dpkg" status="review">
+    <title>dpkg</title>
+
+    <para>
+    <application>dpkg</application> is a package manager for <emphasis>Debian</emphasis> based systems.  It can install, remove, and build packages, but
+    unlike other package management system's it can not automatically download and install packages and their dependencies.  This section covers using
+    <application>dpkg</application> to manage locally installed packages:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+
+        <para>
+        To list all packages installed on the system, from a terminal prompt enter:
+        </para>
+
+<screen>
+<command>dpkg -l</command>
+</screen>
+
+      </listitem>
+      <listitem>
+
+        <para>
+        Depending on the amount of packages on your system, this can generate a large amount of output.  Pipe the output through 
+        <application>grep</application> to see if a specific package is installed:
+        </para>
+
+<screen>
+<command>dpkg -l | grep apache2</command>
+</screen>
+
+        <para>
+        Replace <emphasis>apache2</emphasis> with any package name, part of a package name, or other regular expression.
+        </para>
+
+      </listitem>
+      <listitem>
+
+        <para>
+        To list the files installed by a package, in this case the <application>ufw</application> package, enter:
+        </para>
+
+<screen>
+<command>dpkg -L ufw</command>
+</screen>
+
+      </listitem>
+      <listitem>
+
+        <para>
+        If you are not sure which package installed a file, <application>dpkg -S</application> may be able to tell you.
+        For example:
+        </para>
+
+<screen>
+<command>dpkg -S /etc/host.conf </command>
+<computeroutput>base-files: /etc/host.conf</computeroutput>
+</screen>
+
+        <para>
+        The output shows that the <filename>/etc/host.conf</filename> belongs to the <application>base-files</application> package.
+        </para>
+
+        <note>
+          <para>
+          Many files are automatically generated during the package install process, and even though they are on the filesystem 
+          <command>dpkg -S</command> may not know which package they belong to.
+          </para>
+        </note>
+
+      </listitem>
+      <listitem>
+
+        <para>
+        You can install a local <emphasis>.deb</emphasis> file by entering:
+        </para>
+
+<screen>
+<command>sudo dpkg -i zip_2.32-1_i386.deb</command>
+</screen>
+    
+        <para>
+        Change <filename>zip_2.32-1_i386.deb</filename> to the actual file name of the local .deb file.
+        </para>
+
+      </listitem>
+      <listitem>
+
+        <para>
+        Uninstalling a package can be accomplished by:
+        </para>
+
+<screen>
+<command>sudo dpkg -r zip</command>
+</screen>
+
+        <caution>
+          <para>
+          Uninstalling packages using <application>dpkg</application>, in most cases, is <emphasis>NOT</emphasis> recommended.
+          It is better to use a package manager that handles dependencies, to ensure that the system is in a consistent state.  For
+          example using <command>dpkg -r</command> you can remove the <application>zip</application> package, but any packages that
+          depend on it will still be installed and may no longer function correctly.
+          </para>
+        </caution>
+
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    For more <application>dpkg</application> options see the man page: <command>man dpkg</command>.
+    </para>
+
+  </sect1>
+  <sect1 id="apt-get" status="review">
+	<title>Apt-Get</title>
+        <para>
+        The <application>apt-get</application> command is a powerful command-line tool used to work with Ubuntu's <emphasis>Advanced Packaging Tool</emphasis> (APT) performing such functions as installation of new software packages, upgrade of existing software packages, updating of the package list index, and even upgrading the entire Ubuntu system.
+        </para>
+        <para>
+        Being a simple command-line tool, <application>apt-get</application> has numerous advantages over other package management tools available in Ubuntu for server administrators.  Some of these advantages include ease of use over simple terminal connections (SSH) and the ability to be used in system administration scripts, which can in turn be automated by the <application>cron</application> scheduling utility.
+        </para>
+        <para>
+        Some examples of popular uses for the <application>apt-get</application> utility:
+        <itemizedlist>
+               <listitem>
+                <para>
+                <emphasis role="bold">Install a Package</emphasis>: Installation of packages using the <application>apt-get</application> tool is quite simple.  For example, to install the network scanner <emphasis role="italics">nmap</emphasis>, type the following:
+<screen>
+<command>sudo apt-get install nmap</command>
+</screen>
+                </para>
+                </listitem>
+                <listitem>
+                <para>
+                <emphasis role="bold">Remove a Package</emphasis>: Removal of a package or packages is also a straightforward and simple process. To remove the nmap package installed in the previous example, type the following:
+<screen>
+<command>sudo apt-get remove nmap</command>
+</screen>
+                </para>
+                <tip>
+                <para><emphasis role="bold">Multiple Packages</emphasis>: You may specify multiple packages to be installed or removed, separated by spaces.  
+                </para>
+                </tip>
+		<para>
+	        Also, adding the <emphasis>--purge</emphasis> options to <command>apt-get remove</command> will remove the package 
+                configuration files as well.  This may or may not be the desired effect so use with caution.
+		</para>
+                </listitem>
+                <listitem>
+                <para>
+                <emphasis role="bold">Update the Package Index</emphasis>: The APT package index is essentially a database of available packages from the repositories defined in the <filename>/etc/apt/sources.list</filename> file.  To update the local package index with the latest changes made in repositories, type the following:
+<screen>
+<command>sudo apt-get update</command>
+</screen>
+                </para>
+                </listitem>
+                <listitem>
+                <para>
+                <emphasis role="bold">Upgrade Packages</emphasis>: Over time, updated versions of packages currently installed on your computer may become available from the package repositories (for example security updates).  To upgrade your system, first update your package index as outlined above, and then type:
+<screen>
+<command>sudo apt-get upgrade</command>
+</screen>
+                </para>
+		<para>
+		For information on upgrading to a new Ubuntu release see <xref linkend="installing-upgrading"/>.
+		</para>
+                </listitem>
+        </itemizedlist>
+        </para>
+        <para>
+        Actions of the <application>apt-get</application> command, such as installation and removal of packages, are logged in the /var/log/dpkg.log log file.
+        </para>
+		<para>For further information about the use of <application>APT</application>, read the comprehensive <ulink url="&debian-apt;">Debian APT User Manual</ulink> or type: <screen>apt-get help</screen></para>
+  </sect1>
+
+  <sect1 id="aptitude" status="review">
+	<title>Aptitude</title>
+        <para>
+        <application>Aptitude</application> is a menu-driven, text-based front-end to the <emphasis>Advanced Packaging Tool</emphasis> (APT) system. Many of the common package management functions, such as installation, removal, and upgrade, are performed in <application>Aptitude</application> with single-key commands, which are typically lowercase letters.
+        </para>
+        <para>
+        <application>Aptitude</application> is best suited for use in a non-graphical terminal environment to ensure proper functioning of the command keys.  You may start <application>Aptitude</application> 
+as a normal user with the following command at a terminal prompt:
+<screen>
+<command>sudo aptitude</command>
+</screen>
+        </para>
+        <para>
+        When <application>Aptitude</application> starts, you will see a menu bar at the top of the screen and two panes below the menu bar.  The top pane contains package categories, such as <emphasis role="italics">New Packages</emphasis> and <emphasis role="italics">Not Installed Packages</emphasis>. The bottom pane contains information related to the packages and package categories.
+        </para>
+        <para>Using <application>Aptitude</application> for package management is relatively straightforward, and the user interface makes common tasks simple to perform.  The following are examples of common package management functions as performed in <application>Aptitude</application>:
+        </para>
+        <itemizedlist>
+               <listitem>
+                <para><emphasis role="bold">Install Packages</emphasis>: To install a package, locate the package via the Not Installed Packages package category, for example, by using the keyboard arrow keys and the <keycap>ENTER</keycap> key, and highlight the package you wish to install.  After highlighting the package you wish to install, press the <keycap>+</keycap> key, and the package entry should turn <emphasis role="italics">green</emphasis>, indicating it has been marked for installation. Now press <keycap>g</keycap> to be presented with a summary of package actions.  Press <keycap>g</keycap> again, and you will be prompted to become root to complete the installation. Press <keycap>ENTER</keycap> which will result in a Password: prompt.  Enter your user password to become root. Finally, press <keycap>g</keycap> once more and you'll be prompted to download the package.  Press <keycap>ENTER</keycap> on the <emphasis role="italics">Continue</emphasis> prompt, and downloading and installation of the package will commence.
+                </para>
+               </listitem>
+               <listitem>
+                <para><emphasis role="bold">Remove Packages</emphasis>: To remove a package, locate the package via the Installed Packages package category, for example, by using the keyboard arrow keys and the <keycap>ENTER</keycap> key, and highlight the package you wish to remove.  After highlighting the package you wish to install, press the <keycap>-</keycap> key, and the package entry should turn <emphasis role="italics">pink</emphasis>, indicating it has been marked for removal. Now press <keycap>g</keycap> to be presented with a summary of package actions.  Press <keycap>g</keycap> again, and you will be prompted to become root to complete the installation. Press <keycap>ENTER</keycap> which will result in a Password: prompt.  Enter your user password to become root. Finally, press <keycap>g</keycap> once more, and you'll be prompted to download the package.  Press <keycap>ENTER</keycap> on the <emphasis role="italics">Continue</emphasis> prompt, and removal of the package will commence.
+                </para>
+               </listitem>
+               <listitem>
+                <para><emphasis role="bold">Update Package Index</emphasis>: To update the package index, simply press the <keycap>u</keycap> key and you will be prompted to become root to complete the update. Press <keycap>ENTER</keycap> which will result in a Password: prompt.  Enter your user password to become root. Updating of the package index will commence.  Press <keycap>ENTER</keycap> on the OK prompt when the download dialog is presented to complete the process.
+                </para>
+               </listitem>
+               <listitem>
+                <para><emphasis role="bold">Upgrade Packages</emphasis>: To upgrade packages, perform the update of the package index as detailed above, and then press the <keycap>U</keycap> key to mark all packages with updates. Now press <keycap>g</keycap> whereby you'll be presented with a summary of package actions.  Press <keycap>g</keycap> again, and you will be prompted to become root to complete the installation. Press <keycap>ENTER</keycap> which will result in a Password: prompt.  Enter your user password to become root. Finally, press <keycap>g</keycap> once more, and you'll be prompted to download the packages.  Press <keycap>ENTER</keycap> on the <emphasis role="italics">Continue</emphasis> prompt, and upgrade of the packages will commence.
+                </para>
+               </listitem>
+        </itemizedlist>
+        <para>The first column of information displayed in the package list in the top pane, when actually viewing packages lists the current state of the package, and uses the following key to describe the state of the package:
+        <itemizedlist>
+        <listitem>
+        <para>
+        <emphasis role="bold">i</emphasis>: Installed package
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        <emphasis role="bold">c</emphasis>: Package not installed, but package configuration remains on system
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">p</emphasis>: Purged from system
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">v</emphasis>: Virtual package
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">B</emphasis>: Broken package
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">u</emphasis>: Unpacked files, but package not yet configured
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">C</emphasis>: Half-configured - Configuration failed and requires fix
+        </para>
+        </listitem><listitem>
+        <para>
+        <emphasis role="bold">H</emphasis>: Half-installed - Removal failed and requires fix
+        </para>
+        </listitem>
+        </itemizedlist>
+        </para>
+        <para>To exit Aptitude, simply press the <keycap>q</keycap> key and confirm you wish to exit. Many other functions are available from the Aptitude menu by pressing the <keycap>F10</keycap> key.
+        </para>
+  </sect1>
+
+  <sect1 id="automatic-updates" status="review">
+    <title>Automatic Updates</title>
+
+    <para>
+    The <application>unattended-upgrades</application> package can be used to automatically install updated packages, and can be configured to
+    update all packages or just install security updates.  First, install the package by entering the following in a terminal:
+    </para>
+
+<screen>
+<command>sudo apt-get install unattended-upgrades</command>
+</screen>
+
+    <para>
+    To configure <application>unattended-upgrades</application>, edit <filename>/etc/apt/apt.conf.d/50unattended-upgrades</filename> and adjust the 
+    following to fit your needs:
+    </para>
+
+<programlisting>
+Unattended-Upgrade::Allowed-Origins {
+        "Ubuntu &distro-short-codename;-security";
+//      "Ubuntu &distro-short-codename;-updates";
+};
+</programlisting>
+
+    <para>
+    Certain packages can also be <emphasis>blacklisted</emphasis> and therefore will not be automatically updated.  To blacklist a package, add it to the 
+    list:
+    </para>
+
+<programlisting>
+Unattended-Upgrade::Package-Blacklist {
+//      "vim";
+//      "libc6";
+//      "libc6-dev";
+//      "libc6-i686";
+};
+</programlisting>
+
+    <note>
+      <para>
+      The double <emphasis><quote>//</quote></emphasis> serve as comments, so whatever follows "//" will not be evaluated.
+     </para>
+    </note>
+
+    <para>
+    The results of <application>unattended-upgrades</application> will be logged to <filename>/var/log/unattended-upgrades</filename>.
+    </para>
+
+    <sect2 id="update-notifications" status="review">
+      <title>Notifications</title>
+
+        <para>
+        Configuring <emphasis>Unattended-Upgrade::Mail</emphasis> in <filename>/etc/apt/apt.conf.d/50unattended-upgrades</filename> will enable 
+        <application>unattended-upgrades</application> to email an administrator detailing any packages that need upgrading or have problems.
+        </para>
+
+        <para>
+        Another useful package is <application>apticron</application>.  <application>apticron</application> will configure a 
+        <application>cron</application> job to email an administrator information about any packages on the system that need updated as well
+        as a summary of changes in each package.
+        </para>
+
+        <para>
+        To install the <application>apticron</application> package, in a terminal enter:
+        </para>
+
+<screen>
+<command>sudo apt-get install apticron</command>
+</screen>
+
+        <para>
+        Once the package is installed edit <filename>/etc/apticron/apticron.conf</filename>, to set the email address and other options:
+        </para>
+
+<programlisting>
+EMAIL="root@example.com"
+</programlisting>
+
+    </sect2>  
+  </sect1>          
+  <sect1 id="configuration" status="review">
+    <title>Configuration</title>
+    
+    <para>
+    Configuration of the <emphasis>Advanced Packaging Tool</emphasis> (APT) system repositories is stored in the /etc/apt/sources.list       
+    configuration file. An example of this file is referenced here, along with information on adding or removing repository references from the
+    file.
+    </para>
+
+    <para>
+    <ulink url="../sample/sources.list">Here</ulink> is a simple example of a typical <filename>/etc/apt/sources.list</filename> file.
+    </para>
+
+    <para>
+    You may edit the file to enable repositories or disable them.  For example, to disable the requirement of inserting the Ubuntu CD-ROM 
+    whenever package operations occur, simply comment out the appropriate line for the CD-ROM, which appears at the top of the file:
+    </para>
+
+<screen>
+# no more prompting for CD-ROM please
+# deb cdrom:[&distro-apt-cd-name; - Release i386 (20070419.1)]/ &distro-short-codename; main restricted
+</screen>
+
+  <sect2 id="extra-repositories" status="review">
+		<title>Extra Repositories</title>
+          <para>
+          In addition to the officially supported package repositories available for Ubuntu, there exist additional community-maintained repositories which add thousands more potential packages for installation.  Two of the most popular are the <emphasis>Universe</emphasis> and <emphasis>Multiverse</emphasis> repositories. These repositories are not officially supported by Ubuntu, but because they are maintained by the community they generally provide packages which are safe for use with your Ubuntu computer. 
+          </para>
+		  <note><para>Packages in the <emphasis>Multiverse</emphasis> repository often have licensing issues that prevent them from being distributed with a free operating system, and they may be illegal in your locality.</para></note>
+          <warning>
+          <para>
+          Be advised that neither the <emphasis>Universe</emphasis> or <emphasis>Multiverse</emphasis> repositories contain officially supported packages. In particular, there may not be security updates for these packages.
+          </para>
+          </warning>
+          <para>
+          Many other package sources are available, sometimes even offering only one package, as in the case of package sources provided by the developer of a single application.  You should always be very careful and cautious when using non-standard package sources, however.  Research the source and packages carefully before performing any installation, as some package sources and their packages could render your system unstable or non-functional in some respects.
+          </para>
+          <para>
+          By default, the <emphasis>Universe</emphasis> and
+          <emphasis>Multiverse</emphasis> repositories are enabled but if
+          you would like to disable them edit <filename>/etc/apt/sources.list</filename> 
+	  and comment the following lines:
+          </para>
+          <para>
+<programlisting>
+deb http://archive.ubuntu.com/ubuntu &distro-short-codename; universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu &distro-short-codename; universe multiverse
+
+deb http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename; universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename; universe
+deb http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename;-updates universe
+deb-src http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename;-updates universe
+
+deb http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename; multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename; multiverse
+deb http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename;-updates multiverse
+deb-src http://us.archive.ubuntu.com/ubuntu/ &distro-short-codename;-updates multiverse
+
+deb http://security.ubuntu.com/ubuntu &distro-short-codename;-security universe
+deb-src http://security.ubuntu.com/ubuntu &distro-short-codename;-security universe
+deb http://security.ubuntu.com/ubuntu &distro-short-codename;-security multiverse
+deb-src http://security.ubuntu.com/ubuntu &distro-short-codename;-security multiverse
+</programlisting>
+          </para>
+
+    </sect2>
+  </sect1>
+  <sect1 id="package-management-references" status="review">
+    <title>References</title>
+
+    <para>
+    Most of the material covered in this chapter is available in <application>man</application> pages, many of which are available
+    online.
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        For more <application>dpkg</application> details see the 
+        <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man1/dpkg.1.html">dpkg man page</ulink>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        The <ulink url="http://www.debian.org/doc/manuals/apt-howto/">APT HOWTO</ulink> and 
+        <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/apt-get.8.html">apt-get man page</ulink>
+        contain useful information regarding <application>apt-get</application> usage.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        See the <ulink url="http://manpages.ubuntu.com/manpages/jaunty/man8/aptitude.8.html">aptitude man page</ulink> 
+        for more <application>aptitude</application> options.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        The <ulink url="https://help.ubuntu.com/community/Repositories/Ubuntu">Adding Repositories HOWTO (Ubuntu Wiki)</ulink> page
+        contains more details on adding repositories.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+  </sect1>
+</chapter>

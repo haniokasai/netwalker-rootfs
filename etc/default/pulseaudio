@@ -1,0 +1,20 @@
+# Start the PulseAudio sound server in system mode.
+# (enables the pulseaudio init script - requires that users be in the
+# pulse-access group)
+# System mode is not the recommended way to run PulseAudio as it has some
+# limitations (such as no shared memory access) and could potentially allow
+# users to disconnect or redirect each others' audio streams. The
+# recommended way to run PulseAudio is as a per-session daemon. For GNOME
+# sessions in Ubuntu, /etc/X11/Xsession.d/70pulseaudio and
+# /usr/bin/pulse-session handle this function of automatically starting 
+# PulseAudio on login. For other sessions, you can simply start PulseAudio
+# with "pulseaudio --daemonize".
+# 0 = don't start, 1 = start
+PULSEAUDIO_SYSTEM_START=0
+
+# Prevent users from dynamically loading modules into the PulseAudio sound
+# server. Dynamic module loading enhances the flexibilty of the PulseAudio
+# system, but may pose a security risk.
+# 0 = no, 1 = yes
+DISALLOW_MODULE_LOADING=1
+

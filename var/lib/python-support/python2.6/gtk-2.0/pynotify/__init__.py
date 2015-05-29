@@ -1,0 +1,1 @@
+/usr/share/python-support/python-notify/gtk-2.0/pynotify/__init__.py

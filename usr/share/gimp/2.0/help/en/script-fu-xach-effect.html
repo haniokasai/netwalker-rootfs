@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>7.9.  Xach-Effect</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-light-and-shadow.html" title="7.  Light and Shadow Filters" />
+    <link rel="prev" href="script-fu-perspective-shadow.html" title="7.8.  Perspective" />
+    <link rel="next" href="plug-in-applylens.html" title="7.10.  Apply Lens" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">7.9. 
+    <span lang="en" xml:lang="en">Xach-Effect</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="script-fu-perspective-shadow.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">7. 
+    <span lang="en" xml:lang="en">Light and Shadow Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-applylens.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="script-fu-xach-effect"></a>7.9. 
+    <span lang="en" xml:lang="en">Xach-Effect</span>
+  </h3>
+          </div>
+          <div>
+            <div class="revhistory">
+              <table border="1" width="100%" summary="Revision history">
+                <tr>
+                  <th align="left" valign="top" colspan="3">
+                    <b>Revision History</b>
+                  </th>
+                </tr>
+                <tr>
+                  <td align="left">Revision $Revision: 2367 $</td>
+                  <td align="left">2007-10-09</td>
+                  <td align="left">ude</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="id2746768" class="indexterm"></a>
+      <a id="id2746786" class="indexterm"></a>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2746795"></a>7.9.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2746805"></a>
+          <p class="title">
+            <b>Figure 16.95. 
+        <span lang="en" xml:lang="en">
+          Example for the “<span class="quote">Xach-Effect</span>” filter
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/taj_orig.jpg" alt="Example for the Xach-Effect filter" />
+              <div class="caption">
+                <p>Original image</p>
+              </div>
+            </div>
+            <div class="mediaobject">
+              <img src="../images/filters/examples/light-taj-xach-effect.jpg" alt="Example for the Xach-Effect filter" />
+              <div class="caption">
+                <p>“<span class="quote">Xach-Effect</span>” applied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+      This filter adds a subtle translucent 3D effect to the selected region
+      or alpha channel. This 3D effect is achieved by
+    </p>
+        <div class="itemizedlist">
+          <ul type="disc">
+            <li>
+              <p>
+          Highlighting the selection: a new layer (“<span class="quote">Highlight</span>”)
+          will be created above the active layer, filled with the highlight
+          color. Then a <a class="link" href="gimp-dialogs-structure.html#gimp-layer-mask" title="2.1.3.  Layer masks">layer mask</a> will
+          be added to that layer making the unmasked pixel partially
+          transparent.
+        </p>
+              <div class="mediaobject">
+                <img src="../images/filters/examples/xach-effect-layers.png" />
+                <div class="caption">
+                  <p>Highlight layer with layer mask</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <p>
+          Painting the selection's left and top edges with the highlight
+          color: for that the “<span class="quote">Highlight</span>” layer will be extended
+          by one pixel left and up. These small areas will be opaque.
+        </p>
+            </li>
+            <li>
+              <p>
+          Creating a <a class="link" href="script-fu-drop-shadow.html" title="7.7.  Drop Shadow">drop shadow</a>
+          at the bottom right side of the selection.
+        </p>
+            </li>
+          </ul>
+        </div>
+        <p>
+      You may vary these default settings, for example select different colors
+      for highlight or shadow and change amount and directions of offsets.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2746970"></a>7.9.2. 
+      <span lang="en" xml:lang="en">Activate the filter</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      The filter is found in the image window menu under
+      <span class="guimenu"><span class="accel">F</span>ilters</span> → <span class="guisubmenu"><span class="accel">L</span>ight and Shadow</span> → <span class="guimenuitem"><span class="accel">X</span>ach-Effect</span>.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2747018"></a>7.9.3. 
+      <span lang="en" xml:lang="en">Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      There are two groups of options, each controlling the highlight or the
+      shadow, and a checkbox for the selection behaviour.
+    </p>
+        <div class="figure">
+          <a id="id2747037"></a>
+          <p class="title">
+            <b>Figure 16.96. 
+        <span lang="en" xml:lang="en">“<span class="quote">Xach-Effect</span>” options</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/options-light-xach-effect.png" alt="Xach-Effect options" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">Highlight X/Y offset</span>
+            </dt>
+            <dd>
+              <p>
+            The selection's left and top edge are painted with the highlight
+            color. The highlight offset is the size (width or height) of the
+            respective area. If offset is less than 0 (this is the default),
+            the left (X offset &lt; 0) or top (Y offset &lt; 0) area will be
+            colored. If offset is greater than 0, the right (X offset &gt; 0)
+            or bottom (Y offset &gt; 0) area will be painted.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Highlight color</span>
+            </dt>
+            <dd>
+              <p>
+            This is the color used to highlight the selected area. It defaults
+            to white, but clicking on the swatch button brings up a color
+            selector and you may select any other color.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Highlight opacity</span>
+            </dt>
+            <dd>
+              <p>
+            The selection will be covered by a partially transparent area
+            filled with the highlight color. This option lets you set the
+            level of transparency. Since a <a class="link" href="gimp-dialogs-structure.html#gimp-layer-mask" title="2.1.3.  Layer masks">layer mask</a> will be used, the
+            value ranges from 0 (full transparency) to 255 (full opacity).
+          </p>
+              <p>
+            The highlight opacity defaults to 66, which is equivalent to 26%.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Drop shadow options</span>
+            </dt>
+            <dd>
+              <p>
+            These options work like the respective <a class="link" href="script-fu-drop-shadow.html" title="7.7.  Drop Shadow">Drop Shadow</a> options
+            (without resizing). Briefly:
+          </p>
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">Drop shadow color</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  Click on the button to open a color selector.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Drop shadow opacity</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  The opacity (0% - 100%) of the layer containing the shadow.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Drop shadow blur radius</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  The radius used by the <a class="link" href="plug-in-gauss.html" title="2.3.  Gaussian Blur">Gaussian blur</a> filter, which
+                  will be applied to the shadow.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Drop shadow X/Y offset</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  Direction and amount, by which the shadow will be moved from
+                  the selection.
+                </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Keep selection</span>
+            </dt>
+            <dd>
+              <p>
+            If checked, the active selection will remain active when the
+            filter has been applied.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="script-fu-perspective-shadow.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-light-and-shadow.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-applylens.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="script-fu-perspective-shadow.html">7.8. 
+    <span lang="en" xml:lang="en">Perspective</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-applylens.html">7.10. 
+    <span lang="en" xml:lang="en">Apply Lens</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+#!/bin/sh -e
+
+if [ "$1" = local ]; then
+    export PYTHONPATH=.
+    export APPORT_CRASHDB_CONF=./etc/apport/crashdb.conf
+    basedir=.
+    local=1
+
+    if [ ! -e apport/packaging_impl.py ]; then
+	echo "You need to copy an appropriate packaging implementation from backends/ to apport/packaging_impl.py" >&2
+	exit 1
+    fi
+else
+    basedir="/usr/lib/python2.5/site-packages"
+    unset local
+fi
+
+mydir=`dirname "$0"`
+
+set -x
+python -tt $basedir/problem_report.py -v
+python -tt $basedir/apport/fileutils.py -v
+python -tt $basedir/apport/report.py -v
+python -tt $basedir/apport_python_hook.py -v
+python -tt $basedir/apport/ui.py -v
+python -tt $basedir/apport/REThread.py -v
+python -tt $basedir/apport/chroot.py -v
+python -tt $basedir/apport/crashdb_impl/memory.py -v
+python -tt $basedir/apport/packaging_impl.py -v
+
+if [ "$local" ]; then
+    $mydir/test-hooks -l
+else
+    $mydir/test-hooks
+fi
+
+if [ "$local" ]; then
+    $mydir/test-crash-digger
+fi
+
+if [ "`dd if=/proc/sys/kernel/core_pattern count=1 bs=1 2>/dev/null`" = "|" ]; then
+    $mydir/test-apport kernel
+else
+    if [ "$local" ]; then
+        $mydir/test-apport lib
+    else
+        echo 'apport is not enabled; run "sudo /etc/init.d/apport start" to do so' >&2
+        exit 1
+    fi
+fi

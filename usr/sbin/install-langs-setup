@@ -1,0 +1,73 @@
+#!/bin/sh
+
+## Set up apt-tree
+DEST_ROOT="$1"
+DEST="$DEST_ROOT/archive"
+
+APTTreeTemplate="etc/apt var/lib/apt/lists/partial var/lib/dpkg var/log/apt var/cache/apt/archives/partial"
+
+mkdir -p $DEST
+
+for d in $APTTreeTemplate; do
+    mkdir -p $DEST/$d
+done
+
+cat > $DEST/etc/apt/sources.list << EOF
+deb file:///archive /
+EOF
+
+APT_OPTIONS="-o Dir=$DEST"
+
+apt-get $APT_OPTIONS update
+## Done with apt-tree
+
+LANGCODE="${LANG%%_*}"
+LANGCODE="${LANGCODE%%.*}"
+LANGCODE="${LANGCODE%%@*}"
+
+LOCALECODE="${LANG%%.*}"
+LOCALECODE="${LOCALECODE%%@*}"
+
+PKG_FILE="$DEST_ROOT/pkgs"
+LANG_FILE="$DEST_ROOT/lang-present"
+
+LANG_PRESENT=""
+
+BASE_LANG_PKG="language-pack-$LANGCODE"
+echo "language-pack-$LANGCODE language-support-$LANGCODE language-pack-gnome-$LANGCODE language-pack-kde-$LANGCODE" > "$PKG_FILE"
+
+export APT_OPTIONS
+export LANGCODE
+export LOCALECODE
+
+# Let any hooks add their own pkgs to install by adding to PKGS
+run-parts /usr/share/language-installer/pkg-hooks --arg="$PKG_FILE"
+
+is_pkg_available()
+{
+  # It would be nice if apt-cache returned an error code, but this will do
+  [ "$(apt-cache $APT_OPTIONS search ^$1$)" != "" ];
+}
+
+is_pkg_installed()
+{
+  dpkg -s "$1" >/dev/null 2>&1;
+}
+
+# Make sure the packages are in the apt cache.  If we try to install one that
+# isn't, the apt-get line will fail.  So we filter here.
+MAYBE_PKGS="$(cat $PKG_FILE)"
+PKGS=""
+for pkg in $MAYBE_PKGS; do
+  if is_pkg_available "$pkg" && ! is_pkg_installed "$pkg"; then
+    PKGS="$PKGS $pkg"
+  fi
+done
+echo "$PKGS" > "$PKG_FILE"
+
+if is_pkg_available "$BASE_LANG_PKG" || is_pkg_installed "$BASE_LANG_PACK"; then
+  LANG_PRESENT="$LANGCODE"
+fi
+echo "$LANG_PRESENT" > "$LANG_FILE"
+
+exit 0

@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="jeos" status="review">
+  <title>JeOS and vmbuilder</title>
+
+  <sect1 id="jeos-introduction" status="review">
+    <title>Introduction</title>
+
+    <sect2 id="what-is-jeos" status="review">
+      <title>What is JeOS</title>
+
+  <para>
+  Ubuntu <emphasis>JeOS</emphasis> (pronounced "Juice") is an efficient variant of the Ubuntu Server operating system, 
+  configured specifically for virtual appliances.  No longer available as a CD-ROM ISO for download, but only as an option either:
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>
+      While installing from the Server Edition ISO (pressing <emphasis>F4</emphasis> on the first screen will allow you to pick 
+      "Minimal installation", which is the package selection equivalent to JeOS)
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+      Or to be built using Ubuntu's vmbuilder, which is described here. 
+      </para>
+    </listitem>
+  </itemizedlist>
+      
+  <para>
+  JeOS is a specialized installation of Ubuntu Server Edition with a tuned kernel that only contains the base elements needed 
+  to run within a virtualized environment.
+  </para>
+
+  <para>
+  Ubuntu JeOS has been tuned to take advantage of key performance technologies in the latest virtualization products from VMware. 
+  This combination of reduced size and optimized performance ensures that Ubuntu JeOS Edition delivers a highly efficient use of 
+  server resources in large virtual deployments.
+  </para>
+  
+  <para>
+  Without unnecessary drivers, and only the minimal required packages, ISVs can configure their supporting OS exactly as they require. 
+  They have the peace of mind that updates, whether for security or enhancement reasons, will be limited to the bare minimum of what 
+  is required in their specific environment. In turn, users deploying virtual appliances built on top of JeOS will have to go through 
+  fewer updates and therefore less maintenance than they would have had to with a standard full installation of a server.
+  </para>
+ 
+    </sect2>
+    <sect2 id="what-is-vmbuilder">
+      <title>What is vmbuilder</title>
+
+      <para>
+      With vmbuilder, there is no need to download a JeOS ISO anymore. vmbuilder will fetch the various package and build a virtual machine 
+      tailored for our need in about a minute for us. Vmbuilder is a Script that automates the process of creating a ready to use Linux based
+      VM. The currently supported hypervisors are KVM and Xen.
+      </para>
+
+      <para>
+      You can pass command line options to add extra packages, remove packages, choose which version of Ubuntu, which mirror etc. On recent 
+      hardware with plenty of RAM, tmpdir in <filename>/dev/shm</filename> or using a tmpfs, and a local mirror, you can bootstrap a VM in 
+      less than a minute.
+      </para>
+
+      <para>
+      First introduced as a shell script in Ubuntu 8.04LTS, <application>ubuntu-vm-builder</application> started with little emphasis as 
+      a hack to help developers test their new code in a virtual machine without having to restart from scratch each time. As a few Ubuntu 
+      administrators started to notice this script, a few of them went on improving it and adapting it for so many use case that 
+      Soren Hansen (the author of the script and Ubuntu virtualization specialist, not the golf player) decided to rewrite it from scratch 
+      for Intrepid as a python script with a few new design goals:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          Develop it so that it can be reused by other distributions.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Use a plugin mechanisms for all virtualization interactions so that others can easily add logic for other virtualization environments.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Provide an easy to maintain web interface as an option to the command line interface.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+      But the general principles and commands remain the same. 
+      </para>
+
+    </sect2>
+  </sect1>
+  <sect1 id="jeos-initial-setup" status="review">
+    <title>Initial Setup</title>
+
+    <para>
+    It is assumed that you have installed and configured <application>libvirt</application> and <application>KVM</application> locally
+    on the machine you are using. For details on how to perform this, please refer to:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        <xref linkend="virtualization"/>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        The <ulink url="https://help.ubuntu.com/community/KVM">KVM</ulink> Wiki page.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    We also assume that you know how to use a text based text editor such as nano or vi. If you have not used any of them before, 
+    you can get an overview of the various text editors available by reading the  
+    <ulink url="https://help.ubuntu.com/community/PowerUsersTextEditors">PowerUsersTextEditors</ulink> page. This tutorial has been 
+    done on KVM, but the general principle should remain on other virtualization technologies. 
+    </para>
+  
+      <sect2 id="install-vmbuilder" status="review">
+        <title>Install vmbuilder</title>
+
+        <para>
+        The name of the package that we need to install is <application>python-vm-builder</application>.  In a terminal prompt enter: 
+        </para>
+
+<screen>
+<command>sudo apt-get install python-vm-builder</command>
+</screen>
+
+        <note>
+          <para>
+          If you are running Hardy, you can still perform most of this using the older version of the package named 
+          <application>ubuntu-vm-builder</application>, there are only a few changes to the syntax of the tool. 
+          </para>
+        </note>
+
+      </sect2>
+    </sect1>
+    <sect1 id="defining-vm" status="review">
+      <title>Defining Your Virtual Machine</title>
+
+      <para>
+      Defining a virtual machine with Ubuntu's vmbuilder is quite simple, but here are a few thing to consider:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          If you plan on shipping a virtual appliance, do not assume that the end-user will know how to extend disk size to fit their need,
+          so either plan for a large virtual disk to allow for your appliance to grow, or explain fairly well in your documentation how
+          to allocate more space. It might actually be a good idea to store data on some separate external storage.
+	  </para>
+	</listitem>
+        <listitem>
+          <para>
+          Given that RAM is much easier to allocate in a VM, RAM size should be set to whatever you think is a safe minimum for your appliance.
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+      The <application>vmbuilder</application> command has 2 main parameters: the <emphasis>virtualization technology (hypervisor)</emphasis>
+      and the targeted <emphasis>distribution</emphasis>. Optional parameters are quite numerous and can be found using the following command:
+      </para>
+
+<screen>
+<command>vmbuilder --help</command>
+</screen>
+
+    <sect2 id="vm-base-parameters" status="review">
+      <title>Base Parameters</title>
+
+      <para>
+      As this example is based on <application>KVM</application> and Ubuntu &distro-rev; (&distro-version;), and we are likely to rebuild 
+      the same virtual machine multiple time, we'll invoke vmbuilder with the following first parameters: 
+      </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386  -o --libvirt qemu:///system</command>
+</screen>
+
+      <para>
+      The <emphasis>--suite</emphasis> defines the Ubuntu release, the <emphasis>--flavour</emphasis> specifies that we want to use 
+      the virtual kernel (that's the one used to build a JeOS image), the <emphasis>--arch</emphasis> tells that we want to use a 
+      32 bit machine, the <emphasis>-o</emphasis> tells vmbuilder to overwrite the previous version of the VM and the 
+      <emphasis>--libvirt</emphasis> tells to inform the local virtualization environment to add the resulting VM to the list of available
+      machines. 
+      </para>
+
+      <para>
+      Notes:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          Because of the nature of operations performed by vmbuilder, it needs to have root priviledge, hence the use of sudo.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          If your virtual machine needs to use more than 3Gb of ram, you should build a 64 bit machine (--arch amd64).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Until Ubuntu 8.10, the virtual kernel was only built for 32 bit architecture, so if you want to define an amd64 machine 
+          on Hardy, you should use <emphasis>--flavour</emphasis> server instead. 
+          </para>
+        </listitem> 
+      </itemizedlist>
+    </sect2>
+    <sect2 id="jeos-installation-parameters" status="review">
+      <title>JeOS Installation Parameters</title>
+
+      <sect3 id="jeos-networking" status="review">
+        <title>JeOS Networking</title>
+
+      <sect4 id="jeos-fixed-ip" status="review">
+        <title>Assigning a fixed IP address</title>
+
+        <para>
+        As a virtual appliance that may be deployed on various very different networks, it is very difficult to know what 
+        the actual network will look like. In order to simplify configuration, it is a good idea to take an approach similar 
+        to what network hardware vendors usually do, namely assigning an initial fixed IP address to the appliance in a 
+        private class network that you will provide in your documentation. An address in the range 192.168.0.0/255 is usually a good choice.
+        </para>
+        
+        <para>
+        To do this we'll use the following parameters:
+        </para>
+	
+        <itemizedlist>
+          <listitem>
+            <para>
+            <emphasis>--ip ADDRESS</emphasis>: IP address in dotted form (defaults to dhcp if not specified)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--mask VALUE</emphasis>: IP mask in dotted form (default: 255.255.255.0)
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--net VALUE</emphasis>: IP net address (default: X.X.X.0)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--bcast VALUE</emphasis>: IP broadcast (default: X.X.X.255)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--gw ADDRESS</emphasis>: Gateway address (default: X.X.X.1)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--dns ADDRESS</emphasis>: Name server address (default: X.X.X.1)
+            </para>
+	  </listitem>
+        </itemizedlist>
+
+        <para>
+        We assume for now that default values are good enough, so the resulting invocation becomes: 
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386 -o --libvirt qemu:///system --ip 192.168.0.100</command>
+</screen>
+
+        </sect4>
+        <sect4 id="jeos-bridging" status="review">
+          <title>Modifying the libvirt Template to use Bridging</title>
+
+          <para>
+          Because our appliance will be likely to need to be accessed by remote hosts, we need to configure libvirt so that the appliance uses bridge
+          networking. To do this we use vmbuilder template mechanism to modify the default one. 
+          </para>
+
+          <para>
+          In our working directory we create the template hierarchy and copy the default template: 
+          </para>
+
+<screen>
+<command>mkdir -p VMBuilder/plugins/libvirt/templates</command>
+<command>cp /etc/vmbuilder/libvirt/* VMBuilder/plugins/libvirt/templates/</command>
+</screen>
+
+          <para>
+          We can then edit <filename>VMBuilder/plugins/libvirt/templates/libvirtxml.tmpl</filename> to change:
+          </para>
+
+<programlisting>
+          &lt;interface type='network'&gt;
+            &lt;source network='default'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+          <para>
+          To:
+          </para>
+
+<programlisting>
+          &lt;interface type='bridge'&gt;
+            &lt;source network='br0'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+
+        </sect4>
+      </sect3>
+      <sect3 id="jeos-partitioning" status="review">
+        <title>Partitioning</title>
+          
+        <para>
+        Partitioning of the virtual appliance will have to take into consideration what you are planning to do with is. Because 
+        most appliances want to have a separate storage for data, having a separate <filename>/var</filename> would make sense.
+        </para>
+           
+        <para>
+        In order to do this vmbuilder provides us with <emphasis>--part</emphasis>: 
+        </para>
+
+<programlisting>
+--part PATH
+  Allows to specify a partition table in partfile each  line  of  partfile  should  specify
+  (root first):
+      mountpoint size
+  where  size  is  in megabytes. You can have up to 4 virtual disks, a new disk starts on a
+  line with ’---’.  ie :
+      root 1000
+      /opt 1000
+      swap 256
+      ---
+      /var 2000
+      /log 1500
+</programlisting>
+
+        <para>
+        In our case we will define a text file name <filename>vmbuilder.partition</filename> which will contain the following: 
+        </para>
+
+<programlisting>
+root 8000
+swap 4000
+---
+/var 20000
+</programlisting>
+
+        <note>
+          <para>
+          Note that as we are using virtual disk images, the actual sizes that we put here are maximum sizes for these volumes. 
+          </para>
+        </note>
+
+        <para>
+        Our command line now looks like: 
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386 \ 
+         -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition</command>
+</screen>
+
+        <note>
+          <para>
+          Using a "\" in a command will allow long command strings to wrap to the next line.
+          </para>
+        </note>
+
+      </sect3>
+      <sect3 id="jeos-user-password" status="review">
+        <title>User and Password</title>
+
+        <para>
+        Again setting up a virtual appliance, you will need to provide a default user and password that is generic so 
+        that you can include it in your documentation. We will see later on in this tutorial how we will provide some 
+        security by defining a script that will be run the first time a user actually logs in the appliance, that will, 
+        among other things, ask him to change his password. In this example I will use <emphasis>'user'</emphasis> as my 
+        user name, and <emphasis>'default'</emphasis> as the password.
+        </para>
+
+        <para>
+        To do this we use the following optional parameters: 
+        </para>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+            <emphasis>--user USERNAME:</emphasis> Sets the name of the user to be added. Default: ubuntu.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--name FULLNAME:</emphasis> Sets the full name of the user to be added. Default: Ubuntu.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--pass PASSWORD:</emphasis>   Sets the password for the user. Default: ubuntu.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+        <para>
+        Our resulting command line becomes:
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 \
+         -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition \ 
+         --user user --name user --pass default</command>
+</screen>
+
+      </sect3>
+    </sect2>
+    <sect2 id="jeos-required-packages" status="review">
+      <title>Installing Required Packages</title>
+
+      <para>
+      In this example we will be installing a package <application>(Limesurvey)</application> that accesses a 
+      <application>MySQL</application> database and has a web interface. We will therefore require our OS to 
+      provide us with:
+      </para>
+
+      <itemizedlist>
+        <listitem><para>Apache</para></listitem>
+        <listitem><para>PHP</para></listitem>
+        <listitem><para>MySQL</para></listitem>
+        <listitem><para>OpenSSH Server</para></listitem>
+        <listitem><para>Limesurvey (as an example application that we have packaged)</para></listitem>
+      </itemizedlist>
+
+      <para>
+      This is done using vmbuilder by specifying the --addpkg command multiple times:
+      </para>
+
+<programlisting>
+--addpkg PKG
+  Install PKG into the guest (can be specfied multiple times)
+</programlisting>
+
+      <para>
+      However, due to the way vmbuilder operates, packages that have to ask questions to the user during the post install phase are not supported and
+      should instead be installed while interactivity can occur. This is the case of Limesurvey, which we will have to install later, once the user logs
+      in.
+      </para>
+
+      <para>
+      Other packages that ask simple debconf question, such as <application>mysql-server</application> asking to set a password, the package can be
+      installed immediately, but we will have to reconfigure it the first time the user logs in.
+      </para>
+
+
+     <para>
+     If some packages that we need to install are not in main, we need to enable the additional repositories using --comp and --ppa: 
+     </para>
+
+<programlisting>
+--components COMP1,COMP2,...,COMPN
+           A comma separated list of distro components to include (e.g. main,universe). This defaults
+           to "main"
+--ppa=PPA  Add ppa belonging to PPA to the vm's sources.list.
+</programlisting>
+
+      <para>
+      Limesurvey not being part of the archive at the moment, we'll specify it's PPA (personal package archive) address so that it is added to the VM 
+      <filename>/etc/apt/source.list</filename>, so we add the following options to the command line:
+      </para>
+
+<screen>
+<command>--addpkg apache2 --addpkg apache2-mpm-prefork --addpkg apache2-utils --addpkg apache2.2-common \
+         --addpkg dbconfig-common --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \
+         --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \
+         --addpkg mysql-server --ppa nijaba</command>
+</screen>
+
+        <sect3 id="jeos-openssh" status="review">
+          <title>OpenSSH</title>
+
+          <para>
+          Another convenient tool that we want to have on our appliance is OpenSSH, as it will provide our admins to access 
+          to access the appliance remotely. However, pushing in the wild an appliance with a pre-installed OpenSSH server 
+          is a big security risk as all these server will share the same secret key, making it very easy for hackers to target 
+          our appliance with all the tools they need to crack it open in a breeze. As for the user password, we will instead 
+          rely on a script that will install OpenSSH the first time a user logs in so that the key generated will be different 
+          for each appliance. For this we'll use a <emphasis>--firstboot</emphasis> script, as it does not need any user interaction. 
+          </para>
+
+        </sect3>
+      </sect2>
+      <sect2 id="jeos-speed-consideration" status="review">
+        <title>Speed Considerations</title>
+        
+        <sect3 id="jeos-package-caching" status="review">
+          <title>Package Caching</title>
+
+          <para>       
+          When vmbuilder creates builds your system, it has to go fetch each one of the packages that composes it over the network 
+          to one of the official repositories, which, depending on your internet connection speed and the load of the mirror, can 
+          have a big impact on the actual build time. In order to reduce this, it is recommended to either have a local repository 
+          (which can be created using <application>apt-mirror</application>) or using a caching proxy such as 
+          <application>apt-cache</application>. The later option being much simpler to implement and requiring less disk space, it
+          is the one we will pick in this tutorial. To install it, simply type:
+          </para>
+
+<screen>
+<command>sudo apt-get install apt-proxy</command>
+</screen>
+
+          <para>
+          Once this is complete, your (empty) proxy is ready for use on http://mirroraddress:9999 and will find ubuntu repository 
+          under /ubuntu. For vmbuilder to use it, we'll have to use the <emphasis>--mirror</emphasis> option:
+          </para>
+
+<programlisting>
+--mirror=URL  Use Ubuntu mirror at URL instead of the default, which
+              is http://archive.ubuntu.com/ubuntu for official
+              arches and http://ports.ubuntu.com/ubuntu-ports
+              otherwise
+</programlisting>
+
+          <para>
+          So we add to the command line: 
+          </para>
+
+<screen>
+<command>--mirror http://mirroraddress:9999/ubuntu</command>
+</screen>
+
+          <note>
+            <para>
+            The mirror address specified here will also be used in the <filename>/etc/apt/source.list</filename> of the newly created 
+            guest, so it is usefull to specify here an address that can be resolved by the guest or to plan on reseting this address 
+            later on, such as in a <emphasis>--firstboot</emphasis> script.
+            </para>
+          </note>
+
+          </sect3>
+          <sect3 id="jeos-local-mirror" status="review">
+            <title>Install a Local Mirror</title>
+
+            <para>
+            If we are in a larger environment, it may make sense to setup a local mirror of the Ubuntu repositories. 
+            The package apt-mirror provides you with a script that will handle the mirroring for you. You should 
+            plan on having about 20 gigabyte of free space per supported release and architecture.
+            </para>
+
+            <para>
+            By default, <application>apt-mirror</application> uses the configuration file in <filename>/etc/apt/mirror.list</filename>. 
+            As it is set up, it will replicate only the architecture of the local machine. If you would like to support other 
+            architectures on your mirror, simply duplicate the lines starting with “deb”, replacing the deb keyword by /deb-{arch}
+            where arch can be i386, amd64, etc... For example, on an amd64 machine, to have the i386 archives as well, you will have:
+            </para>
+
+<programlisting>
+deb  http://archive.ubuntu.com/ubuntu &distro-short-codename; main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename; main restricted universe multiverse
+
+deb  http://archive.ubuntu.com/ubuntu &distro-short-codename;-updates main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename;-updates main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu/ &distro-short-codename;-backports main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename;-backports main restricted universe multiverse 
+
+deb http://security.ubuntu.com/ubuntu &distro-short-codename;-security main restricted universe multiverse 
+/deb-i386  http://security.ubuntu.com/ubuntu &distro-short-codename;-security main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu &distro-short-codename; main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+/deb-i386 http://archive.ubuntu.com/ubuntu &distro-short-codename; main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+</programlisting>
+
+            <para>
+            Notice that the source packages are not mirrored as they are seldom used compared to the binaries and they do take
+            a lot more space, but they can be easily added to the list.
+            </para>
+
+            <para>
+            Once the mirror has finished replicating (and this can be quite long), you need to configure Apache so that your
+            mirror files (in <filename>/var/spool/apt-mirror</filename> if you did not change the default), are published by 
+            your Apache server. For more information on Apache see <xref linkend="httpd"/>.
+            </para>
+
+          </sect3>
+        </sect2>
+        <sect2 id="jeos-ramdisk" status="review">
+          <title>Installing in a RAM Disk</title>
+        
+          <para>
+          As you can easily imagine, writing to RAM is a <emphasis>LOT</emphasis> faster than writing to disk. If you have some 
+          free memory, letting vmbuilder perform its operation in a RAMdisk will help a lot and the option <emphasis>--tmpfs</emphasis>
+          will help you do just that: 
+          </para>
+
+<programlisting>
+--tmpfs OPTS  Use a tmpfs as the working directory, specifying its
+              size or "-" to use tmpfs default (suid,dev,size=1G).
+</programlisting>
+
+          <para>
+          So adding <command>--tmpfs -</command> sounds like a very good idea if you have 1G of free ram. 
+          </para>
+
+        </sect2>
+      </sect1>
+      <sect1 id="jeos-package-application" status="review">
+        <title>Package the Application</title>
+
+        <para>
+        Two option are available to us:
+        </para>
+
+        <itemizedlist>
+          <listitem>
+	    <para>
+            The recommended method to do so is to make a <emphasis>Debian</emphasis> package. Since this is outside of the
+            scope of this tutorial, we will not perform this here and invite the reader to read the documentation on how to do 
+            this in the <ulink url="https://wiki.ubuntu.com/PackagingGuide">Ubuntu Packaging Guide</ulink>. In this case it is 
+            also a good idea to setup a repository for your package so that updates can be conveniently pulled from it. See the
+            <ulink url="http://www.debian-administration.org/articles/286">Debian Administration</ulink> article for a tutorial on this.
+            </para> 
+          </listitem>
+          <listitem>
+	    <para>
+            Manually install the application under <filename>/opt</filename> as recommended by the 
+            <ulink url="http://www.pathname.com/fhs/">FHS guidelines</ulink>. 
+            </para> 
+          </listitem>
+        </itemizedlist>
+
+        <para>
+        In our case we'll use <application>Limesurvey</application> as example web application for which we wish to provide 
+        a virtual appliance. As noted before, we've made a version of the package available in a PPA (Personal Package Archive).
+        </para>
+
+      </sect1>
+      <sect1 id="jeos-finish-install" status="review">
+        <title>Finishing Install</title>
+  
+        <sect2 id="jeos-first-boot" status="review">
+          <title>First Boot</title>
+
+          <para>
+          As we mentioned earlier, the first time the machine boots we'll need to install <application>openssh-server</application>
+          so that the key generated for it is unique for each machine. To do this, we'll write a script called <filename>boot.sh</filename>
+          as follows: 
+          </para>
+
+<programlisting>
+# This script will run the first time the virtual machine boots
+# It is ran as root.
+
+apt-get update
+apt-get install -qqy --force-yes openssh-server
+</programlisting>
+
+          <para>
+          And we add the <command>--firstboot boot.sh</command> option to our command line.
+          </para>
+
+        </sect2>
+        <sect2 id="jeos-first-login" status="review">
+          <title>First Login</title>
+
+          <para>
+          Mysql and Limesurvey needing some user interaction during their setup, we'll set them up the first time a user 
+          logs in using a script named login.sh. We'll also use this script to let the user specify: 
+          </para>
+
+          <itemizedlist>
+            <listitem><para>His own password</para></listitem>
+            <listitem><para>Define the keyboard and other locale info he wants to use</para></listitem>
+          </itemizedlist>
+
+          <para>
+          So we'll define <filename>login.sh</filename> as follows: 
+          </para>
+
+<programlisting>
+# This script is ran the first time a user logs in
+
+echo "Your appliance is about to be finished to be set up."
+echo "In order to do it, we'll need to ask you a few questions,"
+echo "starting by changing your user password."
+
+passwd
+
+#give the opportunity to change the keyboard
+sudo dpkg-reconfigure console-setup
+
+#configure the mysql server root password
+sudo dpkg-reconfigure mysql-server-5.0
+
+#install limesurvey
+sudo apt-get install -qqy --force-yes limesurvey
+
+echo "Your appliance is now configured.  To use it point your"
+echo "browser to http://serverip/limesurvey/admin"
+</programlisting>
+
+          <para>
+          And we add the <command>--firstlogin login.sh</command> option to our command line.
+          </para>
+
+        </sect2>
+      </sect1>
+      <sect1 id="jeos-additions" status="review">
+        <title>Useful Additions</title>
+
+      <sect2 id="jeos-automatic-updates" status="review">
+        <title>Configuring Automatic Updates</title>
+        
+        <para>
+        To have your system be configured to update itself on a regular basis, we will just install 
+        <application>unattended-upgrades</application>, so we add the following option to our command line:
+        </para>
+
+<screen>
+<command>--addpkg unattended-upgrades</command>
+</screen>
+
+      <para>
+      As we have put our application package in a PPA, the process will update not only the system, but also 
+      the application each time we update the version in the PPA.
+      </para>
+ 
+      </sect2>
+      <sect2 id="jeos-acpi" status="review">
+        <title>ACPI Event Handling</title>
+
+        <para>
+        For your virtual machine to be able to handle restart and shutdown events it is being sent, it is a good idea to install the acpid package as
+        well. To do this we just add the following option: 
+        </para>
+
+<screen>
+<command>--addpkg acpid</command>
+</screen>
+
+      </sect2>
+    </sect1>
+    <sect1 id="jeos-final-command">
+      <title>Final Command</title>
+
+      <para>
+      Here is what the command with all the options discussed above:      
+      </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 -o \ 
+         --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition --user user \
+         --name user --pass default --addpkg apache2 --addpkg apache2-mpm-prefork \ 
+         --addpkg apache2-utils --addpkg apache2.2-common --addpkg dbconfig-common \ 
+         --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \ 
+         --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \
+         --addpkg mysql-server --addpkg unattended-upgrades --addpkg acpid --ppa nijaba \ 
+         --mirror http://mirroraddress:9999/ubuntu --tmpfs - --firstboot boot.sh \
+         --firstlogin login.sh es
+         </command>
+</screen>
+
+    </sect1>
+    <sect1 id="jeos-resources" status="review">
+      <title>Resources</title>
+      <para>
+      If you are interested in learning more, have questions or suggestions, please contact the Ubuntu Server Team at:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          IRC: #ubuntu-server on freenode
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Mailing list: <ulink url="https://lists.ubuntu.com/mailman/listinfo/ubuntu-server">ubuntu-server at lists.ubuntu.com</ulink>
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect1>
+</chapter>

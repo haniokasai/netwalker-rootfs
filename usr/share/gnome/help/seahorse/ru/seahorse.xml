@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Passwords and Encryption Keys">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="ru">
+	<articleinfo>
+		<title>Руководство по паролям и ключам шифрования</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins и Adam Schreiber</holder>
+		</copyright><copyright><year>2008</year><holder>Василий Фаронов (qvvx@yandex.ru)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Проект Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Разрешается копировать, распространять и/или изменять этот документ на условиях лицензии GNU Free Documentation License (GFDL), версии 1.1 или любой более поздней версии, опубликованной Фондом свободного программного обеспечения (Free Software Foundation), без неизменяемых частей и без текстов на обложках. Вы можете найти копию лицензии GFDL по  <ulink type="help" url="ghelp:fdl">этой ссылке</ulink> или в файле COPYING-DOCS, распространяемом с этим документом.</para>
+         <para>Это руководство — часть документации GNOME, которая распространяется на условиях лицензии GFDL. Если вы хотите распространять это руководство отдельно от остальной документации, вам следует приложить к руководству копию лицензии, как описано в разделе 6 лицензии.</para>
+
+	<para>Некоторые имена и марки используются компаниями для обозначения их продуктов и услуг и являются торговыми марками. Там, где эти имена присутствуют в документации и где участники проекта документирования GNOME знают об этом, имена выделяются заглавными буквами или начальной заглавной буквой.</para>
+
+	<para>ДОКУМЕНТ И ИЗМЕНЁННЫЕ ВЕРСИИ ДОКУМЕНТА ПРЕДОСТАВЛЯЮТСЯ ПОЛЬЗОВАТЕЛЮ НА УСЛОВИЯХ ЛИЦЕНЗИИ GNU FREE DOCUMENTATION LICENSE С УВЕДОМЛЕНИЕМ О ТОМ, ЧТО: <orderedlist>
+		<listitem>
+		  <para>ДОКУМЕНТ РАСПРОСТРАНЯЕТСЯ «КАК ЕСТЬ», БЕЗ ВСЯКИХ ГАРАНТИЙ, ЯВНЫХ ИЛИ НЕЯВНЫХ, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЙ, ГАРАНТИИ ТОГО, ЧТО ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА СВОБОДНА ОТ ДЕФЕКТОВ, ПРИГОДНА К ПРОДАЖЕ, ПРИГОДНА К ИСПОЛЬЗОВАНИЮ В ОПРЕДЕЛЁННЫХ ЦЕЛЯХ ИЛИ НЕ НАРУШАЕТ ЗАКОНЫ. ВЕСЬ РИСК, КАСАЮЩИЙСЯ КАЧЕСТВА, ТОЧНОСТИ ИЛИ ПРАВИЛЬНОСТИ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ЛЕЖИТ НА ВАС. ЕСЛИ ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА ИМЕЕТ НЕДОСТАТКИ, ВЫ (А НЕ АВТОР ДОКУМЕНТА ИЛИ ЕГО ПОМОЩНИК) БЕРЁТЕ НА СЕБЯ СТОИМОСТЬ ЛЮБОЙ НЕОБХОДИМОЙ ДОРАБОТКИ, КОРРЕКЦИИ ИЛИ ВОССТАНОВЛЕНИЯ. ЭТОТ ОТКАЗ ОТ ГАРАНТИЙ СОСТАВЛЯЕТ ВАЖНУЮ ЧАСТЬ ЛИЦЕНЗИИ. НИКАКОЕ ИСПОЛЬЗОВАНИЕ ДОКУМЕНТА ИЛИ ИЗМЕНЁННОЙ ВЕРСИИ ДОКУМЕНТА НЕ ДОПУСКАЕТСЯ БЕЗ ДАННОГО ПРЕДУПРЕЖДЕНИЯ И</para>
+		</listitem>
+		<listitem>
+		  <para>НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ И НИ ПРИ КАКОМ ЗАКОННОМ СПОСОБЕ, НИ ПО КАКОМУ СОГЛАШЕНИЮ ИЛИ ДРУГОЙ ПРИЧИНЕ, АВТОР, СОЗДАТЕЛЬ, ПОМОЩНИКИ ИЛИ РАСПРОСТРАНИТЕЛИ ДОКУМЕНТА НЕ НЕСУТ ОТВЕТСТВЕННОСТЬ ЗА ПРЯМОЙ, КОСВЕННЫЙ, СПЕЦИАЛЬНЫЙ, СЛУЧАЙНЫЙ ИЛИ ПРЕДНАМЕРЕННЫЙ УЩЕРБ ЛЮБОГО СВОЙСТВА, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЯ, ПОТЕРЮ ЖЕЛАНИЯ, РАБОТОСПОСОБНОСТИ, КОМПЬЮТЕРНЫЕ СБОИ ИЛИ ПОЛОМКИ, ИЛИ ЛЮБОЙ ДРУГОЙ УЩЕРБ ИЛИ ПОТЕРИ, ВОЗНИКАЮЩИЕ ВСЛЕДСТВИЕ ИЛИ СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ДАЖЕ ЕСЛИ СТОРОНА БЫЛА УВЕДОМЛЕНА О ВОЗМОЖНОСТИ ТАКОГО УЩЕРБА.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Проект Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Проект Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Проект Seahorse</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Passwords and Encryption Keys Manual V0.10.1</revnumber>
+				<date>August 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Руководство по паролям и ключам шифрования V0.9.1</revnumber>
+				<date>ноябрь 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Руководство по паролям и ключам шифрования V0.9.0</revnumber>
+				<date>июль 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Проект Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Руководство по паролям и ключам шифрования V0.7.0</revnumber>
+				<date>февраль 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Проект Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>This manual describes version 2.24.x of Passwords and Encryption Keys</releaseinfo>
+		<legalnotice>
+			<title>Обратная связь</title>
+			<para>Чтобы сообщить об ошибке или сделать предложение по программе <application>Пароли и ключи шифрования</application> или по этому руководству, следуйте указаниям в документе <ulink url="ghelp:gnome-feedback" type="help">Обратная связь с GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Пароли и ключи шифрования</application> — это программа для управления ключами шифрования в среде GNOME.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Ключи шифрования</primary>
+	</indexterm>
+
+  <sect1 id="introduction">
+    <title>Введение</title>
+    <para>С помощью <application>Паролей и ключей шифрования</application> вы можете создавать и управлять ключами <acronym>PGP</acronym> и <acronym>SSH</acronym>.</para>
+    <para><application>Пароли и ключи шифрования</application> — это оболочка для многих возможностей <ulink url="http://www.gnupg.org" type="http">GNU Privacy Guard (GPG)</ulink>. Она тесно встраивается в рабочую среду <ulink url="http://www.gnome.org">GNOME</ulink>.</para>
+			<para>С помощью <application>Паролей и ключей шифрования</application> вы можете: <itemizedlist>
+				
+				<listitem>
+					<para>создавать и управлять ключами PGP и SSH;</para>
+				</listitem>
+				<listitem>
+					<para>экспортировать и импортировать ключи PGP и SSH;</para>
+				</listitem>
+				<listitem>
+					<para>обмениваться ключами с другими;</para>
+				</listitem>
+				<listitem>
+					<para>делать резервные копии ключей и брелока;</para>
+				</listitem>
+				</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="seahorse-getting-started">
+		<title>Начало работы</title>
+		<sect2 id="seahorse-start">
+			<title>Запуск <application>Паролей и ключей шифрования</application></title>
+			<para>Запустить <application>Пароли и ключи шифрования</application> можно следующими способами:</para>
+			<variablelist>
+				<varlistentry>
+					<term>Меню <guimenu>Приложения</guimenu></term>
+					<listitem>
+						<para>Выберите <menuchoice><guimenu>Прочие</guimenu><guimenuitem>Пароли и ключи шифрования</guimenuitem></menuchoice>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Командная строка</term>
+					<listitem>
+						<para>Введите <command>seahorse</command> и нажмите <keycap>Enter</keycap>.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="seahorse-when-start">
+			<title>При запуске <application>Паролей и ключей шифрования</application></title>
+			<para>При запуске <application>Паролей и ключей шифрования</application> появляется главное окно.</para>
+			
+			<figure id="seahorse-window">
+			<title>Окно <application>Пароли и ключи шифрования</application></title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+					<imagedata fileref="figures/seahorse-window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Показывает окно <application>Пароли и ключи шифрования</application>.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+			</figure>
+			
+			<para>Окно <application>Пароли и ключи шифрования</application> состоит из следующих частей:</para>
+			
+	    <variablelist>
+		<varlistentry><term>Строка меню</term>
+		    <listitem>
+			<para>Меню содержат все команды, которые нужны для работы с <application>Паролями и ключами шифрования</application>.</para>
+		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Панель инструментов</term>
+		    <listitem>
+			<para>С помощью панели инструментов вы можете быстро обратиться к часто используемым командам.</para>
+		    </listitem>	
+		</varlistentry> 		
+		<varlistentry><term>Вкладки ключей и паролей</term>
+  		    <listitem>
+			<para>Обеспечивают доступ к ключам и паролям в брелоке.</para>
+  		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Первые шаги</term>
+  		    <listitem>
+			<para>Позволяют быстро выполнить действия, полезные для начинающих пользователей. Отсюда вы можете:</para>
+			<itemizedlist>
+			    <listitem>
+				<para>просмотреть справку;</para>
+			    </listitem>
+			    <listitem>
+				<para>импортировать ключи в брелок;</para>
+			    </listitem>
+			    <listitem>
+				<para>создать новые ключи.</para>
+			    </listitem>
+			</itemizedlist>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
+	</sect2>
+    </sect1>
+
+  <sect1 id="pgp-generate">
+    <title>Создание ключей OpenPGP</title>
+    <para>OpenPGP — это свободный протокол для шифрования электронной почты с помощью открытых ключей. Он основан на <acronym>PGP</acronym>. OpenPGP определяет стандартные виды зашифрованных сообщений, подписей, закрытых ключей, а также сертификатов для обмена открытыми ключами.</para>
+    <para>Криптография с открытым ключом — это система, в которой используется два ключа: <emphasis>открытый ключ</emphasis>, который вы можете отдавать всем, с кем хотите обмениваться информацией; и <emphasis>закрытый ключ</emphasis>, который должен храниться в тайне.</para>
+    <para>Чтобы создать ключ OpenPGP: <orderedlist>
+	<listitem>
+	  <para>Выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Создать новый ключ</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Выберите <guilabel>Ключ PGP</guilabel> и нажмите <guibutton>Продолжить</guibutton></para>
+	</listitem>
+	<listitem>
+	  <para>Введите своё полное имя (имя и фамилию), адрес электронной почты и любые дополнительные сведения. Также вы можете указать дополнительные параметры: смотрите ниже.</para>
+	</listitem>
+	<listitem>
+	  <para>Нажмите <guibutton>Создать</guibutton>, чтобы создать новую пару ключей.</para>
+	</listitem>
+	<listitem>
+	  <para>Появится диалог <guilabel>Пароль для нового ключа PGP</guilabel>. Введите в нём дважды пароль для вашего нового ключа.</para>
+	</listitem>
+      </orderedlist></para>
+    <tip>
+      <para>Постарайтесь придумать надёжный пароль. Обратите внимание, что в этом пароле вы можете использовать пробелы.</para>				
+    </tip>
+    
+    <sect2 id="seahorse-pgp-advanced-mode">
+      <title>Дополнительные параметры</title>
+      <para>Разверните раздел <guibutton>Дополнительные параметры ключа</guibutton>, чтобы указать следующие параметры ключа:</para>
+      <variablelist>
+	<varlistentry>
+	  <term><guilabel>Тип шифрования</guilabel></term>
+	  <listitem>
+	    <para>В этом поле указываются алгоритмы шифрования, с помощью которых создаются ключи.</para>
+	    <variablelist>
+	      <varlistentry>
+		<term><acronym>DSA</acronym> ElGamal</term>
+		<listitem>
+		  <para>Это рекомендуемый вариант. Он позволит вам зашифровывать, расшифровывать, подписывать и проверять.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>DSA</acronym></term>
+		<listitem>
+		  <para>Позволит вам только подписывать.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>RSA</acronym></term>
+		<listitem>
+		  <para>Позволит вам только подписывать.</para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Прочность ключа (биты)</guilabel></term>
+	  <listitem>
+	    <para>Это длина ключа в битах. Чем длиннее ключ, тем он будет надёжнее — при условии, что выбран хороший пароль. С другой стороны, чем длиннее ключ, тем больше времени уйдёт на выполнение всевозможных действий с его помощью. Допустимые значения — от 1024 до 4096 бит. Рекомендуется использовать не меньше 2048 бит.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Срок истечения</guilabel></term>
+	  <listitem>
+	    <para>Это дата, начиная с которой ключ больше нельзя будет использовать для шифрования и подписывания. Разумный срок — 6 месяцев. После того, как истечёт этот срок, вам нужно будет либо изменить дату, либо создать новый ключ (или подключ).</para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+	
+	
+	<sect1 id="ssh-generate">
+	<title>Создание ключей SSH</title>
+	<para><acronym>SSH</acronym> — это способ войти в удалённую компьютерную систему и выполнять на ней команды. В SSH есть система идентификации на основе ключей — это альтернатива обычной системе, основанной на паролях. При идентификации с помощью ключа нет нужды вручную вводить пароль.</para>
+	<para>Ключи SSH состоят из двух частей: <emphasis>закрытого ключа</emphasis>, который должен храниться в тайне, и <emphasis>открытого ключа</emphasis>, который можно загружать на любой компьютер, к которому вы желаете иметь доступ по SSH.</para>
+    <para>Чтобы создать ключ SSH:</para>
+    <orderedlist>
+      <listitem>
+        <para>Выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Создать новый ключ</guimenuitem></menuchoice>.</para>
+      </listitem>
+      <listitem>
+        <para>Выберите <guilabel>Ключ SSH</guilabel> и нажмите <guibutton>Продолжить</guibutton>.</para>
+      </listitem>
+      <listitem>
+        <para>Опишите цель, для которой будет использоваться ключ. Вы можете использовать свой электронный адрес или любые другие сведения, которые помогут вам вспомнить предназначение ключа. Также вы можете указать дополнительные параметры для ключа: смотрите ниже.</para>
+      </listitem>
+      <listitem>
+        <para>Нажмите <guibutton>Просто создать ключ</guibutton>, чтобы создать новый ключ; или  <guibutton>Создать и установить</guibutton>, чтобы создать новый ключ и установить его на другом компьютере для идентификации.</para>
+      </listitem>
+      <listitem>
+        <para>Появится диалог <guilabel>Пароль для нового ключа SSH</guilabel>. Введите в нём дважды пароль для вашего нового ключа.</para>
+			<tip>
+				<para>Постарайтесь придумать надёжный пароль. Обратите внимание, что в этом пароле вы можете использовать пробелы.</para>				
+			</tip>
+      </listitem>
+    </orderedlist>
+    
+
+		
+		<sect2 id="seahorse-ssh-advanced-options">
+		<title>Дополнительные параметры</title>
+			<para>Разверните раздел <guilabel>Дополнительные параметры ключа</guilabel>, чтобы указать следующие параметры для нового ключа:</para>
+		
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Тип шифрования</guilabel></term>
+				<listitem>
+				<para>В этом поле указываются алгоритмы шифрования, с помощью которых создаётся ключ.</para>
+				<variablelist>
+					<varlistentry>
+						<term><acronym>RSA</acronym></term>
+						<listitem>
+							<para>Использовать для создания ключа SSH алгоритм <emphasis>Rivest-ShamirAdleman</emphasis> (<acronym>RSA</acronym>). Это предпочтительный, наиболее надёжный вариант.</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><acronym>DSA</acronym></term>
+						<listitem>
+							<para>Использовать для создания ключа SSH алгоритм <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>).</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Прочность ключа (биты)</guilabel></term>
+				<listitem>
+				<para>Это длина ключа в битах. Чем длиннее ключ, тем он будет надёжнее — при условии, что выбран хороший пароль. С другой стороны, чем длиннее ключ, тем больше времени уйдёт на выполнение всевозможных действий с его помощью. Допустимые значения — от 1024 до 4096 бит. Рекомендуется использовать не меньше 2048 бит.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	
+	
+
+	<sect1 id="seahorse-key-properties">
+		<title>Свойства ключа OpenPGP</title>
+		<para>Изложенное в этом разделе касается всех ключей OpenPGP.</para>
+		
+		<para>Чтобы просмотреть свойства ключа <acronym>PGP</acronym>: <itemizedlist>
+			<listitem>
+				<para>выделите ключ <acronym>PGP</acronym> в главном окне;</para>
+			</listitem>
+			<listitem>
+				<para>дважды щёлкните на нём или нажмите <guilabel>Свойства</guilabel> на панели инструментов;</para> 
+			</listitem>
+			<listitem>
+				<para>выберите вкладку <guilabel>Подробности</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="pgp-public-key-properties">
+		<title id="pgp-private-key-properties">Свойства</title>
+		<para>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Отпечаток</guilabel></term>
+				<listitem>
+					<para>Отпечаток — это уникальная строка символов, которая точно обозначает ключ.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Идентификатор ключа</guilabel></term>
+				<listitem>
+					<para>Идентификатор ключа похож на его отпечаток. Однако идентификатор содержит только последние 8 символов отпечатка. Обычно можно обозначить ключ с помощью одного только идентификатора, но иногда у двух ключей бывает один и тот же идентификатор.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Тип</guilabel></term>
+				<listitem>
+					<para>Указывает алгоритм шифрования, с помощью которого был создан ключ. Ключи DSA позволяют только подписывать. Ключи ElGamal позволяют также и шифровать.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Создан</guilabel></term>
+				<listitem>
+					<para>Указывает дату создания ключа.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Истекает</guilabel></term>
+				<listitem>
+				<para>Указывает дату, начиная с которой ключ более нельзя будет использовать.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Прочность</guilabel></term>
+				<listitem>
+					<para>Указывает длину ключа в битах. Как правило, чем длиннее ключ, тем большую степень безопасности он обеспечивает. <note>
+							<para>Если ключ защищён плохим паролем, то он будет ненадёжен, сколь бы длинным он ни был.</para>
+						</note></para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="change-owner-trust">
+		<title>Доверие</title>
+		<para>Доверие — это показатель того, насколько вы уверены в способности человека правильно расширять сеть доверия. Когда встретится ключ, который вы не подписали, его достоверность будет определяться исходя из того, какие подписи собрал владелец этого ключа, и того, насколько вы доверяете авторам этих подписей. По умолчанию неизвестный ключ требует 3 подписи, которым вы слабо доверяете, или 1 подпись, который вы полностью доверяете.</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Неизвестно</guilabel>: Вы ничего не знаете о способности человека правильно подписывать ключи.</para></listitem>
+			<listitem><para><guilabel>Не доверяю</guilabel>: Этот человек не может правильно подписывать ключи.</para></listitem>
+			<listitem><para><guilabel>Слабо</guilabel>: Этот человек проверяет фотографию, прежде чем подписать ключ, но не всегда тщательно изучает документы.</para></listitem>
+			<listitem><para><guilabel>Полностью</guilabel>: Этот человек тщательно проверяет документы и фотографию, прежде чем подписывать ключ. Иными словами, он подписывает только те ключи, которые действительно принадлежат тому, кто просит их подписать.</para></listitem>
+			<listitem><para><guilabel>Безоговорочно</guilabel>: Этот уровень доверия следует назначать только вашим собственным ключам.</para></listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="disable-key">
+		<title>Включение и отключение ключей</title>
+		<para>Когда ключ включён, его можно использовать для шифрования. Когда ключ отключён, его нельзя использовать ни для шифрования, ни для проверки сделанных им подписей.</para>
+	</sect2>
+
+	<sect2 id="change-expires">
+		<title>Срок истечения</title>
+		<para>После того, как ключ истекает, его нельзя использовать для выполнения действий. Заново включить ключ можно, сменив его срок истечения на какую-нибудь дату в будущем. Хорошая практика — иметь один главный ключ, который никогда не истекает, и много подключей, которые истекают и подписаны главным ключом.</para>
+	</sect2>
+
+	<sect2 id="userid-properties">
+		<title>Идентификаторы пользователей</title>
+		<para>Идентификаторы пользователей дают возможность применять с одним ключом несколько имён и электронных адресов.</para>
+		<para>Обычно они имеют вид: <programlisting>Имя (комментарий) &lt;адрес электронной почты&gt;</programlisting></para>
+			
+		<sect3 id="add-uid">
+			<title>Добавление идентификатора пользователя</title>
+				<para>Полезно добавить идентификатор пользователя, если вы хотите по-разному представляться на работе и друзьям.</para>
+				<para>Чтобы добавить к ключу идентификатор пользователя: <itemizedlist>
+						<listitem>
+							<para>выделите ключ в главном окне;</para>
+						</listitem>
+						<listitem>
+							<para>дважды щёлкните на нём или нажмите <guibutton>Свойства</guibutton> на панели инструментов;</para>
+						</listitem>
+						<listitem>
+							<para>выберите вкладку <guilabel>Имена и подписи</guilabel>;</para>
+						</listitem>
+						<listitem>
+							<para>нажмите <guibutton>Добавить</guibutton>.</para>
+						</listitem>
+					</itemizedlist></para>
+				<para>После того, как вы это сделаете, появится диалог, который нужно заполнить. Поля этого диалога описаны ниже.</para>
+				<variablelist>
+					<varlistentry>
+						<term><guilabel>Полное имя</guilabel></term>
+						<listitem>
+							<para>Введите своё полное имя в виде <programlisting>&lt;имя&gt; &lt;фамилия&gt;</programlisting> При желании можно добавить отчество или инициал.</para>
+							<para>
+								<note>
+									<para>В этом поле надо ввести хотя бы 5 символов.</para>
+								</note> 
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Электронный адрес</guilabel></term>
+						<listitem>
+							<para>Большинство людей будут искать ваш ключ на сервере ключей по вашему электронному адресу. Убедитесь, что ввели его правильно, прежде чем продолжать.</para>
+							<para>
+								<note>
+									<para>Он должен иметь вид <programlisting><replaceable>&lt;пользователь&gt;</replaceable>@<replaceable>&lt;домен&gt;</replaceable></programlisting></para>
+								</note>
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Комментарий к ключу</guilabel></term>
+						<listitem>
+							<para>В поле комментария можно поместить любые дополнительные сведения. Они будут включены в отображаемое имя вашего нового идентификатора. Эти сведения можно искать на серверах ключей.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</sect3>
+		</sect2>
+
+    <sect2 id="photoid-properties">
+      <title>Фотографии</title>
+      <para>Владелец ключа может внедрить в него одну или несколько своих фотографий. Эти фотографии могут быть подписаны, как и обычные идентификаторы пользователя. Фотография должна быть в формате JPEG. Желательно делать её не крупнее 240×288 пикселов.</para>
+      <para>Если выбранное изображение имеет неправильный тип или размер, программа <application>Пароли и ключи шифрования</application> может «на лету» преобразовать и сжать его из любого формата, поддерживаемого библиотекой <acronym>GDK</acronym>.</para>
+    </sect2>
+		
+		<sect2 id="change-passphrase">
+			<title>Изменение пароля</title>
+			<para>Чтобы изменить пароль, назначенный ключу: <itemizedlist>
+					<listitem>
+						<para>выделите ключ в главном окне;</para>
+					</listitem>
+					<listitem>
+						<para>дважды щёлкните на нём или нажмите <guilabel>Свойства</guilabel> на панели инструментов;</para>
+					</listitem>
+					<listitem>
+						<para>Нажмите <guibutton>Изменить пароль</guibutton>.</para>
+					</listitem>
+				</itemizedlist></para>
+			<para>Введите новый пароль и нажмите <guibutton>OK</guibutton>.</para>
+		</sect2>
+
+		<sect2 id="delete">
+			<title>Удаление ключа</title>
+			<para>Чтобы удалить ключ из вашего брелока: <itemizedlist>
+				<listitem>
+					<para>выделите ключ в главном окне;</para>
+				</listitem>
+				<listitem>
+					<para>Щёлкните на нём правой кнопкой мыши и выберите <guilabel>Удалить ключ</guilabel>, или выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Удалить ключ</guimenuitem></menuchoice>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Вы можете удалять собственные ключи, доверяемые ключи и собранные ключи.</para>		
+			</note> 
+		</sect2>
+	</sect1>
+		
+	<sect1 id="subkey-properties">
+		<title>Свойства подключей OpenPGP</title>
+		<para>У каждого ключа OpenPGP есть один главный ключ, который используется только для подписывания. Подключи применяются для шифрования и также для подписывания. Таким образом, если ваш подключ будет скомпрометирован, вам не понадобится отзывать свой главный ключ.</para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Идентификатор</guilabel></term>
+			<listitem>
+				<para>Это идентификатор подключа.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Тип</guilabel></term>
+			<listitem>
+				<para>Указывает алгоритм шифрования, с помощью которого был создан подключ. Ключи <acronym>DSA</acronym> позволяют только подписывать, ключи ElGamal — только шифровать, а ключи <acronym>RSA</acronym> — и подписывать, и шифровать.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Создан</guilabel></term>
+			<listitem>
+				<para>Указывает дату создания ключа.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Истекает</guilabel></term>
+			<listitem>
+				<para>Указывает дату, начиная с которой ключ более нельзя будет использовать.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Состояние</guilabel></term>
+			<listitem>
+				<para>Указывает состояние ключа.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Прочность</guilabel></term>
+			<listitem>
+				<para>Указывает длину ключа в битах. Как правило, чем длиннее ключ, тем большую степень безопасности он обеспечивает. <note>
+						<para>Если ключ защищён плохим паролем, то он будет ненадёжен, сколь бы длинным он ни был.</para>
+					</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		
+		<sect2 id="add-subkey">
+			<title>Добавление подключа</title>
+			<para>Чтобы добавить к ключу подключ, в разделе <guilabel>Подключи</guilabel> нажмите кнопку <guibutton>Добавить</guibutton>.</para>
+			<para>После того, как вы это сделаете, появится диалог, который нужно заполнить. Поля этого диалога описаны ниже.</para>
+			<variablelist>
+			<varlistentry>
+				<term>Тип ключа</term>
+				<listitem>
+					<para>Указывает алгоритм шифрования, с помощью которого создаётся подключ.</para>
+				<variablelist>
+				<varlistentry>
+					<term><acronym>DSA</acronym></term>
+					<listitem>
+						<para>Использовать алгоритм <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>) для создания подключа. Такой подключ сможет только подписывать.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>ElGamal</term>
+					<listitem>
+						<para>Использовать алгоритм <emphasis>ElGamal</emphasis> для создания подключа. Такой подключ сможет только шифровать.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RSA</term>
+					<listitem>
+						<para>Использовать алгоритм <emphasis>Rivest-Shamir Adleman</emphasis> (<acronym>RSA</acronym>) для создания подключа. Такой подключ может как подписывать, так и шифровать, но вам придётся создать два разных подключа.</para>
+					</listitem>
+				</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Длина ключа</term>
+				<listitem>
+					<para>Указывает длину подключа в битах. Как правило, чем длиннее ключ, тем большую степень безопасности он обеспечивает.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Срок истечения</term>
+				<listitem>
+					<para>Указывает дату, начиная с которой ключ более нельзя будет использовать.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="change-subkey-expires">
+			<title>Смена срока истечения ключа</title>
+			<para>Чтобы изменить срок истечения подключа, выделите его в разделе <guilabel>Подключи</guilabel>, затем: <itemizedlist>
+				<listitem>
+					<para>нажмите кнопку <guibutton>Истекает</guibutton> слева;</para>
+				</listitem>
+				<listitem>
+					<para>в диалоге даты выберите новую дату истечения, или выберите <guilabel>Никогда не истекает</guilabel>.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+
+		<sect2 id="revoke-subkey">
+			<title>Отзыв подключа</title>
+			<para>Чтобы отозвать подключ, выделите его в разделе <guilabel>Подключи</guilabel>, затем: <itemizedlist>
+				<listitem>
+					<para>Нажмите кнопку <guibutton>Отозвать</guibutton> слева.</para>
+				</listitem>
+				<listitem>
+					<para>Выберите причину, по которой хотите отозвать ключ:</para>
+					<para>
+					<variablelist>
+						<varlistentry>
+							<term>Нет причины</term>
+							<listitem>
+								<para>Нет никакой определённой причины для отзыва ключа.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Скомпрометирован</term>
+							<listitem>
+								<para>Ключ скомпрометирован.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Заменён</term>
+							<listitem>
+								<para>Ключ заменён на другой.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Не используется</term>
+							<listitem>
+								<para>Ключ больше не используется.</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Введите описание того, почему вы отзываете ключ.</para>
+				</listitem>
+				<listitem>
+					<para>Нажмите <guibutton>Отозвать</guibutton>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Ключ отзывается немедленно.</para>
+			</note>
+		</sect2>
+
+		<sect2 id="delete-subkey">
+			<title>Удаление подключа</title>
+			<para>Чтобы удалить подключ, выделите его в разделе <guilabel>Подключи</guilabel>, затем: <itemizedlist>
+				<listitem>
+					<para>Нажмите кнопку <guibutton>Удалить</guibutton> слева.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="ssh-key-properties">
+	    <title>Свойства ключей SSH</title>
+	    <para>Изложенное в этом разделе касается всех ключей <acronym>SSH</acronym>.</para>
+	    <para>Чтобы просмотреть свойства ключа <acronym>SSH</acronym>: <itemizedlist>
+			<listitem>
+				<para>выделите ключ SSH в главном окне;</para>
+			</listitem>
+			<listitem>
+				<para>дважды щёлкните на нём или нажмите <guilabel>Свойства</guilabel> на панели инструментов;</para> 
+			</listitem>
+			<listitem>
+				<para>выберите вкладку <guilabel>Подробности</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="properties">
+		<title>Свойства</title>
+		<para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Отпечаток</guilabel></term>
+			<listitem>
+				<para>Отпечаток — это уникальная строка символов, которая точно обозначает ключ.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Алгоритм</guilabel></term>
+			<listitem>
+				<para>Указывает алгоритм шифрования, с помощью которого был создан ключ.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Местоположение</guilabel></term>
+			<listitem>
+				<para>Это местоположение, в котором хранится <emphasis>закрытый ключ</emphasis>.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Прочность</guilabel></term>
+			<listitem>
+				<para>Указывает длину ключа в битах. Как правило, чем длиннее ключ, тем большую степень безопасности он обеспечивает. <note>
+					<para>Если ключ защищён плохим паролем, то он будет ненадёжен, сколь бы длинным он ни был.</para>
+				</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="delete-ssh-key">
+		<title>Удаление ключа <acronym>SSH</acronym></title>
+		<para>Чтобы удалить ключ <acronym>SSH</acronym>: <itemizedlist>
+				<listitem>
+				<para>выделите ключ <acronym>SSH</acronym> в главном окне;</para>
+			</listitem>
+			<listitem>
+				<para>щёлкните на нём правой кнопкой мыши и выберите <guilabel>Удалить ключ</guilabel>, или выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Удалить ключ</guimenuitem></menuchoice>.</para>
+			</listitem>
+			</itemizedlist></para>
+	</sect2>
+	</sect1>
+
+        <sect1 id="import">
+		<title>Импорт ключей</title>
+		<para>Чтобы импортировать ключи, выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Импортировать</guimenuitem></menuchoice>, затем в диалоге выбора файла укажите файл, содержащий хотя бы один публичный ключ, обёрнутый в ASCII.</para>
+		<para>Также можно импортировать ключи, вставляя их в программе <application>Пароли и ключи шифрования</application>: <itemizedlist>
+		<listitem>
+			<para>выделите публичный блок текста, обёрнутый в ASCII;</para>
+		</listitem>
+		<listitem>
+			<para>скопируйте его в буфер обмена;</para>
+		</listitem>
+		<listitem>
+			<para>выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Вставить ключи</guimenuitem></menuchoice>.</para>
+		</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="export">
+		<title>Экспорт ключей</title>
+		<para>Чтобы экспортировать ключи, выделите их в главном окне и выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Экспортировать</guimenuitem></menuchoice>.</para>
+		<para>Также вы можете экспортировать ключи в буфер обмена в виде текстового блока, обёрнутого в ASCII: <itemizedlist>
+			<listitem>
+				<para>выделите ключи в главном окне;</para>
+			</listitem>
+			<listitem>
+				<para>выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Копировать ключи</guimenuitem></menuchoice>.</para>
+			</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="backup">
+		<title>Резервное копирование брелоков</title>
+		<para>Чтобы сделать архивный файл с резервной копей ваших открытых и закрытых брелоков: <itemizedlist>
+			<listitem>
+				<para>выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Сделать резервную копию брелоков</guimenuitem></menuchoice>;</para>
+			</listitem>
+			<listitem>
+				<para>введите имя файла, укажите расширение архива и выберите место, в котором нужно сохранить архив.</para>
+			</listitem>
+		</itemizedlist><note>
+				<para>Вы можете выбрать любой тип архивов, который поддерживает <application>file-roller</application>.</para>
+			</note></para>
+	</sect1>
+
+	<sect1 id="sign">
+		<title>Подписывание ключа</title>
+		<para>Если вы подписываете ключ другого человека, это значит, что вы доверяете этому человеку. Прежде, чем подписывать ключ, вы должны тщательно проверить его отпечаток, чтобы убедиться, что ключ действительно принадлежит этому человеку.</para>
+		<para>Чтобы подписать ключ из вашего брелока: <itemizedlist>
+				<listitem>
+				<para>выделите ключ, который хотите подписать, на вкладке <guilabel>Доверяемые ключи</guilabel> или <guilabel>Другие собранные ключи</guilabel>;</para>
+				</listitem>
+				<listitem>
+				<para>нажмите <guibutton>Подписать</guibutton> на панели инструментов, или выберите <menuchoice><guimenu>Ключ</guimenu><guimenuitem>Подписать</guimenuitem></menuchoice>;</para>
+				</listitem>
+				<listitem>
+				<para>укажите, насколько тщательно вы проверили ключ;</para>
+				</listitem>
+				<listitem>
+				<para>укажите, должна ли подпись быть замкнутой в вашем брелоке, и можете ли вы её отозвать впоследствии;</para>
+				</listitem>
+				<listitem>
+				<para>нажмите <guibutton>Подписать</guibutton>.</para>
+				</listitem>
+			</itemizedlist></para>
+	</sect1>
+  
+  <sect1 id="prefs">
+    <title>Параметры</title>
+    <para>
+      This section describes the preferences settable in <application>Passwords and Encryption Keys</application> by choosing 
+	<menuchoice>
+	  <guimenu>Edit</guimenu>
+	  <guimenuitem>Preferences</guimenuitem>
+	</menuchoice> from within <application>Passwords and Encryption Keys</application>.
+      </para>
+
+        <sect2 id="keyring">
+        	<title>Password Keyrings</title>
+        	<sect3>
+        	    <title>Creating Keyrings</title>
+            	<para>
+            	    You can create a new keyring by pressing <guibutton>Add Keyring</guibutton>. 
+            	    Enter a name for the new keyring and press <guibutton>Add</guibutton>.
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Changing Keyring Passwords</title>
+            	<para>
+            	  To change the unlock password of the keyring, first select the appropriate keyring and then 
+            	  press <guibutton>Change Unlock Password</guibutton> button. You will then be prompted to
+            	  type the old password in the <guilabel>Old password</guilabel> text box, the new password in the
+            	  <guilabel>New password</guilabel> text box and
+            	  confirm it in the <guilabel>Confirm password</guilabel> text box. 
+            	  To apply the settings, press <guibutton>Change</guibutton>.
+            	  If the old password is correct, you will get a status
+            	  message indicating the success of the operation. If the
+            	  old password is not correct you will be asked to check
+            	  its correctness. 
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Removing Keyrings</title>
+        	    <para>
+        	        To remove a keyring, , first select the appropriate keyring and then 
+            	  press <guibutton>Remove Keyring</guibutton> button.
+        	    </para>
+        	</sect3>
+        </sect2>
+
+    <sect2 id="key-servers">
+	<title>Серверы ключей</title>
+	<para>Обновляйте свои и чужие ключи, синхронизируя их с удалёнными серверами ключей. Это позволит вам постоянно иметь самые новые подписи на всех ваших ключах, так что сеть доверия будет наиболее полезной.</para>
+	<para>Программа <application>Пароли и ключи шифрования</application> поддерживает серверы ключей HKP и LDAP.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis>Серверы HKP</emphasis></term>
+	    <listitem>
+	      <para>Серверы ключей HKP — это обычные серверы, входящие в состав Всемирной паутины, например, популярный сервер <ulink url="hkp://pgp.mit.edu:11371" type="hkp">hkp://pgp.mit.edu:11371</ulink> (также доступный по адресу <ulink url="http://pgp.mit.edu" type="http">http://pgp.mit.edu</ulink>).</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis>Серверы ключей <acronym>LDAP</acronym></emphasis></term>
+	    <listitem>
+	      <para>Серверы ключей <acronym>LDAP</acronym> менее распространены, но используют для передачи ключей стандартный протокол LDAP. Хороший LDAP-сервер — <ulink url="ldap://keyserver.pgp.com" type="ldap">ldap://keyserver.pgp.com</ulink>.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect2>
+
+      <sect2 id="key-sharing">
+	<title>Обмен ключами</title>
+	<para>Обмен ключами обеспечивается системой DNS-SD, также известной как Bonjour и Rendezvous. Если включить обмен ключами, то брелоки пользователей программы <application>Пароли и ключи шифрования</application> из локальной сети будут доступны в диалоге удалённого поиска. Скорее всего, обращение к таким «серверам» будет происходить быстрее, чем к удалённым серверам.</para>
+      </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>О программе</title>
+    <para>Программа <application>Пароли и ключи шифрования</application>, связанные с ней модули, инструмент параметров и апплет панели вместе называются Seahorse. Seahorse написал Джейкоб Перкинс (Jacob Perkins). Ныне Seahorse сопровождается Стефом Уолтером (Stef Walter) и Адамом Шрайбером (Adam Schreiber). Это руководство написал Адам Шрайбер. Веб-сайт проекта разработал Джим Фэрис (Jim Pharis). Подробнее о Seahorse вы можете узнать на <ulink url="http://www.gnome.org/projects/seahorse/" type="http">веб-сайте проекта</ulink>.</para>
+    <para>Чтобы сообщить об ошибке или сделать предложение по Seahorse или этому руководству, следуйте указаниям в <ulink url="ghelp:user-guide?feedback-bugs" type="help">разделе обратной связи руководства пользователя GNOME</ulink>.</para>
+    <para>Эта программа распространяется на условиях лицензии GNU General Public License, опубликованной фондом Free Software Foundation; либо версии 2 этой лицензии, либо (на ваш выбор) любой более поздней версии. <ulink url="ghelp:gpl" type="help">Копия этой лицензии</ulink> прилагается к документации; ещё одну можно найти в файле COPYING, который прилагается к исходному тексту программы.</para>
+  </sect1>
+</article>

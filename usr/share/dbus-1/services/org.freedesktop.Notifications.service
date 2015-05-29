@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.freedesktop.Notifications
+Exec=/bin/sh -c "if [ ! -x /usr/lib/notification-daemon/notification-daemon ] || [ ${GDMSESSION%.desktop} = gnome ] || [ ${GDMSESSION%.desktop} = default -a $(basename `readlink /etc/alternatives/x-session-manager`) = gnome-session ]; then exec /usr/lib/notify-osd/notify-osd; else exec /usr/lib/notification-daemon/notification-daemon; fi"

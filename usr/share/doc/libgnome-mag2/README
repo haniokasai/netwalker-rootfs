@@ -1,0 +1,57 @@
+This is gnome-mag version 0.15.6 (Stable)
+
+This directory contains the gnome-mag magnification
+service definition and sample implementation.
+
+For more information about GAIL and accessibility in GNOME, see:
+ http://live.gnome.org/GAP
+
+
+Standalone Command-line interface
+=================================
+
+gnome-mag provides a command-line interface for standalone use,
+although its primary goal is to provide a set of magnification
+services for use by other client applications and assistive 
+technologies.
+
+For information on the "magnifier" command-line utility, type
+
+"magnifier --help" or "magnifier --usage" after installing
+gnome-mag.
+
+
+Dependencies
+============
+
+In order to get SVN gnome-mag installed on your system, you need to have
+the most recent SVN versions of libbonobo installed as well.
+Note that gnome-mag also requires gtk+ and gnome-common.
+
+Colorblind support requires libcolorblind from
+http://alioth.debian.org/frs/download.php/1952/colorblind-0.0.1.tar.gz
+
+
+Building
+========
+
+To compile a SVN version of libgail-gnome on your system, you will 
+need to take several steps to setup the tree for compilation.  You 
+can do all these steps at once by running:
+
+        trunk/gnome-mag# ./autogen.sh
+
+Basically this does the following for you:
+
+        trunk/gnome-mag# aclocal; automake; autoconf
+
+        The above commands create the "configure" script.  Now you
+        can run the configure script in cvsroot/gnome-mag to create all
+        the Makefiles.
+
+Before running autogen.sh or configure, make sure you have libtool
+in your path.
+
+Note that autogen.sh runs configure for you.  If you wish to pass
+options like --prefix=/usr to configure you can give those options
+to autogen.sh and they will be passed on to configure.

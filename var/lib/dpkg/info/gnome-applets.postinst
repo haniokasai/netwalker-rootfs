@@ -1,0 +1,36 @@
+#!/bin/sh
+# postinst script for gnome-cpufreq-selector
+
+set -e
+
+. /usr/share/debconf/confmodule
+db_version 2.0
+
+prog=/usr/bin/cpufreq-selector
+
+case "$1" in
+    configure)
+        if test -e $prog; then
+            db_get gnome-applets/cpufreq_SUID_bit
+            if [ "$RET" = "false" ]; then
+                chmod 0755 $prog
+            fi;
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# Automatically added by dh_gconf
+if [ "$1" = "configure" ] && which update-gconf-defaults >/dev/null 2>&1; then
+	update-gconf-defaults
+fi
+# End automatically added section
+

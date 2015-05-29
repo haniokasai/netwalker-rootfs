@@ -1,0 +1,48 @@
+# vim:syntax=apparmor
+# $Id: audio 949 2007-08-28 00:49:51Z seth_arnold $
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2006 Novell/SUSE
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+
+
+/dev/admmidi*   rw,
+/dev/adsp*      rw,
+/dev/aload*     rw,
+/dev/amidi*     rw,
+/dev/audio*     rw,
+/dev/dmfm*      rw,
+/dev/dmmidi*    rw,
+/dev/dsp*       rw,
+/dev/midi*      rw,
+/dev/mixer*     rw,
+/dev/mpu401data rw,
+/dev/mpu401stat rw,
+/dev/patmgr*    rw,
+/dev/phone*     rw,
+/dev/radio*     rw,
+/dev/rmidi*     rw,
+/dev/sequencer  rw,
+/dev/sequencer2 rw,
+/dev/smpte*     rw,
+
+/dev/snd/*      rw,
+/dev/sound/*    rw,
+
+@{PROC}/asound/** rw,
+
+/usr/share/alsa/** r,
+/usr/share/sounds/** r,
+
+@{HOME}/.esd_auth  r,
+@{HOME}/.asoundrc  r,
+/etc/esound/esd.conf r,
+
+# libcanberra
+@{HOME}/.cache/event-sound-cache.* rwk,

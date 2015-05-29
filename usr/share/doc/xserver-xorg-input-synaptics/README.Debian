@@ -1,0 +1,101 @@
+xfree86-driver-synaptics for Debian
+-----------------------------------
+
+This package contains the Synaptics TouchPad driver for X.Org and XFree86 X
+server.
+See also the README file for details on configuration options.
+The following notes are reported from the INSTALL instructions of upstream 
+package (by Stefan Gmeiner <riddlebox@freesurf.ch>), but first of all a
+security notice about SHMConfig:
+
+   If you want to be able to change driver parameters without
+   restarting the X server, enable the "SHMConfig" option in the X
+   configuration file. You can then use the "synclient" program to
+   query and modify driver parameters on the fly.
+   SECURITY NOTE! This is not secure if you are in an untrusted 
+   multiuser environment. All local users can change the parameters at any
+   time.
+
+Configuration
+-------------
+
+1. Load the driver by changing the X.Org/XFree86 configuration file
+(/etc/X11/xorg.conf or /etc/X11/XF86Config-4) through adding the line 'Load
+"synaptics"' in the module section.
+
+2. Add/Replace in the InputDevice section for the touchpad the
+following lines:
+
+Section "InputDevice"
+  Driver  	"synaptics"
+  Identifier  	"Mouse[1]"
+  Option 	"Device"  	"/dev/psaux"
+  Option	"Protocol"	"auto-dev"
+#
+# Following lines are optional thus commented in this example.
+# Please read the synaptics(5) manpage for a detailed explanation
+# of the various options' meaning as well as a full list of options
+#
+#  Option	"LeftEdge"      "1700"
+#  Option	"RightEdge"     "5300"
+#  Option	"TopEdge"       "1700"
+#  Option	"BottomEdge"    "4200"
+#  Option	"FingerLow"	"25"
+#  Option	"FingerHigh"	"30"
+#  Option	"MaxTapTime"	"180"
+#  Option	"MaxTapMove"	"220"
+#  Option	"VertScrollDelta" "100"
+#  Option	"MinSpeed"	"0.06"
+#  Option	"MaxSpeed"	"0.12"
+#  Option	"AccelFactor" "0.0010"
+#  Option	"SHMConfig"	"on"
+#  Option	"Repeater"	"/dev/ps2mouse"
+EndSection
+
+Change the Identifier to the same name as in the ServerLayout section.
+The Option "Repeater" is at the moment for testing.
+
+3. Add the "CorePointer" option to the InputDevice line at the ServerLayout section:
+
+Section "ServerLayout"
+...
+  InputDevice "Mouse[1]"  "CorePointer"
+...
+
+   Note! You can not have more than one core pointer, so if you want
+   to use an external mouse too, you have to set all mouse input
+   devices except one to "AlwaysCore" instead of "CorePointer".
+
+4. Start/Restart the X Server. If the touchpad doesn't work:
+   a) Check the XFree Logfiles
+   b) Try to start the XServer with 'startx -- -logverbose 8' for more
+      Output
+
+Other relevant information to use this driver
+---------------------------------------------
+
+1. For use with kernel 2.6.x you need to enable synaptics touchpad
+   support when configuring the kernel (CONFIG_MOUSE_PS2). You also
+   need support for the evdev interface (CONFIG_INPUT_EVDEV). If you
+   compile evdev as a module, make sure it is loaded before starting
+   the X server, as it will not be auto-loaded.
+
+2. For use with an ALPS touchpad, you need to use a 2.6.x kernel and
+   apply the alps patch. See the README.alps file for more details.
+   Note! If you use kernel 2.6.11 or later, the alps patch is already
+   included, so you don't have to patch your kernel.
+
+3. Using with kernel 2.4.x for x < 10 needs a kernel patch
+   (pc_keyb.c.diff.2.4.3).
+
+Running 'syndaemon' automatically
+---------------------------------
+The easiest way to run the syndaemon binary each time you startup X you can 
+simply add the following line to your ~/.xinitrc file:
+
+/usr/bin/syndaemon -i 1 -d
+
+Customize the daemon options to fit your needs, the only mandatory option is
+'-d' to run syndaemon in the background. See 'man 1 syndaemon' for more.
+
+ -- Mattia Dongili <malattia@debian.org>, Tue,  2 Mar 2004 11:42:05 +0100

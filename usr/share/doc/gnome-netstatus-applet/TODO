@@ -1,0 +1,26 @@
+- When an applet starts for the first time we just pick the
+  first available interface (loopback interfaces will always
+  be at the end of the list). We should be more intelligent
+  if there are any other Network Monitors running and pick
+  an interface other than the ones already displayed.
+
+- Implement IPv6 support
+
+- This is totally linux specific at the moment. Need to:
+    * Add other implementations for netstatus-sydeps.c on
+      systems without /proc/net/dev. In
+      Attic/netstatus-interface.c Erwann had some code to
+      do it on Solaris.
+    * Check if <net/if_arp.h> and the various ARPHRD constants
+      are anyway standard. Well, I know the constants are
+      in some RFC but ...
+    * Check if all the ioctl()s used portable ?
+    * We use <arpa/inet.h> for inet_ntoa() - is that portable.
+    * Other headers to check: <sys/ioctl.h> and <net/if.h>.
+
+From Calum:
+
+- Need to make sure all the icons we use are registered as
+  stock or use the icon theming stuff, so we can theme
+  them.
+

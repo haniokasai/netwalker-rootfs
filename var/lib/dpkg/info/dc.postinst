@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# This is the postinst script for the Debian GNU/Linux dc package
+#
+# Written by Dirk Eddelbuettel <edd@debian.org>   
+# Previous versions written by Bill Mitchell, Austin Donnelly and James Troup
+
+set -e
+
+# Automatically added by dh_installdocs
+if [ "$1" = configure ] && which install-docs >/dev/null 2>&1; then
+	install-docs -i /usr/share/doc-base/dc
+fi
+# End automatically added section
+# Automatically added by dh_installmenu
+if [ "$1" = "configure" ] && [ -x "`which update-menus 2>/dev/null`" ]; then
+	update-menus
+fi
+# End automatically added section
+
+
+case "$1" in
+    configure|abort-remove|abort-deconfigure)
+	s="General commands"
+	install-info --quiet --section "$s" "$s" /usr/share/info/dc.info.gz
+	;;
+
+    abort-upgrade)
+    	# Nothing to undo
+	;;
+
+    *)
+	echo "postinst called with unknown argument \`$1'" >&2
+	;;
+esac

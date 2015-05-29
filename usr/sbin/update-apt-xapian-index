@@ -1,0 +1,631 @@
+#!/usr/bin/python
+
+#
+# update-apt-xapian-index - Maintain a system-wide Xapian index of Debian
+#                           package information
+#
+# Copyright (C) 2007  Enrico Zini <enrico@debian.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+import os
+
+# Setup configuration
+PLUGINDIR = os.environ.get("AXI_PLUGIN_DIR", "/usr/share/apt-xapian-index/plugins")
+XAPIANDBPATH = os.environ.get("AXI_DB_PATH", "/var/lib/apt-xapian-index")
+XAPIANDBSTAMP = XAPIANDBPATH + "/update-timestamp"
+XAPIANDBLOCK = XAPIANDBPATH + "/update-lock"
+XAPIANDBUPDATESOCK = XAPIANDBPATH + "/update-socket"
+XAPIANDBVALUES = XAPIANDBPATH + "/values"
+XAPIANDBDOC = XAPIANDBPATH + "/README"
+
+class Progress:
+    def __init__(self):
+        self.task = None
+        self.halfway = False
+        self.is_verbose = False
+    def begin(self, task):
+        self.task = task
+        print "%s..." % self.task,
+        sys.stdout.flush()
+        self.halfway = True
+    def progress(self, percent):
+        print "\r%s... %d%%" % (self.task, percent),
+        sys.stdout.flush()
+        self.halfway = True
+    def end(self):
+        print "\r%s: done.  " % self.task
+        self.halfway = False
+    def verbose(self, *args):
+        if not self.is_verbose: return
+        if self.halfway:
+            print
+        print " ".join(args)
+        self.halfway = False
+    def notice(self, *args):
+        if self.halfway:
+            print
+        print >>sys.stderr, " ".join(args)
+        self.halfway = False
+    def warning(self, *args):
+        if self.halfway:
+            print
+        print >>sys.stderr, " ".join(args)
+        self.halfway = False
+    def error(self, *args):
+        if self.halfway:
+            print
+        print >>sys.stderr, " ".join(args)
+        self.halfway = False
+
+class BatchProgress:
+    def __init__(self):
+        self.task = None
+    def begin(self, task):
+        self.task = task
+        print "begin: %s\n" % self.task,
+        sys.stdout.flush()
+    def progress(self, percent):
+        print "progress: %d/100\n" % percent,
+        sys.stdout.flush()
+    def end(self):
+        print "done: %s\n" % self.task
+        sys.stdout.flush()
+    def verbose(self, *args):
+        print "verbose: %s" % (" ".join(args))
+        sys.stdout.flush()
+    def notice(self, *args):
+        print "notice: %s" % (" ".join(args))
+        sys.stdout.flush()
+    def warning(self, *args):
+        print "warning: %s" % (" ".join(args))
+        sys.stdout.flush()
+    def error(self, *args):
+        print "error: %s" % (" ".join(args))
+        sys.stdout.flush()
+
+class SilentProgress:
+    def begin(self, task):
+        pass
+    def progress(self, percent):
+        pass
+    def end(self):
+        pass
+    def verbose(self, *args):
+        pass
+    def notice(self, *args):
+        pass
+    def warning(self, *args):
+        print >>sys.stderr, " ".join(args)
+    def error(self, *args):
+        print >>sys.stderr, " ".join(args)
+
+class ClientProgress:
+    def __init__(self, progress):
+        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.sock.connect(XAPIANDBUPDATESOCK)
+        self.progress = progress
+
+    def loop(self):
+        hasBegun = False
+        while True:
+            msg = self.sock.recv(4096)
+            try:
+                args = pickle.loads(msg)
+            except EOFError:
+                progress.error("The other update has stopped")
+                return
+            action = args[0]
+            args = args[1:]
+            if action == "begin":
+                progress.begin(*args)
+                hasBegun = True
+            elif action == "progress":
+                if not hasBegun:
+                    progress.begin(args[0])
+                    hasBegun = True
+                progress.progress(*args[1:])
+            elif action == "end":
+                if not hasBegun:
+                    progress.begin(args[0])
+                    hasBegun = True
+                progress.end(*args[1:])
+            elif action == "verbose":
+                progress.verbose(*args)
+            elif action == "notice":
+                progress.notice(*args)
+            elif action == "error":
+                progress.error(*args)
+            elif action == "alldone":
+                break
+            else:
+                progress.error("unknown action '%s' from other update-apt-xapian-index.  Arguments: '%s'" % (action, ", ".join(map(repr, args))))
+
+
+class ServerSenderProgress:
+    def __init__(self, sock, task = None):
+        self.sock = sock
+        self.task = task
+    def __del__(self):
+        self._send(pickle.dumps(("alldone",)))
+    def _send(self, text):
+        try:
+            self.sock.send(text)
+        except:
+            pass
+    def begin(self, task):
+        self.task = task
+        self._send(pickle.dumps(("begin", self.task)))
+    def progress(self, percent):
+        self._send(pickle.dumps(("progress", self.task, percent)))
+    def end(self):
+        self._send(pickle.dumps(("end", self.task)))
+    def verbose(self, *args):
+        self._send(pickle.dumps(("verbose",) + args))
+    def notice(self, *args):
+        self._send(pickle.dumps(("notice",) + args))
+    def warning(self, *args):
+        self._send(pickle.dumps(("warning",) + args))
+    def error(self, *args):
+        self._send(pickle.dumps(("error",) + args))
+
+class ServerProgress:
+    def __init__(self, mine):
+        self.task = None
+        self.proxied = [mine]
+        self.sockfile = XAPIANDBUPDATESOCK
+        try:
+            os.unlink(self.sockfile)
+        except OSError:
+            pass
+        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.sock.bind(XAPIANDBUPDATESOCK)
+        self.sock.setblocking(False)
+        self.sock.listen(5)
+        # Disallowing unwanted people to mess with the file is automatic, as
+        # the socket has the ownership of the user we're using, and people
+        # can't connect to it unless they can write to it
+    def __del__(self):
+        self.sock.close()
+        os.unlink(self.sockfile)
+    def _check(self):
+        try:
+            sock = self.sock.accept()[0]
+            self.proxied.append(ServerSenderProgress(sock, self.task))
+        except socket.error, e:
+            if e.args[0] != errno.EAGAIN:
+                raise
+        pass
+    def begin(self, task):
+        self._check()
+        self.task = task
+        for x in self.proxied: x.begin(task)
+    def progress(self, percent):
+        self._check()
+        for x in self.proxied: x.progress(percent)
+    def end(self):
+        self._check()
+        for x in self.proxied: x.end()
+    def verbose(self, *args):
+        self._check()
+        for x in self.proxied: x.verbose(*args)
+    def notice(self, *args):
+        self._check()
+        for x in self.proxied: x.notice(*args)
+    def warning(self, *args):
+        self._check()
+        for x in self.proxied: x.warning(*args)
+    def error(self, *args):
+        self._check()
+        for x in self.proxied: x.error(*args)
+
+
+class Addon:
+    def __init__(self, file):
+        self.name = os.path.basename(file)
+        self.name = os.path.splitext(self.name)[0]
+        self.filename = os.path.basename(file)
+        self.module = imp.load_source(self.name, file)
+        self.obj = self.module.init()
+        if self.obj:
+            self.info = self.obj.info()
+
+#
+# Function definitions
+#
+
+def readPlugins(plugindir, progress):
+    """
+    Read the addons, in sorted order
+    """
+    addons = []
+    for file in sorted(glob.glob(PLUGINDIR+"/*.py")):
+        progress.verbose("Reading plugin %s." % file)
+        # Skip non-files and hidden files
+        if not os.path.isfile(file) or file[0] == '.':
+            continue;
+        addon = Addon(file)
+        if addon.obj != None:
+            addons.append(addon)
+    return addons
+
+def buildIndex(pathname, addons, progress):
+    """
+    Create a new Xapian index with the content provided by the addons
+    """
+    progress.begin("Rebuilding Xapian index")
+
+    # Create a new Xapian index
+    db = xapian.WritableDatabase(pathname, xapian.DB_CREATE_OR_OVERWRITE)
+    # It seems to be faster without transactions, at the moment
+    #db.begin_transaction(False)
+
+    # Iterate all Debian packages
+
+    # force apt to not write a pkgcache.bin
+    cache = apt.Cache(memonly=True)
+    count = len(cache)
+    for idx, pkg in enumerate(cache):
+        # Print progress
+        if idx % 200 == 0: progress.progress(100*idx/count)
+
+        document = xapian.Document()
+
+        # The document data is the package name
+        document.set_data(pkg.name)
+
+        # Index the package name with a special prefix, to be able to find this
+        # document by exact package name match
+        document.add_term("XP"+pkg.name)
+
+        # Have all the various plugins index their things
+        for addon in addons:
+            addon.obj.index(document, pkg)
+
+        # Add the document to the index
+        db.add_document(document)
+    #db.commit_transaction();
+    db.flush()
+    progress.end()
+
+def buildIndexDeb822(pathname, records, addons, progress):
+    """
+    Create a new Xapian index with the content provided by the addons
+    """
+    progress.begin("Rebuilding Xapian index")
+
+    # Create a new Xapian index
+    db = xapian.WritableDatabase(pathname, xapian.DB_CREATE_OR_OVERWRITE)
+    # It seems to be faster without transactions, at the moment
+    #db.begin_transaction(False)
+
+    # Iterate all Debian packages
+
+    # force apt to not write a pkgcache.bin
+    cache = apt.Cache(memonly=True)
+    count = len(cache)
+    for idx, pkg in enumerate(records):
+        # Print progress
+        if idx % 200 == 0: progress.progress(100*idx/count)
+
+        document = xapian.Document()
+
+        # The document data is the package name
+        document.set_data(pkg["Package"])
+
+        # Index the package name with a special prefix, to be able to find this
+        # document by exact package name match
+        document.add_term("XP"+pkg["Package"])
+
+        # Have all the various plugins index their things
+        for addon in addons:
+            addon.obj.indexDeb822(document, pkg)
+
+        # Add the document to the index
+        db.add_document(document)
+    #db.commit_transaction();
+    db.flush()
+    progress.end()
+
+
+def writeValues(pathname, values, values_desc, progress):
+    """
+    Write the value information on the given file
+    """
+    progress.verbose("Writing value information to %s." % pathname)
+    out = open(pathname+".tmp", "w")
+
+    print >>out, textwrap.dedent("""
+    # This file contains the mapping between names of numeric values indexed in the
+    # APT Xapian index and their index
+    #
+    # Xapian allows to index numeric values as well as keywords and to use them for
+    # all sorts of useful querying tricks.  However, every numeric value needs to
+    # have a unique index, and this configuration file is needed to record which
+    # indices are allocated and to provide a mnemonic name for them.
+    #
+    # The format is exactly like /etc/services with name, number and optional
+    # aliases, with the difference that the second column does not use the
+    # "/protocol" part, which would be meaningless here.
+    """).lstrip()
+
+    for name, idx in sorted(values.iteritems(), key=lambda x: x[1]):
+        desc = values_desc[name]
+        print >>out, "%s\t%d\t# %s" % (name, idx, desc)
+
+    out.close()
+    # Atomic update of the documentation
+    os.rename(pathname+".tmp", pathname)
+
+def writeDoc(pathname, addons, progress):
+    """
+    Write the documentation in the given file
+    """
+    progress.verbose("Writing documentation to %s." % pathname)
+    # Collect the documentation
+    docinfo = []
+    for addon in addons:
+        try:
+            doc = addon.obj.doc()
+            if doc != None:
+                docinfo.append(dict(
+                    name = doc['name'],
+                    shortDesc = doc['shortDesc'],
+                    fullDoc = doc['fullDoc']))
+        except:
+            # If a plugin has problem returning documentation, don't worry about it
+            progress.notice("Skipping documentation for plugin", addon.filename)
+
+    # Write the documentation in pathname
+    out = open(pathname+".tmp", "w")
+    print >>out, textwrap.dedent("""
+    ===============
+    Database layout
+    ===============
+
+    This Xapian database indexes Debian package information.  To query the
+    database, open it as ``%s/index``.
+
+    Data are indexed either as terms or as values.  Words found in package
+    descriptions are indexed lowercase, and all other kinds of terms have an
+    uppercase prefix as documented below.
+
+    Numbers are indexed as Xapian numeric values.  A list of the meaning of the
+    numeric values is found in ``%s``.
+
+    The data sources used for indexing are:
+    """).lstrip() % (XAPIANDBPATH, XAPIANDBVALUES)
+
+    for d in docinfo:
+        print >>out, " * %s: %s" % (d['name'], d['shortDesc'])
+
+    print >>out, textwrap.dedent("""
+    This Xapian index follows the conventions for term prefixes described in
+    ``/usr/share/doc/xapian-omega/termprefixes.txt.gz``.
+
+    Extra Debian data sources can define more extended prefixes (starting with
+    ``X``): their meaning is documented below together with the rest of the data
+    source documentation.
+
+    At the very least, at least the package name (with the ``XP`` prefix) will
+    be present in every document in the database.  This allows to quickly
+    lookup a Xapian document by package name.
+
+    The user data associated to a Xapian document is the package name.
+
+
+    -------------------
+    Active data sources
+    -------------------
+
+    """)
+    for d in docinfo:
+        print >>out, d['name']
+        print >>out, '='*len(d['name'])
+        print >>out, textwrap.dedent(d['fullDoc'])
+        print >>out
+
+    out.close()
+    # Atomic update of the documentation
+    os.rename(pathname+".tmp", pathname)
+
+
+#
+# Main program body
+#
+
+from optparse import OptionParser
+import sys
+
+VERSION="0.15"
+
+class Parser(OptionParser):
+    def __init__(self, *args, **kwargs):
+        OptionParser.__init__(self, *args, **kwargs)
+
+    def error(self, msg):
+        sys.stderr.write("%s: error: %s\n\n" % (self.get_prog_name(), msg))
+        self.print_help(sys.stderr)
+        sys.exit(2)
+
+parser = Parser(usage="usage: %prog [options]",
+                version="%prog "+ VERSION,
+                description="Rebuild the Apt Xapian index")
+parser.add_option("-q", "--quiet", action="store_true", help="quiet mode: only output fatal errors")
+parser.add_option("-v", "--verbose", action="store_true", help="verbose mode")
+parser.add_option("-f", "--force", action="store_true", help="force database rebuild even if it's already up to date")
+parser.add_option("--pkgfile", action="store", help="do not use the APT cache, but the given Package file")
+parser.add_option("--batch-mode", action="store_true", help="Use progress reporting suitable from programatic parsing.")
+
+(options, args) = parser.parse_args()
+
+
+# Here starts the main functionality.  Imports things here so we can do --help
+# without requiring lots of dependencies (this helps at least help2man at
+# package build time)
+import warnings
+# Yes, apt, thanks, I know, the api isn't stable, thank you so very much
+#warnings.simplefilter('ignore', FutureWarning)
+warnings.filterwarnings("ignore","apt API not stable yet")
+import apt
+warnings.resetwarnings()
+import os.path, re, imp, glob, xapian, textwrap, shutil, fcntl, errno, itertools, time
+import socket, errno
+import cPickle as pickle
+
+#if options.quiet: print "quiet"
+#if options.verbose: print "verbose"
+#if options.force: print "force"
+
+# Instantiate the progress report
+if options.batch_mode:
+    progress = BatchProgress()
+elif options.quiet:
+    progress = SilentProgress()
+else:
+    progress = Progress()
+
+if options.verbose:
+    progress.is_verbose = True
+
+# Create the database directory if missing
+try:
+    # Try to create it anyway
+    os.mkdir(XAPIANDBPATH)
+except OSError, e:
+    if e.errno != errno.EEXIST:
+        # If we got an error besides path already existing, fail
+        raise
+    elif not os.path.isdir(XAPIANDBPATH):
+        # If that path already exists, but is not a directory, also fail
+        raise
+
+# Lock the session so that we prevent concurrent updates
+lockfd = os.open(XAPIANDBLOCK, os.O_RDWR | os.O_CREAT)
+lockpyfd = os.fdopen(lockfd)
+try:
+    fcntl.lockf(lockpyfd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    progress = ServerProgress(progress)
+except IOError, e:
+    if e.errno == errno.EACCES or e.errno == errno.EAGAIN:
+        progress.notice("Another update is already running: showing its progress.")
+        childProgress = ClientProgress(progress)
+        childProgress.loop()
+        sys.exit(0)
+    else:
+        raise
+
+# Read values database
+#values = readValueDB(VALUESCONF, progress)
+
+# Read the addons, in sorted order
+addons = readPlugins(PLUGINDIR, progress)
+
+# Ensure that we have something to do
+if len(addons) == 0:
+    progress.notice("No indexing plugins found in %s" % PLUGINDIR)
+    sys.exit(1)
+
+# Get the most recent modification timestamp of the data sources
+ds_timestamp = max([x.info['timestamp'] for x in addons])
+
+# Get the timestamp of the last database update
+try:
+    cur_timestamp = os.path.getmtime(XAPIANDBSTAMP)
+except OSError, e:
+    cur_timestamp = 0
+    progress.notice("Reading current timestamp failed: %s. Assuming the index has not been created yet." % e)
+
+if options.verbose:
+    progress.verbose("Most recent dataset:    %s." % time.ctime(ds_timestamp))
+    progress.verbose("Most recent update for: %s." % time.ctime(cur_timestamp))
+
+# See if we need an update
+if ds_timestamp <= cur_timestamp:
+    if options.force:
+        progress.notice("The index %s is up to date, but rebuilding anyway as requested." % XAPIANDBPATH)
+    else:
+        progress.notice("The index %s is up to date" % XAPIANDBPATH)
+        sys.exit(0)
+
+# Build the value database
+progress.verbose("Aggregating value information.")
+values = dict()
+values_seq = 1
+values_desc = dict()
+for addon in addons:
+    for v in addon.info.get("values", []):
+        values[v['name']] = values_seq
+        values_seq += 1
+        values_desc[v['name']] = v['desc']
+
+# Tell the addons to do the long initialisation bits
+progress.verbose("Initializing plugins.")
+for addon in addons:
+    addon.obj.init(dict(values = values), progress)
+
+# Create a new Xapian index with the content provided by the addons
+# Xapian takes care of preventing concurrent updates and removing the old
+# database if it's left over by a previous crashed update
+
+# Create a temporary file name
+for idx in itertools.count(1):
+    tmpidxfname = "index.%d" % idx
+    dbdir = XAPIANDBPATH + "/" + tmpidxfname
+    if not os.path.exists(dbdir): break;
+
+if options.pkgfile:
+    from debian_bundle import deb822
+    buildIndexDeb822(dbdir, deb822.Deb822.iter_paragraphs(open(options.pkgfile)), addons, progress)
+else:
+    buildIndex(dbdir, addons, progress)
+
+# Update the 'index' symlink to point at the new index
+progress.verbose("Installing the new index.")
+try:
+    os.unlink(XAPIANDBPATH + "/index.tmp")
+except OSError:
+    # Ignore the error here: we're deleting it 'just in case', because symlink
+    # wouldn't delete it itself
+    pass
+
+#os.symlink(tmpidxfname, XAPIANDBPATH + "/index.tmp")
+out = open(XAPIANDBPATH + "/index.tmp", "w")
+print >>out, "flint", os.path.join(os.path.abspath(XAPIANDBPATH), tmpidxfname)
+out.close()
+os.rename(XAPIANDBPATH + "/index.tmp", XAPIANDBPATH + "/index")
+
+# Remove all other index.* directories that are not the newly created one
+for file in os.listdir(XAPIANDBPATH):
+    if not file.startswith("index."): continue
+    # Only delete directories
+    if not os.path.isdir(XAPIANDBPATH + "/" + file): continue
+    # Don't delete what we just created
+    if file == tmpidxfname: continue
+    fullpath = XAPIANDBPATH + "/" + file
+    progress.verbose("Removing old index %s." % fullpath)
+    shutil.rmtree(fullpath)
+
+# Commit the changes and update the last update timestamp
+if not os.path.exists(XAPIANDBSTAMP):
+    open(XAPIANDBSTAMP, "w").close()
+os.utime(XAPIANDBSTAMP, (ds_timestamp, ds_timestamp))
+
+writeValues(XAPIANDBVALUES, values, values_desc, progress)
+writeDoc(XAPIANDBDOC, addons, progress)
+
+sys.exit(0)

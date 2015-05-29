@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="other-useful-applications" status="review">
+  <title>Other Useful Applications</title>
+
+  <para>
+  There are many very useful applications developed by the Ubuntu Server Team, 
+  and others that are well integrated with Ubuntu Server Edition, that might 
+  not be well known.  This chapter will showcase some useful applications that can 
+  make administering an Ubuntu server, or many Ubuntu servers, that much easier.
+  </para>
+
+  <sect1 id="update-motd" status="review">
+    <title>Update MOTD</title>
+
+    <para>
+    When logging into an Ubuntu server you may have noticed the informative Message Of The Day (MOTD).  This information
+    is obtained and displayed using a couple of packages:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        <emphasis>landscape-common:</emphasis> provides the core libraries of <application>landscape-client</application>,
+        which can be used to manage systems using the web based <emphasis>Landscape</emphasis> application.  The package includes
+        the <application>/usr/bin/landscape-sysinfo</application> utility which is used to gather the information displayed
+        in the MOTD.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis>update-motd:</emphasis> is used to automatically update the MOTD via <application>cron</application>.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    The <application>update-motd</application> utility has several options to further customize the MOTD:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        <emphasis>--disable:</emphasis> prevents automatic updates of the MOTD.  Using this option creates the
+        <filename>/var/lib/update-motd/disabled</filename> file, which if present stops <application>update-motd</application>
+        from modifying <filename>/etc/motd</filename>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis>--enable:</emphasis> enables the automatic MOTD updates.  If <filename>/var/lib/update-motd</filename>
+        is present it will be removed.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis>--force:</emphasis> does a one time update of <filename>/etc/motd</filename>, overriding <application>update-motd</application>
+        if it has been disabled. 
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis>d, hourly, weekly, monthly:</emphasis> option will run the scripts in <filename>/etc/update-motd.d/</filename> (default), 
+        <filename>/etc/update-motd.d/hourly</filename>, <filename>/etc/update-motd.d/weekly</filename>, or
+        <filename>/etc/update-motd.d/monthly</filename> respectively.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    <application>update-motd</application> executes the scripts in <filename>/etc/update-motd.d</filename> in order based on the number 
+    prepended to the script.  Separate <application>cron</application> scripts execute every ten minutes, hourly, weekly, and monthly
+    running the corresponding scripts in <filename>/etc/update-motd.d</filename>.  The output of the scripts is written to 
+    <filename>/var/run/update-motd/</filename>, keeping the numerical order, then concatenated with 
+    <filename>/etc/motd.tail</filename> and written to <filename>/etc/motd</filename>.
+    </para>
+
+    <para>
+    You can add your own dynamic information to the MOTD.  For example, to add local weather information:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        First, install the <application>weather-util</application> package:
+        </para>
+
+<screen>
+<command>sudo apt-get install weather-util</command>
+</screen>
+
+      </listitem>
+      <listitem>
+        <para>
+        The <application>weather</application> utility uses METAR data from the National Oceanic and Atmospheric Administration 
+        and forecasts from the National Weather  Service. In order to find local information you will need the 4-character ICAO 
+        location indicator. This can be determined by browsing to the 
+        <ulink url="http://www.weather.gov/tg/siteloc.shtml">National Weather Service</ulink> site.
+        </para>
+
+        <para>
+        Although the National Weather Service is a United States government agency there are weather stations available world wide.
+        However, local weather information for all locations outside the U.S. may not be available.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Create <filename>/usr/local/bin/local-weather</filename>, a simple shell script to use 
+        <application>weather</application> with your local ICAO indicator:
+        </para>
+
+<programlisting>
+#!/bin/sh
+##########################################################################
+#
+# Prints the local weather to /var/run/update-motd/60-local-weather  
+# for update-motd.
+#
+##########################################################################
+
+# Replace KINT with your local weather station.
+# Local stations can be found here: http://www.weather.gov/tg/siteloc.shtml
+
+echo "" > /var/run/update-motd/60-local-weather
+weather -i KINT >> /var/run/update-motd/60-local-weather
+
+</programlisting>
+      </listitem>
+      <listitem>
+        <para>
+        Make the script executable:
+        </para>
+
+<screen>
+<command>sudo chmod 755 /usr/local/bin/local-weather</command>
+</screen>
+      </listitem>
+      <listitem>
+        <para>
+        Next, create a symlink to <filename>/etc/update-motd.d/60-local-weather</filename>:
+        </para>
+
+<screen>
+<command>sudo ln -s /usr/local/bin/local-weather /etc/update-motd.d/60-local-weather</command>
+</screen>
+      </listitem>
+      <listitem>
+        <para>
+        Finally, update the MOTD:
+        </para>
+
+<screen>
+<command>sudo update-motd</command>
+</screen>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    You should now be greeted with some useful information, and some information about the local weather that may not be
+    quite so useful. Hopefully the <application>local-weather</application> example demonstrates the flexibility of
+    <application>update-motd</application>.
+    </para>
+
+  </sect1>
+  <sect1 id="etckeeper" status="review">
+    <title>etckeeper</title>
+
+    <para>
+    <application>etckeeper</application> allows the contents of <filename role="directory">/etc</filename> be easily stored in 
+    Version Control System (VCS) repository. It hooks into <application>apt</application> to automatically commit changes to
+    <filename>/etc</filename> when packages are installed or upgraded.  Placing <filename>/etc</filename> under version control 
+    is considered an industry best practice, and the goal of <application>etckeeper</application> is to make this process as 
+    painless as possible.  
+    </para>
+
+    <para>
+    Install <application>etckeeper</application> by entering the following in a terminal:
+    </para>
+
+<screen>
+<command>sudo apt-get install etckeeper</command>
+</screen>
+
+    <para>
+    The main configuration file, <filename>/etc/etckeeper/etckeeper.conf</filename>, is fairly simple.  The main options being which
+    VCS and which package management system to use.  By default <application>etckeeper</application> is configured to use 
+    <application>bzr</application> for version control, <application>apt</application> for high level package mangement, and 
+    <application>dpkg</application> for low level package management.
+    </para>
+
+    <para>
+    With the package installed, it is time to initialize the repository.  In a terminal enter:
+    </para>
+
+<screen>
+<command>sudo etckeeper init</command>
+</screen>
+
+   <para>
+   Next, commit the files to the repository:
+   </para>
+
+<screen>
+<command>sudo etckeeper commit "initial import"</command>
+</screen>
+
+    <para>
+    Using the VCS commands you can view log information about files in <filename>/etc</filename>:
+    </para>
+
+<screen>
+<command>sudo bzr log /etc/passswd</command>
+</screen>
+
+    <para>
+    To demonstrate the integration with the package management system, install <application>postfix</application>:
+    </para>
+
+<screen>
+<command>sudo apt-get install postfix</command>
+</screen>
+
+    <para>
+    When the installation is finished, all the <application>postfix</application> configuration files should be committed to the
+    repository:
+    </para>
+
+<screen>
+<computeroutput>Committing to: /etc/
+added aliases.db
+modified group
+modified group-
+modified gshadow
+modified gshadow-
+modified passwd
+modified passwd-
+added postfix
+added resolvconf
+added rsyslog.d
+modified shadow
+modified shadow-
+added init.d/postfix
+added network/if-down.d/postfix
+added network/if-up.d/postfix
+added postfix/dynamicmaps.cf
+added postfix/main.cf
+added postfix/master.cf
+added postfix/post-install
+added postfix/postfix-files
+added postfix/postfix-script
+added postfix/sasl
+added ppp/ip-down.d
+added ppp/ip-down.d/postfix
+added ppp/ip-up.d/postfix
+added rc0.d/K20postfix
+added rc1.d/K20postfix
+added rc2.d/S20postfix
+added rc3.d/S20postfix
+added rc4.d/S20postfix
+added rc5.d/S20postfix
+added rc6.d/K20postfix
+added resolvconf/update-libc.d
+added resolvconf/update-libc.d/postfix
+added rsyslog.d/postfix.conf
+added ufw/applications.d/postfix
+Committed revision 2.</computeroutput>
+</screen>
+
+    <para>
+    For an example of how <application>etckeeper</application> tracks manual changes, add new a host to <filename>/etc/hosts</filename>.
+    Using <application>bzr</application> you can see which files have been modified:
+    </para>
+
+<screen>
+<command>sudo bzr status /etc/</command>
+<computeroutput>modified:
+  hosts</computeroutput>
+</screen>
+
+    <para>
+    Now commit the changes:
+    </para>
+
+<screen>
+<command>sudo etckeeper commit "new host"</command>
+</screen>
+
+    <para>
+    For more information on <application>bzr</application> see <xref linkend="bazaar"/>.
+    </para>
+   
+  </sect1>
+  <sect1 id="screen-profiles" status="review">
+    <title>Screen Profiles</title>
+
+    <para>
+    One of the most useful applications for any system administrator is <application>screen</application>.  It allows the execution
+    of multiple shells in one terminal. To make some of the advanced <application>screen</application> features more 
+    user friendly, and provide some useful information about the system, the <application>screen-profiles</application> package was 
+    created.  
+    </para>
+
+    <para>
+    When executing <application>screen</application> for the first time you will be presented with the 
+    <application>screen-profiles-helper</application> menu.  This menu will allow you to:
+    </para>
+
+    <itemizedlist>
+      <listitem><para>View the Help menu</para></listitem>
+      <listitem><para>Change the key binding set</para></listitem>
+      <listitem><para>Change screen profiles</para></listitem>
+      <listitem><para>Change the escape sequence</para></listitem>
+      <listitem><para>Create new screen windows</para></listitem>
+      <listitem><para>Manage the default windows</para></listitem>
+      <listitem><para>Install screen by default at login</para></listitem>
+    </itemizedlist>
+
+    <para>
+    The <emphasis>key bindings</emphasis> determine such things as the escape sequence, new window, change window, etc.  There 
+    are two key binding sets to choose from <emphasis>common</emphasis> and <emphasis>none</emphasis>.  If you wish to use the 
+    original key bindings choose the <emphasis>none</emphasis> set.
+    </para>
+
+    <para>
+    The Ubuntu <application>screen-profiles</application> provide a menu which displays the Ubuntu release, processor information,
+    memory information, and the time and date. The effect is similar to a desktop menu.  When a profile is selected it will be 
+    symlinked to <filename>~/.screenrc</filename>.  The <application>select-screen-profile</application> utility can also be used 
+    to change profiles, in a terminal enter:
+    </para>
+
+<screen>
+<command>select-screen-profile -s ubuntu-light</command>
+</screen>
+   
+    <para>
+    The <emphasis>plain</emphasis> profile will change <application>screen</application> back to the defaults, which does not include
+    the information menu at the bottom.
+    </para>
+
+    <para>
+    Using the <emphasis>"Install screen by default at login"</emphasis> option will cause screen to be executed any time a terminal is opened.
+    Changes made to <application>screen</application> are on a per user basis, and will not affect other users on the system.
+    </para>
+
+    <para>
+    One difference when using screen is the <emphasis>scrollback</emphasis> mode.  If you are using one of the Ubuntu profiles press the 
+    <emphasis>F7</emphasis>, or <emphasis>Ctrl+a+[</emphasis> if not, to enter scrollback mode.  Scrollback mode allows you to navigate 
+    past output using <emphasis>vi</emphasis> like commands.  Here is a quick list of movement commands:
+    </para>
+
+    <itemizedlist>
+      <listitem><para><emphasis>h</emphasis> - Move the cursor left by one character</para></listitem>
+      <listitem><para><emphasis>j</emphasis> - Move the cursor down by one line</para></listitem>
+      <listitem><para><emphasis>k</emphasis> - Move the cursor up by one line</para></listitem>
+      <listitem><para><emphasis>l</emphasis> - Move the cursor right by one character</para></listitem>
+      <listitem><para><emphasis>0</emphasis> - Move to the beginning of the current line</para></listitem>
+      <listitem><para><emphasis>$</emphasis> - Move to the end of the current line</para></listitem>
+      <listitem><para><emphasis>G</emphasis> - Moves to the specified line (defaults to the end of the buffer)</para></listitem>
+      <listitem><para><emphasis>C-u</emphasis> - Scrolls a half page up</para></listitem>
+      <listitem><para><emphasis>C-b</emphasis> - Scrolls a full page up</para></listitem>
+      <listitem><para><emphasis>C-d</emphasis> - Scrolls a half page down</para></listitem>
+      <listitem><para><emphasis>C-f</emphasis> - Scrolls the full page down</para></listitem>
+      <listitem><para><emphasis>/</emphasis> - Search forward</para></listitem>
+      <listitem><para><emphasis>?</emphasis> - Search backward</para></listitem>
+      <listitem><para><emphasis>n</emphasis> - Moves to the next match, either forward or backword</para></listitem>
+    </itemizedlist>
+
+  </sect1>
+  <sect1 id="other-app-references" status="review">
+    <title>References</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        See the <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man1/update-motd.1.html">update-motd man page</ulink> for
+        more options available to <application>update-motd</application>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        The Debian Package of the Day 
+        <ulink url="http://debaday.debian.net/2007/10/04/weather-check-weather-conditions-and-forecasts-on-the-command-line/">weather</ulink>
+        article has more details about using the <application>weather</application>utility.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        See the <ulink url="http://kitenet.net/~joey/code/etckeeper/">etckeeper</ulink> site for more details on using 
+        <application>etckeeper</application>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        For the latest news and information about <application>bzr</application> see the <ulink url="http://bazaar-vcs.org/">bzr</ulink> web site.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        For more information on <application>screen</application> see the <ulink url="http://www.gnu.org/software/screen/">screen web site</ulink>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Also, see the <application>screen-profiles</application> <ulink url="https://launchpad.net/screen-profiles">project page</ulink> for more
+        information.
+        </para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</chapter>

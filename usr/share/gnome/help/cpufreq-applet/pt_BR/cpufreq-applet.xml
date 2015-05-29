@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appletversion "2.12.0">
+<!ENTITY applet "CPU Frequency Scaling Monitor">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 06, 2003
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="pt_BR">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+	<title>Manual do Monitor de Graduação da Freqüência da CPU</title> 
+        <abstract role="description">
+	  <para>O Monitor de Graduação da Freqüência da CPU mostra a velocidade de freqüência de Clock e fornece uma interface para mudar a freqüência da velocidade do Clock se a CPU suportar.</para>
+	</abstract>
+	<copyright>
+	  <year>2005</year>
+	  <holder>Davyd Madeley</holder>
+	</copyright>
+        <copyright>
+	   <year>2004</year>
+            <holder>Fundação Gnome</holder>
+        </copyright><copyright><year>2008</year><holder>Amadeu Júnior (amadeu@gmail.com)</holder></copyright><copyright><year>2008</year><holder>Enrico Nicoletto (liverig@gmail.com)</holder></copyright><copyright><year>2008.</year><holder>Leonardo Ferreira Fontenelle (leo.fontenelle@gmail.com)</holder></copyright>
+
+<!-- translators: uncomment this:
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+   -->
+
+	 <publisher role="maintainer"> 
+		<publishername>Projeto de documentação Gnome</publishername> 
+	 </publisher> 
+
+  <legalnotice id="legalnotice">
+	<para>É dada permissão para copiar, distribuir e/ou modificar este documento, sob os termos da Licença de Documentação Livre GNU (GFDL), Versão 1.1 ou qualquer outra versão posterior publicada pela Free Software Foundation sem seções invariantes, sem capa da frente e contracapa. Você poderá encontrar uma copia da GFDL neste <ulink type="help" url="ghelp:fdl">endereço</ulink> ou no arquivo COPYING-DOCS distribuído com este manual.</para>
+         <para>Este manual faz parte da coleção de manuais da GNOME, distribuídos sob licença GFDL. Se você deseja distribuir este manual separadamente desta coleção, pode fazê-lo adicionando ao manual uma cópia da licença, como é descrito na seção 6 da licença.</para>
+
+	<para>Muitos dos nomes utilizados pelas empresas para distinguir seus produtos e serviços são marcas registradas. Quando estes nomes aparecem em qualquer documentação GNOME, e os membros do Projeto de Documentação GNOME estão cientes dessas marcas registradas, os nomes aparecem em letras maiúsculas ou com iniciais em maiúsculas.</para>
+
+	<para>O DOCUMENTO E SUAS RESPECTIVAS VERSÕES SÃO FORNECIDAS SOBRE OS TERMOS DA LICENÇA DE DOCUMENTAÇÃO GNU, DEIXANDO BEM CLARO, O CONHECIMENTO ADICIONAL DE QUE: <orderedlist>
+		<listitem>
+		  <para>O DOCUMENTO É FORNECIDO SOB UMA BASE "TAL QUAL", SEM GARANTIAS DE NENHUM TIPO, NEM EXPRESSAS NEM IMPLÍCITAS, INCLUINDO, SEM LIMITAÇÃO, QUALQUER GARANTIA DE QUE O DOCUMENTO OU UMA VERSÃO MODIFICADA DO MESMO ESTEJAM LIVRE DE DEFEITOS COMERCIAIS, SEJA DESTINADO PARA UM FIM PARTICULAR OU QUE NÃO INFRINJAM AS REGRAS. TODO O RISCO PELA QUALIDADE, PRECISÃO E UTILIDADE DO DOCUMENTO OU DE QUALQUER OUTRA VERSÃO MODIFICADA DO MESMO CORRESPONDE AOS SEUS ATOS. NO CASO DE QUALQUER DOCUMENTO OU VERSÃO MODIFICADA DO MESMO RESULTAR DEFEITO, SERÁ VOCÊ (E NÃO O REDATOR INICIAL, NEM O AUTOR, NEM QUALQUER OUTRA PESSOA QUE TENHA CONTRIBUÍDO) QUE ASSUMIRÁ O CUSTO DE QUALQUER SERVIÇO TÉCNICO, REPARAÇÃO OU CORREÇÃO NECESSÁRIOS. ESTA LIMITAÇÃO DAS GARANTIAS CONSTITUI UMA PARTE ESSENCIAL DESTA LICENÇA. NÃO É AUTORIZADO NENHUM USO DE QUALQUER DOCUMENTO OU VERSÃO MODIFICADA DO MESMO SE NÃO ESTÁ DE ACORDO A ESTA LIMITAÇÃO DAS GARANTIAS; E</para>
+		</listitem>
+		<listitem>
+		  <para>EM NENHUMA CIRCUNSTÂNCIA OU SOB NENHUMA TEORIA LEGAL, SEJA POR MOTIVOS CRIMINAIS (INCLUINDO NEGLIGÊNCIA), CONTRATUAIS OU DE OUTRO TIPO, NEM O AUTOR, NEM O ESCRITOR INICIAL, NEM QUALQUER COLABORADOR, NEM QUALQUER DISTRIBUIDOR DO DOCUMENTO OU VERSÃO MODIFICADA DO MESMO, NEM QUALQUER FORNECEDOR DE QUALQUER DAS PARTES CITADAS, SERÃO RESPONSÁVEIS DIRETAMENTE, INDIRETAMENTE, ESPECIALMENTE, ACIDENTALMENTE, OU CONSEQÜENTES ERROS DE QUALQUER OUTRO CARÁTER INCLUINDO, SEM LIMITAÇÃO, DANOS POR FALTA DE GARANTIA, INTERRUPÇÃO DE TRABALHO, FALHA OU MAL FUNCIONAMENTO COMPUTADORIZADO, OU QUALQUER E TODOS OS OUTROS DANOS OU PERDAS DERIVADOS DO USO DO DOCUMENTO E AS VERSÕES MODIFICADAS DO MESMO, MESMO SE A PARTE DENEGRIDA FORA INFORMADA DA POSSIBILIDADE DE TAIS ERROS.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+<!-- This file  contains link to license for the documentation (GNU FDL), and 
+     other legal stuff such as "NO WARRANTY" statement. Please do not change 
+     any of this. -->
+
+	 <authorgroup> 
+            <author>
+	       <firstname>Carlos</firstname>
+	       <surname>Garcia Campos</surname>
+	       <affiliation>
+                  <orgname>GNOME Project</orgname>
+		  <address><email>carlosgc@gnome.org</email></address>
+	       </affiliation>
+            </author>
+	    <author>
+	      <firstname>Davyd</firstname>
+	      <surname>Madeley</surname>
+	      <affiliation>
+	        <orgname>GNOME Project</orgname>
+		<address><email>davyd@madeley.id.au</email></address>
+	      </affiliation>
+	    </author>
+      <!-- This is appropriate place for other contributors: translators,
+           maintainers,  etc. Commented out by default.
+        <othercredit role="translator">
+	      <firstname>Latin</firstname> 
+	      <surname>Translator 1</surname> 
+	      <affiliation> 
+	      	<orgname>Latin Translation Team</orgname> 
+	       	<address> <email>translator@gnome.org</email> </address> 
+	      </affiliation>
+	      <contrib>Latin translation</contrib>
+        </othercredit>
+-->
+	 </authorgroup>
+
+	 <revhistory>
+	   <revision>
+	     <revnumber>GNOME 2.12</revnumber>
+	     <date>Agosto de 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+	   <revision>
+	     <revnumber>GNOME 2.10</revnumber>
+	     <date>Março de 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+		<revision> 
+		  <revnumber>Manual do miniaplicativo Monitor de Graduação da Freqüência da CPU V0.3</revnumber> 
+		  <date>Outubro de 2004</date> 
+		  <revdescription> 
+                    <para role="author">Carlos Garcia Campos</para>
+                    <para role="publisher">Projeto de documentação Gnome</para>
+		  </revdescription> 
+		</revision> 
+	 </revhistory> 
+
+	 <releaseinfo>Este manual descreve a versão 2.12.0 do Monitor de Graduação da Freqüência da CPU.</releaseinfo> 
+
+		<legalnotice> 
+		<title>Comentários</title> 
+		<para>Para reportar algum erro ou fazer uma sugestão sobre o miniaplicativo Monitor de Graduação da Freqüência da CPU ou sobre este manual, siga as instruções em <ulink url="ghelp:gnome-feedback" type="help">Página de Sugestões Gnome</ulink>.</para>
+	     </legalnotice>
+
+  </articleinfo> 
+
+  <indexterm zone="index"> 
+	 <primary>Monitor de Graduação da Freqüência da CPU</primary> 
+  </indexterm>
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<sect1 id="cpufreq-applet-introduction"> 
+	 <title>Introdução</title> 
+	 <figure id="cpufreq-applet-figure"> 
+	    <title>Monitor de Graduação da Freqüência da CPU</title> 
+		<screenshot> 
+		  <mediaobject> 
+		     <imageobject>
+			<imagedata fileref="figures/cpufreq-applet.png" format="PNG"/> 
+		     </imageobject>
+		  </mediaobject>
+	       </screenshot>
+	 </figure> 
+    <!-- ==== End of Figure ======================================= -->
+    <para>O <application>Monitor de Graduação da Freqüência da CPU</application> proporciona uma forma simplificada de monitorar a freqüência de clock para cada processador.</para> 
+	 <para>Para adicionar o <application>Monitor de Graduação da Freqüência da CPU</application> a um painel, pressione com o botão direito do mouse sobre o painel para abrir o painel de menu de navegação, depois escolha a opção <menuchoice><guimenu>Adicionar ao painel</guimenu><guimenuitem>Monitor de Graduação da Freqüência da CPU</guimenuitem></menuchoice>.</para> 
+	
+    <note><para>Infelizmente, a graduação de freqüência da CPU só pode ser monitorada atualmente em terminais Linux que possuam suporte no Kernel. Entretanto, a aplicação pode suportar diversas graduações de interfaces de freqüência no Kernel.</para></note>
+   
+   <para>Quando o sistema não permite variar a freqüência de graduação do CPU, o Monitor de Graduação da Freqüência da CPU visualiza unicamente a freqüência atual da CPU.</para>
+   <para>Quando o sistema permite variar a freqüência da CPU, o Monitor de Graduação da Freqüência da CPU visualiza o ícone da CPU com uma barra de progresso. O estado da barra de progresso representa a freqüência atual da CPU com respeito a freqüência máxima.</para>
+   <para>Por padrão o Monitor de Freqüência de Graduação da CPU mostra a freqüência atual da CPU com seu valor em Hertz (a medida de freqüência padrão), mas pode ser configurado para mostrar em porcentagem. Para maiores informações em como configurar o Monitor de Freqüência de Graduação da CPU veja a <xref linkend="cpufreq-applet-prefs"/>.</para>
+   <para>Cada instância do Monitor de Freqüência de Graduação da CPU só pode monitorar uma CPU. Você deve iniciar uma instância do Monitor de Freqüência de Graduação da CPU para cada CPU que você deseja monitorar se você possui um sistema multiprocessador (SMP).</para>
+
+   <sect2 id="gnome-cpufreq-icons">
+     <title>Conhecendo os ícones</title>
+     <para>O Monitor de Graduação da Freqüência da CPU tem uma série de ícones que graficamente representam o nível atual de freqüência do processador que está monitorando. Estes são:</para>
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Ícone</para></entry>
+              <entry colname="COLSPEC1">
+                <para>Descrição</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-100.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>Potência 100%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>A CPU está trabalhando em, ou aproximadamente, 100% do seu rendimento total.</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-75.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>Potência 75%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>A CPU está trabalhando em, ou aproximadamente, 75% do seu rendimento total.</para>
+	      </entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-50.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>Potência 50%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>A CPU está trabalhando em, ou aproximadamente, 50% do seu rendimento total.</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-25.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>Potência 25%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>A CPU está trabalhando em, ou aproximadamente, 25% do seu rendimento total.</para></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+   </sect2>
+   
+   <sect2 id="gnome-cpufreq-selector">
+      <title>Seletor de Freqüência e Política</title>
+      <warning><para>A funcionalidade do Seletor de Freqüência pode não encontrar-se disponível de forma predeterminada no seu ambiente Gnome. Por favor consulte o seu administrador de sistema, a documentação do fabricante, ou a documentação que veio com este software.</para></warning>
+      <para>Para ajustar a freqüência da CPU, clique com o botão esquerdo do mouse em o monitor e um menu será mostrado. Este menu oferecerá a você uma lista de freqüência disponíveis e/ou políticas de freqüência para a sua máquina.</para>
+      <tip><para>Você pode escolher se quiser mostrar as freqüências disponíveis ou políticas em <guilabel>Preferências</guilabel>. Veja a <xref linkend="cpufreq-applet-prefs"/> para maiores informações.</para></tip>
+
+      <figure id="cpufreq-applet-selector-img">
+	 <title>Seletor de freqüência mostrando apenas freqüências</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+
+      <figure id="cpufreq-applet-selector-both-img">
+	 <title>Seletor de freqüência mostrando freqüências e políticas</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+   </sect2>
+</sect1>
+
+<!-- ============= Customization ============================= -->
+<!-- Use this section to describe how to customize the applet. -->
+<sect1 id="cpufreq-applet-prefs"> 
+	 <title>Preferências</title> 
+	 <para>Para configurar o <application>Monitor de Graduação de Freqüência da CPU</application>, clique o botão direito no miniaplicativo, e então escolha <guimenuitem>Preferências</guimenuitem> do menu de contexto.</para> 
+	 <para>O diálogo <guimenuitem>Preferências</guimenuitem> contém os seguintes componentes:</para> 
+	 <figure id="cpufreq-applet-preferences">
+	    <title>Diálogo Preferências do Monitor de Freqüência da CPU</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Diálogo de preferências do Monitor de Freqüência da CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+
+	 <variablelist> 
+	   <varlistentry> 
+	      <term><guilabel>CPU monitorada (apenas em sistemas multiprocessador)</guilabel></term> 
+	     <listitem> 
+		<para>Use esta lista suspensa para selecionar a CPU que você deseja monitorar.</para>
+	 <figure id="cpufreq-applet-preferences-smp">
+	    <title>Selecionando a CPU para monitorar</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences-smp.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Seletor de CPU do diálogo de preferências do Monitor de Graduação da Freqüência da CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+	<note><para>A opção <guilabel>CPU monitorada</guilabel> só aparecerá em sistemas de múltiplos processadores (SMP).</para></note>
+	 
+	     </listitem>
+	   </varlistentry> 
+	   <varlistentry> 
+	      <term><guilabel>Mostrar em módulo</guilabel></term> 
+	     <listitem> 
+		<para>Use esta lista suspensa para selecionar o modo ao qual você deseja visualizar o miniaplicativo. Os modos disponíveis são: Gráfico, Texto e ambos (Gráfico e Texto).</para> 
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Mostrar a freqüência da CPU como freqüência</guilabel></term>
+	    <listitem>
+	       <para>Selecione esta opção para mostrar a freqüência atual da CPU.</para>
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Mostrar unidades de freqüência</guilabel></term>
+	    <listitem>
+	       <para>Selecione esta opção para visualizar ou não as unidades de freqüência no modo de freqüência.</para>
+	    </listitem>
+	 </varlistentry>
+	  <varlistentry>
+	     <term><guilabel>Mostrar freqüência da CPU em porcentagem (%)</guilabel></term>
+	     <listitem>
+		<para>Selecione esta opção para visualizar a freqüência atual da CPU em porcentagem (%).</para>
+	     </listitem>
+	  </varlistentry>
+
+	  <varlistentry><term><guilabel>Mostrar menu</guilabel></term>
+	   <listitem>
+	    <para>Esta opção permite a você escolher quanto de informação é mostrado na lista suspensa do seletor de freqüência (veja a <xref linkend="gnome-cpufreq-selector"/>). Você pode selecionar para visualizar <guilabel>Freqüências</guilabel>,<guilabel>Políticas</guilabel> ou ambos <guilabel>Freqüências e Políticas</guilabel>. <figure id="cpufreq-applet-selector-both-2">
+	    <title>O seletor foi configurado para Freqüências e Políticas</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Seletor de política de CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure></para>
+	  </listitem></varlistentry>
+       </variablelist>
+  </sect1>
+
+</article>

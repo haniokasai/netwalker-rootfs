@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>14.2.  ImageMap</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-web.html" title="14.  Web Filters" />
+    <link rel="prev" href="filters-web.html" title="14.  Web Filters" />
+    <link rel="next" href="plug-in-semiflatten.html" title="14.3.  Semi-Flatten" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">14.2. 
+    <span lang="en" xml:lang="en">ImageMap</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="filters-web.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">14. 
+    <span lang="en" xml:lang="en">Web Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-semiflatten.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="plug-in-imagemap"></a>14.2. 
+    <span lang="en" xml:lang="en">ImageMap</span>
+  </h3>
+          </div>
+          <div>
+            <div class="revhistory">
+              <table border="1" width="100%" summary="Revision history">
+                <tr>
+                  <th align="left" valign="top" colspan="3">
+                    <b>Revision History</b>
+                  </th>
+                </tr>
+                <tr>
+                  <td align="left">Revision $Revision: 2442 $</td>
+                  <td align="left">2008-03-18</td>
+                  <td align="left">ude</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="id2780298" class="indexterm"></a>
+      <a id="id2780316" class="indexterm"></a>
+      <p>
+    In Web sensitive images are frequently used to get some effects when
+    defined areas are enabled by the pointer. Obviously the most used effect
+    is a dynamic link to another web page when one of the sensitive areas is
+    clicked on. This “<span class="quote">filter</span>” allows you to design easily
+    sensitive areas within an image. Web site design softwares have this as a
+    standard function. In <acronym class="acronym">GIMP</acronym> you can do this in a similar
+    way.
+  </p>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2780344"></a>14.2.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      This plug-in lets you design graphically and friendly all areas you
+      want to delimit over your displayed image. You get the relevant part
+      of html tags that must be merged into the right place in your page html
+      code. You can define some actions linked to these areas too.
+    </p>
+        <p>
+      This is a complex tool which is not completely described here
+      (it works about like Web page makers offering this function). However
+      we want to describe here some of the most current handlings. If you
+      want, you can find a more complete descriptions in Grokking the GIMP
+      with the
+      link <a class="xref" href="bibliography.html#bibliography-online-grokking-gimp-imagemap" title="Grokking the GIMP (9.2 Clickable Image Maps)">[<abbr class="abbrev">GROKKING02</abbr>]</a>.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2780386"></a>14.2.2. 
+      <span lang="en" xml:lang="en">Activate the filter</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      From an image window, you can find this filter through
+      <span class="guimenu">Filters</span> → <span class="guisubmenu">Web</span> → <span class="guimenuitem">ImageMap</span>
+    </p>
+        <p>
+      The window is a small one, but you can magnify it.
+      The main useful areas are:
+    </p>
+        <div class="itemizedlist">
+          <ul type="bullet">
+            <li style="list-style-type: disc">
+              <p>
+          completely on the left are vertically displayed icons, one for
+          pointing, three for calling tools to generate various shape areas,
+          one to edit zone properties, and finally one to erase a selected
+          zone; you can call these functions with the Mapping menu,
+        </p>
+            </li>
+            <li style="list-style-type: disc">
+              <p>
+          just on the right is your working area where you can draw all the
+          shapes areas you want with the relevant tools,
+        </p>
+            </li>
+            <li style="list-style-type: disc">
+              <p>
+          on the right is displayed an icon vertical set; its use is obvious
+          but a help pop-up gives you some information about each function,
+        </p>
+            </li>
+            <li style="list-style-type: disc">
+              <p>
+          finally, even on the right is a display area, as a property list of
+          the created areas. A click on one item of the list selects
+          automatically the corresponding shape in the working area,
+        </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2780491"></a>14.2.3. 
+      <span lang="en" xml:lang="en">Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2780504"></a>
+          <p class="title">
+            <b>Figure 16.284. 
+        <span lang="en" xml:lang="en">Imagemap filter options</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/imagemap-options.png" alt="Imagemap filter options" />
+              <div class="caption">
+                <p>Imagemap window</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="sect4" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h5 class="title"><a id="id2780542"></a>14.2.3.1. 
+        <span lang="en" xml:lang="en">The Menu Bar</span>
+      </h5>
+              </div>
+            </div>
+          </div>
+          <p>
+        The menu bar is similar to the image window menu bar, only a few menus
+        or menu entries are different:
+      </p>
+          <div class="variablelist">
+            <dl>
+              <dt>
+                <span class="term">File</span>
+              </dt>
+              <dd>
+                <div class="variablelist">
+                  <dl>
+                    <dt>
+                      <span class="term">Save; Save As</span>
+                    </dt>
+                    <dd>
+                      <p>
+                      Contrary to other filters, this plug-in doesn't make an
+                      image but a text file. So you must save your work in a
+                      text format.
+                    </p>
+                      <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+                        <table border="0" summary="Tip">
+                          <tr>
+                            <td rowspan="2" align="center" valign="top" width="25">
+                              <img alt="[Tip]" src="../images/tip.png" />
+                            </td>
+                            <th align="left">Tip</th>
+                          </tr>
+                          <tr>
+                            <td align="left" valign="top">
+                              <p>
+                      With
+                      <span class="guimenu">View</span> → <span class="guimenuitem">Source</span>
+                      you can preview this text file content.
+                    </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </dd>
+                    <dt>
+                      <span class="term">Open; Open recent</span>
+                    </dt>
+                    <dd>
+                      <p>
+                      In the plug-in you can open the saved text file. The
+                      areas defined in your file will be loaded and
+                      overdisplayed; if the displayed image is not the
+                      original one or not with the same size,
+                      <acronym class="acronym">GIMP</acronym> will ask you for adapting the
+                      scale.
+                    </p>
+                    </dd>
+                  </dl>
+                </div>
+              </dd>
+              <dt>
+                <span class="term">Edit</span>
+              </dt>
+              <dd>
+                <div class="variablelist">
+                  <dl>
+                    <dt>
+                      <span class="term">Edit area info</span>
+                    </dt>
+                    <dd>
+                      <div class="figure">
+                        <a id="id2780681"></a>
+                        <p class="title">
+                          <b>Figure 16.285. 
+                      <span lang="en" xml:lang="en">Editing an imagemap area</span>
+                    </b>
+                        </p>
+                        <div class="figure-contents">
+                          <div class="mediaobject">
+                            <img src="../images/filters/options-imagemap-area.png" alt="Editing an imagemap area" />
+                          </div>
+                        </div>
+                      </div>
+                      <br class="figure-break" />
+                      <p>
+                    In the settings dialog you can edit the area information
+                    of a selected area. This dialog will pop up automatically
+                    whenever you create a new area.
+                  </p>
+                    </dd>
+                  </dl>
+                </div>
+              </dd>
+              <dt>
+                <span class="term">View</span>
+              </dt>
+              <dd>
+                <p>
+              This menu offers you special functions:
+            </p>
+                <div class="variablelist">
+                  <dl>
+                    <dt>
+                      <span class="term">Area list</span>
+                    </dt>
+                    <dd>
+                      <p>
+                    Here you can hide or show the selection area.
+                  </p>
+                    </dd>
+                    <dt>
+                      <span class="term">Source</span>
+                    </dt>
+                    <dd>
+                      <p>
+                    Here you see the raw data as you would save it to or read
+                    it from a file.
+                  </p>
+                    </dd>
+                    <dt>
+                      <span class="term">Color; Grayscale</span>
+                    </dt>
+                    <dd>
+                      <p>
+                    You can select the image mode here and work with a
+                    Grayscale display.
+                  </p>
+                    </dd>
+                  </dl>
+                </div>
+              </dd>
+              <dt>
+                <span class="term">Mapping</span>
+              </dt>
+              <dd>
+                <p>
+              You will seldom use this menu, since you can more easily access
+              selection tools by clicking on icons on the left of the working
+              area.
+            </p>
+                <div class="variablelist">
+                  <dl>
+                    <dt>
+                      <span class="term">Arrow</span>
+                    </dt>
+                    <dd>
+                      <p>
+                    The arrow here represents the Move tool. When activated
+                    tool is selected, you can select and move an area on the
+                    image.
+                  </p>
+                      <p>
+                    With a polygon, you can use the arrow to move one of
+                    the red points. Right-click on a segment between two red
+                    points to open a pop-up menu that offers several
+                    possibilities: remove a red point, add a new point...
+                  </p>
+                    </dd>
+                    <dt>
+                      <span class="term">Rectangle; Circle; Polygon</span>
+                    </dt>
+                    <dd>
+                      <p>
+                    These tools let you create various shape areas: click on
+                    the image, move the pointer, and click again.
+                  </p>
+                    </dd>
+                    <dt>
+                      <span class="term">Edit Map Info</span>
+                    </dt>
+                    <dd>
+                      <div class="figure">
+                        <a id="id2780891"></a>
+                        <p class="title">
+                          <b>Figure 16.286. 
+                      <span lang="en" xml:lang="en">Editing the imagemap data</span>
+                    </b>
+                        </p>
+                        <div class="figure-contents">
+                          <div class="mediaobject">
+                            <img src="../images/filters/options-imagemap-info.png" alt="Editing the imagemap data" />
+                          </div>
+                        </div>
+                      </div>
+                      <br class="figure-break" />
+                      <p>
+                    With this simple dialog you can enter some items, which
+                    will be written to the resulting output file; either as
+                    comments (<span class="guilabel">Author</span>,
+                    <span class="guilabel">Description</span>
+                    ) or as attribute values of the HTML tags (
+                    <span class="guilabel">Image name</span>,
+                    <span class="guilabel">Title</span>,
+                    <span class="guilabel">Default URL</span>).
+                  </p>
+                    </dd>
+                  </dl>
+                </div>
+              </dd>
+              <dt>
+                <span class="term">Tools</span>
+              </dt>
+              <dd>
+                <p>With the menu
+              <span class="guimenu">Tools</span>
+              you can create guides and even regularly spaced rectangular areas.
+            </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="sect4" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h5 class="title"><a id="id2781002"></a>14.2.3.2. 
+        <span lang="en" xml:lang="en">The Tool Bar</span>
+      </h5>
+              </div>
+            </div>
+          </div>
+          <p>
+        Most entries here are just shortcuts for some functions already
+        described. Exceptions:
+      </p>
+          <div class="variablelist">
+            <dl>
+              <dt>
+                <span class="term">Move to Front; Send to Back</span>
+              </dt>
+              <dd>
+                <p>
+              Here you can move an area entry to the bottom (“<span class="quote">Move to
+              Front</span>”)  or top (“<span class="quote">Send to Back</span>”)
+              of the area list.
+            </p>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="sect4" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h5 class="title"><a id="id2781051"></a>14.2.3.3. 
+        <span lang="en" xml:lang="en">The Working Area</span>
+      </h5>
+              </div>
+            </div>
+          </div>
+          <div class="figure">
+            <a id="id2781062"></a>
+            <p class="title">
+              <b>Figure 16.287. 
+          <span lang="en" xml:lang="en">The Working Area</span>
+        </b>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="../images/filters/options-imagemap-draw.png" alt="The Working Area" />
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+        In the main area of the imagemap window, on the left side, you will
+        find your working area where you can draw all the shapes areas you
+        want with the relevant tools.
+      </p>
+          <p>
+        Beside the working area there are vertically displayed icons, one for
+        pointing, three for calling tools to generate various shape areas, one
+        to edit zone properties, and finally one to erase a selected zone; you
+        can call these functions with the Mapping menu too.
+      </p>
+          <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <table border="0" summary="Caution">
+              <tr>
+                <td rowspan="2" align="center" valign="top" width="25">
+                  <img alt="[Caution]" src="../images/caution.png" />
+                </td>
+                <th align="left">Caution</th>
+              </tr>
+              <tr>
+                <td align="left" valign="top">
+                  <p>
+          Note that the areas should not overlap.
+        </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="sect4" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h5 class="title"><a id="id2781128"></a>14.2.3.4. 
+        <span lang="en" xml:lang="en">The selection area</span>
+      </h5>
+              </div>
+            </div>
+          </div>
+          <p>
+        On the right is a display area, as a property list of the created
+        areas. A click on one item of the list selects automatically the
+        corresponding shape in the working area, then you can modify it.
+      </p>
+          <p>
+        Beside the display are is an icon vertical set; its use is obvious
+        but a help pop-up gives you some information about each function,
+      </p>
+          <p>
+        Unfortunately, the arrow symbols for moving a list entry up or down do
+        not work here.
+        But of course you carefully avoided to create overlapping areas, so
+        you do not use these functions at all.
+      </p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="filters-web.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-web.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-semiflatten.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="filters-web.html">14. 
+    <span lang="en" xml:lang="en">Web Filters</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-semiflatten.html">14.3. 
+    <span lang="en" xml:lang="en">Semi-Flatten</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

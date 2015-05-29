@@ -1,0 +1,32 @@
+#! /bin/sh
+
+. "${PM_FUNCTIONS}"
+
+get_pulse_users() {
+    echo $(ps aux | awk '/\/usr\/bin\/pulseaudio --start/ {print $1}')
+}
+
+suspend_pulse() {
+    for i in $(get_pulse_users); do
+        sudo -H -u $i pactl suspend-sink 1 &> /dev/null
+        sudo -H -u $i pactl suspend-source 1 &> /dev/null
+    done
+}
+
+resume_pulse() {
+    for i in $(get_pulse_users); do
+        sudo -H -u $i pactl suspend-sink 0 &> /dev/null
+        sudo -H -u $i pactl suspend-source 0 &> /dev/null
+    done
+}
+
+case $1 in 
+    hibernate|suspend)
+        suspend_pulse
+        ;;
+    thaw|resume)
+        resume_pulse
+        ;;
+    *) exit $NA
+        ;;
+esac

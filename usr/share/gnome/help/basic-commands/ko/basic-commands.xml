@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY language "en">
+]>
+<article lang="ko">
+  <articleinfo>
+    <title>명령 행 사용하기</title>
+	
+	<legalnotice id="legal">
+	    <title>만든 사람들과 저작권</title>
+	    <para>이 문서는 우분투 문서화 팀 (https://wiki.ubuntu.com/DocumentationTeam) 에서 관리합니다.  공헌자 리스트는, <ulink url="../../libs/C/contributors.xml">공헌자 페이지</ulink>에서 보세요.</para>
+	    <para>이 문서는 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.5 라이센스(CC-BY-SA)에 따라 이용가능합니다.</para>
+	    <para>여러분은 얼마든지 우분투 문서의 소스 코드를 변경, 확장, 개량할 수 있습니다. 다만, 모든 일들은 라이센스 하에서 적용 되어야 합니다.</para>
+	    <para>이 문서는 유용하게 사용될 수 있으리라는 희망에서 배포되고 있지만, 특정한 목적에 맞는 적합성 여부나 판매용으로 사용할 수 있으리라는 묵시적인 보증을 포함한 어떠한 형태의 보증도 제공하지 않습니다.</para>
+	    <para>라이선스 복사본은 여기에서: <ulink url="/usr/share/ubuntu-docs/libs/C/ccbysa.xml">Creative Commons ShareAlike License</ulink>.</para>
+	</legalnotice>
+<copyright>
+    <year>2008</year>
+    <holder>Canonical Ltd. 와 <ulink url="https://launchpad.net/~ubuntu-core-doc">우분투 문서화 프로젝트</ulink>의 멤버</holder>
+</copyright><copyright><year>2006</year><holder>우분투 한국어 번역팀 (ubuntu-ko@lists.ubuntu.com)</holder></copyright>
+<publisher>
+    <publishername>우분투 문서화 프로젝트</publishername>
+</publisher>
+
+  </articleinfo>
+  <sect1 id="using-this-guide" status="review">
+    <title>이 안내서의 용법</title>
+    <para>
+      <emphasis>"리눅스 상에는 많은 GUI (Graphical User Interface)들이 있어서, 여러분이 많은 문서들을 읽지 않은 상태에서도 마우스를 통해 클릭하고 드래그 하여 많은 작업을 할 수 있습니다. 전통적인 유닉스 환경은 CLI (Command Line Interface)로 여러분은 컴퓨터에게 작업을 지시하기 위해 명령어를 입력해야 합니다. 이러한 방식은 더욱 빠르며 강력하지만, 어떠한 명령어들이 있는지 알아야만 합니다." -- <emphasis role="strong">man intro(1)</emphasis>에서</emphasis>
+    </para>
+    <para>이 안내서는 여러분이 GNU/리눅스의 쉘 명령어에 익숙해 질 수 있도록 도와줄 것입니다. 이 문서는 명령행 작업을 위한 완벽한 안내서가 아닌, 우분투의 그래픽 도구들의 대안으로서 명령행 작업을 소개하기 위한 목적으로 작성된 것입니다.</para>
+    <para>
+      <itemizedlist>
+	<listitem>
+	  <para>모든 명령 이름, 파일 이름, 디렉터리 경로들은 <command>고정폭 폰트</command> 를 사용하여 표기할 것입니다.</para>
+	</listitem>
+	<listitem>
+	  <para>이 안내서에서 소개하는 모든 명령들은 다음과 같이 <application>터미널</application> 상의 명령 프롬프트에서 입력할 수 있습니다: <screen>명령 이름</screen></para>
+	</listitem>
+	<listitem>
+	  <para><emphasis role="strong">리눅스는 대소문자를 구분합니다.</emphasis> User, user, USER 는 리눅스에서 모두 다르게 인식됩니다.</para>
+	</listitem>
+      </itemizedlist>
+    </para>
+  </sect1>
+
+  <sect1 id="starting-terminal" status="review">
+    <title>터미널 실행하기</title>
+    <para><application>터미널</application> 을 실행하려면:</para>
+    <para>
+      <itemizedlist>
+	<listitem>
+	  <para><menuchoice><guimenu>프로그램</guimenu><guimenuitem>보조 프로그램</guimenuitem><guimenuitem>터미널</guimenuitem></menuchoice> 을 선택하세요;</para>
+	</listitem>
+	<listitem>
+	  <para>혹은 <keycombo><keycap>Alt</keycap><keycap>F2</keycap></keycombo> 키를 누른 후에 <command>gnome-terminal</command> 을 입력하세요.</para>
+	</listitem>
+      </itemizedlist>
+    </para>
+   </sect1>
+  
+  <sect1 id="files-directories-commands" status="review">
+    <title>파일 및 디렉터리 명령들</title>
+
+    <sect2 id="cd" status="review">
+      <title>cd</title>
+      <para><command>cd</command> 명령은 디렉터리로 이동합니다. 터미널을 열었을 때, 여러분은 여러분의 홈 디렉터리에 있게 됩니다. 그 파일 시스템 주위로 이동하려면 <command>cd</command> 명령을 사용하세요.</para>
+	<itemizedlist>
+	  <listitem>
+	    <para>뿌리 디렉터리로 이동하려면 다음을 입력하세요: <screen>cd /</screen></para>
+	  </listitem>
+
+	  <listitem>
+	    <para>홈 디렉터리로 이동하려면 다음을 입력하세요: <screen>cd</screen> 혹은 <screen>cd ~</screen></para>
+	    <note>
+                <para><command>~</command> 문자는 현재 사용자의 홈 디렉터리를 나타냅니다. 다음에 보여지는 것처럼, <command>cd ~</command> 는 <command>cd /home/username/</command> 와 같은 의미를 갖습니다. 그러나 루트로서 명령을 실행할 때(예를 들면, <command>sudo</command> 를 이용해서) <command>~</command> 는 대신 <filename class="directory">/root</filename>를 가리킵니다. <command>sudo</command> 로 명령을 실행할 때는 여러분의 홈 디렉터리의 전체 경로를 주어야 합니다.</para>
+	  </note>
+	  </listitem>
+
+	  <listitem>
+	    <para>한 단계 위의 디렉터리로 이동하려면 다음을 입력하세요: <screen>cd ..</screen></para>
+	  </listitem>
+
+	  <listitem>
+	    <para>이전 디렉터리로 이동하려면 다음을 입력하세요: <screen>cd -</screen></para>
+	  </listitem>
+
+	  <listitem>
+	    <para>다단계의 디렉터리를 한번에 탐색하기 위해서는, 여러분이 가고자 하는 디렉터리의 전체 경로를 지정하십시오. 예를 들면, <filename class="directory">/www</filename>의 하위 디렉터리인 <filename class="directory">/var/</filename>로 바로 가려면 이렇게 입력하십시오: <screen>cd /var/www</screen>. 다른 예로 여러분의 홈 디렉터리 안의 하위 디렉터리인 <filename class="directory">Desktop</filename>로 이동하려면 이렇게 입력하십시오: <screen>cd ~/Desktop</screen></para>
+	  </listitem>
+	</itemizedlist>
+    </sect2>
+
+    <sect2 id="pwd" status="review">
+      <title>pwd</title>
+      <para><command>pwd</command> 명령은 여러분이 현재 위치해 있는 디렉터리를 출력해 줍니다(<acronym>pwd</acronym>는 작업 디렉터리 출력(<quote>print working directory</quote>)을 나타냅니다). 예를 들어 <screen>pwd</screen>를 <filename class="directory">Desktop</filename> 디렉터리에서 입력하면 <computeroutput>/home/username/Desktop</computeroutput>을 보여줄 것입니다. <note>
+	  <para><application>GNOME 터미널</application> 역시 이 정보를 제목 표시줄이나 그 창에 표시합니다.</para>
+	</note></para>
+    </sect2>
+    
+    <sect2 id="ls" status="review">
+      <title>ls</title>
+      <para><command>ls</command> 명령은 현재 디렉터리에 있는 파일들의 목록을 출력합니다. 예를 들어, <screen>ls ~</screen>를 입력하면 여러분의 홈 디렉터리에 있는 파일들을 여러분에게 보여줄 것입니다.</para>
+      <para><command>-l</command> 옵션이 사용된 <command>ls</command> 는 파일 이름과 함께 그 파일의 현재 권한과 그 파일의 소유자와 같은 다른 다양한 정보를 출력합니다.</para> 
+    </sect2>
+
+    <sect2 id="cp" status="review">
+      <title>cp</title>
+      <para><command>cp</command> 명령은 파일의 복사본을 만듭니다. 예를 들면 <filename>foo</filename> 파일과 정확하게 같은 복사본을 만들기 위해서 <screen>cp foo bar</screen>를 입력하면 그 복사본은 <filename>bar</filename>라는 이름이 붙게 됩니다. <filename>foo</filename> 파일은 변경되지 않습니다.</para>
+    </sect2>
+
+    <sect2 id="mv" status="review">
+      <title>mv</title>
+      <para><command>mv</command> 명령은 파일을 다른 위치로 이동시키거나 다른 이름으로 바꿉니다. 다음과 같은 예제들이 있습니다:<screen>mv foo bar</screen> 는 <filename>foo</filename> 파일을 <filename>bar</filename> 라는 이름으로 바꿉니다. <screen>mv foo ~/Desktop</screen> 는 <filename>foo</filename> 파일을 여러분의 <filename class="directory">Desktop</filename> 디렉터리로 이름을 바꾸지 않고 이동시킵니다.</para>
+    </sect2>
+
+    <sect2 id="rm" status="review">
+      <title>rm</title>
+      <para><command>rm</command> 은 파일들을 삭제하는데 사용됩니다. <screen>rm foo</screen> 는 현재 디렉터리의 <filename>foo</filename> 파일을 삭제합니다.</para>
+      <para>기본적으로, <command>rm</command>은 디렉터리를 지우지 않습니다. 디렉터리를 지우려면 여러분은 <command>-R</command> 옵션을 사용해야만 합니다. 예를 들어, <screen>rm -R foobar</screen>는 foobar 디렉터리<emphasis role="strong">와 그 안의 내용을 모두</emphasis> 지웁니다.</para>
+    </sect2>
+    
+    <sect2 id="mkdir" status="review">
+      <title>mkdir</title>
+      <para><command>mkdir</command> 명령은 여러분이 디렉터리를 만들 수 있게 합니다. 예를 들어, <screen>mkdir music</screen> 를 입력하면 현재 디렉터리에서 <filename class="directory">music</filename>라는 이름의 디렉터리를 생성하게 됩니다.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="sys-info-commands" status="review">
+    <title>시스템 정보 명령</title>
+    
+    <sect2 id="df" status="review">
+      <title>df</title>
+      <para><command>df</command> 명령은 모든 파티션의 디스크 사용량을 보여줍니다. <screen>df -h</screen> 명령을 이용하면 블럭 크기 대신 메가 바이트(M)와 기가 바이트(G) 단위를 통해 정보를 표시합니다 (<emphasis role="strong">-h</emphasis> 옵션은 사람이 읽기 편한("human-readable") 형태로 표시하라는 뜻입니다).</para>
+    </sect2>
+
+    <sect2 id="free" status="review">
+      <title>free</title>
+      <para><command>free</command> 명령은 시스템에서 이용 가능한 메모리의 양과 사용 중인 메모리의 양을 보여줍니다. 최근의 컴퓨터에서는 메가 바이트 단위로 크기를 보여주는 <screen>free -m</screen> 명령이 가장 유용하게 사용될 것입니다.</para>
+    </sect2>
+
+    <sect2 id="top" status="review">
+      <title>top</title>
+      <para><command>top</command> 명령은 여러분의 GNU/리눅스 시스템 상에서 실행 중인 프로세스, CPU/RAM/스왑 사용량 등의 시스템 자원, 실행 중인 태스크의 전체 갯수 등의 정보를 보여줍니다. <application>top</application> 명령을 종료하려면 <keycap>q</keycap> 키를 누르십시오.</para>
+    </sect2>
+
+    <sect2 id="uname" status="review">
+      <title>uname</title>
+      <para><command>uname</command> 명령에 <emphasis role="strong">-a</emphasis> 옵션을 사용하면, 머신 이름 과 커널 이름 및 버전 등을 포함한 모든 시스템 정보를 보여줍니다. 이 명령이 여러분이 사용하고 있는 커널 버전을 체크할 때 유용하게 사용됩니다.</para>
+    </sect2>
+
+    <sect2 id="lsb_release" status="review">
+      <title>lsb_release</title>
+      <para><emphasis role="strong">-a</emphasis>을 사용한 <command>lsb_release</command> 명령은 현재 실행 중인 리눅스의 버전 정보를 출력합니다.  예를 들어 <screen>lsb_release -a</screen>를 실행시키면: <screen>
+사용가능한 LSB 모듈이 없음
+배포자 ID: Ubuntu
+설명: Ubuntu 9.04 
+배포: 9.04
+코드 이름: jaunty</screen></para>
+    </sect2>
+ </sect1>
+
+  <sect1 id="elevated-privileges" status="review">
+    <title>다른 사용자 권한으로 명령 실행하기</title>
+    <para>다음에 설명할 명령들은 명령의 앞 쪽에 <command>sudo</command> 명령을 추가해서 사용할 필요가 있을 것입니다. <command>sudo</command> 에 대한 정보는 <ulink url="https://help.ubuntu.com/community/RootSudo">RootSudo</ulink> 문서를 살펴보기 바랍니다.</para>
+
+    <sect2 id="add-group" status="review">
+      <title>새로운 그룹 추가하기</title>
+      <para><command>addgroup</command> 명령은시스템에 새로운 그룹을 생성하기 위해 사용됩니다. 새로운 그룹을 만들려면 다음과 같이 입력하세요: <screen>addgroup newgroup</screen> 위의 명령은 <emphasis role="strong">newgroup</emphasis> 이라는 이름의 그룹을 생성할 것입니다.</para>
+    </sect2>
+    
+    <sect2 id="add-user" status="review">
+      <title>새로운 사용자 추가하기</title>
+      <para><command>adduser</command> 명령는 시스템에 새로운 사용자를 생성하기 위해 사용됩니다. 새로운 사용자를 만들려면 다음과 같이 입력하세요: <screen>adduser newuser</screen> 위의 명령은 <emphasis role="strong">newuser</emphasis> 이라는 이름의 사용자를 생성할 것입니다.</para>
+      <para>새로 생성된 사용자에게 암호를 설정하려면 <command>passwd</command> 명령을 사용하세요: <screen>passwd newuser</screen></para>
+      <para>마지막으로, 새로운 사용자를 새로운 그룹에 추가하려면 다음과 같이 입력하세요: <screen>adduser newuser newgroup</screen></para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="options" status="review">
+    <title>옵션</title>
+    <para>각 명령들의 기본 동작은 일반적으로 명령에 <emphasis role="strong">-- <emphasis>옵션</emphasis></emphasis> 을 추가하는 방식으로 변경할 수 있습니다. <link linkend="ls"><command>ls</command></link> 명령을 예로 들면, 다음과 같이 <emphasis role="strong">-s</emphasis> 옵션을 사용하여 <command>ls -s</command> 와 같이 입력하면 출력 결과에 파일 크기(size)를 포함시킬 것입니다. 또한 <emphasis role="strong">-h</emphasis> 옵션을 추가하면 파일 크기를 "사람이 읽기 편한(human readable)" 형식으로 표시합니다.</para>
+    <para>각 옵션들은 하나로 묶어서 사용할 수 있으며, 따라서 <screen>ls -sh</screen> 명령은 <screen>ls -s -h</screen> 명령과 완전히 동일합니다. 대부분의 옵션은 하나의 대시(-) 문자 대신 두 개의 대시 문자를 사용하는 긴 이름을 가지고 있습니다. 즉 위의 명령과 <screen>ls --size --human-readable</screen> 명령은 동일합니다.</para>
+  </sect1>
+
+  <sect1 id="man-help" status="review">
+    <title>"man" 페이지와 도움 얻기</title>
+    <para><emphasis role="strong"><emphasis>command</emphasis> --help</emphasis> 명령과 <emphasis role="strong">man <emphasis>command</emphasis></emphasis> 명령은 명령 행에서 가장 중요한 도구입니다.</para>
+    <para>거의 대부분의 명령들은 자신과 각 옵션들에 대한 간단한 사용법을 설명해 주고 다시 명령 행으로 돌아오는 <emphasis role="strong">-h</emphasis> (혹은 <emphasis role="strong">--help</emphasis>) 옵션을 가지고 있습니다. 이 옵션이 잘 동작하는지 보려면 <screen>man -h</screen> 혹은 <screen>man --help</screen> 명령을 입력해 보십시오.</para>
+    <para>리눅스 상의 모든 명령과 거의 대부분의 응용 프로그램들은 man (manual) 파일을 가지고 있습니다. 따라서 해당 명령에 대한 보다 자세한 설명서(manual)를 찾아보려면 단지 <command>man 명령 이름</command> 을 입력하면 됩니다. 예를 들어, <screen>man mv</screen> 명령은 <command>mv</command> (move) 명령에 대한 설명서를 보여줍니다.</para>
+    <para>man 파일을 위아래로 살펴보려면 방향 키를 이용하고, 다시 명령 행으로 돌아오려면 <keycap>q</keycap> 키를 누릅니다.</para>
+    <para><screen>man man</screen> 명령은 <command>man</command> 명령어 자체에 대한 설명서를 보여주므로, man 명령에 익숙치 않은 사람이라면 이 설명서부터 자세히 읽어보는 것이 좋습니다.</para>
+    <para><screen>man intro</screen> 명령도 유용하게 사용될 것입니다. 이 명령은 리눅스 명령 행에 대해 잘 설명된 간결한 "사용자 명령 소개서" 를 보여줍니다.</para>
+    <para>이 외에도 일반적으로 <command>man</command> 페이지보다 자세한 설명이 수록되어 있는 <command>info</command> 페이지가 있습니다. info 페이지에 대한 설명은 <screen>info info</screen> 명령을 통해 확인해 보기 바랍니다.</para>
+
+    <sect2 id="searching-ma" status="review">
+      <title>man 파일 검색</title>
+      <para>만약 여러분이 사용하고 싶은 명령어나 응용 프로그램이 어떤 것인지 잘 모르겠다면, man 파일을 검색해 볼 수 있습니다.</para>
+      <itemizedlist>
+        <listitem>
+          <para><command>man -k foo</command> 명령은 <emphasis>foo</emphasis> 에 대한 man 파일들을 검색할 것입니다. 이것이 실제로 어떻게 동작하는지 궁금하다면 <screen>man -k nautilus</screen> 명령을 실행해 보기 바랍니다. <note>
+	      <para>이것은 <command>apropos</command> 명령과 같습니다.</para>
+	    </note></para>
+	</listitem>
+	<listitem>
+	  <para><command>man -f foo</command> 명령은 오직 여러분의 시스템에 있는 man 파일 만을 검색할 것입니다. 예를 들어 <screen>man -f gnome</screen> 명령을 실행해 보십시오. <note>
+	      <para>이것은 <command>whatis</command> 명령과 같습니다.</para>
+	    </note></para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+<sect1 id="cut-paste" status="review">
+	<title>잘라내기와 붙여넣기</title>
+    <para>종종, 터미널로 명령을 붙어넣기를 요구하는 지시를 받을 겁니다.</para>
+	<para>왜 텍스트를 <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>로 웹 페이지에서 복사한 텍스트가 왜 <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>로 붙여넣기가 안 되고, 셸은 붙여넣기 위해 다른 조합인 <keycombo><keycap>Shift</keycap><keycap>Insert</keycap></keycombo>을 사용하는지 의아해할지도 모르겠습니다.  이것은 터미널 안에서 오른쪽 단추를 누르고 메뉴에서 <menuchoice><guimenuitem>붙여넣기</guimenuitem></menuchoice>를 누름으로써 마우스를 이용해서 할 수도 있습니다.</para>
+	<para>또한 웹 브라우저에서 요구되는 명령어들은 선택하고난 후, 그 선택한 명령을 터미널에 붙여넣으려면 터미널 안에서 마우스의 중간 단추를 누르면 (또는 2-단추 마우스에서는 간단히 버튼들을 동시에 누르면) 됩니다.</para>
+	<note><para>이런 동작들이 다른 터미널 에뮬레이터에서는 전부 다를지도 모릅니다.  자세한 것은 당신의 에뮬레이터 문서에서 참고하세요.</para></note>
+</sect1>
+  
+  <sect1 id="other-things" status="review">
+    <title>다른 유용한 내용들</title>
+    <sect2 id="save-typing" status="review">
+      <title>타이핑 횟수 줄이기</title>
+      <informaltable>
+        <tgroup cols="3">
+          <colspec colname="col_0"/>
+          <colspec colname="col_1"/>
+          <colspec colname="col_2"/>
+          <tbody>
+            <row>
+              <entry align="left" colsep="1" rowsep="1">
+                <para><keycap>위쪽 방향</keycap> 키 혹은 <keycombo><keycap>Ctrl</keycap><keycap>p</keycap></keycombo> 키</para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>이전에 입력한 명령들을 차례로 보여줍니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry align="left" colsep="1" rowsep="1">
+                <para><keycap>아래쪽 방향</keycap> 키 혹은 <keycombo><keycap>Ctrl</keycap><keycap>n</keycap></keycombo> 키</para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>좀더 최근에 입력한 명령들로 (차례대로) 돌아옵니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para>
+                  <keycap>Enter</keycap>
+                </para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>원하는 명령을 찾았을 때 입력합니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry align="left" colsep="1" rowsep="1">
+                <para>
+                  <keycap>Tab</keycap>
+                </para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>아주 편리한 기능입니다. 여러분이 입력하고 있는 명령이나 파일 이름이 유일한 것이라면 자동으로 완성해 주고, 여러 가지 선택이 가능하다면 그에 대한 목록을 보여줍니다.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect2>
+
+    <sect2 id="change-text" status="review">
+      <title>텍스트 변경하기</title>
+      <para>마우스로는 동작하지 않습니다. <keycap>왼쪽/오른쪽 방향</keycap> 키를 이용하여 이동합니다.</para>
+      <para>커서를 원하는 위치로 옮긴 후에, 입력하면 텍스트를 <emphasis>추가</emphasis> 합니다. 이것은 이미 작성된 내용을 덮어쓰지 않습니다.</para>
+      <informaltable>
+        <tgroup cols="3">
+          <colspec colname="col_0"/>
+          <colspec colname="col_1"/>
+          <colspec colname="col_2"/>
+          <tbody>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para><keycombo><keycap>Ctrl</keycap><keycap>a</keycap></keycombo> 또는 <keycap>Home</keycap></para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>커서를 그 줄의 <emphasis>시작</emphasis> 위치로 옮깁니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para><keycombo><keycap>Ctrl</keycap><keycap>e</keycap></keycombo> 또는 <keycap>End</keycap></para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>줄의 <emphasis>끝(end)</emphasis>으로  커서를 옮기세요.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>k</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>현재 커서 위치에서 그 줄의 끝까지의 내용을 지웁니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>u</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>현재 줄의 내용을 모두 지웁니다.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep="1" rowsep="1">
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>w</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align="left" colsep="1" namest="col_1" rowsep="1" nameend="col_2">
+                <para>커서 앞의 단어를 지웁니다.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="more-info" status="review">
+    <title>자세한 정보</title>
+    <para>다음과 같은 온라인 안내서들을 참고할 수 있습니다:</para>
+    <itemizedlist>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/AptGetHowto"> AptGetHowto</ulink> - 명령 행에서 apt-get을 이용하여 패키지를 설치하는 방법</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/Repositories/CommandLine"> 명령 행 저장소 편집</ulink> - 명령 행에서 Universe/Multiverse 저장소 추가하기</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/grep">grep Howto</ulink> - grep은 강력한 명령 행 검색 도구입니다.</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/find">find </ulink> - 명령 행에서 파일 찾기</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/CommandlineHowto">명령행 하우투</ulink> - 이 안내서보다 더 많은 내용들을 자세하게 설명한 문서이지만 아직도 완성되지 않은 상태입니다.</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="https://help.ubuntu.com/community/HowToReadline">readline 하우투</ulink> - 명령 행을 보다 전문적으로 최적화하기 위한 몇 가지 정보</para>
+      </listitem>
+    </itemizedlist>
+    <para>리눅스 명령 행에 대한 더 자세한 강좌를 원한다면 다음을 참조하세요:</para>
+    <itemizedlist>
+      <listitem>
+        <para><ulink url="http://linuxcommand.org/"/>- BASH 스크립트에 대한 설명을 포함하는 기본 BASH 강좌</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="http://linuxsurvival.com/index.php"/>- Java 기반의 강좌</para>
+      </listitem>
+      <listitem>
+        <para><ulink url="http://rute.2038bug.com/index.html.gz"/>- 시스템 관리에 대한 방대한 주제를 다루는 온라인 서적. 대부분의 내용을 명령 행에서 처리합니다.</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</article>

@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+	<chapter id="dns" status="review">
+		<title>Domain Name Service (DNS)</title>
+            <para>Domain Name Service (DNS) is an Internet service that maps IP addresses and fully
+                qualified domain names (FQDN) to one another. In this way, DNS alleviates the need to
+                remember IP addresses. Computers that run DNS are called
+                <emphasis>name
+                servers</emphasis>. Ubuntu ships with <application>BIND</application> (Berkley
+                Internet Naming Daemon), the most common program used for maintaining a name
+                server on Linux.</para>
+            <!-- things to do: IPv6-->
+      <sect1 id="dns-installation" status="review">
+        <title>Installation</title>
+          <para>At a terminal prompt, enter the following command to install
+                  <application>dns</application>:
+	  </para>
+<screen>
+<command>sudo apt-get install bind9</command>
+</screen>
+	  <para>
+	  A very useful package for testing and troubleshooting DNS issues is the dnsutils package.  To install 
+	  <application>dnsutils</application> enter the following:
+          </para>
+<screen>
+<command>sudo apt-get install dnsutils</command>
+</screen>
+      </sect1>
+      <sect1 id="dns-configuration" status="review">
+        <title>Configuration</title>
+          <para>
+	  There a many ways to configure <application>BIND9</application>.  Some of the most common configurations are a caching nameserver, 
+	  primary master, and a as a secondary master.
+	  </para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      When configured as a caching nameserver BIND9 will find the answer to name queries and remember the answer when the domain
+	      is queried again.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      As a primary master server BIND9 reads the data for a zone from a file on it's host and is authoritative for that zone.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      In a secondary master configuration BIND9 gets the zone data from another nameserver authoritative for the zone.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	  
+	  <sect2 id="dns-configuration-overview" status="review">
+	    <title>Overview</title>
+	    <para>
+            The DNS configuration files are stored in the
+            <filename>/etc/bind</filename> directory. The
+            primary configuration file is
+            <filename>/etc/bind/named.conf</filename>.
+            </para>
+
+            <para>
+            The <emphasis>include</emphasis> line specifies the
+            filename which contains the DNS options. The
+            <emphasis>directory</emphasis> line in the <filename>/etc/bind/named.conf.options</filename> file tells
+            DNS where to look for files. All files BIND uses will be
+            relative to this directory.
+            </para>
+
+            <para>
+            The file named <filename>/etc/bind/db.root</filename> 
+            describes the root nameservers in the world. The servers
+            change over time, so the
+            <filename>/etc/bind/db.root</filename> file must be maintained
+            now and then.  This is usually done as updates to the <application>bind9</application> package.
+            The <emphasis>zone</emphasis> section defines a master
+            server, and it is stored in a file mentioned in the <emphasis>file</emphasis> option.
+            </para>
+
+            <para>
+	    It is possible to configure the same server to be a caching name server, primary master, and secondary master.
+	    A server can be the Start of Authority (SOA) for one zone, while providing secondary service for another zone.
+	    All the while providing caching services for hosts on the local LAN.
+	    </para>	
+	  
+	  </sect2>
+	  <sect2 id="dns-caching-configuration" status="review">
+	    <title>Caching Nameserver</title>
+	    <para>
+	    The default configuration is setup to act as a caching server.  All that is required is simply adding the IP Addresses 
+	    of your ISP's DNS servers.  Simply uncomment and edit the following in <filename>/etc/bind/named.conf.options</filename>: 
+	    </para>
+<programlisting>
+forwarders {
+                1.2.3.4;
+                5.6.7.8;
+           };
+</programlisting>
+	  <note>
+	    <para>
+	    Replace <emphasis>1.2.3.4</emphasis> and <emphasis>5.6.7.8</emphasis> with the IP Adresses of actual nameservers.
+	    </para>
+	  </note>
+	  <para>
+	  Now restart the DNS server, to enable the new configuration.  From a terminal prompt: 
+          </para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+          <para>
+	  See <xref linkend="dns-testing-dig"/> for information on testing a caching DNS server.
+          </para>
+	  </sect2> 
+	  <sect2 id="dns-primarymaster-configuration" status="review">
+	    <title>Primary Master</title>
+	    <para>
+	    In this section <application>BIND9</application> will be configured as the Primary Master for the domain 
+	    <emphasis>example.com</emphasis>.  Simply replace <emphasis role="italic">example.com</emphasis> with your
+	    FQDN (Fully Qualified Domain Name).
+	    </para>
+	    <sect3 id="dns-forward-zone-file" status="review">
+	      <title>Forward Zone File</title>
+	      <para>
+	      To add a DNS zone to BIND9, turning BIND9 into a Primary Master server, the first step is to edit
+	      <filename>/etc/bind/named.conf.local</filename>:
+	      </para>
+<programlisting>
+zone "example.com" {
+	type master;
+        file "/etc/bind/db.example.com";
+};
+</programlisting>
+	      <para>
+	      Now use an existing zone file as a template to create the <filename>/etc/bind/db.example.com</filename> file:
+	      </para>
+<screen>
+<command>sudo cp /etc/bind/db.local /etc/bind/db.example.com</command>
+</screen>
+	      <para>
+	      Edit the new zone file <filename>/etc/bind/db.example.com</filename> change <emphasis>localhost.</emphasis>
+	      to the FQDN of your server, leaving the additional "." at the end. Change <emphasis>127.0.0.1</emphasis> to the 
+	      nameserver's IP Address and <emphasis>root.localhost</emphasis> to a valid email address, but with a "." instead 
+	      of the usual "@" symbol, again leaving the "." at the end.
+	      </para>
+	      <para>
+	      Also, create an <emphasis>A record</emphasis> for <emphasis role="italic">ns.example.com</emphasis>.  The name 
+	      server in this example: 
+	      </para>
+<programlisting>
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     ns.example.com. root.example.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.example.com.
+@       IN      A       127.0.0.1
+@       IN      AAAA    ::1
+ns      IN      A       192.168.1.10
+</programlisting>
+	       <para>
+  	       You must increment the <emphasis>Serial Number</emphasis> every time you make changes to the zone file. 
+	       If you make multiple changes before restarting BIND9, simply increment the Serial once.
+	       </para>
+	       <para>
+	       Now, you can add DNS records to the bottom of the zone file.  See <xref linkend="dns-record-types"/> for details.
+	       </para>
+	       <note>
+	         <para>
+	         Many admins like to use the last date edited as the serial of a zone, such as  <emphasis>2007010100</emphasis>
+	         which is yyyymmddss (where <emphasis>ss</emphasis> is the Serial Number)
+		 </para>
+	       </note>
+	       <para>
+	       Once you have made a change to the zone file <application>BIND9</application> will need to be restarted for 
+	       the changes to take effect: 
+	       </para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </sect3>
+	    <sect3 id="dns-reverse-zone-file" status="review">
+	      <title>Reverse Zone File</title>
+	      <para>
+	      Now that the zone is setup and resolving names to IP Adresses a <emphasis>Reverse zone</emphasis> is also required. 
+	      A Reverse zone allows DNS to resolve an address to a name.
+	      </para>
+	      <para>
+	      Edit /etc/bind/named.conf.local and add the following: 			
+	      </para>
+<programlisting>
+zone "1.168.192.in-addr.arpa" {
+        type master;
+        notify no;
+        file "/etc/bind/db.192";
+};
+</programlisting>
+	      <note>
+	        <para>	      
+	      	Replace <emphasis>1.168.192</emphasis> with the first three octets of whatever network you are using. 
+	        Also, name the zone file <filename>/etc/bind/db.192</filename> appropriately.  It should match the first octet of your network.
+	      	</para>
+	      </note>
+	      <para>
+	      Now create the <filename>/etc/bind/db.192</filename> file: 
+	      </para>
+<screen>
+<command>sudo cp /etc/bind/db.127 /etc/bind/db.192</command>
+</screen>
+	      <para>
+	      Next edit <filename>/etc/bind/db.192</filename> changing the basically the same options as 
+	      <filename>/etc/bind/db.example.com</filename>:
+	      </para>
+<programlisting>
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     ns.example.com. root.example.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.
+10      IN      PTR     ns.example.com.
+</programlisting>
+	      <para>
+	      The <emphasis>Serial Number</emphasis> in the Reverse zone needs to be incremented on each changes as well. 
+	      For each <emphasis>A record</emphasis> you configure in <filename>/etc/bind/db.example.com</filename> you need to
+	      create a <emphasis>PTR record</emphasis> in <filename>/etc/bind/db.192</filename>.
+	      </para>
+	      <para>
+	      After creating the reverse zone file restart <application>BIND9</application>: 
+	      </para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </sect3>
+	  </sect2>	  
+	  <sect2 id="dns-secondarymaster-configuration" status="review">
+	    <title>Secondary Master</title>
+	    <para>
+	    Once a <emphasis>Primary Master</emphasis> has been configured a <emphasis>Secondary Master</emphasis> is needed in 
+	    order to maintain the availability of the domain should the Primary become unavailable.
+	    </para>
+	    <para>
+            First, on the Primary Master server, the zone transfer needs to be allowed. Add the <emphasis>allow-transfer</emphasis> 
+	    option to the example Forward and Reverse zone definitions in <filename>/etc/bind/named.conf.local</filename>: 
+	    </para>
+<programlisting>
+zone "example.com" {
+        type master;
+	file "/etc/bind/db.example.com";
+        allow-transfer { 192.168.1.11; };
+};
+
+zone "1.168.192.in-addr.arpa" {
+        type master;
+        notify no;
+        file "/etc/bind/db.192";
+	allow-transfer { 192.168.1.11; };
+};
+</programlisting>
+	    <note>
+	      <para>
+	      Replace <emphasis>192.168.1.11</emphasis> with the IP Address of your Secondary nameserver.
+	      </para>
+            </note>
+	    <para>
+            Next, on the Secondary Master, install the <application>bind9</application> package the same way as on the Primary. 
+	    Then edit the <filename>/etc/bind/named.conf.local</filename> and add the following declarations for the Forward and Reverse zones:
+	    </para>
+<programlisting>
+zone "example.com" {
+	type slave;
+        file "/var/cache/bind/db.example.com";
+        masters { 192.168.1.10; };
+};        
+      
+zone "1.168.192.in-addr.arpa" {
+	type slave;
+        file "/var/cache/bind/db.192";
+        masters { 192.168.1.10; };
+};
+</programlisting>
+	    <note>
+	      <para>
+	      Replace <emphasis>192.168.1.10</emphasis> with the IP Address of your Primary nameserver.
+	      </para>
+            </note>
+	    <para>
+            Restart <application>BIND9</application> on the Secondary Master:
+	    </para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    <para>
+	    In <filename>/var/log/syslog</filename> you should see something similar to:
+	    </para>
+<programlisting>
+slave zone "example.com" (IN) loaded (serial 6)
+slave zone "100.18.172.in-addr.arpa" (IN) loaded (serial 3)
+</programlisting>
+	    <note>
+	      <para>
+              Note: A zone is only transferred if the <emphasis>Serial Number</emphasis> on the Primary is larger than the one on the Secondary. 
+	      </para>
+	    </note>
+
+	    <note>
+	      <para>
+              The default directory for non-authoritative zone files is <filename>/var/cache/bind/</filename>. This directory is also configured
+              in <application>AppArmor</application> to allow the <application>named</application> daemon to write to.  For more information on
+              AppArmor see <xref linkend="apparmor"/>.
+	      </para>
+	    </note>
+
+	  </sect2>
+      </sect1>
+      <sect1 id="dns-troubleshooting" status="review">
+	<title>Troubleshooting</title>
+	<para>
+	This section covers ways to help determine the cause when problems happen with DNS and <application>BIND9</application>. 
+	</para>
+	<sect2 id="dns-testing" status="review">
+	  <title>Testing</title>
+	  <sect3 id="dns-resolv.conf" status="review">
+	    <title>resolv.conf</title>
+	    <para>
+	    The first step in testing <application>BIND9</application> is to add the nameserver's IP Address to a hosts resolver.
+	    The Primary nameserver should be configured as well as another host to double check things.
+	    Simply edit <filename>/etc/resolv.conf</filename> and add the following:
+	    </para>
+<programlisting>
+nameserver	192.168.1.10
+nameserver	192.168.1.11
+</programlisting>
+	    <note>
+	      <para>
+	      You should also add the IP Address of the Secondary nameserver in case the Primary becomes unavailable.
+	      </para>
+	    </note>
+	  </sect3>
+	  <sect3 id="dns-testing-dig" status="review">
+	    <title>dig</title>
+	    <para>
+	    If you installed the <application>dnsutils</application> package you can test your setup using the DNS lookup utility
+	    <application>dig</application>: 
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	        After installing <application>BIND9</application> use <application>dig</application> against the
+	        loopback interface to make sure it is listening on port 53.  From a terminal prompt:
+	        </para>
+<screen>
+<command>dig -x 127.0.0.1</command>
+</screen>
+	        <para>
+	        You should see lines similar to the following in the command output:
+	        </para>
+<programlisting>
+;; Query time: 1 msec
+;; SERVER: 192.168.1.10#53(192.168.1.10)
+</programlisting>
+	      </listitem>
+	      <listitem>
+	        <para>
+		If you have configured <application>BIND9</application> as a <emphasis>Caching</emphasis> nameserver "dig" an outside
+	        domain to check the query time:
+	        </para>
+<screen>
+<command>dig ubuntu.com</command>
+</screen>
+	        <para>
+	        Note the query time toward the end of the command output:
+	        </para>
+<programlisting>
+;; Query time: 49 msec
+</programlisting>
+	        <para>
+	        After a second dig there should be improvement:
+	        </para>
+<programlisting>
+;; Query time: 1 msec
+</programlisting>
+	      </listitem> 
+	    </itemizedlist>
+	  </sect3>
+	  <sect3 id="dns-testing-ping" status="review">
+	    <title>ping</title>
+
+	    <para>
+            Now to demonstrate how applications make use of DNS to resolve a host name use the
+ 	    <application>ping</application> utility to send an ICMP echo request.  From a terminal prompt enter:
+	    </para>
+
+<screen>
+<command>ping example.com</command>
+</screen>
+	    <para>
+	    This tests if the nameserver can resolve the name <emphasis>ns.example.com</emphasis> to an IP Address.
+	    The command output should resemble:
+	    </para>
+<programlisting>
+PING ns.example.com (192.168.1.10) 56(84) bytes of data.
+64 bytes from 192.168.1.10: icmp_seq=1 ttl=64 time=0.800 ms
+64 bytes from 192.168.1.10: icmp_seq=2 ttl=64 time=0.813 ms
+</programlisting>
+	  </sect3>
+	  <sect3 id="dns-testing-configuration" status="review">
+	    <title>named-checkzone</title>
+	    <para>
+	    A great way to test your zone files is by using the <application>named-checkzone</application> utility installed with the 
+	    <application>bind9</application> package.  This utility allows you to make sure the configuration is correct
+	    before restarting <application>BIND9</application> and making the changes live.
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	        To test our example Forward zone file enter the following from a command prompt:
+	        </para>
+<screen>
+<command>named-checkzone example.com /etc/bind/db.example.com</command>
+</screen>
+	        <para>
+	        If everything is configured correctly you should see output similar to:
+	        </para>
+<programlisting>
+zone example.com/IN: loaded serial 6
+OK
+</programlisting>
+	      </listitem>
+	      <listitem>
+	        <para>
+	        Similarly, to test the Reverse zone file enter the following:
+	        </para>
+<screen>
+<command>named-checkzone example.com /etc/bind/db.192</command>
+</screen>
+	        <para>
+	        The output should be similar to:
+	        </para>
+<programlisting>
+zone example.com/IN: loaded serial 3
+OK
+</programlisting>
+	      </listitem>
+	    </itemizedlist>
+	    <note>
+	     <para>
+	     The <emphasis>Serial Number</emphasis> of your zone file will probably be different.
+	     </para>
+	    </note>
+	  </sect3>
+	</sect2>
+	<sect2 id="dns-logging" status="review">
+	  <title>Logging</title>
+	  <para>
+	  <application>BIND9</application> has a wide variety of logging configuration options available. There are two main options.  The 
+	  <emphasis>channel</emphasis> option configures where logs go, and the the <emphasis>category</emphasis> option determines what information to log.
+	  </para>
+	  <para>
+	  If no logging option is configured the default option is: 
+	  </para>
+<programlisting>
+logging {
+     category default { default_syslog; default_debug; };
+     category unmatched { null; };
+};
+</programlisting>
+	  <para>
+	  This section covers configuring <application>BIND9</application> to send <emphasis>debug</emphasis> messages related to DNS queries to a separate file. 
+	  </para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      First, we need to configure a channel to specify which file to send the messages to. Edit <filename>/etc/bind/named.conf.local</filename>
+	      and add the following: 
+	      </para>
+<programlisting>
+logging {
+    channel query.log {      
+        file "/var/log/query.log";
+        severity debug 3; 
+    }; 
+};
+</programlisting>	    
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Next, configure a category to send all DNS queries to the query file:
+	      </para>
+<programlisting>
+logging {
+    channel query.log {      
+        file "/var/log/query.log"; 
+        severity debug 3; 
+    }; 
+    <emphasis>category queries { query.log; };</emphasis> 
+};
+</programlisting>	    
+	    </listitem>
+	  </itemizedlist>
+	  <note>
+	    <para>
+	    Note: the <emphasis>debug</emphasis> option can be set from 1 to 3. If a level isn't specified level 1 is the default.
+	    </para>
+	  </note>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      Since the <emphasis>named daemon</emphasis> runs as the <emphasis>bind</emphasis> user the <filename>/var/log/query.log</filename>
+	      file must be created and the ownership changed:
+	      </para>
+<screen>
+<command>sudo touch /var/log/query.log</command>
+<command>sudo chown bind /var/log/query.log</command>
+</screen>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Before <application>named</application> daemon can write to the new log file the <application>AppArmor</application>
+	      profile must be updated.  First, edit <filename>/etc/apparmor.d/usr.sbin.named</filename> and add:
+	      </para>
+<programlisting>
+/var/log/query.log w,
+</programlisting>
+	      <para>
+	      Next, reload the profile:
+	      </para>
+<screen>
+<command>cat /etc/apparmor.d/usr.sbin.named | sudo apparmor_parser -r</command>
+</screen>
+	      <para>
+               For more information on <application>AppArmor</application> see <xref linkend="apparmor"/>
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Now restart <application>BIND9</application> for the changes to take effect:
+	      </para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </listitem>
+	  </itemizedlist>
+	  <para>
+	  You should see the file <filename>/var/log/query.log</filename> fill with query information. This is a simple example of the 
+	  <application>BIND9</application> logging options.  For coverage of advanced options see <xref linkend="dns-more-info"/>.
+	  </para>
+	</sect2>
+      </sect1> 
+      <sect1 id="dns-references" status="review">
+        <title>References</title>
+        <sect2 id="dns-record-types" status="review">
+	  <title>Common Record Types</title>
+	  <para>
+	  This section covers some of the most common DNS record types.
+	  </para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      <emphasis>A</emphasis> record: This record maps an IP Address to a hostname.
+	      </para>
+<programlisting>
+www      IN    A      192.168.1.12
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>
+	      <emphasis>CNAME</emphasis> record: Used to create an alias to an existing A record. You cannot create a CNAME record pointing to another CNAME record.
+	      </para>
+<programlisting>
+web     IN    CNAME  www
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>
+	      <emphasis>MX</emphasis> record: Used to define where email should be sent to. Must point to an A record, not a CNAME.
+	      </para>
+<programlisting>
+        IN    MX      mail.example.com.
+mail    IN    A       192.168.1.13
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>
+	      <emphasis>NS</emphasis> record: Used to define which servers serve copies of a zone. It must point to an A record, not a CNAME.
+	      This is where Primary and Secondary servers are defined.
+	      </para>
+<programlisting>
+        IN    NS     ns.example.com.
+	IN    NS     ns2.example.com.
+ns      IN    A      192.168.1.10
+ns2	IN    A	     192.168.1.11
+</programlisting>
+	    </listitem>	
+	  </itemizedlist>
+        </sect2>
+	<sect2 id="dns-more-info" status="review">
+	  <title>More Information</title>
+          <para>
+          The <ulink url="http://www.tldp.org/HOWTO/DNS-HOWTO.html">DNS HOWTO</ulink> explains more advanced options for configuring BIND9.
+          </para>
+          <para>
+	  For in depth coverage of <emphasis>DNS</emphasis> and <application>BIND9</application> see <ulink url="http://www.bind9.net/">Bind9.net</ulink>.
+          </para>
+          <para>
+	  <ulink url="http://www.oreilly.com/catalog/dns5/index.html">DNS and BIND</ulink> is a popular book now in it's fifth edition.
+          </para>
+	  <para>
+	  A great place to ask for <application>BIND9</application> assistance, and get involved with the Ubuntu Server community,
+          is the <emphasis>#ubuntu-server</emphasis>  IRC channel on  <ulink url="http://freenode.net">freenode</ulink>.
+	  </para>
+	</sect2>
+      </sect1>
+    </chapter>
+

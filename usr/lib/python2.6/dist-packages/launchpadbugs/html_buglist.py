@@ -1,0 +1,1 @@
+/usr/share/pyshared/launchpadbugs/html_buglist.py

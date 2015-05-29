@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+# Source debconf library
+. /usr/share/debconf/confmodule
+
+# If the default configuration file was generated with 1.28ubuntu8,
+# it will not be suitable for the araneo hardware.  No other version
+# was ever deployed, so it is not required to check other upgrade cases.
+
+CONFIGFILE=/etc/default/console-setup
+if [ "$1" = "upgrade" ] && [ "$2" = "1.28ubuntu8" ]; then
+    rm -f $CONFIGFILE
+    db_fset console-setup/model seen false
+    db_fset console-setup/layout seen false
+    db_fset console-setup/variant seen false
+fi
+
+
+
+exit 0

@@ -1,0 +1,1 @@
+/usr/share/pyshared/softwareproperties/gtk/DialogEdit.py

@@ -1,0 +1,37 @@
+#!/bin/sh -e
+#
+# postinst script for the Debian GNU/Linux libgsl0 package
+#
+# Written and GPL'ed by Dirk Eddelbuettel <edd@debian.org>   
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+	ldconfig
+fi
+# End automatically added section
+
+
+case "$1" in
+
+    configure)     
+        # Previous versions installed libgsl in /usr/lib/gsl/
+	# Due to a typo in gsl (<= 0.5), this might be left over
+	if grep -qs ^/usr/lib/gsl\$ /etc/ld.so.conf 
+	then
+		sed '/^\/usr\/lib\/gsl$/d' /etc/ld.so.conf \
+					    > /etc/ld.so.conf.gsl-tmp
+		mv /etc/ld.so.conf.gsl-tmp /etc/ld.so.conf
+	fi
+	;;
+
+    upgrade|abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        ;;
+
+esac
+
+exit 0                 
+

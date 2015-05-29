@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "en">
+<!ENTITY gnome-partition-editor "<application>GNOME Partition Editor</application>">
+]>
+<?db.chunk.max_depth 2?>
+<?yelp:chunk-depth 2?>
+<article lang="el" id="hardware">
+	<articleinfo>
+		<title>Εργασία με συσκευές υλικού</title>
+    	
+	<legalnotice id="legal">
+	    <title>Συντελεστές και Άδεια Χρήσης</title>
+	    <para>Αυτό το έγγραφο συντηρείται από την ομάδα τεκμηρίωσης του Ubuntu (https://wiki.ubuntu.com/DocumentationTeam). Για τη λίστα των συντελεστών, δείτε <ulink url="../../libs/C/contributors.xml">την σελίδα τους</ulink></para>
+	    <para>Το έγγραφο αυτό διατίθεται υπό την άδεια Creative Commons ShareAlike 2.5 (CC-BY-SA).</para>
+	    <para>Είστε ελεύθεροι να τροποποιήσετε, να επεκτείνετε και να βελτιώσετε τον πηγαίο κώδικα της τεκμηρίωσης του Ubuntu, υπό τους όρους της συγκεκριμένης άδειας.</para>
+	    <para>Αυτή η τεκμηρίωση διανέμεται με την ελπίδα ότι θα είναι χρήσιμη, αλλά ΧΩΡΙΣ ΟΠΟΙΑΔΗΠΟΤΕ ΕΓΓΥΗΣΗ, χωρίς ακόμη και την υπονοούμενη εγγύηση ΕΜΠΟΡΕΥΣΙΜΟΤΗΤΑΣ ή ΤΗΣ ΚΑΤΑΛΛΗΛΟΤΗΤΑΣ ΓΙΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ ΟΠΩΣ ΠΕΡΙΓΡΑΦΕΤΑΙ ΣΤΗΝ ΑΠΟΠΟΙΗΣΗ ΕΥΘΥΝΗΣ.</para>
+	    <para>Ένα αντίγραφο της άδειας χρήσης είναι διαθέσιμο εδώ: <ulink url="/usr/share/ubuntu-docs/libs/C/ccbysa.xml">Creative Commons ShareAlike License</ulink>.</para>
+	</legalnotice>
+<copyright>
+    <year>2008</year>
+    <holder>Η εταιρία Canonical Ltd. και συντελεστές από το <ulink url="https://launchpad.net/~ubuntu-core-doc">Έργο Τεκμηρίωσης Ubuntu</ulink></holder>
+</copyright>
+<publisher>
+    <publishername>Το Έργο Τεκμηρίωσης του Ubuntu</publishername>
+</publisher>
+
+	</articleinfo>
+	<para>Ο υπολογιστής σας αποτελείται από ένα αριθμό συσκευών, οι οποίες είναι γνωστές συνολικά ως το <emphasis>υλικό</emphasis> του υπολογιστή</para>
+	<para>Το Ubuntu κανονικά ρυθμίζει το υλικό σας αυτόματα, αλλά σε ορισμένες περιπτώσεις μπορεί να χρειαστεί να κάνετε αλλαγές μόνοι σας σ' αυτές τις ρυθμίσεις. Αυτή η ενότητα παρέχει πληροφορίες για τα εργαλεία που μπορείτε να χρησιμοποιήσετε, ώστε να ρυθμίσετε το υλικό σας.</para>
+	<sect1 id="restricted-manager" status="review">
+		<title>Ιδιωτικοί οδηγοί (κλειστού κώδικα)</title>
+		<para>Μερικές συσκευές συνδεδεμένες στον υπολογιστή σας, ίσως να χρειάζονται εγκατάσταση ιδιωτικών οδηγών για να δουλέψουν σωστά.</para>
+		<sect2 id="restrictedmanager-whyrestricted" status="review">
+			<title>Γιατί μερικοί οδηγοί υλικού είναι ιδιωτικοί;</title>
+			<para><emphasis>Οι ιδιωτικοί οδηγοί είναι οδηγοί τους υλικού σας, οι οποίοι δεν είναι ελεύθεροι ή ανοικτού κώδικα.</emphasis></para>
+			<para>Οι περισσότερες συσκευές (υλικό) που υπάρχει στον υπολογιστή θα πρέπει να λειτουργούν σωστά στο Ubuntu. Αυτές οι συσκευές πιθανόν έχουν οδηγούς <emphasis>ανοικτού κώδικα (ελεύθερους)</emphasis>, που σημαίνει ότι οι οδηγοί μπορούν να τροποποιηθούν από τους προγραμματιστές του Ubuntu και να διορθώσουν τα προβλήματα τους.</para>
+			<para>Ορισμένο υλικό δεν έχει οδηγούς ανοικτού κώδικα, συνήθως γιατί ο κατασκευαστής του υλικού δεν έχει εκδώσει λεπτομέρειες των συσκευών του που θα μπορούσαν να κάνουν δυνατή την δημιουργία ενός τέτοιου οδηγού. Αυτές οι συσκευές έχουν συνήθως περιορισμένη λειτουργικότητα ή δεν λειτουργούν καθόλου.</para>
+			<para>Αν ένας <emphasis>ιδιωτικός οδηγός</emphasis> είναι διαθέσιμος για κάποια συγκεκριμένη συσκευή μπορείτε να τον εγκαταστήσετε, ώστε η συσκευή αυτή να λειτουργήσει σωστά, ή να προστεθεί στην λειτουργία της ένα νέο χαρακτηριστικό. Για παράδειγμα η εγκατάσταση ενός ιδιωτικού οδηγού για ορισμένες κάρτες γραφικών μπορεί να σας επιτρέψει να χρησιμοποιήσετε τα <ulink type="help" url="ghelp:desktop-effects">οπτικά εφέ</ulink>.</para>
+			<para>Ορισμένοι υπολογιστές μπορεί να μην έχουν συσκευές που να χρειάζονται ιδιωτικούς οδηγούς, είτε γιατί όλες οι συσκευές υποστηρίζονται από οδηγούς ανοικτού κώδικα ή γιατί δεν διατίθενται ιδιωτικοί οδηγοί για τις συσκευές αυτές.</para>
+			<caution>
+				<para>Ιδιωτικοί οδηγοί υλικού συντηρούνται από τους κατασκευαστές υλικού, οπότε δεν μπορούν να τροποποιηθούν από τους προγραμματιστές του Ubuntu, αν υπάρξει πρόβλημα.</para>
+			</caution>
+		</sect2>
+		<sect2 id="restrictedmanager-enable" status="review">
+			<title>Ενεργοποιώντας έναν ιδιωτικό οδηγό υλικού</title>
+			<para>Για να χρησιμοποιήσετε ένα ιδιωτικό οδηγό για την συσκευή:</para>
+			<procedure>
+				<step>
+					<para>Πατήστε <menuchoice><guimenu>Σύστημα</guimenu><guimenuitem>Διαχείριση συστήματος</guimenuitem><guimenuitem>Οδηγοί υλικού</guimenuitem></menuchoice></para>
+				</step>
+				<step>
+					<para>Εντοπίστε τον οδηγό που θα θέλατε να ενεργοποιήσετε και κάντε ένα κλικ στο κουτάκι <guilabel>Ενεργοποίηση</guilabel> δίπλα στο όνομα της συσκευής</para>
+				</step>
+				<step>
+					<para>Θα ερωτηθείτε για να επιβεβαιώσετε ότι θέλετε να ενεργοποιήσετε τον οδηγό. Πατήστε <guibutton>Ενεργοποίηση Οδηγού</guibutton></para>
+				</step>
+				<step>
+					<para>Ο ιδιωτικός οδηγό θα μεταφορτωθεί και θα εγκατασταθεί</para>
+				</step>
+				<step>
+					<para>Μπορεί να χρειαστεί να κάνετε επανεκκίνηση στον υπολογιστή σας για να ενεργοποιήσετε τον οδηγό</para>
+				</step>
+			</procedure>
+		</sect2>
+		<sect2 id="restrictedmanager-disable" status="review">
+			<title>Απενεργοποιώντας έναν ιδιωτικό οδηγό</title>
+			<para>Αν ένας ιδιωτικός οδηγός προκαλέσει προβλήματα, ή απλά θέλετε να τον απενεργοποιήσετε, ακολουθήστε την παρακάτω διαδικασία:</para>
+			<procedure>
+				<step>
+					<para>Πατήστε <menuchoice><guimenu>Σύστημα</guimenu><guimenuitem>Διαχείριση συστήματος</guimenuitem><guimenuitem>Οδηγοί υλικού</guimenuitem></menuchoice></para>
+				</step>
+				<step>
+					<para>Βρείτε τον οδηγό που θα θέλατε να απενεργοποιήσετε και κάντε κλικ στο κουτάκι <guilabel>Ενεργοποίηση</guilabel> δίπλα στο όνομα της συσκευής</para>
+				</step>
+				<step>
+					<para>Θα ερωτηθείτε για να επιβεβαιώσετε ότι θέλετε να απενεργοποιήσετε τον οδηγό. Πατήστε <guibutton>Απενεργοποίηση Οδηγού</guibutton></para>
+				</step>
+				<step>
+					<para>Μπορεί να χρειαστεί να κάνετε επανεκκίνηση στον υπολογιστή σας για να απενεργοποιήσετε τον οδηγό</para>
+				</step>
+			</procedure>
+		</sect2>
+	</sect1>
+	
+	<sect1 id="disks" status="review">
+	  <title>Δίσκοι και διαμερίσματα (κατατμήσεις)</title>
+	  <para>Η ενότητα αυτή παρέχει πληροφορίες για το πως μπορείτε να διαχειριστείτε δίσκους και οδηγούς, όπως αφαιρούμενους σκληρούς δίσκους.</para>
+
+	  <indexterm zone="partitioning-device">
+	    <primary>διαμέρισμα</primary>
+	    <secondary>διαμερίσματα</secondary>
+	  </indexterm>
+
+	  <indexterm zone="partitioning-device">
+	    <primary>διαδικασία διαμέρισης</primary>
+	  </indexterm>
+
+	  <indexterm zone="partition-formatting">
+	    <primary>διαμόρφωση</primary>
+	    <secondary>διαδικασία διαμόρφωσης</secondary>
+	  </indexterm>
+
+	  <indexterm zone="mount-and-umount">
+	    <primary>προσάρτηση</primary>
+	  </indexterm>
+
+	  <indexterm zone="mount-and-umount">
+	    <primary>αποπροσάρτηση</primary>
+	    <secondary>umount</secondary>
+	  </indexterm>
+
+	  <indexterm zone="what-is-filesystem">
+	    <primary>σύστημα αρχείων</primary>
+	    <secondary>σύστημα αρχείων</secondary>
+	  </indexterm>
+
+	<sect2 id="checking-usage" status="review">
+        <title>Γίνεται υπολογισμός του διαθέσιμου χώρου του δίσκου</title>
+        <para>Κάντε κλικ στο <menuchoice><guimenu>Σύστημα</guimenu><guisubmenu>Διαχείρηση συστήματος</guisubmenu><guimenuitem>Παρακολούθηση συστήματος</guimenuitem></menuchoice> και επιλέξτε την καρτέλα <guilabel>Συστήματα αρχείων</guilabel> για να δείτε τον διαθέσιμο χώρο του δίσκου σας στον υπολογιστή σας.</para>
+        <para>Εναλλακτικά, κάντε κλικ στο <menuchoice><guimenu>Τοποθεσίες</guimenu><guimenuitem>Υπολογιστής</guimenuitem></menuchoice>, δεξί κλικ σε έναν σκληρό δίσκο, κλικ στις <guilabel>Ιδιότητες</guilabel> και επιλέξτε την καρτέλα <guilabel>Βασικό</guilabel> για να δείτε μια περίληψη του χώρου που είναι αυτή την στιγμή διαθέσιμος στον δίσκο.</para>
+	    
+	    <sect3 id="advanced-disk-analysis" status="review">
+	      <title>Προχωρημένη ανάλυση της χρήσης δίσκου</title>
+	      <para>Για μια πιο ακριβή ανάλυση του συστήματος αρχείων σας πατήστε <menuchoice><guimenu>Εφαρμογές</guimenu><guimenuitem>Βοηθήματα</guimenuitem><guimenuitem>Ανάλυση χρήσης δίσκου</guimenuitem></menuchoice> για να εκκινήσετε την <application>Ανάλυση χρήσης δίσκου</application>.</para>
+	      <para>Πατήστε <guibutton>Σάρωση αρχικού καταλόγου</guibutton> για να σαρώσετε τον αρχικό σας κατάλογο ή πατήστε <guibutton>Σάρωση συστήματος αρχείων</guibutton> για να σαρώσετε όλο το σύστημα αρχείων σας.</para>
+	      <para>Για περισσότερες πληροφορίες, δείτε το <ulink url="ghelp:baobab" type="help">Εγχειρίδιο της Ανάλυσης χρήσης δίσκου</ulink>.</para>
+	    </sect3>
+	  </sect2>
+
+    <sect2 id="free-disk-space" status="review">
+    <title>Πως μπορώ να ελευθερώσω λίγο χώρο στον δίσκο;</title>
+    <para>Υπάρχουν διάφοροι απλοί τρόποι για να κάνετε διαθέσιμο περισσότερο χώρο στον δίσκο:</para>
+
+    <itemizedlist>
+        <listitem>
+        <para>Αδειάστε τον κάδο απορριμάτων κάνοντας δεξί κλικ στο εικονίδιο του κάδου στο κάτω μέρος της οθόνης και επιλέγοντας <guilabel>Άδειασμα απορριμάτων</guilabel>.</para>
+        </listitem>
+        <listitem>
+        <para>
+        <ulink url="apt:computer-janitor-gtk">Install <application>Computer Janitor</application></ulink> 
+        and run it by clicking <menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>. This will remove unused or 
+        obsolete software packages from your computer. Read the list of 
+        packages carefully before you click <guibutton>Cleanup</guibutton>; 
+        packages that you have manually downloaded and installed may be listed 
+        as unused, even though they are not.
+        </para>
+        </listitem>
+        <listitem>
+        <para>Αφαιρέστε πακέτα λογισμικού που δεν χρησιμοποιείτε πλέον. Δείτε το <ulink type="help" url="ghelp:add-applications#gnome-app-install">Προσθαφαίρεση εφαρμογών</ulink> για πληροφορίες σχετικά με την αφαίρεση πακέτων.</para>
+        </listitem>
+        <listitem>
+        <para>Διαγράψτε αρχεία που δεν χρειάζεστε πλέον. Μπορείτε να χρησιμοποιήσετε την Ανάλυση χρήσης δίσκου  (<menuchoice><guimenu>Εφαρμογές</guimenu><guimenuitem>Βοηθήματα</guimenuitem><guimenuitem>Ανάλυση χρήσης δίσκου</guimenuitem></menuchoice>) για να βρείτε ποια αρχεία καταναλώνουν περισσότερο χώρο. Πρόσεξτε να μην διαγράψετε αρχεία που χρειάζεστε ακόμα!</para>
+        </listitem>
+    </itemizedlist>
+
+    <para>Μπορείτε επίσης να συμπιέσετε και να αρχειοθετήσετε τα παλιά, σπάνια χρησιμοποιούμενα έγγραφα σας:</para>
+
+    <procedure>
+        <step>
+        <para>Επιλέξτε τα αρχεία και τους φακέλους που θέλετε να συμπιέσετε, κάντε δεξί κλικ σ' ένα απ' αυτά και επιλέξτε <guilabel>Δημιουργία συμπιεσμένου αρχείου</guilabel>.</para>
+        </step>
+        <step>
+        <para>Επιλέξτε όνομα, θέση και μορφή για το αρχείο (η μορφοποίηση <filename>.tar.gz</filename> είναι η πλέον διαδεδομένη στο Ubuntu, η μορφή<filename>.zip</filename> είναι συμβατή με Windows και η μορφή  <filename>.tar.lzma</filename> συνήθως προσφέρει την καλύτερη συμπίεση.).</para>
+        </step>
+        <step>
+        <para>Πατήστε <guibutton>Δημιουργία</guibutton>. Θα δημιουργηθεί ένα συμπιεσμένο αρχείο που θα περιέχει συμπιεσμένα αντίγραφα των αρχείων σας.</para>
+        </step>
+        <step>
+        <para>Διαγράψτε τα παλιά μη συμπιεσμένα αρχεία για να ελευθερώσετε λίγο χώρο στον δίσκο.</para>
+        </step>
+    </procedure>
+    </sect2>
+
+	  <sect2 id="partitioning-device" status="review">
+	    <title>Διαδικασία διαμέρισης μιας συσκευής</title>
+	    <para>Μπορείτε να χρησιμοποιήσετε τον επεξεργαστή διαμερισμάτων <application>GNOME Partition Editor</application> για δημιουργήσετε διαμερίσματα σε συσκευές αποθήκευσης.  <ulink url="apt:gparted">Εγκαταστήστε το πακέτο <application>gparted</application></ulink> και μετά επιλέξτε <menuchoice><guimenu>Σύστημα</guimenu><guisubmenu>Διαχείριση συστήματος </guisubmenu><guimenuitem>Gnome Partition editor</guimenuitem></menuchoice> για να ξεκινήσετε τον επεξεργαστή.</para>
+	    <caution>
+	    	<para>Να είστε προσεκτικοί όταν μεταβάλετε τα διαμερίσματα του δίσκου, μια και είναι πιθανό να χάσετε τα δεδομένα σας αν αλλάξετε ή διαγράψετε το λάθος διαμέρισμα.</para>
+	    </caution>
+
+	    <sect3 id="freeing-space" status="review">
+	      <title>Ελευθερώνοντας χώρο για ένα νέο διαμέρισμα</title>
+	      <para>Για να δημιουργήσετε ένα νέο διαμέρισμα μέσα σε μια ήδη κατετμημένη συσκευή, θα πρέπει πρώτα να αλλάξετε το μέγεθος του υπάρχοντος διαμερίσματος. Αν έχετε ήδη ελεύθερο χώρο, πηγαίνετε στο <xref linkend="creating-new-partition"/>; αλλιώς, ακολουθήστε τις παρακάτω οδηγίες: <orderedlist>
+		  <listitem>
+		    <para>Επιλέξτε<menuchoice><guimenu>Σύστημα</guimenu><guisubmenu>Διαχείριση συστήματος</guisubmenu><guimenuitem>Gnome Partition Editor </guimenuitem></menuchoice>.</para>
+		  </listitem>
+		  <listitem>
+		    <para>Διαλέξτε την συσκευή που θέλετε να χωρίσετε από την λίστα πάνω δεξιά στο κεντρικό παράθυρο.</para>
+		  </listitem>
+		  <listitem>
+		    <para>Θα εμφανιστεί μια λίστα διαμερισμάτων. Επιλέξτε την επιθυμητή κατάτμηση και επιλέξτε <menuchoice><guimenu>Διαμέρισμα</guimenu><guimenuitem>Αποπροσάρτηση</guimenuitem></menuchoice>.</para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      To resize the partition choose
+		      <guilabel>Resize/Move</guilabel>. The dialog
+		      <guilabel>Resize/Move</guilabel> will be shown. You can
+		      use the <guilabel>Free Space Following (MiB)</guilabel>
+		      box to choose how much space to free after this
+		      partition, or <guilabel>Free Space Preceding
+		      (MiB)</guilabel> to free space before this partition. Alternatively
+		      you can use the slider to adjust the partition size.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      To apply the changes, click
+		      <guibutton>Resize/Move</guibutton>.
+		    </para>
+		  </listitem>
+		</orderedlist></para>
+	    </sect3>
+	    <sect3 id="creating-new-partition" status="review">
+	      <title>Δημιουργία νέου διαμερίσματος</title>
+	      <para>Για να δημιουργήσετε ένα νέο διαμέρισμα: <orderedlist>
+		  <listitem>
+		    <para>Διαλέξτε την συσκευή που θέλετε να χωρίσετε από την λίστα πάνω δεξιά στο κεντρικό παράθυρο.</para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      A list of partitions will appear. Select the one called
+		      <guilabel>unallocated</guilabel> and click
+		      <guibutton>New</guibutton>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      From the <guilabel>Filesystem</guilabel> drop-down list
+		      choose the desired type of filesystem to use and click
+		      <guibutton>Add</guibutton>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>Για να εφαρμόσετε τις αλλαγές που κάνατε, πατήστε <guibutton>Εφαρμογή</guibutton>.</para>
+		  </listitem>
+		</orderedlist></para>
+	    </sect3>
+	  </sect2>
+
+	  <sect2 id="partition-formatting" status="review">
+	    <title>Διαμόρφωση διαμερίσματος</title>
+	    <para>Μπορείτε να χρησιμοποιήσετε το <application>GNOME Partition Editor</application> για να διαμορφώσετε διαμερίσματα δίσκων (δείτε το <xref linkend="partitioning-device"/> για περισσότερες πληροφορίες πάνω στον <application>GNOME Partition Editor</application>)</para>
+	    <para>Για να διαμορφώσετε ένα διαμέρισμα, κάντε τα παρακάτω: <orderedlist>
+		<listitem>
+		  <para>Επιλέξτε<menuchoice><guimenu>Σύστημα</guimenu><guisubmenu>Διαχείριση συστήματος</guisubmenu><guimenuitem>Gnome Partition Editor </guimenuitem></menuchoice>.</para>
+		</listitem>
+		<listitem>
+		  <para>Διαλέξτε την συσκευή που θέλετε να χωρίσετε από την λίστα πάνω δεξιά στο κεντρικό παράθυρο.</para>
+		</listitem>
+		<listitem>
+		  <para>Θα εμφανιστεί μια λίστα διαμερισμάτων. Επιλέξτε την επιθυμητή κατάτμηση και επιλέξτε <menuchoice><guimenu>Διαμέρισμα</guimenu><guimenuitem>Αποπροσάρτηση</guimenuitem></menuchoice>.</para>
+		</listitem>
+		<listitem>
+		  <para>Επιλέξτε το διαμέρισμα που θέλετε να διαμορφώσετε και πατήστε <menuchoice><guimenu>Διαμέρισμα</guimenu><guimenuitem>Μορφοποίηση σε</guimenuitem></menuchoice> και επιλέξτε από τη λίστα τον τύπο του συστήματος αρχείων με τον οποίο θα το διαμορφώσετε.</para>
+		</listitem>
+		<listitem>
+		  <para>Για να εφαρμόσετε τις αλλαγές που κάνατε, πατήστε <guibutton>Εφαρμογή</guibutton>.</para>
+		</listitem>
+	      </orderedlist></para>
+
+	    <warning>
+	      <para>Πατώντας <guibutton>Εφαρμογή</guibutton> θα διαγραφούν μόνιμα όλα τα αρχεία του διαμερίσματος.</para>
+	    </warning>
+	  </sect2>
+	  
+	  <sect2 id="to-format-meaning" status="review">
+	    <title>Τι είναι η διαμόρφωση;</title>
+	    <para>Η διαμόρφωση ενός σκληρού δίσκου, μιας συσκευής ή ενός διαμερίσματος σημαίνει ότι προετοιμάζεται η συσκευή για να αποθηκεύσει δεδομένα.</para>
+	    <para>Διαμόρφωση ενός σκληρού δίσκου ή ενός διαμερίσματςο είναι η διαδικασία εφαρμογής ενός συγκεκριμένου τρόπου αποθήκευσης δεδομένων στη συσκευή αυτή. Ο τρόπος αυτός είναι το <quote>σύστημα αρχείων</quote>.</para>
+	    <para>Συνήθως, όταν αγοράζετε ένα δίσκο δεν είναι διαμορφωμένος και δε μπορεί ακόμα να χρησιμοποιηθεί για αποθήκευση δεδομένων. Όταν διαμορφωσετε τη συσκευή, θα παρατηρήσετε πως ο ελεύθερος χώρος είναι μικρότερος από τον αρχικό. Αυτό συμβαίνει γιατί πρέπει να χρησιμοποιηθεί λίγος χώρος για να γίνει χρησιμοποιήσιμη η συσκευή. Αυτός ο χώρος αφιερώνεται στο σύστημα αρχείων. Επίσης, είναι σύνηθες, κάποιοι κατασκευαστές δίσκων να χρησιμοποιούν άλλες μονάδες μέτρησης για τη μέτρηση της χωρητικότητας του δίσκου, κάτι που οδηγεί σε μεγαλύτερη διαφορά.</para>
+	  </sect2>
+
+	  <sect2 id="what-is-filesystem" status="review">
+	    <title>Τι είναι ένα σύστημα αρχείων;</title>
+	    <para>Ένα σύστημα αρχείων είναι ένας συγκεκριμένος τρόπος για να αποθηκεύετε και να οργανώνετε αρχεία σε συσκευές αποθήκευσης, όπως οι σκληροί δίσκοι, και είναι ένα πολύ σημαντικό μέρος του λειτουργικού συστήματος. Χωρίς σύστημα αρχείων δεν θα υπήρχε η δυνατότητα πρόσβασης και αποθήκευσης των αρχείων.</para>
+	    <para>Υπάρχουν διάφοροι τύποι συστημάτων αρχείων. Οι πιο συνήθεις είναι: <itemizedlist>
+		<listitem>
+		  <para>Το ext2 και το ext3: αυτά βρίσκονται συνήθως σε λειτουργικά συστήματα GNU/Linux. Το Ubuntu χρησιμοποιεί το σύστημα αρχείων <emphasis>ext3</emphasis> ως το προεπιλεγμένο σύστημα αρχείων του.</para>
+		</listitem>
+		<listitem>
+		  <para>Το <acronym>FAT16</acronym> και το <acronym>FAT32</acronym>: αυτά είναι τα συστήματα αρχείων των Microsoft Windows που εμφανίζονται κυρίως σε παλαιότερους υπολογιστές. Αν θέλετε να μοιράζετε δεδομένα μεταξύ δύο υπολογιστών το <emphasis><acronym>FAT32</acronym></emphasis> είναι μια καλή επιλογή.</para>
+		</listitem>
+		<listitem>
+		  <para>Το <acronym>NTFS</acronym>: αυτό είναι ένα σύστημα αρχείων που χρησιμοποιείται από τις νεώτερες εκδόσεις των Microsoft Windows.</para>
+		</listitem>
+		<listitem>
+		  <para>Το <acronym>HFS+</acronym>: είναι το προεπιλεγμένο σύστημα αρχείων για το λειτουργικό σύστημα Mac OS X.</para>
+		</listitem>
+	      </itemizedlist></para>
+	  </sect2>
+
+	  <sect2 id="partition-meaning" status="review">
+	    <title>Τι είναι ένα Διαμέρισμα;</title>
+	    <para>Ένα διαμέρισμα δημιουργείται χωρίζοντας την χωρητικότητα αποθήκευσης μιας συσκευής, όπως ο σκληρός δίσκος, σε πολλά μέρη, τα οποία αντιμετωπίζονται ως ξεχωριστές συσκευές αποθήκευσης (<quote>λογικές συσκευές</quote>).</para>
+	    <para>Κάθε λογική συσκευή αναγνωρίζεται από το λειτουργικό σύστημα ως μια ξεχωριστή συσκευή και αντιμετωπίζεται ως ένας ανεξάρτητος δίσκος.</para>
+	    <para>Η διαμέριση ενός σκληρού δίσκου μπορεί να γίνει για πολλούς λόγους: <itemizedlist>
+		<listitem>
+		  <para>Για να ανακτήσετε ελεύθερο χώρο</para>
+		</listitem>
+		<listitem>
+		  <para>Για να εγκαταστήσετε ένα διαφορετικό λειτουργικό σύστημα</para>
+		</listitem>
+		<listitem>
+		  <para>Για να οργανώσετε καλύτερα τα δεδομένα σας στον σκληρό δίσκο</para>
+		</listitem>
+	      </itemizedlist></para>
+	  </sect2>
+
+	  <sect2 id="mount-and-umount" status="review">
+	    <title>Προσάρτηση και Αποπροσάρτηση Συσκευών</title>
+	    <para>Όταν συνδέσετε μια αφαιρούμενη συσκευή αποθήκευσης στον υπολογιστή σας, πρέπει να <emphasis>προσαρτηθεί</emphasis> από το λειτουργικό σύστημα, ώστε να μπορείτε να έχετε πρόσβαση στα αρχεία της συσκευής.</para>
+	    <para>Για να βρείτε πως να προσαρτήσετε και να αποπροσαρτήσετε συσκευές αποθήκευσης, δείτε το  <ulink type="help" url="ghelp:user-guide#gosnautilus-460">Χρήση Αφαιρούμενων Μέσων</ulink></para>
+	    <para>Όταν αντιγράφετε αρχεία σε μια συσκευή αποθήκευσης δεν γράφονται πάντα αμέσως στην συσκευή, αλλά συχνά αποθηκεύονται σε μια ουρά αναμονής, ώστε να μπορούν να μεταφέρονται από και προς την συσκευή στιγμιαία (για λόγους απόδοσης). Αν αποσυνδέσετε την συσκευή πριν τα αρχεία αυτά μεταφερθούν τότε μπορεί να τα χάσετε. Για να μην συμβεί αυτό πρέπει να κάνετε πάντα <emphasis>αποπροσάρτηση</emphasis> της συσκευής πριν την αποσυνδέσετε.</para>
+	  </sect2>
+  </sect1>
+
+<sect1 id="laptops" status="review">
+	<title>Φορητοί υπολογιστές</title>
+	<para>Αυτή η ενότητα περιέχει πληροφορίες για την χρήση του Ubuntu σε ένα φορητό υπολογιστή.</para>	
+	<sect2 id="laptops-pm" status="review">
+		<title>Ρυθμίσεις εξοικονόμησης ενέργειας</title>
+		<para>Μπορεί να θέλετε να αλλάξετε την διαχείριση ενέργειας του φορητού σας για να μεγαλώσετε την διάρκεια ζωής της μπαταρίας του και να μειώσετε την σπατάλη ενέργειας.</para>
+		<procedure>
+			<step>
+				<para>Πατήστε <menuchoice><guimenu>Σύστημα</guimenu><guimenuitem>Προτιμήσεις</guimenuitem><guimenuitem>Διαχείριση ενέργειας</guimenuitem></menuchoice>.</para>
+			</step>
+			<step>
+				<para>Αλλάξτε τις ρυθμίσεις όπως επιθυμείτε. Οι αλλαγές θα εφαρμοστούν αμέσως.</para>
+			</step>
+		</procedure>
+		
+		<para>Η διαδικασία της προστασίας οθόνης μπορεί να χρησιμοποιεί περισσότερη ενέργεια από το να γίνει η οθόνη απλά κενή (μαύρη). Απενεργοποιώντας την προστασία οθόνης μπορεί να παρατείνει την ζωή της μπαταρία σας.</para>
+		<procedure>
+			<step>
+				<para>Πατήστε <menuchoice><guimenu>Σύστημα</guimenu><guimenuitem>Προτιμήσεις</guimenuitem><guimenuitem>Προστασία οθόνης</guimenuitem></menuchoice>.</para>
+			</step>
+			<step>
+				<para>Αλλάξτε το <guilabel>Θέματα προστασίας οθόνης</guilabel> σε <guilabel>Κενή οθόνη</guilabel>. Αυτό απλά θα εμφανίζει μια κενή οθόνη αντί για κάποιο άλλο θέμα της προστασίας οθόνης.</para>
+			</step>
+		</procedure>
+		<note>
+			<para>Όταν ο φορητός υπολογιστής σας χρησιμοποιεί την μπαταρία, η μεγαλύτερη κατανάλωση ενέργειας γίνεται στην οθόνη. Μειώνοντας την φωτεινότητα της μπορείτε να παρατείνετε την διάρκεια της μπαταρίας σημαντικά. Πολλοί φορητοί μπορούν να το κάνουν αυτό, αν πατήσετε ταυτόχρονα τα πλήκτρα <keycombo><keycap>Fn</keycap><keycap>F7</keycap></keycombo> πολλές φορές.</para>
+		</note>
+	</sect2>
+	<sect2 id="laptops-touchpads" status="review">
+		<title>Συσκευές κατάδειξης (Touchpads)</title>
+		<para>Στους περισσότερους φορητούς υπάρχει η συσκευή κατάδειξης, που χρησιμοποιείται για να ελεγχθεί ο δείκτης του ποντικιού. Υπάρχουν πολλοί τρόποι για να αλλάξετε τον τρόπο που συμπεριφέρεται μια συσκευή κατάδειξης. Οι βασικές ρυθμίσεις της μπορούν να γίνουν με τον παρακάτω τρόπο.</para>
+		<procedure>
+			<step><para>Πατήστε <menuchoice><guimenu>Σύστημα</guimenu><guimenuitem>Προτιμήσεις</guimenuitem><guimenuitem>Ποντίκι</guimenuitem></menuchoice>.</para></step>
+			<step><para>Select the <guilabel>Touchpad</guilabel> tab.</para></step>
+			<step><para>Εδώ μπορείτε να αλλάξετε τις ρυθμίσεις της συσκευής κατάδειξης σε αυτές της αρεσκείας σας. Οι αλλαγές αυτές θα εφαρμοστούν αμέσως.</para></step>
+		</procedure>
+		<para>Ορισμένες συσκευές κατάδειξης μπορεί να εντοπιστούν ως ποντίκια, αν και δεν είναι. Στην περίπτωση αυτή η παραπάνω ειδική ετικέτα δεν θα είναι διαθέσιμη στις προτιμήσεις για το ποντίκι.</para>
+		<note>
+			<para>Δείτε τις <ulink url="https://help.ubuntu.com/community/SynapticsTouchpad">σελίδες υποστήριξης της κοινότητας</ulink> για περισσότερες πληροφορίες όσον αφορά τις συσκευές κατάδειξης.</para>
+		</note>
+	</sect2>
+	<sect2 id="laptops-testing-reports" status="review">
+		<title>Βρίσκοντας τις αναφορές ελέγχου του φορητού σας</title>
+		<para>Πολλοί φορητοί έχουν ελεγχθεί από την κοινότητα του Ubuntu για να διασφαλιστεί ότι τα διάφορα χαρακτηριστικά τους λειτουργούν σωστά. Τα αποτελέσματα αυτών των δοκιμών είναι διαθέσιμα και μπορούν να σας βοηθήσουν με πολλά προβλήματα που μπορεί να έχετε με τον φορητό υπολογιστή σας.</para>
+		<itemizedlist>
+			<listitem><para>Για μια πλήρη λίστα δοκιμών φορητών δείτε τις <ulink url="https://wiki.ubuntu.com/LaptopTestingTeam">σελίδες υποστήριξης της κοινότητας</ulink>.</para></listitem>
+		</itemizedlist>
+		<para>Μπορείτε να συμμετέχετε στις δοκιμές φορητών και εσείς επικοινωνώντας με την <ulink url="https://wiki.ubuntu.com/LaptopTestingTeam">Ομάδα Ελέγχου Φορητών Υπολογιστών</ulink>.</para>
+	</sect2>
+</sect1>
+
+
+
+
+<sect1 id="pm-suspending" status="review">
+	<title>Αναστολή και αδρανοποίηση του υπολογιστή</title>
+	<para>Για εξοικονόμηση ενέργειας μπορείτε να θέσετε τον υπολογιστή σας σε μια από τις λειτουργίες εξοικονόμησης ενέργειας όταν δεν τον χρησιμοποιείτε:</para>
+	<itemizedlist>
+		<listitem>
+		<para>Η <emphasis role="strong">Αναστολή</emphasis> του υπολογιστή είναι σαν να βάζετε τον υπολογιστή για ύπνο. Ο υπολογιστής θα παραμείνει ανοικτός και όλες οι εργασίες σας θα παραμείνουν ανοικτές, αλλά θα χρησιμοποιείται πολύ λιγότερη ενέργεια. Μπορείτε να επαναφέρετε τον υπολογιστή από την αναστολή πατώντας οποιοδήποτε πλήκτρο ή κάνοντας κλικ με το ποντίκι.</para>
+		</listitem>
+		<listitem>
+		<para>Η λειτουργία της Αδρανοποίησης είναι ο πλήρης τερματισμός του μηχανήματος, ενώ παράλληλα αποθηκεύεται η τρέχουσα κατάσταση του (όπως να κρατάει όλα τα ανοικτά σας έγγραφα). Όταν επαναφέρεται η λειτουργία μετά την αδρανοποίηση, όλη η δουλειά πρέπει να επανέλθει όπως αποθηκεύτηκε, ενώ δεν καταναλώνεται καθόλου ενέργεια κατά την διαδικασία της αδρανοποίησης.</para>
+		</listitem>
+		<listitem>
+		<para>Η λειτουργία του Τερματισμού, απενεργοποιεί τελείως τον υπολογιστή σας, χωρίς να αποθηκεύει την τρέχουσα κατάσταση του. Και στην λειτουργία αυτή δεν χρησιμοποιείται καθόλου ενέργεια.</para>
+		</listitem>
+		<listitem>
+		<para>Η διαδικασία της Επαναφοράς, επαναφέρει τον υπολογιστή από την λειτουργία εξοικονόμησης στην κανονική λειτουργία. Μπορείτε να επαναφέρετε τον υπολογιστής σας από την λειτουργία της αναστολής πατώντας ένα πλήκτρο ή κάνοντας κλικ στο ποντίκι. Για να επανέλθετε όμως από την λειτουργία της αδρανοποίησης πρέπει να πατήσετε τον διακόπτη λειτουργίας πάνω στον υπολογιστή.</para>
+		</listitem>
+	</itemizedlist>
+	
+	<para>Μπορείτε να θέσετε τον υπολογιστή χειροκίνητα σε μια λειτουργία εξοικονόμησης ενέργειας πατώντας την <application>Εναλλαγή χρηστών</application> στην άνω δεξιά γωνία της οθόνης και επιλέγοντας το κατάλληλη επιλογή.</para>
+	
+	<caution>
+	<para>Ορισμένοι υπολογιστές μπορεί να έχουν ορισμένα προβλήματα στις λειτουργίες εξοικονόμησης ενέργειας. Ο καλύτερος τρόπος για να ελέγξετε αν ο υπολογιστής σας μπορεί να λειτουργήσει σωστά στις λειτουργίες αυτές είναι να ενεργοποιήσετε την λειτουργία που επιθυμείτε και να δείτε αν συμπεριφέρεται όπως περιμένατε. Πάντα να αποθηκεύετε τα σημαντικά σας έγγραφα πριν χρησιμοποιείτε την αδρανοποίηση ή την αναστολή.</para>
+	</caution>
+
+<sect2 id="pm-suspend-hibernate-fails" status="review">
+    <title>Ο υπολογιστής μου δεν μεταβαίνει σωστά σε κατάσταση αναστολής ή αδρανοποίησης</title>
+    <para>Μερικοί υπολογιστές αδυνατούν να μεταβούν σωστά σε κατάσταση αναστολής ή αδρανοποίησης στο Ubuntu. Εάν αυτό συμβαίνει στον υπολογιστή σας, μπορεί να διαπιστώσετε μερικά από τα ακόλουθα συμπτώματα:</para>
+    <itemizedlist>
+        <listitem>
+        <para>Ο υπολογιστής δεν σβήνει όταν επιλέγετε την αδρανοποίηση.</para>
+        </listitem>
+        <listitem>
+        <para>Όταν επαναφέρετε τον υπολογιστή από την αδρανοποίηση, τα προηγουμένως ανοικτά προγράμματά σας δεν επανέρχονται.</para>
+        </listitem>
+        <listitem>
+        <para>Ο υπολογιστής δεν επανέρχεται από την κατάσταση αδρανοποίσης.</para>
+        </listitem>
+        <listitem>
+        <para>Ορισμένα προγράμματα ή συσκευές υλικού σταματούν να λειτουργούν σωστά μετά την επαναφορά από την κατάσταση αδρανοποίησης ή αναστολής.</para>
+        </listitem>
+    </itemizedlist>
+    <para>Εάν αντιμετωπίζεται κάποιο απ' αυτά τα προβλήματα, θα πρέπει να υποβάλετε μια αναφορά σφάλματος στην ιστοσελίδα <ulink url="https://bugs.launchpad.net/ubuntu/+filebug">Launchpad</ulink>. Έτσι, τα προβλήματα αυτά μπορεί να διορθωθούν σε μια μελλοντική έκδοση του Ubuntu. Ίσως να θελήσετε επίσης να δοκιμάσετε αν η <link linkend="pm-general-method">Γενική μέθοδος για αντιμετώπιση προβλημάτων αναστολής και αδρανοποίσης</link> έχει κάποιο θετικό αποτέλεσμα για σας.</para>
+    <para>Εάν το υλικό σας δεν δουλεύει σωστά μετά την αναστολή ή αδρανοποίηση του υπολογιστή, επανεκκινήστε τον υπολογιστή και θα πρέπει να επανέλθει σε κανονική λειτουργία. Εάν μια εφαρμογή δεν δουλεύει σωστά, προσπαθήστε να κλείσετε την εφαρμογή και να την εκκινήσετε εκ νέου.</para>
+
+    <caution>
+    <para>Προσέξτε να αποθηκεύσετε όλα τα ανοικτά έγγραφά σας πριν προβείτε σε δοκιμές για αντιμετώπιση προβλημάτων αναστολή και αδρανοποίησης.</para>
+    </caution>
+
+<sect3 id="pm-general-method" status="review">
+    <title>Γενική μέθοδος για αντιμετώπιση προβλημάτων αναστολής και αδρανοποίσης</title>
+
+    <para>Μπορεί καταφέρετε να κάνετε την αναστολή και την αδρανοποίηση να λειτουργούν σωστά στον υπολογιστή σας, αλλά για να γίνει αυτό ίσως να χρειαστεί αρκετή δουλειά. Η παρακάτω μέθοδος πρέπει να δουλεύει αποτελεσματικά για πολλούς υπολογιστές. Εάν δεν δουλεύει για τον υπολογιστή σας, παρακαλώ αναζητήστε υποστήριξη χρησιμοποιώντας έναν από τους πολλούς τρόπους βοήθειας και υποστήριξης για το Ubuntu.</para>
+
+    <procedure>
+    <step>
+    <para>Κατεβάστε το <ulink url="http://people.freedesktop.org/~hughsient/quirk/quirk-suspend-debug.html"> Quirk Checker script</ulink> κι αποθηκεύστε στον προσωπικό σας φάκελο.</para>
+    </step>
+    <step>
+    <para>Βρείτε το αρχείο <filename>quirk-checker.sh</filename> στον προσωπικό σας φάκελο, κάντε δεξί κλικ πάνω του και επιλέξτε <guilabel>Ιδιότητες</guilabel>. Επιλέξτε την καρτέλα <guilabel>Δικαιώματα</guilabel>, τσεκάρετε την επιλογή <guilabel>Να επιτρέπεται η εκτέλεση του αρχείου ως πρόγραμμα</guilabel> και πατήστε <guibutton>Κλείσιμο</guibutton>.</para>
+    </step>
+    <step>
+    <para>Ανοίξτε το Τερματικό (<menuchoice><guimenu>Εφαρμογές</guimenu><guimenuitem>Βοηθήματα</guimenuitem><guimenuitem>Τερματικό</guimenuitem></menuchoice>), πληκτρολογήστε <userinput>./quirk-checker.sh</userinput> και πατήστε <keycap>Enter</keycap>.</para>
+    </step>
+    <step>
+    <para>Δοκιμάστε τις προτάσεις που θα εμφανιστούν. Αυτές μπορεί να εμπλέκουν την επεξεργασία σημαντικών αρχείων συστήματος, γι' αυτό θα πρέπει να αναζητήσετε υποστήριξη, εάν δεν είστε σίγουροι για το τι ακριβώς πρέπει κάνετε.</para>
+    </step>
+    </procedure>
+
+    <caution>
+    <para>Πριν εφαρμόσετε τις αλλαγές που προτείνει το Quirk Checker, δημιουργήστε αντίγραφα ασφαλείας των αρχείων που πρόκειται να τροποποιηθούν.</para>
+    </caution>
+
+</sect3>
+</sect2>
+
+<sect2 id="pm-hibernate-pattern" status="review">
+    <title>Γιατί εμφανίζεται ένα περίεργο σχήμα στην οθόνη, όταν θέτω τον υπολογιστή σε κατάσταση αδρανοποίησης;</title>
+    <para>Η οθόνη σας μπορεί να εμφανίσει ένα ασπρόμαυρο σχήμα ακριβώς όταν επιλέγετε να θέσετε τον υπολογιστή σας σε κατάσταση αδρανοποίησης. Αυτό συνήθως δεν είναι κάτι ανησυχητικό κι είναι απλά ο τρόπος με τον οποίο κάποιες κάρτες γραφικών αντιδρούν στα αρχικά στάδια της διαδικασίας αδρανοποίησης.</para>
+    <para>Εάν ο υπολογιστής εμφανίζει το σχήμα αυτό για παρατεταμένη χρονική περίοδο δίχως να σβήνει, τότε ίσως να υπάρχει κάποιο πρόβλημα με την αδρανοποίηση. Δείτε <link linkend="pm-suspend-hibernate-fails">Ο υπολογισης μου δεν μεταβαίνει σωστά σε κατάσταση αναστολής ή αδρανοποίησης</link> για περισσότερες πληροφορίες.</para>
+</sect2>	
+	
+</sect1>
+
+
+<sect1 id="input-devices" status="review">
+	<title>Ποντίκια και πληκτρολόγια</title>
+	<para>Η ενότητα αυτή παρέχει πληροφορίες για την χρήση και την ρύθμιση των ποντικιών, των πληκτρολογίων και άλλων συσκευών εισόδου.</para>
+	<sect2 id="input-mice" status="review">
+		<title>Ποντίκια και άλλες συσκευές κατάδειξης</title>
+		<para>Μπορείτε να αλλάξετε πολλές επιλογές που έχουν σχέση με το ποντίκι σας, όπως πόσο γρήγορα κινείται και πως ερμηνεύονται τα κλικ από τον υπολογιστή.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:user-guide#mouse-skills">Ικανότητες στην χρήση του Ποντικιού</ulink></emphasis></para>
+				<para>Πληροφορίες για τις βασικές ικανότητες, όπως δείχνοντας, κάνοντας κλικ και σύρνοντας.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:user-guide#prefs-mouse">Προτιμήσεις Ποντικιού</ulink></emphasis></para>
+				<para>Οδηγίες για το πως θα αλλάξετε διάφορες ρυθμίσεις που σχετίζονται με το ποντίκι, όπως ρυθμίσεις για αριστερόχειρες και για το πόσο γρήγορα κινείται.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:gnome-access-guide#dtconfig-1">Προσιτότητα - Ρύθμιση του Ποντικιού</ulink></emphasis></para>
+				<para>Πληροφορίες για το πως να αλλάξετε τις προτιμήσεις του ποντικιού για χρήστες που χρησιμοποιούν βοηθητικές τεχνολογίες.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:gnome-access-guide#sysadmin-37">Προσιτότητα - Ρύθμιση εναλλακτικών Συσκευών Κατάδειξης</ulink></emphasis></para>
+				<para>Πληροφορίες για το πως να χρησιμοποιείτε άλλες συσκευές κατάδειξης εκτός του ποντικιού.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+	
+	<sect2 id="input-keyboard" status="review">
+		<title>Πληκτρολόγια</title>
+		<para>Υπάρχουν πολλές επιλογές που μπορείτε να αλλάξετε σε σχέση με το πληκτρολόγιο, όπως η γλώσσα και οι συντομεύσεις του.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:user-guide#keyboard-skills">Βασικές Ικανότητες στην χρήση Πληκτρολογίου</ulink></emphasis></para>
+				<para>Πληροφορίες για τις βασικές ικανότητες της χρήσης πληκτρολογίου.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:user-guide#prefs-keyboard">Προτιμήσεις Πληκτρολογίου</ulink></emphasis></para>
+				<para>Αλλάξτε τις ρυθμίσεις που σχετίζονται με το πληκτρολόγιο σας, όπως την διάταξη του.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:gswitchit#gswitchit-applet-switching">Ένδειξη γλώσσας πληκτρολογίου</ulink></emphasis></para>
+				<para>Το εγχειρίδιο της Ένδειξης γλώσσας πληκτρολογίου, που σας επιτρέπει να αλλάζετε μεταξύ διαφορετικών διατάξεων.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:gnome-access-guide#dtconfig-0">Προσιτότητα - Ρύθμιση του Ποντικιού και του Πληκτρολογίου</ulink></emphasis></para>
+				<para>Πληροφορίες για το πως να ρυθμίσουν το ποντίκι και το πληκτρολόγιο οι χρήστες βοηθητικών τεχνολογιών.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:gnome-access-guide#keynav-0">Χρησιμοποιώντας το Πληκτρολόγιο για να περιηγηθείτε στην Επιφάνεια εργασίας</ulink></emphasis></para>
+				<para>Ένας οδηγός για το πως να περιηγηθείτε στην επιφάνεια εργασίας σας, χρησιμοποιώντας μόνο το πληκτρολόγιο σας.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:accessx-status#index">Κατάσταση Προσιτότητας Πληκτρολογίου</ulink></emphasis></para>
+				<para>Το εγχειρίδιο της Κατάστασης Προσιτότητας Πληκτρολογίου, δείχνει την κατάσταση όλων των χαρακτηριστικών προσιτότητας που είναι ενεργοποιημένα.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:char-palette#charpick-characters">Χρησιμοποιώντας τον Επιλογέα Χαρακτήρων</ulink></emphasis></para>
+				<para>Χρησιμοποιείστε τον Επιλογέα Χαρακτήρων για να εισάγετε γράμματα και σύμβολα που δεν υπάρχουν στο πληκτρολόγιο σας.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+	
+	<sect2 id="input-touchpads" status="review">
+		<title>Συσκευές αφής και ταμπλέτες γραφικών</title>
+		<para>Μπορείτε να χρησιμοποιήσετε μια συσκευή αφής ή ταμπλέτα γραφικών για να κινήσετε το δείκτη του ποντικιού.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role="strong"><ulink type="help" url="ghelp:hardware#laptops-touchpads">Συσκευές κατάδειξης (Touchpads)</ulink></emphasis></para>
+				<para>Πληροφορίες σχετικά με την αλλαγή των ρυθμίσεων της συσκευής αφής ενός φορητού υπολογιστή.</para>
+			</listitem>
+			<!--<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:'>Graphics tablets</ulink></emphasis></para>
+				<para>Information about using a graphics tablet.</para>
+			</listitem>-->
+		</itemizedlist>
+	</sect2>
+</sect1>
+
+</article>

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# we do not include ". gettext.sh" here because:
+# a) it breaks if its not available
+# b) the string we have here does not need it (because it has no vars)
+eval_gettext() {
+    echo $(gettext "$1")
+}
+export TEXTDOMAIN=update-notifier
+export TEXTDOMAINDIR=/usr/share/locale
+
+
+# Wake the applet up
+if mountpoint -q /var/run; then
+    echo "*** $(eval_gettext "System restart required") ***" > /var/run/reboot-required
+fi

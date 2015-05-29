@@ -1,0 +1,8 @@
+DATA_DIR = "/usr/share"
+LIB_DIR = "/usr/lib"
+VERSION = "2.26.1"
+PACKAGE = "gnome-applets"
+PYTHONDIR = "/usr/lib/python2.6/site-packages"
+GETTEXT_PACKAGE = "gnome-applets-2.0"
+GNOMELOCALEDIR = "/usr/share/locale"
+BUILDERDIR = "/usr/share/gnome-applets/builder"

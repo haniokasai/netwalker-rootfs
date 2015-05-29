@@ -1,0 +1,1 @@
+../../../../../share/pyshared/jockey/kdeui/ui_LicenseDialog.py

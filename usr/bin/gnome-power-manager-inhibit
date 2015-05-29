@@ -1,0 +1,47 @@
+#!/usr/bin/python
+
+# Copyright (C) 2008 Canonical Ltd
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+import dbus
+import time
+import os
+import sys
+
+if len(sys.argv) < 2:
+	print "Must be called with a command"
+	exit(1)
+
+session_bus = dbus.SessionBus()
+
+if session_bus:
+	gpm = session_bus.get_object('org.freedesktop.PowerManagement',
+								'/org/freedesktop/PowerManagement/Inhibit')
+if gpm:
+	cookie = gpm.Inhibit("Command Line: " + sys.argv[1], "Long Execution")
+else:
+	sys.stderr.write(sys.argv[0] + ": Unable to inhibit, executing command anyway\n")
+
+retval = 0
+try:
+	retval = os.spawnvp(os.P_WAIT, sys.argv[1], sys.argv[1:])
+except KeyboardInterrupt:
+	x = 5
+finally:
+	if gpm and cookie:
+		gpm.UnInhibit(cookie)
+
+exit(retval)

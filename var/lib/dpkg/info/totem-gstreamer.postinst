@@ -1,0 +1,33 @@
+#! /bin/sh
+set -e
+
+FLAVOUR=gstreamer
+PRIORITY=40
+NAUTILUS_EXTDIR=/usr/lib/nautilus/extensions-2.0
+
+if [ "$1" = configure ]; then
+	update-alternatives --quiet --install \
+		/usr/bin/gnome-video-thumbnailer gnome-video-thumbnailer \
+		/usr/bin/totem-${FLAVOUR}-video-thumbnailer ${PRIORITY}
+	update-alternatives --quiet --install \
+		/usr/bin/totem totem /usr/bin/totem-${FLAVOUR} ${PRIORITY} \
+		--slave /usr/bin/totem-audio-preview totem-audio-preview \
+			/usr/bin/totem-${FLAVOUR}-audio-preview \
+		--slave /usr/bin/totem-video-indexer totem-video-indexer \
+			/usr/bin/totem-${FLAVOUR}-video-indexer \
+		--slave ${NAUTILUS_EXTDIR}/libtotem-properties-page.so \
+			libtotem-properties-page.so \
+			${NAUTILUS_EXTDIR}/libtotem-properties-page.so.${FLAVOUR} \
+		--slave /usr/lib/totem/default totem-default.dir /usr/lib/totem/${FLAVOUR} \
+		--slave /usr/bin/totem-video-thumbnailer totem-video-thumbnailer \
+			/usr/bin/totem-${FLAVOUR}-video-thumbnailer
+fi
+
+# Automatically added by dh_installmenu
+if [ "$1" = "configure" ] && [ -x "`which update-menus 2>/dev/null`" ]; then
+	update-menus
+fi
+# End automatically added section
+
+
+exit 0

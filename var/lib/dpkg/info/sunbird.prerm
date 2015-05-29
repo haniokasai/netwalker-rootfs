@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+
+if [ "$1" = "remove" ]; then
+    rm -rf /var/lib/sunbird/chrome/overlayinfo
+    rm -f /var/lib/sunbird/chrome/chrome.rdf
+    rm -f /var/lib/sunbird/defaults.ini
+    rm -f /var/lib/sunbird/components.ini
+    rm -f /var/lib/sunbird/components/xpti.dat
+    rm -f /var/lib/sunbird/components/compreg.dat
+    rm -f /usr/lib/sunbird/.autoreg
+    rm -f /var/lib/sunbird/extensions/installed-extensions.txt
+    rm -f /var/lib/sunbird/extensions/Extensions.rdf
+    rm -f /usr/lib/sunbird/defaults/profile/extensions/Extensions.rdf
+    if [ -d /var/lib/sunbird/ ]; then
+        find /var/lib/sunbird/ -depth -type d -empty -exec rmdir {} \;
+    fi
+fi
+
+

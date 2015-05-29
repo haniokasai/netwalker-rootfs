@@ -1,0 +1,27 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          usplash-start
+# Required-Start:    console-setup
+# Required-Stop:
+# Should-Start:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Start usplash
+# Description:       Starts usplash in the absence of initramfs
+### END INIT INFO
+
+case "$1" in
+    start)
+	if [ ! -d /dev/.initramfs ]; then
+		mkdir /dev/.initramfs
+	fi
+
+	/sbin/usplash -p -x 1024 -y 600 
+	;;
+*)
+	echo "Usage: /etc/init.d/usplash-start {start}"
+	exit 1
+	;;
+esac
+
+exit 0

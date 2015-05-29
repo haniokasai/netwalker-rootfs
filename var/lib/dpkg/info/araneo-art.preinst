@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmodules
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+	if [ -e "/etc/modprobe.d/araneo-art" ]; then
+		if [ "`md5sum \"/etc/modprobe.d/araneo-art\" | sed -e \"s/ .*//\"`" = \
+		     "`dpkg-query -W -f='${Conffiles}' araneo-art | sed -n -e \"\\\\' /etc/modprobe.d/araneo-art's/.* //p\"`" ]
+		then
+			rm -f "/etc/modprobe.d/araneo-art"
+		fi
+	fi
+fi
+# End automatically added section

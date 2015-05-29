@@ -1,0 +1,33 @@
+#!/bin/sh
+
+set -e
+
+PYTHON_DEFAULT=$(pyversions --default)
+
+this="python-gst0.10"
+
+pc_files() {
+    runtime="$1"
+
+    dpkg -L "$this" | sed -n -e "s#^/usr/lib/pkgconfig/$runtime/##p"
+}
+
+if [ "$1" = "configure" ]; then
+    cd /usr/lib/pkgconfig
+
+    for f in $(pc_files $PYTHON_DEFAULT); do
+        ln -f -s "$PYTHON_DEFAULT/$f"
+    done
+fi
+
+# Automatically added by dh_pycentral
+rm -f /var/lib/pycentral/python-gst0.10.pkgremove
+if which pycentral >/dev/null 2>&1; then
+	pycentral pkginstall python-gst0.10
+	if grep -qs '^python-gst0.10$' /var/lib/pycentral/delayed-pkgs; then
+		sed -i '/^python-gst0.10$/d' /var/lib/pycentral/delayed-pkgs
+	fi
+fi
+# End automatically added section
+
+

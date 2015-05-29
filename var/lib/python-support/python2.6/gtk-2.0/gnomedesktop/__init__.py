@@ -1,0 +1,1 @@
+/usr/share/python-support/python-gnome2-desktop/gtk-2.0/gnomedesktop/__init__.py

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>2.3.  Gaussian Blur</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-blur.html" title="2.  Blur Filters" />
+    <link rel="prev" href="plug-in-blur.html" title="2.2.  Blur" />
+    <link rel="next" href="plug-in-sel-gauss.html" title="2.4.  Selective Gaussian Blur" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">2.3. 
+    <span lang="en" xml:lang="en">Gaussian Blur</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="plug-in-blur.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">2. 
+    <span lang="en" xml:lang="en">Blur Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-sel-gauss.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="plug-in-gauss"></a>2.3. 
+    <span lang="en" xml:lang="en">Gaussian Blur</span>
+  </h3>
+          </div>
+          <div>
+            <div class="revhistory">
+              <table border="1" width="100%" summary="Revision history">
+                <tr>
+                  <th align="left" valign="top" colspan="3">
+                    <b>Revision History</b>
+                  </th>
+                </tr>
+                <tr>
+                  <td align="left">Revision $Revision: 1859 $</td>
+                  <td align="left">2006-10-23</td>
+                  <td align="left">j.h</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="id2731003" class="indexterm"></a>
+      <a id="id2731021" class="indexterm"></a>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2731030"></a>2.3.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2731041"></a>
+          <p class="title">
+            <b>Figure 16.9. 
+        <span lang="en" xml:lang="en">
+          From left to right: original, filter applied.
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/taj_orig.jpg" alt="From left to right: original, filter applied." />
+              <div class="caption">
+                <p>Original</p>
+              </div>
+            </div>
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-taj-gauss.jpg" alt="From left to right: original, filter applied." />
+              <div class="caption">
+                <p>Blur applied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+      You can find this filter in the image menu under
+      <span class="guimenu">Filte<span class="accel">r</span>s</span> → <span class="guisubmenu"><span class="accel">B</span>lur</span> → <span class="guimenuitem"><span class="accel">G</span>aussian Blur</span>
+    </p>
+        <p>
+      The IIR Gaussian Blur plug-in acts on each pixel of the active layer or
+      selection, setting its Value to the average of all pixel Values present
+      in a radius defined in the dialog. A higher Value will produce a higher
+      amount of blur. The blur can be set to act in one direction more than
+      the other by clicking the Chain Button so that it is broken, and
+      altering the radius. GIMP supports two implementations of Gaussian Blur:
+      IIR G.B. and RLE G.B. They both produce the same results, but each one
+      can be faster in some cases.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2731154"></a>2.3.2. 
+      <span lang="en" xml:lang="en">Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2731165"></a>
+          <p class="title">
+            <b>Figure 16.10. 
+        <span lang="en" xml:lang="en">
+          “<span class="quote">Gaussian</span>” filter parameters settings
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/options-blur-gauss.png" alt="Gaussian filter parameters settings" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">Blur Radius</span>
+            </dt>
+            <dd>
+              <p>
+            Here you can set the blur intensity. By altering the ratio of
+            horizontal to vertical blur, you can give the effect of a motion
+            blur. You can choose the unit with the drop list.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Blur Method</span>
+            </dt>
+            <dd>
+              <p>
+            <span class="guilabel">IIR</span>: IIR stands for “<span class="quote">Infinite Impulse
+            Response</span>”.This blur works best for large radius values and
+            for images which are not computer generated.
+          </p>
+              <p>
+            <span class="guilabel">RLE</span>: RLE stands for run-length
+            encoding. RLE Gaussian Blur is best used on
+            computer-generated images or those with large areas of
+            constant intensity.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="plug-in-blur.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-blur.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-sel-gauss.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="plug-in-blur.html">2.2. 
+    <span lang="en" xml:lang="en">Blur</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-sel-gauss.html">2.4. 
+    <span lang="en" xml:lang="en">Selective Gaussian Blur</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

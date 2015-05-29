@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY GFDL SYSTEM "fdl-appendix.xml">
+<!ENTITY app "GNOME Power Manager">
+<!ENTITY application "<application>&app;</application>">
+<!ENTITY appversion "2.17.1">
+<!ENTITY manrevision "2.17.1">
+]>
+<!--
+      (Do not remove this comment block.)
+  Template Maintained by the GNOME Documentation Project:
+	  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ca">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+
+  <articleinfo>
+    <title>Manual del <application>gestor d'energia del GNOME</application></title>
+    <abstract role="description">
+      <para>El <application>gestor d'energia del GNOME</application> és un dimoni de sessió per a l'escriptori GNOME que gestiona els paràmetres d'energia de l'ordinador portàtil o de sobretaula.</para>
+    </abstract>
+    <copyright>
+      <year>2006</year>
+      <holder>Richard Hughes (richard@hughsie.com)</holder>
+    </copyright><copyright><year>2007, 2008</year><holder>Joan Duran (jodufi@gmail.com)</holder></copyright>
+
+  <!-- translators: uncomment this:
+
+  <copyright>
+   <year>2006</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+  -->
+
+<!-- An address can be added to the publisher information.  If a role is
+     not specified, the publisher/author is the same for all versions of the
+     document.  -->
+    <publisher role="maintainer">
+      <publishername>Richard Hughes</publishername>
+    </publisher>
+
+     <legalnotice id="legalnotice">
+	<para>Teniu permís per a copiar, distribuir i/o modificar aquest document, sota els termes de la Llicència de documentació lliure GNU (GFDL), versió 1.1 o qualsevol versió publicada posteriorment per la Free Software Foundation, sense seccions invariants, sense texts de portada i sense texts de contraportada. Podeu trobar una còpia de la GFDL en aquest <ulink type="help" url="ghelp:fdl">enllaç</ulink> o en el fitxer COPYING-DOCS distribuït amb aquest manual.</para>
+         <para>Aquest manual forma part d'una col·lecció de manuals del GNOME distribuïts sota la GFDL. Si voleu distribuir aquest manual independentment de la col·lecció, podeu fer-ho afegint una còpia de la llicència al manual, tal com es descriu a la secció 6 de la llicència.</para>
+
+	<para>Molts dels noms que les empreses utilitzen per a distingir els seus productes i serveis es consideren marques comercials. Quan aquests noms apareguin en qualsevol documentació del GNOME, si els membres del Projecte de documentació del GNOME han estat avisats pel que fa a les marques, els noms apareixeran en majúscules o amb les inicials en majúscules.</para>
+
+	<para>EL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT S'OFEREIXEN SOTA ELS TERMES DE LA LLICÈNCIA DE DOCUMENTACIÓ LLIURE DE GNU, TENINT EN COMPTE QUE: <orderedlist>
+		<listitem>
+		  <para>EL DOCUMENT S'OFEREIX «TAL COM ÉS», SENSE CAP TIPUS DE GARANTIA, NI EXPLÍCITA NI IMPLÍCITA; AIXÒ INCLOU, SENSE LIMITAR-S'HI, LES GARANTIES QUE EL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT NO TINGUI DEFECTES, SIGUI COMERCIALITZABLE, SIGUI ADEQUAT PER A UN ÚS CONCRET O NO INFRINGEIXI CAP LLEI. TOT EL RISC PEL QUE FA A LA QUALITAT, EXACTITUD I RENDIMENT DEL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT ÉS VOSTRE. EN CAS QUE EL DOCUMENT RESULTÉS DEFECTUÓS EN QUALSEVOL ASPECTE, VÓS (NO PAS L'ESCRIPTOR INICIAL, L'AUTOR O CAP ALTRE COL·LABORADOR) ASSUMIU TOT EL COST DE MANTENIMENT, REPARACIÓ O CORRECCIÓ. AQUESTA RENÚNCIA DE GARANTIA CONSTITUEIX UNA PART ESSENCIAL D'AQUESTA LLICÈNCIA. NO S'AUTORITZA L'ÚS DE CAP DOCUMENT O VERSIÓ MODIFICADA DEL DOCUMENT EXCEPTE SOTA AQUESTA RENÚNCIA DE GARANTIA; I </para>
+		</listitem>
+		<listitem>
+		  <para>EN CAP CAS I SOTA CAP INTERPRETACIÓ LEGAL, JA SIGUI PER AGREUJAMENT (INCLOENT-HI LA NEGLIGÈNCIA), CONTRACTE O ALTRE CAS, L'AUTOR, L'ESCRIPTOR ORIGINAL, QUALSEVOL DELS COL·LABORADORS O DISTRIBUÏDORS DEL DOCUMENT O UNA VERSIÓ MODIFICADA DEL DOCUMENT NI CAP PROVEÏDOR D'AQUESTES PARTS NO SERAN RESPONSABLES DAVANT DE NINGÚ PER CAP DANY DIRECTE, INDIRECTE, ESPECIAL, ACCIDENTAL O CONSECUTIU DE QUALSEVOL TIPUS; AIXÒ INCLOU, SENSE LIMITAR-S'HI, ELS DANYS PER PÈRDUA DE CLIENTS, INTERRUPCIONS DE LA FEINA, FALLADA O MALFUNCIONAMENT DE L'ORDINADOR, O QUALSEVOL ALTRA PÈRDUA O DANY RELACIONAT AMB L'ÚS DEL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT, FINS I TOT SI S'HA INFORMAT AQUESTA PART DE LA POSSIBILITAT D'AQUESTS DANYS.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+   <!-- This file  contains link to license for the documentation (GNU FDL), and
+        other legal stuff such as "NO WARRANTY" statement. Please do not change
+        any of this. -->
+
+    <authorgroup>
+      <author role="maintainer">
+        <firstname>Richard</firstname>
+        <surname>Hughes</surname>
+	<email>richard@hughsie.com</email>
+      </author>
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+        <firstname>Latin</firstname>
+        <surname>Translator 1</surname>
+        <affiliation>
+          <orgname>Latin Translation Team</orgname>
+          <address> <email>translator@gnome.org</email> </address>
+        </affiliation>
+        <contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision>
+        <revnumber>2.0</revnumber>
+        <date>2006-08-30</date>
+        <revdescription>
+          <para role="author">Richard Hughes <email>richard@hughsie.com</email></para>
+          <para role="publisher">Richard Hughes</para>
+        </revdescription>
+      </revision>
+    </revhistory>
+
+    <legalnotice>
+      <title>Comentaris</title>
+      <para>Per a informar d'un error o fer algun suggeriment sobre el <application>gestor d'energia del GNOME</application> o aquest manual, seguiu les indicacions a la <ulink url="http://www.gnome.org/projects/gnome-power-manager/" type="http">pàgina de contacte del <application>Gestor d'energia del GNOME</application></ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo>
+
+  <indexterm zone="index">
+    <primary><application>Gestor d'energia del GNOME</application></primary>
+  </indexterm>
+  <indexterm zone="index">
+    <primary>gnome-power-manager</primary>
+  </indexterm>
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<section id="intro">
+  <title>Introducció</title>
+  <!-- manrevision 2.0 compatibility -->
+  <anchor id="aboutex"/>
+  <anchor id="notice"/>
+  <indexterm>
+    <primary><application>Gestor d'energia del GNOME</application></primary>
+    <secondary>Manual</secondary>
+    <tertiary>gnome-power-manager</tertiary>
+  </indexterm>
+
+  <para>El dimoni de sessió del gestor d'energia del GNOME és un dimoni de gestió d'energia per a l'<systemitem>escriptori GNOME</systemitem></para>
+
+</section>
+
+<section id="using">
+  <title>Utilització</title>
+  <para>Normalment el <application>gestor d'energia del GNOME</application> s'executa en iniciar el GNOME, però podeu iniciar-lo manualment fent:</para>
+  <variablelist>
+    <varlistentry>
+      <term>Línia d'ordres</term>
+      <listitem>
+    	<para>Escriviu <command>gnome-power-manager --verbose --no-daemon</command> i premeu <keycap>Retorn</keycap></para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</section>
+
+<section id="notify">
+  <title>Missatges de notificació</title>
+  <para>Quan s'iniciï el <application>gestor d'energia del GNOME</application>, pot ser que es mostrin les notificacions següents:</para>
+
+  <section id="notify-unplugged">
+    <title>Desconnectat de la xarxa elèctrica</title>
+    <figure>
+      <title>Notificació del gestor d'energia del GNOME quan es desconnecti l'ordinador de la xarxa elèctrica</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-unplugged.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>Podeu desactivar aquesta notificació si canvieu la clau del GConf <command>/apps/gnome-power-manager/notify/discharging</command>.</para>
+    </note>
+  </section>
+
+  <section id="notify-fully-charged">
+    <title>Totalment carregada</title>
+    <figure>
+      <title>Notificació del gestor d'energia del GNOME quan la bateria del portàtil estigui totalment carregada</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-charged.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>Podeu desactivar aquesta notificació canviant la clau del GConf <command>/apps/gnome-power-manager/notify/fully_charged</command>.</para>
+    </note>
+    <note>
+      <para>Només rebreu una repetició de la notificació si el percentatge de càrrega de la bateria baixa per sota del 95% i després es torni a carregar totalment. En alguns equips, això impedeix mostrar notificacions repetides no desitjades si la bateria no informa correctament de l'estat de càrrega.</para>
+    </note>
+  </section>
+
+  <section id="notify-low">
+  <title>Bateria baixa</title>
+    <para>Quan la càrrega de la bateria sigui baixa rebreu la notificació següent. Hauríeu de connectar-vos a la xarxa elèctrica el més aviat possible.</para>
+    <figure>
+      <title>Notificació del gestor d'energia del GNOME quan l'energia de la bateria sigui baixa</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-low.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>Podeu desactivar aquesta notificació si canvieu la clau del GConf <command>/apps/gnome-power-manager/notify/low_power</command>.</para>
+    </note>
+  </section>
+
+  <section id="notify-critical">
+  <title>Bateria crítica</title>
+    <para>Quan l'ordinador es quedi sense energia mostrarà aquesta notificació explicant quina acció cal dur a terme. Podeu canviar l'acció a realitzar a través de l'eina de preferències.</para>
+    <figure>
+      <title>Notificació del gestor d'energia del GNOME quan l'energia del sistema sigui críticament baixa</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-critical.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+  </section>
+
+  <section id="notify-suspend-failure">
+  <title>No s'ha pogut aturar temporalment</title>
+    <para>Quan no es pugui aturar temporalment es mostrarà la següent advertència. La causa més comuna d'aquesta notificació és que l'usuari actual no té permís per a aturar temporalment o hibernar l'ordinador.</para>
+    <figure>
+      <title>Notificació del gestor d'energia del GNOME quan no es pugui aturar temporalment</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-suspend-problem.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>Podeu desactivar aquesta notificació si canvieu la clau del GConf <command>/apps/gnome-power-manager/notify/sleep_failed</command>.</para>
+    </note>
+  </section>
+</section>
+
+<section id="statistics">
+  <title>Estadístiques</title>
+  <para>El programa d'estadístiques us permet visualitzar el consum d'energia de l'ordinador portàtil.</para>
+  <note>
+    <para>Això s'ha eliminat de la finestra d'informació que hi havia a les versions anterior del gestor d'energia del GNOME, perquè ara la interfície utilitza el DBUS en lloc de la comunicació interna de processos (IPC). Això permet a altres aplicacions consultar i mostrar dades si és necessari.</para>
+  </note>
+  <figure id="statistics-graph">
+    <title>Historial d'energia en commutar de la utilització de la bateria a la connexió a la xarxa elèctrica</title>
+    <screenshot>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="figures/gpm-stats-graph.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </screenshot>
+  </figure>
+  <note>
+    <para>Pot ser que no es mostrin algunes opcions o gràfiques si l'ordinador no té el maquinari necessari. També pot ser que es visualitzi maquinari no mostrat aquí (per exemple dispositius SAI), però aquest serà tractat de la mateixa manera que la resta de dispositius.</para>
+  </note>
+
+  <section id="statistics-charge">
+    <title>Historial de càrrega</title>
+    <para>Aquesta gràfica mostra el percentatge de càrrega disponible per a la bateria composta primària, de manera que si en el portàtil hi ha una bateria principal i una bateria auxiliar llavors només es mostrarà el valor mitjà. No es mostra cap llegenda en aquesta gràfica.</para>
+  </section>
+
+  <section id="statistics-power">
+    <title>Historial d'energia</title>
+    <para>Aquesta gràfica mostra l'historial de càrrega d'energia utilitzada per a la bateria composta primària. Aquesta línia representa la quantitat d'energia que el sistema està utilitzant per a carregar les bateries, o bé l'energia que el sistema està utilitzant de les bateries. Hauríeu de veure pujar la línia quan el processador realitza tasques intensives, i baixar quan el sistema està inactiu o quan la pantalla està fosca. Quan es produeixin esdeveniments es mostrarà una llegenda en aquesta gràfica.</para>
+
+    <note>
+      <para>No rebreu dades de l'ordinador si no s'està carregant o descarregant, o bé si s'ha aturat temporalment. Això és degut a limitacions del maquinari on la informació només s'envia des del xip de gestió de la bateria, en lloc de fer-ho des del xip de gestió d'energia a la placa base.</para>
+    </note>
+  </section>
+
+  <section id="statistics-time">
+    <title>Historial del temps estimat</title>
+    <para>Aquesta gràfica mostra l'historial de càrrega estimat per a la bateria composta primària. Aquesta línia representa la quantitat de temps necessari fins a estar carregada, o la quantitat de temps fins a estar descarregada. Aquesta línia hauria de pujar proporcionalment quan la freqüència disminueixi i hauria de baixar quan la freqüència augmenti. Quan es produeixin esdeveniments es mostrarà una llegenda en aquesta gràfica.</para>
+  </section>
+</section>
+
+<section id="preferences">
+  <title>Preferències</title>
+
+  <para>La finestra de preferències us permet controlar:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>La brillantor de la pantalla LCD quan s'està connectat a la xarxa elèctrica o bé s'utilitza la bateria</para>
+    </listitem>
+    <listitem>
+      <para>El temps d'inactivitat per a les accions d'apagar la pantalla i aturar temporalment</para>
+    </listitem>
+    <listitem>
+      <para>Les accions a realitzar quan la tapa del portàtil es tanqui</para>
+    </listitem>
+    <listitem>
+      <para>La política de la icona de l'àrea de notificació</para>
+    </listitem>
+  </itemizedlist>
+
+  <note>
+    <para>Alguns lliscadors o caixes d'opcions poden estar desactivats si les claus del GConf tenen una política de no escriptura. Això permet als administradors blocar les accions que l'usuari pot seleccionar.</para>
+  </note>
+
+  <section id="preferences-ac">
+    <title>Preferències de la xarxa elèctrica</title>
+    <figure id="prefs-ac">
+      <title>Pestanya de la xarxa elèctrica del gestor d'energia del GNOME</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-prefs-ac.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+  </section>
+
+  <section id="preferences-battery">
+    <title>Preferències de la bateria</title>
+    <figure id="prefs-processor">
+      <title>Pestanya de la bateria del gestor d'energia del GNOME</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-prefs-battery.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <para>Això permet a un ordinador potent reduir el consum d'energia quan està inactiu o quan cal utilitzar-ne tota la capacitat.</para>
+  </section>
+
+  <section id="preferences-general">
+    <title>Preferències generals</title>
+    <figure id="prefs-general">
+      <title>Pestanya general del gestor d'energia del GNOME</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-prefs-general.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+  </section>
+
+  <section id="preferences-idletimes">
+    <title>Temps d'inactivitat de sessió i del sistema</title>
+    <para>El <command>gnome-screensaver</command> és un dimoni de sessió que monitoritza l'entrada de dades de l'usuari, i si el ratolí no s'ha mogut o no s'ha premut cap tecla, comença un temps d'espera. Quan el valor d'aquest temps d'espera arriba a un valor establert en el <command>gnome-screensaver-preferences</command>, la sessió es marca com a inactiva. Llavors el <application>gestor d'energia del GNOME</application> realitzarà totes les accions de sessió inactiva com ara activar el mode de baix consum o disminuir la brillantor de la pantalla del portàtil.</para>
+
+    <figure>
+      <title>Canvi del temps d'espera per a considerar la sessió com a inactiva en el <command>gnome-screensaver-preferences</command></title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gs-prefs.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <para>Quan la sessió es marqui com a inactiva, el <application>gestor d'energia del GNOME</application> comença el seu propi temporitzador. Quan s'arribi al temps d'espera establert en el <command>gnome-power-preferences</command>, i la càrrega de la CPU estigui inactiva, llavors es realitzarà l'acció d'inactivitat, que normalment és apagar la pantalla, aturar temporalment o hibernar.</para>
+    <para>Per fer-ho més clar, els lliscadors en el <command>gnome-power-preferences</command> estan configurats per a iniciar-se un minut després del valor establert per a canviar a sessió inactiva, atès que l'activador lògic no pot actuar abans de marcar la sessió com a inactiva. Si ajusteu el valor de «sessió inactiva» en el <command>gnome-screensaver-preferences</command> llavors l'inici dels lliscadors en el <command>gnome-power-preferences</command> canviarà de forma corresponent.</para>
+  </section>
+</section>
+
+<section id="preferences-advanced">
+  <title>Preferències avançades</title>
+
+  <section id="advanced-preferences-brightness">
+    <title>Atenuació de la brillantor de la pantalla</title>
+    <note>
+      <para>Podeu canviar la inactivitat de la brillantor de la pantalla del portàtil si canvieu la clau del GConf <command>/apps/gnome-power-manager/backlight/idle_brightness</command>.</para>
+    </note>
+  </section>
+
+  <section id="advanced-preferences-locking">
+    <title>Bloqueig de la pantalla</title>
+    <para>Per defecte, el <application>gestor d'energia del GNOME</application> admet un esquema de bloqueig senzill. Això significa que la pantalla es bloquejarà si s'estableix «Bloca la pantalla» en el gnome-screensaver quan la tapa es tanqui, o el sistema realitzi una aturada temporal o hiberni.</para>
+    <para>Hi ha un sistema de bloqueig complex per als usuaris avançats que permet canviar la política de bloqueig per a les accions de la tapa (aturar temporalment o hibernar). Per a activar aquest mode complex heu de desactivar la següent clau del GConf:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <command>/apps/gnome-power-manager/lock/use_screensaver_settings</command>
+        </para>
+      </listitem>
+    </itemizedlist>
+    <para>Després es pot establir la política de claus per forçar el bloqueig i desbloqueig del gnome-screensaver quan es realitzi una acció:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+          <command>/apps/gnome-power-manager/lock/blank_screen</command>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <command>/apps/gnome-power-manager/lock/suspend</command>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <command>/apps/gnome-power-manager/lock/hibernate</command>
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <note>
+      <para>La política de bloqueig per al gnome-screensaver s'ignorarà fins que el mode senzill es torni a activar.</para>
+    </note>
+  </section>
+</section>
+
+<section id="applets-general">
+  <title>Miniaplicacions del gestor d'energia del GNOME</title>
+
+  <section id="applets-brightness">
+    <title>Miniaplicació de la brillantor</title>
+    <para>La miniaplicació de la brillantor permet a l'usuari canviar la brillantor temporalment sense canviar la política predeterminada. Això pot ser útil si teniu un portàtil sense botons de brillantor, atès que ara podreu canviar la brillantor fàcilment.</para>
+    <figure>
+      <title>Controlador desplegable de la brillantor.</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/applet-brightness.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>No tindreu el lliscador si el maquinari no és compatible.</para>
+    </note>
+  </section>
+
+  <section id="applets-inhibit">
+    <title>Miniaplicació d'inhabilitació</title>
+    <para>La miniaplicació d'inhabilitació permet a l'usuari prevenir que l'ordinador entri automàticament en mode de repòs quan estigui inactiu. Això pot ser necessari amb programari antic o de propietat, com ara el VMWare o el Matlab. Feu clic a la icona per a inhibir el mode de repòs, i feu clic un altre cop per al funcionament normal.</para>
+    <figure>
+      <title>Miniaplicació d'inhabilitació en estat inhibit.</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/applet-inhibit.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+    <note>
+      <para>No utilitzeu aquesta miniaplicació si només utilitzeu programari del GNOME. En lloc d'això, envieu un informe d'error per a fer que l'aplicació utilitzi els mètodes Inhibit() i UnInhibit(), amb la qual cosa hauria de funcionar directament.</para>
+    </note>
+  </section>
+</section>
+
+<section id="faq">
+  <title>Preguntes més freqüents</title>
+  <para>Aquestes són les preguntes rebudes més freqüentment a la llista de correu.</para>
+  <section id="faq-capacity">
+    <title>Què és la capacitat de la bateria?</title>
+    <para>La capacitat és quanta càrrega pot emmagatzemar la bateria en comparació amb les indicacions del fabricant.</para>
+    <figure>
+      <title>Aquesta gràfica mostra la capacitat d'una bateria d'ió liti típica durant uns quants centenars de cicles de càrrega i descàrrega.</title>
+      <screenshot>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="figures/gpm-cell-capacity.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </screenshot>
+    </figure>
+  </section>
+
+  <section id="faq-suspend-hibernate-differences">
+    <title>Quina és la diferència entre aturar temporalment i hibernar?</title>
+    <para>L'estat d'aturar temporalment és una característica d'estalvi d'energia en la qual s'utilitza el mínim de consum per a mantenir les dades dels programes a la memòria de l'ordinador. Quan l'ordinador està aturat temporalment, no es realitzarà cap computació fins que es torni a l'activitat normal. No es tornarà a l'activitat normal fins que es produeixi un esdeveniment extern, com ara la pulsació d'una tecla. S'acostuma a tardar alguns segons per a aturar temporalment i tornar a l'activitat normal de l'ordinador.</para>
+    <caution>
+      <para>Mentre s'està aturat temporalment es continua utilitzant una petita quantitat de l'energia de la bateria, per tant no es recomana com a acció d'energia baixa. Si desconnecteu l'alimentació de la xarxa elèctrica en un ordinador de sobretaula o us quedeu sense bateria en un portàtil, llavors perdreu el treball realitzat.</para>
+    </caution>
+    <para>L'estat d'hibernació desa tot l'estat de l'ordinador al disc dur i desconnecta l'alimentació, de forma que veureu que l'ordinador està apagat. No tornarà l'activitat normal fins que es produeixi un esdeveniment extern, com ara prémer una tecla. Aquest és l'estat de repòs que menys energia necessita. Si desconnecteu la xarxa elèctrica en un ordinador de sobretaula o us quedeu sense bateria en un portàtil, llavors no perdreu el treball realitzat. Es pot tardar un minut o més a hibernar i tornar a l'activitat normal de l'ordinador.</para>
+  </section>
+
+  <section id="faq-dpms-broken-monitor">
+    <title>La pantalla no funciona correctament i tracta els estats d'espera i d'apagat del DPMS com a «sense senyal», cosa que fa que la pantalla sempre estigui encesa.</title>
+    <para>Heu de canviar el mode d'espera DPMS que utilitza el <application>gestor d'energia del GNOME</application>. Obriu el <command>gconf-editor</command> i canvieu les claus <literal>/apps/gnome-power-manager/backlight/dpms_method_ac</literal> i <literal>/apps/gnome-power-manager/backlight/dpms_method_battery</literal> a un mode que funcioni, per exemple «standby», «suspend» o «off».</para>
+  </section>
+
+  <section id="faq-longer-suspend">
+    <title>He establert el temps d'inactivitat de l'ordinador a un minut i tarda més temps a fer l'aturada temporal.</title>
+    <para>El gnome-screensaver és un dimoni de sessió que monitoritza les entrades de l'usuari, i si el ratolí no s'ha mogut, o no s'ha premut cap tecla, comença un temps d'espera. Quan el valor d'aquest temps d'espera arriba a un valor establert en el gnome-screensaver-preferences, la sessió es marca com a inactiva. Llavors el <application>gestor d'energia del GNOME</application> realitza totes les accions de sessió inactiva, com activar el mode de baix consum o disminuir la brillantor de la pantalla del portàtil.</para>
+    <para>Quan la sessió es marqui com a inactiva, el <application>gestor d'energia del GNOME</application> comença el seu propi temporitzador. Quan s'arribi al temps d'espera establert en el gnome-power-preferences, i la càrrega de la CPU estigui inactiva, llavors es realitzarà l'acció d'inactivitat, que normalment és apagar la pantalla, aturar temporalment o hibernar.</para>
+    <para>En la versió 2.14 del <application>gestor d'energia del GNOME</application> els temps d'espera no estan lligats de manera òbvia al gnome-screensaver, però hi estan de totes maneres. Això és perquè el gnome-screensaver declara la sessió inactiva i després el <application>gestor d'energia del GNOME</application> s'inicia. De manera que en realitat el temps real per a l'aturada temporal és el temps d'espera de l'Estalvi de pantalla del GNOME més els temps del <application>gestor d'energia del GNOME</application>.</para>
+    <para>En la versió 2.16 del <application>gestor d'energia del GNOME</application> i posteriors, els lliscadors en el <command>gnome-power-preferences</command> estan configurats per a iniciar-se un minut després del valor establert per a canviar a sessió inactiva, atès que l'activador lògic no pot actuar abans de marcar la sessió com a inactiva. Si ajusteu el valor de «sessió inactiva» en el <command>gnome-screensaver-preferences</command> llavors l'inici dels lliscadors en el <command>gnome-power-preferences</command> canviarà de forma corresponent.</para>
+  </section>
+
+  <section id="faq-discharge-time-wrong">
+    <title>El temps de descàrrega és incorrecte degut a un error a la bateria, què puc fer?</title>
+    <para>És possible que pugueu utilitzar el percentatge de càrrega de manera que el <application>gestor d'energia del GNOME</application> l'empri com a dades de la política. Obriu el <command>gconf-editor</command> i canvieu la clau <command>/apps/gnome-power-manager/general/use_time_for_policy</command> a «false». Podeu fer això fàcilment executant: <command>gconftool-2 --set --type bool /apps/gnome-power-manager/general/use_time_for_policy false</command></para>
+    <para>Això hauria de fer que les accions de les polítiques funcionessin, però el temps restant continuarà sent incorrecte.</para>
+  </section>
+
+  <section id="faq-ibm-brightness">
+    <title>Perquè el meu portàtil IBM té els lliscadors de brillantor a les preferències de l'energia?</title>
+    <para>Heu d'afegir el text següent al fitxer <command>/etc/modprobe.conf</command>: <command>options ibm_acpi experimental=1</command></para>
+    <para>Això activarà les característiques experimentals i farà que el monitor LCD funcioni.</para>
+    <caution>
+      <para>Haureu d'utilitzar l'ordre sudo o un compte de superusuari per a editar aquest fitxer.</para>
+    </caution>
+  </section>
+
+  <section id="faq-lid-state-confused">
+    <title>Perquè es confon l'estat de la tapa després d'aturar temporalment o d'hibernar? (i) El meu portàtil s'ha aturat temporalment quan no ho esperava després de desconnectar el cable d'alimentació.</title>
+    <para>Quan atureu temporalment i repreneu, l'ACPI no sembla que enviï l'esdeveniment «tapa oberta» com hauria de fer-ho. Podria ser perquè l'espai d'usuari no pot gestionar l'esdeveniment del nucli quan es comencen a reactivar els processos de l'espai d'usuari.</para>
+    <para>Haureu de refrescar la tapa del dispositiu manualment utilitzant el HAL quan es reprengui, de manera que el nou valor «tapa oberta» arribi al <application>gestor d'energia del GNOME</application>.</para>
+    <para>Haureu d'actualitzar el HAL a una versió més recent, o bé utilitzar els paquets de correcció d'errors actualitzats de la vostra distribució.</para>
+  </section>
+
+  <section id="faq-gpm-apm">
+    <title>Funciona el <application>gestor d'energia del GNOME</application> amb l'APM?</title>
+    <para>Funciona amb tot allò que funcioni amb el HAL. En aquest moment inclou:</para>
+    <itemizedlist>
+      <listitem>
+        <para>APM (Ordinadors Intel anteriors a l'any 2000)</para>
+      </listitem>
+      <listitem>
+        <para>ACPI (la majoria dels ordinadors moderns compatibles amb Intel)</para>
+      </listitem>
+      <listitem>
+        <para>PMU (ordinadors Powerbook i iBook PPC)</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section id="faq-no-suspend-or-hibernate">
+    <title>Com és que el <application>gestor d'energia del GNOME</application> no em deixa aturar temporalment o hibernar?</title>
+    <para>Abans de mostrar elements com «Atura temporalment» o «Hiberna» en el menú del <application>gestor d'energia del GNOME</application>, comproveu dues coses:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Si el HAL pot detectar un gestor de mode de baix consum en el nucli. Podeu provar-ho executant <command>lshal | grep can_suspend</command>. El HAL ho calcula monitoritzant el <command>/sys/power/state</command> i comprovant la presència de «suspend2».</para>
+      </listitem>
+      <listitem>
+        <para>Si l'administrador (o vós) heu desactivat la capacitat de fer alguna acció. Podeu provar-ho executant <command>gconftool-2 -R /apps/gnome-power-manager | grep can</command> i canviant els valors a quelcom més adequat.</para>
+      </listitem>
+    </itemizedlist>
+    <para>Per exemple, un PowerBook informa, segons el HAL, que es pot aturar temporalment i hibernar, però com que la funció d'hibernar no funciona, es pot desactivar en el <command>gconf-editor</command> eliminant l'opció del <command>gnome-power-preferences</command> i del menú desplegable.</para>
+    <para>Si el HAL no llista les opcions que voleu, potser hauríeu de comprovar la BIOS i assegurar-vos que s'executa en un mode correcte, així com comprovar que heu compilat el nucli amb les opcions correctes.</para>
+    <para>Si la segona comprovació anterior no retorna claus del GConf, haureu de reinstal·lar l'esquema del GConf degut al gnomebug:341256: (com a superusuari):</para>
+<programlisting>
+export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+gconftool-2 --makefile-install-rule data/gnome-power-manager.schemas
+killall -HUP gconfd-2
+</programlisting>
+  </section>
+
+  <section id="faq-screen-dim-scroll">
+    <title>Com és que la meva pantalla s'enfosqueix o s'inicia l'estalvi de pantalla encara que quan faci clic amb el ratolí?</title>
+    <para>Si feu clic amb el ratolí, o moveu la roda sense moure el punter, el gnome-screensaver detectarà que la sessió està inactiva. Això és una limitació de l'X.org, però s'està corregint en les noves versions del gnome-screensaver.</para>
+  </section>
+
+  <section id="faq-inhibit">
+    <title>Com puc fer que les meves aplicacions evitin que l'ordinador s'aturi automàticament?</title>
+    <para>Si l'aplicació està realitzant una operació llarga, potser voleu desactivar l'opció d'aturar temporalment durant una estona. Hauríeu d'utilitzar aquest mètode si no voleu que l'usuari pugui aturar temporalment, o que l'ordinador entri en mode d'aturat temporalment o d'hibernació durant:</para>
+    <itemizedlist>
+      <listitem>
+        <para>La còpia de fitxers al Nautilus</para>
+      </listitem>
+      <listitem>
+        <para>La compilació del nucli o una simulació en el Matlab</para>
+      </listitem>
+      <listitem>
+        <para>Un canvi d'etiqueta del SELinux</para>
+      </listitem>
+      <listitem>
+        <para>Moltes altres...</para>
+      </listitem>
+    </itemizedlist>
+    <para>Llavors podeu utilitzar els mètodes DBUS Inhibit() i UnInhibit() inclosos en les noves versions del <application>gestor d'energia del GNOME</application>. Aquí teniu una demostració senzilla en Python:</para>
+<programlisting>
+#!/usr/bin/python
+import dbus
+import time
+bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+devobj = bus.get_object('org.freedesktop.PowerManagement', '/org/freedesktop/PowerManagement/Inhibit')
+dev = dbus.Interface(devobj, "org.freedesktop.PowerManagement.Inhibit")
+cookie = dev.Inhibit('Nautilus', 'Copying files')
+time.sleep(100)
+dev.UnInhibit(cookie)
+</programlisting>
+    <para>Hi ha un <ulink url="http://svn.gnome.org/viewcvs/gnome-power-manager/trunk/test/gpm-inhibit-test.c?view=markup">exemple</ulink> que mostra als desenvolupadors com afegir els mètodes DBUS Inhibit i UnInhibit en programes existents.</para>
+  </section>
+
+  <section id="faq-gs-and-gpm-inhibit">
+    <title>Els mètodes d'inhibició del <application>gestor d'energia del GNOME</application> i de l'estalvi de pantalla del GNOME són els mateixos?</title>
+    <para>Si executeu els mètodes d'inhibició per al gnome-screensaver, aquest no marcarà la sessió com a inactiva. Això significa que la pantalla no s'enfosquirà automàticament, l'estalvi de pantalla no s'iniciarà i l'ordinador no s'aturarà temporalment.</para>
+    <para>Mentre reproduïu una pel·lícula a pantalla completa, el Totem utilitza els mètodes d'inhibició del gnome-screensaver. La idea és que el Totem no s'ha de preocupar pel gestor d'energia. Només s'ha d'assegurar que tot i que no es premi cap tecla i no es mogui el ratolí, la sessió continuï activa.</para>
+    <para>Les úniques aplicacions que haurien d'utilitzar el mètode d'inhibició del <application>gestor d'energia del GNOME</application> són aquelles que volen assegurar-se que la sessió es pot marcar com a inactiva, però segueixen succeint coses importants, i no s'hauria d'apagar l'ordinador. Per exemple, quan s'estiguin copiant 4.5GB de fitxers en el Nautilus, voldreu que es visualitzi l'estalvi de pantalla, i que la pantalla LCD s'enfosqueixi, però no voldreu que l'ordinador pensi que està inactiu i s'aturi, s'aturi temporalment o hiberni.</para>
+  </section>
+
+ <section id="faq-spin-down-hdd">
+    <title>El <application>gestor d'energia del GNOME</application> no redueix les revolucions del meu disc dur.</title>
+    <para>Després de diversos debats, el consens és que no és una bona idea afegir aquesta funcionalitat al HAL. Es va decidir que una gestió de l'energia configurable per l'usuari no es necessitava realment quan els discs durs moderns posseeixen una gestió de l'energia intel·ligent.</para>
+    <para>A continuació es mostren les dades del consum d'energia per a un típic disc dur (IDE/SATA) de portàtil:</para>
+
+<programlisting>
+Inici (pic, màx.)		5.5W 	NC
+Cerca				2.3W	2.7W
+Lectura (mitjana)			2.0W	2.3W
+Escriptura (mitjana)			2.0W	2.3W
+Inactiu (mitjana)		1.1W	1.2W
+Inactiu de baix consum (mitjana)		0.85W	0.9W
+En espera (mitjana)			0.2W	0.25W
+Baix consum				0.1W	NC
+</programlisting>
+    <para>Les conclusions que se'n poden treure són:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Un disc en mode inactiu de baix consum necessita menys d'un Watt. Una bateria normal amb 50Wh podria utilitzar el disc dur més de 50 hores.</para>
+      </listitem>
+      <listitem>
+        <para>Si no llegiu/escriviu al disc dur el disc regularà l'energia, però mai apagarà el dispositiu. La raó és simple: perdeu més energia en cada inicialització que deixant el disc dur entre «inactiu» i «inactiu de baix consum» (varia en funció del model/fabricant).</para>
+      </listitem>
+      <listitem>
+        <para>L'altra raó per la qual és aconsellable deixar que la gestió interna d'energia del disc s'encarregui de gestionar l'energia és el temps que es necessita per a tornar a activar el dispositiu. Perdeu més rendiment que no pas energia entre els estats «inactiu» i «inactiu de baix consum».</para>
+      </listitem>
+      <listitem>
+        <para>Si utilitzeu un sistema de fitxers amb registre de transaccions, normalment l'heu de sincronitzar periòdicament. Això pot portar a una cursa entre apagar i reiniciar el dispositiu pel sistema degut a la sincronització. També implica més consum d'energia que si no toqueu res.</para>
+      </listitem>
+      <listitem>
+        <para>No podeu establir la gestió d'energia per a un disc dur USB extern, perquè no podeu enviar les ordres necessàries al disc a través d'un enllaç USB.</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section id="faq-acpi-delay">
+    <title>Estic executant l'ACPI. Com és que els esdeveniments (com desconnectar la xarxa elèctrica) tarden tant en registrar-se?</title>
+    <para>El problema pot ser una d'aquestes dues raons.</para>
+    <itemizedlist>
+      <listitem>
+        <para>Pot ser que el HAL pot no estigui executant el complement que captura l'esdeveniment de l'ACPI.</para>
+      </listitem>
+      <listitem>
+        <para>Pot ser que la BIOS no funcioni correctamant i calgui corregir-la. En aquest cas hauríeu d'enviar un informe d'error.</para>
+      </listitem>
+    </itemizedlist>
+    <para>En el primer cas, proveu de trobar els processos del HAL que s'estan executant: <command>ps -eaf | grep hal</command></para>
+    <para>I comproveu que hi apareix el procés <command>hald-addon-acpi</command>. Si no és actiu, assegureu-vos que el HAL s'està executant amb l'opció <command>--retain-privileges</command> en l'script inicial <command>haldaemon</command>. Una alternativa a això és utilitzar l'«acpid», en lloc del fitxer «proc» del nucli.</para>
+  </section>
+
+  <section id="faq-shell">
+    <title>Com puc consultar o realitzar accions en el <application>gestor d'energia del GNOME</application> a través d'un script de l'intèrpret d'ordres?</title>
+    <para>Podeu utilitzar el programa dbus-send. Per exemple, podeu establir el mode DPMS executant el següent:</para>
+<programlisting>
+dbus-send --session \
+	  --dest=org.freedesktop.PowerManagement \
+	  --type=method_call \
+	  --print-reply \
+	  --reply-timeout=2000 \
+	  /org/freedesktop/PowerManagement \
+	  org.freedesktop.PowerManagement.SetDpmsMode \
+	  string:suspend
+</programlisting>
+    <para>Podeu posar el sistema en hibernació utilitzant el següent:</para>
+<programlisting>
+dbus-send --session \
+	  --dest=org.freedesktop.PowerManagement \
+	  --type=method_call \
+	  --print-reply \
+	  --reply-timeout=2000 \
+	  /org/freedesktop/PowerManagement \
+	  org.freedesktop.PowerManagement.Hibernate
+</programlisting>
+    <para>Consulteu la guia per a desenvolupadors en el CVS per a obtenir una llista completa.</para>
+  </section>
+
+  <section id="faq-nothing-happens">
+    <title>No succeeix res quan faig clic a aturar temporalment o hibernar.</title>
+    <para>Pot ser que el HAL *encara* no funcioni amb la vostra distribució, o potser heu trobat un error en el <application>gestor d'energia del GNOME</application>. Consulteu la secció d'errors.</para>
+  </section>
+
+  <section id="faq-video-resume">
+    <title>Per què no es recupera el meu adaptador de vídeo després d'aturar temporalment? La pantalla queda de color negre.</title>
+    <para>Potser heu d'afegir una ordre s3 a la cadena d'inici del nucli de manera que el nucli pugui reiniciar la targeta de vídeo. Consulteu <ulink url="http://www.kernel.org/git/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;hb=HEAD;f=Documentation/power/video.txt">aquest document</ulink> per a obtenir més detalls, o per saber si s'ha detectat que el sistema necessita commutadors extres.</para>
+    <note>
+      <para>En el futur, emprant les noves pm-utils tot això hauria de funcionar si s'utilitza la concordança fdi del HAL respecte al dispositiu DMI i els identificadors de fabricant i producte de les targetes de vídeo.</para>
+    </note>
+  </section>
+</section>
+
+<section id="about">
+  <title>Quant a</title>
+  <para>Richard Hughes <email>richard@hughsie.com</email> ha escrit el gestor d'energia del GNOME. Per a trobar més informació sobre el gestor d'energia del GNOME, visiteu la <ulink url="http://www.gnome.org/projects/gnome-power-manager" type="http">pàgina web del <application>gestor d'energia del GNOME</application></ulink>.</para>
+  <para>Per a informar d'un error o fer algun suggeriment sobre aquesta aplicació o aquest manual, seguiu les indicacions a la <ulink url="http://www.gnome.org/projects/gnome-power-manager/bugs.html" type="http">pàgina d'errors del <application>gestor d'energia del GNOME</application></ulink>.</para>
+  <para>Aquest programa es distribueix sota els termes de la Llicència pública general de GNU tal com publica la Free Software Foundation; tant en la versió 2 de la llicència, o (a la vostra opció) una versió posterior. Es pot trobar una copia d'aquesta llicència en aquest <ulink url="gnome-power-manager:gpl" type="help">enllaç</ulink>, o en el fitxer COPYING inclòs amb el codi font d'aquest programa.</para>
+</section>
+
+</article>

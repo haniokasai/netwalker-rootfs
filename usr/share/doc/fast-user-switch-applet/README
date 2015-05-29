@@ -1,0 +1,106 @@
+Fast User Switch Applet
+=======================
+
+The Fast User Switch Applet is an applet for the GNOME 2.10 panel which allows
+for MacOS X-style menu-based user-switching.
+
+
+I.) Downloading
+
+The most recent release of FUSA is available from:
+
+http://ignore-your.tv/fusa/
+
+Chances are decent if you got a tarball you've already got this version. :-)
+
+Development takes place in GNOME CVS, in the 'fast-user-switch-applet' module.
+
+
+II.) Build-Time Configuration
+
+Like all panel applets, FUSA must be installed to the same prefix as the panel.
+For most distributions, this means /usr. Other flags which should be set are the
+GDM configuration file location, a users-and-groups command line, and the
+gdmsetup command line. Some examples:
+
+A.) Ubuntu
+
+./configure \
+  --prefix=/usr \
+  --libexecdir=/usr/lib/fast-user-switch-applet \
+  --mandir=/usr/share/man \
+  --with-gdm-config=/etc/gdm/gdm.conf \
+  --with-users-admin="gksudo users-admin" \
+  --with-gdm-setup="gksudo gdmsetup"
+
+B.) Debian
+
+./configure \
+  --prefix=/usr \
+  --libexecdir=/usr/lib/fast-user-switch-applet \
+  --mandir=/usr/share/man \
+  --with-gdm-config=/etc/gdm/gdm.conf --with-users-admin="gksu users-admin" \
+  --with-gdm-setup="gksu gdmsetup"
+
+C.) Fedora
+
+./configure \
+  --prefix=/usr \
+  --with-gdm-config=/etc/X11/gdm/gdm.conf \
+  --with-users-admin="redhat-users-config" \
+  --with-gdm-setup="gdmsetup"
+
+
+III.) Run-Time Configuration
+
+FUSA includes a couple hidden, global GConf preferences:
+
+  /apps/fast-user-switch-applet/show_screen_item  (default: "always")
+  /apps/fast-user-switch-applet/show_window_item  (default: "auto")
+
+These keys control if/when to show the "Login Screen" and "Login Window"
+menuitems, respectively. Possible values for these keys include:
+
+  "never" - never show the menuitem.
+  "always" - always show the menuitem.
+  "auto" - show the menuitem when appropriate (depends on value of Xnest pref).
+
+The defaults should be sufficient, but geeks may play without fear of `issues'
+:-).
+
+
+IV.) Using
+
+To use this applet, simply right-click on any panel, and select the
+"Add to Panel" item. Scroll down in the resulting dialog to the item labeled
+"User Switcher", and hit "Add" -- that's it. Preferences and the current user's
+photo can be set by right-clicking on the applet. 
+
+
+V.) Gotchas
+
+It is recommended that you edit /etc/esound/esd.conf (the debian/ubuntu
+location, other systems may store this file elsewhere) and change the line which
+says:
+
+  default_options=
+
+to:
+
+  default_options=-unix -promiscuous
+
+in order to allow all local users to play sounds.
+
+Likewise, gnome-volume-manager (the utility which handles actions for removable
+media, such as digital camera media, CDs, and DVDs) may behave strangely if
+multiple users are running at the same time. This is a bug in
+gnome-volume-manager and cannot be fixed from within FUSA. Sorry :-(.
+
+
+VI.) Bugs
+
+Bug reports may be filed against the "Fast User Switch Applet" product at
+
+http://bugzilla.gnome.org/
+
+or using GNOME's "bug-buddy" tool.

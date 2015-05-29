@@ -1,0 +1,35 @@
+#!/bin/sh
+set -e
+
+# stop backend here when upgrading from a version that didn't handle
+# it correctly yet in the prerm
+
+# Remove a no-longer used conffile
+rm_conffile() {
+    PKGNAME="$1"
+    CONFFILE="$2"
+
+    if [ -e "$CONFFILE" ]; then
+        md5sum="`md5sum \"$CONFFILE\" | sed -e \"s/ .*//\"`"
+        old_md5sum="`dpkg-query -W -f='${Conffiles}' $PKGNAME | sed -n -e \"\\\\' $CONFFILE'{s/ obsolete$//;s/.* //p}\"`"
+        if [ "$md5sum" != "$old_md5sum" ]; then
+            echo "Obsolete conffile $CONFFILE has been modified by you."
+            echo "Saving as $CONFFILE.dpkg-bak ..."
+            mv -f "$CONFFILE" "$CONFFILE".dpkg-bak
+        else
+            echo "Removing obsolete conffile $CONFFILE ..."
+            rm -f "$CONFFILE"
+        fi
+    fi
+}
+case "$1" in
+    install|upgrade)
+	if dpkg --compare-versions "$2" lt-nl 2.6.0-1; then
+	    test -x /etc/dbus-1/event.d/70system-tools-backends && \
+		/etc/dbus-1/event.d/70system-tools-backends stop || true
+	    rm_conffile system-tools-backends "/etc/dbus-1/event.d/70system-tools-backends"
+	fi
+	;;
+esac
+
+

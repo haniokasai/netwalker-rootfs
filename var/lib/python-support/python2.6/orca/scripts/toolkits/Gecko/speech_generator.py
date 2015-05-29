@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/scripts/toolkits/Gecko/speech_generator.py

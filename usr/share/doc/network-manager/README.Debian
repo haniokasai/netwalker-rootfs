@@ -1,0 +1,48 @@
+NetworkManager consists of two parts: one is on the system level daemon that
+manages the connections and gathers information about new networks. The other 
+is a systray applet that users can use to interact with the NetworkManager 
+daemon. 
+
+Managed vs. Unmanaged mode and /etc/network/interfaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Devices listed in /etc/network/interfaces _will_ be managed by NetworkManager
+unless the ifupdown system-config-setting is enabled and is setup to run
+in "Unmanaged mode".
+
+Note: in ubuntu/intrepid "Unmanaged mode" will be the default, but that is likely
+to change in one of the following releases.
+
+The config to select unmanaged/managed mode is in /etc/NetworkManager/nm-system-settings.conf:
+
+  [ifupdown]
+  managed=true/false
+
+Unmanaged mode will make NetworkManager not touch any wired/wireless device matching
+an interface name configured in /etc/network/interfaces.
+
+Managed mode will make NetworkManager manage all devices and will make NetworkManager
+honour all dhcp and static configurations for wired and wireless devices.
+
+The default mode shipped in Ubuntu/intrepid is "unmanaged".
+
+After modifying /etc/NetworkManager/nm-systems-settings.conf _or_ /etc/network/interfaces
+you may want to restart the system-settings daemon using the command:
+"sudo killall nm-system-settings" to apply those changes.
+
+
+Dial-up configuration
+~~~~~~~~~~~~~~~~~~~~~
+
+Your dialup configurations can now be one in network-manager connection editor.
+Because of that /etc/network/interfaces configurations are considered "legacy" from
+a network manager point of view.
+
+However, if you want to use your /etc/network/interfaces configuration make sure that
+you have the ifupdown plugin in "Unmanaged mode" and take care that the used
+wired/wireless device is also configured in /etc/network/interfaces.
+
+Not that NetworkManager 0.7 will not provive UI hooks to up and down ppp connections
+managed outside of NetworkManager itself (not that it ever worked nicely before).
+
+ -- Alexander Sack <asac@ubuntu.com>, Mon, 6 Oct 2008 13:05:00 +0200
+

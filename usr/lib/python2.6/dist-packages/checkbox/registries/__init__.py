@@ -1,0 +1,1 @@
+/usr/share/pyshared/checkbox/registries/__init__.py

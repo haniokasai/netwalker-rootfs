@@ -1,0 +1,1 @@
+/usr/share/pyshared/checkbox/contrib/bpickle_registry.py

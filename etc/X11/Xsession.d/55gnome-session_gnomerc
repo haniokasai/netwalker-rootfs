@@ -1,0 +1,12 @@
+# If we are running the GNOME session, source ~/.gnomerc
+
+BASESTARTUP=`basename "$STARTUP" | cut -d\  -f1`
+if [ "$BASESTARTUP" = gnome-session -o \
+	\( "$BASESTARTUP" = x-session-manager -a \
+	"`readlink /etc/alternatives/x-session-manager`" = \
+		/usr/bin/gnome-session \) ]; then
+  GNOMERC=$HOME/.gnomerc
+  if [ -r "$GNOMERC" ]; then
+    . "$GNOMERC"
+  fi
+fi

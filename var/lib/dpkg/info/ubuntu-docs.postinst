@@ -1,0 +1,29 @@
+#! /bin/sh
+set -e
+
+# Automatically added by dh_scrollkeeper
+if [ "$1" = "configure" ] && which scrollkeeper-update >/dev/null 2>&1; then
+	scrollkeeper-update -q
+fi
+# End automatically added section
+
+
+case "$1" in
+  configure)
+    update-alternatives \
+      --install /usr/share/ubuntu-artwork/home/index.html \
+      firefox-homepage /usr/share/ubuntu-artwork/home/firefox-index.html 40 \
+      --slave /usr/share/ubuntu-artwork/home/locales \
+      firefox-homepage-locales /usr/share/ubuntu-artwork/home/locales-ubuntu
+
+        link=/usr/share/gnome/help/libs
+        if [ -d "$link" ] && ! [ -L "$link" ] \
+           && dpkg --compare-versions "$2" lt-nl 9.04.7
+        then
+                rmdir "$link"
+                ln -s ../../ubuntu-docs/libs "$link"
+        fi
+  ;;
+esac
+
+exit 0

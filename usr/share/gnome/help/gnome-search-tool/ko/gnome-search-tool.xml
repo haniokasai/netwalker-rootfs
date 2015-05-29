@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.12">
+<!ENTITY manrevision "2.7">
+<!ENTITY date "January 2005">
+<!ENTITY app "Search for Files">
+<!ENTITY ug "GNOME Desktop User Guide">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp 
+  Template version: 2.0 beta
+  Template last modified Jan 25, 2005  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ko">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Search for Files Manual</title>
+
+    <abstract role="description">
+      <para>
+    	A search tool to find files, folders and documents on your computer.
+      </para>
+    </abstract>
+
+    <copyright> 
+      <year>2005</year> 
+      <holder>Dennis Cranston</holder> 
+    </copyright>
+    <copyright> 
+      <year>2002</year> 
+      <year>2003</year> 
+      <year>2004</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Alexander Kirillov</holder> 
+    </copyright>
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+    <publisher> 
+      <publishername>그놈 문서 프로젝트</publishername> 
+    </publisher> 
+
+     <legalnotice id="legalnotice">
+	<para>본 설명서는 프리 소프트웨어 재단(FSF)에서 발행한 GNU 자유 문서 라이센스(GFDL) 버전 1.1 이상의 조항에 따라 변경 불가 부분, 앞 표지 텍스트 및 뒷 표지 텍스트를 제외하고 복사, 수정 및/또는 배포할 수 있습니다. GFDL 의 사본은 <ulink type="help" url="ghelp:fdl">링크</ulink> 또는 본 설명서와 함께 배포된 COPYING-DOCS 파일에서 찾을 수 있습니다.</para>
+         <para>본 설명서는 GFDL 에 따라 배포된 그놈 설명서 컬렉션의 일부입니다. 본 설명서를 컬렉션과 별도로 배포하려는 경우에는 라이센스 조항 6에 따라 라이센스 사본을 설명서에 추가하면 됩니다.</para>
+
+	<para>기업의 제품과 서비스를 식별하기 위해 사용된 많은 이름은 상표로 간주됩니다. 그놈 문서에 사용된 이름과 그놈 문서 프로젝트의 구성원은 해당 상표로, 모두 대문자로 표시되거나 첫 글자가 대문자로 표시되어 있습니다.</para>
+
+	<para>문서 및 수정판은 다음 GNU 자유 문서 라이센스의 조항에 따라 제공됩니다. <orderedlist>
+		<listitem>
+		  <para>문서는 "있는 그대로"로 제공되며 상품성, 특정 목적에의 적합성 또는 준수에 대한 보증을 비롯한 일체의 명시적 또는 암시적인 보증을 제한 없이 부인합니다. 문서 및 수정판의 품질, 정확성 및 성능에 대한 책임은 전적으로 사용자에게 있습니다. 문서 또는 수정판에 대한 오류를 입증하려면 사용자(원저작자, 저작자 또는 배포자 아님)는 필요한 서비스, 수리 및 수정 비용을 부담해야 합니다. 본 보증 부인은 라이센스의 필수 부분에 해당합니다. 본 보증 부인을 따르지 않는 모든 문서나 수정판은 사용할 수 없습니다.</para>
+		</listitem>
+		<listitem>
+		  <para>또한 불법 행위(부주의 포함), 계약 또는 직접, 간접, 특별, 부수적 및 파생적인 모든 손해(영업권 손실, 작업 중지, 컴퓨터 오류 및 고장 또는 본 문서나 수정판의 사용으로 인해 발생하거나 관련된 기타 모든 손실 및 이러한 손실 가능성에 대해 미리 공지한 경우에도 제한되지 않음)에 대해서는 어떠한 상황이나 법률적인 이론 하에서도 본 문서 또는 수정판의 저작자, 원저자, 모든 배포자 또는 공급자는 책임을 지지 않습니다.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+    <authorgroup> 
+      <author role="maintainer"> 
+	<firstname>Dennis</firstname> 
+	<surname>Cranston</surname> 
+	<affiliation> 
+	  <orgname>Search for Files Maintainer</orgname> 
+	  <address>dennis_cranston@yahoo.com</address> 
+	</affiliation> 
+      </author> 
+      <author> 
+	<firstname>Sun</firstname> 
+	<surname>그놈 문서 팀</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname> 
+	  <address/> 
+	</affiliation> 
+      </author> 
+      <author> 
+	<firstname>Alexander</firstname> 
+	<surname>Kirillov</surname> 
+	<affiliation> 
+	  <orgname>그놈 문서 프로젝트</orgname> 
+	  <address> <email>kirillov@math.sunysb.edu</email> </address> 
+	</affiliation> 
+      </author> 
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <address> <email>translator@gnome.org</email> </address> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+ <revhistory>
+ <!-- <revision> 
+	<revnumber>&app; Manual V&manrevision;</revnumber> 
+	<date>&date;</date> 
+	<revdescription> 
+	  <para role="author">Sun GNOME Documentation Team</para>
+	  <para role="publisher">GNOME Documentation Project</para>
+	</revdescription> 
+ </revision>
+-->
+   <revision> 
+			<revnumber>Search for Files Manual V2.7</revnumber> 
+			<date>2005년 6월</date> 
+			<revdescription> 
+	  		<para role="author">Joachim Noreiko <email>jnoreiko@yahoo.com</email></para>
+	  		<para role="publisher">Search for Files Maintainer</para>
+			</revdescription> 
+  </revision>
+  <revision> 
+			<revnumber>Search for Files Manual V2.6</revnumber> 
+			<date>2005년 1월</date> 
+			<revdescription> 
+	  		<para role="author">Dennis Cranston <email>dennis_cranston@yahoo.com</email></para>
+	  		<para role="publisher">Search for Files Maintainer</para>
+			</revdescription> 
+ </revision>
+ <revision> 
+			<revnumber>Search for Files Manual V2.4</revnumber> 
+			<date>2004년 2월</date> 
+			<revdescription> 
+	  		<para role="author">Sun 그놈 문서 팀</para>
+	  		<para role="publisher">그놈 문서 프로젝트</para>
+			</revdescription> 
+ </revision>
+ <revision> 
+			<revnumber>Search for Files Manual V2.3</revnumber> 
+			<date>2002년 9월</date> 
+			<revdescription> 
+	  		<para role="author">Sun 그놈 문서 팀</para>
+	  		<para role="publisher">그놈 문서 프로젝트</para>
+			</revdescription> 
+ </revision>
+ <revision> 
+			<revnumber>Search for Filesl Manual V2.2</revnumber> 
+			<date>2002년 8월</date> 
+			<revdescription> 
+	  		<para role="author">Sun 그놈 문서 팀</para>
+	  		<para role="publisher">그놈 문서 프로젝트</para>
+			</revdescription> 
+ </revision> 
+ <revision> 
+			<revnumber>Search for Files Manual V2.1</revnumber> 
+			<date>2002년 7월</date> 
+			<revdescription> 
+	  		<para role="author">Sun 그놈 문서 팀</para>
+	  		<para role="publisher">그놈 문서 프로젝트</para>
+			</revdescription> 
+ </revision> 
+ <revision> 
+			<revnumber>Search for Files Manual V2.0</revnumber> 
+			<date>2002년 5월</date> 
+			<revdescription> 
+	  		<para role="author">Sun 그놈 문서 팀</para>
+	  		<para role="publisher">그놈 문서 프로젝트</para>
+			</revdescription> 
+ </revision> 
+ <revision> 
+	<revnumber>Search for Files Manual</revnumber> 
+	<date>2000</date> 
+	<revdescription> 
+	  <para role="author">Alexander Kirillov <email>kirillov@math.sunysb.edu</email></para>
+	  <para role="publisher">그놈 문서 프로젝트</para>
+	</revdescription> 
+ </revision> 
+ </revhistory> 
+
+    <releaseinfo>This manual describes version 2.12 of Search for Files.
+    </releaseinfo> 
+    <legalnotice> 
+      <title>피드백</title> 
+      <para>To report a bug or make a suggestion regarding the Search for Files application or this manual, follow the directions in the <ulink url="ghelp:gnome-feedback" type="help">GNOME Feedback Page</ulink>. 
+      </para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>Search Tool</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+
+  <sect1 id="gsearchtool-introduction"> 
+    <title>소개</title> 
+    <para>The <application>Search for Files</application> application enables you to search for files on your system. To perform a basic search, you can type a filename or a partial filename, with or without wildcards. To refine your search, you can apply additional search options.</para>
+    <para><application>Search for Files</application> uses the <command>find</command>, <command>grep</command>, and <command>locate</command> UNIX commands.  By default, when performing a basic search <application>Search for Files</application> first uses the <command>locate</command> command, and then uses the slower but more thorough <command>find</command> command.</para>
+    <para>The case sensitivity of the search depends on your operating system. For example, on Linux, the <command>find</command>, <command>grep</command>, and <command>locate</command> commands support the <literal>-i</literal> option, so all searches are case-insensitive.</para>
+  </sect1>
+
+  <sect1 id="gsearchtool-getting-started">
+    <title>Getting Started</title> 
+
+    <para>You can start <application>Search for Files</application> in the following ways:
+    </para> 
+    <variablelist>
+    	<varlistentry>
+    		<term>From a <guimenu>Menu Bar</guimenu> on a panel</term>
+    		<listitem>
+    		<para>Choose <menuchoice><guisubmenu>Places</guisubmenu><guimenuitem>Search for Files...</guimenuitem></menuchoice></para>
+    		</listitem>
+    	</varlistentry>
+   	<varlistentry>
+    		<term>From a <guimenu>Main Menu</guimenu> on a panel</term>
+    		<listitem>
+    		<para>Choose <menuchoice><guimenuitem>Search for Files...</guimenuitem></menuchoice></para>
+    		</listitem>
+    	</varlistentry>
+    	<varlistentry>
+    		<term>From a command line</term>
+    		<listitem>
+    		<para>Execute the following command: <command>gnome-search-tool</command></para>
+    		<para> 		 
+    		</para> 
+    		</listitem>
+    	</varlistentry>
+    </variablelist>
+
+    <para>When you start <application>Search for Files</application>, the following window is displayed.</para>
+
+    <!-- ==== Figure ==== -->
+      <figure id="mainwindow-fig"> 
+	<title>Search for Files Window</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject><imagedata fileref="figures/gnome-search-tool_window.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Shows Search for Files main window. </phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+
+  </sect1>
+
+<!-- ================ Usage ================================ -->
+
+  <sect1 id="gsearchtool-usage"> 
+    <title>Usage</title>
+
+    <sect2 id="gsearchtool-simple">
+    <title>To Perform a Basic Search</title>
+    
+    <para>To perform a basic search for a file on the system, perform the following steps:</para>
+    <orderedlist>
+    <listitem><para>Enter the search text in the <guilabel>Name contains</guilabel> field. The search text can be a filename or partial filename, with or without wildcards, as shown in the following table:</para>
+
+      <informaltable frame="all">
+        <tgroup cols="3" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="33*"/>
+          <colspec colname="COLSPEC1" colwidth="33*"/>
+          <colspec colname="COLSPEC2" colwidth="34*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Name Contains Text</para></entry>
+              <entry colname="COLSPEC1">
+                <para>예제</para></entry>
+              <entry colname="COLSPEC2">
+                <para>Result</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry>
+                <para>Full or partial filename
+                </para>
+              </entry>
+              <entry>
+                <para><userinput>myfile.txt</userinput>
+                </para>
+              </entry>
+              <entry>
+                <para><application>Search for Files</application> searches for all files that contain the text <userinput>myfile.txt</userinput> in the filename.
+                </para>
+              </entry>
+            </row>
+            <row valign="top">
+              <entry>
+                <para>Partial filename combined with wildcards (*, [, ])
+                </para>
+              </entry>
+              <entry>
+                <para><userinput>*.[ch]</userinput>
+                </para>
+              </entry>
+              <entry>
+                <para><application>Search for Files</application> searches for all files that have extension <userinput>.c</userinput> or <userinput>.h</userinput>.
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </listitem>
+    <listitem><para>In the <guilabel>Look in folder</guilabel> field, select the folder or device from which you want <application>Search for Files</application> to begin the search. 
+</para></listitem>
+    <listitem><para>Click <guibutton>Find</guibutton> to perform the search. </para>
+    </listitem>
+    </orderedlist>
+    <para>
+      <application>Search for Files</application> searches in the directory that you specify and the subdirectories of the directory.
+<application>Search for Files</application> displays the results of the search in the <guilabel>Search results</guilabel> list box. If <application>Search for Files</application> does not find any files that match the search criteria, the application displays the message "No files found" in the <guilabel>Search results</guilabel> list box. 
+</para>
+    <para>By default, <application>Search for Files</application> will perform a quick search using the <command>locate</command> command followed by a more thorough second search using the <command>find</command> command. The <command>locate</command> command is faster because it uses a database of information about files. If this database is more than a week old, <application>Search for Files</application> could warn you that the search results may be out of date and give you the option of disabling the quick search. To update the database, run the command <command>updatedb</command> as the root user.</para>
+  </sect2>
+    
+    <sect2 id="gsearchtool-advanced">
+    <title>To Add Search Options</title>
+    <para>You can add additional options to search for a file on the system. To add search options, perform the following steps:</para>
+  	<orderedlist>
+    		<listitem><para>Click on the <guilabel>Select more options</guilabel> text. </para></listitem>
+    		<listitem><para>Click on the <guilabel>Available options</guilabel> drop-down list.</para></listitem>
+    		<listitem><para>Select the search option that you want to apply.</para></listitem>
+    		<listitem><para>Click <guibutton>Add</guibutton>. </para></listitem>
+    		<listitem><para>Specify the required search information for the search option, as described in <xref linkend="tbl-search-rules"/>.</para></listitem>
+    		<listitem><para>Repeat the above steps for each search option that you want to apply.</para></listitem>
+    	</orderedlist>	
+    	<para>To remove a search option from the current search, click on the <guibutton>Remove</guibutton> button next to the option. </para>
+    	<para>To disable the search options from the current search, click on the <guilabel>Select more options</guilabel> text.</para>
+    
+    <table id="tbl-search-rules" frame="topbot">
+    <title>Search Options</title> 
+		  <tgroup cols="2" colsep="1" rowsep="1">
+			 <colspec colname="COLSPEC0" colwidth="33*"/>
+			 <colspec colname="COLSPEC1" colwidth="33*"/>
+			 <thead> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Option Name</para></entry> 
+				  <entry> 
+					 <para>설명</para></entry> 
+				</row> 
+			 </thead> 
+			 <tbody> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Contains the text</para></entry> 
+				  <entry> 
+					 <para>Search for files of type plain text that contain the specified text.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Date modified less than</para></entry> 
+				  <entry> 
+					 <para>Search for files that are modified less than the period specified in days.</para></entry>  
+				</row>
+				<row valign="top"> 
+				  <entry> 
+					 <para>Date modified more than</para></entry> 
+				  <entry> 
+					 <para>Search for files that are modified longer than the period specified in days.</para></entry>  
+				</row>
+				<row valign="top"> 
+				  <entry> 
+					 <para>Size at least</para></entry> 
+				  <entry> 
+					 <para>Search for files that are equal to or larger than the size specified in kilobytes.</para></entry>  
+				</row>
+				<row valign="top"> 
+				  <entry> 
+					 <para>Size at most</para></entry> 
+				  <entry> 
+					 <para>Search for files that are smaller than or equal to the size specified in kilobytes.</para></entry>  
+				</row>
+				<row valign="top"> 
+				  <entry> 
+					 <para>File is empty</para></entry> 
+				  <entry> 
+					 <para>Search for empty files.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Owned by user</para></entry> 
+				  <entry> 
+					 <para>Search for files that are owned by the user specified. Type the name of the user in the text box provided.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Owned by group</para></entry> 
+				  <entry> 
+					 <para>Search for files that are owned by the group specified. Type the name of the group in the text box provided. </para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Owner is unrecognized</para></entry> 
+				  <entry> 
+					 <para>Search for files that are owned by a user or group that is unknown to the system.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Name does not contain</para></entry> 
+				  <entry> 
+					 <para>Search for filenames that do not contain the string that you enter. Enter a full filename or a partial filename with wildcards in the field provided. Use * to indicate a sequence of characters. Use ? to indicate a single character. The search is case sensitive.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Name matches regular expression</para></entry> 
+				  <entry> 
+					 <para>Search for files that contain the specified regular expression in their directory path or filename. Type the regular expression in the text box provided. </para></entry>  
+				</row>
+				<row valign="top"> 
+				  <entry> 
+					 <para>Show hidden and backup files</para></entry> 
+				  <entry> 
+					 <para>Include hidden and backup files in the search. </para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Follow symbolic links</para></entry> 
+				  <entry> 
+					 <para>Follow symbolic links when searching for files.</para></entry>  
+				</row> 
+				<row valign="top"> 
+				  <entry> 
+					 <para>Include other filesystems</para></entry> 
+				  <entry> 
+					 <para>Search in directories that are not in the same filesystem as the start directory.</para></entry>  
+				</row> 
+				 				
+			 </tbody> 
+		  </tgroup> 
+		</table> 
+    
+    </sect2>
+
+    <sect2 id="gsearchtool-stop">
+    <title>To Stop a Search</title>
+    <para>Click <guibutton>Stop</guibutton> to stop a search before <application>Search for Files</application> completes the search. </para>
+    </sect2>
+    
+    <sect2 id="gsearchtool-view">
+    <title>To Open a Displayed File</title>
+    <para>To open a file displayed in the <guilabel>Search results</guilabel> list box, perform one of the following steps:</para>
+    <itemizedlist>
+    <listitem><para>Right-click on the file, then choose <guimenuitem>Open</guimenuitem>. </para></listitem>
+     <listitem><para>Double-click on the file. </para></listitem>
+    </itemizedlist>
+    <para>To open the folder that contains a file displayed in the <guilabel>Search results</guilabel> list box, right-click on the file, then choose <guimenuitem>Open Folder</guimenuitem>.</para>
+    </sect2>
+
+    <sect2 id="gsearchtool-delete">
+    <title>To Delete a Displayed File</title>
+    <para>To delete a file displayed in the <guilabel>Search results</guilabel> list box, right-click on the file, then choose <guimenuitem>Move to Trash</guimenuitem>. </para>
+    </sect2>
+    
+    <!--
+    <sect2 id="gsearchtool-search-command">
+    <title>To View the Search Command Used by &app;</title>
+    <para>To view the command that <application>&app;</application> used to perform the previous search, choose <menuchoice><guimenu>Search</guimenu><guimenuitem>Show Command</guimenuitem></menuchoice>. The <guilabel>Search Command Line</guilabel> displays the command. </para>
+    </sect2>
+    -->
+    
+    <sect2 id="gsearchtool-savetofile">
+    <title>To Save the Search Results</title>
+    <para>To save the results of the last search that <application>Search for Files</application> performed, right-click in the <guilabel>Search results</guilabel> list, then choose <guimenuitem>Save Results As</guimenuitem>. Enter the name of the file to which you want to save the results, then click Save.</para>
+    </sect2>
+ 
+  </sect1>
+
+<!-- ============= Settings ============================== -->
+
+  <sect1 id="gsearchtool-settings-gconf-keys">
+    <title>Settings</title> 
+
+    <para><application>Search for Files</application> provides gconf keys to modify some of its behavior.  The gconf values can be changed by starting the <application>Configuration Editor</application> in the following ways:
+    </para> 
+    <variablelist>
+    	<varlistentry>
+    		<term><guimenu>프로그램</guimenu> 메뉴</term>
+    		<listitem>
+    		<para><menuchoice><guisubmenu>시스템 도구</guisubmenu><guimenuitem>설정 편집기</guimenuitem></menuchoice>를 선택합니다.</para>
+    		</listitem>
+    	</varlistentry>
+    	<varlistentry>
+    		<term>명령행</term>
+    		<listitem>
+    		<para>Execute the following command: <command>gconf-editor</command></para> 
+    		</listitem>
+    	</varlistentry>	
+    </variablelist>
+    
+    <sect2 id="gsearchtool-disablequicksearch">
+    <title>Disable Quick Search</title>
+    <para>키 이름: /apps/gnome-search-tool/disable_quick_search</para>
+    <para>기본값: 거짓</para>
+    <para><application>Search for Files</application> speeds up file name searches by using the <command>locate</command> command.  <command>Locate</command> provides a secure way to index and quickly search for file names.  Because <command>locate</command> relies on a file index, the <guilabel>Search results</guilabel> list may not always be up to date.</para>
+    </sect2>
+
+    <sect2 id="gsearchtool-disablesecondscan">
+    <title>Disable Quick Search Second Scan</title>
+    <para>키 이름: /apps/gnome-search-tool/disable_quick_search_second_scan</para>
+    <para>기본값: 거짓</para>
+    <para>After completing a quick search, <application>Search for Files</application> will perform a thorough search using the <command>find</command> command.  The purpose of this second scan is to find files that have not been indexed.  Files that match the search criteria are added to the <guilabel>Search results</guilabel> list keeping the list up to date.</para>
+    </sect2>
+
+    <sect2 id="gsearchtool-quicksearchexclude">
+    <title>Quick Search Excluded Paths</title>
+    <para>키 이름: /apps/gnome-search-tool/quick_search_excluded_paths</para>
+    <para>기본값: [/mnt/*,/media/*,/dev/*,/tmp/*,/proc/*,/var/*]</para>
+    <para><application>Search for Files</application> will not perform a quick search for paths defined by this key.  File name searches in the defined paths will use the <command>find</command> command.  The wildcards '*' and '?' are supported.</para>
+    </sect2>
+
+    <sect2 id="gsearchtool-secondscanexclude">
+    <title>Quick Search Second Scan Excluded Paths</title>
+    <para>키 이름: /apps/gnome-search-tool/quick_search_second_scan_excluded_paths</para>
+    <para>기본값: [/]</para>
+    <para><application>Search for Files</application> will not perform a second scan after a quick search for the paths defined by this key.  Quick searches in the defined paths will not be followed by a thorough search using the <command>find</command> command.  The wildcards '*' and '?' are supported.</para>
+    </sect2>
+
+    <sect2 id="gsearchtool-showoptions">
+    <title>Show Additional Options</title>
+    <para>키 이름: /apps/gnome-search-tool/show_additional_options</para>
+    <para>기본값: 거짓</para>
+    <para>This key determines if the <guilabel>Select more options</guilabel> section is expanded when <application>Search for Files</application> is started.</para>
+    </sect2>
+    
+  </sect1>
+
+</article>

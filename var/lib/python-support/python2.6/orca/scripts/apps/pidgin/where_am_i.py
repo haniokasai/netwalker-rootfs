@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/scripts/apps/pidgin/where_am_i.py

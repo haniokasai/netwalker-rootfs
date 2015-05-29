@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "0.9.0">
+<!ENTITY manrevision "1.0">
+<!ENTITY date "December 2005">
+<!ENTITY applet "Encryption Applet">
+<!ENTITY project "Seahorse Project">
+]>
+<article id="index" lang="es">
+	<articleinfo>
+		<title>Manual de la miniaplicación de Cifrado V1.0</title>
+	    <abstract role="description">
+		  <para>La miniaplicación de Cifrado es un interfaz gráfico para gestionar y usar las claves de cifrado.</para>
+		</abstract>
+		<copyright>
+			<year>2005</year>
+			<holder>Adam Schreiber</holder>
+		</copyright><copyright><year>2007-2008.</year><holder>Jorge González (jorgegonz@svn.gnome.org)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Proyecto Seahorse</publishername>
+		</publisher>
+		  <legalnotice id="legalnotice">
+	<para>Se concede permiso para copiar, distribuir o modificar este documento según las condiciones de la GNU Free Documentation License (GFDL), Versión 1.1 o cualquier versión posterior publicada por la Free Software Foundation sin Secciones invariantes, Textos de portada y Textos de contraportada. Encontrará una copia de la GFDL en este <ulink type="help" url="ghelp:fdl">enlace</ulink> o en el archivo COPYING-DOCS distribuido con este manual.</para>
+         <para>Este manual forma parte de una colección de documentos de GNOME distribuidos según la GFDL. Si desea distribuir este manual de forma independiente de la colección, puede hacerlo agregando una copia de la licencia al documento, según se describe en la sección 6 de la misma.</para>
+
+	<para>Muchos de los nombres utilizados por las empresas para distinguir sus productos y servicios se consideran marcas comerciales. Cuando estos nombres aparezcan en la documentación de GNOME, y siempre que se haya informado a los miembros del Proyecto de documentación de GNOME de dichas marcas comerciales, los nombres aparecerán en mayúsculas o con las iniciales en mayúsculas.</para>
+
+	<para>ESTE DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO SE PROPORCIONAN SEGÚN LAS CONDICIONES ESTABLECIDAS EN LA LICENCIA DE DOCUMENTACIÓN LIBRE DE GNU (GFDL) Y TENIENDO EN CUENTA QUE: <orderedlist>
+		<listitem>
+		  <para>EL DOCUMENTO SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, NI EXPLÍCITA NI IMPLÍCITA INCLUYENDO, SIN LIMITACIÓN, GARANTÍA DE QUE EL DOCUMENTO O VERSIÓN MODIFICADA DE ÉSTE CAREZCA DE DEFECTOS COMERCIALES, SEA ADECUADO A UN FIN CONCRETO O INCUMPLA ALGUNA NORMATIVA. TODO EL RIESGO RELATIVO A LA CALIDAD, PRECISIÓN Y UTILIDAD DEL DOCUMENTO O SU VERSIÓN MODIFICADA RECAE EN USTED. SI CUALQUIER DOCUMENTO O VERSIÓN MODIFICADA DE AQUÉL RESULTARA DEFECTUOSO EN CUALQUIER ASPECTO, USTED (Y NO EL REDACTOR INICIAL, AUTOR O CONTRIBUYENTE) ASUMIRÁ LOS COSTES DE TODA REPARACIÓN, MANTENIMIENTO O CORRECCIÓN NECESARIOS. ESTA RENUNCIA DE GARANTÍA ES UNA PARTE ESENCIAL DE ESTA LICENCIA. NO SE AUTORIZA EL USO DE NINGÚN DOCUMENTO NI VERSIÓN MODIFICADA DE ÉSTE POR EL PRESENTE, SALVO DENTRO DEL CUMPLIMIENTO DE LA RENUNCIA;Y</para>
+		</listitem>
+		<listitem>
+		  <para>EN NINGUNA CIRCUNSTANCIA NI BAJO NINGUNA TEORÍA LEGAL, SEA POR ERROR (INCLUYENDO NEGLIGENCIA) CONTRATO O DOCUMENTO DE OTRO TIPO, EL AUTOR, EL ESCRITOR INICIAL, EL AUTOR DE APORTACIONES NI NINGÚN DISTRIBUIDOR DEL DOCUMENTO O VERSIÓN MODIFICADA DEL DOCUMENTO, NI NINGÚN PROVEEDOR DE NINGUNA DE ESAS PARTES, SERÁ RESPONSABLE ANTE NINGUNA PERSONA POR NINGÚN DAÑO DIRECTO, INDIRECTO, ESPECIAL, INCIDENTAL O DERIVADO DE NINGÚN TIPO, INCLUYENDO, SIN LIMITACIÓN DAÑOS POR PÉRDIDA DE FONDO DE COMERCIO, PARO TÉCNICO, FALLO INFORMÁTICO O AVERÍA O CUALQUIER OTRO POSIBLE DAÑO O AVERÍA DERIVADO O RELACIONADO CON EL USO DEL DOCUMENTO O SUS VERSIONES MODIFICADAS, AUNQUE DICHA PARTE HAYA SIDO INFORMADA DE LA POSIBILIDAD DE QUE SE PRODUJESEN ESOS DAÑOS.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Proyecto Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Proyecto Seahorse</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Manual de la miniaplicación de Cifrado V0.9.0</revnumber>
+				<date>Julio de 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Proyecto Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Este manual describe la versión 0.9.0 de la miniaplicación de Cifrado</releaseinfo>
+		<legalnotice>
+			<title>Comentarios</title>
+			<para>Para informar de un fallo, o hacer alguna sugerencia concerniente a la miniaplicación de Cifrado o sobre este manual, siga las indicaciones en la <ulink url="ghelp:gnome-feedback" type="help">Página de contacto de Gnome</ulink>.</para>
+		</legalnotice>
+	</articleinfo>
+	<indexterm zone="index">
+		<primary>Miniaplicación de cifrado</primary>
+	</indexterm>
+	<sect1 id="introduction">
+		<title>Introducción</title>
+		<para>La <application>miniaplicación de Cifrado</application> realiza varias operaciones de cifrado usando los métodos estándar OpenPGP. Deberá tener una clave OpenPGP creada con <application>Contraseñas y claves de cifrado</application> y tener importada las claves públicas de aquellos para los que quiera cifrar o verificar las firmas.</para> 
+		<sect2 id="seahorse-applet-introduction-add">
+            <title>Añadir la <application>miniaplicación de Cifrado</application> a un panel</title>
+            <para>Para añadir la <application>miniaplicación de Cifrado</application> a un panel, pulse con el botón derecho sobre el panel, después elija <guimenuitem>Añadir al panel</guimenuitem>. Seleccione <application>miniaplicación de Cifrado</application> en el diálogo <application>Añadir al panel</application>, después pulse <guibutton>Aceptar</guibutton>.</para>
+            <para>La disposición de la <application>miniaplicación de Cifrado</application> varía dependiendo del tamaño y tipo del panel en el que reside la miniaplicación.</para>
+        </sect2>
+	</sect1>
+    <sect1 id="usage">
+        <title>Uso</title>
+        <para>La miniaplicación de Cifrado opera tanto con los portapapeles Ctrl+C/V como con seleccionar/botón del medio. Simplemente copie el texto deseado usando un método a su elección, seleccione la operación de cifrado con el menú del botón izquierdo, siga las preguntas y pegue el nuevo contenido del portapapeles en su aplicación o véalo en una ventana de visualización después de activar la opción apropiada en la <xref linkend="prefs"/>.</para>
+    </sect1>
+	<sect1 id="prefs">
+	   <title>Preferencias de la miniaplicación de Cifrado</title>
+	   <para>
+	       The preferences for the <application>Encryption Applet</application> are part of your <application>Encryption 
+	       and Keyrings</application> and can be edited by selecting <menuchoice><guimenu>System</guimenu>
+	       <guimenuitem>Preferences</guimenuitem><guimenuitem>Encryption and Keyrings</guimenuitem></menuchoice>, 
+	       or by right clicking on the <application>Encryption Applet</application> and selecting 
+	       <guimenuitem>Preferences</guimenuitem>.
+	   </para> 
+	   <sect2 id="display">
+	       <title>Opciones de mostrado</title>
+	       <para>Estas opciones afectan sobre si una ventana que muestra el texto resultante se presenta después de realizar una operación de cifrado. Activar estas opciones puede ser útil al leer un correo web o gestionar otras tareas de cifrado donde un campo puede no estar fácilmente disponible o se requiere una visualización inmediata.</para>
+	   </sect2>
+	</sect1>
+	<sect1 id="about">
+		<title>Acerca de la miniaplicación de Cifrado</title>
+		<para>Jacop Perkins escribió el proyecto Seahorse. El mantenedor actual es Stef Walter. Adam Schreiber escribió este manual. Jim Pharis diseñó la página web del proyecto. Para obtener más información acerca de Seahorse, visite la <ulink url="http://seahorse.sourceforge.net" type="http">página web del proyecto Seahorse</ulink>.</para>
+		<para>Para informar de un fallo o hacer alguna sugerencia concerniente a esta aplicación o este manual, siga las indicaciones en este <ulink url="ghelp:GNOME-feedback" type="help">documento</ulink>.</para>
+		<para>Este programa se distribuye bajo los términos de la Licencia Pública General GNU tal como la publica la Free Software Foundation; en cualquiera de las versiones 2 de la Licencia o (a su elección) cualquier versión posterior. Puede encontrar una copia de esta licencia en este <ulink url="ghelp:gpl" type="help">enlace</ulink>, o en el archivo COPYING incluido con el código fuente de este programa.</para>
+	</sect1>
+</article>

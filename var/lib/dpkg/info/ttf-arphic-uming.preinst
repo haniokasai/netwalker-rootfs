@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+
+# Purge leftovers from the old package if present
+
+PACKAGE=ttf-arphic-uming
+OLDTTF=uming.ttf
+OLDMBETTF=umingmbe.ttf
+
+if [ -e /etc/defoma/hints/${PACKAGE}.hints ]; then
+  defoma-font -t purge-all /etc/defoma/hints/${PACKAGE}.hints
+fi
+if [ -e /etc/defoma/hints/${PACKAGE}-mbe.hints ]; then
+  defoma-font -t purge-all /etc/defoma/hints/${PACKAGE}-mbe.hints
+  rm -f /etc/defoma/hints/${PACKAGE}-mbe.hints
+fi
+
+for X in [ /etc/fonts/conf.d/70-${PACKAGE}.conf \
+/etc/fonts/conf.d/${PACKAGE} \
+/usr/share/fonts/truetype/${OLDTTF} \
+/usr/share/fonts/truetype/${OLDMBETTF} \
+/var/lib/defoma/x-ttcidconf.d/dirs/TrueType/${OLDTTF} \
+/var/lib/defoma/x-ttcidconf.d/dirs/TrueType/${OLDMBETTF} \
+]; do
+  if [ -e ${X} ]; then
+    rm -f ${X};
+  fi;
+done
+
+if [ -d /usr/share/${PACKAGE} ]; then
+  rm -rf /usr/share/${PACKAGE};
+fi
+
+

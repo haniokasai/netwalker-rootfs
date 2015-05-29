@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+    if dpkg --compare-versions "$2" lt-nl "0.5.24"; then
+        # migrate old rc symlinks
+        for l in 0 1 6; do
+            if [ -L /etc/rc$l.d/K01usplash ] && ! [ -e /etc/rc$l.d/K02usplash ]; then
+                mv /etc/rc$l.d/K01usplash /etc/rc$l.d/K02usplash
+            fi
+        done
+    fi
+fi

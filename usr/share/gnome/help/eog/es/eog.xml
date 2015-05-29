@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.18">
+<!ENTITY manrevision "2.8">
+<!ENTITY date "February 2007">
+<!ENTITY app "<application>Image Viewer</application>">
+<!ENTITY appname "Image Viewer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 12, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="es">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Manual del visor de imágenes</title>
+    
+    <copyright> 
+      <year>2006</year> 
+      <year>2007</year>
+      <holder>Proyecto de Documentación de GNOME</holder> 
+    </copyright>
+    <copyright> 
+      <year>2002</year> 
+      <year>2003</year> 
+      <year>2004</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Eliot Landrum</holder> 
+    </copyright>
+    <copyright> 
+      <year>2000</year> 
+      <holder>The Free Software Foundation</holder> 
+    </copyright><copyright><year>2008-2009</year><holder>Jorge González (jorgegonz@svn.gnome.org)</holder></copyright><copyright><year>2006</year><holder>Francisco Javier F. Serrador (serrador@openshine.com)</holder></copyright>	 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher role="maintainer"> 
+      <publishername>Proyecto de Documentación de GNOME</publishername> 
+    </publisher> 
+
+      <legalnotice id="legalnotice">
+         <para>Se otorga permiso para copiar, distribuir y/o modificar este documento bajo los términos de la Licencia de Documentación Libre de GNU, Versión 1.1 o cualquier otra versión posterior publicada por la Free Software Foundation; sin Secciones Invariantes ni Textos de Cubierta Delantera ni Textos de Cubierta Trasera. Puede encontrar una copia de la licencia GFDL en este <ulink type="help" url="ghelp:fdl">enlace</ulink> o en el archivo COPYING-DOCS distribuido con este manual.</para>
+          <para>Este manual es parte de la colección de manuales GNOME distribuidos bajo el GFDL. Si quiere distribuir este manual separadamente de la colección, puede hacerlo añadiendo una copia de la licencia al manual, como está descrito en la sección 6 de la licencia.</para>
+ 
+         <para>Muchos de los nombres utilizados por las empresas para distinguir sus productos y servicios se consideran marcas comerciales. Cuando estos nombres aparezcan en la documentación de GNOME, y siempre que se haya informado a los miembros del Proyecto de documentación de GNOME de dichas marcas comerciales, los nombres aparecerán en mayúsculas o con las iniciales en mayúsculas.</para>
+ 
+         <para>ESTE DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO SE PROPORCIONAN SEGÚN LAS CONDICIONES ESTABLECIDAS EN LA LICENCIA DE DOCUMENTACIÓN LIBRE DE GNU (GFDL) Y TENIENDO EN CUENTA QUE: <orderedlist>
+                 <listitem>
+                   <para>EL DOCUMENTO SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, NI EXPLÍCITA NI IMPLÍCITA INCLUYENDO, SIN LIMITACIÓN, GARANTÍA DE QUE EL DOCUMENTO O VERSIÓN MODIFICADA DE ÉSTE CAREZCA DE DEFECTOS COMERCIALES, SEA ADECUADO A UN FIN CONCRETO O INCUMPLA ALGUNA NORMATIVA. TODO EL RIESGO RELATIVO A LA CALIDAD, PRECISIÓN Y UTILIDAD DEL DOCUMENTO O SU VERSIÓN MODIFICADA RECAE EN USTED. SI CUALQUIER DOCUMENTO O VERSIÓN MODIFICADA DE AQUÉL RESULTARA DEFECTUOSO EN CUALQUIER ASPECTO, USTED (Y NO EL REDACTOR INICIAL, AUTOR O CONTRIBUYENTE) ASUMIRÁ LOS COSTES DE TODA REPARACIÓN, MANTENIMIENTO O CORRECCIÓN NECESARIOS. ESTA RENUNCIA DE GARANTÍA ES UNA PARTE ESENCIAL DE ESTA LICENCIA. NO SE AUTORIZA EL USO DE NINGÚN DOCUMENTO NI VERSIÓN MODIFICADA DE ÉSTE POR EL PRESENTE, SALVO DENTRO DEL CUMPLIMIENTO DE LA RENUNCIA;Y</para>
+                 </listitem>
+                 <listitem>
+                   <para>EN NINGUNA CIRCUNSTANCIA NI SEGÚN NINGÚN ARGUMENTO LEGAL, SEA POR MOTIVOS CULPOSOS (INCLUIDA LA NEGLIGENCIA), CONTRACTUALES O DE OTRO TIPO, NI EL AUTOR, NI EL REDACTOR INICIAL, NI CUALQUIER COLABORADOR, NI CUALQUIER DISTRIBUIDOR DEL DOCUMENTO O VERSIÓN MODIFICADA DEL MISMO, NI CUALQUIER PROVEEDOR DE CUALQUIERA DE DICHAS PARTES, SERÁN RESPONSABLES, ANTE NINGÚN TERCERO, DE NINGÚN DAÑO O PERJUICIO DIRECTO, INDIRECTO, ESPECIAL, INCIDENTAL O CONSIGUIENTE DE NINGÚN TIPO, INCLUIDOS, SIN LIMITACIÓN, LOS DAÑOS POR PÉRDIDA DE FONDO DE COMERCIO, INTERRUPCIÓN DEL TRABAJO, FALLO O MAL FUNCIONAMIENTO INFORMÁTICO, NI CUALQUIER OTRO DAÑO O PÉRDIDA DERIVADOS DEL USO DEL DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO, O RELACIONADO CON ELLO, INCLUSO SI SE HABÍA COMUNICADO A AQUELLA PARTE LA POSIBILIDAD DE TALES DAÑOS.</para>
+                 </listitem>
+           </orderedlist></para>
+   </legalnotice>
+ 
+   <!-- This file  contains link to license for the documentation (GNU FDL), and 
+        other legal stuff such as "NO WARRANTY" statement. Please do not change 
+	any of this. -->
+   <authorgroup>
+   <author> 
+	<firstname>Jens</firstname> 
+	<surname>Finke</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de Documentación de GNOME</orgname>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Angela</firstname> 
+	<surname>Boyle</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de Documentación de GNOME</orgname>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Stuart</firstname> 
+	<surname>Ellis</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de Documentación de GNOME</orgname>
+	</affiliation>
+   </author>
+   <author> 
+	<firstname>Sun</firstname> 
+	<surname>Equipo de documentación de Gnome</surname> 
+	<affiliation> 
+	  <orgname>Sun Microsystems</orgname>  
+	</affiliation> 
+   </author> 
+   <author> 
+	<firstname>Eliot</firstname> 
+	<surname>Landrum</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de Documentación de GNOME</orgname> 
+	</affiliation> 
+   </author> 
+   <author> 
+	<firstname>Federico</firstname> 
+	<surname>Mena Quintero</surname> 
+	<affiliation> 
+	  <orgname>Proyecto de Documentación de GNOME</orgname> 
+	</affiliation> 
+   </author>	
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+       <othercredit role="translator">
+	<firstname>Latin</firstname> 
+	<surname>Translator 1</surname> 
+	<affiliation> 
+	  <orgname>Latin Translation Team</orgname> 
+	  <email>translator@gnome.org</email> 
+	</affiliation>
+	<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+ 
+    <revhistory>
+    <revision> 
+		<revnumber>Manual del visor de imágenes V2.8</revnumber> 
+		<date>Febrero de 2007</date> 
+		<revdescription> 
+	  		<para role="author">Proyecto de Documentación de GNOME</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision>
+		<revnumber>Manual del visor de imágenes V2.7</revnumber>
+		<date>Febrero de 2004</date>
+		<revdescription>
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription>
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.6</revnumber> 
+		<date>Noviembre de 2003</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.5</revnumber> 
+		<date>Septiembre de 2003</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.4</revnumber> 
+		<date>Enero de 2003</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.3</revnumber> 
+		<date>Octubre de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.2</revnumber> 
+		<date>Agosto de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision>
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.1</revnumber> 
+		<date>Julio de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision> 
+		<revnumber>Manual de Eye of GNOME V2.0</revnumber> 
+		<date>Mayo de 2002</date> 
+		<revdescription> 
+	  		<para role="author">Equipo de documentación de Gnome de Sun</para>
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+    </revision> 
+    <revision> 
+		<revnumber>Guía de usuario de Eye of Gnome</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Eliot Landrum <email>eliot@landrum.cx</email></para>
+	  		<para role="author">Federico Mena Quintero <email>federico@gnu.org</email></para>	  
+	  		<para role="publisher">Proyecto de Documentación de GNOME</para>
+		</revdescription> 
+      </revision> 
+    </revhistory> 
+    <releaseinfo>Este manual describe la versión 2.18 del Visor de imágenes.</releaseinfo> 
+    <legalnotice> 
+      <title>Comentarios</title> 
+      <para>Para informar de un error o hacer alguna sugerencia respecto de la aplicación Visor de imágenes o este manual, siga las indicaciones en la <ulink url="ghelp:user-guide?feedback-bugs" type="help">página de contacto de GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+    <abstract role="description">
+      <para>Manual de usuario del <application>Visor de imágenes Eye of GNOME</application>.</para>
+    </abstract>
+
+  </articleinfo> 
+
+  <indexterm>
+    <primary>Eye of GNOME</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+
+<!-- ============= Introduction ============================== -->
+<sect1 id="eog-introduction">
+  <title>Introducción</title>
+  <para>La aplicación <application>Visor de imágenes Eye of GNOME</application> permite ver archivos de imágenes simples, así como grandes colecciones de imágenes.</para>
+
+  <sect2 id="eog-tostartapp">
+    <title>Iniciar el visor de imágenes</title>
+    <para>Puede iniciar el <application>Visor de imágenes</application> de las siguientes maneras:</para>
+    <itemizedlist>
+      <listitem>
+        <para>Abriendo un archivo de imagen en <application>Nautilus</application>.</para>
+      </listitem>
+      <listitem>
+	<para>Elija <menuchoice><guimenu>Gráficos</guimenu><guimenuitem>Visor de imágenes</guimenuitem></menuchoice> desde el menú de <guimenu>Aplicaciones</guimenu>.</para>
+      </listitem>
+      <listitem>
+	<para>Ejecutando <command>eog</command> en el promt de un terminal como <application>gnome-terminal</application>, o desde el diálogo <application>Ejecutar aplicación</application>.</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+
+  <sect2 id="eog-closeapp">
+    <title>Cerrar el visor de imágenes</title>
+    <para>Para cerrar la ventana activa del <application>Visor de imágenes</application> elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Cerrar</guimenuitem></menuchoice>, o pulse <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+  </sect2>
+
+  <sect2 id="eog-filetypes">
+    <title>Tipos de archivo soportados</title>
+    <para>El <application>Visor de imágenes</application> soporta una variedad de formatos de archivo. Los siguientes formatos de imagen se pueden abrir:</para>
+		<itemizedlist>
+			<listitem><para>ANI: Animación</para>
+			</listitem>
+			<listitem><para>BMP: Windows Bitmap</para>
+			</listitem>
+			<listitem><para>GIF: Graphics Interchange Format</para>
+			</listitem>
+			<listitem><para>ICO: iconos de Windows</para>
+			</listitem>
+			<listitem><para>JPEG: Joint Photographic Experts Group</para>
+			</listitem>
+			<listitem><para>PCX: PC Paintbrush</para>
+			</listitem>
+			<listitem><para>PNG: Portable Network Graphics</para>
+			</listitem>
+			<listitem><para>PNM: Portable Anymap from the PPM Toolkit</para>
+			</listitem>
+			<listitem><para>RAS: Sun Raster</para>
+			</listitem>
+			<listitem><para>SVG: Scalable Vector Graphics</para>
+			</listitem>
+			<listitem><para>TGA: Targa</para>
+			</listitem>
+			<listitem><para>TIFF: Tagged Image File Format</para>
+			</listitem>
+			<listitem><para>WBMP: Wireless Bitmap</para>
+			</listitem>
+			<listitem><para>XBM: X Bitmap</para>
+			</listitem>
+			<listitem><para>XPM: X Pixmap</para>
+			</listitem>
+		</itemizedlist>
+
+  <para>El <application>Visor de imágenes</application> puede guardar en los siguientes formatos:</para>
+		<itemizedlist>
+			<listitem><para>BMP: Windows Bitmap</para>
+			</listitem>
+			<listitem><para>ICO: iconos de Windows</para>
+			</listitem>
+			<listitem><para>JPEG: Joint Photographic Experts Group</para>
+			</listitem>
+			<listitem><para>PNG: Portable Network Graphics</para>
+			</listitem>
+		</itemizedlist>
+		<para>El <application>Visor de imágenes</application> puede ser capaz de abrir y guardar otros formatos de imágenes, dependiendo de la configuración de su sistema y otro software instalado.</para>
+  </sect2>
+
+  <sect2 id="eog-features">
+    <title>Características del Visor de imágenes</title>
+    <para>El <application>Visor de imágenes</application> tiene varias características que le ayudan a ver sus imágenes. Puede ampliarlas y reducirlas o ver la imagen a pantalla completa. A pesar de su nivel de ampliación, el <application>Visor de imágenes</application> usa una pequeña cantidad de memoria. Puede incluso rotar y voltear la imagen que está viendo.</para>
+
+    <para>La vista de colección le permite ver y editar colecciones de imágenes. En esta vista las operaciones de imágenes se pueden aplicar a la vez a todas las imágenes seleccionadas.</para>
+
+    <para>El <application>Visor de imágenes</application> tiene soporte especial para fotografías tomadas con cámara digital y muestra los metadatos EXIF grabados junto con la imagen. Esta característica requiere que esté instalada en el sistema la biblioteca <systemitem class="library">libexif</systemitem>. 
+Todas las modificaciones de imágenes JPEG se hacen sin pérdida. Esto es, guardar una imagen JPEG volteada y rotada no recomprimirá la imagen. Además de esto todos los metadatos disponibles (como EXIF) se conservarán y actualizarán.</para>
+  </sect2>
+</sect1>
+
+<!--============== When You Start ===========-->
+<sect1 id="eog-whenyoustart">
+  <title>Inicio</title>
+  <para>Cuando inicia el <application>Visor de imágenes</application>, se muestra la siguiente ventana:</para>
+  <figure id="mainwindow-fig">
+		<title>Ventana de inicio del visor de imágenes</title>
+		<screenshot>
+		  <mediaobject>
+		    <imageobject>
+		      <imagedata fileref="figures/eog_start_window.png" format="PNG"/>
+		    </imageobject>
+		    <textobject>
+		      <phrase>Muestra la ventana principal de <application>Visión de Imágenes</application>. Contiene la barra de título, la barra de menú, la barra de herramientas, y el área de visualización. La barra de menú contiene los menús Archivo, Editar, Ver y Ayuda.</phrase>
+		    </textobject>
+		  </mediaobject>
+		</screenshot>
+  </figure>
+  <para>La ventana del <application>Visor de imágenes</application> contiene los siguientes elementos:</para>
+  <variablelist>
+	<varlistentry>
+  	  <term>Barra de menú</term>
+ 	  <listitem>
+	    <para>Los menús en la barra de menús contienen todos los comandos que necesita para trabajar con imágenes en el <application>Visor de imágenes</application>.</para>
+	  </listitem>
+ 	</varlistentry>
+	<varlistentry>
+	  <term>Barra de herramientas</term>
+	  <listitem>
+	    <para>La barra de herramientas contiene un subconjunto de los comandos que puede acceder desde la barra de menú. Para mostrar u ocultar la barra de herramientas, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Barra de herramientas</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Área de visualización</term>
+	  <listitem>
+ 	    <para>El área de visualización muestra el archivo de imagen.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Barra de estado</term>
+	  <listitem>
+	    <para>La barra de estado proporciona información acerca de la imagen. Para mostrar u ocultar la barra de estado, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Barra de estado</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Colección de imágenes</term>
+	  <listitem>
+	    <para>La colección de imágenes le muestra todas las imágenes soportadas en el directorio de trabajo actual. Se muestra una vez que se ha cargado una imagen. Para mostrar u ocultar la colección, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Colección de imágenes</guimenuitem></menuchoice> o pulse <keycap>F9</keycap>.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term>Panel de información de la imagen</term>
+	  <listitem>
+	    <para>El panel de información de la imagen proporciona más información acerca de la imagen actual, por ejemplo los metadatos EXIF (si están disponibles). Se muestra tras la carga de una imagen. Para mostrar u ocultar el panel de información de la imagen, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Información de la imagen</guimenuitem></menuchoice> o pulse <keycombo><keycap>Ctrl</keycap><keycap>I</keycap></keycombo>.</para>
+	  </listitem>
+	</varlistentry>
+  </variablelist>
+  <para>La mayoría de las acciones del <application>Visor de imágenes</application> se pueden realizar de varias formas. Por ejemplo, puede abrir un archivo de las siguientes maneras:</para>
+  <itemizedlist>
+    <listitem><para>Arrastre un archivo de imagen en la ventana del <application>Visor de imágenes</application> desde otra aplicación o ventana.</para></listitem>
+    <listitem><para>Pulse dos veces en un archivo de imagen en el gestor de archivos u otra aplicación.</para></listitem>
+    <listitem><para>Elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Abrir</guimenuitem></menuchoice> y seleccione un archivo de imagen en el diálogo <application>Cargar imagen</application>.</para></listitem>
+    <listitem><para>Pulse <keycombo><keycap>Ctrl</keycap><keycap>0</keycap></keycombo> y seleccione una imagen en el diálogo <application>Cargar imagen</application>.</para></listitem>
+  </itemizedlist>
+</sect1>
+
+
+<!-- ============= Viewing Images ============================== -->
+<sect1 id="eog-view">
+	<title>Visualización de imágenes</title>
+
+	<!--=========== To Open an Image ============================= -->
+	<sect2 id="eog-open-image">
+		<title>Apertura de una imagen</title>
+                <para>Para abrir una imagen, realice los pasos siguientes:</para>
+                <orderedlist>
+                  <listitem>
+                    <para>Elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Abrir</guimenuitem></menuchoice>, o pulse <keycombo><keycap>Ctrl</keycap><keycap>0</keycap></keycombo>.</para>
+                  </listitem>
+                  <listitem>
+                    <para>En el diálogo <guilabel>Cargar imagen</guilabel>, seleccione el archivo que quiera abrir.</para>
+                  </listitem>
+                  <listitem>
+                    <para>Pulse <guibutton>Abrir</guibutton>. El <application>Visor de imágenes</application> muestra el nombre del archivo de imágenes en la barra de título de la ventana.</para>
+                  </listitem>
+                </orderedlist>
+                <para>Para abrir otra imagen, elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Abrir</guimenuitem></menuchoice> otra vez. El <application>Visor de imágenes</application> abre cada imagen en una ventana nueva.</para>
+	</sect2>
+
+	<!--=========== To View the Images in a Directory ==================== -->
+	<sect2 id="eog-open-folder">
+		<title>Visualización de las imágenes en una carpeta</title>
+		<para>Para ver todas las imágenes en una carpeta, realice los pasos siguientes:</para>
+                <orderedlist>
+                  <listitem>
+                    <para>Abra una de las imágenes en la carpeta (consulte la <xref linkend="eog-open-image"/>).</para>
+                  </listitem>
+                  <listitem>
+                    <para>Abra la colección de imágenes eligiendo <menuchoice><guimenu>Ver</guimenu><guimenuitem>Colección de imágenes</guimenuitem></menuchoice> o pulsando <keycap>F9</keycap>.</para>
+                  </listitem>
+		</orderedlist>
+	     <para>La colección muestra miniaturas de todos los tipos de imágenes soportados en la carpeta. Puede examinar cada imagen pulsando sobre ella en la colección, eligiendo la opción apropiada en el menú <guimenu>Ir</guimenu> o pulsando <keycombo><keycap>Alt</keycap><keycap>Izquierda</keycap></keycombo> o <keycombo><keycap>Alt</keycap><keycap>Derecha</keycap></keycombo>.</para>
+             <para>Para ver todas las imágenes en el directorio a pantalla completa, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Pantalla completa</guimenuitem></menuchoice> o pulse <keycap>F11</keycap>. Para verlas como un pase de diapositivas, elija <menuchoice><guimenu/><guimenuitem>Pase de diapositivas</guimenuitem></menuchoice> o pulse <keycap>F5</keycap>. Para volver a la vista de colección, pulse la tecla <keycap>Esc</keycap> o <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. Para más información acerca de cómo personalizar el pase de diapositivas, consulte la <xref linkend="eog-prefs-slideshow"/>.</para>
+	</sect2>
+
+	<!--============ To Scroll an Image ======================= -->
+	<sect2 id="eog-scroll-image">
+		<title>Desplazamiento de una imagen</title>
+		<para>Para desplazar una imagen que sea más grande que la ventana de imagen o ventana del modo a pantalla completa, puede usar los siguientes métodos:</para>
+		<itemizedlist>
+			<listitem><para>Use las teclas de flechas en el teclado.</para>
+			</listitem>
+			<listitem><para>Arrastre la imagen para moverla por la ventana. (Esto significa que arrastre la imagen en la dirección opuesta a la que quiere desplazar: si quiere desplazar la imagen abajo, arrastre la imagen hacia la parte de arriba en la ventana.)</para>
+			</listitem>
+			<listitem><para>Use las barras de desplazamiento en la ventana.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+
+	<!--=========== To Zoom In and Out ==================== -->
+	<sect2 id="eog-zoom">
+		<title>Ampliación</title>
+		<para>Puede ampliar o reducir la imagen de las siguientes formas:</para>
+			<itemizedlist>
+				<listitem><para>Use la <mousebutton>rueda del ratón</mousebutton>. Hacia abajo reduce y hacia arriba amplía.</para></listitem>
+ 			  <listitem><para>Elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Ampliar</guimenuitem></menuchoice> o <menuchoice><guimenu>Ver</guimenu><guimenuitem>Reducir</guimenuitem></menuchoice>. Para devolver la imagen a su tamaño original, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Tamaño normal</guimenuitem></menuchoice>. Para hacer que la imagen se ajusta a la ventana, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Ajuste óptimo</guimenuitem></menuchoice>.</para></listitem>				
+ 				<listitem><para>Use los botones de ampliación en la barra de herramientas. <guilabel>Normal</guilabel> restaurará la imagen a su tamaño original. <guilabel>Ajustar</guilabel> redimensionará la imagen hasta ajustarla a la ventana si ésta es muy grande.</para></listitem>
+
+				<listitem><para>Use el teclado. Para ampliar,<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo> o <keycap>+</keycap>. Para reducir <keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo> o <keycap>-</keycap>. Para volver al tamaño normal, <keycombo><keycap>Ctrl</keycap><keycap>0</keycap></keycombo> o <keycap>1</keycap>. Para escalar la imagen para que ajuste a la ventana, pulse <keycap>F</keycap>.</para></listitem>
+			</itemizedlist>
+			<para>Cuando una imagen se amplíe hasta ajustar a la ventana, al redimensionar la ventana también se cambiará el nivel de ampliación, para que imagen quepa en la ventana.</para>
+	</sect2>
+
+	<!--=========== To View Image Fullscreen ==================== -->
+	<sect2 id="eog-fullscreen">
+		<title>Visualización de una imagen a pantalla completa/pase de diapositivas</title>
+		<para>Para mostrar la imagen usando la pantalla completa, elija <menuchoice><guimenu>Ver</guimenu><guimenuitem>Pantalla completa</guimenuitem></menuchoice>.</para>
+		<para>No hay visibles ni paneles, ni marcos de ventanas o barras de menú cuando una imagen se muestra así. Para volver a la vista normal, pulse <keycap>Esc</keycap>, o <keycap>F11</keycap>, o <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+		<para>Puede ampliar o desplazar la imagen de la misma forma que cuando se muestra en una ventana, usando el ratón o el teclado.</para>
+		<para>Si tiene varias imágenes en su colección puede pulsar la tecla <keycap>Espacio</keycap> o usar las teclas del cursor derecha/izquierda para avanzar a la siguiente imagen. La imagen anterior se puede alcanzar pulsando <keycap/> o usando las teclas del cursor izquierda/arriba.</para>
+	<para>En este caso puede usar el modo pase de imágenes, donde el <application>Visor de imágenes</application> automáticamente cambia a la siguiente imagen en su colección. Puede comenzar un pase eligiendo <menuchoice><guimenu>Ver</guimenu><guimenuitem>Pase de imágenes</guimenuitem></menuchoice> o pulsando <keycap>F5</keycap>. El pase de imágenes se puede pausar/continuar pulsando la tecla <keycap>P</keycap>. Para parar el pase de imágenes, pulse <keycap>Esc</keycap> o la tecla <keycap>F5</keycap>, o <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>. Para más información acerca de cómo personalizar el pase de imágenes, consulte la <xref linkend="eog-prefs-slideshow"/>.</para>
+	</sect2>
+</sect1>
+
+
+<!-- ============= Manipulating Images ============================== -->
+<sect1 id="eog-manipulate">
+	<title>Manipular imágenes</title>
+
+	<para>Todas las manipulaciones de imágenes se aplican a todas las imágenes seleccionadas a la vez. Las modificaciones se hacen en memoria y alteran los archivos originales en el disco sólo cuando se guardan las imágenes con la función de guardado (consulte la <xref linkend="eog-save-image"/>).</para>
+
+	<!--============ To Flip an Image ======================= -->
+	<sect2 id="eog-flip">
+		<title>Voltear una imagen</title>
+		<para>Para voltear una imagen a lo largo del eje horizontal de la imagen, elija <menuchoice><guimenu>Imagen</guimenu><guimenuitem>Voltear horizontalmente</guimenuitem></menuchoice>.</para>
+		<para>Para voltear una imagen junto con el eje vertical de la imagen, elija <menuchoice><guimenu>Imagen</guimenu><guimenuitem>Voltear verticalmente</guimenuitem></menuchoice>.</para>
+	</sect2>
+
+	<!--============ To Rotate an Image ======================= -->
+	<sect2 id="eog-rotate">
+		<title>Rotación de una imagen</title>
+		<para>Para rotar una imagen 90 grados en el sentido de las agujas del reloj, elija <menuchoice><guimenu>Imagen</guimenu><guimenuitem>Rotar en sentido horario</guimenuitem></menuchoice>.</para>
+		<para>Para rotar una imagen 90 grados en el sentido contrario de las agujas del reloj, elija <menuchoice><guimenu>Imagen</guimenu><guimenuitem>Rotar en sentido antihorario</guimenuitem></menuchoice>.</para>
+	</sect2>
+
+	<!--============ To Undo an Action ======================= -->
+	<sect2 id="eog-undo">
+		<title>Deshacer una acción</title>
+		<para>Para deshacer una acción de volteo o rotación, elija <menuchoice><guimenu>Editar</guimenu><guimenuitem>Deshacer</guimenuitem></menuchoice> o pulse <keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo>.</para>
+	</sect2>
+
+	<!--============ To Delete An Image ======================== -->
+	<sect2 id="eog-delete-image">
+		<title>Borrar una imagen</title>
+		<para>Para mover una imagen a la Papelera, elija <menuchoice><guimenu>Editar</guimenu><guimenuitem>Mover a la papelera</guimenuitem></menuchoice>. Esto mueve el archivo a la Papelera. Se pueden mover varias imágenes a la papelera de la misma manera: selecciónelas todas primero.</para>
+	    <para>Para restaurar una imagen desde la Papelera, abra la Papelera en <application>Nautilus</application> y mueva la imagen a otra carpeta. Para borrar una imagen permanentemente, vacía la Papelera. Para encontrar más acerca del uso de la Papelera, vea <ulink type="help" url="ghelp:user-guide?nautilus-trash">Guía del Usuario</ulink>.</para>
+				
+			<note><para>Puede además usar la tecla <keycap>Supr</keycap> para mover una imagen a la Papelera, en cuyo caso se le pedirá confirmación.</para></note>
+			
+	</sect2>
+</sect1> 
+
+<!-- ============= Saving Images ============================== -->
+<sect1 id="eog-save-rename">
+	<title>Guardar imágenes</title>
+
+	<para>El <application>Visor de imágenes</application>, siempre intenta elegir el método de guardado con menos impacto en los datos de la imagen. Por ejemplo, si una imagen no modificada se guarda bajo otro nombre de archivo en el mismo formato, el archivo simplemente se copia. Si está disponible en el sistema <systemitem class="library">libjpeg</systemitem> todas las modificaciones de imágenes JPEG se hacen sin pérdida de información de la imagen.</para>
+
+<!--============ To Save an Image ======================= -->
+	<sect2 id="eog-save-image">
+		<title>Guardar una imagen</title>
+		<para>Para guardar una imagen, elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Guardar</guimenuitem></menuchoice>. La imagen se guardará bajo el mismo nombre y tipo de archivo. Por tanto, las imágenes no modificadas no necesitan guardarse.</para>
+	</sect2>
+
+	<!--============ To Save As an Image ======================= -->
+	<sect2 id="eog-save-as-image">
+		<title>Guardar una imagen con un nombre diferente</title>
+		<para>Para guardar una imagen con un nombre diferente, o convertirla a un tipo de archivo diferente, elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Guardar como</guimenuitem></menuchoice>.</para>
+		<para>Especifique el nombre de archivo en el campo <guilabel>Nombre</guilabel> en el diálogo <guilabel>Guardar imagen</guilabel>, después pulse <guibutton>Guardar</guibutton>. El archivo se guarda en la carpeta actual por omisión. El <application>Visor de imágenes</application> intenta determinar al tipo de archivo usando el sufijo del nombre del archivo. Si la imagen debería guardarse en otra carpeta o fallase la detección del tipo de archivo, expanda el diálogo pulsando en <guilabel>Examinar otras carpetas</guilabel>. Esto le permite ver más carpetas, navegar por ellas y especificar el tipo de archivo desde una caja desplegable.</para>
+		<para>Puede guardar varias imágenes de una vez: vea la siguiente sección.</para>
+	</sect2>    
+
+	<!--============ To Save As an Image ======================= -->
+	<sect2 id="eog-save-as-multiple">
+		<title>Guardar varias imágenes</title>
+		<para>Guardar varias imágenes a la vez permite convertir varias imágenes a un formato diferente o darles nombres de archivo similares.</para>
+		<para>Para guardar varias imágenes, elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Guardar como</guimenuitem></menuchoice>. Se mostrará la siguiente ventana:</para>
+  		<figure id="saveas-dialog-fig">
+			<title>Diálogo Guardar como para varias imágenes</title>
+			<screenshot>
+			  <mediaobject>
+			    <imageobject>
+			      <imagedata fileref="figures/eog_save_as_window.png" format="PNG"/>
+			    </imageobject>
+			    <textobject>
+			      <phrase>Muestra el diálogo <guilabel>Guardar como</guilabel> del Visor de imágenes Eye of GNOME guardando un conjunto de imágenes.</phrase>
+			    </textobject>
+			  </mediaobject>
+			</screenshot>
+  		</figure>
+		<para>La carpeta en la cual las imágenes se guardarán está especificada por <guilabel>Carpeta de destino</guilabel>. Inicialmente la carpeta se establece a la carpeta actual. Seleccione <guilabel>Otro...</guilabel> del menú desplegable para abrir un diálogo estándar de apertura de carpeta para examinar el sistema de archivos. El nombre de archivo resultante para cada imagen se especifica en <guilabel>Formato del nombre de archivo</guilabel>. El esquema del nombre de archivo se construye con caracteres y etiquetas especiales. Las siguientes etiquetas especiales están disponibles:</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Nombre de archivo (%f)</guilabel>: Nombre de archivo original sin el sufijo del formato de archivo.</para>
+			</listitem>
+			<listitem><para><guilabel>Contador (%n)</guilabel>: Número autoincrementable (comienza en el contador especificado).</para>
+			</listitem>			
+		</itemizedlist>	
+		<para>Todo excepto estas etiquetas especiales se considera texto normal.</para>
+		<para>El formato del archivo se determina por la caja desplegable tras la definición del esquema. Seleccione un formato de imagen específico o use la opción <guilabel>como es</guilabel> para establecer que se debe usar el mismo formato que el archivo original.</para>
+	
+		<para>La sección <guilabel>Opciones</guilabel> permite quitar todos los caracteres de espacios reemplazándolos por guiones bajos en el nombre de archivo resultante si <guilabel>Reemplazar espacios por guiones bajos</guilabel> está marcado. El marcador incrementable <guilabel>Iniciar contador en</guilabel> determina en qué número se inicia el contador si usa la etiqueta %n para la especificación del formato del archivo.</para>
+		<para>La sección <guilabel>Vista previa del nombre del archivo</guilabel> del diálogo muestra el nombre de archivo resultante de acuerdo con los ajustes de arriba para un nombre de archivo de ejemplo del conjunto de imágenes seleccionadas.</para>
+	</sect2>
+
+
+
+</sect1>
+
+<sect1 id="eog-print">
+	<title>Imprimir imágenes</title>
+	<sect2 id="eog-print-pagesettings">
+		<title>Definir los ajustes de página</title>
+		<para>Antes de imprimir usted necesita definir los ajustes de página que desea usar. Para hacer eso elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Configuración de página</guimenuitem></menuchoice>.</para>
+		<para>En el diálogo <guilabel>Configuración de página</guilabel> usted puede ahora elegir el tamaño y orientación del papel. De ser posible, configure su impresora para que tenga también los márgenes de página ajustados correctamente.</para>
+	</sect2>
+
+	<sect2 id="eog-print-image">
+		<title>Imprimir una imágen</title>
+		<para>Para imprimir una imagen, realice los pasos siguientes:</para>
+		<orderedlist>
+			<listitem>
+				<para>Elija <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Imprimir</guimenuitem></menuchoice></para>
+			</listitem>
+			<listitem>
+				<para>En el diálogo <guilabel/>, seleccione la impresora que quiere utilizar desde la lista.</para>
+			</listitem>
+			<listitem>
+				<para>Pulse <guibutton>Imprimir</guibutton>. El <application>Visor de imágenes</application> comienza a imprimir ahora.</para>
+			</listitem>
+		</orderedlist>
+		<para>Las imágenes que son muy grandes para la página son automáticamente escaladas para que se ajusten a la página. Las imágenes que son más pequeñas que la página son centradas en ella.</para>
+		<important>
+			<para>Por favor note que en este momento <application>Image Viewer</application> no cuenta con un reporte del progreso de la impresión. Durante ese breve instante la interfaz de usuario puede volverse insensible.</para>
+		</important>
+	</sect2>
+
+	<sect2 id="eog-print-settings">
+		<title>Disponer una imagen en la página</title>
+		<para>Quizá no desee su imagen centrada o desea escalarla aún más. Para hacer esto debe abrir el diálogo <guilabel>Imprimir</guilabel> (consulte la <xref linkend="eog-print-image"/>) y seleccione la solapa <guilabel>Ajustes de imagen</guilabel> que le ofrece las siguientes opciones:</para>
+		<itemizedlist>
+			<listitem>
+				<para>Las opciones en la sección <guilabel>Posición</guilabel> le permiten cambiar la posición de la imagen en la página.</para>
+			</listitem>
+			<listitem>
+				<para>Además es posible posicionar la imagen en la página al arrastrarla en el campo <guilabel>Vista previa</guilabel>.</para>
+			</listitem>
+			<listitem>
+				<para>Las opciones en la sección <guilabel>Tamaño</guilabel> le permiten escalar la imagen a gusto. El escalado está limitado ya sea por el tamaño de la imagen o el tamaño de la página, dependiendo de que condición se encuentre primero.</para>
+			</listitem>
+			<listitem>
+				<para>La opción <guilabel>Unidad</guilabel> le permite cambiar la unidad métrica que es usada por las opciones en la solapa <guilabel>Ajustes de imagen</guilabel>. Cuando usted cambia esta opción, los otros campos son convertidos como corresponde.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+		
+</sect1>
+<sect1 id="eog-toolbareditor">
+	<title>Personalizar la barra de herramientas</title>
+	<para>La barra de herramientas predeterminada del Visor de imágenes sólo contiene un juego básico de elementos para mantenerla simple. Pero puede modificarla si desea un conjunto diferente.</para>
+	<sect2 id="eog-toolbareditor-use">
+		<title>Modificar la barra de herramientas</title>
+		<para>Si quiere modificar la barra de herramientas debe abrir el editor de la barra de herramientas yendo a <menuchoice><guimenu>Editar</guimenu><guimenuitem>Barra de herramientas</guimenuitem></menuchoice>. Se mostrará la siguiente ventana emergente:</para>
+		<figure id="toolbar-editor-fig">
+			<title>La ventana del editor de la barra de herramientas</title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="figures/eog_toolbar_editor_window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Muestra el editor de la barra de herramientas de Eye of GNOME.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+		</figure>
+		<para>Contiene los elementos que no están en la barra de herramientas y el separador. Ahora puede editar la barra de herramientas:</para>
+		<itemizedlist>
+			<listitem>
+				<para>Para añadir nuevos elementos a la barra de herramientas, arrástrelos del editor de la barra de herramientas a la barra de herramientas.</para>
+			</listitem>
+			<listitem>
+				<para>Para quitar elementos de la barra de herramientas, arrástrelos de la barra de herramientas al editor de la barra de herramientas.</para>
+			</listitem>
+			<listitem>
+				<para>Para ordenar elementos en la barra de herramientas, arrástrelos a su nueva posición en la barra de herramientas.</para>
+			</listitem>
+		</itemizedlist>
+		<para>Cuando haya terminado de editar la barra de herramientas pulse el botón <guibutton>Cerrar</guibutton> en la ventana del editor de la barra de herramientas. Esto cerrará el editor de la barra de herramientas y activará su barra de herramientas modificada.</para>
+		</sect2>
+		<sect2 id="eog-toolbareditor-reset">
+			<title>Restaurar la barra de herramientas</title>
+			<para>Para revertir sus cambios en la barra de herramientas y volver a la disposición predeterminada, realice los siguientes pasos:</para>
+			<orderedlist>
+				<listitem>
+					<para>Abra el editor de la barra de herramientas (consulte la <xref linkend="eog-toolbareditor-use"/>).</para>
+				</listitem>
+				<listitem>
+					<para>Pulse el botón <guibutton>Restablecer predeterminados</guibutton>.</para>
+				</listitem>
+				<listitem>
+					<para>Pulse el botón <guibutton>Cerrar</guibutton> para cerrar el editor de la barra de herramientas. La barra de herramientas se habrá restablecido a la disposición predeterminada.</para>
+				</listitem>
+			</orderedlist>
+		</sect2>
+</sect1>
+<sect1 id="eog-prefs">
+	<title>Preferencias</title>
+	<para>Se pueden cambiar las preferencias en el menú <menuchoice><guimenu>Editar</guimenu><guimenuitem>Preferencias</guimenuitem></menuchoice>. Podrá cambiar las opciones para ver la imagen y pases de diapositivas. Los cambios se aplican a todas las ventanas abiertas instantáneamente.</para>
+
+	<!--============ Image View ======================= -->
+  <sect2 id="eog-prefs-image">
+         <title>Visión de imágenes</title>
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Mejoras de Imagen</guilabel></term>
+		<listitem>
+		<para>Seleccione la opción <guilabel>Suavizar imágenes al ampliar</guilabel> para activar el suavizado de imágenes cuando se cambia el factor de ampliación de éstas. Si selecciona esta opción, las imágenes aparecerán suavizadas para mejorar la calidad de despliegue mientras se visualizan con <application>Visor de Imágenes</application>.</para>
+                <para>Si selecciona la opción <guilabel>Orientación automática</guilabel>, las imágenes se rotarán durante la carga de acuerdo a sus metadatos. Por ejemplo, los retratos se rotan automáticamente  en vertical. Note que esta función requiere que la etiqueta de orientación esté correctamente definida en los metadatos de la imagen y por lo tanto no funciona con todas las imágenes. La rotación no se guarda hasta que guarde la imagen rotada (consulte la <xref linkend="eog-save-rename"/>).</para>
+		</listitem>
+	</varlistentry>
+
+	<varlistentry>
+		<term><guilabel>Partes transparentes</guilabel></term>
+		<listitem>
+		<para>Seleccione una de las opciones siguientes para determinar cómo el <application>Visor de imágenes</application> muestra las partes transparentes de una imagen:</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Como patrón de cuadrados</guilabel> </para>
+			<para>Muestra cualquier parte transparente de la imagen en un patrón de cuadrados.</para>
+			</listitem>
+			<listitem><para><guilabel>Un color personalizado</guilabel> </para>
+			<para>Muestra cualquier parte transparente de la imagen en un color sólido que especifique. Pulse en el selector de colores para seleccionar un color.</para>
+			</listitem>
+			<listitem><para><guimenuitem>Como fondo</guimenuitem> </para>
+			<para>Muestra cualquier parte transparente de la imagen en el color de fondo de la aplicación <application>Visor de imágenes</application>.</para>
+			</listitem>
+		</itemizedlist>
+		</listitem>
+	</varlistentry>		
+	</variablelist>
+  </sect2>
+		
+	<!--============ Slide Show ==================-->                                                                                               
+  <sect2 id="eog-prefs-slideshow">
+         <title>Diapositivas</title>
+	<variablelist>
+	<varlistentry>
+		<term><guilabel>Ampliación de imagen</guilabel></term>
+		<listitem>
+		<para>Seleccione la opción <guilabel>Expandir imágenes hasta ajustar a la pantalla</guilabel> para redimensionar todas las imágenes para que se ajusten a la pantalla durante el pase de diapositivas. Si no selecciona esta opción, las imágenes que sea más pequeñas que el tamaño de la pantalla no se redimesionarán para ocupar toda la pantalla.</para>
+		</listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><guilabel>Secuencia</guilabel></term>
+		<listitem>
+		<para>Seleccione la opción <guilabel>Secuencia en bucle</guilabel> para hacer un ciclo sin fin a través de las imágenes durante el pase. Si no selecciona esta opción, el pase vuelve a la vista de colección tras mostrar la última imagen.</para>
+		<para>Use el indicador incrementable <guilabel>Mostrar siguiente imagen automáticamente tras ... segundos</guilabel> para especificar cuánto tiempo se muestra una imagen durante el pase de diapositivas. Si quiere establecer este valor a cero, la función de avance automático se desactiva y sólo está disponible la visión manual (conuslte la <xref linkend="eog-fullscreen"/>).</para>
+		</listitem>
+	</varlistentry>		
+	</variablelist>
+  </sect2>
+</sect1>
+</article>

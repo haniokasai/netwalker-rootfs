@@ -1,0 +1,72 @@
+#! /bin/sh
+
+set -e
+
+add_alternate_font_entry()
+{
+	update-alternatives --install \
+	 /usr/share/fonts/truetype/$ALT_NAME.ttf \
+	 $ALT_NAME.ttf \
+	 $FONT_ENTRY \
+	 $FONT_PRIORITY
+}
+
+# update font cache
+fontconfig_cache_update()
+{
+	if [ -x /usr/bin/fc-cache ]; then 
+	  fc-cache update
+	fi
+}
+
+case "$1" in
+    configure)
+
+	ALT_NAME="ttf-japanese-gothic"
+	FONT_ENTRY="/usr/share/fonts/truetype/LCFOnt/lcfont.ttf"
+	FONT_PRIORITY=80
+	update-alternatives --remove $ALT_NAME $FONT_ENTRY
+	if [ -f /usr/share/fonts/truetype/$ALT_NAME ]; then
+	  rm /usr/share/fonts/truetype/$ALT_NAME
+	fi
+	add_alternate_font_entry
+
+	ALT_NAME="ttf-japanese-mincho"
+	FONT_ENTRY="/usr/share/fonts/truetype/LCFont/LCMincho.ttf"
+	FONT_PRIORITY=80
+	update-alternatives --remove $ALT_NAME $FONT_ENTRY
+	if [ -f /usr/share/fonts/truetype/$ALT_NAME ]; then
+	  rm /usr/share/fonts/truetype/$ALT_NAME
+	fi
+	add_alternate_font_entry
+
+	fontconfig_cache_update
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+# Automatically added by dh_installmodules
+if [ "$1" = "configure" ]; then
+	if [ -e "/etc/modprobe.d/spider-lcfont" ]; then
+		echo "Preserving user changes to /etc/modprobe.d/spider-lcfont.conf ..."
+		if [ -e "/etc/modprobe.d/spider-lcfont.conf" ]; then
+			mv -f "/etc/modprobe.d/spider-lcfont.conf" "/etc/modprobe.d/spider-lcfont.conf.dpkg-new"
+		fi
+		mv -f "/etc/modprobe.d/spider-lcfont" "/etc/modprobe.d/spider-lcfont.conf"
+	fi
+fi
+# End automatically added section
+
+
+exit 0
+
+

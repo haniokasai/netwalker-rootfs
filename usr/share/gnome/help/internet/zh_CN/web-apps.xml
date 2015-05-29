@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "en">
+]>
+<chapter id="web-apps" status="review">
+	<title>互联网应用程序</title>
+	<para>这一节提供一些关于常用Internet应用程序使用的信息，诸如web浏览器和电子邮件客户端等。</para>
+
+	<sect1 id="web-browsing" status="review">
+		<title>使用 Firefox 浏览网页</title>
+		<para>强大而又安全的 <application>Mozilla Firefox</application> 浏览器就包含在 Ubuntu里。 <application>Firefox</application> 有标签式浏览，弹出窗口拦截，内置搜索，实时书签等特色。它还支持流行插件如 Java，Flash，and RealPlayer。</para>
+		<para><application>Firefox</application> 可以通过点击 <menuchoice><guimenu>应用程序</guimenu><guisubmenu>互联网</guisubmenu><guimenuitem>Firefox 浏览器</guimenuitem></menuchoice>来启动。</para>			
+		<sect2 id="web-browsing-addons" status="review">
+			<title>获取Firefox的附加组件</title>
+			<para>附加组件可以扩展Firefox的功能，比如自动祛除广告以及改变菜单的行为。</para>
+			<para>要查看<application>Firefox Web Browser</application>已经安装的插件，打开<menuchoice><guimenu>应用程序</guimenu><guisubmenu>互联网</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice> 点击<menuchoice><guimenu>工具</guimenu><guimenuitem>附加组件</guimenuitem></menuchoice>。</para>
+			
+			<sect3 id="web-browsing-addons-commonrestricted" status="review">
+				<title>快速安装常用插件</title>
+				<para>通过安装<application>Ubuntu restricted extras</application>包可以一次性安装全套常用受限插件。</para>
+				<warning><para><emphasis>受限的插件</emphasis> 是无法随 Ubuntu 发送的插件，因为某些国家的法律不允许这样做。安装前请确保在您国家的法律上这是允许的。有关受限软件的详细信息，请查看 <ulink url="http://www.ubuntu.com/ubuntu/licensing">Ubuntu 网站</ulink>。</para></warning>
+				<orderedlist>
+					<listitem><para>打开<menuchoice><guimenu>应用程序</guimenu><guimenuitem>添加/删除...</guimenuitem></menuchoice>。</para></listitem>
+					<listitem><para>从<guilabel>显示:</guilabel>下拉列表中选择<guilabel>所有可安装应用程序</guilabel>。</para></listitem>
+					<listitem><para>Tick <guilabel>Ubuntu Restricted Extras</guilabel>.</para></listitem>
+					<listitem><para>您必须同意弹出的警告以进行安装，点击<guibutton>允许</guibutton>或<guibutton>取消l</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用更改</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用</guibutton>。</para></listitem>
+					<listitem><para>您会被提示输入密码,之后插件将会被下载</para></listitem>
+				</orderedlist>
+				<para>除了插件和多媒体编解码器，<application>Java</application> 和一系列 Windows 字体也会被安装。</para>
+				<para><application>Ubuntu restricted extras</application>包安装如下插件和解码器：</para>
+				<itemizedlist>
+					<listitem><para><application>flashplugin-nonfree</application></para></listitem>
+					<listitem><para><application>gstreamer0.10-plugins-ugly</application></para></listitem>
+					<listitem><para><application>gstreamer0.10-plugins-ugly-multiverse</application></para></listitem>
+					<listitem><para><application>msttcorefonts</application></para></listitem>
+					<listitem><para><application>sun-java6-plugin</application></para></listitem>
+				</itemizedlist>
+			</sect3>
+		
+			<sect3 id="web-browsing-addons-audiovideo" status="review">
+				<title>影音插件</title>
+				<para>在互联网上使用了许多不同类型的多媒体文件格式，所以您会发现，如果没有安装适当的插件，您将不能播放一些声音和视频文件。</para>
+				<para>Quicktime, Real, WMV and 更多格式是可用的.</para>
+				<orderedlist>
+					<listitem><para>打开<menuchoice><guimenu>应用程序</guimenu><guimenuitem>添加/删除...</guimenuitem></menuchoice>。</para></listitem>
+					<listitem><para>从<guilabel>显示:</guilabel>下拉列表中选择<guilabel>所有可安装应用程序</guilabel>。</para></listitem>
+					<listitem><para>勾选您所需的程序</para></listitem>
+					<listitem><para>您必须同意弹出的警告以进行安装，点击<guibutton>允许</guibutton>或<guibutton>取消l</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用更改</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用</guibutton>。</para></listitem>
+					<listitem><para>您会被提示输入密码,之后插件将会被下载</para></listitem>
+				</orderedlist>
+			</sect3>
+
+			<sect3 id="web-browsing-addons-flash" status="review">
+				<title>Flash 多媒体插件</title>
+				<orderedlist>
+					<listitem><para>打开<menuchoice><guimenu>应用程序</guimenu><guimenuitem>添加/删除...</guimenuitem></menuchoice>。</para></listitem>
+					<listitem><para>从<guilabel>显示:</guilabel>下拉列表中选择<guilabel>所有可安装应用程序</guilabel>。</para></listitem>
+					<listitem><para>勾选<guilabel>Macromedia Flash Player</guilabel>。</para></listitem>
+					<listitem><para>您必须同意弹出的警告以进行安装，点击<guibutton>允许</guibutton>或<guibutton>取消l</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用更改</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用</guibutton>。</para></listitem>
+					<listitem><para>您会被提示输入密码,之后插件将会被下载</para></listitem>
+				</orderedlist>
+			</sect3>
+			
+			<sect3 id="web-browsing-addons-java" status="review">
+				<title>Java 浏览器插件</title>
+				<para>一些网站使用小 <application>Java</application> 程序，其需要在安装了 Java 插件后才能运行。</para>
+				<orderedlist>
+					<listitem><para>打开<menuchoice><guimenu>应用程序</guimenu><guimenuitem>添加/删除...</guimenuitem></menuchoice>。</para></listitem>
+					<listitem><para>从<guilabel>显示:</guilabel>下拉列表中选择<guilabel>所有可安装应用程序</guilabel>。</para></listitem>
+					<listitem><para>勾选<guilabel>Sun Java 6.0 Plugin</guilabel>。</para></listitem>
+					<listitem><para>您必须同意弹出的警告以进行安装，点击<guibutton>允许</guibutton>或<guibutton>取消l</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用更改</guibutton>。</para></listitem>
+					<listitem><para>点击<guibutton>应用</guibutton>。</para></listitem>
+					<listitem><para>您会被提示输入密码,之后插件将会被下载</para></listitem>
+				</orderedlist>
+			</sect3>
+			
+		</sect2>
+
+		<sect2 id="web-browsing-fontsize" status="review">
+			<title>改变字体默认大小</title>
+			<para>如果你感觉Firefox中文字的字体太小了，不适合阅读，你可以增大字体的默认大小。</para>
+			<orderedlist>
+				<listitem><para>点击 <menuchoice><guimenuitem>编辑</guimenuitem><guimenuitem>首选项</guimenuitem></menuchoice>然后选择<guilabel>内容</guilabel>标签</para></listitem>
+				<listitem><para>在<guilabel>字体与颜色</guilabel>选项下,为<guilabel>字号</guilabel>项选择一个更大的值(20左右比较适合阅读)</para></listitem>
+				<listitem><para>网页上的文字应该马上看起来大了一些。点击<guibutton>关闭</guibutton></para></listitem>
+			</orderedlist>
+			<para>要临时增大网页文字的字体，点击<menuchoice><guimenuitem>查看</guimenuitem><guimenuitem>文字大小</guimenuitem><guimenuitem>增加</guimenuitem></menuchoice>。或者，按住<keycap>Ctrl</keycap>键并滚动鼠标滚轮，或按<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>。</para>
+			<para>将文字显示为正常大小，点击<menuchoice><guimenuitem>查看</guimenuitem><guimenuitem>文字大小</guimenuitem><guimenuitem>正常</guimenuitem></menuchoice>。</para>
+		</sect2>
+
+	</sect1>
+
+	<sect1 id="email" status="review">
+		<title>收发电子邮件</title>
+		<para>电子邮件是互联网上最流行的交流方式之一。Ubuntu 包含了您发送，接收和组织电子邮件的所需工具。</para>
+		<para><application>Evolution</application> 套件是默认的电子邮件客户端, 可以处你所有的 <ulink type="help" url="ghelp:evolution#usage-mail">电子邮件</ulink>, <ulink type="help" url="ghelp:evolution#usage-contact">连系人列表</ulink>, <ulink type="help" url="ghelp:evolution#usage-calendar-todo">任务</ulink> and <ulink type="help" url="ghelp:evolution#usage-calendar">日历</ulink> 他同样可以整合 <ulink type="help" url="ghelp:clock#clock-usage-calendar">小组时钟</ulink>，一步进入你的任务列表。</para>
+		<para><application>Evolution</application>可以通过点击<menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>打开。</para>
+		<para>查看<ulink type="help" url="ghelp:evolution">Evolution manual</ulink> 寻求使用 Evolution的帮助。</para>
+		
+		<sect2 id="email-evolution-spam" status="review">
+			<title>垃圾邮件过滤</title>
+			<para>Bogo过滤器能够通过统计分析邮件内容来分开垃圾邮件，并且具有学习用户选择的功能。这项技术被称作“贝叶过滤法”。在这里你可以获得更多细节：</para>
+			<itemizedlist>
+				<listitem><para><ulink url="http://www.paulgraham.com/spam.html">http://www.paulgraham.com/spam.html</ulink></para></listitem>
+				<listitem><para><ulink url="http://www.paulgraham.com/better.html">http://www.paulgraham.com/better.html</ulink></para></listitem>
+			</itemizedlist>
+			<para>Evolution 可以自动配置并使用Bogofilter。</para>
+			<itemizedlist>
+				<listitem><para><ulink url="apt:bogofilter">安装<application>Bogofilter</application>软件包</ulink>。</para></listitem>
+				<listitem><para>打开 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution邮件</guimenuitem></menuchoice>。</para></listitem>
+				<listitem><para>要启用垃圾邮件过滤，请点击<menuchoice><guimenu>编辑</guimenu><guimenu>设置</guimenu><guimenu>邮件设置</guimenu><guimenu>垃圾邮件</guimenu><guimenu>检查垃圾邮件</guimenu></menuchoice>。</para></listitem>
+				<listitem><para>要启用Bogo过滤器插件，请点击<menuchoice><guimenu>编辑</guimenu><guimenu>插件</guimenu></menuchoice></para></listitem>
+			</itemizedlist>
+			<para>Bogo过滤器将从现在开始根据你多邮件所作的标记来判断垃圾邮件。要将邮件标记为垃圾邮件请点击<menuchoice><guimenu>信息</guimenu><guimenu>标记为</guimenu><guimenu>垃圾邮件</guimenu></menuchoice>。</para>
+		</sect2>
+		
+		<sect2 id="email-alternative" status="review">
+			<title>可选的电子邮件程序</title>
+			<para>您也可以使用<application>Mozilla Thunderbird</application>收发邮件。要安装它，<ulink url="apt:thunderbird">安装<application>thunderbird</application>软件包</ulink>。</para>
+			<para>打开 <application>Thunderbird</application>, 选择 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>。</para>
+			<para>若想把 <application>Mozilla Thunderbird</application> 设置成您首选的 email 客户端：</para>
+			<procedure>
+				<step>
+					<para>选择 <menuchoice><guimenu>系统</guimenu><guimenuitem>首选项</guimenuitem><guimenuitem>首选应用程序</guimenuitem></menuchoice></para>
+				</step>
+				<step>
+					<para>点击 <guibutton>邮件阅读器</guibutton> 下拉菜单，并选择 <guilabel>自定义</guilabel> 选项。</para>
+				</step>
+				<step>
+					<para>在文本框 <guilabel>Command</guilabel> 中输入<userinput><command>thunderbird %s</command></userinput>，然后关闭对话框。</para>
+				</step>
+			</procedure>
+		</sect2>
+		
+	</sect1>
+
+	<sect1 id="internet-instant-messaging" status="review">
+		<title>即时通讯</title>
+		<para>即时通讯 (IM) 是通过因特网向他人发送消息来与朋友或家人交流的一种方式。即时通讯是实时发生的，在您输入消息与其他人接受到消息之间没有延迟。</para>
+		
+		<sect2 id="internet-instant-messaging-pidgin" status="review">
+			<title>Pidgin 互联网即时通讯程序</title>
+			<para><application>Pidgin</application>是ubuntu上默认的即时通讯工具，也就是大家所熟知的<application>Gaim</application>。使用Pidgin，你可以和那些使用AIM/ICQ, Gadu-Gadu, GroupWise, IRC, Jabber, MSN, Napster, Bonjour 或者 Yahoo的人通讯，并把你的所有联系人在同一个窗口中显示出来。</para>
+			<para>要启动<application>Pidgin</application>，选择<menuchoice><guimenu>应用程序</guimenu><guimenuitem>互联网</guimenuitem><guimenuitem>Pidgin 互联网即时通讯</guimenuitem></menuchoice>。</para>
+			<para><application>Pidgin</application> 拥有多个附加软件包，这些软件包可以给增加 Pidgin 其他的功能或者改变 Pidgin 软件外观，您可以在新立得软件包管理器中找到这些附加软件包。</para>
+		</sect2>
+		
+		<sect2 id="internet-instant-messaging-ekiga" status="review">
+			<title>Ekiga 软电话</title>
+			<para><application>Ekiga</application> 是Ubuntu 默认的互联网电话应用程序。它在具备基本的即时通讯的特性的同时，还可使您能够通过互联网拨打音频和视频电话给那些拥有遵循SIP或H.323 标准的硬件或软件的人们。它还兼容Windows Messenger和大多数 VoIP 应用程序。但是，Ekiga 不能和Skype通讯，因为后者使用私有技术。如果您有正确的SIP服务商，您可以使用 Ekiga 拨打普通电话。</para>
+			<para>要启动 <application>Ekiga</application>，点击<menuchoice><guimenuitem>应用程序</guimenuitem><guimenuitem>互联网</guimenuitem><guimenuitem>Ekiga 软电话</guimenuitem></menuchoice>。</para>
+			<para>参阅 <ulink type="help" url="ghelp:ekiga">Ekiga 手册</ulink> 来获得使用 Ekiga 的帮助。</para>
+		</sect2>
+			
+		<sect2 id="internet-instant-messaging-irc" status="review">
+			<title>IRC 即时通讯</title>
+			<para>对于使用 IRC 即时聊天服务的用户, 您可以使用与 <application>Pidgin</application> 功能相近的应用程序<application>XChat-GNOME</application>. 它包含了高级Scripting支持(perl和python语言) 以及一个简洁易用的用户界面。</para>
+			<procedure>
+				<step>
+					<para><ulink url="xchat-gnome">安装<application>xchat-gnome</application>软件包</ulink>。</para>
+				</step>
+				<step>
+					<para>要启动 <application>XChat-GNOME</application>，请选择 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC 聊天</guimenuitem></menuchoice>。</para>
+				</step>
+			</procedure>
+		</sect2>
+		
+		<sect2 id="internet-instant-messaging-irchelp" status="review">
+			<title>获取使用 IRC即时通讯的帮助</title>
+			<para>从 Ubuntu获得帮助或介绍您自己到到IRC，加入Ubuntu 在Freenode上的官方支持频道是很好的一个方法。</para>
+			<procedure>
+				<step>
+					<para>如上所述启动 <application>XChat-Gnome</application>。</para>
+				</step>
+				<step>
+					<para>当您第一次启动 <application>XChat-Gnome</application> 时，它将询问您 IRC 的昵称以及您的真实姓名。选择一个您所想要的昵称 (您的姓氏或者缩写就不错，或是更有创意的)，输入您的真名或其一部分，并按 <guibutton>确定</guibutton>。</para>
+				</step>
+				<step>
+					<para>在接下来的服务器窗口中选择 <emphasis>Ubuntu Servers</emphasis> 并按 <guibutton>连接</guibutton>。</para>
+				</step>
+			</procedure>
+		</sect2>
+		
+	</sect1>
+
+	<sect1 id="internet-otherapps" status="review">
+		<title>其他因特网应用程序</title>
+		<para>除了 web 浏览、email 和 即时消息之外，因特网还能提供许多。Ubuntu 提供了一系列其它应用程序来帮助您更好地利用因特网。</para>
+		
+		<sect2 id="internet-otherapps-p2p" status="review">
+			<title>点对点网络</title>
+			<para>点对点(P2P)网络帮助全世界各地的人们共享文件，音乐或视频。</para>
+			<para>一种流行的 P2P 服务是 <emphasis>BitTorrent</emphasis>，Ubuntu 中默认就包含了使用 BitTorrent 的能力。要想使用 BitTorrent，先在网站找到某个 <emphasis>.torrent</emphasis> 文件，在 <application>Firefox Web 浏览器</application> 中点击它，随后 <application>Gnome BitTorrent</application> 客户端就应当会自动启动。</para>
+			<para>若想重新开启一个已经在您计算机上的 <filename>.torrent</filename> 文件的下载，请双击它。</para>
+			<para>备选的 P2P应用程序是<application>aMule 文件分享客户端</application>。</para>
+			<procedure>
+				<step>
+					<para><ulink url="apt:amule">安装<application>amule</application>软件包</ulink>。</para>
+				</step>
+				<step>
+					<para>要打开 <application>aMule</application>，请选择 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>。</para>
+				</step>
+			</procedure>
+		</sect2>
+
+		<sect2 id="internet-otherapps-newsreaders" status="review">
+			<title>新闻阅读器</title>
+			<para>您可以自动收到互联网上的新闻更新。有好几种不同的新闻服务可供选择：</para>
+			<itemizedlist>
+				<listitem>
+					<para><emphasis>Usenet</emphasis> 是最古老的方式之一，使您能与世界各地的人们讨论新闻和其它主题。<application>Pan Newsreader</application> 是一个能够支持 Usenet 的新闻阅读器。</para>
+					<para><ulink url="apt:pan">安装<application>pan</application>软件包</ulink>然后点击<menuchoice><guimenu>应用程序</guimenu><guimenuitem>互联网</guimenuitem><guimenuitem>Pan新闻阅读器</guimenuitem></menuchoice>来开始使用<application>Pan</application>。</para>
+				</listitem>
+				<listitem>
+					<para><emphasis>RSS feeds</emphasis> 是一种自动接收日常新闻更新和文章的流行方式。<application>Liferea Feed Reader</application> 是一个有着许多有用功能的 RSS feed 阅读器。</para>
+					<para><ulink url="apt:liferea">安装<application>liferea</application>软件包</ulink>，然后选择<menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>以启动<application>Liferea</application>。</para>
+				</listitem>
+			</itemizedlist>
+		
+			<sect3 id="internet-other-apps-newreaders-liferea-create-feeds" status="review">
+				<title>用Liferea创建新的新闻Feeds</title>
+				<para>这部分将讲解一个基本的添加新闻feeds到<application>Liferea</application>的过程. 启动 <application>Liferea</application> :选择 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice></para>
+					
+					<procedure>
+						<step><para>如果您使用代码服务器，请选择 <menuchoice><guimenuitem>工具</guimenuitem><guimenuitem>参数设置</guimenuitem><guimenuitem>代理</guimenuitem></menuchoice>并填写您的代理设置，然后点击 <guibutton>关闭</guibutton> 按钮。</para></step>
+						<step><para>在Liferea 工具条点击<guibutton>新订阅</guibutton>，</para></step>
+						<step><para>点击 <guibutton>高级</guibutton>按钮，</para></step>
+						<step><para>在<guilabel>来源</guilabel>框里输入 RSS 地址，</para></step>		
+						<step><para>单击 <guibutton>确定</guibutton> 按钮完成操作。</para></step>
+						<step><para>创建完毕新闻推送，点击<guibutton>更新所有</guibutton>工具条按钮来更新所有新闻推送。</para></step>
+					</procedure>
+			</sect3>
+		</sect2>
+	</sect1>
+
+	<sect1 id="web-design" status="review">
+		<title>设计网页</title>
+		<para>Ubuntu 包含了很多工具来帮助您设计和开发网页。</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role="strong"><application>Bluefish</application></emphasis> 是 给网页设计者和编程人员的一个强大的编辑器。</para>
+				<para><application>Bluefish</application> 支持许多编程和标记语言, 并且为设计者和编程人员包含了许多工具。</para>
+				<itemizedlist>
+					<listitem><para>更多信息, 参见 <ulink url="http://bluefish.openoffice.nl/">Bluefish 网站</ulink>。</para></listitem>
+					<listitem><para><ulink url="apt:bluefish">安装<application>bluefish</application>软件包</ulink>。</para></listitem>
+					<listitem><para>启动 Bluefish, 点击 <menuchoice><guimenu>应用程序</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>。</para></listitem>
+				</itemizedlist>
+			</listitem>
+		</itemizedlist>
+	</sect1>
+</chapter>

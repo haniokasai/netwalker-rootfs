@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.15">
+<!ENTITY manrevision "1.0">
+<!ENTITY date "April 2006">
+<!ENTITY app "Disk Usage Analyzer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Apr 11, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ru">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Руководство по анализатору использования дисков</title>
+
+    <abstract role="description">
+      <para>Анализатор использования дисков — это графическая программа, которая наглядно показывает сведения об использовании диска и структуре папок.</para>
+    </abstract>
+
+    <copyright> 
+      <year>2006</year> 
+      <holder>Fabio Marzocca</holder> 
+    </copyright><copyright><year>2008</year><holder>Yuri Myasoedov (omerta13@yandex.ru)</holder></copyright><copyright><year>2008</year><holder>Василий Фаронов (qvvx@yandex.ru)</holder></copyright> 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+    <publisher> 
+      <publishername>Проект документирования GNOME</publishername> 
+    </publisher> 
+
+     <legalnotice id="legalnotice">
+	<para>Разрешается копировать, распространять и/или изменять этот документ на условиях лицензии GNU Free Documentation License (GFDL), версии 1.1 или любой более поздней версии, опубликованной Фондом свободного программного обеспечения (Free Software Foundation), без неизменяемых частей и без текстов на обложках. Вы можете найти копию лицензии GFDL по  <ulink type="help" url="ghelp:fdl">этой ссылке</ulink> или в файле COPYING-DOCS, распространяемом с этим документом.</para>
+         <para>Это руководство — часть документации GNOME, которая распространяется на условиях лицензии GNU FDL. Если вы хотите распространять это руководство отдельно от остальной документации, вам следует приложить к руководству копию лицензии, как описано в разделе 6 лицензии.</para>
+
+	<para>Некоторые имена и марки используются компаниями для обозначения их продуктов и услуг и являются торговыми марками. Там, где эти имена присутствуют в документации и где участники проекта документирования GNOME знают об этом, имена выделяются заглавными буквами или начальной заглавной буквой.</para>
+
+	<para>ДОКУМЕНТ И ИЗМЕНЁННЫЕ ВЕРСИИ ДОКУМЕНТА ПРЕДОСТАВЛЯЮТСЯ ПОЛЬЗОВАТЕЛЮ НА УСЛОВИЯХ ЛИЦЕНЗИИ GNU FREE DOCUMENTATION LICENSE С УВЕДОМЛЕНИЕМ О ТОМ, ЧТО: <orderedlist>
+		<listitem>
+		  <para>ДОКУМЕНТ РАСПРОСТРАНЯЕТСЯ «КАК ЕСТЬ», БЕЗ ВСЯКИХ ГАРАНТИЙ, ЯВНЫХ ИЛИ НЕЯВНЫХ, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЙ, ГАРАНТИИ ТОГО, ЧТО ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА СВОБОДНА ОТ ДЕФЕКТОВ, ПРИГОДНА К ПРОДАЖЕ, ПРИГОДНА К ИСПОЛЬЗОВАНИЮ В ОПРЕДЕЛЁННЫХ ЦЕЛЯХ ИЛИ НЕ НАРУШАЕТ ЗАКОНЫ. ВЕСЬ РИСК, КАСАЮЩИЙСЯ КАЧЕСТВА, ТОЧНОСТИ ИЛИ ПРАВИЛЬНОСТИ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ЛЕЖИТ НА ВАС. ЕСЛИ ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА ИМЕЕТ НЕДОСТАТКИ, ВЫ (А НЕ АВТОР ДОКУМЕНТА ИЛИ ЕГО ПОМОЩНИК) БЕРЁТЕ НА СЕБЯ СТОИМОСТЬ ЛЮБОЙ НЕОБХОДИМОЙ ДОРАБОТКИ, КОРРЕКЦИИ ИЛИ ВОССТАНОВЛЕНИЯ. ЭТОТ ОТКАЗ ОТ ГАРАНТИЙ СОСТАВЛЯЕТ ВАЖНУЮ ЧАСТЬ ЛИЦЕНЗИИ. НИКАКОЕ ИСПОЛЬЗОВАНИЕ ДОКУМЕНТА ИЛИ ИЗМЕНЁННОЙ ВЕРСИИ ДОКУМЕНТА НЕ ДОПУСКАЕТСЯ БЕЗ ДАННОГО ПРЕДУПРЕЖДЕНИЯ И</para>
+		</listitem>
+		<listitem>
+		  <para>НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ И НИ ПРИ КАКОМ ЗАКОННОМ СПОСОБЕ, НИ ПО КАКОМУ СОГЛАШЕНИЮ ИЛИ ДРУГОЙ ПРИЧИНЕ, АВТОР, СОЗДАТЕЛЬ, ПОМОЩНИКИ ИЛИ РАСПРОСТРАНИТЕЛИ ДОКУМЕНТА НЕ НЕСУТ ОТВЕТСТВЕННОСТЬ ЗА ПРЯМОЙ, КОСВЕННЫЙ, СПЕЦИАЛЬНЫЙ, СЛУЧАЙНЫЙ ИЛИ ПРЕДНАМЕРЕННЫЙ УЩЕРБ ЛЮБОГО СВОЙСТВА, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЯ, ПОТЕРЮ ЖЕЛАНИЯ, РАБОТОСПОСОБНОСТИ, КОМПЬЮТЕРНЫЕ СБОИ ИЛИ ПОЛОМКИ, ИЛИ ЛЮБОЙ ДРУГОЙ УЩЕРБ ИЛИ ПОТЕРИ, ВОЗНИКАЮЩИЕ ВСЛЕДСТВИЕ ИЛИ СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ДАЖЕ ЕСЛИ СТОРОНА БЫЛА УВЕДОМЛЕНА О ВОЗМОЖНОСТИ ТАКОГО УЩЕРБА.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+   <authorgroup> 
+   <author> 
+		<firstname>Fabio</firstname> 
+		<surname>Marzocca</surname> 
+		<affiliation> 
+	  	<orgname>Проект документирования GNOME</orgname> 
+	  	<address> <email>thesaltydog@gmail.com</email> </address> 
+		</affiliation> 
+   </author> 
+
+   <author role="maintainer">
+   	<firstname>Fabio</firstname>
+	<surname>Marzocca</surname>
+	<affiliation>
+	  <address><email>thesaltydog@gmail.com</email></address>
+	</affiliation>
+   </author>
+      
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+   <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  	<orgname>Latin Translation Team</orgname> 
+	  	<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+   </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision> 
+		<revnumber>Руководство по анализатору использования дисков 1.0</revnumber> 
+		<date>Апрель 2006</date> 
+		<revdescription> 
+	  		<para role="author">Emmanuele Bassi <email>ebassi@gmail.com</email></para>
+	  		<para role="publisher">Проект документирования GNOME</para>
+		</revdescription> 
+      </revision>
+    </revhistory> 
+
+    <releaseinfo>Это руководство описывает версию 2.15 анализатора использования дисков.</releaseinfo> 
+    
+    <legalnotice> 
+      <title>Обратная связь</title> 
+      <para>Чтобы сообщить об ошибке или сделать предложение по анализатору использования дисков или по этому руководству, следуйте указаниям в документе <ulink url="ghelp:gnome-feedback" type="help">Обратная связь с GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>Анализатор использвания дисков</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+
+  <sect1 id="baobab-introduction"> 
+    <title>Введение</title> 
+
+      <para><application>Анализатор использования дисков</application> — это графическое приложение, предназначенное для анализа использования дисков в любой среде GNOME. <application>Анализатор использования дисков</application> может изучать как полное дерево файловой системы, так и её отдельные папки (локальные или удалённые).</para>
+       <para>Также <application>Анализатор использования дисков</application> во время работы следит за изменениями в вашей домашней папке и во всех присоединённых/отсоединённых устройствах. Кроме того, он может строить полную графическую карту для каждой выбранной папки.</para>
+
+  </sect1>
+
+<!-- ================ Getting Started ================================ -->
+	<sect1 id="baobab-getting-started">
+	<title>Начало работы</title>
+
+    <para><application>Анализатор использования дисков</application> может быть запущен тремя способами:</para>
+	 <itemizedlist>
+    <listitem><para>из меню GNOME <menuchoice><guimenu>Приложения</guimenu><guimenuitem>Системные</guimenuitem></menuchoice>;</para>
+    		</listitem>
+    <listitem><para>из окна терминала;</para>
+    		</listitem>
+    <listitem><para>из Nautilus «Открыть в программе...».</para>
+    		</listitem>
+    </itemizedlist> 
+
+
+<para>Если вы хотите запустить <application>анализатор использования дисков</application> из окна терминала, просто наберите:</para> 
+  
+<para><command>baobab ‹полный_путь_к_папке›</command>, затем нажмите <keycap>Enter</keycap>.</para>  
+<para/> 
+	<para>Если запустить <application>анализатор использования дисков</application> из меню GNOME, то он будет находиться в режиме готовности, ожидая действий пользователя.</para> 
+    <para>После запуска <application>анализатора использования дисков</application> из меню GNOME появляется следующее окно.</para>
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fig"> 
+	<title>Окно анализатора использования дисков</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_window.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Показывает главное окно анализатора использования дисков. Содержит строку меню, область просмотра, полосы прокрутки и строку состояния.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+
+<para>После этого пользователь может:</para>
+	<itemizedlist>
+    <listitem><para>начать полное сканирование всей файловой системы;</para>
+    		</listitem>
+    <listitem><para>выбрать локальную папку для сканирования;</para>
+    		</listitem>
+    <listitem><para>выбрать удалённый сервер и папку для сканирования;</para>
+    		</listitem>
+    <listitem><para>установить параметры.</para>
+    		</listitem>
+	</itemizedlist>
+	
+	<note><para>Если запустить полное сканирование файловой системы, <application>анализатор использования дисков</application> начнёт изображать дерево файловой системы сразу, как только запустится поток сканирования. Если к файловой системе присоединён какой-нибудь большой раздел, он тоже будет просканирован.</para></note>
+
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+  <sect1 id="baobab-usage"> 
+    <title>Использование</title>
+
+    <sect2 id="baobab-fullscan">
+      <title>Полное сканирование файловой системы</title>
+        <para>Чтобы запустить полное сканирование файловой системы, выберите меню <menuchoice><guimenu>Анализатор</guimenu><guimenuitem>Сканировать файловую систему</guimenuitem></menuchoice>, или нажмите кнопку <guibutton>Сканировать файловую систему</guibutton> на панели инструментов.</para>
+
+	<para>После завершения сканирования у вас перед глазами будет полное дерево вашей файловой системы, примерно такое, как показано на следующем рисунке.</para>    
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fullscan-fig"> 
+	<title>Анализатор использования дисков: полное сканирование файловой системы</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_fullscan.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Показывает окно анализатора использования дисков, выполнившего полное сканирование файловой системы. Содержит строку меню, область просмотра, полосы прокрутки и строку состояния.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    	<note><para>Если запустить полное сканирование файловой системы, <application>анализатор использования дисков</application> начнёт изображать дерево файловой системы сразу, как только запустится поток сканирования. Если к файловой системе присоединён какой-нибудь большой раздел, он тоже будет просканирован.</para></note>
+    
+    <para><application>Анализатор использования дисков</application> в дереве каталогов показывает объём занятого места на диске. Другими словами, показываются не кажущиеся, а реальные размеры файлов. Если вы хотите увидеть кажущиеся размеры файлов, выключите параметр <menuchoice><guimenu>Вид</guimenu><guimenuitem>Занятое место</guimenuitem></menuchoice>.</para>
+    
+    <warning><para><application>Анализатор использования дисков</application> не считает каталог /proc, равно как и любые другие «необычные» файлы — символьные ссылки, символьные блоки, блоки устройств.</para></warning>
+   
+    <para>Жёсткие ссылки считаются по-другому: первая жёсткая ссылка считается как обычный файл, а последующие ссылки, относящиеся к тому же индексному узлу (inode) на устройстве, не учитываются, но отмечаются в правой колонке окна.</para>
+        </sect2>
+	
+	<sect2 id="baobab-folderscan">
+      <title>Сканирование отдельной папки</title>
+
+    <para>Чтобы начать сканирование отдельной папки, выберите меню <menuchoice><guimenu>Анализатор</guimenu><guimenuitem>Сканировать папку...</guimenuitem></menuchoice>, или нажмите кнопку <guibutton>Сканировать папку</guibutton> на панели инструментов.</para>
+
+	</sect2>
+
+	<sect2 id="baobab-remotescan">
+      <title>Удалённое сканирование</title>
+      
+      <para>Если нужно просканировать удалённую папку на сервере, просто нажмите кнопку <guibutton>Сканировать удалённую папку</guibutton> на панели инструментов, или выберите меню <menuchoice><guimenu>Анализатор</guimenu><guimenuitem>Сканировать удалённую папку</guimenuitem></menuchoice>. Появится следующее диалоговое окно. <application>Анализатор использования дисков</application> может подключаться к серверу через протоколы SSH, FTP, SMB, HTTP и HTTPS.</para>
+ 
+     <!-- ==== Figure ==== -->
+      <figure id="baobab-remote-fig"> 
+        <title>Анализатор использования дисков: сканирование удалённой папки</title> 
+		<screenshot> 
+	 	 <mediaobject> 
+	  	  <imageobject>
+	   	 <imagedata fileref="figures/baobab_remote.png" format="PNG"/> 
+	   	 </imageobject>
+	   	 <textobject> 
+	    	  <phrase>Показывает диалоговое окно удалённой папки в анализаторе использования дисков.</phrase> 
+	   	 </textobject> 
+	 	 </mediaobject> 
+		</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+   
+	</sect2> 
+
+  </sect1>
+
+
+<!-- ============= Preferences =============================== -->
+  <sect1 id="baobab-preferences">
+    <title>Параметры</title>
+    
+    <para>Чтобы изменить параметры <application>анализатора использования дисков</application>, выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Параметры</guimenuitem></menuchoice>.</para>
+ 
+   <!-- ==== Figure ==== -->
+      <figure id="baobab-preferences-fig"> 
+      	<title>Анализатор использования дисков: окно параметров</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_prefs.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Окно параметров</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+  <sect2 id="baobab-scan-preferences">
+      <title>Выбор устройств для сканирования</title>
+  <para>В первой части окна параметров перечислены все найденные присоединённые устройства. Устройство будет сканироваться лишь в том случае, если напротив него стоит флажок.</para>
+  <note><para>Устройства, присоединённые к корню («/»), нельзя исключить из сканирования.</para></note>
+  </sect2>
+ 
+   <sect2 id="baobab-monitor-preferences">
+      <title>Включение наблюдения за домашней папкой</title>
+      <para>Если этот параметр включён, то <application>анализатор использования дисков</application> будет постоянно отслеживать любые внешние изменения в домашней папке и извещать пользователя при добавлении или удалении файла.</para>  
+   </sect2>  
+	</sect1>
+<!-- ================ Treemaps ================================ -->
+
+  <sect1 id="baobab-treemaps"> 
+  <title>Карты</title>
+
+    <para><guilabel>Карты</guilabel> основаны на концепции treemap, разработанной Беном Шнайдерманом (Ben Shneiderman) в 1990-х. Прочтите его <ulink type="http" url="http://www.cs.umd.edu/hcil/treemap-history/index.shtml">взгляд на treemap-карты</ulink>.</para>
+    
+       <!-- ==== Figure ==== -->
+      <figure id="baobab-treemap-fig"> 
+        <title>Анализатор использования дисков: окно карты</title>
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_treemaps.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Теория treemap-карт. Показывает две treemap-диаграммы</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+    
+    <para>На рисунке приведён пример теории treemap-карт. Каждая вершина (как показано в дереве) имеет своё обозначение (букву) и размер (число). Размер оконечных вершин может представлять, к примеру, размеры отдельных файлов, а размер других вершин — сумму размеров дочерних вершин.</para> 
+    
+    <para>Treemap-карта строится путём рекурсивного деления прямоугольника. Размер каждого дочернего прямоугольника соответствует размеру вершины. Направление деления чередуется: сначала по горизонтали, потом по вертикали и так далее. В результате первоначальный прямоугольник оказывается разделённым на маленькие прямоугольники таким образом, что размер каждого прямоугольника отображает размер «листа» дерева. Структура дерева отображается в структуре treemap-карты. Чтобы дать больше сведений о «листьях», можно использовать цвет и примечания.</para>
+
+	<note><para>Treemap-карты очень эффективны, когда важнее всего отобразить размеры.</para></note>
+  </sect1>
+  <!-- ================ Ringschart ================================ -->
+
+  <sect1 id="baobab-ringschart"> 
+  <title>Кольцевые диаграммы</title>
+
+    <para><guilabel>Кольцевая диаграмма</guilabel> — это графическое представление использования диска конкретной папкой. После запуска приложение отображает использование файловой системы примерно так, как показано на следующием рисунке:</para>
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-filesystem_scan"> 
+      <title>Disk Usage Analyzer showing a ringschart with the file system usage</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart1.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>После запуска приложение показывает использование файловой системы. Графическое представление находится справа.</phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+
+    <para>После начала сканирования папки слева создаётся дерево подпапок. Каждая строка содержит информацию об имени, объёме занимаемого пространства в процентном соотношении и в КБ, МБ или ГБ, а также о количестве содержащихся в папке объектов (файлов и папок). После завершения сканирования справа появляется <guilabel>круговая диаграмма</guilabel>. Если вы остановите сканирование прежде, чем оно закончится, будут показаны только те папки, которые были просканированы.</para>
+
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-folder_scan"> 
+      <title>Анализатор использования дисков показывает кольцевую диаграмму занятого папкой места</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart2.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>После сканирования папки.</phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    <para><guilabel>Кольцевая диаграмма</guilabel> состоит из колец, вложенных одно в другое и расположенных вокруг центрального круга. Этот круг обозначает корень частичного дерева (то есть ту папку, которую пользователь выбрал для сканирования). Каждое кольцо соответствует уровню в частичном дереве, так что подпапки корневой папки находятся в первом кольце, а более глубокие уровни — в более внешних кольцах. Каждая подпапка обозначена сектором кольца, угловая ширина которого пропорциональна размеру содержимого папки. Каждый такой сектор рисуется собственным цветом, чтобы диаграмма легче воспринималась. Рисуется не больше пяти уровней; если папка пятого уровня содержит ещё подпапки, это обозначается с помощью чёрной дуги рядом с границей сектора этой папки. Если в качестве корня частичного дерева выбрать папку без подпапок, на диаграмме будет нарисован только центральный круг. При наведении мыши на одну из папок в диаграмме она выделяется, и появляется всплывающая подсказка со сведениями о её названии и размере. Если есть есть подпапки, то появляются также маленькие чёрные подсказки с их именами. Некоторые из имён могут не появляться, дабы избежать перекрывания подсказок.</para>
+
+    <para>Вы можете переходить вверх и вниз по строкам в списке (при необходимости раскрывая те, в которых есть подпапки). При этом диаграмма будет изменяться, отображая выделенную папку в качестве корня частичного дерева. Можно также переходить по папкам через саму <guilabel>кольцевую диаграмму</guilabel>. Если щёлкнуть внутри папки левой кнопкой мыши, корень диаграммы перенесётся в эту папку, и тем самым вы углубитесь в иерархию. Если же щёлкнуть средней кнопкой мыши где-нибудь внутри окна <guilabel>кольцевой диаграммы</guilabel> (не важно, где именно), то изображение, наоборот, поднимется на один уровень вверх по иерархии.</para>
+
+    <para>Папка использует часть радиуса своей родительской папки, каковая часть прямо пропорциональна отношению между размером данной папки и родительской. Очевидно, что размер папки не может превышать размера её родительской папки. Хотя в этом графическом представлении показываются только папки, при расчёте их размера учитываются находящиеся в них файлы.</para>
+  </sect1>
+</article>

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>8.17.  Newsprint</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-distort.html" title="8.  Distort Filters" />
+    <link rel="prev" href="plug-in-ripple.html" title="8.16.  Ripple" />
+    <link rel="next" href="plug-in-whirl-pinch.html" title="8.18.  Whirl and Pinch" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">8.17. 
+    <span lang="en" xml:lang="en">Newsprint</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="plug-in-ripple.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">8. 
+    <span lang="en" xml:lang="en">Distort Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-whirl-pinch.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="plug-in-newsprint"></a>8.17. 
+    <span lang="en" xml:lang="en">Newsprint</span>
+  </h3>
+          </div>
+        </div>
+      </div>
+      <a id="id2755572" class="indexterm"></a>
+      <a id="id2755590" class="indexterm"></a>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2755598"></a>8.17.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2755609"></a>
+          <p class="title">
+            <b>Figure 16.149. 
+        <span lang="en" xml:lang="en">
+          Applying example for the Newsprint filter
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/taj_orig.jpg" alt="Applying example for the Newsprint filter" />
+              <div class="caption">
+                <p>Original image</p>
+              </div>
+            </div>
+            <div class="mediaobject">
+              <img src="../images/filters/examples/distort-taj-newsprint.jpg" alt="Applying example for the Newsprint filter" />
+              <div class="caption">
+                <p>Filter “<span class="quote">Newsprint</span>” applied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+      You can find this filter through
+      <span class="guimenu">Filters</span> → <span class="guisubmenu">Distorts</span> → <span class="guimenuitem">Newsprint</span>.
+    </p>
+        <p>
+      This filter halftones the image using a clustered-dot dither. Halftoning
+      is the process of rendering an image with multiple levels of grey or
+      colour (i.e. a continuous tone image) on a device with fewer tones;
+      often a bi-level device such as a printer or typesetter.
+    </p>
+        <p>
+      The basic premise is to trade off resolution for greater apparent tone
+      depth (this is known as spatial dithering).
+    </p>
+        <p>
+      There are many approaches to this, the simplest of which is to throw
+      away the low-order bits of tone information; this is what the posterize
+      filter does. Unfortunately, the results don't look too good. However, no
+      spatial resolution is lost.
+    </p>
+        <p>
+      This filter uses a clustered-dot ordered dither, which reduces the
+      resolution of the image by converting cells into spots which grow or
+      shrink according to the intensity that cell needs to represent.
+    </p>
+        <p>
+      Imagine a grid super-imposed on the original image.  The image is
+      divided into cells by the grid - each cell will ultimately hold a single
+      spot made up of multiple output pixels in order to approximate the
+      darkness of the original image in that cell.
+    </p>
+        <p>
+      Obviously, a large cell size results in a heavy loss in resolution! The
+      spots in the cells typically start off as circles, and grow to be
+      diamond shaped. This change in shape is controlled by a <span class="guilabel">spot
+      function</span>. By using different spot functions, the evolution
+      in the shape of the spots as the cell goes from fully black to fully
+      white may be controlled.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2755772"></a>8.17.2. 
+      <span lang="en" xml:lang="en">Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2755783"></a>
+          <p class="title">
+            <b>Figure 16.150. 
+        <span lang="en" xml:lang="en">
+            “<span class="quote">Newsprint</span>” filter options
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/filters-distort-newsprint.png" alt="Newsprint filter options" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">Preview</span>
+            </dt>
+            <dd>
+              <p>
+            All your setting changes will appear in the Preview without
+            affecting the image until you click on <span class="guilabel">OK</span>.
+            Note that the preview displays the whole image, even if the
+            final result will concern a selection. Don't keep
+            <span class="emphasis"><em>Do Preview</em></span> checked if your computer is too
+            much slow.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Resolution</span>
+            </dt>
+            <dd>
+              <p>
+            This group controls the cell size, either by setting the input and
+            output resolutions, or directly.
+          </p>
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">Input SPI</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Input SPI</span>
+                  : Resolution of the original input image, in Samples Per
+                  Inch (SPI). This is automatically initialised to the input
+                  image's resolution.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Output LPI</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Output LPI</span>: Desired output
+                  resolution, in Lines Per Inch (LPI).
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Cell Size</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Cell Size</span>: Resulting cell size, in
+                  pixels.  Most often you will want to set this directly.
+                </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Screen</span>
+            </dt>
+            <dd>
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">Separate To RGB, CMYK, Intensity</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Separate To RGB, CMYK, Intensity</span>:
+                  Select which colorspace you
+                  wish to operate in.  In <span class="emphasis"><em>RGB</em></span> mode, no
+                  colorspace conversion is performed. In
+                  <span class="emphasis"><em>CMYK</em></span>, the image is first
+                  internally converted to CMYK, then each colour channel is
+                  separately halftoned, before finally being
+                  recombined back to an RGB image.
+                  In <span class="emphasis"><em>Intensity</em></span> mode, the
+                  image is internally converted to grayscale,
+                  halftoned, then the result used as the alpha channel
+                  for the input image.  This is good for special
+                  effects, but requires a little experimentation to
+                  achieve best results.  Hint: try CMYK if you don't know
+                  which to go for initially.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Black Pullout (%)</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Black Pullout (%)</span> When doing
+                  RGB-&gt;CMYK conversion, how much K (black) should be used?
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Lock Channels</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Lock Channels</span>: Make channel
+                  modifications apply to all channels.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Factory Defaults</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Factory Defaults</span>: Restore the
+                  default settings which should give pleasing results.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Angle</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Angle</span>: Cell grid angle for this
+                  channel.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Spot Function</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Spot Function</span>: Spot function to
+                  be used for this channel (see preview in blue cell-boxes).
+                </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Antialiasing</span>
+            </dt>
+            <dd>
+              <p>
+            Proper halftoning does not need antialiasing: the aim is to
+            reduce the colour depth after all!  However, since this
+            plugin is mainly for special effects, the results are
+            displayed on screen rather than by a black/white printer.
+            So it is often useful to apply a little anti-aliasing to
+            simulate ink smearing on paper.  If you do want to print the
+            resulting image then set the antialising to 1 (ie, off).
+          </p>
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">Oversample</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  <span class="guilabel">Oversample</span>: Number of subpixels to
+                  sample to produce each output pixel.  Set to 1 to disable
+                  this feature.  Warning: large numbers here will lead to
+                  very long filter runtimes!
+                </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2756204"></a>8.17.3. 
+      <span lang="en" xml:lang="en">Example</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2756215"></a>
+          <p class="title">
+            <b>Figure 16.151. 
+        <span lang="en" xml:lang="en">Example for Newsprint</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/newsprint.png" alt="Example for Newsprint" />
+              <div class="caption">
+                <p>An example from plug-in author</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="plug-in-ripple.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-distort.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-whirl-pinch.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="plug-in-ripple.html">8.16. 
+    <span lang="en" xml:lang="en">Ripple</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-whirl-pinch.html">8.18. 
+    <span lang="en" xml:lang="en">Whirl and Pinch</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

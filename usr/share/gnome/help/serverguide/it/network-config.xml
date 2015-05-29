@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="networking" status="review">
+	<title>Rete</title>
+	<para>Le reti consistono in due o più dispositivi, come computer, stampanti e altri equipaggiamenti correlati, connessi tramite un cavo fisico oppure tramite collegamenti senza fili, con lo scopo di condividere e distribuire informazioni tra di loro.</para>
+  	<para>Questa sezione fornisce informazioni generali e specifiche sulle reti (creare, modificare e gestire reti), compresa una panoramica sui concetti delle reti e discussioni dettagliate dei più comuni protocolli di rete.</para>
+	<sect1 id="network-configuration" status="review">
+		<title>Configurare la rete</title>
+		<para>Ubuntu è corredato da una serie di utilità grafiche per la configurazione dei dispositivi di rete. Questa sezione è diretta agli amministratori di server e si focalizza sulla gestione della rete da riga di comando.</para>
+      <sect2 id="ethernet" status="review">
+        <title>Ethernet</title> 
+          <para>La maggior parte delle configurazioni relative alla rete Ethernet avvengono in un unico file: <filename>etc/network/interfaces</filename>. Se non vi sono dispositivi Ethernet, in quel file sarà presente la sola interfaccia di loopback e sarà simile a quanto segue:</para>
+<programlisting>
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+address 127.0.0.1
+netmask 255.0.0.0
+</programlisting>
+	  <para>Se è presente un solo dispositivo Ethernet, eth0, riceve la configurazione da un server DHCP e deve venir abilitato automaticamente all'avvio, sono richieste solo due righe aggiuntive:</para>
+<programlisting>
+auto eth0
+iface eth0 inet dhcp
+</programlisting>
+	  <para>La prima riga specifica che il dispositivo eth0 deve attivarsi all'avvio, la seconda che l'interfaccia (<quote>iface</quote>) eth0 deve avere un indirizzo di tipo IPv4 (sostituire <quote>inet</quote> con <quote>inet6</quote> per un dispositivo IPv6) e che deve ottenere la propria configurazione automaticamente da DHCP. Se il server DHCP e la rete sono configurati correttamente, non sono necessarie altre configurazioni, il server DHCP fornirà il gateway predefinito (attraverso il comando <application>route</application>), l'indirizzo IP del dispositivo (attraverso il comando <application>ifconfig</application>) e il server DNS usato nella rete (nel file <filename>/etc/resolv.conf</filename>).</para>
+	  <para>Per configurare il dispositivo Ethernet con un indirizzo IP statico, sono necessarie alcune informazioni in più. Si presuppone che si voglia assegnare l'indirizzo IP 192.168.0.2 al device eth1, con la tipica maschera di rete di 255.255.255.0 e l'indirizzo del gateway è 192.168.0.1. Bisogna inserire quindi quanto segue nel file <filename>/etc/network/interfaces</filename>:</para>
+<programlisting>
+iface eth1 inet static
+	address 192.168.0.2
+	netmask 255.255.255.0
+	gateway 192.168.0.1
+</programlisting>
+	<para>In questo caso è necessario specificare il server DNS manualmente in <filename>/etc/resolv.conf</filename>:</para>
+<programlisting>
+search miodominio.example
+nameserver 192.168.0.1
+nameserver 4.2.2.2
+</programlisting>
+	<para>La direttiva <emphasis role="italics">search</emphasis> aggiunge mydomain.example alle interrogazioni sul nome host per risolvere i nomi della propria rete. Per esempio, se il dominio della rete è mydomain.example e si prova a eseguire ping sull'host <quote>mybox</quote>, l'interrogazione DNS viene modificata in <quote>mybox.mydomain.example</quote>. Le direttive <emphasis role="italics">nameserver</emphasis> specificano quali server DNS devono essere usati per risolvere i nomi hsot in indirizzi IP. Se si utilizzano dei server dei nomi personalizzati, inserirli qui, altrimenti chiedere al proprio fornitore di servizi Internet il DNS primario e secondario e inserirli in <filename>/etc/resolv.conf</filename>.</para>
+	<para>È possibile realizzare molte altre configurazioni, incluse quelle per le interfacce PPP dialup, le reti IPv6, i dispositivi VPN, ecc..., fare riferimento a <application>man 5 interfaces</application> per maggiori informazioni e per le opzioni supportate. Notare che <filename>/etc/network/interfaces</filename> è usato dagli script <application>ifup</application>/<application>ifdown</application> come schema di configurazione a un livello più alto rispetto ad altre distribuzioni Linux e che le tradizionali utilità di livello inferiore, come <application>ifconfig</application>, <application>route</application> e <application>dhclient</application> sono sempre disponibili per una configurazione ottimale.</para>
+      </sect2>
+      <sect2 id="managing-dns-entries" status="review">
+          <title>Gestire i record DNS</title>
+            <para>Questa sezione spiega come configurare un server dei nomi da usare quando devono essere risolti gli indirizzi IP in nomi host e viceversa, non viene spiegato come configurare il sistema per usarlo come server dei nomi.</para>
+            <para>Per gestire i record DNS, è possibile aggiungere, modificare o rimuovere i nomi DNS dal file <filename>/etc/resolv.conf</filename>. Viene fornito un semplice file di esempio:</para>
+<programlisting>
+search com
+nameserver 204.11.126.131
+nameserver 64.125.134.133
+nameserver 64.125.134.132
+nameserver 208.185.179.218
+</programlisting>
+            
+            <para>Il campo <application>search</application> specifica la stringa che deve essere aggiunta a un nome host incompleto. Qui è stato configurato per essere un dominio <application>com</application>, così, eseguendo <command>ping ubuntu</command>, viene interpretato come <command>ping ubuntu.com</command>.</para> 
+
+            <para>Il campo <application>nameserver</application> specifica l'indirizzo IP del server dei nomi che viene utilizzato per risolvere gli indirizzi IP in nomi host. Questo file può avere vari server dei nomi e saranno usati dalle richieste di rete nello stesso ordine.</para>
+
+            <warning>
+            <para>Se i server dei nomi DNS sono ottenuti dinamicamente tramite DHCP o PPPoE (forniti dal proprio ISP), non aggiungere server dei nomi in questo file o verranno sovrascritti.</para>
+            </warning>
+
+        </sect2>
+        <sect2 id="managing-hosts" status="review">
+          <title>Gestione degli host</title>
+            <para>Per la gestione degli host è possibile aggiungere, modificare o rimuovere gli host dal file <filename>/etc/hosts</filename>, contenente gli indirizzi IP e il corrispondente nome host. Quando il sistema cerca di risolvere un nome host in un indirizzo IP, o determinare il nome host di un indirizzo IP, fa riferimento al file <filename>/etc/hosts</filename> prima di usare i server dei nomi. Se l'indirizzo IP è presente in <filename>/etc/hosts</filename>, i server dei nomi non vengono nemmeno usati. Questo comportamento può essere cambiato modificando il file <filename>/etc/nsswitch.conf</filename> a seconda delle proprie esigenze.</para>
+
+            <para>Se la rete comprende dei computer i cui indirizzi IP non sono elencati nel DNS, è consigliabile aggiungerli al file <filename>/etc/hosts</filename>.</para>
+        </sect2>
+
+    <sect2 id="bridging" status="review">
+      <title>Bridging</title>
+
+      <para>Il "bridging" di molteplici interfacce è una configurazione avanzata, ma utile in diversi scenari. Uno di questi scenari può consistere nel configurare un bridge con molteplici interfacce di rete e usare un firewall per filtrare il traffico tra due segmenti della rete. Un altro scenario consiste nell'usare un bridge su un sistema con una sola interfaccia per permettere alle macchine virtuali accesso diretto alla rete esterna. L'esempio che segue prende in considerazione quest'ultimo scenario.</para>
+
+      <para>Prima di configurare un bridge è necessario installare il pacchetto <application>bridge-utils</application>. In un terminale digitare:</para>
+
+<screen>
+<command>sudo apt-get install bridge-utils</command>
+</screen>
+
+      <para>Configurare il bridge modificando il file <filename>/etc/network/interfaces</filename>:</para>
+
+<programlisting>
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet static
+        address 192.168.0.10
+        network 192.168.0.0
+        netmask 255.255.255.0
+        broadcast 192.168.0.255
+        gateway 192.168.0.1
+        bridge_ports eth0
+        bridge_fd 9
+        bridge_hello 2
+        bridge_maxage 12
+        bridge_stp off
+</programlisting>
+
+      <note>
+        <para>Inserire i valori appropriati per la propria interfaccia di rete.</para>
+      </note>
+
+      <para>Riavviare la rete per abilitare il bridge sull'interfaccia:</para>
+
+<screen>
+<command>sudo /etc/init.d/networking restart</command>
+</screen>
+
+    <para>Se si sta configurando un'interfaccia "bridge" usando la Ubuntu Desktop Edition oppure se <application>dhcdbd</application> è installato, il demone <application>dhcdbd</application> deve essere fermato e disabilitato.</para>
+
+    <para>Dopo aver configurato il "bridge" in <filename>/etc/network/interfaces</filename>, arrestare <application>dhcdbd</application>:</para>
+
+<screen>
+<command>sudo /etc/init.d/dhcdbd stop</command>
+</screen>
+
+    <para>Per fare in modo che non venga lanciato all'avvio, digitare:</para>
+
+<screen>
+<command>sudo update-rc.d -f dhcdbd remove</command>
+</screen>
+
+        <para>La nuova interfaccia dovrebbe ora essere funzionante. L'applicazione <application>brctl</application> fornisce utili informazioni riguardo lo stato del bridge, controlla le interfacce che compongono il bridge, ecc... Per maggiori informazioni, consultare la pagina di manuale: <command>man brctl</command>.</para>
+
+      </sect2>
+      <sect2 id="network-config-resources" status="review">
+        <title>Risorse</title>
+    
+        <para>
+        
+        </para>
+
+        <itemizedlist>
+          <listitem>
+            <para>La <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/interfaces.5.html">pagina man di interafaces</ulink> dispone di ulteriori informazioni sulle opzioni per <filename>/etc/network/interfaces</filename>.</para>
+          </listitem>
+          <listitem>
+            <para>Per maggiori informazioni riguardo la configurazione DNS dei client, consultare la <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/resolver.5.html">pagina man di resolver</ulink>. Anche il capitolo 6 del libro <ulink url="http://oreilly.com/catalog/linag2/book/ch06.html">Linux Network Administrator's Guide</ulink> è un'ottima fonte di informazioni per configurazioni DNS.</para>
+          </listitem>
+          <listitem>
+            <para>Per maggiori informazioni riguardo il <emphasis>bridging</emphasis>, consultare la <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/brctl.8.html">pagina man di brctl</ulink> e la pagina riguardo <ulink url="http://www.linuxfoundation.org/en/Net:Bridge">Net:Bridge</ulink> della Linux Foundation.</para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+    </sect1>
+	<sect1 id="tcpip" status="review">
+		<title>TCP/IP</title>
+          <para>Il protocollo TCP/IP (Transmission Control Protocol e Internet Protocol) è un insieme standard di protocolli sviluppato nella seconda metà degli anni '70 dalla DARPA (Defence Advanced Research Project Agency) con lo scopo di permettere la comunicazione tra diversi tipi di computer e di reti di computer. TCP/IP è il motore di Internet, ecco perché è l'insieme di protocolli di rete più diffuso al mondo.</para>
+      <sect2 id="tcpip-introduction" status="review">
+        <title>Introduzione a TCP/IP</title> 
+          <para>I due protocolli che compongono TCP/IP, interagiscono con differenti aspetti di una rete. L'<emphasis>Internet Protocol</emphasis>, la parte "IP" di TCP/IP, è un protocollo privo di connessione che interagisce solamente con il routing dei pacchetti attraverso la rete, usando l'<emphasis role="italics">IP Datagram</emphasis> come unità di base delle informazioni che consiste in un'intestazione seguita da un messaggio. Il <emphasis>Transmission Control Protocol</emphasis>, la parte "TCP" di TCP/IP, consente agli host della rete di stabilire le connessioni che possono essere usate per scambiare dati. Inoltre, garantisce che i dati tra le connessioni siano consegnati correttamente e nello stesso ordine in cui sono stati inviati.</para>
+          </sect2>
+        <sect2 id="tcpip-configuration" status="review">
+          <title>Configurazione di TCP/IP</title>
+            <para>La configurazione del protocollo TCP/IP è composta da vari elementi che debbono essere impostati modificando gli appropriati file di configurazione oppure adottando soluzioni quali un server DHCP (Dynamic Host Configuration Protocol); tale server provvede ad assegnare automaticamente le corrette impostazioni di configurazione TCP/IP ai client della rete. Questi valori di configurazione debbono essere impostati correttamente per consentire al sistema Ubuntu di operare adeguatamente in rete.</para>
+            <para>I tipici elementi di configurazione di TCP/IP e i loro scopi sono i seguenti: <itemizedlist>
+               <listitem>
+                  <para><emphasis role="bold">Indirizzo IP</emphasis>: l'indirizzo IP è una stringa d'identificazione unica, espressa da quattro numeri decimali compresi tra zero (0) e duecentocinquantacinque (255), separati da punti; ciascuno dei quattro numeri rappresenta otto (8) bit dell'indirizzo per una lunghezza totale di trentadue (32) bit per l'indirizzo completo. Questo formato è detto <emphasis>notazione decimale a punti</emphasis>.</para>
+               </listitem>
+               <listitem>
+                  <para><emphasis role="bold">Maschera di rete</emphasis>: la maschera di rete (o semplicemente <emphasis>netmask</emphasis>) è una maschera locale di bit, ovvero un insieme di indicatori che separano la porzione di un indirizzo IP che indica la rete dai bit che indicano la <emphasis>sotto-rete</emphasis>. Ad esempio, in una rete di classe C, la maschera di rete standard è 255.255.255.0 che serve a mascherare i primi tre byte dell'indirizzo IP, consentendo all'ultimo byte dell'indirizzo IP di essere disponibile per specificare gli host della sotto-rete.</para>
+               </listitem>
+               <listitem>
+                  <para><emphasis role="bold">Indirizzo di rete</emphasis>: l'indirizzo di rete è dato dai byte che comprendono la parte di rete di un indirizzo IP. Per esempio, l'host 12.128.1.2 in una rete di classe A deve usare 12.0.0.0 come indirizzo di rete, dove dodici (12) è il primo byte dell'indirizzo IP (la parte di rete), e gli zeri (0) nei rimanenti tre byte indicano tutti i possibili valori degli host. Un host di rete che ha un indirizzo IP 192.168.1.100 deve invece usare un indirizzo di rete di 192.168.1.0, nel quale i primi tre byte specificano la rete di classe C 192.168.2 e lo zero (0) per tutti i possibili valori degli host nella rete.</para>
+               </listitem>
+               <listitem>
+                  <para><emphasis role="bold">Indirizzo di broadcast</emphasis>: l'indirizzo di broadcast è un indirizzo IP che permette di inviare dei dati di rete simultaneamente a tutti gli host di una data sotto-rete piuttosto che a uno specifico host. L'indirizzo broadcast generale di base per una rete IP è 255.255.255.255, ma questo indirizzo broadcast non può essere usato per inviare un messaggio broadcast a tutti gli host presenti in internet perché i router lo bloccherebbero. Un indirizzo di broadcast appropriato è quello che indica una specifica sotto-rete. Per esempio, in una rete privata di classe C, 192.168.1.0, l'indirizzo broadcast è 192.168.1.255. I messaggi broadcast sono di norma prodotti dai protocolli di rete come il protocollo per la risoluzione degli indirizzi (ARP, Address Resolution Protocol) e il protocollo delle informazioni di instradamento (RIP, Routing Information Protocol).</para>
+               </listitem>
+               <listitem>
+                  <para><emphasis role="bold">Indirizzo del gateway</emphasis>: l'indirizzo del gateway è l'indirizzo IP attraverso il quale una particolare rete, o un host su una rete, può essere raggiunta. Se un host di rete desidera comunicare con un altro host di rete, senza essere localizzato nelle stessa rete, allora deve essere usato un <emphasis>gateway</emphasis>. In molti casi l'indirizzo del gateway coincide con quello di un router della medesima rete che ha il compito di far transitare il traffico ad altre reti o host, come Internet. L'impostazione del valore dell'indirizzo del gateway deve essere corretta, altrimenti il sistema non è in grado di raggiungere gli host che non si trovano sulla rete cui appartiene.</para>
+               </listitem>
+               <listitem>
+                  <para><emphasis role="bold">Indirizzo del server dei nomi</emphasis>: l'indirizzo del server dei nomi rappresenta l'indirizzo IP del sistema DNS (Domain Name Service) che traduce il nome host della rete in un indirizzo IP reale. Esistono tre livelli di indirizzo del server dei nomi che possono essere specificati in ordine di precedenza: il server dei nomi <emphasis>primario</emphasis>, quello <emphasis>secondario</emphasis> e il <emphasis>terziario</emphasis>. Affinché il sistema possa tradurre i nomi host in indirizzi IP, è necessario specificare degli indirizzi validi per i server dei nomi che è possibile utilizzare all'interno della configurazione TCP/IP del sistema. Nella maggior parte dei casi, questi indirizzi vengono forniti dal proprio fornitore di servizio Internet, ma ne sono disponibili anche di gratuiti e liberamente utilizzabili, come i server di terzo livello di Verizon con indirizzi IP da 4.2.2.1 a 4.2.2.6.</para>
+                     <tip>
+                        <para>Gli indirizzi IP, le maschere di rete, gli indirizzi di rete, gli indirizzi di broadcast e gli indirizzi di gateway sono tipicamente determinati attraverso appropriate direttive nel file <filename>/etc/network/interfaces</filename>. Gli indirizzi di server dei nomi sono tipicamente specificati attraverso le direttive <emphasis>nameserver</emphasis> nel file <filename>/etc/resolv.conf</filename>. Per maggiori informazioni, consultare rispettivamente le pagine di manuale di sistema per <filename>interfaces</filename> e <filename>resolv.conf</filename>, usando i seguenti comandi da digitare al prompt di un terminale:</para>
+                     </tip>
+                    <para>Accedere alla pagina di manuale di sistema per <filename>interfaces</filename> con il seguente comando:</para>
+                    <para>
+<screen>
+<command>man interfaces</command>
+</screen>
+                    </para>
+                    <para>Accedere alla pagina di manuale di sistema per <filename>resolv.conf</filename> con il seguente comando:</para>
+                    <para>
+<screen><command>man resolv.conf</command></screen>
+                    </para>
+               </listitem>
+            </itemizedlist></para>
+        </sect2>
+        <sect2 id="ip-routing" status="review">
+          <title>Instradamento IP</title>
+            <para>L'instradamento IP è un modo per indicare e scoprire percorsi in una rete TCP/IP attraverso i quali inviare dati. L'instradamento utilizza un insieme di <emphasis>tabelle di instradamento (routing)</emphasis> per dirigere i pacchetti di dati in una rete dalla loro sorgente avanti fino alla destinazione, spesso attraverso molti nodi di rete intermediari chiamati <emphasis>router</emphasis>. Esistono due forme primarie di instradamento IP: l'<emphasis>instradamento statico</emphasis> e l'<emphasis>instradamento dinamico</emphasis>.</para>
+            <para>L'instradamento statico comporta l'aggiunta manuale di rotte IP nella tabella di instradamento del sistema, attività che viene fatta modificando la tabella di instradamento con il comando <application>route</application>. L'instradamento statico presenta molti vantaggi rispetto quello dinamico, come la semplicità di implementazione per piccole reti, la predicibilità (la tabella di instradamento è scritta a priori, quindi la rotta è sempre la stessa ogni volta che viene utilizzata) e il basso carico di lavoro sugli altri router e nodi di rete dovuto all'assenza di un protocollo di instradamento dinamico. In ogni caso, l'instradamento statico presenta anche degli svantaggi. Per esempio, è limitato a piccole reti e non è facilmente espandibile. L'instradamento statico fallisce completamente se si prova ad adattarlo ai ritardi della rete e le perdite lungo la rotta per la natura statica della rotta stessa.</para>
+            <para>L'instradamento dinamico serve nelle grandi reti con molte possibili rotte IP tra una sorgente e una destinazione. Fa uso di protocolli di instradamento speciali, come il protocollo di informazione dell'instradamento (RIP, Router Information Protocol) che gestisce le correzioni automatiche nella tabella di instradamento rendendo possibile l'instradamento dinamico. Ci sono molti vantaggi rispetto l'instradamento statico, come l'adattamento alle dimensioni superiori e l'abilità di adattarsi agli errori e alle perdite lungo le rotte della rete. Inoltre, necessita di una minore configurazione manuale delle tabelle di instradamento, dato che i router comunicano tra di loro la relativa esistenza e le possibili rotte. Questo tratto caratteristico elimina anche la possibilità di introdurre inesattezze nelle tabelle di instradamento causate da errori umani. In ogni caso, l'instradamento dinamico non è perfetto e presenta alcuni svantaggi come, l'aumento della complessità e del carico di lavoro dovuto alle comunicazioni dei router della rete, dei quali non può beneficiare subito l'utente finale che comunque consuma banda di rete.</para>
+        </sect2>
+        <sect2 id="tcp-and-udp" status="review">
+          <title>TCP e UDP</title>
+            <para>TCP è un protocollo basato sulla connessione, che offre correzione d'errore e che garantisce la consegna dei dati attraverso ciò che è conosciuto come <emphasis>controllo di flusso</emphasis>. Il controllo di flusso determina quando il flusso di uno stream di dati debba essere fermato e i pacchetti di dati inviati in precedenza debbano essere reinviati a causa di problemi come <emphasis>collisioni</emphasis>, assicurando quindi la completa e accurata consegna dei dati. TCP è tipicamente usato nello scambio di informazioni importanti come transazioni di database.</para>
+            <para>UDP (User Datagram Protocol), al contrario, è un protocollo <emphasis>senza connessione</emphasis> che raramente tratta della trasmissione dei dati importanti a causa della mancanza del controllo di flusso o di un altro metodo che garantisca la consegna affidabile dei dati. UDP è normalmente usato in applicazioni come lo streaming audio e video, in cui risulta considerevolmente più veloce del protocollo TCP, data la mancanza di correzione d'errore e del controllo di flusso, e in cui la perdita di alcuni pacchetti non è generalmente un evento catastrofico.</para>
+        </sect2>
+        <sect2 id="icmp" status="review">
+          <title>ICPM</title>
+            <para>ICMP (Internet Control Messaging Protocol) è un'estensione di IP (Internet Protocol), come definito nell'RFC (Request For Comments) numero 792; ICPM supporta pacchetti di rete contenenti  messaggi di controllo, di errore e di informazione. ICMP è usato da applicazioni di rete come l'utilità <application>ping</application>, che consente di determinare la disponibilità di un host o un'interfaccia di rete. Esempi di alcuni dei messaggi di errore restituiti da ICMP utili sia agli host e interfacce di rete che ai router sono <emphasis>Destination Unreachable</emphasis> e <emphasis>Time Exceeded</emphasis>.</para>
+        </sect2>
+        <sect2 id="daemons" status="review">
+          <title>Demoni</title>
+            <para>I demoni sono speciali applicazioni di sistema che, tipicamente, sono in continua esecuzione sullo sfondo, attendendo dagli altri programmi richieste relative a funzioni da essi fornite. Molti demoni hanno a che fare con la rete e molti di questi in esecuzione sullo sfondo nei sistemi Ubuntu forniscono delle funzionalità legate alla rete. Alcuni esempi di questi demoni di rete includono <emphasis>httpd</emphasis> (Hyper Text Transport Protocol Daemon), che fornisce funzionalità di server web; <emphasis>sshd</emphasis> (Secure SHell Daemon), che fornisce funzionalità di login e trasferimento file sicuro da remoto; <emphasis>imapd</emphasis> (Internet Message Access Protocol Daemon), che fornisce servizi di email.</para>
+        </sect2>
+        <sect2 id="tcpip-resources" status="review">
+          <title>Risorse</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>Utili informazioni sono disponibili anche attraverso le pagine man di <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man7/tcp.7.html">TCP</ulink> e <ulink url="http://manpages.ubuntu.com/manpages/jaunty/man7/ip.7.html">IP</ulink>.</para>
+            </listitem>
+            <listitem>
+              <para>Inoltre, consultare il RedBook di IBM: <ulink url="http://www.redbooks.ibm.com/abstracts/gg243376.html">TCP/IP Tutorial and Technical Overview</ulink>.</para>
+            </listitem>
+            <listitem>
+              <para>Un'altra utile risorsa è il libro <ulink url="http://oreilly.com/catalog/9780596002978/">TCP/IP Network Administration</ulink>.</para>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+    </sect1>
+
+	<sect1 id="dhcp" status="review">
+		<title>DHCP (Dynamic Host Configuration Protocol)</title>
+            <para>Il DHCP (Dynamic Host Configuration Protocol) è un servizio di rete che consente di assegnare automaticamente le impostazioni per agli host da un server, senza la necessità di dover configurare manualmente ogni singolo host nella rete. I computer configurati per essere client DHCP non hanno alcun controllo sulle impostazioni che ricevono dal server DHCP e la configurazione è trasparente all'utente del computer.</para>
+            <para>Le impostazioni comuni fornite da un server DHCP a un client includono:</para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para>Indirizzo IP e maschera di rete</para>
+                </listitem>
+                <listitem>
+                    <para>DNS</para>
+                </listitem>
+                <listitem>
+                    <para>WINS</para>
+                </listitem>
+            </itemizedlist>
+            <para>Un server DHCP può fornire anche altre proprietà di configurazione come:</para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para>Nome dell'host</para>
+                </listitem>
+                <listitem>
+                    <para>Nome del dominio</para>
+                </listitem>
+                <listitem>
+                    <para>Gateway predefinito</para>
+                </listitem>
+                <listitem>
+                    <para>Server NTP (Network Time Protocol)</para>
+                </listitem>
+                <listitem>
+                    <para>Server di stampa</para>
+                </listitem>
+            </itemizedlist>
+            <para>Il vantaggio di utilizzare DHCP è che i cambiamenti apportati alla rete, per esempio una modifica dell'indirizzo del server DNS, devono essere apportati solamente al server DHCP, mentre tutti gli host della rete vengono riconfigurati quando i client DHCP interrogano il server DHCP. Come ulteriore vantaggio, risulta anche molto semplice integrare nuovi computer nella rete, senza la necessità di controllare la disponibilità di un indirizzo IP. I conflitti nell'allocazione degli indirizzi IP sono quindi notevolmente ridotti.</para>
+            <para>Le impostazioni di configurazione sono fornite da un server DHCP usando due metodi:</para>
+            <variablelist>
+                <varlistentry>
+                    <term>Indirizzo MAC</term>
+                    <listitem>
+                        <para>Questo metodo comporta l'utilizzo di DHCP per identificare l'indirizzo hardware univoco di ogni scheda di rete collegata alla rete, così da fornire in modo continuato una configurazione costante ogni volta che il client DHCP avanza una richiesta al server DHCP usando quel particolare dispositivo di rete.</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Spazio degli indirizzi</term>
+                    <listitem>
+                        <para>Questo metodo comporta la definizione di un insieme o intervallo di indirizzi IP (a volte indicati come pool) con cui configurare dinamicamente i client DHCP in base all'ordine di arrivo delle richieste (la prima che arriva è la prima servita, disciplina FIFO). Dopo un determinato periodo, se il client DHCP non è presente in rete, la configurazione scade e viene reinserita nello spazio di indirizzi per poter essere riutilizzata.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+            <para>Ubuntu comprende sia un server che un client DHCP. Il server è <application>dhcpd</application> (dynamic host configuration protocol daemon). Il client fornito è <application>dhclient</application> e dovrebbe essere installato su tutti i computer che necessitano di essere configurati automaticamente. Entrambi i programmi sono facili da installare e da configurare e vengono lanciati automaticamente all'avvio del sistema.</para>
+      <sect2 id="dhcp-installation" status="review">
+        <title>Installazione</title>
+          <para>A un prompt di terminale, inserire il seguente comando per installare <application>dhcpd</application>:</para>
+<screen>
+<command>sudo apt-get install dhcp3-server</command>
+</screen>
+          <para>È necessario modificare il file /etc/dhcp3/dhcpd.conf secondo le proprie necessità e per avere una configurazione particolare.</para>
+          <para>È inoltre necessario modificare il file /etc/default/dhcp3-server per specificare le interfacce su cui stare in ascolto. Di base è impostata l'interfaccia eth0.</para>
+          <para>I messaggi di dhcpd vengono inviati nel syslog, consultare quindi i relativi messaggi per quelli di diagnostica.</para>
+      </sect2>
+      <sect2 id="dhcp-configuration" status="review">
+        <title>Configurazione</title>
+            <para>Il messaggio di errore con cui si conclude l'installazione potrebbe essere fuorviante, ma i passi seguenti consentono di configurare il servizio.</para>
+            <para>Nella maggior parte dei casi si vuole assegnare un indirizzo IP  in modo casuale. Questo può essere ottenuto con impostazioni come le seguenti:</para>
+<programlisting>
+# Sample /etc/dhcpd.conf
+# (add your comments here) 
+default-lease-time 600;
+max-lease-time 7200;
+option subnet-mask 255.255.255.0;
+option broadcast-address 192.168.1.255;
+option routers 192.168.1.254;
+option domain-name-servers 192.168.1.1, 192.168.1.2;
+option domain-name "miodominio.example";
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.10 192.168.1.100;
+range 192.168.1.150 192.168.1.200;
+} 
+</programlisting>
+            <para>Come risultato si ottiene che il server DHCP fornisce a un client un indirizzo IP nell'intervallo 192.168.1.10 ~ 192.168.1.100 oppure 192.168.1.150 ~ 192.168.1.200. Se il client non richiede uno specifico intervallo di tempo, la durata di "affitto" di un indirizzo IP è di 600 secondi; in caso contrario il valore massimo (consentito) è di 7200 secondi. Il server inoltre "avvisa" il client di utilizzare 255.255.255.0 come maschera di sottorete, 192.168.1.255 come indirizzo di broadcast, 192.168.1.254 come gateway e 192.168.1.1 e 192.168.1.2 come server DNS.</para>
+            <para>Se è necessario specificare un server WINS per i client Windows, è necessario includere l'opzione netbios-name-servers, per esempio</para>
+<programlisting>
+option netbios-name-servers 192.168.1.1; 
+</programlisting>
+            <para>Le impostazioni di configurazione per dhcpd sono prese dal mini-HOWTO di DHCP, il quale può essere trovato <ulink url="http://www.tldp.org/HOWTO/DHCP/index.html">qui</ulink>.</para>
+      </sect2>
+      <sect2 id="dhcp-references" status="review">
+        <title>Riferimenti</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>Per ulteriori informazioni sulle opzioni di <filename>/etc/dhcp3/dchpd.conf</filename>, consultare la <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/dhcpd.conf.5.html">pagina man di dhcpd.conf</ulink>.</para>
+            </listitem>
+            <listitem>
+              <para>Inoltre consultare le <ulink url="http://www.dhcp-handbook.com/dhcp_faq.html">DHCP FAQ</ulink></para>
+            </listitem>
+          </itemizedlist>
+
+      </sect2>
+    </sect1>
+
+	<sect1 id="NTP" status="review">
+		<title>Sincronizzazione del tempo con NTP</title>
+	<para>Questa sezione descrive i metodi per mantenere l'ora esatta del proprio computer, utile per i server, ma non necessario (o desiderabile) per computer desktop.</para>
+	<para>NTP è un protocollo TCP/IP per sincronizzare l'ora attraverso la rete: un client richiede l'ora corrente a un server e usa questa per impostare il proprio orologio.</para>
+	<para>Oltre questa semplice descrizione, c'è molta complessità. Esistono diversi livelli di server NTP, con i server di primo livello collegati a orologi atomici (solitamente via GPS) e i server dei livelli due e tre che dividono il carico delle richieste attraverso Internet. Inoltre, il software dei client è molto più complesso di quanto si possa immaginare: deve gestire i ritardi nella comunicazione e regolare l'ora in modo da non compromettere tutti i processi in esecuzione sul server.</para>
+	<para>Ubuntu ha due metodi per impostare automaticamente l'orologio: ntpdate e ntpd.</para>
+
+<sect2 id="ntpdate" status="review">
+<title>ntpdate</title>
+	<para>Ubuntu dispone di ntpdate come programma predefinito e viene eseguito all'avvio per impostare l'ora in base al server NTP di Ubuntu. L'orologio di un server, comunque, può deviare considerevolmente tra un avvio e l'altro ed è quindi utile occasionalmente correggerne l'orario. Il metodo più semplice per fare questo è quello di eseguire ntpdate attraverso cron ogni giorno. Con un editor di testo, come utente root, creare il file <code>/etc/cron.daily/ntpdate</code> e aggiungervi:</para>
+<screen>ntpdate ntp.ubuntu.com
+</screen>
+<para>Il file <code>/etc/cron.daily/ntpdate</code> deve essere eseguibile.</para>
+<screen>sudo chmod 755 /etc/cron.daily/ntpdate
+</screen>
+</sect2>
+      <sect2 id="ntpd" status="review">
+<title>ntpd</title>
+	<para>ntpdate è uno strumento abbastanza semplice, può regolare l'ora una sola volta al giorno in un'unica modifica, mentre il demone di ntp (ntpd) è molto più raffinato. Calcola lo spostamento dell'orologio del proprio sistema e lo regola continuamente, così non ci sono mai grandi modifiche che possono portare a file di registro inconsistenti. Il costo di questo è un leggero uso di processore e memoria, ma trascurabili per un server moderno.</para>
+<para>Per usare ntpd:</para>
+<screen>sudo apt-get install ntp
+</screen>
+<para/>
+</sect2>
+<sect2 id="timeservers" status="review">
+<title>Modificare i server NTP</title>
+	<para>In entrambi i casi, il sistema userà il server NTP di Ubuntu <code>ntp.ubuntu.com</code>. Questo è sufficiente, ma potrebbe esser necessario utilizzare più server per aumentare l'accuratezza e la capacità di recupero o per usare un server nel proprio fuso orario. Per fare questo con ntpdate, modificare il contenuto del file <code>/etc/cron.daily/ntpdate</code> in:</para>
+<screen>ntpdate ntp.ubuntu.com pool.ntp.org 
+</screen>
+	<para>Per ntpd, modificare il file <code>/etc/ntp.conf</code> per aggiungere altri server:</para>
+<screen>server ntp.ubuntu.com
+server pool.ntp.org
+</screen>
+	<para>Nell'esempio precedente, è stato inserito <code>pool.ntp.org</code>, un'ottima soluzione che usa il metodo round-robin DNS per scegliere un server da un gruppo di server, dividendone il carico. Per migliorare ancora ci sono gruppi per differenti regioni. Per esempio, per l'Italia è possibile usare <code>it.pool.ntp.org</code> al posto di <code>pool.ntp.org</code>. Per maggiori informazioni, consultare il sito web <ulink url="http://www.pool.ntp.org/">http://www.pool.ntp.org/</ulink>.</para>
+	<para>È possibile anche cercare con Google dei server NTP all'interno del proprio fuso orario e aggiungerli nella configurazione. Per verificare se un server funziona, basta digitare <code>sudo ntpdate ntp.nome.server</code> e vedere cosa succede.</para>
+<para/>
+</sect2>
+	<sect2 id="relatedpages" status="review">
+<title>Pagine correlate</title>
+	<itemizedlist>
+	<listitem>
+	<para>
+<ulink url="http://ntp.isc.org/bin/view/Support/WebHome">Supporto NTP</ulink>
+</para>
+</listitem>
+	<listitem>
+	<para>
+<ulink url="http://www.ntp.org/ntpfaq/NTP-a-faq.htm">FAQ e HOWTO per NTP</ulink>
+</para>
+</listitem>
+</itemizedlist>
+<para/>
+</sect2>
+    </sect1>
+</chapter>

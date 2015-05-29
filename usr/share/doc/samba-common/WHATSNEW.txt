@@ -1,0 +1,103 @@
+                   =============================
+                   Release Notes for Samba 3.3.2
+			   March, 12 2009
+                   =============================
+
+This is the latest bugfix release release of the Samba 3.3 series.
+
+Major enhancements in Samba 3.3.2 include:
+
+     * Fix "force group" (bug #6155).
+     * Fix saving of files on Samba share using MS Office 2007 (bug #6160).
+     * Fix guest authentication in setups with "security = share" and
+      "guest ok = yes" when Winbind is running.
+     * Fix corruptions of source path in tar mode of smbclient (bug #6161).
+
+
+######################################################################
+Changes
+#######
+
+
+Changes since 3.3.1:
+--------------------
+
+
+o   Jeremy Allison <jra@samba.org>
+    * BUG 6082: Fix renaming and deleting of directories using Windows clients.
+    * BUG 6154: Make ZFS honor admin users.
+    * BUG 6155: Fix "force group".
+    * BUG 6160: Fix saving of files on Samba share using MS Office 2007.
+    * BUG 6161: Fix corruptions of source path in tar mode of smbclient.
+    * Fix some NetBSD warnings.
+    * Fix bug in processing of open modes in POSIX open.
+    * Fix use of streams modules with CIFSFS client.
+    * Ensure ACL modules work with POSIX paths.
+    * Use fsp->posix_open in preference if we have it.
+    * Fix more POSIX path lstat calls.
+
+
+o   Andrew Tridgell <tridge@samba.org>
+    * Fix a bug in message handling for the change notify code.
+
+
+o   Steven Danneman <steven.danneman@isilon.com>
+    * Fix guest authentication in setups with "security = share" and "guest ok =
+      yes" when Winbind is running.
+
+
+o   Steve French <smfrench@gmail.com>
+    * BUG 4640: Fix guest mounts in mount.cifs.
+    * Fix displaying the version string properly when no other parameters passed
+      in in mount.cifs.
+
+
+o   Björn Jacke <bj@sernet.de>
+    * Prefer gssapi header files from subdirectory.
+
+
+o   Volker Lendecke <vl@samba.org>
+    * BUG 6124: Fix the build on IRIX.
+    * BUG 6176: winbindd -n should disable the winbind idmap cache.
+    * Add a vfs_preopen module to hide fs latencies.
+    * Don't log NDR_PRINT_DEBUG at level 0, this always ends up in syslog.
+    * Fix a valgrind error / segfault in dns_register_smbd().
+
+
+o   Stefan Metzmacher <metze@samba.org>
+    * Fix build on SLES8.
+    * Decremented by 1 for ntcancel requests.
+
+
+o   Tim Prouty <tprouty@samba.org>
+    * Fix creation of core files.
+
+
+o   Dan Sledz <dan.sledz@isilon.com>
+    * Fix first mapping of uids/gids in Winbind.
+
+
+o   Bo Yang <boyang@novell.com>
+    * Initialize the id_map status in idmap_ldap to avoid surprise.
+    * Fix initialization of idmap status.
+
+
+######################################################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 3.3 product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+

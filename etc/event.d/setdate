@@ -1,0 +1,16 @@
+# setdate
+# Sets date to something reasonable on boot
+
+start on stopped rc2
+
+script
+
+NODATE=19700101
+DEFDATE=20090901
+
+NOWDATE=`date +"%Y%m%d"`
+if [ $NOWDATE -eq $NODATE ] ; then
+	date --set $DEFDATE
+fi
+
+end script

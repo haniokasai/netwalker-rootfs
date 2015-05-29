@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "en">
+<!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+<!ENTITY gnome-partition-editor '<application>GNOME Partition Editor</application>'>
+]>
+
+<?db.chunk.max_depth 2?>
+<?yelp:chunk-depth 2?>
+
+<article lang="&language;" id="hardware">
+	<articleinfo>
+		<title>Working with Hardware Devices</title>
+    	&legalnotice;
+	</articleinfo>
+	<para>Your computer consists of a number of connected devices, which are collectively known as computer <emphasis>hardware</emphasis>.</para>
+	<para>Ubuntu normally configures your hardware automatically, but there may be occasions when you need to make changes to hardware settings yourself. This section provides information on tools which can be used to configure your hardware.</para>
+	<sect1 id="restricted-manager" status="review">
+		<title>Restricted drivers</title>
+		<para>Some devices attached to your computer may need restricted drivers to be installed in order to work properly.</para>
+		<sect2 id="restrictedmanager-whyrestricted" status="review">
+			<title>Why are some drivers restricted?</title>
+			<para><emphasis>Restricted drivers are drivers for your hardware which are not freely available or open-source.</emphasis></para>
+			<para>Most of the devices (hardware) attached to your computer should function properly in Ubuntu. These devices are likely to have <emphasis>unrestricted</emphasis> drivers, which means that the drivers can be modified by the Ubuntu developers and problems with them can be fixed.</para>
+			<para>Some hardware does not have unrestricted drivers, usually because the hardware manufacturer has not released details of their hardware which would make it possible to create such a driver. These devices may have limited functionality or may not work at all.</para>
+			<para>If a <emphasis>restricted driver</emphasis> is available for a certain device, you can install it in order to allow your device to function properly, or to add new features. For example, installing a restricted driver for certain graphics cards may allow you to use more advanced <ulink type='help' url='ghelp:desktop-effects'>visual effects</ulink>.</para>
+			<para>Some computers may not have any devices which can use restricted drivers, either because all of the devices are fully supported by unrestricted drivers or because no restricted drivers are yet available for the device.</para>
+			<caution>
+				<para>Restricted drivers are often maintained by the hardware manufacturer, and so cannot be modified by Ubuntu developers if there is a problem.</para>
+			</caution>
+		</sect2>
+		<sect2 id="restrictedmanager-enable" status="review">
+			<title>Enabling a restricted driver</title>
+			<para>To use a restricted driver for a device:</para>
+			<procedure>
+				<step>
+					<para>Press &restricted-manager;</para>
+				</step>
+				<step>
+					<para>Find the driver which you would like to enable and check the box in the <guilabel>Enabled</guilabel> column, next to its name</para>
+				</step>
+				<step>
+					<para>You will be asked to confirm that you want to enable the driver. Press <guibutton>Enable Driver</guibutton></para>
+				</step>
+				<step>
+					<para>The restricted driver may have to be downloaded and installed</para>
+				</step>
+				<step>
+					<para>You may need to restart your computer to finish enabling the driver</para>
+				</step>
+			</procedure>
+		</sect2>
+		<sect2 id="restrictedmanager-disable" status="review">
+			<title>Disabling a restricted driver</title>
+			<para>If a restricted driver is causing problems, or you would just like to turn it off, follow the procedure below:</para>
+			<procedure>
+				<step>
+					<para>Press &restricted-manager;</para>
+				</step>
+				<step>
+					<para>Find the driver which you would like to disable and uncheck the box in the <guilabel>Enabled</guilabel> column, next to its name</para>
+				</step>
+				<step>
+					<para>You will be asked to confirm that you would like to disable the driver. Press <guibutton>Disable Driver</guibutton></para>
+				</step>
+				<step>
+					<para>You may need to restart your computer to finish disabling the driver</para>
+				</step>
+			</procedure>
+		</sect2>
+	</sect1>
+	
+	<sect1 id="disks" status="review">
+	  <title>Disks and partitions</title>
+	  <para>This section provides instructions on how to handle disks and drives, such as removable hard disks.</para>
+
+	  <indexterm zone="partitioning-device">
+	    <primary>partition</primary>
+	    <secondary>partitions</secondary>
+	  </indexterm>
+
+	  <indexterm zone="partitioning-device">
+	    <primary>partitioning</primary>
+	  </indexterm>
+
+	  <indexterm zone="partition-formatting">
+	    <primary>format</primary>
+	    <secondary>formatting</secondary>
+	  </indexterm>
+
+	  <indexterm zone="mount-and-umount">
+	    <primary>mount</primary>
+	  </indexterm>
+
+	  <indexterm zone="mount-and-umount">
+	    <primary>unmount</primary>
+	    <secondary>umount</secondary>
+	  </indexterm>
+
+	  <indexterm zone="what-is-filesystem">
+	    <primary>filesystem</primary>
+	    <secondary>file system</secondary>
+	  </indexterm>
+
+	<sect2 id="checking-usage" status="review">
+        <title>Checking how much disk space is available</title>
+        <para>
+        Click &system-monitor; and select the <guilabel>File Systems</guilabel> 
+        tab to see how much hard disk space is available on your computer.
+        </para>
+        <para>
+        Alternatively, click &computer;, right-click a hard disk, click 
+        <guilabel>Properties</guilabel> and select the 
+        <guilabel>Basic</guilabel> tab to see a summary of the disk space 
+        currently available on that disk.
+        </para>
+	    
+	    <sect3 id="advanced-disk-analysis" status="review">
+	      <title>Advanced disk-usage analysis</title>
+	      <para>
+		For a more accurate analysis of your filesystem, press &baobab; to start the
+		<application>Disk Usage Analyzer</application>.
+	      </para>
+	      <para>
+		Press <guibutton>Scan Home</guibutton> to scan your home directory, or press <guibutton>Scan Filesystem</guibutton> 
+		to scan the whole filesystem.
+	      </para>
+	      <para>
+		See the <ulink url="ghelp:baobab" type="help">Disk Usage
+		  Analyzer Manual</ulink> for more information.
+	      </para>
+	    </sect3>
+	  </sect2>
+
+    <sect2 id="free-disk-space" status="review">
+    <title>How can I free-up some disk space?</title>
+    <para>
+    There are several simple ways of making more disk space available:
+    </para>
+
+    <itemizedlist>
+        <listitem>
+        <para>
+        Empty your trash by right-clicking the Trash icon on the bottom panel 
+        and selecting <guilabel>Empty the Trash folder</guilabel>.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        <ulink url="apt:computer-janitor-gtk">Install <application>Computer Janitor</application></ulink> 
+        and run it by clicking &computer-janitor;. This will remove unused or 
+        obsolete software packages from your computer. Read the list of 
+        packages carefully before you click <guibutton>Cleanup</guibutton>; 
+        packages that you have manually downloaded and installed may be listed 
+        as unused, even though they are not.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        Remove software packages that you no longer use. See 
+        <ulink type="help" url="ghelp:add-applications#gnome-app-install">
+        Add/Remove Applications</ulink> for information on removing packages.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        Delete files that you no longer need. You can use the Disk Usage 
+        Analyzer (&baobab;) to find which files are taking up the most space. 
+        Be careful not to delete files that you still need!
+        </para>
+        </listitem>
+    </itemizedlist>
+
+    <para>
+    You can also compress and archive your old, rarely-used documents:
+    </para>
+
+    <procedure>
+        <step>
+        <para>
+        Select the files and folders that you want to compress, right-click one 
+        of them and select <guilabel>Create Archive</guilabel>.
+        </para>
+        </step>
+        <step>
+        <para>
+        Choose a name, location and format for the file (the 
+        <filename>.tar.gz</filename> format is the most commonly used on 
+        Ubuntu, <filename>.zip</filename> is compatible with Windows and 
+        <filename>.tar.lzma</filename> usually offers the best compression).
+        </para>
+        </step>
+        <step>
+        <para>
+        Click <guibutton>Create</guibutton>. An archive file will be created 
+        containing compressed copies of your files.
+        </para>
+        </step>
+        <step>
+        <para>
+        Delete the old uncompressed files to free some disk space.
+        </para>
+        </step>
+    </procedure>
+    </sect2>
+
+	  <sect2 id="partitioning-device" status="review">
+	    <title>Partitioning a device</title>
+	    <para>
+	      You can use &gnome-partition-editor; to partition storage devices. <ulink url="apt:gparted">Install the <application>gparted</application> package
+	      </ulink> and then press &gparted; to start the partition editor.
+	    </para>
+	    <caution>
+	    	<para>Be careful when altering disk partitions, as it is possible to lose your data if you delete or change the wrong partition.</para>
+	    </caution>
+
+	    <sect3 id="freeing-space" status="review">
+	      <title>Freeing space for a new partition</title>
+	      <para>
+		To create a new partition inside an already partitioned
+		device, you must first resize an existing partition. If you already
+		have free space, skip to <xref
+		linkend="creating-new-partition"/>; otherwise, follow the instructions below:
+		<orderedlist>
+		  <listitem>
+		    <para>
+		      Press &gparted;.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      Select the device to partition from the drop-down list
+		      at the top-right of the main window.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      A list of partitions will appear. Select the desired partition
+		      and choose <menuchoice>
+			<guimenu>Partition</guimenu>
+			<guimenuitem>Unmount</guimenuitem>
+		      </menuchoice>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      To resize the partition choose
+		      <guilabel>Resize/Move</guilabel>. The dialog
+		      <guilabel>Resize/Move</guilabel> will be shown. You can
+		      use the <guilabel>Free Space Following (MiB)</guilabel>
+		      box to choose how much space to free after this
+		      partition, or <guilabel>Free Space Preceding
+		      (MiB)</guilabel> to free space before this partition. Alternatively
+		      you can use the slider to adjust the partition size.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      To apply the changes, click
+		      <guibutton>Resize/Move</guibutton>.
+		    </para>
+		  </listitem>
+		</orderedlist>
+	      </para>
+	    </sect3>
+	    <sect3 id="creating-new-partition" status="review">
+	      <title>Creating a new partition</title>
+	      <para>
+		To create a new partition:
+		<orderedlist>
+		  <listitem>
+		    <para>
+		      Select the device to partition from the drop-down list
+		      at the top-right of the main window.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      A list of partitions will appear. Select the one called
+		      <guilabel>unallocated</guilabel> and click
+		      <guibutton>New</guibutton>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      From the <guilabel>Filesystem</guilabel> drop-down list
+		      choose the desired type of filesystem to use and click
+		      <guibutton>Add</guibutton>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		      To apply all the changes made, click
+		      <guibutton>Apply</guibutton>.
+		    </para>
+		  </listitem>
+		</orderedlist>
+	      </para>
+	    </sect3>
+	  </sect2>
+
+	  <sect2 id="partition-formatting" status="review">
+	    <title>Formatting a partition</title>
+	    <para>
+	      You can use &gnome-partition-editor; to format disk partitions (see <xref linkend="partitioning-device"/> for more information on &gnome-partition-editor;).
+	    </para>
+	    <para>
+	      To format a partition, do as follows:
+	      <orderedlist>
+		<listitem>
+		  <para>
+		    Press &gparted;.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    Select the device to partition from the drop-down list
+		    at the top-right of the main window.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    A list of partitions will appear. Select the desired partition
+		    and choose <menuchoice>
+		      <guimenu>Partition</guimenu>
+		      <guimenuitem>Unmount</guimenuitem>
+		    </menuchoice>.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    Select the partition you want to format and choose <menuchoice>
+		      <guimenu>Partition</guimenu>
+		      <guimenuitem>Format to</guimenuitem>
+		    </menuchoice> and select from the list the type of
+		      filesystem to format the partition to.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    To apply all the changes made, click
+		    <guibutton>Apply</guibutton>.
+		  </para>
+		</listitem>
+	      </orderedlist>
+	    </para>
+
+	    <warning>
+	      <para>
+		Pressing <guibutton>Apply</guibutton> will cause all of the
+		files on the partition to be permanently deleted.
+	      </para>
+	    </warning>
+	  </sect2>
+	  
+	  <sect2 id="to-format-meaning" status="review">
+	    <title>What is formatting?</title>
+	    <para>
+	      To format a hard disk, device or partition means to prepare
+	      that particular device to be used for storing data.
+	    </para>
+	    <para>
+	      The operation of formatting a hard disk or partition is when
+	      a specific data-storage format is applied to that device; this format is
+	      the <quote>filesystem</quote>.
+	    </para>
+	    <para>
+	      When you buy a disk it is usually not formatted, and cannot yet
+	      be used for storing data. When you format the device, you will
+	      notice that the free space on it is less than the original size. This
+	      is due to the fact that some space has to be used to make the
+	      device usable; this space is occupied by the filesystem. Also, disk 
+	      manufacturers often use a different standard to measure disk capacity, 
+	      which results in a further discrepancy.
+	    </para>
+	  </sect2>
+
+	  <sect2 id="what-is-filesystem" status="review">
+	    <title>What is a filesystem?</title>
+	    <para>
+	      A filesystem is a particular way of storing and organizing files 
+	      on a storage device such as a hard disk, 
+	      and is an important part of an operating system. Without a 
+	      filesystem, accessing and storing files would be impossible.
+	    </para>
+	    <para>
+	      There are different types of filesystem. The most common are:
+	      <itemizedlist>
+		<listitem>
+		  <para>
+		    ext2 and ext3: these are usually found on GNU/Linux operating
+		    systems. Ubuntu uses <emphasis>ext3</emphasis> as its
+		    default filesystem.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    <acronym>FAT16</acronym> and <acronym>FAT32</acronym>: these are Microsoft Windows filesystems
+		    found on older computers. If you would like to share data
+		    between two computers, the <emphasis><acronym>FAT32</acronym></emphasis> 
+		    format is a good choice.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    <acronym>NTFS</acronym>: this is the filesystem type 
+		    used by more modern versions of Microsoft Windows.
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    <acronym>HFS+</acronym>: this is the Mac OS X default filesystem type.
+		  </para>
+		</listitem>
+	      </itemizedlist>
+	    </para>
+	  </sect2>
+
+	  <sect2 id="partition-meaning" status="review">
+	    <title>What is a Partition?</title>
+	    <para>
+	      A partition is a means of dividing the storage capacity of a device, 
+	      such as a hard disk, into several parts which can then be treated 
+	      as separate storage devices (<quote>logical devices</quote>).
+	    </para>
+	    <para>
+	      Each logical device is seen by the operating system as a
+	      distinct device, and thus is treated as an independent disk.
+	    </para>
+	    <para>
+	      Partitioning a hard disk can be done for several reasons:
+	      <itemizedlist>
+		<listitem>
+		  <para>
+		    To retrieve free space
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    To install different operating systems
+		  </para>
+		</listitem>
+		<listitem>
+		  <para>
+		    To better organize data on the hard disk
+		  </para>
+		</listitem>
+	      </itemizedlist>
+	    </para>
+	  </sect2>
+
+	  <sect2 id="mount-and-umount" status="review">
+	    <title>Mounting and Unmounting Devices</title>
+	    <para>When you connect a removable storage device to your computer, it must be 
+	    <emphasis>mounted</emphasis> by the operating system so that you are able to 
+	    access the files on the device.</para>
+	    <para>
+	      To find out how to mount and unmount storage devices, see <ulink
+	      type="help" url="ghelp:user-guide#gosnautilus-460">Using Removable Media</ulink>
+	    </para>
+	    <para>When you copy files to a storage device, they are not always written to the device 
+	    immediately. Instead, they are often stored in a queue so that they can all be transferred 
+	    across to the device at the same time (for reasons of efficiency). If you disconnect the 
+	    device before all of the files have been transferred, then you could lose the files. To prevent 
+	    this, you must always <emphasis>unmount</emphasis> a storage device before 
+	    disconnecting it.</para>
+	  </sect2>
+  </sect1>
+
+<sect1 id="laptops" status="review">
+	<title>Laptops</title>
+	<para>This section contains information for people using Ubuntu on a laptop computer.</para>	
+	<sect2 id="laptops-pm" status="review">
+		<title>Power management settings</title>
+		<para>You may wish to change the power management settings of your laptop in order to help extend its battery life and reduce energy wastage.</para>
+		<procedure>
+			<step>
+				<para>Press &power-management;.</para>
+			</step>
+			<step>
+				<para>Change the settings as appropriate. Changes are applied instantly.</para>
+			</step>
+		</procedure>
+		
+		<para>Displaying a screensaver may use more power than simply letting the screen go blank. Turning off the screensaver could slightly improve the battery life of your laptop.</para>
+		<procedure>
+			<step>
+				<para>Press &screensaver;.</para>
+			</step>
+			<step>
+				<para>Change the <guilabel>Screensaver theme</guilabel> to <guilabel>Blank screen</guilabel>. This will simply display a blank screen as a screensaver.</para>
+			</step>
+		</procedure>
+		<note>
+			<para>When your laptop is running on battery, one of the biggest drains on power is the display. Turning the brightness of the display down could improve battery life significantly; many laptops allow you to do this by pressing <keycombo><keycap>Fn</keycap><keycap>F7</keycap></keycombo> several times.</para>
+		</note>
+	</sect2>
+	<sect2 id="laptops-touchpads" status="review">
+		<title>Touchpads</title>
+		<para>Most laptop computers come with a touchpad, which is used to control the mouse pointer. There are many ways of changing the way that the touchpad behaves; the most basic touchpad settings can be configured in the following way.</para>
+		<procedure>
+			<step><para>Press &mouse;.</para></step>
+			<step><para>Select the <guilabel>Touchpad</guilabel> tab.</para></step>
+			<step><para>Here you can change the touchpad settings to your liking. Changes should take effect immediately.</para></step>
+		</procedure>
+		<para>Some touchpads may be detected as normal mouse devices, even though they are actually touchpads. In this case, the <guilabel>Touchpad</guilabel> tab will not be available in the mouse preferences.</para>
+		<note>
+			<para>See the <ulink url='https://help.ubuntu.com/community/SynapticsTouchpad'>community support pages</ulink> for more information on touchpads.</para>
+		</note>
+	</sect2>
+	<sect2 id="laptops-testing-reports" status="review">
+		<title>Finding laptop testing reports</title>
+		<para>Many laptops are regularly tested by the Ubuntu community to ensure that various features work correctly. The results of these tests are available for you to read, and may offer insight into any problems you might be experiencing with your laptop.</para>
+		<itemizedlist>
+			<listitem><para>See the Laptop Testing <ulink url='https://wiki.ubuntu.com/LaptopTestingTeam'>community support pages</ulink> for a full listing of available laptop tests.</para></listitem>
+		</itemizedlist>
+		<para>You can participate in laptop testing yourself by contacting the <ulink url='https://wiki.ubuntu.com/LaptopTestingTeam'>Laptop Testing Team</ulink>.</para>
+	</sect2>
+</sect1>
+
+
+
+
+<sect1 id="pm-suspending" status="review">
+	<title>Suspending and hibernating your computer</title>
+	<para>
+	In order to save power, you can put your computer into one of a number of 
+	power-saving modes when you are not using it:</para>
+	<itemizedlist>
+		<listitem>
+		<para>
+		<emphasis role='strong'>Suspending</emphasis> a computer is like 
+		putting the computer to sleep. The computer will still be turned on and 
+		all of your work will be left open, but it will use much less power. 
+		You can wake the computer by pressing a key or clicking the mouse.
+		</para>
+		</listitem>
+		<listitem>
+		<para>
+		<emphasis role='strong'>Hibernating</emphasis> is turning the computer 
+		off completely while saving the current state of the computer (such as 
+		keeping all of your open documents). When you turn the computer back on 
+		after hibernating, all of your work should be restored as it was before 
+		hibernation. No power is used when the computer is hibernating.
+		</para>
+		</listitem>
+		<listitem>
+		<para>
+		<emphasis role='strong'>Shutting down</emphasis> is turning the 
+		computer off completely, without saving the current state of the 
+		computer. No power is used when the computer is shut down.
+		</para>
+		</listitem>
+		<listitem>
+		<para>
+		<emphasis role='strong'>Resuming</emphasis> is bringing the computer 
+		out of a power saving mode and back into normal operation. You can 
+		resume the computer from being suspended by pressing a keyboard button 
+		or by clicking the mouse. You can resume from being hibernated by 
+		pressing the power button on your computer.
+		</para>
+		</listitem>
+	</itemizedlist>
+	
+	<para>
+	You can manually put your computer into a power-saving mode by pressing 
+	the <application>User Switcher</application> in the top right hand corner 
+	of the screen and then pressing the appropriate button.
+	</para>
+	
+	<caution>
+	<para>
+	Some computers may have problems going into certain power saving modes. 
+	The best way of checking if your computer can handle a power-saving mode 
+	is to try to switch to that mode and see if it behaves as you expected. 
+	Always make sure you save important documents before suspending or 
+	hibernating.
+	</para>
+	</caution>
+
+<sect2 id="pm-suspend-hibernate-fails" status="review">
+    <title>My computer does not suspend or hibernate correctly</title>
+    <para>
+    Some computers are unable to suspend or hibernate correctly with Ubuntu. 
+    If this is the case for your computer, you may notice some of the following 
+    symptoms:
+    </para>
+    <itemizedlist>
+        <listitem>
+        <para>
+        The computer does not turn off after you click to hibernate it.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        When you turn the computer on after hibernating it, your previously 
+        open programs are not restored.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        The computer will not wake up after you have suspended it.
+        </para>
+        </listitem>
+        <listitem>
+        <para>
+        Certain programs or hardware devices stop working correctly after 
+        resuming from hibernation or waking-up from being suspended.
+        </para>
+        </listitem>
+    </itemizedlist>
+    <para>
+    If you suffer from any of these problems, you should report a bug to 
+    <ulink url="https://bugs.launchpad.net/ubuntu/+filebug">Launchpad</ulink>. 
+    The problems will hopefully be fixed in a subsequent version of Ubuntu. You 
+    may also like to see if the <link linkend="pm-general-method">General 
+    method for trying to get suspend and hibernate working</link> works for you.
+    </para>
+    <para>
+    If your hardware does not work properly after suspending or hibernating 
+    your computer, restart your computer and it should return to normal. If a 
+    program does not work properly, try closing the program and then starting 
+    it again.
+    </para>
+
+    <caution>
+    <para>
+    Make sure that you save all of your open documents before testing for 
+    suspend and hibernate problems.
+    </para>
+    </caution>
+
+<sect3 id="pm-general-method" status="review">
+    <title>General method for trying to get suspend and hibernate 
+    working</title>
+
+    <para>
+    You may be able to get suspend and hibernate working on your computer, but 
+    this can involve a lot of work. The method below should work for many 
+    computers. If it does not work for yours, please seek support using one of 
+    the many help and support channels for Ubuntu.
+    </para>
+
+    <procedure>
+    <step>
+    <para>
+    Download the <ulink url="http://people.freedesktop.org/~hughsient/quirk/quirk-suspend-debug.html">
+    Quirk Checker script</ulink> to your Home folder.
+    </para>
+    </step>
+    <step>
+    <para>
+    Find the <filename>quirk-checker.sh</filename> file in your Home folder, 
+    right-click it and select <guilabel>Properties</guilabel>. Select the 
+    <guilabel>Permissions</guilabel> tab, check <guilabel>Allow executing file 
+    as program</guilabel> and click <guibutton>Close</guibutton>.
+    </para>
+    </step>
+    <step>
+    <para>
+    Open a Terminal (&terminal;), type 
+    <userinput>./quirk-checker.sh</userinput> and press <keycap>Enter</keycap>.
+    </para>
+    </step>
+    <step>
+    <para>
+    Follow the suggestions that the script makes. These may involve editing 
+    important system files, so you should seek support if you are unsure of 
+    what you are doing.
+    </para>
+    </step>
+    </procedure>
+
+    <caution>
+    <para>
+    Before making the changes recommended by the Quirk Checker, create back-up 
+    copies of the files that you are going to change.
+    </para>
+    </caution>
+
+</sect3>
+</sect2>
+
+<sect2 id="pm-hibernate-pattern" status="review">
+    <title>Why do I get a strange pattern on the screen when I hibernate my 
+    computer?</title>
+    <para>
+    Your screen may show a black and white pattern just after you click to 
+    hibernate your computer. This is usually nothing to worry about and is just 
+    how the graphics cards of some computers respond to the initial stages of 
+    the hibernation process.
+    </para>
+    <para>
+    If the computer displays the pattern for a prolonged period of time without 
+    turning itself off then you may have a problem with hibernation. See 
+    <link linkend="pm-suspend-hibernate-fails">My computer does not suspend 
+    or hibernate correctly</link> for more information.
+    </para>
+</sect2>	
+	
+</sect1>
+
+
+<sect1 id="input-devices" status="review">
+	<title>Mice and keyboards</title>
+	<para>This section provides instructions on using and configuring mice, keyboards and other input devices to make them more comfortable for you to use.</para>
+	<sect2 id="input-mice" status="review">
+		<title>Mice and other pointing devices</title>
+		<para>You can change numerous options related to your mouse, such as how fast the pointer moves and how clicks are interpreted by the computer.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:user-guide#mouse-skills'>Mouse Skills</ulink></emphasis></para>
+				<para>Information on basic mouse skills, such as pointing, clicking and dragging.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:user-guide#prefs-mouse'>Mouse Preferences</ulink></emphasis></para>
+				<para>Instructions on how to change various settings related to your mouse, such as whether the mouse is left-handed and how fast the pointer moves.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:gnome-access-guide#dtconfig-1'>Accessibility - Configuring the Mouse</ulink></emphasis></para>
+				<para>Information on changing mouse preferences for users of assistive technologies.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:gnome-access-guide#sysadmin-37'>Accessibility - Configuring Alternative Pointing Devices</ulink></emphasis></para>
+				<para>Information on using a pointing device other than a mouse.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+	
+	<sect2 id="input-keyboard" status="review">
+		<title>Keyboards</title>
+		<para>There are many options related to your keyboard which you can change, such as the keyboard language and keyboard shortcuts.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:user-guide#keyboard-skills'>Basic Keyboard Skills</ulink></emphasis></para>
+				<para>Information on basic keyboard usage.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:user-guide#prefs-keyboard'>Keyboard Preferences</ulink></emphasis></para>
+				<para>Change settings related to your keyboard, such as the layout of the keyboard.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:gswitchit#gswitchit-applet-switching'>Keyboard Indicator</ulink></emphasis></para>
+				<para>The manual of the Keyboard Indicator, which allows you to change between different keyboard layouts.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:gnome-access-guide#dtconfig-0'>Accessibility - Configuring the Mouse and Keyboard</ulink></emphasis></para>
+				<para>Information on configuring the mouse and keyboard for users of assistive technologies.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:gnome-access-guide#keynav-0'>Using the Keyboard to Navigate the Desktop</ulink></emphasis></para>
+				<para>A guide on how to navigate the desktop using only a keyboard.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:accessx-status#index'>Keyboard Accessibility Monitor</ulink></emphasis></para>
+				<para>The manual of the Keyboard Accessibility Monitor, which shows the status of any keyboard accessibility features which are turned on.</para>
+			</listitem>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:char-palette#charpick-characters'>Using the Character Palette</ulink></emphasis></para>
+				<para>Use the Character Palette to insert letters and symbols which are not on your keyboard.</para>
+			</listitem>
+		</itemizedlist>
+	</sect2>
+	
+	<sect2 id="input-touchpads" status="review">
+		<title>Touchpads and graphics tablets</title>
+		<para>You can use a touchpad or graphics tablet to move a mouse pointer.</para>
+		<itemizedlist>
+			<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:hardware#laptops-touchpads'>Touchpads</ulink></emphasis></para>
+				<para>Information on changing the settings of a laptop touchpad.</para>
+			</listitem>
+			<!--<listitem>
+				<para><emphasis role='strong'><ulink type='help' url='ghelp:'>Graphics tablets</ulink></emphasis></para>
+				<para>Information about using a graphics tablet.</para>
+			</listitem>-->
+		</itemizedlist>
+	</sect2>
+</sect1>
+
+</article>

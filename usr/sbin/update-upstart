@@ -1,0 +1,60 @@
+#! /bin/sh
+
+print_usage() {
+	echo "usage: update-upstart enable|disable <task name>"
+}
+
+disable_task() {
+	
+	enabled_dir="/etc/event.d"
+	disabled_dir="/etc/disabled-event.d"
+
+	if [ ! -d $disabled_dir ]; then
+		echo "Creating $disabled_dir"
+		mkdir $disabled_dir
+	fi
+
+	if [ ! -e "$enabled_dir/$1" ]; then
+		echo "Task $1 not found" >&2
+		exit 0
+	fi
+
+	echo "Disabling $enabled_dir/$1"
+	mv "$enabled_dir/$1" $disabled_dir
+}
+
+enable_task() {
+	
+	enabled_dir="/etc/event.d"
+	disabled_dir="/etc/disabled-event.d"
+
+	if [ ! -e "$disabled_dir/$1" ]; then
+		echo "Task $1 not found" >&2
+		exit 0
+	fi
+
+	echo "Enabling $disabled_dir/$1"
+	mv "$disabled_dir/$1" $enabled_dir
+}
+
+if [ $# != 2 ]; then
+	echo "Incorrect number of parameters" >&2
+	print_usage
+	exit 1
+fi
+
+case "$1" in
+enable)
+	enable_task $2
+	;;
+disable)
+	disable_task $2
+	;;
+*)
+	echo "Invalid parameter" >&2
+	print_usage
+	exit 1
+	;;
+esac
+
+

@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+case "$1" in
+    configure)
+	# Just checking the main directory with -d should prevent the indexing
+	# to be started while an indexing is already going on, as the first
+	# thing that update-apt-xapian-index does is to create the directory if
+	# it is missing
+    	if [ ! -d /var/lib/apt-xapian-index ]
+	then
+		echo "apt-xapian-index: Building new index in background..."
+		/usr/sbin/update-apt-xapian-index --quiet &
+	fi
+        ;;
+esac
+
+

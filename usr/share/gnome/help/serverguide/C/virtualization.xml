@@ -1,0 +1,1510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="virtualization" status="review">
+  <title>Virtualization</title>
+  <para>
+  Virtualization is being adopted in many different environments and situations. If you are a developer, 
+  virtualization can provide you with a contained environment where you can safely do almost any sort of 
+  development safe from messing up your main working environment. If you are a systems administrator, you 
+  can use virtualization to more easily separate your services and move them around based on demand.
+  </para>
+  <para>
+  The default virtualization technology supported in Ubuntu is <application>KVM</application>, a technology 
+  that takes advantage of virtualization extensions built into Intel and AMD hardware.  
+  For hardware without virtualization extensions <application>Xen</application> and 
+  <application>Qemu</application> are popular solutions.
+  </para>
+  <sect1 id='libvirt' status='review'>
+    <title>libvirt</title>
+    <para>
+    The <application>libvirt</application> library is used to interface with different
+    virtualization technologies.  
+    Before getting started with <application>libvirt</application> it is best to make sure your hardware supports the necessary 
+    virtualization extensions for <application>KVM</application>.  Enter the following from a terminal prompt:
+    </para>
+<screen> <command>egrep '(vmx|svm)' /proc/cpuinfo</command>
+</screen>
+    <para>
+    If nothing is printed, it means that your cpu does <emphasis>not</emphasis> support hardware virtualization.
+    </para>
+    <note>
+      <para>
+      On most computer whose processor supports virtualization, it is
+      necessary to activate an option in the bios to enable it. The method
+      described above does not show the status of it's activation.
+      </para>
+    </note>
+    <sect2 id="virtual-networking" status="review">
+      <title>Virtual Networking</title>
+
+      <para>
+      There are a few different ways to allow a virtual machine access to the external network.  The default virtual network configuration is 
+      <emphasis>usermode</emphasis> networking, which uses the SLIRP protocol and traffic is NATed through the host interface to the outside network.
+      </para>
+
+      <para>
+      To enable external hosts to directly access services on virtual machines a <emphasis>bridge</emphasis> needs to be configured.  This allows
+      the virtual interfaces to connect to the outside network through the physical interface, making them appear as normal hosts to the rest 
+      of the network. For information on setting up a bridge see <xref linkend="bridging"/>.
+      </para>
+
+    </sect2>
+    <sect2 id='libvirt-installation' status='review'>
+      <title>Installation</title>
+      <para>
+      To install the necessary packages, from a terminal prompt enter:
+      </para>
+<screen>
+<command>sudo apt-get install kvm libvirt-bin</command>
+</screen>
+      <para>
+      After installing <application>libvirt-bin</application>, the user used to manage virtual machines will need to be added to 
+      the <emphasis>libvirtd</emphasis> group.  Doing so will grant the user access to the advanced networking options.  
+      </para>
+      <para>
+      In a terminal enter:
+      </para>
+<screen>
+<command>sudo adduser $USER libvirtd</command>
+</screen>
+      <note>
+	<para>
+	If the user chosen is the current user, you will need to log out and back in for the new group membership to take effect.
+	</para>
+      </note>
+      <para>
+      You are now ready to install a <emphasis>Guest</emphasis> operating system.  Installing a virtual machine follows the same
+      process as installing the operating system directly on the hardware.  You either need a way to automate the installation, or 
+      a keyboard and monitor will need to be attached to the physical machine.  
+      </para>
+      <para>
+      In the case of virtual machines a Graphical User Interface (GUI) is analogous to using a physical keyboard and mouse.  Instead of installing
+      a GUI the <application>virt-viewer</application> application can be used to connect to a virtual machine's console using <application>VNC</application>.  
+      See <xref linkend="libvirt-virt-viewer"/> for more information.
+      </para>
+      <para>
+      There are several ways to automate the Ubuntu installation process, for example using 
+      preseeds, kickstart, etc.  Refer to the <ulink url="https://help.ubuntu.com/&distro-rev;/installation-guide/">Ubuntu Installation Guide</ulink> for details.
+      </para>
+      <para>
+      Yet another way to install an Ubuntu virtual machine is to use <application>ubuntu-vm-builder</application>.  <application>ubuntu-vm-builder</application> 
+      allows you to setup advanced partitions, execute custom post-install scripts, etc.  For details see <xref linkend="jeos-and-vmbuilder"/>
+      </para>
+    </sect2>
+    <sect2 id='libvirt-virt-install' status='review'>
+      <title>virt-install</title>
+      <para>
+      <application>virt-install</application> is part of the <application>python-virtinst</application> package.  To install it, from a terminal prompt enter:
+      </para>
+<screen>
+<command>sudo apt-get install python-virtinst</command>
+</screen>
+      <para>
+      There are several options available when using <application>virt-install</application>.  For example:
+      </para>
+<screen>
+<command>sudo virt-install -n web_devel -r 256 -f web_devel.img \
+-s 4 -c jeos.iso --accelerate \
+--connect=qemu:///system --vnc \
+--noautoconsole -v</command>
+</screen>
+      <itemizedlist>
+        <listitem>
+          <para>
+          <emphasis>-n web_devel:</emphasis> the name of the new virtual machine will be <emphasis>web_devel</emphasis> in this example.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-r 256:</emphasis> specifies the amount of memory the virtual machine will use.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-f web_devel.img:</emphasis> indicates the path to the virtual disk which can be a file, partition, or logical volume.
+          In this example a file named <filename>web_devel.img</filename>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-s 4:</emphasis> the size of the virtual disk.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-c jeos.iso:</emphasis> file to be used as a virtual CDROM.  The file can be either an ISO file or the path to the
+          host's CDROM device.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>--accelerate:</emphasis> enables the kernel's acceleration technologies. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>--vnc:</emphasis> exports the guest's virtual console using VNC. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>--noautoconsole:</emphasis> will not automatically connect to the virtual machine's console. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-v:</emphasis> creates a fully virtualized guest. 
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+      After launching <application>virt-install</application> you can connect to the virtual machine's console either locally
+      using a GUI or with the <application>virt-viewer</application> utility.
+      </para>
+    </sect2>
+    <sect2 id="libvirt-virt-clone" status="review">
+      <title>virt-clone</title>
+      <para>
+      The <application>virt-clone</application> application can be used to copy one virtual machine to another.  For example:
+      </para>
+<screen>
+<command>sudo virt-clone -o web_devel -n database_devel -f /path/to/database_devel.img --connect=qemu:///system</command> 
+</screen>
+      <itemizedlist>
+        <listitem>
+          <para>
+          <emphasis>-o:</emphasis> original virtual machine.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-n:</emphasis> name of the new virtual machine.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>-f:</emphasis> path to the file, logical volume, or partition to be used by the new virtual machine.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>--connect:</emphasis> specifies which hypervisor to connect to.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+      Also, use <emphasis>-d</emphasis> or <emphasis>--debug</emphasis> option to help troubleshoot problems with 
+      <application>virt-clone</application>.
+      </para>
+      <note>
+        <para>
+	Replace <emphasis>web_devel</emphasis> and <emphasis>database_devel</emphasis> with appropriate virtual machine names.
+        </para>
+      </note>
+    </sect2>
+    <sect2 id="libvirt-management" status="review">
+      <title>Virtual Machine Management</title>
+      <sect3 id="virsh" status="review">
+        <title>virsh</title>
+        <para>
+        There are several utilities available to manage virtual machines and <application>libvirt</application>.  
+        The <application>virsh</application> utility can be used from the command line.  Some examples: 
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+    	    To list running virtual machines:
+            </para>
+<screen>
+<command>virsh -c qemu:///system list</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+  	    To start a virtual machine:
+            </para>
+<screen>
+<command>virsh -c qemu:///system start web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+  	    Similarly, to start a virtual machine at boot:
+            </para>
+<screen>
+<command>virsh -c qemu:///system autostart web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+ 	    Reboot a virtual machine with:
+            </para>
+<screen>
+<command>virsh -c qemu:///system reboot web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+  	    The <emphasis>state</emphasis> of virtual machines can be saved to a file in order to be restored later.  The
+            following will save the virtual machine state into a file named according to the date:
+            </para>
+<screen>
+<command>virsh -c qemu:///system save web_devel web_devel-022708.state</command>
+</screen>
+            <para>
+            Once saved the virtual machine will no longer be running.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	    A saved virtual machine can be restored using:
+            </para>
+<screen>
+<command>virsh -c qemu:///system restore web_devel-022708.state</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+	    To shutdown a virtual machine do:
+            </para>
+<screen>
+<command>virsh -c qemu:///system shutdown web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+	    A CDROM device can be mounted in a virtual machine by entering:
+            </para>
+<screen>
+<command>virsh -c qemu:///system attach-disk web_devel /dev/cdrom /media/cdrom</command>
+</screen>
+          </listitem>
+        </itemizedlist>
+        <note>
+          <para>
+          In the above examples replace <emphasis>web_devel</emphasis> with the appropriate virtual machine name, and 
+  	  <filename>web_devel-022708.state</filename> with a descriptive file name.
+          </para>
+        </note>
+      </sect3>
+      <sect3 id="virt-manager" status="review">
+        <title>Virtual Machine Manager</title>
+        <para>
+        The <application>virt-manager</application> package contains a graphical utility to manage local and remote virtual machines.
+        To install virt-manager enter:
+        </para>
+<screen>
+<command>sudo apt-get install virt-manager</command>
+</screen>
+        <para>
+        Since <application>virt-manager</application> requires a Graphical User Interface (GUI) environment it is recommended to be 
+	installed on a workstation or test machine instead of a production server.  To connect to the local 
+        <application>libvirt</application> service enter:
+        </para>
+<screen>
+<command>virt-manager -c qemu:///system</command>
+</screen>
+        <para>
+	You can connect to the <application>libvirt</application> service running on another host by entering the following in a terminal prompt:
+        </para>
+<screen>
+<command>virt-manager -c qemu+ssh://virtnode1.mydomain.com/system</command>
+</screen>
+        <note>
+          <para>
+          The above example assumes that <application>SSH</application> connectivity between the management system and virtnode1.mydomain.com 
+          has already been configured, and uses SSH keys for authentication.  SSH <emphasis>keys</emphasis> are needed because 
+          <application>libvirt</application> sends the password prompt to another process.  For details on configuring 
+	  <application>SSH</application> see <xref linkend="openssh-server"/>
+          </para>
+        </note>
+      </sect3>
+    </sect2>
+    <sect2 id="libvirt-virt-viewer" status="review">
+      <title>Virtual Machine Viewer</title> 
+      <para>
+      The <application>virt-viewer</application> application allows you to connect to a virtual machine's console.  
+      <application>virt-viewer</application> does require a Graphical User Interface (GUI) to interface with the virtual machine. 
+      </para>
+      <para>  
+      To install <application>virt-viewer</application> from a terminal enter:
+      </para>
+<screen>
+<command>sudo apt-get install virt-viewer</command>
+</screen>
+      <para>
+      Once a virtual machine is installed and running you can connect to the virtual machine's console by using:
+      </para>
+<screen>
+<command>virt-viewer -c qemu:///system web_devel</command>
+</screen>
+      <para>
+      Similar to <application>virt-manager</application>, <application>virt-viewer</application> can connect to a remote host using 
+      <emphasis>SSH</emphasis> with key authentication, as well:
+      </para>
+<screen>
+<command>virt-viewer -c qemu+ssh://virtnode1.mydomain.com/system web_devel</command>
+</screen>
+      <para>
+      Be sure to replace <emphasis role="italic">web_devel</emphasis> with the appropriate virtual machine name.
+      </para>
+      <para>
+      If configured to use a <emphasis>bridged</emphasis> network interface you can also setup <application>SSH</application> access
+      to the virtual machine.  See <xref linkend="openssh-server"/> and <xref linkend="bridging"/> for more details.
+      </para>
+    </sect2>
+    <sect2 id="libvirt-resources" status="review">
+      <title>Resources</title> 
+      <itemizedlist>
+        <listitem>
+          <para>
+     	  See the <ulink url="http://kvm.qumranet.com/kvmwiki">KVM</ulink> home page for more details.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+     	  For more information on <application>libvirt</application> see the <ulink url="http://libvirt.org/">libvirt home page</ulink> 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+     	  The <ulink url="http://virt-manager.et.redhat.com/">Virtual Machine Manager</ulink> site has more information on 
+          <application>virt-manager</application> development.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Also, stop by the <emphasis>#ubuntu-virt</emphasis> IRC channel on <ulink url="http://freenode.net/">freenode</ulink> to 
+          discuss virtualization technology in Ubuntu.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="jeos-and-vmbuilder" status="review">
+  <title>JeOS and vmbuilder</title>
+
+  <sect2 id="jeos-introduction" status="review">
+    <title>Introduction</title>
+
+    <sect3 id="what-is-jeos" status="review">
+      <title>What is JeOS</title>
+
+  <para>
+  Ubuntu <emphasis>JeOS</emphasis> (pronounced "Juice") is an efficient variant of the Ubuntu Server operating system, 
+  configured specifically for virtual appliances.  No longer available as a CD-ROM ISO for download, but only as an option either:
+  </para>
+
+  <itemizedlist>
+    <listitem>
+      <para>
+      While installing from the Server Edition ISO (pressing <emphasis>F4</emphasis> on the first screen will allow you to pick 
+      "Minimal installation", which is the package selection equivalent to JeOS).
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+      Or to be built using Ubuntu's vmbuilder, which is described here. 
+      </para>
+    </listitem>
+  </itemizedlist>
+      
+  <para>
+  JeOS is a specialized installation of Ubuntu Server Edition with a tuned kernel that only contains the base elements needed 
+  to run within a virtualized environment.
+  </para>
+
+  <para>
+  Ubuntu JeOS has been tuned to take advantage of key performance technologies in the latest virtualization products from VMware. 
+  This combination of reduced size and optimized performance ensures that Ubuntu JeOS Edition delivers a highly efficient use of 
+  server resources in large virtual deployments.
+  </para>
+  
+  <para>
+  Without unnecessary drivers, and only the minimal required packages, ISVs can configure their supporting OS exactly as they require. 
+  They have the peace of mind that updates, whether for security or enhancement reasons, will be limited to the bare minimum of what 
+  is required in their specific environment. In turn, users deploying virtual appliances built on top of JeOS will have to go through 
+  fewer updates and therefore less maintenance than they would have had to with a standard full installation of a server.
+  </para>
+ 
+    </sect3>
+    <sect3 id="what-is-vmbuilder">
+      <title>What is vmbuilder</title>
+
+      <para>
+      With vmbuilder, there is no need to download a JeOS ISO anymore. vmbuilder will fetch the various package and build a virtual machine 
+      tailored for our need in about a minute for us. Vmbuilder is a Script that automates the process of creating a ready to use Linux based
+      VM. The currently supported hypervisors are KVM and Xen.
+      </para>
+
+      <para>
+      You can pass command line options to add extra packages, remove packages, choose which version of Ubuntu, which mirror etc. On recent 
+      hardware with plenty of RAM, tmpdir in <filename>/dev/shm</filename> or using a tmpfs, and a local mirror, you can bootstrap a VM in 
+      less than a minute.
+      </para>
+
+      <para>
+      First introduced as a shell script in Ubuntu 8.04LTS, <application>ubuntu-vm-builder</application> started with little emphasis as 
+      a hack to help developers test their new code in a virtual machine without having to restart from scratch each time. As a few Ubuntu 
+      administrators started to notice this script, a few of them went on improving it and adapting it for so many use case that 
+      Soren Hansen (the author of the script and Ubuntu virtualization specialist, not the golf player) decided to rewrite it from scratch 
+      for Intrepid as a python script with a few new design goals:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          Develop it so that it can be reused by other distributions.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Use a plugin mechanisms for all virtualization interactions so that others can easily add logic for other virtualization environments.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Provide an easy to maintain web interface as an option to the command line interface.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+      But the general principles and commands remain the same. 
+      </para>
+
+    </sect3>
+  </sect2>
+  <sect2 id="jeos-initial-setup" status="review">
+    <title>Initial Setup</title>
+
+    <para>
+    It is assumed that you have installed and configured <application>libvirt</application> and <application>KVM</application> locally
+    on the machine you are using. For details on how to perform this, please refer to:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        <xref linkend="libvirt"/>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        The <ulink url="https://help.ubuntu.com/community/KVM">KVM</ulink> Wiki page.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    We also assume that you know how to use a text based text editor such as nano or vi. If you have not used any of them before, 
+    you can get an overview of the various text editors available by reading the  
+    <ulink url="https://help.ubuntu.com/community/PowerUsersTextEditors">PowerUsersTextEditors</ulink> page. This tutorial has been 
+    done on KVM, but the general principle should remain on other virtualization technologies. 
+    </para>
+  
+      <sect3 id="install-vmbuilder" status="review">
+        <title>Install vmbuilder</title>
+
+        <para>
+        The name of the package that we need to install is <application>python-vm-builder</application>.  In a terminal prompt enter: 
+        </para>
+
+<screen>
+<command>sudo apt-get install python-vm-builder</command>
+</screen>
+
+        <note>
+          <para>
+          If you are running Hardy, you can still perform most of this using the older version of the package named 
+          <application>ubuntu-vm-builder</application>, there are only a few changes to the syntax of the tool. 
+          </para>
+        </note>
+
+      </sect3>
+    </sect2>
+    <sect2 id="defining-vm" status="review">
+      <title>Defining Your Virtual Machine</title>
+
+      <para>
+      Defining a virtual machine with Ubuntu's vmbuilder is quite simple, but here are a few thing to consider:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          If you plan on shipping a virtual appliance, do not assume that the end-user will know how to extend disk size to fit their need,
+          so either plan for a large virtual disk to allow for your appliance to grow, or explain fairly well in your documentation how
+          to allocate more space. It might actually be a good idea to store data on some separate external storage.
+	  </para>
+	</listitem>
+        <listitem>
+          <para>
+          Given that RAM is much easier to allocate in a VM, RAM size should be set to whatever you think is a safe minimum for your appliance.
+	  </para>
+	</listitem>
+      </itemizedlist>
+
+      <para>
+      The <application>vmbuilder</application> command has 2 main parameters: the <emphasis>virtualization technology (hypervisor)</emphasis>
+      and the targeted <emphasis>distribution</emphasis>. Optional parameters are quite numerous and can be found using the following command:
+      </para>
+
+<screen>
+<command>vmbuilder --help</command>
+</screen>
+
+    <sect3 id="vm-base-parameters" status="review">
+      <title>Base Parameters</title>
+
+      <para>
+      As this example is based on <application>KVM</application> and Ubuntu &distro-rev; (&distro-version;), and we are likely to rebuild 
+      the same virtual machine multiple time, we'll invoke vmbuilder with the following first parameters: 
+      </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386  -o --libvirt qemu:///system</command>
+</screen>
+
+      <para>
+      The <emphasis>--suite</emphasis> defines the Ubuntu release, the <emphasis>--flavour</emphasis> specifies that we want to use 
+      the virtual kernel (that's the one used to build a JeOS image), the <emphasis>--arch</emphasis> tells that we want to use a 
+      32 bit machine, the <emphasis>-o</emphasis> tells vmbuilder to overwrite the previous version of the VM and the 
+      <emphasis>--libvirt</emphasis> tells to inform the local virtualization environment to add the resulting VM to the list of available
+      machines. 
+      </para>
+
+      <para>
+      Notes:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          Because of the nature of operations performed by vmbuilder, it needs to have root privilege, hence the use of sudo.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          If your virtual machine needs to use more than 3Gb of ram, you should build a 64 bit machine (--arch amd64).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Until Ubuntu 8.10, the virtual kernel was only built for 32 bit architecture, so if you want to define an amd64 machine 
+          on Hardy, you should use <emphasis>--flavour</emphasis> server instead. 
+          </para>
+        </listitem> 
+      </itemizedlist>
+    </sect3>
+    <sect3 id="jeos-installation-parameters" status="review">
+      <title>JeOS Installation Parameters</title>
+
+      <sect4 id="jeos-networking" status="review">
+        <title>JeOS Networking</title>
+
+      <sect5 id="jeos-fixed-ip" status="review">
+        <title>Assigning a fixed IP address</title>
+
+        <para>
+        As a virtual appliance that may be deployed on various very different networks, it is very difficult to know what 
+        the actual network will look like. In order to simplify configuration, it is a good idea to take an approach similar 
+        to what network hardware vendors usually do, namely assigning an initial fixed IP address to the appliance in a 
+        private class network that you will provide in your documentation. An address in the range 192.168.0.0/255 is usually a good choice.
+        </para>
+        
+        <para>
+        To do this we'll use the following parameters:
+        </para>
+	
+        <itemizedlist>
+          <listitem>
+            <para>
+            <emphasis>--ip ADDRESS</emphasis>: IP address in dotted form (defaults to dhcp if not specified)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--mask VALUE</emphasis>: IP mask in dotted form (default: 255.255.255.0)
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--net VALUE</emphasis>: IP net address (default: X.X.X.0)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--bcast VALUE</emphasis>: IP broadcast (default: X.X.X.255)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--gw ADDRESS</emphasis>: Gateway address (default: X.X.X.1)
+            </para>
+	  </listitem>
+          <listitem>
+            <para>
+            <emphasis>--dns ADDRESS</emphasis>: Name server address (default: X.X.X.1)
+            </para>
+	  </listitem>
+        </itemizedlist>
+
+        <para>
+        We assume for now that default values are good enough, so the resulting invocation becomes: 
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386 -o --libvirt qemu:///system --ip 192.168.0.100</command>
+</screen>
+
+        </sect5>
+        <sect5 id="jeos-bridging" status="review">
+          <title>Modifying the libvirt Template to use Bridging</title>
+
+          <para>
+          Because our appliance will be likely to need to be accessed by remote hosts, we need to configure libvirt so that the appliance uses bridge
+          networking. To do this we use vmbuilder template mechanism to modify the default one. 
+          </para>
+
+          <para>
+          In our working directory we create the template hierarchy and copy the default template: 
+          </para>
+
+<screen>
+<command>mkdir -p VMBuilder/plugins/libvirt/templates</command>
+<command>cp /etc/vmbuilder/libvirt/* VMBuilder/plugins/libvirt/templates/</command>
+</screen>
+
+          <para>
+          We can then edit <filename>VMBuilder/plugins/libvirt/templates/libvirtxml.tmpl</filename> to change:
+          </para>
+
+<programlisting>
+          &lt;interface type='network'&gt;
+            &lt;source network='default'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+          <para>
+          To:
+          </para>
+
+<programlisting>
+          &lt;interface type='bridge'&gt;
+            &lt;source bridge='br0'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+
+        </sect5>
+      </sect4>
+      <sect4 id="jeos-partitioning" status="review">
+        <title>Partitioning</title>
+          
+        <para>
+        Partitioning of the virtual appliance will have to take into consideration what you are planning to do with is. Because 
+        most appliances want to have a separate storage for data, having a separate <filename>/var</filename> would make sense.
+        </para>
+           
+        <para>
+        In order to do this vmbuilder provides us with <emphasis>--part</emphasis>: 
+        </para>
+
+<programlisting>
+--part PATH
+  Allows to specify a partition table in partfile each  line  of  partfile  should  specify
+  (root first):
+      mountpoint size
+  where  size  is  in megabytes. You can have up to 4 virtual disks, a new disk starts on a
+  line with ’---’.  ie :
+      root 1000
+      /opt 1000
+      swap 256
+      ---
+      /var 2000
+      /log 1500
+</programlisting>
+
+        <para>
+        In our case we will define a text file name <filename>vmbuilder.partition</filename> which will contain the following: 
+        </para>
+
+<programlisting>
+root 8000
+swap 4000
+---
+/var 20000
+</programlisting>
+
+        <note>
+          <para>
+          Note that as we are using virtual disk images, the actual sizes that we put here are maximum sizes for these volumes. 
+          </para>
+        </note>
+
+        <para>
+        Our command line now looks like: 
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite &distro-short-codename; --flavour virtual --arch i386 \ 
+         -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition</command>
+</screen>
+
+        <note>
+          <para>
+          Using a "\" in a command will allow long command strings to wrap to the next line.
+          </para>
+        </note>
+
+      </sect4>
+      <sect4 id="jeos-user-password" status="review">
+        <title>User and Password</title>
+
+        <para>
+        Again setting up a virtual appliance, you will need to provide a default user and password that is generic so 
+        that you can include it in your documentation. We will see later on in this tutorial how we will provide some 
+        security by defining a script that will be run the first time a user actually logs in the appliance, that will, 
+        among other things, ask him to change his password. In this example I will use <emphasis>'user'</emphasis> as my 
+        user name, and <emphasis>'default'</emphasis> as the password.
+        </para>
+
+        <para>
+        To do this we use the following optional parameters: 
+        </para>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+            <emphasis>--user USERNAME:</emphasis> Sets the name of the user to be added. Default: ubuntu.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--name FULLNAME:</emphasis> Sets the full name of the user to be added. Default: Ubuntu.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>--pass PASSWORD:</emphasis>   Sets the password for the user. Default: ubuntu.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+        <para>
+        Our resulting command line becomes:
+        </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 \
+         -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition \ 
+         --user user --name user --pass default</command>
+</screen>
+
+      </sect4>
+    </sect3>
+    <sect3 id="jeos-required-packages" status="review">
+      <title>Installing Required Packages</title>
+
+      <para>
+      In this example we will be installing a package <application>(Limesurvey)</application> that accesses a 
+      <application>MySQL</application> database and has a web interface. We will therefore require our OS to 
+      provide us with:
+      </para>
+
+      <itemizedlist>
+        <listitem><para>Apache</para></listitem>
+        <listitem><para>PHP</para></listitem>
+        <listitem><para>MySQL</para></listitem>
+        <listitem><para>OpenSSH Server</para></listitem>
+        <listitem><para>Limesurvey (as an example application that we have packaged)</para></listitem>
+      </itemizedlist>
+
+      <para>
+      This is done using vmbuilder by specifying the --addpkg command multiple times:
+      </para>
+
+<programlisting>
+--addpkg PKG
+  Install PKG into the guest (can be specfied multiple times)
+</programlisting>
+
+      <para>
+      However, due to the way vmbuilder operates, packages that have to ask questions to the user during the post install phase are not supported and
+      should instead be installed while interactivity can occur. This is the case of Limesurvey, which we will have to install later, once the user logs
+      in.
+      </para>
+
+      <para>
+      Other packages that ask simple debconf question, such as <application>mysql-server</application> asking to set a password, the package can be
+      installed immediately, but we will have to reconfigure it the first time the user logs in.
+      </para>
+
+
+     <para>
+     If some packages that we need to install are not in main, we need to enable the additional repositories using --comp and --ppa: 
+     </para>
+
+<programlisting>
+--components COMP1,COMP2,...,COMPN
+           A comma separated list of distro components to include (e.g. main,universe). This defaults
+           to "main"
+--ppa=PPA  Add ppa belonging to PPA to the vm's sources.list.
+</programlisting>
+
+      <para>
+      Limesurvey not being part of the archive at the moment, we'll specify it's PPA (personal package archive) address so that it is added to the VM 
+      <filename>/etc/apt/source.list</filename>, so we add the following options to the command line:
+      </para>
+
+<screen>
+<command>--addpkg apache2 --addpkg apache2-mpm-prefork --addpkg apache2-utils --addpkg apache2.2-common \
+         --addpkg dbconfig-common --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \
+         --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \
+         --addpkg mysql-server --ppa nijaba</command>
+</screen>
+
+        <sect4 id="jeos-openssh" status="review">
+          <title>OpenSSH</title>
+
+          <para>
+          Another convenient tool that we want to have on our appliance is OpenSSH, as it will allow our admins to access 
+          the appliance remotely. However, pushing in the wild an appliance with a pre-installed OpenSSH server is a big security
+          risk as all these server will share the same secret key, making it very easy for hackers to target our appliance with all
+          the tools they need to crack it open in a breeze. As for the user password, we will instead rely on a script that will
+          install OpenSSH the first time a user logs in so that the key generated will be different for each appliance. For this
+          we'll use a <emphasis>--firstboot</emphasis> script, as it does not need any user interaction.
+          </para>
+
+        </sect4>
+      </sect3>
+      <sect3 id="jeos-speed-consideration" status="review">
+        <title>Speed Considerations</title>
+        
+        <sect4 id="jeos-package-caching" status="review">
+          <title>Package Caching</title>
+
+          <para>       
+          When vmbuilder creates builds your system, it has to go fetch each one of the packages that composes it over the network 
+          to one of the official repositories, which, depending on your internet connection speed and the load of the mirror, can 
+          have a big impact on the actual build time. In order to reduce this, it is recommended to either have a local repository 
+          (which can be created using <application>apt-mirror</application>) or using a caching proxy such as 
+          <application>apt-cache</application>. The later option being much simpler to implement and requiring less disk space, it
+          is the one we will pick in this tutorial. To install it, simply type:
+          </para>
+
+<screen>
+<command>sudo apt-get install apt-proxy</command>
+</screen>
+
+          <para>
+          Once this is complete, your (empty) proxy is ready for use on http://mirroraddress:9999 and will find ubuntu repository 
+          under /ubuntu. For vmbuilder to use it, we'll have to use the <emphasis>--mirror</emphasis> option:
+          </para>
+
+<programlisting>
+--mirror=URL  Use Ubuntu mirror at URL instead of the default, which
+              is http://archive.ubuntu.com/ubuntu for official
+              arches and http://ports.ubuntu.com/ubuntu-ports
+              otherwise
+</programlisting>
+
+          <para>
+          So we add to the command line: 
+          </para>
+
+<screen>
+<command>--mirror http://mirroraddress:9999/ubuntu</command>
+</screen>
+
+          <note>
+            <para>
+            The mirror address specified here will also be used in the <filename>/etc/apt/source.list</filename> of the newly created 
+            guest, so it is usefull to specify here an address that can be resolved by the guest or to plan on reseting this address 
+            later on, such as in a <emphasis>--firstboot</emphasis> script.
+            </para>
+          </note>
+
+          </sect4>
+          <sect4 id="jeos-local-mirror" status="review">
+            <title>Install a Local Mirror</title>
+
+            <para>
+            If we are in a larger environment, it may make sense to setup a local mirror of the Ubuntu repositories. 
+            The package apt-mirror provides you with a script that will handle the mirroring for you. You should 
+            plan on having about 20 gigabyte of free space per supported release and architecture.
+            </para>
+
+            <para>
+            By default, <application>apt-mirror</application> uses the configuration file in <filename>/etc/apt/mirror.list</filename>. 
+            As it is set up, it will replicate only the architecture of the local machine. If you would like to support other 
+            architectures on your mirror, simply duplicate the lines starting with “deb”, replacing the deb keyword by /deb-{arch}
+            where arch can be i386, amd64, etc... For example, on an amd64 machine, to have the i386 archives as well, you will have:
+            </para>
+
+<programlisting>
+deb  http://archive.ubuntu.com/ubuntu &distro-short-codename; main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename; main restricted universe multiverse
+
+deb  http://archive.ubuntu.com/ubuntu &distro-short-codename;-updates main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename;-updates main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu/ &distro-short-codename;-backports main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu &distro-short-codename;-backports main restricted universe multiverse 
+
+deb http://security.ubuntu.com/ubuntu &distro-short-codename;-security main restricted universe multiverse 
+/deb-i386  http://security.ubuntu.com/ubuntu &distro-short-codename;-security main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu &distro-short-codename; main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+/deb-i386 http://archive.ubuntu.com/ubuntu &distro-short-codename; main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+</programlisting>
+
+            <para>
+            Notice that the source packages are not mirrored as they are seldom used compared to the binaries and they do take
+            a lot more space, but they can be easily added to the list.
+            </para>
+
+            <para>
+            Once the mirror has finished replicating (and this can be quite long), you need to configure Apache so that your
+            mirror files (in <filename>/var/spool/apt-mirror</filename> if you did not change the default), are published by 
+            your Apache server. For more information on Apache see <xref linkend="httpd"/>.
+            </para>
+
+          </sect4>
+        </sect3>
+        <sect3 id="jeos-ramdisk" status="review">
+          <title>Installing in a RAM Disk</title>
+        
+          <para>
+          As you can easily imagine, writing to RAM is a <emphasis>LOT</emphasis> faster than writing to disk. If you have some 
+          free memory, letting vmbuilder perform its operation in a RAMdisk will help a lot and the option <emphasis>--tmpfs</emphasis>
+          will help you do just that: 
+          </para>
+
+<programlisting>
+--tmpfs OPTS  Use a tmpfs as the working directory, specifying its
+              size or "-" to use tmpfs default (suid,dev,size=1G).
+</programlisting>
+
+          <para>
+          So adding <command>--tmpfs -</command> sounds like a very good idea if you have 1G of free ram. 
+          </para>
+
+        </sect3>
+      </sect2>
+      <sect2 id="jeos-package-application" status="review">
+        <title>Package the Application</title>
+
+        <para>
+        Two option are available to us:
+        </para>
+
+        <itemizedlist>
+          <listitem>
+	    <para>
+            The recommended method to do so is to make a <emphasis>Debian</emphasis> package. Since this is outside of the
+            scope of this tutorial, we will not perform this here and invite the reader to read the documentation on how to do 
+            this in the <ulink url="https://wiki.ubuntu.com/PackagingGuide">Ubuntu Packaging Guide</ulink>. In this case it is 
+            also a good idea to setup a repository for your package so that updates can be conveniently pulled from it. See the
+            <ulink url="http://www.debian-administration.org/articles/286">Debian Administration</ulink> article for a tutorial on this.
+            </para> 
+          </listitem>
+          <listitem>
+	    <para>
+            Manually install the application under <filename>/opt</filename> as recommended by the 
+            <ulink url="http://www.pathname.com/fhs/">FHS guidelines</ulink>. 
+            </para> 
+          </listitem>
+        </itemizedlist>
+
+        <para>
+        In our case we'll use <application>Limesurvey</application> as example web application for which we wish to provide 
+        a virtual appliance. As noted before, we've made a version of the package available in a PPA (Personal Package Archive).
+        </para>
+
+      </sect2>
+      <sect2 id="jeos-finish-install" status="review">
+        <title>Finishing Install</title>
+  
+        <sect3 id="jeos-first-boot" status="review">
+          <title>First Boot</title>
+
+          <para>
+          As we mentioned earlier, the first time the machine boots we'll need to install <application>openssh-server</application>
+          so that the key generated for it is unique for each machine. To do this, we'll write a script called <filename>boot.sh</filename>
+          as follows: 
+          </para>
+
+<programlisting>
+# This script will run the first time the virtual machine boots
+# It is ran as root.
+
+apt-get update
+apt-get install -qqy --force-yes openssh-server
+</programlisting>
+
+          <para>
+          And we add the <command>--firstboot boot.sh</command> option to our command line.
+          </para>
+
+        </sect3>
+        <sect3 id="jeos-first-login" status="review">
+          <title>First Login</title>
+
+          <para>
+          Mysql and Limesurvey needing some user interaction during their setup, we'll set them up the first time a user 
+          logs in using a script named login.sh. We'll also use this script to let the user specify: 
+          </para>
+
+          <itemizedlist>
+            <listitem><para>His own password</para></listitem>
+            <listitem><para>Define the keyboard and other locale info he wants to use</para></listitem>
+          </itemizedlist>
+
+          <para>
+          So we'll define <filename>login.sh</filename> as follows: 
+          </para>
+
+<programlisting>
+# This script is ran the first time a user logs in
+
+echo "Your appliance is about to be finished to be set up."
+echo "In order to do it, we'll need to ask you a few questions,"
+echo "starting by changing your user password."
+
+passwd
+
+#give the opportunity to change the keyboard
+sudo dpkg-reconfigure console-setup
+
+#configure the mysql server root password
+sudo dpkg-reconfigure mysql-server-5.0
+
+#install limesurvey
+sudo apt-get install -qqy --force-yes limesurvey
+
+echo "Your appliance is now configured.  To use it point your"
+echo "browser to http://serverip/limesurvey/admin"
+</programlisting>
+
+          <para>
+          And we add the <command>--firstlogin login.sh</command> option to our command line.
+          </para>
+
+        </sect3>
+      </sect2>
+      <sect2 id="jeos-additions" status="review">
+        <title>Useful Additions</title>
+
+      <sect3 id="jeos-automatic-updates" status="review">
+        <title>Configuring Automatic Updates</title>
+        
+        <para>
+        To have your system be configured to update itself on a regular basis, we will just install 
+        <application>unattended-upgrades</application>, so we add the following option to our command line:
+        </para>
+
+<screen>
+<command>--addpkg unattended-upgrades</command>
+</screen>
+
+      <para>
+      As we have put our application package in a PPA, the process will update not only the system, but also 
+      the application each time we update the version in the PPA.
+      </para>
+ 
+      </sect3>
+      <sect3 id="jeos-acpi" status="review">
+        <title>ACPI Event Handling</title>
+
+        <para>
+        For your virtual machine to be able to handle restart and shutdown events it is being sent, it is a good idea to install the acpid package as
+        well. To do this we just add the following option: 
+        </para>
+
+<screen>
+<command>--addpkg acpid</command>
+</screen>
+
+      </sect3>
+    </sect2>
+    <sect2 id="jeos-final-command">
+      <title>Final Command</title>
+
+      <para>
+      Here is what the command with all the options discussed above:      
+      </para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 -o \ 
+         --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition --user user \
+         --name user --pass default --addpkg apache2 --addpkg apache2-mpm-prefork \ 
+         --addpkg apache2-utils --addpkg apache2.2-common --addpkg dbconfig-common \ 
+         --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \ 
+         --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \
+         --addpkg mysql-server --addpkg unattended-upgrades --addpkg acpid --ppa nijaba \ 
+         --mirror http://mirroraddress:9999/ubuntu --tmpfs - --firstboot boot.sh \
+         --firstlogin login.sh es
+         </command>
+</screen>
+
+    </sect2>
+    <sect2 id="jeos-resources" status="review">
+      <title>Resources</title>
+      <para>
+      If you are interested in learning more, have questions or suggestions, please contact the Ubuntu Server Team at:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          IRC: #ubuntu-server on freenode
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Mailing list: <ulink url="https://lists.ubuntu.com/mailman/listinfo/ubuntu-server">ubuntu-server at lists.ubuntu.com</ulink>
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="eucalyptus" status="review">
+    <title>Eucalyptus</title>
+
+    <sect2 id="eucalyptus-overview" status="review">
+      <title>Overview</title>
+
+      <para>
+      <emphasis>Eucalyptus</emphasis> is an open-source software infrastructure for implementing "cloud computing" on your own clusters. 
+      <emphasis>Eucalyptus</emphasis> allows you to create your own cloud computing environment in order to maximize computing resources
+      and provide a cloud computing environment to your users. 
+      </para>
+
+      <para>
+      This section will cover setting up a Cloud Computing environment using <application>Eucalyptus</application> with 
+      <application>KVM</application>. For more information on KVM see <xref linkend="libvirt"/>.
+      </para>
+
+      <para>
+      The Cloud Computing environment will consist of three components, typically installed on at least two separate machines 
+      (termed the 'front-end' and 'node(s)' for the rest of this document): 
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          <emphasis>One Front-End:</emphasis> hosts one Cloud Controller, a Java based Web configuration interface, and a Cluster Controller,
+          which determines where virtual machines (VMs) will be housed and manages cluster level VM networking. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>One or more Compute Nodes:</emphasis> runs the Node Controller component of Eucalyptus, which allows the machine to be part 
+          of the cloud as a host for VMs. 
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+      The simple <emphasis>System</emphasis> networking option will be used by default. This network method allows virtual machine instances, to 
+      obtain IP addresses from the local LAN, assuming that a DHCP server is properly configured on the LAN to hand out IPs dynamically to VMs 
+      that request them. Each node will be configured for bridge  networking. For more details see <xref linkend="bridging"/>. 
+      </para>
+
+    </sect2>
+    <sect2 id="eucalyptus-configuration" status="review">
+      <title>Configuration</title>
+
+      <para>
+      First, on the <emphasis>Front-End</emphasis> install the appropriate packages. In a terminal prompt on the Front-End enter: 
+      </para>
+
+<screen>
+<command>sudo apt-get install eucalyptus-cloud eucalyptus-cc</command>
+</screen>
+
+      <para>
+      Next, on the each <emphasis>Compute Node</emphasis> install the node controller package. In a terminal prompt on each Compute Node enter: 
+      </para>
+
+<screen>
+<command>sudo apt-get install eucalyptus-nc</command>
+</screen>
+
+      <para>
+      Once the installation is complete, and it may take a while, in a browser go to <emphasis>https://front-end:8443</emphasis> and login to the 
+      administration interface using the default username and password of <emphasis>admin</emphasis>. You will then be prompted to change the 
+      password, configure an email address for the admin user, and set the storage URL. 
+      </para>
+
+      <para>
+      In the web interface's <emphasis>"Configuration"</emphasis> tab, add a cluster under the <emphasis>"Clusters"</emphasis> heading 
+      (in this configuration, the cluster controller is on the same system as the cloud controller, so entering 'localhost' as the cluster hostname is correct). 
+      Once the form is filled out click the <emphasis>"Add Cluster"</emphasis>  button. 
+      </para>
+
+      <para>
+      Now, back on the <emphasis>Front-End</emphasis>, add the nodes to the cluster:
+      </para>
+
+<screen>
+<command>sudo euca_conf -addnode hostname_of_node</command>
+</screen>
+
+      <para>
+      You will then be prompted to log into your Node, install the <application>eucalyptus-nc</application> package, and add the <emphasis>eucalyptus</emphasis>
+      user's ssh key to the node's <filename>authorized_keys</filename> file, and confirm authenticity of the host's OpenSSH RSA key fingerprint. 
+      Finally, the command will complete by synchronizing the eucalyptus component keys and node registration is complete.
+      </para>
+
+      <para>
+      On the Node, the <filename>/etc/eucalyptus/eucalyptus.conf</filename> configuration file will need editing to use your node's bridge interface 
+      (assuming here that the interface is named <emphasis>'br0'</emphasis>): 
+      </para>
+
+<programlisting>
+VNET_INTERFACE="br0"
+...
+VNET_BRIDGE="br0"
+</programlisting>
+
+      <para>
+      Finally, restart <application>eucalyptus-nc</application>:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/eucalyptus-nc restart</command>
+</screen>
+
+
+      <note>
+        <para>
+        Be sure to replace <emphasis>nodecontroller</emphasis>, <emphasis>node01</emphasis>, and <emphasis>node02</emphasis> 
+        with actual hostnames.
+        </para>
+      </note>
+
+      <para>
+      <application>Eucalyptus</application> is now ready to host images on the cloud. 
+      </para>
+
+    </sect2>
+    <sect2 id="eucalyptus-references" status="review">
+      <title>References</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          See the <ulink url="http://eucalyptus.cs.ucsb.edu/">Eucalyptus website</ulink> for more information.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          For information on loading instances see the <ulink url="https://help.ubuntu.com/community/Eucalyptus">Eucalyptus Wiki</ulink> page.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          You can also find help in the <emphasis>#ubuntu-virt</emphasis>, <emphasis>#eucalyptus</emphasis>, and 
+          <emphasis>#ubuntu-server</emphasis> IRC channels on <ulink url="http://freenode.net">Freenode</ulink>.
+          </para>
+        </listitem>
+      </itemizedlist>
+      
+    </sect2>
+  </sect1>  
+<sect1 id="opennebula" status="review">
+    <title>OpenNebula</title>
+
+    <para>
+    <application>OpenNebula</application> allows virtual machines to be placed and re-placed dynamically on a pool of physical resources.
+    This allows a virtual machine to be hosted from any location available.  
+    </para>
+
+    <para>
+    This section will detail configuring an OpenNebula cluster using three machines: one <emphasis>Front-End</emphasis> host, and two 
+    <emphasis>Compute Nodes</emphasis> used to run the virtual machines. The Compute Nodes will also need a bridge configured to allow the 
+    virtual machines access to the local network.  For details see <xref linkend="bridging"/>.
+    </para>
+
+    <sect2 id="opennebula-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      First, from a terminal on the Front-End enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install opennebula</command>
+</screen>
+  
+      <para>
+      On each Compute Node install:
+      </para>
+
+<screen>
+<command>sudo apt-get install opennebula-node</command>
+</screen>
+
+      <para>
+      In order to copy SSH keys, the <emphasis>oneadmin</emphasis> user will need to have a password.  On each machine execute:
+      </para>
+
+<screen>
+<command>sudo passwd oneadmin</command>
+</screen>
+
+      <para>
+      Next, copy the <emphasis>oneadmin</emphasis> user's SSH key to the Compute Nodes, and to the Front-End's <filename>authorized_keys</filename> file:
+      </para>
+
+<screen>
+<command>sudo scp /var/lib/one/.ssh/id_rsa.pub oneadmin@node01:/var/lib/one/.ssh/authorized_keys</command>
+<command>sudo scp /var/lib/one/.ssh/id_rsa.pub oneadmin@node02:/var/lib/one/.ssh/authorized_keys</command>
+<command>sudo sh -c "cat /var/lib/one/.ssh/id_rsa.pub >> /var/lib/one/.ssh/authorized_keys"</command>
+</screen>  
+
+      <para>
+      The SSH key for the Compute Nodes needs to be added to the <filename>/etc/ssh/ssh_known_hosts</filename> file on the Front-End host.  To accomplish
+      this <application>ssh</application> to each Compute Node as a user other than <emphasis>oneadmin</emphasis>.  Then exit from the SSH session, and 
+      execute the following to copy the SSH key from <filename>~/.ssh/known_hosts</filename> to <filename>/etc/ssh/ssh_known_hosts</filename>:
+      </para>
+
+<screen>
+<command>sudo sh -c "ssh-keygen -f .ssh/known_hosts -F node01 1>> /etc/ssh/ssh_known_hosts"</command>
+<command>sudo sh -c "ssh-keygen -f .ssh/known_hosts -F node02 1>> /etc/ssh/ssh_known_hosts"</command>
+</screen>
+
+      <note>
+        <para>
+        Replace <emphasis>node01</emphasis> and <emphasis>node02</emphasis> with the appropriate host names.
+        </para>
+      </note>
+
+      <para>
+      This allows the <emphasis>oneadmin</emphasis> to use <application>scp</application>, without a password or manual intervention, to deploy an
+      image to the Compute Nodes.
+      </para>
+
+      <para>
+      On the Front-End create a directory to store the VM images, giving the <emphasis>oneadmin</emphasis> user access to the directory:
+      </para>
+
+<screen>
+<command>sudo mkdir /var/lib/one/images</command>
+<command>sudo chown oneadmin /var/lib/one/images/</command>
+</screen>
+
+      <para>
+      Finally, copy a virtual machine disk file into <filename>/var/lib/one/images</filename>.  You can create an Ubuntu virtual machine
+      using <application>vmbuilder</application>, see <xref linkend="jeos-and-vmbuilder"/> for details.
+      </para>
+
+    </sect2>
+    <sect2 id="opennebula-configuration" status="review">
+      <title>Configuration</title>
+    
+      <para>
+      The <emphasis>OpenNebula Cluster</emphasis> is now ready to be configured, and virtual machines added to the cluster.
+      </para>
+
+      <para>
+      From a terminal prompt enter:
+      </para>
+
+<screen>
+<command>onehost create node01 im_kvm vmm_kvm tm_ssh</command>
+<command>onehost create node02 im_kvm vmm_kvm tm_ssh</command>
+</screen>
+
+      <para>
+      Next, create a <emphasis>Virtual Network</emphasis> template file named <filename>vnet01.template</filename>:
+      </para>
+
+<programlisting>
+NAME            = "LAN"
+TYPE            = RANGED
+BRIDGE          = br0
+NETWORK_SIZE    = C
+NETWORK_ADDRESS = 192.168.0.0
+</programlisting>
+
+      <note>
+        <para>
+        Be sure to change <emphasis>192.168.0.0</emphasis> to your local network.
+        </para>
+      </note>
+
+      <para>
+      Using the <application>onevnet</application> utility, add the virtual network to OpenNebula:
+      </para>
+
+<screen>
+<command>onevnet create vnet01.template</command>
+</screen>
+
+      <para>
+      Now create a <emphasis>VM Template</emphasis> file named <filename>vm01.template</filename>:
+      </para>
+
+<programlisting>
+NAME   = vm01
+CPU    = 0.5
+MEMORY = 512
+
+OS      = [ BOOT   = hd ]
+
+DISK   = [
+  source   = "/var/lib/one/images/vm01.qcow2",
+  target   = "hda",
+  readonly = "no" ]
+
+NIC    = [ NETWORK="LAN" ]
+
+GRAPHICS = [type="vnc",listen="127.0.0.1",port="-1"]
+</programlisting>
+
+      <para>
+      Start the virtual machine using <application>onevm</application>:
+      </para>
+
+<screen>
+<command>onevm submit vm01.template</command>
+</screen>
+
+      <para>
+      Use the <application>onevm list</application> option to view information about virtual machines.  Also, the <application>onevm show vm01</application> 
+      option will display more details about a specific virtual machine.
+      </para>
+
+    </sect2>
+    <sect2 id="opennebula-references" status="review">
+      <title>References</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          See the <ulink url="http://www.opennebula.org/doku.php?id=start">OpenNebula website</ulink> for more information.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          You can also find help in the <emphasis>#ubuntu-virt</emphasis> and 
+          <emphasis>#ubuntu-server</emphasis> IRC channels on <ulink url="http://freenode.net">Freenode</ulink>.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+</chapter>

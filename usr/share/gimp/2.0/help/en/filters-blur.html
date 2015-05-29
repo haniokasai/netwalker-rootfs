@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>2.  Blur Filters</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters.html" title="Chapter 16.  Filters" />
+    <link rel="prev" href="filters.html" title="Chapter 16.  Filters" />
+    <link rel="next" href="plug-in-blur.html" title="2.2.  Blur" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">2. 
+    <span lang="en" xml:lang="en">Blur Filters</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="filters.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">Chapter 16. 
+        <span lang="en" xml:lang="en">Filters</span>
+      </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-blur.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="filters-blur"></a>2. 
+    <span lang="en" xml:lang="en">Blur Filters</span>
+  </h2>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="filters-blur-introduction"></a>2.1. 
+    <span lang="en" xml:lang="en">Introduction</span>
+  </h3>
+            </div>
+          </div>
+        </div>
+        <a id="id2730438" class="indexterm"></a>
+        <div class="figure">
+          <a id="id2730455"></a>
+          <p class="title">
+            <b>Figure 16.2. 
+      <span lang="en" xml:lang="en">Original for demo</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-orig.png" alt="Original for demo" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    This is a set of filters that blur images, or parts of them,
+    in various ways.  If there is a selection, only the selected parts
+    of an image will be blurred. There may, however, be some leakage
+    of colors from the unblurred area into the blurred area.  To help
+    you pick the one you want, we will illustrate what each does when
+    applied to the image shown at right.  These are, of course, only
+    examples:  most of the filters have parameter settings that allow
+    you to vary the magnitude or type of blurring.
+  </p>
+        <div class="figure">
+          <a id="id2730497"></a>
+          <p class="title">
+            <b>Figure 16.3. 
+      <span lang="en" xml:lang="en">Gaussian blur (radius 10)</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-gauss10.png" alt="Gaussian blur (radius 10)" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    The most broadly useful of these is the Gaussian blur. (Don't let
+    the word "Gaussian" throw you: this filter makes an image blurry
+    in the most basic way.)  It has an efficient implementation that
+    allows it to create a very blurry blur in a relatively short
+    time.
+  </p>
+        <div class="figure">
+          <a id="id2730534"></a>
+          <p class="title">
+            <b>Figure 16.4. 
+      <span lang="en" xml:lang="en">Simple blur</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-blur.png" alt="Simple blur" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    If you only want to blur the image a little bit--to
+    soften it, as it were--you might use the simple "Blur" filter.  In
+    GIMP 2.2 this runs automatically, without creating a dialog.  The
+    effect is subtle enough that you might not even notice it, but you
+    can get a stronger effect by repeating it.  In GIMP 2.0 the filter
+    shows a dialog that allows you to set a "repeat count".
+    If you want a strong blurring effect, this filter
+    is too slow to be a good choice: use a Gaussian blur instead.
+  </p>
+        <div class="figure">
+          <a id="id2730576"></a>
+          <p class="title">
+            <b>Figure 16.5. 
+      <span lang="en" xml:lang="en">Selective blur</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-selective.png" alt="Selective blur" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    The Selective Blur filter allows you to set a threshold so that
+    only pixels that are similar to each other are blurred together.
+    It is often useful as a tool for reducing graininess in photos
+    without blurring sharp edges.  (In the example, note that the
+    graininess of the background has been reduced.)  The
+    implementation is much slower
+    than a Gaussian blur, though, so you should not use it unless you
+    really need the selectivity.
+  </p>
+        <div class="figure">
+          <a id="id2730616"></a>
+          <p class="title">
+            <b>Figure 16.6. 
+      <span lang="en" xml:lang="en">Pixelize</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-pixelize.png" alt="Pixelize" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    The Pixelize filter produces the well-known "Abraham Lincoln"
+    effect by turning the image into a set of large square pixels.
+    (The <a class="link" href="plug-in-oilify.html" title="9.12.  Oilify">Oilify</a> filter, in
+    the Artistic Filters group, has a similar effect, but with
+    irregular blobs instead of perfectly square pixels.)
+  </p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Note">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[Note]" src="../images/note.png" />
+              </td>
+              <th align="left">Note</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+      You can find a nice explanation of the Abraham Lincoln effect
+      at <a class="xref" href="bibliography.html#bibliography-online-bach" title="Face in blocks">[<abbr class="abbrev">BACH04</abbr>]</a>.
+    </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="figure">
+          <a id="id2730682"></a>
+          <p class="title">
+            <b>Figure 16.7. 
+      <span lang="en" xml:lang="en">Motion blur</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/blur-demo-mblur.png" alt="Motion blur" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    The Motion Blur filter blurs in a specific direction at each point, which
+    allows you to create a sense of motion: either linear, radial, or
+    rotational.
+  </p>
+        <p>
+    Finally, the Tileable Blur filter is really the same thing as a Gaussian
+    blur, except that it wraps around the edges of an image to help you reduce
+    edge effects when you create a pattern by tiling multiple copies of the
+    image side by side.
+  </p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Note">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[Note]" src="../images/note.png" />
+              </td>
+              <th align="left">Note</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+      Tileable Blur is actually implemented by a Script-Fu script that invokes
+      the Gaussian blur plug-in.
+    </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="filters.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-blur.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="filters.html">Chapter 16. 
+        <span lang="en" xml:lang="en">Filters</span>
+      </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-blur.html">2.2. 
+    <span lang="en" xml:lang="en">Blur</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

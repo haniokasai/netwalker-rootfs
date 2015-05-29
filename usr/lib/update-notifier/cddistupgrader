@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+CDROM_MOUNT="$1"
+UPGRADER_DIR="$CDROM_MOUNT/dists/stable/main/dist-upgrader/binary-all/"
+
+TAR=$(basename "$UPGRADER_DIR"/*.tar.gz)
+CODENAME=${TAR%.tar.gz}
+
+# get a tempdir
+TMPDIR=$(mktemp -t -d distupgrade.XXXXXX)
+cd $TMPDIR
+
+# extract the tar
+tar xzf "$UPGRADER_DIR"/"$TAR"
+
+# run it
+gksu -- "$TMPDIR"/"$CODENAME" --cdrom "$CDROM_MOUNT"

@@ -1,0 +1,22 @@
+#! /bin/sh
+set -e
+
+PREREQ=
+
+prereqs () {
+	echo "$PREREQ"
+}
+
+case $1 in
+	prereqs)
+		prereqs
+		exit 0
+		;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+mkdir -p $DESTDIR/lib/brltty
+copy_exec /usr/share/brltty/initramfs/brltty.sh /lib/brltty
+mkdir -p $DESTDIR/sbin
+copy_exec /sbin/brltty-setup /sbin

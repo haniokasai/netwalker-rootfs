@@ -1,0 +1,81 @@
+I think users shouldn't have to do the stuff described below. I hope I
+can find the time to make the calibration program a little bit more
+intelligent so it can make all modifications on XF86Config itself.
+
+BEFORE you begin with the calibration procedure your touchscreen
+should be configured as described on the web page
+http://www.conan.de/lifebook/lifebook.html. 
+
+Before you can calibrate the touchscreen you have to tell the
+touchscreen driver to send the raw coordinates to the calibration
+program. You can do this by inserting the line "Option "Calibrate"
+"1"" into the  "InputDevice"-section of the the touchscreen in the
+file "XF86Config-4".
+
+This configuration file is usually located in the directory
+"/etc/X11". 
+
+The "InputDevice"-section of the touchscreen can be easily located by 
+searching for the line "Driver "evtouch"". Within this section insert 
+the line described above ("Option "Calibrate" "1""). 
+
+Remember this line since you have to delete it again after successful 
+calibration of your touchscreen.
+
+As next step it is necessary to stop the XWindow system. If in your
+case X is alway running you have to stop it. (e.g. With SuSE run Yast2
+to stop X: Yast2, System, Runlevel Editor, Runlevel-Eigenschaften, scroll to
+xdm and delete the tic under Runlevel 5. That means that XDM is no
+longer started during startup of the system and you can normally
+log in via ASCII login.)
+
+Now you can start the calibration program "calibrate.sh" from a text
+console. X MUST not run during this step.
+
+If you start "calibrate.sh" a white screen with 9 black crosses should
+appear. 
+
+The first calibration step consists of finding the maximum and minimum 
+coordinates. To do this just touch the screen with the pen along all
+edges and corners. DO NOT KLICK -- Just move the pen accross the
+screen. After your first touch of the screen two text lines should
+appear somewhere in the upper left area of the screen. For you only
+the first line is interesting. This line shows the currently found
+minimum and maximum values of the X- and Y-coordinates.
+
+It is always safe to run calibration.sh with root permissions. If
+something does not work all right with the calibration (e.g. The
+numbers on the screen do not move) try running calibration.sh as
+root. 
+
+Keep moving the stick along the edges of your screen until you think  
+you have found the maximum and the minimum coordinates. Now press
+return to go on to the next step of the calibration.
+
+Now you can do the fine-tuning of the touchscreen. After you have
+pressed return the upper left cross should turn red. Begin touching
+the red cross on the screen. If the pen is EXACTLY over the red cross
+press the left mouse button. Now the next cross should turn
+red. Repeat this process with all crosses on the screen. If you
+accidently click twice you can go one step back by pressing the right
+mouse button. 
+
+After you have clicked on the last red cross the calibration program
+writes the file "out.txt" to disk. This file contains the calibration
+parameters which have to be merged into "XF86Config-4". Open both
+files (out.txt and XF86Config-4) in your favourite editor and merge
+the lines in "out.txt" into the "InputDevice"-section of your
+touchscreen.
+
+The x- and y-values in out.txt should be reasonable low numbers
+(something between -20 to 20 maybe even lower). These values are the
+amount of pixels the cursor has to be corrected on a certain
+position. So it makes no sense to merge out.txt to your XF86Config-4
+if there are completely insane numbers in out.txt. 
+
+Erase the line "Option "Calibrate" "1"" or disable it with a "#"-sign
+in front of it.
+
+That's it.
+
+You have (hopefully) sucessfully calibrated your touchscreen.

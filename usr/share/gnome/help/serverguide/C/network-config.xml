@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="networking" status="review">
+	<title>Networking</title>
+	<para>
+	Networks consist of two or more devices, such as computer systems, printers, 
+	and related equipment which are connected by either physical cabling or 
+	wireless links for the purpose of sharing and distributing information among 
+	the connected devices. 
+  	</para>
+  	<para>
+	This section provides general and specific information pertaining
+        to networking, including an overview of network concepts and detailed 
+	discussion of popular network protocols.
+	</para>
+	<sect1 id="network-configuration" status="review">
+		<title>Network Configuration</title>
+		<para>
+            	Ubuntu ships with a number of graphical utilities to configure your 
+		network devices.  This document is geared toward server administrators 
+		and will focus on managing your	network on the command line.
+          	</para>
+      <sect2 id="ethernet" status="review">
+        <title>Ethernet</title> 
+          <para>
+	  Most Ethernet configuration is centralized in a single file,
+	  <filename>/etc/network/interfaces</filename>.  If you have no Ethernet devices, 
+	  only the loopback interface will appear in this file, and it will look something
+	  like this:
+	  </para>
+<programlisting>
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+address 127.0.0.1
+netmask 255.0.0.0
+</programlisting>
+	  <para>
+	  If you have only one Ethernet device, eth0, and it gets its configuration from a
+	  DHCP server, and it should come up automatically at boot, only two additional 
+	  lines are required:
+	  </para>
+<programlisting>
+auto eth0
+iface eth0 inet dhcp
+</programlisting>
+	  <para>
+	  The first line specifies that the eth0 device should come up automatically when
+	  you boot.  The second line means that interface (<quote>iface</quote>) eth0 
+	  should have an IPv4 address space (replace <quote>inet</quote> with 
+	  <quote>inet6</quote> for an IPv6 device) and that it should get its 
+	  configuration automatically from DHCP.  Assuming your network and DHCP server 
+	  are properly configured, this machine's network should need no further 
+	  configuration to operate properly.  The DHCP server will provide the default 
+	  gateway (implemented via the <application>route</application> command), the 
+	  device's IP address (implemented via the <application>ifconfig</application> 
+	  command), and DNS servers used on the network (implemented in the 
+	  <filename>/etc/resolv.conf</filename> file.)
+	  </para>
+	  <para>
+	  To configure your Ethernet device with a static IP address and custom 
+	  configuration, some more information will be required.  Suppose you want to 
+	  assign the IP address	192.168.0.2 to the device eth1, with the typical netmask 
+	  of 255.255.255.0.  Your default gateway's IP address is 192.168.0.1.  You would 
+	  enter something like this into <filename>/etc/network/interfaces</filename>:
+	  </para>
+<programlisting>
+iface eth1 inet static
+	address 192.168.0.2
+	netmask 255.255.255.0
+	gateway 192.168.0.1
+</programlisting>
+	<para>
+	In this case, you will need to specify your DNS servers manually in
+	<filename>/etc/resolv.conf</filename>, which should look something like this:
+	</para>
+<programlisting>
+search mydomain.example
+nameserver 192.168.0.1
+nameserver 4.2.2.2
+</programlisting>
+	<para>
+	The <emphasis role="italics">search</emphasis> directive will append mydomain.example
+	to hostname queries in an attempt to resolve names to your network.  For example,
+	if your network's domain is mydomain.example and you try to ping the host
+	<quote>mybox</quote>, the DNS query will be modified to 
+	<quote>mybox.mydomain.example</quote> for resolution.  The 
+	<emphasis role="italics">nameserver</emphasis> directives specify DNS servers to be 
+	used to resolve hostnames to IP addresses.  If you use your own nameserver, enter it 
+	here.  Otherwise, ask your Internet Service Provider for the primary and secondary DNS 
+	servers to use, and enter them into <filename>/etc/resolv.conf</filename> as shown 
+	above.
+	</para>
+	<para>
+	Many more configurations are possible, including dialup PPP interfaces, IPv6
+	networking, VPN devices, etc.  Refer to <application>man 5 interfaces</application>
+	for more information and supported options.  Remember that 
+	<filename>/etc/network/interfaces</filename> is used by the 
+	<application>ifup</application>/<application>ifdown</application> scripts as a
+	higher level configuration scheme than may be used in some other Linux distributions,
+	and that the traditional, lower level utilities such as 
+	<application>ifconfig</application>, <application>route</application>, and 
+	<application>dhclient</application> are still available to you for ad hoc 
+	configurations.
+	</para>
+      </sect2>
+      <sect2 id="managing-dns-entries" status="review">
+          <title>Managing DNS Entries</title>
+            <para>This section explains how to configure which nameserver
+            to use when resolving IP addresses to hostnames and vice
+            versa. It does not explain how to configure the system as a name
+            server.
+            </para>
+            <para>
+            To manage DNS entries, you can add, edit, or remove DNS names
+            from the <filename>/etc/resolv.conf</filename> file. A sample file is given below:
+            </para>
+<programlisting>
+search com
+nameserver 204.11.126.131
+nameserver 64.125.134.133
+nameserver 64.125.134.132
+nameserver 208.185.179.218
+</programlisting>
+            
+            <para>
+             The <application>search</application> key specifies the string
+             which will be appended to an incomplete hostname. Here, we
+             have configured it to <application>com</application>. So, when we
+             run: <command>ping ubuntu</command> it would be interpreted
+             as <command>ping ubuntu.com</command>.
+            </para> 
+
+            <para>
+            The <application>nameserver</application> key specifies the
+            nameserver IP address. It will be used to resolve a given
+            IP address or hostname. This file can have multiple nameserver
+            entries. The nameservers will be used by the network query
+            in the same order.
+            </para>
+
+            <warning>
+            <para>
+            If the DNS server names are retrieved dynamically from DHCP
+            or PPPoE (retrieved from your ISP), do not add nameserver
+            entries in this file. It will be overwritten.
+           </para>
+            </warning>
+
+        </sect2>
+        <sect2 id="managing-hosts" status="review">
+          <title>Managing Hosts</title>
+            <para>
+            To manage hosts, you can add, edit, or remove hosts from
+            <filename>/etc/hosts</filename> file. The file contains IP
+            addresses and their corresponding hostnames.  When your
+            system tries to resolve a hostname to an IP address or
+            determine the hostname for an IP address, it refers to the
+            <filename>/etc/hosts</filename> file before using the name
+            servers.  If the IP address is listed in the
+            <filename>/etc/hosts</filename> file, the name servers are
+            not used.  This behavior can be modified by editing 
+	    <filename>/etc/nsswitch.conf</filename> at your peril.
+            </para>
+
+            <para>
+            If your network contains computers whose IP
+            addresses are not listed in DNS, it is recommended that you
+            add them to the <filename>/etc/hosts</filename> file.
+            </para>
+        </sect2>
+
+    <sect2 id="bridging" status="review">
+      <title>Bridging</title>
+
+      <para>
+      Bridging multiple interfaces is a more advanced configuration, but is very useful in multiple scenarios.  
+      One scenario is setting up a bridge with multiple network interfaces, then using a firewall to filter traffic
+      between two network segments.  Another scenario is using bridge on a system with one interface to allow virtual
+      machines direct access to the outside network.  The following example covers the latter scenario.
+      </para>
+
+      <para>
+      Before configuring a bridge you will need to install the <application>bridge-utils</application> package.  To install the 
+      package, in a terminal enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install bridge-utils</command>
+</screen>
+
+      <para>
+      Next, configure the bridge by editing <filename>/etc/network/interfaces</filename>:
+      </para>
+
+<programlisting>
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet static
+        address 192.168.0.10
+        network 192.168.0.0
+        netmask 255.255.255.0
+        broadcast 192.168.0.255
+        gateway 192.168.0.1
+        bridge_ports eth0
+        bridge_fd 9
+        bridge_hello 2
+        bridge_maxage 12
+        bridge_stp off
+</programlisting>
+
+      <note>
+        <para>
+        Enter the appropriate values for your physical interface and network.
+        </para>
+      </note>
+
+      <para>
+      Now restart networking to enable the bridge interface:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/networking restart</command>
+</screen>
+
+    <para>
+    If setting up a bridge interface using Ubuntu Desktop Edition, or if <application>dhcdbd</application> is installed,  the 
+    <application>dhcdbd</application> daemon will need to be stopped and disabled.  
+    </para>
+
+    <para>
+    After configuring the bridge in <filename>/etc/network/interfaces</filename>, shutdown <application>dhcdbd</application> by:
+    </para>
+
+<screen>
+<command>sudo /etc/init.d/dhcdbd stop</command>
+</screen>
+
+    <para>
+    Now to disable it from starting on boot enter:
+    </para>
+
+<screen>
+<command>sudo update-rc.d -f dhcdbd remove</command>
+</screen>
+
+        <para>
+        The new bridge interface should now be up and running.  The <application>brctl</application> provides useful information
+        about the state of the bridge, controls which interfaces are part of the bridge, etc.  See <command>man brctl</command> 
+        for more information.        
+        </para>
+
+      </sect2>
+      <sect2 id="network-config-resources" status="review">
+        <title>Resources</title>
+    
+        <para>
+        
+        </para>
+
+        <itemizedlist>
+          <listitem>
+            <para>
+            The <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/interfaces.5.html">interafaces man page</ulink> has 
+            details on more options for <filename>/etc/network/interfaces</filename>.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            For more information on DNS client configuration see the 
+            <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/resolver.5.html">resolver man page</ulink>.  Also, Chapter 
+            6 of O'Reilly's <ulink url="http://oreilly.com/catalog/linag2/book/ch06.html">Linux Network Administrator's Guide</ulink> is 
+            a good source of resolver and name service configuration information.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            For more information on <emphasis>bridging</emphasis> see the 
+            <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/brctl.8.html">brctl man page</ulink> and the Linux Foundation's
+            <ulink url="http://www.linuxfoundation.org/en/Net:Bridge">Net:Bridge</ulink> page.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+    </sect1>
+	<sect1 id="tcpip" status="review">
+		<title>TCP/IP</title>
+          <para>
+            The Transmission Control Protocol and Internet Protocol (TCP/IP) is a standard 
+			set of protocols developed in the late 1970s by the Defense Advanced Research 
+			Projects Agency (DARPA) as a means of communication between different types of 
+			computers and computer networks. TCP/IP is the driving force of the Internet, 
+			and thus it is the most popular set of network protocols on Earth. 
+          </para>
+      <sect2 id="tcpip-introduction" status="review">
+        <title>TCP/IP Introduction</title> 
+          <para>
+            The two protocol components of TCP/IP deal with different aspects of computer networking.
+            <emphasis>Internet Protocol</emphasis>, the "IP" of TCP/IP is a 
+			connectionless protocol which deals only with network packet routing using the <emphasis 
+			role="italics">IP Datagram</emphasis> as the basic unit of networking information.  The 
+			IP Datagram consists of a header followed by a message.  The <emphasis>
+			Transmission Control Protocol</emphasis> is the "TCP" of TCP/IP and enables network hosts 
+			to establish connections which may be used to exchange data streams.  TCP also guarantees 
+			that the data between connections is delivered and that it arrives at one network host in 
+			the same order as sent from another network host.
+          </para>
+          </sect2>
+        <sect2 id="tcpip-configuration" status="review">
+          <title>TCP/IP Configuration</title>
+            <para>
+            The TCP/IP protocol configuration consists of several elements which must be set by 
+			editing the appropriate configuration files, or deploying solutions such as the Dynamic 
+			Host Configuration Protocol (DHCP) server which in turn, can be configured to provide the 
+			proper TCP/IP configuration settings to network clients automatically. These 
+			configuration values must be set correctly in order to facilitate the proper network 
+			operation of your Ubuntu system.
+            </para>
+            <para>
+            The common configuration elements of TCP/IP and their purposes are as follows:
+            <itemizedlist>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">IP address</emphasis> The IP address is a unique
+                  identifying string expressed as four decimal numbers ranging from zero (0)
+                  to two-hundred and fifty-five (255), separated by periods,
+                  with each of the four numbers representing eight (8) bits of the address for a
+                  total length of thirty-two (32) bits for the whole address. This format is called
+                  <emphasis>dotted quad
+                  notation</emphasis>.</para>
+               </listitem>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">Netmask</emphasis> The Subnet Mask (or simply,
+                  <emphasis>netmask</emphasis>) is a local bit mask, or set of flags
+                  which separate the portions of an IP address significant to the network from the
+                  bits significant to the <emphasis>subnetwork</emphasis>.  For example,
+                  in a Class C network, the standard netmask is 255.255.255.0 which masks the first
+                  three bytes of the IP address and allows the last byte of the IP address to
+                  remain available for specifying hosts on the subnetwork.
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">Network Address</emphasis> The Network Address represents the
+                  bytes comprising the network portion of an IP address.  For example, the host 12.128.1.2
+                  in a Class A network would use 12.0.0.0 as the network address, where twelve (12)
+                  represents the first byte of the IP address, (the network part) and zeroes (0) 
+                  in all of the remaining three bytes to represent the potential host values.  A network
+                  host using the private IP address 192.168.1.100
+                  would in turn use a Network Address of 192.168.1.0, which specifies the first three
+                  bytes of the Class C 192.168.1 network and a zero (0) for all the possible hosts on the
+                  network.
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">Broadcast Address</emphasis> The Broadcast Address is an IP address
+                  which allows network data to be sent simultaneously to all hosts on a given subnetwork rather
+                  than specifying a particular host.  The standard general broadcast address for IP networks is
+                  255.255.255.255, but this broadcast address cannot be used to send a broadcast message to
+                  every host on the Internet because routers block it.  A more appropriate broadcast address
+                  is set to match a specific subnetwork.  For example, on the private Class C IP network,
+                  192.168.1.0, the broadcast address is 192.168.1.255. Broadcast messages are
+                  typically produced by network protocols such as the Address Resolution Protocol (ARP) and the 
+                  Routing Information Protocol (RIP).             
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">Gateway Address</emphasis> A Gateway Address is the IP address through which
+                  a particular network, or host on a network, may be reached.  If one network host wishes to communicate
+                  with another network host, and that host is not located on the same network, then a 
+                  <emphasis>gateway</emphasis> must be used. In many cases, the Gateway Address will be that
+                  of a router on the same network, which will in turn pass traffic on to other networks or hosts, such as
+                  Internet hosts.  The value of the Gateway Address setting must be correct, or your system will not be able
+                  to reach any hosts beyond those on the same network.                  
+                  </para>
+               </listitem>
+               <listitem>
+                  <para>
+                  <emphasis role="bold">Nameserver Address</emphasis> Nameserver Addresses represent the IP addresses of
+                  Domain Name Service (DNS) systems, which resolve network hostnames into IP addresses.  There are three levels of
+                  Nameserver Addresses, which may be specified in order of precedence: The 
+                  <emphasis>Primary</emphasis>
+                  Nameserver, the <emphasis>Secondary</emphasis> Nameserver, and the 
+                  <emphasis>Tertiary</emphasis>
+                  Nameserver. In order for your system to be able to resolve network hostnames into their
+                  corresponding IP addresses, you must specify valid Nameserver Addresses which you are authorized to use
+                  in your system's TCP/IP configuration.  In many cases these addresses can and will be provided by your
+                  network service provider, but many free and publicly accessible nameservers are available for use, such as
+                  the Level3 (Verizon) servers with IP addresses from
+                  4.2.2.1 to 4.2.2.6. </para>
+                     <tip>
+                        <para>
+                        The IP address, Netmask, Network Address, Broadcast Address, and Gateway Address
+                        are typically specified via the appropriate directives in the file  <filename>/etc/network/interfaces</filename>. The Nameserver Addresses are typically specified via  <emphasis>nameserver</emphasis> 
+                        directives in the file <filename>/etc/resolv.conf</filename>. For more information, 
+                        view the system manual page for <filename>interfaces</filename> or <filename>resolv.conf</filename> respectively, with the following commands typed at a terminal prompt:
+                        </para>
+                     </tip>
+                    <para>
+                    Access the system manual page for <filename>interfaces</filename> with the following command:
+                    </para>
+                    <para>
+<screen>
+<command>man interfaces</command>
+</screen>
+                    </para>
+                    <para>
+                    Access the system manual page for <filename>resolv.conf</filename> with the following command:
+                    </para>
+                    <para>
+<screen><command>man resolv.conf</command></screen>
+                    </para>
+               </listitem>
+            </itemizedlist>
+            </para>
+        </sect2>
+        <sect2 id="ip-routing" status="review">
+          <title>IP Routing</title>
+            <para>
+              IP routing is a means of specifying and discovering paths in a TCP/IP network along which
+              network data may be sent.  Routing uses a set of <emphasis>routing tables</emphasis>
+              to direct the forwarding of network data packets from their source to the destination, often
+              via many intermediary network nodes known as <emphasis>routers</emphasis>.
+              There are two primary forms of
+              IP routing: <emphasis>Static Routing</emphasis> and 
+              <emphasis>Dynamic Routing.</emphasis>
+            </para>
+            <para>
+            Static routing involves manually adding IP routes to the system's routing table, and this is usually
+            done by manipulating the routing table with the <application>route</application> command. Static routing enjoys
+            many advantages over dynamic routing, such as simplicity of implementation on smaller networks, 
+            predictability (the routing table is always computed in advance, and thus the route is precisely the 
+            same each time it is used), and low overhead on other routers and network links due to the lack of a
+            dynamic routing protocol.  However, static routing does present some disadvantages as well.  For example,
+            static routing is limited to small networks and does not scale well.  Static routing also fails completely
+            to adapt to network outages and failures along the route due to the fixed nature of the route. 
+            </para>
+            <para>
+            Dynamic routing depends on large networks with multiple possible IP routes from a source to a destination
+            and makes use of special routing protocols, such as the Router Information Protocol (RIP), which handle
+            the automatic adjustments in routing tables that make dynamic routing possible.  Dynamic routing
+            has several advantages over static routing, such as superior scalability and the ability to adapt
+            to failures and outages along network routes. Additionally, there is less manual configuration of the
+            routing tables, since routers learn from one another about their existence and available routes. This trait
+            also eliminates the possibility of introducing mistakes in the routing tables via human error.
+            Dynamic routing is not perfect, however, and presents disadvantages such as heightened complexity and
+            additional network overhead from router communications, which does not immediately benefit the end users,
+            but still consumes network bandwidth.
+            </para>
+        </sect2>
+        <sect2 id="tcp-and-udp" status="review">
+          <title>TCP and UDP</title>
+            <para>
+              TCP is a connection-based protocol, offering error correction and guaranteed delivery of
+              data via what is known as <emphasis>flow control</emphasis>. Flow control
+              determines when the flow of a data stream needs to be stopped, and previously sent data
+              packets should to be re-sent due to problems such as <emphasis>collisions</emphasis>,
+              for example, thus ensuring complete and accurate delivery of the data.  TCP is typically
+              used in the exchange of important information such as database transactions. 
+            </para>
+            <para>
+              The User Datagram Protocol (UDP), on the other hand, is a <emphasis>connectionless</emphasis>
+              protocol which seldom deals with the transmission of important data because it lacks flow
+              control or any other method to ensure reliable delivery of the data.  UDP is commonly used
+              in such applications as audio and video streaming, where it is considerably faster than
+              TCP due to the lack of error correction and flow control, and where the loss of a few packets
+			  is not generally catastrophic.
+            </para>
+        </sect2>
+        <sect2 id="icmp" status="review">
+          <title>ICMP</title>
+            <para>
+              The Internet Control Messaging Protocol (ICMP) is an extension to the Internet Protocol (IP) as defined
+              in the Request For Comments (RFC) #792 and supports network packets containing control, error, and
+              informational messages.  ICMP is used by such network applications as the <application>ping</application>
+              utility, which can determine the availability of a network host or device.  Examples of some error messages
+              returned by ICMP which are useful to both network hosts and devices such as routers, include 
+              <emphasis>Destination Unreachable</emphasis> and <emphasis>Time Exceeded</emphasis>.
+            </para>
+        </sect2>
+        <sect2 id="daemons" status="review">
+          <title>Daemons</title>
+            <para>
+              Daemons are special system applications which typically execute continuously in the background and
+              await requests for the functions they provide from other applications.  Many daemons are network-centric; that is,
+              a large number of daemons executing in the background on an Ubuntu system may provide network-related functionality.
+              Some examples of such network daemons include the <emphasis>Hyper Text Transport Protocol Daemon</emphasis> 
+              (httpd), which provides web server functionality; the <emphasis>Secure SHell Daemon</emphasis> (sshd), which
+              provides secure remote login shell and file transfer capabilities; and the <emphasis>Internet Message Access 
+              Protocol Daemon</emphasis> (imapd), which provides E-Mail services.
+            </para>
+        </sect2>
+        <sect2 id="tcpip-resources" status="review">
+          <title>Resources</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              There are man pages for <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man7/tcp.7.html">TCP</ulink> and
+              <ulink url="http://manpages.ubuntu.com/manpages/jaunty/man7/ip.7.html">IP</ulink> that contain more useful information.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Also, see the <ulink url="http://www.redbooks.ibm.com/abstracts/gg243376.html">TCP/IP Tutorial and Technical Overview</ulink>
+              IBM Redbook.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Another resource is O'Reilly's <ulink url="http://oreilly.com/catalog/9780596002978/">TCP/IP Network Administration</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+    </sect1>
+
+	<sect1 id="dhcp" status="review">
+		<title>Dynamic Host Configuration Protocol (DHCP)</title>
+            <para>
+	    The Dynamic Host Configuration Protocol (DHCP) is a network service that enables 
+	    host computers to be automatically assigned settings from a server as opposed to
+            manually configuring each network host. Computers configured to be DHCP clients have
+            no control over the settings they receive from the DHCP server, and the 
+	    configuration is transparent to the computer's user.
+	    </para>
+            <para>
+	    The most common settings provided by a DHCP server to DHCP clients include:
+	    </para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para>IP-Address and Netmask</para>
+                </listitem>
+                <listitem>
+                    <para>DNS</para>
+                </listitem>
+                <listitem>
+                    <para>WINS</para>
+                </listitem>
+            </itemizedlist>
+            <para>
+	    However, a DHCP server can also supply configuration properties such as:
+	    </para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para>Host Name</para>
+                </listitem>
+                <listitem>
+                    <para>Domain Name</para>
+                </listitem>
+                <listitem>
+                    <para>Default Gateway</para>
+                </listitem>
+                <listitem>
+                    <para>Time Server</para>
+                </listitem>
+                <listitem>
+                    <para>Print Server</para>
+                </listitem>
+            </itemizedlist>
+            <para>
+	    The advantage of using DHCP is that changes to the network, for example a change
+            in the address of the DNS server, need only be changed at the DHCP server, and all
+            network hosts will be reconfigured the next time their DHCP clients poll the
+            DHCP server. As an added advantage, it is also easier to integrate new computers 
+	    into the network, as there is no need to check for the availability of an IP 
+	    address.  Conflicts in IP address allocation are also reduced.
+	    </para>
+            <para>
+	    A DHCP server can provide configuration settings using two methods:
+	    </para>
+            <variablelist>
+                <varlistentry>
+                    <term>MAC Address</term>
+                    <listitem>
+                        <para>
+			This method entails using DHCP to identify the unique hardware address
+                        of each network card connected to the network and then continually
+                        supplying a constant configuration each time the DHCP client makes a
+                        request to the DHCP server using that network device.
+			</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>Address Pool</term>
+                    <listitem>
+                        <para>
+			This method entails defining a pool (sometimes also called a range or
+                        scope) of IP addresses from which DHCP clients are supplied their
+                        configuration properties dynamically and on a "first come, first served"
+                        basis. When a DHCP client is no longer on the network for a specified
+                        period, the configuration is expired and released back to the address
+                        pool for use by other DHCP Clients.
+			</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+            <para>
+	    Ubuntu is shipped with both DHCP server and client. The server is
+            <application>dhcpd</application> (dynamic host configuration protocol daemon).
+            The client provided with Ubuntu is <application>dhclient</application> and should 
+	    be installed on all computers required to be automatically configured. Both 
+	    programs are easy to install and configure and will be automatically started at
+	    system boot.
+	    </para>
+      <sect2 id="dhcp-installation" status="review">
+        <title>Installation</title>
+          <para>
+	  At a terminal prompt, enter the following command to install
+          <application>dhcpd</application>:
+	  </para>
+<screen>
+<command>sudo apt-get install dhcp3-server</command>
+</screen>
+          <para>
+	  You will probably need to change the default configuration
+	  by editing /etc/dhcp3/dhcpd.conf to suit your needs and particular configuration.
+	  </para>
+          <para>
+	  You also need to edit /etc/default/dhcp3-server to specify the interfaces dhcpd
+	  should listen to. By default it listens to eth0.
+	  </para>
+          <para>
+	  NOTE: dhcpd's messages are being sent to syslog. Look there for
+	  diagnostics messages.
+	  </para>
+      </sect2>
+      <sect2 id="dhcp-configuration" status="review">
+        <title>Configuration</title>
+            <para>
+	    The error message the installation ends with might be a little confusing, but the
+            following steps will help you configure the service:
+	    </para>
+            <para>
+	    Most commonly, what you want to do is assign an IP address randomly. This can be
+            done with settings as follows:
+	    </para>
+<programlisting>
+# Sample /etc/dhcpd.conf
+# (add your comments here) 
+default-lease-time 600;
+max-lease-time 7200;
+option subnet-mask 255.255.255.0;
+option broadcast-address 192.168.1.255;
+option routers 192.168.1.254;
+option domain-name-servers 192.168.1.1, 192.168.1.2;
+option domain-name "mydomain.example";
+
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.10 192.168.1.100;
+range 192.168.1.150 192.168.1.200;
+} 
+</programlisting>
+            <para>
+	    This will result in the DHCP server giving a client an IP address from the range
+            192.168.1.10-192.168.1.100 or 192.168.1.150-192.168.1.200. It will lease an IP
+            address for 600 seconds if the client doesn't ask for a specific time frame. 
+	    Otherwise the maximum (allowed) lease will be 7200 seconds. The server will also 
+	    "advise" the client that it should use 255.255.255.0 as its subnet mask, 
+	    192.168.1.255 as its broadcast address, 192.168.1.254 as the router/gateway and 
+	    192.168.1.1 and 192.168.1.2 as its DNS servers. 
+	    </para>
+            <para>
+	    If you need to specify a WINS server for your Windows clients, you will need to
+            include the netbios-name-servers option, e.g.
+	    </para>
+<programlisting>
+option netbios-name-servers 192.168.1.1; 
+</programlisting>
+            <para>
+	    Dhcpd configuration settings are taken from the DHCP mini-HOWTO, which can be found
+            <ulink url="http://www.tldp.org/HOWTO/DHCP/index.html">here</ulink>.
+	    </para>
+      </sect2>
+      <sect2 id="dhcp-references" status="review">
+        <title>References</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              For more <filename>/etc/dhcp3/dchpd.conf</filename> options see the 
+              <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/dhcpd.conf.5.html">dhcpd.conf man page</ulink>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Also see the <ulink url="http://www.dhcp-handbook.com/dhcp_faq.html">DHCP FAQ</ulink>
+              </para>
+            </listitem>
+          </itemizedlist>
+
+      </sect2>
+    </sect1>
+
+	<sect1 id="NTP" status="review">
+		<title>Time Synchronisation with NTP</title>
+	<para>
+This page describes methods for keeping your computer's time accurate. This is useful for servers, but is not necessary (or desirable) for desktop machines. 
+</para>
+	<para>
+NTP is a TCP/IP protocol for synchronising time over a network. Basically a client requests the current time from a server, and uses it to set its own clock.  
+</para>
+	<para>
+Behind this simple description, there is a lot of complexity - there are tiers of NTP servers, with the tier one NTP servers connected to atomic clocks (often via GPS), and tier two and three servers spreading the load of actually handling requests across the Internet. Also the client software is a lot more complex than you might think - it has to factor out communication delays, and adjust the time in a way that does not upset all the other processes that run on the server. But luckily all that complexity is hidden from you! 
+</para>
+	<para>
+Ubuntu has two ways of automatically setting your time: ntpdate and ntpd. 
+</para>
+
+<sect2 id="ntpdate" status="review">
+<title>ntpdate</title>
+	<para>
+Ubuntu comes with ntpdate as standard, and will run it once at boot time to set up your time according to Ubuntu's NTP server. However, a server's clock is likely to drift considerably between reboots, so it makes sense to correct the time occasionally. The easiest way to do this is to get cron to run ntpdate every day. With your favourite editor, as root, create a file 
+<code>/etc/cron.daily/ntpdate</code>
+ containing: 
+</para>
+<screen>ntpdate ntp.ubuntu.com
+</screen>
+<para>
+The file <code>/etc/cron.daily/ntpdate</code> must also be executable.
+</para>
+<screen>sudo chmod 755 /etc/cron.daily/ntpdate
+</screen>
+</sect2>
+      <sect2 id="ntpd" status="review">
+<title>ntpd</title>
+	<para>
+ntpdate is a bit of a blunt instrument - it can only adjust the time once a day, in one big correction. The ntp daemon ntpd is far more subtle. It calculates the drift of your system clock and continuously adjusts it, so there are no large corrections that could lead to inconsistent logs for instance. The cost is a little processing power and memory, but for a modern server this is negligible. 
+</para>
+<para>To set up ntpd: </para>
+<screen>sudo apt-get install ntp
+</screen>
+<para/>
+</sect2>
+<sect2 id="timeservers" status="review">
+<title>Changing Time Servers</title>
+	<para>
+In both cases above, your system will use Ubuntu's NTP server at 
+<code>ntp.ubuntu.com</code>
+ by default. This is OK, but you might want to use several servers to increase accuracy and resilience, and you may want to use time servers that are geographically closer to you. to do this for ntpdate, change the contents of 
+<code>/etc/cron.daily/ntpdate</code>
+ to: 
+</para>
+<screen>ntpdate ntp.ubuntu.com pool.ntp.org 
+</screen>
+	<para>
+And for ntpd edit 
+<code>/etc/ntp.conf</code>
+ to include additional server lines: 
+</para>
+<screen>server ntp.ubuntu.com
+server pool.ntp.org
+</screen>
+	<para>
+You may notice 
+<code>pool.ntp.org</code>
+ in the examples above. This is a really good idea which uses round-robin DNS to return an NTP server from a pool, spreading the load between several different servers. Even better, they have pools for different regions - for instance, if you are in New Zealand, so you could use  
+<code>nz.pool.ntp.org</code>
+ instead of 
+<code>pool.ntp.org</code>
+. Look at 
+<ulink url="http://www.pool.ntp.org/">http://www.pool.ntp.org/</ulink>
+ for more details. 
+</para>
+	<para>
+You can also Google for NTP servers in your region, and add these to your configuration. To test that a server works, just type 
+<code>sudo ntpdate ntp.server.name</code>
+ and see what happens. 
+</para>
+<para/>
+</sect2>
+	<sect2 id="relatedpages" status="review">
+<title>Related Pages</title>
+	<itemizedlist>
+	<listitem>
+	<para>
+<ulink url="http://ntp.isc.org/bin/view/Support/WebHome">NTP Support</ulink>
+</para>
+</listitem>
+	<listitem>
+	<para>
+<ulink url="http://www.ntp.org/ntpfaq/NTP-a-faq.htm">The NTP FAQ and HOWTO</ulink>
+</para>
+</listitem>
+</itemizedlist>
+<para/>
+</sect2>
+    </sect1>
+</chapter>

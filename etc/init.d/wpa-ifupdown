@@ -1,0 +1,88 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             wpa-ifupdown
+# Required-Start:       $network
+# Required-Stop:        $network $remote_fs
+# Should-Start:
+# Should-Stop:
+# Default-Start:
+# Default-Stop:         0 6
+# Short-Description:    Stop wpa_supplicant processes started via ifupdown
+# Description:          Run ifdown on interfaces authenticated via
+#                       wpa_supplicant. Sendsigs terminates wpa_supplicant
+#                       processes before networking is stopped causing each
+#                       network interface authenticated via a wpa_supplicant
+#                       daemon to be terminated abrubtly.
+#                       Since initscripts package version 2.86.ds1-48 an
+#                       interface exists to omit process id's from sendsigs. If
+#                       this interface is present this script is a no-op.
+### END INIT INFO
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+
+test -d /var/run || exit 0
+
+test -x /sbin/ifdown || exit 0
+
+. /lib/lsb/init-functions
+
+stop_wpa_action () {
+	test -x /sbin/wpa_action || return 0
+	IFACES=$(find /var/run -maxdepth 1 -type f -name 'wpa_action.*.pid' -printf '%P\n' | \
+		cut -d'.' -f2 2>/dev/null)
+	if test -n "$IFACES"; then
+		log_daemon_msg "Stopping wpa_action roaming interfaces"
+		for iface in $IFACES; do
+			log_progress_msg "$iface"
+			# wpa_action executes /sbin/ifdown
+			wpa_action "$iface" stop >/dev/null 2>&1
+		done
+		log_end_msg 0
+	fi
+}
+
+stop_wpa_supplicant () {
+	IFACES=$(find /var/run -maxdepth 1 -type f -name 'wpa_supplicant.*.pid' -printf '%P\n' | \
+		grep -v wpa_supplicant.dbus.pid | cut -d'.' -f2 2>/dev/null)
+	if test -n "$IFACES"; then
+		log_daemon_msg "Stopping wpa_supplicant interfaces"
+		for iface in $IFACES; do
+			log_progress_msg "$iface"
+			ifdown "$iface" >/dev/null 2>&1
+		done
+		log_end_msg 0
+	fi
+}
+
+sendsigs_omission_support () {
+	if [ -d /lib/init/rw/sendsigs.omit.d/ ]; then
+		# Debian
+		return 0
+	elif [ -d /var/run/sendsigs.omit.d/ ]; then
+		# Ubuntu, cf. https://bugs.launchpad.net/bugs/181541
+		return 0
+	fi
+
+	return 1
+}
+
+case "$1" in
+	start|restart|force-reload)
+		# No-op
+		;;
+	stop)
+		if sendsigs_omission_support; then
+			stop_wpa_action
+		else
+			stop_wpa_action
+			stop_wpa_supplicant
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+		exit 3
+		;;
+esac
+
+exit 0

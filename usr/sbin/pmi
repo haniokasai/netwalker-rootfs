@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# This is the stub version of PMI
+# that does absolutely nothing.
+
+command="$1"
+event="$2"
+
+usage () {
+        echo "Usage: $0 query|action <event>" >&2
+        echo "       $0 capabilities" >&2
+        exit 254
+}
+
+query () {
+        [ ! -z "$1" ] && event="$1"
+        case "$event" in
+                *)
+                        result=1
+                        echo "No such event found" >&2
+                ;;
+        esac
+}
+
+call_scripts() {
+    if [ -x /etc/apm/apmd_proxy ]; then
+	/etc/apm/apmd_proxy $1 $2
+    else
+	run-parts --arg=$1 --arg=$2 /etc/apm/event.d
+	if [ -d /etc/apm/$1.d ]; then
+	    run-parts --arg=$1 --arg=$2 /etc/apm/$1.d
+	fi
+    fi
+}
+
+run () {
+	case "$1" in
+                *)
+                        echo "No such event found" >&2
+                ;;
+	esac
+}
+                
+capabilities () {
+        for i in "hibernate" "suspend"; do 
+                query $i 
+                [ "$result" -eq 0 ] && caps="$caps $i"
+        done
+        echo $caps
+}
+        
+case "$command" in
+        query)
+                query $event
+                exit $result
+                ;;
+        action)
+                run $event
+                ;;
+        capabilities)
+                capabilities
+                ;;
+        *)
+                usage
+                ;;
+esac
+
+exit 0

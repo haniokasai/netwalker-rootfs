@@ -1,0 +1,49 @@
+#!/bin/sh
+# $Id: postinst 154 2008-11-11 10:14:45Z robert $
+# postinst for doc-base
+
+# Abort if any command returns an error value
+set -e
+
+package=doc-base
+# upgrades prior to this version require complete re-registration
+compat_ver=0.8.17
+VERBOSE=
+
+ctrldir="/usr/share/$package"
+infodir="/var/lib/$package/info"
+docsdir="/var/lib/$package/documents"
+
+if [ "$DEBUG" ]; then
+    echo entering $package postinst
+    set -x
+fi
+
+reinstall_docs () {
+    install-docs ${VERBOSE} "--install-$1"
+}
+
+case "$1" in
+  configure)
+
+    if dpkg --compare-versions "$2" lt-nl "$compat_ver" ||
+      [ ! -f "$infodir/status.db"  ]; then
+	# version is less than last compatable version, we need to
+	# re-register all the docs
+        reinstall_docs all
+    else
+	reinstall_docs changed
+    fi
+    ;;
+  triggered)
+    if [ -f "$infodir/status.db" ]; then
+	    reinstall_docs changed
+    else
+    	echo "doc-base seems not to be configured yet, skipping triggers run"
+    fi
+    ;; 	
+esac
+
+
+
+exit 0

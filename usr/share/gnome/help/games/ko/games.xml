@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "en">
+]>
+<article id="games" status="review" lang="ko">
+	<articleinfo>
+		<title>게임</title>
+    	
+	<legalnotice id="legal">
+	    <title>만든 사람들과 저작권</title>
+	    <para>이 문서는 우분투 문서 팀 (https://wiki.ubuntu.com/DocumentationTeam) 이 관리하고 있습니다. 공헌자 목록은 <ulink url="../../libs/C/contributors.xml">의 공헌자 페이지에서 보십시요.</ulink></para>
+	    <para>이 문서는 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.5 라이센스(CC-BY-SA)에 따라 이용가능합니다.</para>
+	    <para>여러분은 이 라이센스의 규정에 따라 얼마든지 우분투 문서의 소스 코드를 변경, 확장, 개선할 수 있습니다. 다만, 이러한 작업에 따른 모든 결과물들은 이 라이센스와 함께 배포되어야 합니다.</para>
+	    <para>이 문서는 유용하게 사용될 수 있으리라는 희망에서 배포되고 있지만, 특정한 목적에 맞는 적합성 여부나 판매용으로 사용할 수 있으리라는 묵시적인 보증을 포함한 어떠한 형태의 보증도 제공하지 않습니다.</para>
+	    <para>라이센스의 복사본은: <ulink url="/usr/share/ubuntu-docs/libs/C/ccbysa.xml">Creative Commons ShareAlike License</ulink>에 있습니다.</para>
+	</legalnotice>
+<copyright>
+    <year>2008</year>
+    <holder>Canonical Ltd.와 <ulink url="https://launchpad.net/~ubuntu-core-doc">우분투 문서화 프로젝트</ulink>의 멤버</holder>
+</copyright><copyright><year>2006</year><holder>우분투 한국어 번역팀 (ubuntu-ko@lists.ubuntu.com)</holder></copyright>
+<publisher>
+    <publishername>우분투 문서화 프로젝트</publishername>
+</publisher>
+
+	</articleinfo>
+			<para><menuchoice><guimenu>프로그램</guimenu><guimenuitem>놀이</guimenuitem></menuchoice>를 선택하여 우분투의 게임들을 살펴볼 수 있습니다.</para>
+			<para>우분투는 기본적으로 <application>아일라이어트 솔리테어</application>, <application>Gnometris</application>, <application>지뢰찾기</application> 등의 16 가지 게임들을 포함하고 있습니다. 추가적으로 더 많은 게임들을 설치할 수 있습니다. 이 부분에서는 여러분이 추가적으로 설치하여 플레이 할 수 있는 몇몇 게임들에 대한 간략한 정보들을 소개합니다.</para>
+		
+		<sect1 id="games-ubuntu-popular" status="review">
+			<title>대중적인 게임들</title>
+			<para>우분투에서 가장인기있는 게임목록</para>
+			
+			<sect2 id="games-popular-neverball" xreflabel="Neverball" status="review">
+				<title>Neverball</title>
+				<para><application>Neverball</application>은 여러분의 기술을 테스트하는 퍼즐과 액션이 가미된 게임입니다. 이 게임의 목적은 바닥을 기울여서 주어진 시간 내에 공을 장애물 코스 사이로 통과시키는 것입니다.</para>
+				<para><application>Neverball</application> 꾸러미에는 <application>Neverputt</application>이라는 게임도 포함되어 있습니다. <application>Neverputt</application>은 <application>Neverball</application>을 기반으로 하는 멀티 플레이어 미니 골프 게임입니다. 현재 <application>Neverputt</application> 자체 만을 설치하는 것은 불가능합니다.</para>
+				<procedure>
+					<step>
+						<para><ulink url="apt:neverball"><quote>Universe</quote> 저장소에서 <application>neverball</application> 패키지를 설치합니다.</ulink></para>
+					</step>
+					<step>
+						<para><menuchoice><guimenu>프로그램</guimenu><guisubmenu>게임</guisubmenu><guisubmenu>네버볼</guisubmenu></menuchoice>을 클릭, <application>네버볼</application> 시작하기.</para>
+					</step>
+					<step>
+						<para><menuchoice><guimenu>응용프로그램</guimenu><guisubmenu>게임</guisubmenu><guisubmenu>네버풋</guisubmenu></menuchoice> 클릭, <application>네버풋</application> 게임 시작하기.</para>
+					</step>
+				</procedure>
+			</sect2>
+			
+			<sect2 id="games-popular-scorched" xreflabel="Scorched3D" status="review">
+					<title>Scorched3D</title>
+					<para><application>3차원 스카치</application> 는 <emphasis>스카치 지구</emphasis>를 3차원으로 고치는 것입니다. 포를 사용하는 듀얼게임입니다.</para>
+					<para>3차원 시카치를 즐기기 위해서는 하드웨어 3D가속기 드라이버가 설치되어있어야 합니다.</para>
+					<procedure>
+						<step>
+							<para><ulink url="apt:scorched3d"><quote>Universe</quote> 저장소에서 <application>scorched3d</application> 패키지를 설치합니다.</ulink></para>
+						</step>
+						<step>
+							<para><application>Scorched3D</application>를 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>를 선택하세요.</para>
+						</step>
+					</procedure>
+			</sect2>
+			
+			<sect2 id="games-popular-chromium" xreflabel="Chromium" status="review">
+				<title>Chromium</title>
+				<para><application>크롬</application>는 빠른, 아케이드 스타일의, 상향 스크롤 방식의 우주 슈팅 게임입니다.  목적은, 크롬 B.S.U.의 선장이 되어, 앞 줄에 있는 병사들에게 보급품을 배달하는 겁니다.  함선에는 크롬의 상대 안전 장치에 의해 제어되는 작은 로봇 전투기 함대가 있습니다.  게임에 대한 더 많은 정보는 <ulink url="http://www.reptilelabour.com/software/chromium/">크롬 웹사이트</ulink>에서 찾아볼 수 있습니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote> 저장소에서 <application>chromium</application> 꾸러미를 설치하세요(<ulink type="help" url="ghelp:add-applications">프로그램 추가</ulink> 참조).</para>
+					</step>
+					<step>
+						<para><application>Chromium</application>을 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guimenuitem>Chromium</guimenuitem></menuchoice>을 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+
+			<sect2 id="games-popular-frozenbubble" xreflabel="Frozen Bubble" status="review">
+				<title>Frozen Bubble</title>
+				<para><application>프로즌 버블</application>은 유명한 <emphasis>퍼즐 버블</emphasis>을 따라 만든 게임입니다. 게임의 목표는 같은 색깔의 거품이 모여 있는 곳에 거품을 발사해 그것들을 터뜨리는 것입니다. 100 단계로 이루어진 혼자 하기 모드와 둘이서 하기 모드를 지원하며 음악과 멋진 그래픽을 특징으로 하고 있습니다. 이 게임에 대한 더 자세한 설명은 <ulink url="http://www.frozen-bubble.org/">프로즌 버블 웹사이트</ulink>에서 찾을 수 있습니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote>저장소에서 <ulink url="apt:frozen-bubble"><application>frozen-bubble</application> 꾸러미를 </ulink> 설치하세요.</para>
+					</step>
+					<step>
+						<para><application>Frozen Bubble</application>을 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice>을 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+
+			<sect2 id="games-popular-supertux" xreflabel="SuperTux" status="review">
+				<title>SuperTux</title>
+				<para><application>SuperTux</application>는 오리지널 <emphasis><trademark>수퍼 마리오 브라더스</trademark></emphasis>과 비슷한 방식인 2차원으로 뛰고 달리는 고전적인 횡스크롤 게임입니다.  특징은 9가지 적과, 26가지 단계, 소프트웨어 및 OpenGL 랜더링 모드, 변경 가능한 조이스틱 및 키보드 입력, 새로운 음악과 완전히 다시 그린 그래픽입니다.   게임에 대한 더 많은 정보는 <ulink url="http://supertux.berlios.de/">SuperTux 웹사이트</ulink>에서 찾아볼 수 있습니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote> 저장소에서 <ulink url="apt:supertux"><application>supertux</application> 꾸러미</ulink>를 설치합니다.</para>
+					</step>
+					<step>
+						<para><application>SuperTux</application>를 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>를 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+
+			<sect2 id="games-popular-planetpenguinracer" xreflabel="Planet Penguin Racer" status="review">
+				<title>PlanetPenguin Racer</title>
+				<para><application>PlanetPenguin Racer</application>는 지난 GPL 라이센스 버전의 <emphasis>Tux Racer</emphasis>의 포크 버전입니다. 오리지널 게임에 여러 레벨을 추가한 것은 물론, <application>PlanetPenguin Racer</application>는 커뮤니티에서 개발된 추가적인 레벨을 포함합니다. 이 게임의 목적은 산을 내려가면서 물고기를 모아 최단 시간 내에 목적지에 도착하는 것입니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote> 저장소에서 <ulink url="apt:planetpenguin-racer"><application>planetpenguin-racer</application>  꾸러미</ulink>를 설치합니다.</para>
+					</step>
+					<step>
+						<para><application>Planet Penguin Racer</application>를 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>를 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+
+			<sect2 id="games-popular-tremulous" xreflabel="Tremulous" status="review">
+				<title>Tremulous</title>
+				<para><application>Tremulous</application>는 팀 기반의 FPS (First Person Shooter) 게임에 실시간 전략 게임의 요소를 섞은 자유, 오픈 소스 게임입니다. 플레이어는 에일리언과 인간의 두 종족 가운데 하나를 선택할 수 있습니다. 이 게임의 목적은 상대 팀을 전멸시키거나, 상대 팀의 생산 기지를 파괴하여 번식 능력을 없애서 상대 팀을 제거하는 것입니다.이 게임에 대한 자세한 정보는 <ulink url="http://tremulous.net/">Tremulous 웹사이트</ulink>에서 찾아볼 수 있습니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote> 저장소에서 <ulink url="apt:tremulous"><application>tremulous</application> 꾸러미</ulink>를 설치합니다.</para>
+					</step>
+					<step>
+						<para><application>Tremulous</application>를 플레이 하려면 <menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>를 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+
+			<sect2 id="games-popular-nexuiz" xreflabel="Nexuiz" status="review">
+				<title>Nexuiz</title>
+				<para><application>Nexuiz</application>는 OpenGL 기술로 만들어진 <emphasis>Quake 1</emphasis> 엔진의 향상된 버전인Darkplaces 엔진에 기초한 3차원 데쓰매치 게임입니다.  17가지 맵, 15가지 플레이어 모델, 향상된 UI, 전 세계 사람들과 플레이할 수 있는 마스터 서버가 들어있습니다.  게임에 대한 더 많은 정보는 <ulink url="http://www.alientrap.org/nexuiz/index.php">Nexuiz 웹사이트</ulink>에서 찾을 수 있습니다.</para>
+				<procedure>
+					<step>
+						<para><quote>Universe</quote> 저장소에서 <ulink url="apt:nexuiz"><application>nexuiz</application> 꾸러미</ulink>를 설치합니다.</para>
+					</step>
+					<step>
+						<para><application>Nexuiz</application>를 플레이 하려면<menuchoice><guimenu>프로그램</guimenu><guisubmenu>놀이</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>를 선택하세요.</para>
+					</step>
+				</procedure>
+			</sect2>
+		</sect1>
+		
+		<sect1 id="games-ubuntu-arcade" status="review">
+			<title>아케이드 게임</title>
+			
+			<para>아케이드 게임들은 보통 단순하고 재미있는 게임들입니다. 우분투에서 이용할 수 있는 아케이드 게임들은 무척 다양하며, 다음에 소개하는 것들은 그들 중 일부에 지나지 않습니다.</para>
+			
+			<sect2 id="ubuntu-arcade-classic" status="review">
+				<title>고전 아케이드 게임</title>
+				<itemizedlist>
+
+					<listitem>
+					<para><application>KBounce</application>는 사각형의 게임 필드 내에 벽을 쌓아 움직이는 공들을 가능한 한 많이 잡는 게임입니다. 각 레벨을 성공적으로 클리어하면 더욱 많은 공들이 추가됩니다. 여러분은 얼마나 많이 잡을 수 있을까요?</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KFouleggs</application>는 일본의 잘 알려진 <emphasis>뿌요뿌요</emphasis> 게임을 본따 만든 게임입니다.  잘 알려진 테트리스의 수정판도 들어있습니다.</para>
+					</listitem>
+				
+					<listitem>
+					<para><application>Kolf</application>는 내려다보는 관점에서 진행되는 작은 골프 게임입니다. 골프 클럽을 표현한 작은 막대와 의도된 샷의 방향을 이용해 진행됩니다. 이 게임은 다양한 코스와 코스 편집기, 물 웅덩이, 언덕, 모래 덫, 구덩이 등을 특징으로 합니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KSirtet</application>는 <emphasis>테트리스</emphasis> 게임의 클론으로, 컴퓨터 대전은 물론 멀티 플레이어 대전도 지원합니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KSmiletris</application>도 <emphasis>테트리스</emphasis> 클론 중의 하나로 쉽게 배워서 즐길 수 있습니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>로봇</application>은 여러분을 잡으려고 다가오는 로봇들을 피하는 게임입니다. 여러분이 한 걸음씩 움직일 때마다, 로봇들이 다가오므로 이를 피하기 위해서 무엇이든 해야 합니다.</para>
+					</listitem>
+				</itemizedlist>
+			</sect2>
+			
+			<sect2 id="ubuntu-arcade-maze" status="review">
+				<title>미로 게임</title>
+				<itemizedlist>
+					
+					<listitem>
+					<para><application>KGoldrunner</application>는 액션 및 퍼즐 풀기 게임입니다.  미로를 헤쳐나가고, 적들을 피하며서, 금을 모으면서, 다음 레벨로 올라가십시요.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KSnakerace</application>는 지도에 나타난 음식을 먹어야 하는 뱀을 조종하는 빠른 액션 게임입니다. 음식을 많이 먹을수록 뱀은 점점 더 길어집니다. 다른 뱀이나 벽과 충돌하지 않고 최대한 많이 먹는 것이 목표입니다. 하지만 음식을 많이 먹을수록 더욱 어려워집니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KTron</application>은 유명한 2인용 컴퓨터 게임과 영화를 기반으로 한 게임입니다. 이 게임은 두 명의 플레이어가 다른 벽이나, 상대방, 자신 혹은 상대방이 많든 경로에 부딪히지 않고 움직여야 합니다.</para>
+					</listitem>
+				
+					<listitem>
+					<para><application>Nibbles</application>는 플레이어가 뱀을 조종해 보드 상을 움직이며, 벽을 피해 다이아몬드를 먹는 게임입니다.<application>Nibbles</application>는 네트워크를 통한 멀티 플레이어 기능을 지원하며, 컴퓨터에 의해 최대 4개의 벌레를 조종할 수 있습니다.</para>
+					</listitem>
+					
+				</itemizedlist>
+			</sect2>
+			
+			<sect2 id="ubuntu-arcade-space" status="review">
+				<title>우주 게임</title>
+				<itemizedlist>
+					
+					<listitem>
+					<para><application>KAsteroids</application>는 여러분이 우주선을 조정하여 소행성 구역에서 살아남는 빠른 아케이드 슈팅 게임입니다. 우주선의 총으로 소행성이 작아질 때까지 쏴서 파괴해야 합니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KSpaceDuel</application>은 2인용 우주 게임이고, 한 쪽은 컴퓨터가 조종하게 할 수 있습니다. 각 플레이어는 태양 주위를 맴도는 인공위성을 조종하여 다른 어떤 것과도 부딪히지 않고 다른 우주선을 쏴야 합니다.</para>
+					</listitem>
+					
+				</itemizedlist>
+			</sect2>
+		</sect1>
+		
+		<sect1 id="games-ubuntu-card" status="review">
+			<title>카드, 퍼즐, 보드 게임</title>
+			<para>카드 게임과 퍼즐 게임들은 매우 대중적이며, 우분투는 여러분이 선택할 수 있는 방대한 (카드 및 퍼즐) 게임들을 가지고 있습니다. 아래에 보이는 것은 보다 대중적으로 알려진 게임들의 목록입니다.</para>
+			
+			<sect2 id="ubuntu-card-card" status="review">
+				<title>카드 게임</title>
+				<itemizedlist>
+					
+					<listitem>
+					<para><application>아일라이어트(Aisleriot)</application> 혹은 <emphasis>솔리테어(Solitaire)</emphasis> 또는 <emphasis>페이션스 </emphasis>이라고 불리는 이 게임은 마우스로 쉽게 플레이할 수 있는 일인용 카드 게임들의 집합입니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>블랙잭</application>은 여러 덱(deck)을 이용한, 카지노 방식의 블랙잭 게임입니다. 이 게임의 목적은 21을 넘지 않는 범위 내에서 딜러보다 높은 수의 합을 가지는 카드들을 모으는 것입니다. J,Q,K 카드(face card)와 에이스 카드를 더하면 21, 즉 블랙잭이 됩니다!</para>
+					</listitem>
+
+					<listitem>
+					<para><application>프리셀</application>은 <trademark>Windows</trademark> 플랫폼에서 매우 유명한 또 다른 <emphasis>솔리테어</emphasis> 게임입니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KPatience</application>는 세계적으로 알려진 다양한 페이션스 게임들의 집합입니다. 이 게임은 <emphasis>Klondike</emphasis>, <emphasis>Freecell</emphasis>, <emphasis>Yukon</emphasis>, <emphasis>forty and Eight</emphasis> 등의 게임을 포함합니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KPoker</application>는 오리지널 <emphasis>포커</emphasis> 게임의 규칙을 따릅니다. 이 게임은 컴퓨터 플레이어와 다양한 덱들을 지원합니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>Lieutnant Skat</application>(은)는 독일 게임인 <emphasis>(Offiziers)-Skat</emphasis>의 규칙을 따르는 2인용 카드 게임입니다. 이 게임은 컴퓨터 플레이어와 다양한 덱들을 지원합니다.</para>
+					</listitem>
+					
+				</itemizedlist>
+			</sect2>
+			
+			<sect2 id="ubuntu-card-board" status="review">
+				<title>보드 게임</title>
+				<itemizedlist>
+					<listitem>
+					<para><application>Atlantik</application>은 monopd 네트워크 상에서 플레이하는 <trademark>Monopoly</trademark>와 비슷한 형식의 보드 게임의 오픈 소스 클라이언트입니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>체스</application> (혹은 <application>glChess</application>) 는 컴퓨터 혹은 다른 플레이어와 플레이 할 수 있는 체스 게임입니다. 체스는 컴퓨터 플레이어를 위해 알려진 써드 파티 체스 엔진을 탐지하여 사용하며, 2D 혹은 3D 의 형태로 체스판을 보여줄 수 있습니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KBackgammon</application>은 대중적인 보드 게임의 규칙을 따르며, 다른 플레이어와의 대전 및 GNU bg와 다른 온라인 게임과 같은 컴퓨터 엔진과의 대전을 지원합니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KBlackbox</application>은 <emphasis>emacs blackbox</emphasis>에게서 영향을 받은 것으로, 박스들의 격자 내에서 플레이 하는 숨기고-찾기의 논리적인 게임입니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>Kenolaba</application>는 <emphasis>Abalone</emphasis> 게임의 규칙을 따르는 2인용 전략 게임입니다. 플레이어들은 게임 보드에서 상대편 조각들을 밀어내야 합니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KMahjongg</application>(은)는 동일한 이름의 유명한 타일 기반의 페이션스 게임의 클론입니다. 이 게임의 목적은 같은 종류의 조각을 없애서 보드를 비우는 것입니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KReversi</application>는 전략적으로 패를 위치시켜 상대방의 패를 뒤집어 보드 상에 더 많은 패를 가지는 2인용 게임입니다.</para>
+					</listitem>
+
+					<listitem>
+					<para><application>KWin4</application> 혹은 <emphasis>Four wins</emphasis>는 유명한 <trademark>Connect Four</trademark> 게임의 룰을 따르는 2인용 게임입니다. 이 게임의 목적은 같은 색의 네 조각을 일렬로 배열하는 것입니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>Mahjongg</application>(은)는 고전 타일 게임의 1인용 버전입니다. 이 게임의 목적은 비슷한 타일의 짝을 선택하는 것입니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>Shishen-Sho</application>는 <emphasis>Mahjongg</emphasis>과 비슷한 게임으로 필드에서 동일한 종류의 두 조각을 모두 제거하는 것입니다.</para>
+					</listitem>
+					
+				</itemizedlist>
+			</sect2>
+			
+			<sect2 id="ubuntu-card-puzzle" status="review">
+				<title>퍼즐 게임</title>
+				<itemizedlist>
+					
+					<listitem>
+					<para><application>Anagramarama</application>는 신속함을 요구하는 단어 게임으로, 뒤섞인 문자들에서 가능한 한 많은 단어를 만들어 내야 합니다. 만약 가능한 가장 긴 단어를 찾았다면, 다음 단계로 넘어갈 수 있습니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>Atomix</application>는 여러 개의 원자들을 이용하여 특정 분자를 만들어 내는 퍼즐 게임입니다. 하지만 원자들은 오직 특정한 방법으로만 움직일 수 있습니다. 복잡한 분자를 만들어 내는 것에 도전해 보십시오. 화학에 대한 지식은 필요치 않습니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>KAtomic</application> 은 원자를 통해 분자를 만들어 내는 <application>Atomix</application> 와 비슷한 게임입니다. 이 게임은 분자를 완성할 때까지 미로 속에서 각 원자들을 이동하는 방식입니다.</para>
+					</listitem>
+					
+					<listitem>
+					<para><application>스도쿠</application>는 대중적인 숫자 퍼즐 게임으로 논리적으로 사각형의 배열을 완성하는 것이 목적입니다. 여러분은 각 행과 열마다 1부터 9까지의 숫자를 한 번씩만 배열해야 합니다. 또한 큰 사각형 내에도 1부터 9까지의 숫자가 한 번씩만 나올 수 있습니다.</para>
+					</listitem>
+					
+				</itemizedlist>
+			</sect2>
+		</sect1>
+		
+		<sect1 id="games-ubuntu-kids" status="review">
+			<title>어린이용 게임</title>
+			<para>우분투에는 성인들을 위한 게임들 뿐만 아니라 아이들에게 흥미를 줄 수 있는 몇몇 교육적인 게임들도 포함되어 있습니다. 이용할 수 있는 게임들의 간략한 목록은 아래와 같습니다.</para>
+			<itemizedlist>
+				
+				<listitem>
+				<para><application>GCompris</application>는 어린 아이들을 위한 교육적인 게임들의 집합입니다. 여러 언어를 지원하며 산수 문제와 읽기 연습 등은 물론, 애니메이션이나그림 그리기 프로그램과 같은 다양한 놀이들을 포함합니다.</para>
+				</listitem>
+				
+				<listitem>
+				<para><application>KTuberling</application> 혹은 <emphasis>감자 게임</emphasis>은 어린이용 게임이지만, 어른들도 흥미를 느낄 수 있을만한 게임입니다. 이 게임의 목적은 눈, 입, 콧수염 등을 이용하여 감자 모양의 사람 얼굴을 만드는 것입니다. 다른 아이템들도 물론 덧붙일 수 있습니다.</para>
+				</listitem>
+				
+			</itemizedlist>
+		</sect1>
+		
+		<sect1 id="games-ubuntu-strategy-sim" status="review">
+			<title>전략 및 시뮬레이션 게임</title>
+			<para>전략 게임은 신중하게 전술을 사용하여 다음 번 이동을 계획하는 게임입니다. 시뮬레이션 게임은 도시나 차량과 같은 것들의 실제 모델을 탐험하거나 관리하는 게임입니다. 전략 및 시뮬레이션 게임들은 꽤나 중독성을 가지며, 많은 사람들은 자신이 선택한 게임을 플레이 하며 행복한 시간을 보냅니다! 우분투에서 플레이 할 수 있는 전략 및 시뮬레이션 게임들의 몇 가지 목록들은 아래와 같습니다.</para>
+			<itemizedlist>
+
+				<listitem>
+				<para><application>KBattleship</application>은 상대방의 배가 어디에 있을지 추측하여 침몰시키는 대중적인 게임을 구현한 것입니다. 컴퓨터와 플레이 하거나 인터넷을 통해 다른 플레이어와 플레이 하는 것이 가능합니다. "<emphasis>You sunk my battleship!</emphasis>"</para>
+				</listitem>
+
+				<listitem>
+				<para><application>KJumpingcube</application>는 증가될 수 있는 점들을 포함하는 사각형으로 구성된 플레이 필드를 이용한 1인용 혹은 2인용 전략 게임입니다. 이 게임의 목적은 가능한 한 많은 필드를 얻어서, 보드 상에서 승리하는 것입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>Klickety</application>는 <application>세임 게임</application>과 비슷한 룰을 가지는 <emphasis>Clickomania</emphasis> 게임을 개량한 것입니다. 이 게임의 목적은 그룹을 클릭하여 파괴함으로써 보드를 깨끗이 하는 것입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>KMines</application>는 고전 게임인 <emphasis>지뢰 찾기</emphasis>의 클론으로, 논리적인 추론을 통해 지뢰를 찾아내는 게임입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>Kolor Lines</application> 혹은 <application>KLines</application>는 같은 색의 5 조각을 한 줄로 늘어놓아 게임 보드 상에서 제거하는 러시아 게임인 <emphasis>Lines</emphasis>의 KDE 버전입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>Konquest</application>는 멀티플레이어 전략 게임인 <emphasis>Gnu-Lactic Konquest</emphasis>의 KDE 버전으로, 여러분의 우주 제국을 은하 밖으로 확장하여 라이벌들을 무찌르는 게임입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>KSokoban</application>은 플레이어가 창고 관리자가 되어 창고 안의 박스들을 적절한 위치로 배치하는 논리 게임입니다.</para>
+				</listitem>
+
+				<listitem>
+				<para><application>KSame</application>은 <emphasis>세임 게임</emphasis>에게서 영향을 받은 것으로 더 높은 점수를 얻기 위한 단순한 게임입니다. 이 게임의 목적은 같은 모양의 그룹을 클릭하여 최대한 많이 없애는 것입니다. 속도, 한 번에 없앤 조각의 양, 가능한 조각들 상에서의 마우스의 움직임 등이 최종 점수에 반영됩니다.</para>
+				</listitem>
+			
+			</itemizedlist>
+		</sect1>
+		<sect1 status="review">
+				<title>윈도우즈 게임</title>
+				<para>윈도우즈에서 플레이 할 수 있는 많은 게임들은 에뮬레이터를 통해 리눅스에서도 플레이 할 수 있습니다. 이러한 에뮬레이터로는 <application>Wine</application>과 <application>Cedega</application> 등이 있습니다.</para>
+				<para>이러한 에뮬레이터들은 (Intel-기반의) <emphasis>x86</emphasis> 컴퓨터에서만 동작하며, <emphasis>AMD64</emphasis> 혹은 <emphasis>PowerPC</emphasis> 컴퓨터는 지원하지 않습니다.</para>
+					<itemizedlist>
+						<listitem>
+							<para><emphasis role="strong">Wine (무료)</emphasis></para>
+							<para><application>Wine</application> 은 자유 소프트웨어로서, <application>월드 오브 워크래프트</application>, <application>언리얼 토너먼트</application> 와 같은 몇몇 대중적인 게임들을 실행할 수 있습니다. For information about Wine, see <ulink url="https://help.ubuntu.com/community/Wine">the Ubuntu wiki</ulink>.</para>
+						</listitem>
+						<listitem>
+							<para><emphasis role="strong">Cedega (상용)</emphasis></para>
+							<para><application>Cedega</application>는 와인에 바탕을 두었지만 윈도우 게임을 실행하는 데 최적화되었습니다. Cedega는 상업용 소프트웨어이며, 무료가 아닙니다. 그러나 와인에서보다 더 많은 게임을 실행할 수 있습니다. Cedega에 관한 정보를 얻고 싶다면 <ulink url="https://help.ubuntu.com/community/Cedega">우분투 위키</ulink>를 참고하세요.</para>
+						</listitem>
+					</itemizedlist>
+		</sect1>
+	</article>

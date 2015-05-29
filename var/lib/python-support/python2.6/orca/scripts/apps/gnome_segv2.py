@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/scripts/apps/gnome_segv2.py

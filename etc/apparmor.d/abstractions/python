@@ -1,0 +1,31 @@
+# vim:syntax=apparmor
+# $Id: python 951 2007-08-29 00:05:56Z seth_arnold $
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2006 Novell/SUSE
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+  /usr/lib{,32,64}/python2.[456]/**.{pyc,so}           mr,
+  /usr/lib{,32,64}/python2.[456]/**.{egg,py,pth}       r,
+  /usr/lib{,32,64}/python2.[456]/{site,dist}-packages/ r,
+
+  /usr/local/lib{,32,64}/python2.[456]/**.{pyc,so}           mr,
+  /usr/local/lib{,32,64}/python2.[456]/**.{egg,py,pth}       r,
+  /usr/local/lib{,32,64}/python2.[456]/{site,dist}-packages/ r,
+
+  # Site-wide configuration
+  /etc/python2.[456]/** r,
+
+  # python-central paths
+  /usr/share/{pyshared,pycentral,python-support}/** r,
+  /{var,usr}/lib/python-support/**  r,
+  /usr/lib/python-support/**.so     mr,
+  /var/lib/python-support/**.pyc    mr,
+
+  # wx paths
+  /usr/lib/wx/python/*.pth r,

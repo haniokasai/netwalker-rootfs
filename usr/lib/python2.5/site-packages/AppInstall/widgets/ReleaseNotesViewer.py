@@ -1,0 +1,1 @@
+../../../../../share/pyshared/AppInstall/widgets/ReleaseNotesViewer.py

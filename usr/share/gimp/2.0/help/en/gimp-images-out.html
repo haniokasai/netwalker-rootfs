@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Chapter 6.  Getting images out of GIMP</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="pt02.html" title="Part II.  How do I Become a GIMP Wizard?" />
+    <link rel="prev" href="ch05s03s07.html" title="3.7.  Image Browser" />
+    <link rel="next" href="gimp-using-web.html" title="2.  Preparing your Images for the Web" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 6. 
+        <span lang="en" xml:lang="en">Getting images out of GIMP</span>
+      </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="ch05s03s07.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">Part II. 
+      <span lang="en" xml:lang="en">
+        How do I Become a <acronym class="acronym">GIMP</acronym> Wizard?
+      </span>
+    </th>
+          <td width="20%" align="right"> <a accesskey="n" href="gimp-using-web.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="chapter" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title"><a id="gimp-images-out"></a>Chapter 6. 
+        <span lang="en" xml:lang="en">Getting images out of GIMP</span>
+      </h2>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <p>
+          <b>Table of Contents</b>
+        </p>
+        <dl>
+          <dt>
+            <span class="sect1">
+              <a href="gimp-images-out.html#gimp-using-fileformats">1. 
+    <span lang="en" xml:lang="en">Files</span>
+  </a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="sect2">
+                  <a href="gimp-images-out.html#id2589134">1.1. 
+      <span lang="en" xml:lang="en">Saving Images</span>
+    </a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="gimp-images-out.html#gimp-using-fileformats-export-dialog">1.2. 
+      <span lang="en" xml:lang="en">Saving Files</span>
+    </a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="sect1">
+              <a href="gimp-using-web.html">2. 
+    <span lang="en" xml:lang="en">Preparing your Images for the Web</span>
+  </a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="sect2">
+                  <a href="gimp-using-web.html#gimp-using-web-size-vs-quality">2.1. 
+      <span lang="en" xml:lang="en">Images with an Optimal Size/Quality Ratio</span>
+    </a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="gimp-using-web-reducing-file-size.html">2.2. 
+      <span lang="en" xml:lang="en">Reducing the File Size Even More</span>
+    </a>
+                </span>
+              </dt>
+              <dt>
+                <span class="sect2">
+                  <a href="gimp-using-web-transparency.html">2.3. 
+      <span lang="en" xml:lang="en">Saving Images with Transparency</span>
+    </a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+      <div class="sect1" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title" style="clear: both"><a id="gimp-using-fileformats"></a>1. 
+    <span lang="en" xml:lang="en">Files</span>
+  </h2>
+            </div>
+            <div>
+              <div class="revhistory">
+                <table border="1" width="100%" summary="Revision history">
+                  <tr>
+                    <th align="left" valign="top" colspan="3">
+                      <b>Revision History</b>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td align="left">Revision $Revision: 2416 $</td>
+                    <td align="left">2007-10-06</td>
+                    <td align="left">ude</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a id="id2589098" class="indexterm"></a>
+        <p>
+    The <acronym class="acronym">GIMP</acronym> is capable of reading and writing a large
+    variety of graphics file formats.  With the exception of
+    <acronym class="acronym">GIMP</acronym>'s native XCF file type, file handling is done by
+    Plugins.  Thus, it is relatively easy to extend <acronym class="acronym">GIMP</acronym>
+    to new file types when the need arises.
+  </p>
+        <p>
+    Not all file types are equally good for all purposes. This part of the
+    documentation should help you understand the advantages and disadvantages
+    of each type.
+  </p>
+        <div class="sect2" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="id2589134"></a>1.1. 
+      <span lang="en" xml:lang="en">Saving Images</span>
+    </h3>
+              </div>
+            </div>
+          </div>
+          <p>
+      When you are finished working with an image, you will want to save the
+      results. (In fact, it is often a good idea to save at intermediate
+      stages too: <acronym class="acronym">GIMP</acronym>
+      is a pretty robust program, but we have heard rumors, possibly
+      apocryphal, that it may have been known on rare and mysterious occasions
+      to crash.) Most of the file formats that <acronym class="acronym">GIMP</acronym>
+      can open, can also be used for saving. There is one file format that is
+      special, though: XCF is <acronym class="acronym">GIMP</acronym>'s native format, and is
+      useful because it stores <span class="emphasis"><em>everything</em></span> about an image
+      (well, almost everything; it does not store “<span class="quote">undo</span>”
+      information). Thus, the XCF format is especially suitable for saving
+      intermediate results, and for saving images to be re-opened later in
+      <acronym class="acronym">GIMP</acronym>.
+      XCF files are not readable by most other programs that display images,
+      so once you have finished, you will probably also want to save the image
+      in a more widely used format, such as JPEG, PNG, TIFF, etc.
+    </p>
+        </div>
+        <div class="sect2" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="gimp-using-fileformats-export-dialog"></a>1.2. 
+      <span lang="en" xml:lang="en">Saving Files</span>
+    </h3>
+              </div>
+            </div>
+          </div>
+          <p>
+      There are several commands for saving images. A list, and information on
+      how to use them, can be found in the section covering the
+      <a class="link" href="gimp-image-window-menus-file.html" title="5.  The “File” Menu">File Menu</a>.
+    </p>
+          <p>
+      <acronym class="acronym">GIMP</acronym> allows you to save the images you create in a
+      wide variety of formats.  It is important to realize that the only
+      format capable of saving <span class="emphasis"><em>all</em></span> of the information in
+      an image, including layers, transparency, etc., is GIMP's native XCF
+      format.   Every other format preserves some image properties and loses
+      others.  When you save an image, <acronym class="acronym">GIMP</acronym> tries to let
+      you know about this, but basically it is up to you to understand the
+      capabilities of the format you choose.
+    </p>
+          <div class="figure">
+            <a id="id2589241"></a>
+            <p class="title">
+              <b>Figure 6.1. 
+        <span lang="en" xml:lang="en">Example of an Export dialog</span>
+      </b>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="../images/using/export-dialog.png" alt="Example of an Export dialog" />
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+      As stated above, there is no file format, with the exception of GIMP's
+      native <a class="link" href="glossary.html#glossary-xcf" title="XCF">XCF</a> format, that is capable
+      of storing all the data in a <acronym class="acronym">GIMP</acronym>
+      image. When you ask to save an image in a format that will not
+      completely represent it, <acronym class="acronym">GIMP</acronym>
+      notifies you of this, tells you what kind of information will be lost,
+      and asks you whether you would like to “<span class="quote">export</span>” the image
+      in a form that the file type can handle. Exporting an image does not
+      modify the image itself, so you do not lose anything by doing this. See
+      <a class="link" href="gimp-export-dialog.html" title="5.4.  Export File">Export file</a>.
+    </p>
+          <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+            <table border="0" summary="Note">
+              <tr>
+                <td rowspan="2" align="center" valign="top" width="25">
+                  <img alt="[Note]" src="../images/note.png" />
+                </td>
+                <th align="left">Note</th>
+              </tr>
+              <tr>
+                <td align="left" valign="top">
+                  <p>
+        When you close an image (possibly by quitting GIMP), you are warned if
+        the image is "dirty"; that is, if it has been changed without
+        subsequently being saved. Saving an image in any file format will
+        cause the image to be considered "not dirty", even if the file format
+        does not represent all of the information from the image.
+      </p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="sect3" lang="en" xml:lang="en">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="file-gif-save"></a>1.2.1. 
+        <span lang="en" xml:lang="en">Saving as GIF</span>
+      </h4>
+                </div>
+              </div>
+            </div>
+            <a id="file-gif-load"></a>
+            <a id="id2589341" class="indexterm"></a>
+            <a id="id2589348" class="indexterm"></a>
+            <a id="id2589354" class="indexterm"></a>
+            <a id="id2589362" class="indexterm"></a>
+            <div class="figure">
+              <a id="id2589375"></a>
+              <p class="title">
+                <b>Figure 6.2. 
+          <span lang="en" xml:lang="en">The GIF Save dialog</span>
+        </b>
+              </p>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="../images/using/gif-save-dialog.png" alt="The GIF Save dialog" />
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <table border="0" summary="Warning">
+                <tr>
+                  <td rowspan="2" align="center" valign="top" width="25">
+                    <img alt="[Warning]" src="../images/warning.png" />
+                  </td>
+                  <th align="left">Warning</th>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+                    <p>
+          Please note, that the GIF file format is incapable of storing some
+          rather basic image informations like
+          <span class="emphasis"><em>print resolution</em></span>.
+          If you care for these properties, you should consider a different
+          file format like PNG.
+        </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">GIF Options</span>
+                </dt>
+                <dd>
+                  <div class="variablelist">
+                    <dl>
+                      <dt>
+                        <span class="term">Interlace</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    <span class="guilabel">Interlace</span>
+                    : when this option is checked, the image will be displayed
+                    progressively on the Web page. It was interesting when
+                    computers and modems were slow, as it allowed to stop
+                    loading an image of no interest.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">GIF comment</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    Beware of do not insert characters outside the ASCII
+                    range, because of the GIF format supports 7-bits ASCII
+                    texts only, that GIMP can't provide. If you insert
+                    inadvertently a non-ASCII char, the option will be
+                    automatically disabled.
+                  </p>
+                      </dd>
+                    </dl>
+                  </div>
+                </dd>
+                <dt>
+                  <span class="term">Animated GIF Options</span>
+                </dt>
+                <dd>
+                  <a id="id2589500" class="indexterm"></a>
+                  <div class="variablelist">
+                    <dl>
+                      <dt>
+                        <span class="term">Loop forever</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    <span class="guilabel">Loop forever</span>
+                    : when this option is checked the animation will start
+                    playing again repeatedly until you stop it.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Delay between frames if unspecified</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    <span class="guilabel">Delay between frames if unspecified</span>
+                    : you can set the delay, in millisecondes, between frames
+                    if it has not been set before. In this case, you can
+                    modify every delay in the Layer Dialog.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Frame disposal when unspecified</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    <span class="guilabel">Frame disposal when unspecified</span>
+                    : If this has not been set before, you can set how frames
+                    will be superimposed. You can select among three options :
+                  </p>
+                        <div class="itemizedlist">
+                          <ul type="opencircle">
+                            <li style="list-style-type: circle">
+                              <p>
+                        <span class="guilabel">I don't care</span>
+                        : you can use this option if all your layers are
+                        opaque. Layers will overwrite what is beneath.
+                      </p>
+                            </li>
+                            <li style="list-style-type: circle">
+                              <p>
+                        <span class="guilabel">Cumulative Layers (combine)</span>
+                        : previous frames will not be deleted when a new one
+                        is displayed.
+                      </p>
+                            </li>
+                            <li style="list-style-type: circle">
+                              <p>
+                        <span class="guilabel">One frame per layer (replace)</span>
+                        : previous frames will be deleted before displaying a
+                        new frame.
+                      </p>
+                            </li>
+                          </ul>
+                        </div>
+                      </dd>
+                    </dl>
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="sect3" lang="en" xml:lang="en">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="file-jpeg-save"></a>1.2.2. 
+        <span lang="en" xml:lang="en">Saving as JPEG</span>
+      </h4>
+                </div>
+              </div>
+            </div>
+            <a id="file-jpeg-load"></a>
+            <a id="id2589675" class="indexterm"></a>
+            <a id="id2589681" class="indexterm"></a>
+            <a id="id2589687" class="indexterm"></a>
+            <a id="id2589693" class="indexterm"></a>
+            <a id="id2589702" class="indexterm"></a>
+            <p>
+        JPEG files usually have an extension .jpg, .JPG, or .jpeg. It is a
+        very widely used format, because it compresses images very
+        efficiently, while minimizing the loss of image quality. No other
+        format comes close to achieving the same level of compression. It does
+        not, however, support transparency or multiple layers. For this
+        reason, saving images as JPEG often requires them to be exported from
+        <acronym class="acronym">GIMP</acronym>.
+      </p>
+            <div class="figure">
+              <a id="id2589730"></a>
+              <p class="title">
+                <b>Figure 6.3. 
+          <span lang="en" xml:lang="en">The JPEG Save dialog</span>
+        </b>
+              </p>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="../images/using/save-jpeg-dialog.png" alt="The JPEG Save dialog" />
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <p>
+        The JPEG algorithm is quite complex, and involves a bewildering number
+        of options, whose meaning is beyond the scope of this documentation.
+        Unless you are a JPEG expert, the Quality parameter is probably the
+        only one you will need to adjust.
+      </p>
+            <p>
+        </p>
+            <div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <table border="0" summary="Caution">
+                <tr>
+                  <td rowspan="2" align="center" valign="top" width="25">
+                    <img alt="[Caution]" src="../images/caution.png" />
+                  </td>
+                  <th align="left">Caution</th>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+                    <p>
+            After you save an image as a JPEG file, the image is no longer
+            considered “<span class="quote">dirty</span>” by <acronym class="acronym">GIMP</acronym>,
+            so unless you make further changes to it, you will not receive
+            any warning if you close it. Because JPEG is lossy and does not
+            support transparency or multiple layers, some of the information
+            in the image might then be lost. If you want to save all of the
+            information in an image, use <acronym class="acronym">GIMP</acronym>'s native
+            <a class="link" href="glossary.html#glossary-xcf" title="XCF">XCF format</a>.
+          </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <p>
+      </p>
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Quality</span>
+                </dt>
+                <dd>
+                  <p>
+              When you save a file in JPEG format, a dialog is displayed
+              that allows you to set the Quality level, which ranges from 0
+              to 100. Values above 95 are generally not useful, though. The
+              default quality of 85 usually produces excellent results, but
+              in many cases it is possible to set the quality substantially
+              lower without noticeably degrading the image. You can test the
+              effect of different quality settings by checking
+              <span class="guilabel">Show Preview in image window</span>
+              in the JPEG dialog.
+            </p>
+                  <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                    <table border="0" summary="Note">
+                      <tr>
+                        <td rowspan="2" align="center" valign="top" width="25">
+                          <img alt="[Note]" src="../images/note.png" />
+                        </td>
+                        <th align="left">Note</th>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="top">
+                          <p>
+                Please note, that the numbers for the JPEG quality level have
+                a different meaning. Saving with a level of 80 in GIMP is not
+                necessarily comparable with saving with a level of 80 in an
+                different application.
+              </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </dd>
+                <dt>
+                  <span class="term">Preview in image window</span>
+                </dt>
+                <dd>
+                  <p>
+              Checking this option causes each change in quality (or any other
+              JPEG parameter) to be shown in the image display. (This does not
+              alter the image, though: it reverts back to its original state
+              when the JPEG dialog is closed.)
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Advanced settings</span>
+                </dt>
+                <dd>
+                  <p>
+              Some information about the advanced settings:
+            </p>
+                  <div class="variablelist">
+                    <dl>
+                      <dt>
+                        <span class="term">Optimize</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    If you enable this option, the optimization of entropy
+                    encoding parameters will be used.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Progressive</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    With this option enabled the chunks of the image will be
+                    inserted in a certain order in the file. This is done with
+                    the intent to give a progressive refinement of the image
+                    appearance during a slow connection web download, similar
+                    and with the same purpose of the corresponding option
+                    present in the GIF format too. The downside of enabling
+                    this option is, that you get slightly larger files.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Save EXIF data</span>
+                      </dt>
+                      <dd>
+                        <a id="id2589966" class="indexterm"></a>
+                        <p>
+                    JPEG files from many digital cameras contain extra
+                    information, called EXIF data, which specifies camera
+                    settings and other information concerning the
+                    circumstances under which the image was created. GIMP's
+                    ability to handle EXIF data depends on whether the
+                    “<span class="quote">libexif</span>”
+                    library is available on your system; it is not
+                    automatically packaged with GIMP. If GIMP was built with
+                    libexif support, then EXIF data is preserved if you open a
+                    JPEG file, work with the resulting image, and then save it
+                    as JPEG. The EXIF data is not altered in any way when you
+                    do this (which means that some of its fields are no longer
+                    valid). If GIMP was not built with EXIF support, this does
+                    not prevent files with EXIF data from being opened, but it
+                    does mean that the EXIF data will not be present when the
+                    resulting image is later saved.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Save Preview</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    This option lets you save a thumbnail with the image.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Save XMP data</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    If you enable this option, the meta data of the image will
+                    be saved as <acronym class="acronym">XMP</acronym>-structure within the
+                    file.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">
+                  Use quality settings from original image
+                </span>
+                      </dt>
+                      <dd>
+                        <p>
+                    If a particular quality setting (or
+                    “<span class="quote">quantization table</span>”
+                    ) was attached to the image when it was loaded, then this
+                    option allows you to use them instead of the standard
+                    ones.
+                  </p>
+                        <p>
+                    If you have only made a few changes to the image, then
+                    re-using the same quality setting will give you almost the
+                    same quality and file size as the original image. This
+                    will minimize the losses caused by the quantization step,
+                    compared to what would happen if you used different
+                    quality setting.
+                  </p>
+                        <p>
+                    If the quality setting found in the original file are not
+                    better than your default quality settings, then the option
+                    “<span class="quote">Use quality settings from original image</span>”
+                    will be available but not enabled. This ensures that you
+                    always get at least the minimum quality specified in your
+                    defaults. If you did not make major changes to the image
+                    and you want to save it using the same quality as the
+                    original, then you can do it by enabling this option.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Smoothing</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    Compression can create artefacts. By using this option,
+                    you can smooth the image when saving, reducing them. But
+                    your image becomes somewhat blurred.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Restart markers</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    The image file can include some markers which allow to
+                    segment it. If loading this image in a Web page is broken
+                    off, loading can resume from the following marker.
+                  </p>
+                      </dd>
+                      <dt>
+                        <span class="term">Subsampling</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    Human eye is not sensitive in the same way all over color
+                    spectrum. Compression can use this to consider as
+                    identical slightly different colors. Three methods are
+                    available :
+                  </p>
+                        <div class="itemizedlist">
+                          <ul type="disc">
+                            <li>
+                              <p>
+                        <span class="guilabel">1x1,1x1,1x1 (best quality)</span>
+                        : preserves borders and contrasting colors, but
+                        compression is less.
+                      </p>
+                            </li>
+                            <li>
+                              <p>
+                        <span class="guilabel">2x1,1x1,1x1 (4:2:2)</span>
+                      </p>
+                            </li>
+                            <li>
+                              <p>
+                        <span class="guilabel">1x2,1x1,1x1</span>
+                      </p>
+                            </li>
+                            <li>
+                              <p>
+                        <span class="guilabel">2x2,1x1,1x1 (smallest file)</span>
+                        : important compression; suits images with weak
+                        borders but tends to denature colors.
+                      </p>
+                            </li>
+                          </ul>
+                        </div>
+                      </dd>
+                      <dt>
+                        <span class="term">DCT Method</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    DCT is “<span class="quote">discrete cosine transform</span>”,
+                    and it is the first step in the JPEG algorithm going
+                    from the spatial to the frequency domain. The choices are
+                    “<span class="quote">float</span>”, “<span class="quote">integer</span>”
+                    (the default), and “<span class="quote">fast integer</span>”.
+                  </p>
+                        <div class="itemizedlist">
+                          <ul type="disc">
+                            <li>
+                              <p>
+                        <span class="guilabel">float</span>
+                        : The float method is very slightly more accurate than
+                        the integer method, but is much slower unless your
+                        machine has very fast floating-point hardware. Also
+                        note that the results of the floating-point method may
+                        vary slightly across machines, while the integer
+                        methods should give the same results everywhere.
+                      </p>
+                            </li>
+                            <li>
+                              <p>
+                        <span class="guilabel">integer</span>
+                        (the default): This method is faster than
+                        “<span class="quote">float</span>”, but not as accurate.
+                      </p>
+                            </li>
+                            <li>
+                              <p>
+                        <span class="guilabel">fast integer</span>
+                        : The fast integer method is much less accurate than
+                        the other two.
+                      </p>
+                            </li>
+                          </ul>
+                        </div>
+                      </dd>
+                      <dt>
+                        <span class="term">Image comments</span>
+                      </dt>
+                      <dd>
+                        <p>
+                    In this text box, you can enter a comment which will be
+                    saved with the image.
+                  </p>
+                      </dd>
+                    </dl>
+                  </div>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="sect3" lang="en" xml:lang="en">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="file-png-save"></a>1.2.3. 
+        <span lang="en" xml:lang="en">Saving as PNG</span>
+      </h4>
+                </div>
+              </div>
+            </div>
+            <a id="file-png-load"></a>
+            <a id="file-png-save-defaults"></a>
+            <a id="id2590405" class="indexterm"></a>
+            <a id="id2590413" class="indexterm"></a>
+            <a id="id2590422" class="indexterm"></a>
+            <div class="figure">
+              <a id="id2590435"></a>
+              <p class="title">
+                <b>Figure 6.4. 
+          <span lang="en" xml:lang="en">
+            The “<span class="quote">Save as PNG</span>” dialog
+          </span>
+        </b>
+              </p>
+              <div class="figure-contents">
+                <div class="mediaobject">
+                  <img src="../images/using/save-png-dialog.png" alt="The Save as PNG dialog" />
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Interlacing</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Interlacing</span>: When this option is checked,
+              the image is progressively displayed on a Web page. So, slow
+              computer users can stop downloading if they are not interested.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save background color</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save background color</span>
+              : If your image has many transparency levels, the Internet
+              browsers which recognize only two levels, will use the
+              background color of your Toolbox instead. But Internet Explorer
+              up to version 6 does not use these informations.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save gamma</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save gamma</span>: informations about your
+              monitor will be saved, so that the image will be displayed in
+              the same way on other computers, provided that the display
+              program supports these informations, what is rarely the case.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save layer offset</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save layer offset</span>: No interest. Images
+              with layers are flattened before saving to PNG and layer
+              offset is taken in account.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save Resolution</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save Resolution</span>: Save the image
+              resolution, in dpi (dot per inch).
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save creation time</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save creation time</span>: That will be the date
+              of last saving.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save comment</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Save comment</span>: you can read this comment
+              in the <a class="link" href="gimp-image-properties.html" title="9.27.  Image Properties">Image
+              Properties</a>.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save color values from transparent pixels</span>
+                </dt>
+                <dd>
+                  <p>
+              With this option is checked, the color values are saved even if the
+              pixels are completely transparent.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Compression level</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guilabel">Compression level</span>: Since compression is
+              not lossy, the only reason to use a compression level less
+              than 9 would be a too long time to compress file on a slow
+              computer. Nothing to fear from decompression: it is as quick
+              whatever the compression level.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Save defaults</span>
+                </dt>
+                <dd>
+                  <p>
+              <span class="guibutton">Save defaults</span>: If you click on this
+              button, your settings will be saved and can be used by other
+              savings by clicking on the <span class="guibutton">Load defaults</span>.
+            </p>
+                </dd>
+              </dl>
+            </div>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+              <table border="0" summary="Note">
+                <tr>
+                  <td rowspan="2" align="center" valign="top" width="25">
+                    <img alt="[Note]" src="../images/note.png" />
+                  </td>
+                  <th align="left">Note</th>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+                    <p>
+          Since PNG format supports indexed images, you have better reduce the
+          number of colors before saving if you want to have the lightest file
+          for the Web. See <a class="xref" href="gimp-image-convert-indexed.html" title="9.6.  Indexed mode">Section 9.6, “
+    <span lang="en" xml:lang="en">Indexed mode</span>
+  ”</a>.
+        </p>
+                    <p>
+          Computers work on 8 bits blocks named “<span class="quote">Byte</span>”.
+          A byte allows 256 colors. Reducing the number of colors below 256
+          is not useful: a byte will be used anyway and the file size will not
+          be less. More, this “<span class="quote">PNG8</span>”
+          format, like GIF, uses only one bit for transparency; only two
+          transparency levels are possible, transparent or opaque.
+        </p>
+                    <p>
+          If you want PNG transparency to be fully displayed by Internet
+          Explorer, you can use the AlphaImageLoader DirectX filter in the
+          code of your Web page. See Microsoft Knowledge Base
+          <a class="xref" href="bibliography.html#bibliography-online-microsoft-kb294714" title="Microsoft Knowledge Base Article 294714">[<abbr class="abbrev">MSKB-294714</abbr>]</a>.
+          Please note, that this should not be necessary for
+          InternetExplorer 7 and above.
+        </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="sect3" lang="en" xml:lang="en">
+            <div class="titlepage">
+              <div>
+                <div>
+                  <h4 class="title"><a id="file-tiff-save"></a>1.2.4. 
+        <span lang="en" xml:lang="en">Saving as TIFF</span>
+      </h4>
+                </div>
+              </div>
+            </div>
+            <div class="figure">
+              <a id="id2590798"></a>
+              <p class="title">
+                <b>Figure 6.5. 
+          <span lang="en" xml:lang="en">The TIFF Save dialog</span>
+        </b>
+              </p>
+              <div class="figure-contents">
+                <a id="id2590810" class="indexterm"></a>
+                <a id="id2590818" class="indexterm"></a>
+                <a id="id2590827" class="indexterm"></a>
+                <div class="mediaobject">
+                  <img src="../images/using/save-tiff-dialog.png" alt="The TIFF Save dialog" />
+                </div>
+              </div>
+            </div>
+            <br class="figure-break" />
+            <div class="variablelist">
+              <dl>
+                <dt>
+                  <span class="term">Compression</span>
+                </dt>
+                <dd>
+                  <p>
+              This option give you the opportunity to choose the compression
+              method that is appropriate for your image:
+            </p>
+                  <div class="itemizedlist">
+                    <ul type="disc">
+                      <li>
+                        <p>
+                  <span class="guilabel">None</span> : fast method, but resulting in
+                  a big file.
+                </p>
+                      </li>
+                      <li>
+                        <p>
+                  <span class="guilabel">LZW</span> : The image will be compressed
+                  using the “<span class="quote">Lempel-Ziv-Welch</span>” algorithm, a
+                  lossless compression technique. This is an old method,
+                  still efficient and fast. More informations at
+                  <a class="xref" href="bibliography.html#bibliography-online-wkpd-lzw" title="Wikipedia - LZW">[<abbr class="abbrev">WKPD-LZW</abbr>]</a>.
+                </p>
+                      </li>
+                      <li>
+                        <p>
+                  <span class="guilabel">Pack Bits</span>
+                  : PackBits is a fast, simple compression scheme for
+                  run-length encoding of data. Apple introduced the PackBits
+                  format with the release of MacPaint on the Macintosh
+                  computer. A PackBits data stream consists of packets of one
+                  byte of header followed by data. (Source:
+                  <a class="xref" href="bibliography.html#bibliography-online-wkpd-packbits" title="Wikipedia - PackBits">[<abbr class="abbrev">WKPD-PACKBITS</abbr>]</a>)
+                </p>
+                      </li>
+                      <li>
+                        <p>
+                  <span class="guilabel">Deflate</span>
+                </p>
+                      </li>
+                      <li>
+                        <p>
+                  <span class="guilabel">JPEG</span>
+                </p>
+                      </li>
+                    </ul>
+                  </div>
+                </dd>
+                <dt>
+                  <span class="term">Save color values from transparent pixels</span>
+                </dt>
+                <dd>
+                  <p> 
+              With this option the color values are saved even if the pixels
+              are completely transparent.
+            </p>
+                </dd>
+                <dt>
+                  <span class="term">Comment</span>
+                </dt>
+                <dd>
+                  <p>
+              In this text box, you can enter a comment which will be
+              associated with the image.
+            </p>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="ch05s03s07.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="pt02.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="gimp-using-web.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="ch05s03s07.html">3.7. 
+      <span lang="en" xml:lang="en">Image Browser</span>
+    </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="gimp-using-web.html">2. 
+    <span lang="en" xml:lang="en">Preparing your Images for the Web</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

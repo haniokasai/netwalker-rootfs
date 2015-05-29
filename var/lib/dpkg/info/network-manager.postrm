@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# abort a mv_conffile (from above).
+abort_rm_conffile() {
+    CONFFILE="$1"
+
+    if [ -e "$CONFFILE".dpkg-backup ]; then
+        mv -f "$CONFFILE".dpkg-backup "$CONFFILE"
+    elif [ -e "$CONFFILE".dpkg-removing ]; then
+        mv -f "$CONFFILE".dpkg-removing "$CONFFILE"
+    fi
+}
+
+# abort a mv_conffile (from above).
+abort_mv_conffile() {
+    CONFFILE="$1"
+    NEWCONFFILE="$2"
+
+    # reinstantiate .dpkg-* files - if they exist
+    if [ -e "$NEWCONFFILE".dpkg-backup ]; then
+        mv -f "$NEWCONFFILE".dpkg-backup "$CONFFILE"
+    elif [ -e "$NEWCONFFILE".dpkg-moving ]; then
+        mv -f "$NEWCONFFILE".dpkg-moving "$CONFFILE"
+    fi
+
+    if [ -e "$NEWCONFFILE" ]; then
+        rm -f "$NEWCONFFILE"
+    fi
+}
+
+case "$1" in
+    remove|purge)
+	update-rc.d -f NetworkManager remove
+        ;;
+
+    upgrade|failed-upgrade|disappear)
+	if dpkg --compare-versions "$2" "lt-nl" "0.7~~"; then
+		update-rc.d -f NetworkManager remove
+	fi
+        ;;
+
+    abort-install|abort-upgrade)
+        if dpkg --compare-versions "$2" lt "0.7~~"; then
+             abort_mv_conffile /etc/dbus-1/event.d/25NetworkManager \
+                               /etc/init.d/NetworkManager
+
+             abort_rm_conffile /etc/dbus-1/event.d/26NetworkManagerDispatcher
+
+             /etc/dbus-1/event.d/25NetworkManager start
+        fi
+        ;;
+esac
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "remove" ]; then
+	ldconfig
+fi
+# End automatically added section
+
+
+exit 0

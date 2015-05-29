@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/orca_console_prefs.py

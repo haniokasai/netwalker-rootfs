@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.26.0">
+<!ENTITY manrevision "2.26.0">
+<!ENTITY date "April 2006">
+<!ENTITY appname "Archive Manager">
+<!ENTITY app "<application>Archive Manager</application>">
+<!-- Information about the entities
+       The legal.xml file contains legal information, there is no need to edit the file. 
+       Use the appversion entity to specify the version of the application.
+       Use the manrevision entity to specify the revision number of this manual.
+       Use the date entity to specify the release date of this manual.
+       Use the app entity to specify the name of the application. -->]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.GNOME.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Jan 30, 2002
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="el">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Εγχειρίδιο του <application>Διαχειριστή συμπιεσμένων αρχείων</application></title>
+     <abstract role="description">
+       <para>Archive Manager, also known as File Roller, allows you to create, view, modify, or unpack an archive.</para>
+     </abstract>
+    <copyright>
+      <year>2009</year>
+      <holder>Paul Cutler</holder>
+    </copyright>	    
+	<copyright> 
+      <year>2006</year> 
+      <year>2008</year>
+      <holder>Paolo Bacchilega</holder> 
+    </copyright> 
+     <copyright>
+        <year>2003</year>
+        <year>2004</year>
+        <holder>Sun Microsystems</holder> 
+    </copyright>
+    <copyright> 
+      <year>2003</year> 
+      <holder>Paolo Bacchilega</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2002</year> 
+      <holder>Alexander Kirillov</holder> 
+    </copyright><copyright><year>2009</year><holder>Μάριος Ζηντίλης (m.zindilis@dmajor.org)</holder></copyright> 
+
+
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+<!-- An address can be added to the publisher information.  If a role is 
+     not specified, the publisher/author is the same for all versions of the 
+     document.  -->
+    <publisher role="maintainer"> 
+      <publishername>Έργο τεκμηρίωσης του GNOME</publishername> 
+    </publisher> 
+
+      <legalnotice id="legalnotice">
+         <para>Επιτρέπεται η αντιγραφή, αναδιανομή και/η τροποποίηση αυτού του εγγράφου υπό τους όρους της Ελεύθερης Άδειας Τεκμηρίωσης GNU (GFDL), Έκδοση 1.1 ή νεότερη που εκδόθηκε από το Ίδρυμα Ελεύθερου Λογισμικού χωρίς Αμετάβλητα Τμήματα, χωρίς Κείμενο Εξωφύλλου, και χωρίς Κείμενο Οπισθοφύλλου. Μπορείτε να βρείτε ένα αντίγραφο της GFDL σ' αυτό το <ulink type="help" url="ghelp:fdl">σύνδεσμο</ulink> ή στο αρχείο COPYING-DOCS που διανέμεται με αυτό το εγχειρίδιο.</para>
+          <para>Το εγχειρίδιο αυτό είναι τμήμα της συλλογής εγχειριδίων GNOME που διανέμεται υπό την άδεια GFDL. Αν επιθυμείτε να διανήμετε το παρόν εγχειρίδιο χωριστά από την συλλογή, μπορείτε να το κάνετε προσθέτοντας ένα αντίγραφο της άδειας στο εγχειρίδιο, όπως περιγράφεται στο τμήμα 6 της άδειας.</para>
+ 
+         <para>Πολλά από τα ονόματα που χρησιμοποιούνται από επιχειρήσεις για να διακρίνουν τα προϊόντα τους και τις υπηρεσίες ζητούνται σαν εμπορικά σήματα. Όπου εμφανίζονται αυτά τα ονόματα σε κάποια τεκμηρίωση του GNOME, και τα μέλη του GNOME Documentation Project γνωρίουν για αυτά τα εμπορικά σήματα, τότε τα ονόματα είναι με κεφαλαία γράμματα ή με αρχικά κεφαλαία γράμματα.</para>
+ 
+         <para>ΤΟ ΕΓΓΡΑΦΟ ΚΑΙ ΟΙ ΤΡΟΠΟΠΟΙΗΜΕΝΕΣ ΕΚΔΟΣΕΙΣ ΤΟΥ ΕΓΓΡΑΦΟΥ ΠΑΡΕΧΟΝΤΑΙ ΥΠΟ ΤΟΥΣ ΟΡΟΥΣ ΤΗΣ ΕΛΕΥΘΕΡΗΣ ΑΔΕΙΑΣ ΤΕΚΜΗΡΙΩΣΗΣ GNU ΜΕ ΤΗΝ ΠΕΡΑΙΤΕΡΩ ΚΑΤΑΝΟΗΣΗ ΟΤΙ: <orderedlist>
+                 <listitem>
+                   <para>ΤΟ ΠΑΡΟΝ ΕΓΓΡΑΦΟ ΠΑΡΕΧΕΤΑΙ "ΩΣ ΕΧΕΙ", ΧΩΡΙΣ ΟΠΟΙΑΔΗΠΟΤΕ ΕΓΓΥΗΣΗ, ΕΚΠΕΦΡΑΣΜΕΝΗ Ή ΥΠΑΙΝΙΣΣΟΜΕΝΗ, ΣΥΜΠΕΡΙΛΑΜΒΑΝΟΜΕΝΩΝ, ΧΩΡΙΣ ΠΕΡΙΟΡΙΣΜΟΥΣ, ΕΓΓΥΗΣΕΩΝ ΟΤΙ ΤΟ ΕΓΓΡΑΦΟ Ή Η ΤΡΟΠΟΠΟΙΗΜΕΝΗ ΕΚΔΟΣΗ ΤΟΥ ΕΙΝΑΙ ΑΠΑΛΑΓΜΕΝΟ ΑΤΕΛΕΙΩΝ, ΕΜΠΟΡΕΥΣΙΜΟ, ΚΑΤΑΛΛΗΛΟ ΓΙΑ ΣΥΓΚΕΚΡΙΜΕΝΗ ΧΡΗΣΗ Ή ΑΠΑΡΑΒΙΑΣΤΟ. Ο ΧΡΗΣΤΗΣ ΑΝΑΛΑΜΒΑΝΕΙ ΚΑΘΕ ΚΙΝΔΥΝΟ ΠΟΥ ΜΠΟΡΕΙ ΝΑ ΠΡΟΚΥΨΕΙ ΩΣ ΠΡΟΣ ΤΗΝ ΠΟΙΟΤΗΤΑ, ΑΚΡΙΒΕΙΑ ΚΑΙ ΛΕΙΤΟΥΡΓΙΑ ΤΟΥ ΕΓΓΡΑΦΟΥ Ή ΤΩΝ ΤΡΟΠΟΠΟΙΗΜΕΝΩΝ ΕΚΔΟΣΕΩΝ ΤΟΥ. ΑΝ ΟΠΟΙΟΔΗΠΟΤΕ ΕΓΓΡΑΦΟ Ή ΤΡΟΠΟΠΟΙΗΜΕΝΗ ΕΚΔΟΣΗ ΤΟΥ ΑΠΟΔΕΙΧΘΟΥΝ ΕΛΛΑΤΩΜΑΤΙΚΑ ΜΕ ΟΠΟΙΟΝΔΗΠΟΤΕ ΤΡΟΠΟ, Ο ΤΕΛΙΚΟΣ ΧΡΗΣΤΗΣ (ΚΑΙ ΟΧΙ Ο ΑΡΧΙΚΟΣ ΣΥΓΓΡΑΦΕΑΣ, ΣΥΝΤΑΚΤΗΣ Ή ΟΠΟΙΟΣΔΗΠΟΤΕ ΤΟ ΔΙΕΝΗΜΕ) ΑΝΑΛΑΜΒΑΝΕΙ ΤΟ ΚΟΣΤΟΣ ΟΠΟΙΑΣΔΗΠΟΤΕ ΕΠΙΣΚΕΥΗΣ Ή ΔΙΟΡΘΩΣΗΣ. ΑΥΤΗ Η ΠΑΡΑΙΤΗΣΗ ΑΠΟ ΕΓΓΥΗΤΙΚΕΣ ΕΥΘΥΝΕΣ ΣΥΝΙΣΤΑ ΟΥΣΙΑΣΤΙΚΟ ΜΕΡΟΣ ΤΗΣ ΑΔΕΙΑΣ. ΟΥΔΕΜΙΑ ΧΡΗΣΗ ΟΙΟΥΔΗΠΟΤΕ ΕΓΓΡΑΦΟΥ Ή ΤΡΟΠΟΠΟΙΗΜΕΝΟΥ ΕΓΓΡΑΦΟΥ ΕΞΟΥΣΙΟΔΟΤΕΙΤΑΙ ΕΦΕΞΗΣ, ΠΑΡΑ ΥΠΟ ΤΟΝ ΟΡΟ ΤΗΣ ΩΣ ΑΝΩ ΠΑΡΑΙΤΗΣΗΣ ΚΑΙ</para>
+                 </listitem>
+                 <listitem>
+                   <para>ΣΕ ΚΑΜΙΑ ΠΕΡΙΠΤΩΣΗ ΚΑΙ ΥΠΟ ΚΑΜΙΑ ΝΟΜΙΚΗ ΣΥΝΘΗΚΗ, ΕΙΤΕ ΜΕΣΩ ΣΥΜΒΟΛΑΙΩΝ Ή ΑΛΛΙΩΣ, ΔΕΝ ΕΥΘΥΝΟΝΤΑΙ Ο ΣΥΓΓΡΑΦΕΑΣ, Ο ΔΙΑΝΟΜΕΑΣ, Η ΑΛΛΟΣ ΣΥΝΥΠΕΥΘΥΝΟΣ ΓΙΑ ΤΗΝ ΣΥΓΓΡΑΦΗ ΤΗΣ ΤΕΚΜΗΡΙΩΣΗΣ, ΓΙΑ ΕΜΜΕΣΕΣ Η ΑΜΕΣΕΣ, ΤΥΧΑΙΕΣ Ή ΜΗ ΖΗΜΙΕΣ ΠΑΝΤΩΣ ΦΥΣΕΩΣ ΠΟΥ ΠΡΟΕΡΧΟΝΤΑΙ ΑΠΟ ΤΗΝ ΧΡΗΣΗ ΤΗΣ ΤΕΚΜΗΡΙΩΣΗΣ ΚΑΙ/Ή ΠΑΡΑΛΛΑΓΩΝ ΑΥΤΗΣ ΑΚΟΜΑ ΚΑΙ ΕΑΝ ΕΧΕΙ ΥΠΑΡΞΕΙ ΠΡΟΕΙΔΟΠΟΙΗΣΗ ΓΙΑ ΤΗΝ ΠΙΘΑΝΟΤΗΤΑ ΥΠΑΡΞΗΣ ΤΕΤΟΙΩΝ ΖΗΜΙΩΝ.</para>
+                 </listitem>
+           </orderedlist></para>
+   </legalnotice>
+  <!-- This file contains link to license for the
+   documentation (GNU FDL), and other legal stuff such as "NO
+   WARRANTY" statement. Please do not change any of this. -->
+
+    <authorgroup> 
+       <author> 
+         <firstname>Sun</firstname>
+         <surname>Ομάδα τεκμηρίωσης του GNOME</surname>
+         <affiliation> 
+            <orgname>Sun Microsystems</orgname>
+        </affiliation>
+      </author>
+      <author> 
+	<firstname>Paolo</firstname> 
+	<surname>Bacchilega</surname> 
+	<affiliation> 
+	  <orgname>Έργο τεκμηρίωσης του GNOME</orgname> 
+	</affiliation> 
+      </author> 
+      <author> 
+	<firstname>Alexander</firstname> 
+	<surname>Kirillov</surname> 
+	<affiliation> 
+	  <orgname>Έργο τεκμηρίωσης του GNOME</orgname> 
+	  <address> <email>kirillov@math.sunysb.edu</email> </address> 
+	</affiliation> 
+      </author> 
+      <author>
+        <firstname>Paul</firstname>
+        <surname>Cutler</surname>
+        <affiliation>
+          <orgname>Έργο τεκμηρίωσης του GNOME</orgname>
+          <address><email>pcutler@foresightlinux.org</email></address>
+        </affiliation>
+      </author>	  
+    </authorgroup>
+	
+	<releaseinfo revision="2.26" role="review">
+		<ulink type="techreview" url="http://bugzilla.gnome.org/show_bug.cgi?id=575419"/>
+	</releaseinfo>
+
+         <revhistory>
+                <revision>
+                  <revnumber>Archive Manager Manual V2.26.0</revnumber>
+                  <date>March 2009</date>
+                  <revdescription>
+                         <para role="author">Paul Cutler</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+				
+                <revision>
+                  <revnumber>Εγχειρίδιο του Διαχειριστή συμπιεσμένων αρχείων, έκδοση 2.24.0</revnumber>
+                  <date>Ιούλιος 2008</date>
+                  <revdescription>
+                         <para role="author">Paolo Bacchilega</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+				
+                <revision>
+                  <revnumber>Εγχειρίδιο του Διαχειριστή συμπιεσμένων αρχείων, έκδοση 2.6</revnumber>
+                  <date>Απρίλιος 2006</date>
+                  <revdescription>
+                         <para role="author">Paolo Bacchilega</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.5</revnumber>
+                  <date>Μάρτιος 2004</date>
+                  <revdescription>
+                         <para role="author">Ομάδα τεκμηρίωσης του GNOME από τη Sun</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.4</revnumber>
+                  <date>Φεβρουάριος 2004</date>
+                  <revdescription>
+                         <para role="author">Ομάδα τεκμηρίωσης του GNOME από τη Sun</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.3</revnumber>
+                  <date>Αύγουστος 2003</date>
+                  <revdescription>
+                         <para role="author">Ομάδα τεκμηρίωσης του GNOME από τη Sun</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.2</revnumber>
+                  <date>Ιούνιος 2003</date>
+                  <revdescription>
+                         <para role="author">Ομάδα τεκμηρίωσης του GNOME από τη Sun</para>
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.1</revnumber>
+                  <date>Ιανουάριος 2003</date>
+                  <revdescription>
+                         <para role="author">Paolo Bacchilega</para>                         
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+                <revision>
+                  <revnumber>Εγχειρίδιο του File Roller, έκδοση 2.0</revnumber>
+                  <date>Ιούνιος 2002</date>
+                  <revdescription>
+                         <para role="author">Alexander Kirillov</para>                         
+                         <para role="publisher">Έργο τεκμηρίωσης του GNOME</para>
+                  </revdescription>
+                </revision>
+         </revhistory>
+
+    <releaseinfo> This manual describes version 2.26.0 of Archive Manager.
+    </releaseinfo> 
+    <legalnotice> 
+        <title>Aνάδραση</title>
+        <para>Για να αναφέρετε ένα σφάλμα ή να κάνετε μια πρόταση σχετικά με τη μικροεφαρμογή <application>Sticky Notes</application> ή αυτή την τεκμηρίωση, ακολουθήστε τις οδηγίες στην <ulink url="ghelp:gnome-feedback" type="help">Ιστοσελίδα Ανάδρασης GNOME </ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice>
+  </articleinfo> 
+  <indexterm zone="index"> 
+    <primary>File Roller</primary> 
+  </indexterm> 
+  <indexterm zone="index"> 
+    <primary>file-roller</primary> 
+  </indexterm>
+  <indexterm zone="index"> 
+    <primary>Συμπίεση αρχείων</primary> 
+  </indexterm>
+  <indexterm zone="file-roller-add-files"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Προσθήκη αρχείων στο συμπιεσμένο αρχείο</secondary>
+  </indexterm> 
+  <indexterm zone="file-roller-delete-files"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Διαγραφή αρχείων από το συμπιεσμένο αρχείο</secondary>
+  </indexterm> 
+  <indexterm zone="file-roller-open"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Άνοιγμα</secondary>
+  </indexterm> 
+  <indexterm zone="file-roller-view"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Προβολή</secondary>
+  </indexterm> 
+  <indexterm zone="file-roller-extract"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Αποσυμπίεση</secondary>
+  </indexterm> 
+  <indexterm zone="file-roller-create"> 
+    <primary>Συμπιεσμένα αρχεία</primary> 
+    <secondary>Δημιουργία</secondary>
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<!-- Use the Introduction section to give a brief overview of what
+     the application is and what it does. -->
+  <sect1 id="file-roller-intro"> 
+    <title>Εισαγωγή</title> 
+    <para>Μπορείτε να χρησιμοποιήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> για να δημιουργήσετε, να προβάλετε, να τροποποιήσετε, ή να αποσυμπιέσετε ένα συμπιεσμένο αρχείο. Ένα συμπιεσμένο αρχείο είναι ένα αρχείο που περιέχει άλλα αρχεία. Μπορεί να περιέχει πολλά αρχείο, φακέλους, και υποφακέλους, συνήθως υπό συμπιεσμένη μορφή.</para>
+    <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> παρέχει μόνο το γραφικό περιβάλλον, και στηρίζεται σε εργαλεία γραμμής εντολών όπως τα <command>tar</command>, <command>gzip</command>, και <command>bzip2</command> για τις λειτουργίες της συμπίεσης.</para>
+    <para>Αν έχετε εγκατεστημένα στο σύστημά σας τα κατάλληλα εργαλεία γραμμής εντολών, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> υποστηρίζει τις μορφές συμπιεσμένων αρχείων που παρατίθενται στον πιο κάτω πίνακα.</para> 
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Μορφή</para></entry>
+              <entry colname="COLSPEC1" align="left">
+                <para>Επέκταση αρχείου</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry><para>Συμπίεση 7-Zip</para></entry>
+              <entry align="left"><para><filename>.7z</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση WinAce</para></entry>
+              <entry align="left"><para><filename>.ace</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση ALZip</para></entry>
+              <entry align="left"><para><filename>.alz</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Μικρή συμπίεση AIX</para></entry>
+              <entry align="left"><para><filename>.ar</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση ARJ</para></entry>
+              <entry align="left"><para><filename>.arj</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο cabinet</para></entry>
+              <entry align="left"><para><filename>.cab</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση UNIX CPIO</para></entry>
+              <entry align="left"><para><filename>.cpio</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Πακέτο του Debian</para></entry>
+              <entry align="left"><para><filename>.deb</filename></para></entry>
+            </row>            
+            <row valign="top">
+              <entry><para>Εικόνα δίσκου ISO-9660 </para></entry>
+              <entry align="left"><para><filename>.iso</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση Java</para></entry>
+              <entry align="left"><para><filename>.jar</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση Java enterprise</para></entry>
+              <entry align="left"><para><filename>.ear</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση δικτύο Java</para></entry>
+              <entry align="left"><para><filename>.war</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση LHA</para></entry>
+              <entry align="left"><para><filename>.lha</filename>, <filename>.lzh</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση WinRAR</para></entry>
+              <entry align="left"><para><filename>.rar</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση βιβλίου κόμιξ RAR</para></entry>
+              <entry align="left"><para><filename>.cbr</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Πακέτο RPM</para></entry>
+              <entry align="left"><para><filename>.rpm</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Ασυμπίεστο αρχείο tar</para></entry>
+              <entry align="left"><para><filename>.tar</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>bzip</command></para></entry>
+              <entry align="left"><para><filename>.tar.bz</filename> or <filename>.tbz</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>bzip2</command></para></entry>
+              <entry align="left"><para><filename>.tar.bz2</filename> or <filename>.tbz2</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>gzip</command></para></entry>
+              <entry align="left"><para><filename>.tar.gz</filename> or <filename>.tgz</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>lzop</command></para></entry>
+              <entry align="left"><para><filename>.tar.lzo</filename> or <filename>.tzo</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>compress</command></para></entry>
+              <entry align="left"><para><filename>.tar.Z</filename> or <filename>.taz</filename></para></entry>
+            </row>
+             <row valign="top">
+              <entry><para>Αρχείο tar συμπιεσμένο με <command>7zip</command></para></entry>
+              <entry align="left"><para><filename>.tar.7z</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση stuffit</para></entry>
+              <entry align="left"><para><filename>.bin</filename> or <filename>.sit</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση PKZIP ή WinZip</para></entry>
+              <entry align="left"><para><filename>.zip</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση βιβλίου κόμιξ ZIP</para></entry>
+              <entry align="left"><para><filename>.cbz</filename></para></entry>
+            </row>
+            <row valign="top">
+              <entry><para>Συμπίεση Zoo</para></entry>
+              <entry align="left"><para><filename>.zoo</filename></para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    <para>Η πιο συνηθισμένη μορφή συμπιεσμένων αρχείων στα συστήματα UNIX και Linux είναι η μορφή tar, με συμπίεση <command>gzip</command> ή <command>bzip2</command>.</para>  
+    <para>Η πιο συνηθισμένη μορφή συμπιεσμένων αρχείων στα συστήματα Microsoft Windows είναι αυτά που δημιουργήθηκαν με το <application>PKZIP</application> ή το <application>WinZip</application>.</para>
+    <sect2 id="file-roller-intro-nonarchive">
+      <title>Συμπιεσμένα μοναδικά αρχεία</title> 
+      <para>Ένα συμπιεσμένο μοναδικό αρχείο είναι ένα αρχείο που δημιουργείτε όταν χρησιμοποιήσετε το <command>bzip2</command>, το <command>gzip</command>, το <command>lzop</command>, το <command>compress</command> ή το <command>rzip</command> για να συμπιέσετε ένα μοναδικό αρχείο. Για παράδειγμα, το <filename>file.txt.gz</filename> δημιουργείται όταν χρησιμοποιήσετε το <command>gzip</command> για να συμπιέσετε το <filename>file.txt</filename>.</para>
+      <para>Μπορείτε να χρησιμποποιήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> για να δημιουργήσετε, να ανοίξετε και να αποσυμπιέσετε ένα συμπιεσμένο μοναδικό αρχείο.</para> 
+    </sect2>
+  </sect1>
+
+<!-- ============= Getting Started =========================== -->
+  <sect1 id="file-roller-get-start">
+    <title>Ξεκινώντας</title>
+    <para>Αυτό το τμήμα παρέχει πληροφορίες για την εκκίνηση του <application>Διαχειριστή συμπιεσμένων αρχείων</application>, και περιγράφει το γραφικό περιβάλλον του <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+
+<!-- ============= To Start File Roller ============================ -->
+         <sect2 id="file-roller-to-start">
+                <title>Για να ξεκινήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application></title>
+                <para>Μπορείτε να ξεκινήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> με τους εξής τρόπους:</para>
+                <variablelist>
+                <varlistentry>
+                <term>Μενού <guimenu>Εφαρμογές</guimenu></term>
+                <listitem>
+                <para>Επιλέξτε <menuchoice><guisubmenu>Βοηθήματα</guisubmenu><guimenuitem>Διαχειριστής συμπιεσμένων αρχείων</guimenuitem></menuchoice>.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>Γραμμή εντολών</term>
+                <listitem>
+                <para>Εκτελέστε την εντολή: <command>file-roller</command></para>
+                </listitem>
+                </varlistentry>
+                </variablelist>
+        </sect2>
+
+         <sect2 id="file-roller-when-start">
+                <title>Όταν εκκινήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application></title>
+                <para>Όταν εκκινήσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application>, εμφανίζεται το ακόλουθο παράθυρο:</para>
+
+                <figure id="file-roller-FIG-main-window">
+                  <title>Παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application></title>
+                  <screenshot>
+                         <mediaobject>
+                                <imageobject>
+                                  <imagedata fileref="figures/file-roller_main_window.png" format="PNG"/>
+                                         </imageobject>
+                                <textobject> <phrase>Δείχνει το κύριο παράθυρο του Διαχειριστή συμπιεσμένων αρχείων</phrase>
+                                </textobject>
+                        </mediaobject>
+                  </screenshot>
+                </figure>
+
+                <para>Το παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application> περιέχει τα εξής στοιχεία:</para>
+                <variablelist>
+                  <varlistentry> <term>Μπάρα μενού</term>
+                         <listitem>
+                                <para>Τα μενού στη μπάρα μενού περιέχουν όλες τις εντολές που θα χρειαστείτε για να εργαστείτε με συμπιεσμένα αρχεία στο <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> <term>Εργαλειοθήκη</term>
+                         <listitem>
+                                <para>Η εργαλειοθήκη περιέχει ένα υποσύνολο των εντολών στις οποίες έχετε πρόσβαση από τη μπάρα μενού. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει την εργαλειοθήκη εξ ορισμού. Για να την αποκρύψετε, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>
+Εργαλειοθήκη</guimenuitem></menuchoice>. Για να την εμφανίσετε επιλέξτε ξανά <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Εργαλειοθήκη</guimenuitem></menuchoice>.</para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> <term>Μπάρα φακέλων</term>
+                         <listitem>
+                                <para>Η μπάρα φακέλων σας επιτρέπει να περιηγήστε ανάμεσα στους φακέλους μέσα σε ένα συμπιεσμένο αρχείο. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τη μπάρα φακέλων μόνο στην προβολή φακέλων. Δείτε το <xref linkend="file-roller-view-type-folder"/> για περισσότερα.</para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> <term>Περιοχή προβολής</term>
+                         <listitem>
+                                <para>Η περιοχή προβολής εμφανίζει τα περιεχόμενα του συμπιεσμένου αρχείου.</para>
+                         </listitem>
+                  </varlistentry>
+                  <varlistentry> <term>Γραμμή κατάστασης</term>
+                         <listitem>
+                                <para>Η γραμμή κατάστασης εμφανίζει πληροφορίες για την τρέχουσα λειτουργία του <application>Διαχειριστή συμπιεσμένων αρχείων</application> και πληροφορίες για το περιεχόμενο του συμπιεσμένου αρχείου. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τη γραμμή κατάστασης εξ ορισμού. Για να την αποκρύψετε επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Γραμμή κατάστασης</guimenuitem></menuchoice>. Για να εμφανίσετε τη γραμμή κατάστασης, επιλέξτε ξανά <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Γραμμή κατάστασης</guimenuitem></menuchoice>.</para>
+                         </listitem>
+                  </varlistentry>
+                </variablelist>
+                <para>Όταν κάνετε δεξί κλικ μέσα στο παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application> η εφαρμογή εμφανίζει ένα αναδυόμενο μενού. Το αναδυόμενο μενού περιέχει τις πιο συνηθισμένες εντολές περιεχομένου.</para>
+
+     <sect3 id="file-roller-bookmarks">
+        <title>Περιήγηση στο σύστημα αρχείων</title>
+        <para>Αρκετοί διάλογοι του <application>Διαχειριστή συμπιεσμένων αρχείων</application> (<guilabel>Νέο</guilabel>, <guilabel>Άνοιγμα</guilabel>, <guilabel>Αποσυμπίεση</guilabel>,...) σας επιτρέπουν να περιηγήστε στα αρχεία και τους φακέλους του υπολογιστή σας. Αναφερθείτε στον <ulink type="help" url="ghelp:user-guide?filechooser-open">Οδηγό χρήσης επιφάνειας εργασίας</ulink> για να μάθετε περισσότερα για τη χρήση των διαλόγων περιήγησης.</para>
+        <para>Μπορείτε επίσης να αναφερθείτε στο τμήμα για τους <ulink type="help" url="ghelp:user-guide?nautilus-bookmarks">Σελιδοδείκτες</ulink> του Οδηγού χρήσης επιφάνειας εργασίας για να μάθετε πώς να χρησιμοποιείτε το πλαίσιο <guilabel>Τοποθεσίες</guilabel> για να έχετε πρόσβαση στις αγαπημένες σας τοποθεσίες.</para>
+     </sect3>
+   </sect2>
+</sect1>
+
+
+
+<!-- ======= Working with archives ============= --> 
+
+<sect1 id="file-roller-working">
+      <title>Δουλεύοντας με συμπιεσμένα αρχεία</title>
+      <para>Όταν χρησιμοποιείτε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> για να δουλέψετε με ένα συμπιεσμένο αρχείο, όλες οι αλλαγές αποθηκεύονται αυτόματα στο δίσκο. Για παράδειγμα, αν σβήσετε ένα αρχείο από ένα συμπιεσμένο αρχείο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σβήνει το αρχείο μόλις πατήσετε <guibutton>Εντάξει</guibutton>. Αυτή η συμπεριφορά είναι διαφορετική  από εκείνη των περισσότερων εφαρμογών, οι οποίες αποθηκεύουν τις αλλαγές στο δίσκο μόνο όταν κλείσετε την εφαρμογή ή όταν επιλέξετε <guimenuitem>Αποθήκευση</guimenuitem> από το μενού.</para>
+      <para>Αν ένα συμπιεσμένο αρχείο είναι πολύ μεγάλο, ή αν έχετε ένα αργό σύστημα, μερικές λειτουργίες συμπίεσης μπορεί να διαρκέσουν αρκετά. Για να ακυρώσετε την τρέχουσα λειτουργία πατήστε το <keycap>Esc</keycap>. Εναλλακτικά, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Διακοπή</guimenuitem></menuchoice>, ή πατήστε το κουμπί <guibutton>Διακοπή</guibutton> στην εργαλειοθήκη.</para>      
+      <para>Στο <application>Διαχειριστή συμπιεσμένων αρχείων</application>, μπορείτε να κάνετε την ίδια ενέργεια με διάφορους τρόπους. Για παράδειγμα, μπορείτε να ανοίξετε ένα συμπιεσμένο αρχείο με τους εξής τρόπους: <informaltable frame="all"><tgroup cols="2" colsep="1" rowsep="1"><colspec colname="COLSPEC0" colwidth="50*"/><colspec colname="COLSPEC1" colwidth="50*"/><thead>
+                        <row valign="top">
+                          <entry colname="COLSPEC0">
+                            <para>Συστατικό γραφικού περιβάλλοντος</para></entry>
+                          <entry colname="COLSPEC1" align="left"> 
+                            <para>Ενέργεια</para></entry>
+                        </row>
+                      </thead><tbody>
+                        <row valign="top">               
+                          <entry><para>Παράθυρο</para></entry>
+                          <entry><para>Σύρετε ένα συμπιεσμένο στο παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application> από μια άλλη εφαρμογή όπως έναν περιηγητή αρχείων.</para></entry>
+                        </row>
+                        <row valign="top">               
+                          <entry><para>Μπάρα μενού</para></entry>
+                          <entry><para>Επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Άνοιγμα</guimenuitem></menuchoice>.</para>
+           <para>Αν έχετε ανοίξει πρόσφατα το συμπιεσμένο αρχείο, θα εμφανίζεται απ' ευθείας στο μενού <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu></menuchoice>.</para> 
+</entry>
+                        </row>
+                        <row valign="top">               
+                          <entry><para>Εργαλειοθήκη</para></entry>
+                          <entry><para>Πατήστε στο κουμπί <guibutton>Άνοιγμα</guibutton> της εργαλειοθήκης.</para>
+           <para>Αν έχετε ανοίξει πρόσφατα το συμπιεσμένο αρχείο, πατήστε στο κάτω βελάκι κοντά στο κουμπί <guibutton>Άνοιγμα</guibutton> στην εργαλειοθήκη.</para></entry>
+                        </row>
+                        <row valign="top">               
+                          <entry><para>Αναδυόμενο μενού στο δεξί κλικ</para></entry>
+                          <entry><para>Κάντε δεξί κλικ στο συμπιεσμένο αρχείο, μετά επιλέξτε <guilabel>Άνοιγμα</guilabel> στο αναδυόμενο μενού.</para></entry>
+                        </row>
+                        <row valign="top">               
+                          <entry><para>Πλήκτρα συντόμευσης</para></entry>
+                          <entry><para>Πατήστε <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>.</para></entry>
+                        </row>
+                      </tbody></tgroup></informaltable></para>
+      <para>Αυτό το εγχειρίδιο τεκμηριώνει τη λειτουργικότητα από τη μπάρα μενού.</para>
+
+    <sect2 id="file-roller-pattern">
+      <title>Κριτήρια ονομάτων αρχείων</title>
+      <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σας επιτρέπει να προσθέτετε, να αποσυμπιέζετε ή να διαγράφετε αρκετά αρχεία ταυτόχρονα. Για να εφαρμόσετε μια ενέργεια σε όλα τα αρχεία τα οποία πληρούν ένα συγκεκριμένο κριτήριο, εισάγετε το κριτήριο στο πεδίο κειμένου. Το κριτήριο μπορεί να περιέχει τους συνηθισμένους χαρακτήρες μπαλαντέρ όπως το <keycap>*</keycap> για να ταιριάσει οποιαδήποτε συμβολοσειρά, και το <keycap>?</keycap> για να ταιριάσει οποιοδήποτε μοναδικό χαρακτήρα. Μπορείτε να εισάγετε πολλαπλά κριτήρια χωρισμένα με ελληνικό ερωτηματικό. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα εφαρμόσει την ενέργεια σε όλα τα αρχεία τα οποία πληρούν τουλάχιστον ένα από τα κριτήρια. Τα παραδείγματα στον ακόλουθο πίνακα δείχνουν πώς να χρησιμοποιείτε τα κριτήρια ονομάτων αρχείων για να επιλέγετε αρχεία.</para>
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Κριτήριο</para></entry>
+              <entry colname="COLSPEC1" align="left"> 
+                <para>Αρχεία που ταιριάζουν</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">               
+              <entry><para><filename>*</filename></para></entry>
+              <entry align="left"><para>Όλα τα αρχεία</para></entry>
+            </row>
+            <row valign="top">               
+              <entry><para><filename>*.tar*</filename></para></entry>
+              <entry align="left"><para>Όλα τα αρχεία με επέκταση <filename>tar</filename>, συμπεριλαμβανομένων εκείνων στα οποία η επέκταση <filename>tar</filename> ακολουθείται από οποιαδήποτε σειρά συμβόλων, όπως <filename>filename.tar.gz</filename></para></entry>
+            </row>
+            <row valign="top">               
+              <entry><para><filename>*.jpg; *.jpeg</filename></para></entry>
+              <entry align="left"><para>Όλα τα αρχεία με επέκταση <filename>jpg</filename> και όλα τα αρχεία με επέκταση <filename>jpeg</filename></para></entry>
+            </row>
+            <row valign="top">               
+              <entry><para><filename>file?.gz</filename></para></entry>
+              <entry align="left"><para>Όλα τα αρχεία με επέκταση <filename>gz</filename> που έχουν το όνομα "file" ακολουθούμενο από οποιοδήποτε μοναδικό χαρακτήρα, π.χ. <filename>file2.gz</filename>, <filename>filex.gz</filename>.</para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect2>
+
+<!-- ======= To open an archive ============= --> 
+
+<sect2 id="file-roller-open">
+      <title>Για να ανοίξετε ένα συμπιεσμένο αρχείο</title>
+      <para>Για να ανοίξετε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+          <listitem>
+           <para>Επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Άνοιγμα</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Άνοιγμα</guilabel>. Εναλλακτικά πατήστε <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>, ή πατήστε <guibutton>Άνοιγμα</guibutton> στην Εργαλειοθήκη.</para> 
+          </listitem>
+          <listitem>
+           <para>Επιλέξτε το συμπιεσμένο αρχείο που θέλετε να ανοίξετε.</para> 
+          </listitem>
+          <listitem>
+           <para>Πατήστε το <guibutton>Άνοιγμα</guibutton>.</para> 
+          </listitem>
+        </orderedlist></para>
+      <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> συμπεραίνει αυτόματα τον τύπο του συμπιεσμένου αρχείου και εμφανίζει: <itemizedlist>
+          <listitem>
+            <para>Το όνομα του συμπιεσμένου αρχείο στη μπάρα τίτλου</para>
+          </listitem>
+          <listitem>
+            <para>Τα περιεχόμενα του συμπιεσμένου αρχείου στην περιοχή προβολής</para>
+          </listitem>
+          <listitem>
+            <para>Τον πλήθος των αρχείων και των φακέλων (αντικειμένων) στην τρέχουσα τοποθεσία, και το μέγεθός τους όταν αποσυμπιεστούν, στη γραμμή κατάστασης.</para>
+          </listitem>
+        </itemizedlist></para>
+      <para>Για να ανοίξετε ένα άλλο συμπιεσμένο αρχείο, επιλέξτε ξανά <menuchoice><guimenu>Συμπεισμένο αρχείο</guimenu><guimenuitem>Άνοιγμα</guimenuitem></menuchoice>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ανοίγει κάθε αρχείο σε ένα νέο παράθυρο. Δε μπορείτε να ανοίξετε ένα άλλο συμπιεσμένο αρχείο στο ίδιο παράθυρο.</para>
+      <para>Αν προσπαθήσετε να ανοίξετε ένα συμπιεσμένο αρχείο που δημιουργήθηκε σε μια μορφή την οποία δεν αναγνωρίζει ο <application>Διαχειριστής συμπιεσμένων αρχείων</application>, η εφαρμογή εμφανίζει ένα μήνυμα λάθους. Δείτε το <xref linkend="file-roller-intro"/> για μια λίστα με τις μορφές που υποστηρίζονται.</para>
+  </sect2>
+
+<!-- ======= Selecting files in an archive  ============= --> 
+    <sect2 id="file-roller-select-files">
+      <title>Για να επιλέξετε αρχεία σε ένα συμπιεσμένο αρχείο</title>
+    <para>Για να επιλέξετε όλα τα αρχεία σε ένα συμπιεσμένο αρχείο, επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Επιλογή όλων</guimenuitem></menuchoice> ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo>.</para>
+      <para>Για να αποεπιλέξετε όλα τα αρχεία σε ένα συμπιεσμένο αρχείο, επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Αποεπιλογή όλων</guimenuitem></menuchoice> ή πατήστε <keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>A</keycap></keycombo>.</para>
+    </sect2>
+
+  <!-- =========== Extracting Files From an Archive ==================== -->
+
+  <sect2 id="file-roller-extract"> 
+    <title>Για να αποσυμπιέσετε αρχεία από ένα συμπιεσμένο αρχείο</title> 
+    <para>Για να αποσυμπιέσετε αρχεία από ένα ανοικτό συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+        <listitem><para>Επιλέξτε τα αρχεία που θέλετε να αποσυμπιέσετε. Για να επιλέξετε περισσότερα αρχεία, κρατήστε πατημένο το <keycap>Ctrl</keycap> ενώ πατάτε με το ποντίκι στα αρχεία που θέλετε να επιλέξετε.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε Choose <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Αποσυμπίεση</guimenuitem></menuchoice> για να εμφανιστεί ο διάλογος <guilabel>Αποσυμπίεση</guilabel>. Εναλλακτικά πατήστε στο κουμπί <guibutton>Αποσυμπίεση</guibutton> στην εργαλειοθήκη.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε το φάκελο στον οποίο ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα αποσυμπιέσει τα αρχεία.</para>
+        </listitem>
+        <listitem><para>Διαλέξτε τις επιλογές της αποσυμπίεσης. Για περισσότερες πληροφορίες σχετικά με τις επιλογές αποσυμπίεσης δείτε <xref linkend="file-roller-extract-options"/>.</para>
+        </listitem>
+        <listitem><para>Πατήστε <guibutton>Αποσυμπίεση</guibutton>.</para>
+        <note>
+          <para>Αν όλα τα αρχεία στο συμπιεσμένο αρχείο προστατεύονται από κωδικό πρόσβασης, και δεν τον έχετε καθορίσει, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σας τον ζητάει.</para>
+          <para>Αν μερικά αλλά όχι όλα τα αρχείο στο συμπιεσμένο αρχείο προστατεύονται από κωδικό πρόσβασης, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε σας τον ζητάει. Ωστόσο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> αποσυμπιέζει μόνο τα αρχεία που δεν προστατεύονται.</para>
+          <para>Για περισσότερες πληροφορίες σχετικά με τους κωδικούς πρόσβασης δείτε το <xref linkend="file-roller-encrypt-files"/>.</para>
+        </note>
+        </listitem>
+        </orderedlist></para>
+      <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> επίσης παρέχει τρόπους αποσυμπίεσης αρχείων από ένα συμπιεσμένο αρχείο στον περιηγητή αρχείων, χωρίς το άνοιγμα του παραθύρου του <application>Διαχειριστή συμπιεσμένων αρχείων</application>. Δείτε το <xref linkend="file-roller-fmgr"/> για περισσότερες πληροφορίες.</para>
+    <para>Η λειτουργία Αποσυμπίεσης αποσυμπιέζει ένα <emphasis>αντίγραφο</emphasis> των επιλεγμένων αρχείων από το συμπιεσμένο αρχείο. Τα αποσυμπιεσμένα αρχεία έχουν τα ίδια δικαιώματα πρόσβασης και την ίδια ημερομηνία μετατροπής όπως τα αρχικά αρχείο που προστέθηκαν στο συμπιεσμένο αρχείο.</para>
+    <para>Η λειτουργία Αποσυμπίεσης δεν αλλάζει τα περιεχόμενα του συμπιεσμένου αρχείου. Για πληροφορίες σχετικά με τη διαγραφή αρχείων από ένα συμπιεσμένο αρχείο δείτε <xref linkend="file-roller-delete-files"/>.</para>
+  </sect2>
+    
+<!-- ======= Closing the Archive ============= --> 
+  <sect2 id="file-roller-archive-close">
+    <title>Για να κλείσετε ένα συμπιεσμένο αρχείο</title>
+    <para>Για να κλείσετε το τρέχον συμπιεσμένο αρχείο και το τρέχον παράθυρου του <application>Διαχειριστή συμπιεσμένων αρχείων</application>, επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Κλείσιμο</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>.</para>
+    <note>
+      <para>Δεν υπάρχει τρόπος να κλείσετε το τρέχον συμπιεσμένο αρχείο αλλά όχι το παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+    </note>
+  </sect2>
+</sect1>
+
+
+<!-- =============  Creating Archives ============================= -->
+<sect1 id="file-roller-creating"> 
+    <title>Δημιουργία συμπιεσμένων αρχείων</title> 
+    <para>Πέρα από το άνοιγμα υφιστάμενων συμπιεσμένων αρχείων, μπορείτε επίσης να δημιουργήσετε νέα συμπιεσμένα αρχεία με τον <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+    <sect2 id="file-roller-create"> 
+    <title>Για να δημιουργήσετε ένα συμπιεσμένο αρχείο</title> 
+    <para>Για να δημιουργήσετε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Νεό</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Νέο</guilabel>. Εναλλακτικά πατήστε <keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo>, ή πατήστε το κουμπί <guibutton>Νέο</guibutton> στην εργαλειοθήκη.</para>
+        </listitem>
+        <listitem>
+          <para>Καθορίστε το φάκελο όπου ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα τοποθετήσει το καινούριο συμπιεσμένο αρχείο πατώντας στην αναδιπλούμενη λίστα στο <guilabel>Αποθήκευση σε φάκελο</guilabel>. Αν ο φάκελος δε συμπεριλαμβάνεται στη λίστα, πατήστε στο <guilabel>Περιήγηση για άλλους φακέλους</guilabel>, και επιλέξτε το φάκελο. Εναλλακτικά, εισάγετε τη διαδρομή στο πεδίο <guilabel>Όνομα</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Εισάγετε το όνομα του νέου συμπιεσμένου αρχείου, συμπεριλαμβανομένης της επέκτασης, στο πεδίο <guilabel>Όνομα</guilabel>. Εναλλακτικά μπορείτε να καθορίσετε το όνομα του συμπιεσμένου αρχείου χωρίς την επέκταση και μετά να επιλέξετε ένα τύπο αρχείου από την αναδιπλούμενη λίστα <guilabel>Τύπος συμπιεσμένου αρχείου</guilabel>, οπότε η επέκταση θα προστεθεί αυτόματα.</para>
+        </listitem>
+        <listitem><para>Διαλέξτε τις απαιτούμενες επιλογές πατώντας στο <guilabel>Άλλες επιλογές</guilabel>. Για περισσότερες πληροφορίες για τις επιλογές δημιουργίας, δείτε το <xref linkend="file-roller-create-options"/>.</para>
+        </listitem>
+        <listitem>
+          <para>Πατήστε στο <guibutton>Νέο</guibutton>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δημιουργεί ένα άδειο συμπιεσμένο αρχείο, αλλά δεν το γράφει ακόμα στο δίσκο.</para>
+        </listitem>
+        <listitem>
+          <para>Προσθέστε αρχεία στο νέο συμπιεσμένο αρχείο όπως περιγράφεται στο <xref linkend="file-roller-add-files"/>. <note>
+                  <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> γράφει ένα νέο συμπιεσμένο αρχείο στο δίσκο μόνο όταν το συμπιεσμένο αρχείο περιέχει ένα τουλάχιστον αρχείο. Αν δημιουργήσετε ένα νέο συμπιεσμένο αρχείο και μετά κλείσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> προτού προσθέσετε αρχεία στο συμπιεσμένο αρχείο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σβήνει το συμπιεσμένο αρχείο.</para>
+                </note></para>
+        </listitem>
+      </orderedlist></para>
+</sect2>
+
+    <!-- ======= Adding files to an archive  ============= --> 
+  <sect2 id="file-roller-add-files">
+    <title>Για να προσθέσετε αρχεία στο συμπιεσμένο αρχείο</title>
+    <para>Για να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+         <listitem>
+           <para>Αποφασίστε σε ποιό σημείο του συμπιεσμένου αρχείο θέλετε να προσθέσετε τα αρχεία, μετά ανοίξτε την τοποθεσία εκείνη στο συμπιεσμένο αρχείο.</para> 
+         </listitem>
+         <listitem>
+           <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Προσθήκη αρχείων</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Προσθήκη αρχείων</guilabel>, ή πατήστε <guibutton>Προσθήκη αρχείων</guibutton> στην εργαλειοθήκη.</para> 
+         </listitem>
+         <listitem>
+           <para>Επιλέξτε τα αρχείο που θέλετε να προσθέσετε. Για να επιλέξετε πολλαπλά αρχεία κρατήστε πατημένο το <keycap>Ctrl</keycap> και πατήστε στα αρχεία με το ποντίκι.</para> 
+         </listitem>
+         <listitem>
+           <para>Πατήστε <guibutton>Προσθήκη</guibutton>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> προσθέτει τα αρχεία στον τρέχοντα φάκελο του συμπιεσμένου αρχείου.</para> 
+         </listitem>
+      </orderedlist></para>
+    <para>Δε μπορείτε να προσθέσετε φακέλους στο συμπιεσμένο αρχείο με το διάλογο <guilabel>Προσθήκη αρχείων</guilabel>. Για να προσθέσετε ένα φάκελο δείτε το <xref linkend="file-roller-add-folder"/>.</para>
+    <para>Ο διάλογος <guilabel>Προσθήκη αρχείων</guilabel> παρέχει την επιλογή <guilabel>Προσθήκη μόνο αν είναι νεώτερο</guilabel>, δείτε το <xref linkend="file-roller-add-options"/> για περισσότερες πληροφορίες γι' αυτή την επιλογή.</para>
+    <para>Μπορείτε επίσης να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο από ένα παράθυρο περιηγητή αρχείων, χωρίς να ανοίξετε ένα παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application>. Δείτε το <xref linkend="file-roller-fmgr"/> για περισσότερες πληροφορίες.</para>
+    <para>Η λειτουργία Προσθήκης αρχείων προσθέτει ένα <emphasis>αντίγραφο</emphasis> των καθορισμένων αρχείων ή φακέλο στο συμπιεσμένο αρχείο. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε διαγράφει τα αρχικά αρχείο, τα οποία παραμένουν χωρίς αλλαγή στο σύστημα αρχείων. Τα αντίγραφα που προστίθενται στο συμπιεσμένο αρχείο έχουν τα ίδια δικαιώματα πρόσβασης και την ίδια ημερομηνία τροποποίησης όπως τα αρχικά αρχεία.</para>
+    </sect2>
+
+<!-- ======= Adding files - Adding folder  ============= --> 
+    <sect2 id="file-roller-add-folder">
+      <title>Για να προσθέσετε ένα φάκελο στο συμπιεσμένο αρχείο</title>
+    <para>Για να προσθέσετε ένα φάκελο στο συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+         <listitem>
+           <para>Αποφασίστε σε ποιό σημείο του συμπιεσμένου αρχείο θέλετε να προσθέσετε τα αρχεία, μετά ανοίξτε την τοποθεσία εκείνη στο συμπιεσμένο αρχείο.</para>
+         </listitem>
+         <listitem>
+           <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Προσθήκη φακέλου</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Προσθήκη φακέλου</guilabel>.</para> 
+         </listitem>
+         <listitem>
+           <para>Επιλέξτε το φάκελο που θέλετε να προσθέσετε.</para> 
+         </listitem>
+         <listitem>
+           <para>Πατήστε στο <guibutton>Προσθήκη</guibutton>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> προσθέτει το φάκελο στον τρέχοντα φάκελο στο συμπιεσμένο αρχείο.</para> 
+         </listitem>
+      </orderedlist></para>
+    <para>Ο διάλογος <guilabel>Προσθήκη φακέλου</guilabel> παρέχει μερικές προχωρημένες επιλογές. Δείτε το <xref linkend="file-roller-add-options"/> για περισσότερες πληροφορίες.</para>
+    </sect2>
+
+  <!-- ======= Converting an Archive to Another Format ============= --> 
+  <sect2 id="file-roller-convert-archive">
+    <title>Για να μετατρέψετε ένα συμπιεσμένο αρχείο σε άλλη μορφή</title>
+    <para>Για να μετατρέψετε ένα συμπιεσμένο αρχείο σε μια άλλη μορφή και να το αποθηκεύσετε σαν καινούριο αρχείο, ακολουθήστε τα εξής βήματα:</para>
+    <orderedlist>
+      <listitem>
+        <para>Ανοίξτε το αρχείο που θέλετε να μετατρέψετε.</para>
+      </listitem>
+      <listitem>
+        <para>Επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Αποθήκευση ως</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Αποθήκευση</guilabel>.</para>
+      </listitem>
+      <listitem>
+        <para>Εισάγετε το νέο όνομα αρχείο στο πεδίο <guilabel>Όνομα</guilabel>.</para>
+      </listitem>
+      <listitem>
+        <para>Επιλέξτε τη νέα μορφή από την αναδιπλούμενη λίστα <guilabel>Τύπος συμπιεσμένου αρχείου</guilabel>. Εναλλακτικά, εισάγετε την επέκταση του αρχείου στο πεδίο <guilabel>Όνομα</guilabel>, και επιλέξτε <guilabel>Αυτόματη</guilabel> από την αναδιπλούμενη λίστα <guilabel>Τύπος συμπιεσμένου αρχείου</guilabel>.</para>
+      </listitem>
+      <listitem>
+        <para>Διαλέξτε τις απαιτούμενες επιλογές πατώντας στο <guilabel>Άλλες επιλογές</guilabel>. Για περισσότερες πληροφορίες για τις επιλογές δημιουργίας, δείτε το <xref linkend="file-roller-create-options"/>.</para>
+      </listitem>      
+      <listitem>
+        <para>Πατήστε <guibutton>Δημιουργία</guibutton>.</para>
+        <note>
+          <para>Αν όλα τα αρχεία στο συμπιεσμένο αρχείο προστατεύονται από κωδικό πρόσβασης, και δεν τον έχετε καθορίσει, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σας τον ζητάει.</para>
+          <para>Αν μερικά αλλά όχι όλα τα αρχεία στο συμπιεσμένο αρχείο προστατεύονται από κωδικό πρόσβασης, και δεν τον έχετε καθορίσει, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε θα σας τον ζητήσει. Ωστόσο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα αντιγράψει μόνο τα μη προστατευμένα αρχεία στο νέο συμπιεσμένο αρχείο.</para>
+          <para>Για περισσότερες πληροφορίες σχετικά με τους κωδικούς πρόσβασης δείτε το <xref linkend="file-roller-encrypt-files"/>.</para>
+        </note>
+      </listitem>
+    </orderedlist>
+  </sect2>
+</sect1>
+
+<!-- ======= Operations on Archive Contents ============= --> 
+<sect1 id="file-roller-modify-contents">
+  <title>Τροποποίηση των περιεχομένων ενός συμπιεσμένου αρχείου</title>
+  <para>Μπορείτε να τροποποιήσετε τα περιεχόμενα ενός συμπιεσμένου αρχείου με διάφορους τρόπους.</para>
+
+<!-- ======= Encrypting files in an archive  ============= --> 
+    <sect2 id="file-roller-encrypt-files">
+      <title>Για να κωδικοποιήσετε αρχεία σε ένα συμπιεσμένο αρχείο</title>
+    <para>Για λόγους ασφάλειας, μπορεί να θέλετε να κωδικοποιήσετε τα αρχεία που προσθέτετε σε ένα συμπιεσμένο αρχείο.</para>
+      <para>Αν ο τύπος του συμπιεσμένου αρχείου υποστηρίζει κωδικιποίηση, μπορείτε να καθορίσετε έναν κωδικό πρόσβασης για να κωδικοποιήσετε τα αρχεία που προσθέτετε στο συμπιεσμένο αρχείο.</para>
+      <note>
+        <para>Μέχρι στιγμής, μόνο τα συμπιεσμένα αρχεία τύπου 7-Zip, ZIP, RAR και ARJ υποστηρίζουν κωδικοποίηση.</para>
+      </note>
+     <para>Για να καθορίσετε έναν κωδικό πρόσβασης για την κωδικοποίηση, ακολουθήστε τα εξής βήματα:</para>
+       <orderedlist>
+          <listitem><para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Κωδικός πρόσβασης</guimenuitem></menuchoice> για να εμφανίσετε το διάλογο <guilabel>Κωδικός πρόσβασης</guilabel>.</para></listitem> 
+<listitem><para>Εισάγετε τον κωδικό πρόσβασης στο πεδίο <guilabel>Κωδικός πρόσβασης</guilabel>.</para></listitem>
+<listitem><para>Πατήστε <guibutton>Εντάξει</guibutton>.</para></listitem>
+       </orderedlist>
+    <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> χρησιμοποιεί τον κωδικό πρόσβασης για να κωδικοποιήσει τα αρχεία τα οποία προσθέτετε στο τρέχον συμπιεσμένο αρχείο, και να τα αποκωδικοποιήσει όταν τα αποσυμπιέζετε από το συμπιεσμένο αρχείο. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> διαγράφει τον κωδικό όταν κλείσετε το συμπιεσμένο αρχείο.</para>
+      <para>Για τον τρόπο που ελέγχετε ένα συμπιεσμένο αρχείο αν περιέχει κωδικοποιημένα αρχεία, δείτε <xref linkend="file-roller-extra-info"/>.</para>
+      <note>
+      <para>Η κωδικοποίηση που παρέχεται από τα συμπιεσμένα αρχεία είναι αδύναμη και ανασφαλής. Αν η ασφάλεια είναι σημαντική για σας, χρησιμοποιήστε ένα δυνατό εργαλείο κωδικοποίησης όπως το <ulink url="http://www.gnupg.org" type="http">GNU Privacy Guard</ulink>.</para>
+      </note>
+    </sect2>
+
+<!-- ======= Renaming files in an archive  ============= --> 
+  <sect2 id="file-roller-rename-files">
+    <title>Για να μετονομάσετε ένα αρχείο μέσα σ' ένα συμπιεσμένο αρχείο</title>
+    <para>Για να μετονομάσετε ένα αρχείο μέσα σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα:</para>
+      <orderedlist>
+        <listitem>
+          <para>Επιλέξτε το αρχείο που θέλετε να μετονομάσετε.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Μετονομασία</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>F2</keycap></keycombo>, για να εμφανίσετε το διάλογο <guilabel>Μετονομασία</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Εισάγετε το νέο όνομα αρχείου στο πεδίο <guilabel>Νέο όνομα αρχείου</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Πατήστε <guibutton>Μετονομασία</guibutton>.</para>
+        </listitem>
+      </orderedlist>
+  </sect2>
+
+<!-- ======= Copying files in an archive  ============= --> 
+  <sect2 id="file-roller-copy-files">
+    <title>Για να αντιγράψετε αρχεία σε ένα συμπιεσμένο αρχείο</title>
+    <para>Για να αντιγράψετε αρχεία σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα:</para>
+      <orderedlist>
+        <listitem>
+          <para>Επιλέξτε τα αρχεία που θέλετε να αντιγράψετε.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Αντιγραφή</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>.</para>
+        </listitem>
+        <listitem>
+          <para>Ανοίξτε την τοποθεσία στην οποία θέλετε να βάλετε τα αντιγραμμένα αρχεία.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Επικόλληση</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>.</para>
+        </listitem>
+      </orderedlist>
+  </sect2>
+
+<!-- ======= Moving files in an archive  ============= --> 
+  <sect2 id="file-roller-move-files">
+    <title>Για να μετακινήσετε αρχεία μέσα σε ένα συμπιεσμένο αρχείο</title>
+    <para>Για να μετακινήσετε αρχεία σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα:</para>
+      <orderedlist>
+        <listitem>
+          <para>Επιλέξτε τα αρχεία τα οποία θέλετε να μετακινήσετε.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Αποκοπή</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo>.</para>
+        </listitem>
+        <listitem>
+          <para>Ανοίξτε την τοποθεσία στην οποία θέλετε να βάλετε τα αποκομμένα αρχεία.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Επικόλληση</guimenuitem></menuchoice>, ή πατήστε <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>.</para>
+        </listitem>
+      </orderedlist>
+  </sect2>
+
+<!-- ======= Deleting files from an archive  ============= --> 
+  <sect2 id="file-roller-delete-files">
+    <title>Για να διαγράψετε αρχεία από ένα συμπιεσμένο αρχείο.</title>
+    <para>Για να διαγράψετε αρχεία από ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: </para>
+      <orderedlist>
+        <listitem>
+          <para>Επιλέξτε τα αρχεία τα οποία θέλετε να διαγράψετε.</para>
+        </listitem>
+        <listitem>
+          <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Διαγραφή</guimenuitem></menuchoice> ή πατήστε <keycap>Διαγραφή</keycap> για να εμφανίσετε το διάλογο <guilabel>Διαγραφή</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Διαλέξτε μια από τις ακόλουθες επιλογές διαγραφής:</para>
+          <variablelist>
+            <varlistentry>
+              <term><guilabel>Όλα τα αρχεία</guilabel></term>
+              <listitem>
+                <para>Όλα τα αρχεία</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><guilabel>Επιλεγμένα αρχεία</guilabel></term>
+              <listitem>
+                <para>Διαγραφή των επιλεγμένων αρχείων από το συμπιεσμένο αρχείο.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><guilabel>Αρχεία</guilabel></term>
+              <listitem>
+                <para>Διαγραφή από το συμπιεσμένο αρχείο όλων των αρχείων τα οποία πληρούν το καθορισμένο κριτήριο. Δείτε το <xref linkend="file-roller-pattern"/> για περισσότερες πληρφορίες σχετικά με τα κριτήρια ονομάτων αρχείων.</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </listitem>
+        <listitem>
+          <para>Πατήστε <guibutton>Εντάξει</guibutton>.</para>
+        </listitem>
+      </orderedlist>
+  </sect2>
+
+<!-- =============  Modify a File in an Archive ==================== -->
+  <sect2 id="file-roller-modify-archive-file"> 
+    <title>Για να τροποποιήσετε ένα αρχείο σε ένα συμπιεσμένο αρχείο</title> 
+    <para>Για να τροποποιήσετε ένα αρχείο σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: <orderedlist>
+      <listitem><para>Κάντε διπλό κλικ στο αρχείο που θέλετε να ανοίξετε. Εναλλακτικά κάντε δεξί κλικ στο αρχείο και επιλέξτε <menuchoice><guimenuitem>Άνοιγμα</guimenuitem></menuchoice>.</para></listitem>
+      <listitem><para>Επεξεργαστείτε το αρχείο που ανοίξατε στο βήμα 1, και μετά αποθηκεύστε τις αλλαγές σας.</para></listitem>
+      <listitem><para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει ένα διάλογο επιβεβαίωσης, ζητώντας επιβεβαίωση για να ενημερώσει το αρχείο μέσα στο συμπιεσμένο αρχείο με τις αλλαγές που κάνατε.</para></listitem>
+      <listitem><para>Πατήστε στο <guilabel>Ενημέρωση</guilabel>.</para></listitem>
+      </orderedlist></para>
+    <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> χρησιμοποιεί την αντιστοιχία μεταξύ τύπων αρχείων και προγραμμάτων που έχει οριστεί στο σύστημα για να καθορίσει την κατάλληλη εφαρμογή για να ανοίξει ένα συγκεκριμένο αρχείο. Αυτές οι αντιστοιχίες μπορούν να προβληθούν και να τροποποιηθούν στην καρτέλα <guilabel>Άνοιγμα με</guilabel> στο διάλογο των ιδιοτήτων του αρχείου. Αν ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε μπορεί να καθορίσει μια κατάλληλη αντιστοιχία, τότε θα εμφανίσει το διάλογο <guilabel>Άνοιγμα αρχείων</guilabel> επιτρέποντάς σας να επιλέξετε εσείς μια εφαρμογή, όπως περιγράφεται πιο κάτω.</para>
+    <sect3 id="file-roller-modifiy-archive-file-custom-app">
+    <title>Για να τροποποιήσετε ένα αρχείο σε ένα συμπιεσμένο αρχείο με μια ειδική εφαρμογή</title>
+    <para>Μπορείτε να χρησιμοποιήσετε μια εφαρμογή που εσείς καθορίζετε, αντί για την προεπιλεγμένη, για να τροποποιήσετε ένα αρχείο. Για να ανοίξετε ένα αρχείο με χρησιμοποιώντας μια εξωτερική εφαρμογή: <orderedlist>
+      <listitem><para>Κάντε δεξί κλικ στο αρχείο.</para></listitem>
+      <listitem><para>Επιλέξτε <menuchoice><guimenuitem>Άνοιγμα με...</guimenuitem></menuchoice>.</para></listitem>
+      </orderedlist></para>    
+    <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει το διάλογο <guilabel>Άνοιγμα αρχείων</guilabel>, στον οποίο παρατίθενται όλες οι εφαρμογές που μπορούν να ανοίξουν αρχεία του καθορισμένου τύπου. Για να επιλέξετε μία από αυτές τις εφαρμογές, κάντε διπλό κλικ στο όνομα τη εφαρμογής, ή πατήστε στο όνομα της εφαρμογής και μετά πατήστε <guibutton>Άνοιγμα</guibutton>. Εναλλακτικά, εισάγετε το όνομα της εφαρμογής στο πεδίο <guilabel>Εφαρμογή</guilabel> και μετά πατήστε <guibutton>Άνοιγμα</guibutton> για να τρέξετε την εφαρμογή της επιλογής σας.</para>
+    <para>Όταν ξεκινήσει η εφαρμογή, ακολουθήστε τη διαδικασία από το βήμα 2 όπως περιγράφεται στο <xref linkend="file-roller-modify-archive-file"/>.</para>
+    </sect3>
+  </sect2>
+</sect1>
+
+
+<!-- ======= Viewing an archive ============= --> 
+<sect1 id="file-roller-view">
+  <title>Προβολή συμπιεσμένων αρχείων</title>
+  <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> σας επιτρέπει να βλέπετε ορισμένα χαρακτηριστικά ενός συμπιεσμένου αρχείου.</para>
+
+<!-- ======= Archive Properties ============= --> 
+    <sect2 id="file-roller-view-archive-properties">
+      <title>Για να προβάλατα τις ιδιότητες ενός συμπιεσμένου αρχείου</title>
+      <para>Για να εμφανίσετε τις ιδιότητες ενός συμπιεσμένου αρχείου, επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Ιδιότητες</guimenuitem></menuchoice> για να προβάλετε το διάλογο <guilabel>Ιδιότητες</guilabel>. Ο διάλογος <guilabel>Ιδιότητες</guilabel> εμφανίζει τις ακόλουθες πληροφορίες για το συμπιεσμένο αρχείο: <variablelist>
+	      <varlistentry>
+	        <term><guilabel>Όνομα</guilabel></term>
+	        <listitem><para>Το όνομα του αρχείου</para></listitem>
+	      </varlistentry>
+	      <varlistentry>
+	        <term><guilabel>Τοποθεσία</guilabel></term>
+	        <listitem><para>Η θέση του συμπιεσμένου αρχείου μέσα στο σύστημα αρχείων.</para></listitem>
+	      </varlistentry>
+	      <varlistentry>
+	        <term><guilabel>Ημερομηνία τροποποίησης</guilabel></term>
+	        <listitem><para>Η ημερομηνία και ώρα στην οποία έγινε η πιο πρόσφατη τροποποίηση του συμπιεσμένου αρχείου.</para></listitem>
+	      </varlistentry>
+	      <varlistentry>
+	        <term><guilabel>Μέγεθος</guilabel></term>
+	        <listitem><para>Το μέγεθος των περιεχομένων του συμπιεσμένου αρχείου όταν αποσυμπιεστούν.</para></listitem>
+	      </varlistentry>
+	      <varlistentry>
+	        <term><guilabel>Μέγεθος περιεχομένου</guilabel></term>
+	        <listitem><para>Το μέγεθος των περιεχομένων του συμπιεσμένου αρχείου όταν αποσυμπιεστούν. Αυτή η πληροφορία είναι επίσης διαθέσιμη στη γραμμή κατάστασης.</para></listitem>
+	      </varlistentry>
+
+	      <varlistentry>
+	        <term><guilabel>Αναλογία συμπίεσης</guilabel></term>
+	        <listitem><para>Η αναλογία συμπίεσης είναι μια τιμή που περιγράφει τη μείωση στο μέγεθος της πληροφορίας. Για παράδειγμα μια αναλογία συμπίεσης ίση με 5 σημαίνει ότι το συμπιεσμένο αρχείο είναι το 1/5 του μεγέθους της αρχικής πληροφορίας.</para></listitem>
+	      </varlistentry>
+
+	      <varlistentry>
+	        <term><guilabel>Αριθμός αρχείων</guilabel></term>
+	        <listitem><para>Ο αριθμός των αρχείων στο συμπιεσμένο αρχείο.</para></listitem>
+	      </varlistentry>
+            </variablelist></para>
+    </sect2>
+ 
+
+<!-- ======= Archive Contents ============= --> 
+    <sect2 id="file-roller-view-archive-contents">
+      <title>Για να προβάλετε τα περιεχόμενα ενός συμπιεσμένου αρχείου</title>
+
+      <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τα περιεχόμενα του συμπιεσμένου αρχείου στο κύριο παράθυρο σαν μια λίστα από αρχεία, με τις ακόλουθες στήλες: <variablelist>
+	  <varlistentry>
+	    <term><guilabel>Όνομα</guilabel></term>
+	    <listitem><para>Το όνομα του αρχείου ή του φακέλου στο συμπιεσμένο αρχείο.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Μέγεθος</guilabel></term>
+	    <listitem><para>Το μέγεθος του αρχείου όταν αυτό αποσυμπιεστεί από το συμπιεσμένο αρχείο. Για ένα φάκελο, το πεδίο <guilabel>Μέγεθος</guilabel> είναι κενό. Για πληροφορίες για την προβολή του μεγέθους του συμπιεσμένου αρχείου, δείτε <xref linkend="file-roller-extra-info"/>.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Τύπος</guilabel></term>
+	    <listitem><para>Ο τύπος του αρχείου. Για ένα φάκελο, η τιμή στο πεδίο <guilabel>Τύπος</guilabel> είναι <literal>Φάκελος</literal>.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Ημερομηνία τροποποίησης</guilabel></term>
+	    <listitem><para>Η ημερομηνία κατά την οποία το αρχείο τροποποιήθηκε τελευταία φορά. Για ένα φάκελο, το πεδίο <guilabel>Ημερομηνία τροποποίησης</guilabel> είναι άδειο.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Τοποθεσία</guilabel></term>
+	    <listitem><para>Η διαδρομή προς το αρχείο μέσα στο συμπιεσμένο αρχείο. Αυτή η στήλη είναι ορατή μόνο όταν το παράθυρο βρίσκεται σε προβολή αρχείων, όταν βρίσκεται σε προβολή φακέλων η τοποθεσία των αρχείων εμφανίζεται στο πεδίο <guilabel>Τοποθεσία</guilabel> της μπάρας φακέλων. Για περισσότερες πληροφορίες σχετικά με τους τύπους προβολής δείτε <xref linkend="file-roller-view-type-folder"/>.</para></listitem>
+	  </varlistentry>
+        </variablelist></para>
+      <para>Αν ένα άλλο πρόγραμμα έχει τροποποιήσει το συμπιεσμένο αρχείο αφότου ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> το άνοιξε, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Ανανέωση</guimenuitem></menuchoice> για να ξαναφορτώσετε τα περιεχόμενα του συμπιεσμένου αρχείου από το δίσκο.</para>
+      <para>Για πληροφορίες για την τροποποίηση του τρόπου που ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τα περιεχόμενα του συμπιεσμένου αρχείου, δείτε το <xref linkend="file-roller-archive-custom"/>.</para>
+      <para>Για πιο προχωρημένες λειτουριες, χρησιμοποιήστε μια εφαρμογή που είναι εγκατεστημένη στο σύστημά σας. Για περισσότερες πληροφορίες δείτε <xref linkend="file-roller-view-archive-file"/>.</para>
+    </sect2>
+
+  <!-- =============  Viewing a File in an Archive ==================== -->
+  <sect2 id="file-roller-view-archive-file"> 
+    <title>Για να προβάλετε ένα αρχείο μέσα σε ένα συμπιεσμένο αρχείο</title> 
+    <para>Για να προβάλετε ένα αρχείο σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα βήματα που περιγράφονται στο <xref linkend="file-roller-modify-archive-file"/>. Αν αποθηκεύσετε το ανοικτό αρχείο, πατήστε <guilabel>Ακύρωση</guilabel> όταν ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ζητήσει επιβεβαίωση για να ενημερώσει το αρχείο μέσα στο συμπιεσμένο αρχείο.</para>
+  </sect2>
+
+<!-- =============  Testing the Integrity of an Archive ==================== -->
+  <sect2 id="file-roller-test-archive"> 
+    <title>Για να ελέγξετε την ακεραιότητα ενός συμπιεσμένου αρχείου</title> 
+    <para>Μερικές φορές ένα συμπιεσμένο αρχείο μπορεί να έχει κάποια ζημιά για κάποιο λόγο. Για να ελέγξετε αν το συμπιεσμένο αρχείο έχει ζημιά, επιλέξτε <menuchoice><guimenu>Συμπιεσμένο αρχείο</guimenu><guimenuitem>Δοκιμή ακεραιότητας</guimenuitem></menuchoice>: <itemizedlist>
+              <listitem>
+                <para>Αν το συμπιεσμένο αρχείο δεν περιλαμβάνει σφάλματα, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ανοίγει το διάλογο <guilabel>Αποτέλεσμα δοκιμής</guilabel> και παραθέτει όλα τα αρχεία στο συμπιεσμένο αρχείο, και υποδεικνύει ότι η κατάσταση κάθε αρχείου είναι <literal>Εντάξει</literal>.</para>
+              </listitem>
+              <listitem>
+                <para>Αν το συμπιεσμένο αρχείο περιέχει κάποιο σφάλμα, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ανοίγει το διάλογο <guilabel>Αποτέλεσμα δοκιμής</guilabel> εμφανίζοντας το μέρος του συμπιεσμένου αρχείου που περιέχει το σφάλμα.</para>
+              </listitem>
+            </itemizedlist></para>
+    <para>Ένα συμπιεσμένο αρχείο μπορεί να μην είναι δυνατό να αποσυμπιεστεί, και αυτό μπορεί να επιφέρει απώλεια δεδομένων. Για αυτό το λόγο είναι καλό να ελέγχετε την ακεραιότητα του συμπιεσμένου αρχείου προτού διαγράψετε τα αρχικά αρχεία.</para>
+    <para>Αν το συμπιεσμένο αρχείο περιλαμβάνει κωδικοποιημένα αρχεία, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ρωτά τον κωδικό πρόσβασης του συμπιεσμένου αρχείου προτού διενεργήσει τον έλεγχο.</para>
+    <note>
+      <para>Ο έλεγχος ακεραιότητας δεν υποστηρίζεται από όλους τους τύπους συμπιεσμένων αρχείων. Στην ακόλουθη λίστα παρατίθενται οι τύποι που μπορούν να ελεγχθούν για ακεραιότητα: 7-Zip, RAR, ZIP, ACE, ARJ και Zoo.</para>
+    </note>
+    <tip>
+      <title>Συμβουλή</title>
+      <para>Για να ελέγξετε την ακεραιότητα ενός συμπιεσμένου αρχείου το οποίο δεν υποστηρίζει έλεγχο ακεραιότητας, αποσυμπιέστε όλα τα αρχεία από το συμπιεσμένο αρχείο και ελέγξτε ότι η λειτουργία ολοκληρώθηκε με επιτυχία.</para>      
+    </tip>
+  </sect2>  
+</sect1>
+    
+<!-- ======= Customizing the Archive Display ============= --> 
+<sect1 id="file-roller-archive-custom">
+  <title>Για να τροποποιήσετε την προβολή του συμπιεσμένου αρχείου</title>
+  <para>Μπορείτε να τροποποιήσετε τον τρόπου με τον οποίο ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τα περιεχόμενα του συμπιεσμένου αρχείου, ως εξής:</para>
+  <itemizedlist>
+    <listitem>
+      <para>Εναλλάξτε μεταξύ προβολής φακέλων και προβολής αρχείων. Για περισσότερες πληροφορίες δείτε <xref linkend="file-roller-view-type"/>.</para>
+    </listitem>
+    <listitem>
+      <para>Καθορίστε τη σειρά με την οποία θα εμφανίζονται τα αρχεία στη λίστα. Για περισσότερες πληροφορίες, δείτε <xref linkend="file-roller-view-sort"/>.</para>
+    </listitem> 
+    <listitem>
+      <para>Εμφάνιση επιπρόσθετων λεπτομερειών για τα περιεχόμενα του συμπιεσμένου αρχείου. Για περισσότερες πληροφορίες, δείτε <xref linkend="file-roller-extra-info"/>.</para>
+    </listitem> 
+  </itemizedlist>
+  <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ενημερώνει την προβολή αυτόματα, όταν κάνετε κάποια από τις πιο πάνω τροποποιήσεις.</para>
+
+  <sect2 id="file-roller-view-type">
+    <title>Για να ορίσετε τον τύπο προβολής</title>
+    <para>Αν το συμπιεσμένο αρχείο περιέχει φακέλους, μπορείτε να προβάλετε τα περιεχόμενα του συμπιεσμένου αρχείου είτε σε <link linkend="file-roller-view-type-folder">προβολή φακέλων</link> είτε σε <link linkend="file-roller-view-type-file">προβολή αρχείων</link>.</para>
+
+    <sect3 id="file-roller-view-type-folder">
+      <title>Προβολή φακέλων</title>
+      <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> από προεπιλογή προβάλλει τα περιεχόμενα του συμπιεσμένου αρχείου σε προβολή φακέλων. Για να ορίσετε ρητά την προβολή φακέλων, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Προβολή ως φάκελος</guimenuitem></menuchoice>.</para>
+      <para>Στην προβολή φακέλων, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τους φάκελους με τον ίδιο τρόπο που τους εμφανίζει ένας περιηγητής αρχείων. Δηλάδη, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> επισημαίνει τους φακέλους στην περιοχή προβολής με ένα εικονίδιο φακέλου και με το όνομα του φακέλου. Για να δείτε τα περιεχόμενα ενός φακέλου, κάντε διπλό κλικ στο όνομά του.</para>
+      <para>Η μπάρα φακέλων, την οποία ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει μόνο στην προβολή φακέλων, περιέχει τα συστατικά που περιγράφονται στον ακόλουθο πίνακα.</para>
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Συστατικό</para></entry>
+              <entry colname="COLSPEC1">
+                <para>Περιγραφή</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry>
+                <para>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/file-roller_leftarrow.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                      <phrase>Δείχνει το εικονίδιο για την περιήγηση προς τα πίσω στη λίστα ιστορικού τοπποθεσιών.</phrase>
+                    </textobject>
+                  </inlinemediaobject>
+                </para>
+              </entry>
+              <entry>
+                <para>Πατήστε αυτό το εικονίδιο για να περιηγηθήτε προς τα πίσω στη λίστα ιστορικού των τοποθεσιών.</para>
+              </entry>
+            </row>
+            <row valign="top">
+              <entry>
+                <para>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/file-roller_rightarrow.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                      <phrase>Δείχνει το εικονίδιο για την περιήγηση προς τα μπροστά στη λίστα ιστορικού τοποθεσιών. </phrase>
+                    </textobject>
+                  </inlinemediaobject>
+                </para>
+              </entry>
+              <entry>
+                <para>Πατήστε αυτό το κουμπί για να περιηγηθείτε προς τα μπροστά στη λίστα ιστορικού τοποθεσιών.</para>
+              </entry>
+            </row>
+            <row valign="top">
+              <entry>
+                <para>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/file-roller_uparrow.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                      <phrase>Δείχνει το εικονίδιο για να περιηγηθείτε ένα επίπεδο πάνω στη δενδρική δομή των φακέλων.</phrase>
+                    </textobject>
+                  </inlinemediaobject>
+                </para>
+              </entry>
+              <entry>
+                <para>Πατήστε αυτό το κουμπί για να περιηγηθείτε ένα επίπεδο προς τα πάνω στη δενδρική δομή των φακέλων.</para>
+              </entry>
+            </row>
+            <row valign="top">
+              <entry>
+                <para>
+                  <inlinemediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/file-roller_home.png" format="PNG"/>
+                    </imageobject>
+                    <textobject>
+                      <phrase>Δείχει το εικονίδιο για το άνοιγμα του φακέλου στο ψηλότερο επίπεδο στο συμπιεσμένο αρχείο.</phrase>
+                    </textobject>
+                  </inlinemediaobject>
+                </para>
+              </entry>
+              <entry>
+                <para>Πατήστε αυτό το κουμπί για να ανοίξετε το φάκελο στο ψηλότερο επίπεδο του συμπιεσμένου αρχείου.</para>
+              </entry>
+            </row>
+            <row valign="top">
+              <entry>
+                <para>
+                  <guilabel>Τοποθεσία</guilabel>
+                </para>
+              </entry>
+              <entry>
+                <para>Αυτό το πεδίο δείχνει την πλήρη διαδρομή, μέσα στο συμπιεσμένο αρχείο, του τρέχοντος φακέλου.</para>
+                <para>Για να μεταβείτε σε ένα διαφορετικό επίπεδο στη δενδρική δομή των φακέλων, πληκτρολογείστε την νέα τοποθεσία στο πεδίο <guilabel>Τοποθεσία</guilabel> και μετά πατήστε <keycap>Return</keycap>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει τα περιεχόμενα της νέας τοποθεσίας.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect3>
+
+    <sect3 id="file-roller-view-type-file">
+      <title>Προβολή αρχείων</title>
+      <para>Για να επιλέξετε την προβολή αρχείων, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Προβολή όλων των αρχείων</guimenuitem></menuchoice>.</para>
+      <para>Στην προβολή αρχείων, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> εμφανίζει όλα τα αρχεία στο συμπιεσμένο αρχείο, συμπεριλμβανομένων των αρχείων από τους υποφακέλους, σε μια λίστα.</para>
+    </sect3>
+
+  </sect2>
+
+  <sect2 id="file-roller-view-sort">
+    <title>Για να ταξινομήσετε τη λίστα αρχείων</title>
+    <para>Μπορείτε να ταξινομήσετε τη λίστα κατά όνομα, μέγεθος, τύπο, ημερομηνία τροποποίησης, ή τοποθεσία.</para>
+    <para>Για να καθορίσετε μια σειρά ταξινόμησης, πατήστε την επικεφαλίδα της αντίστοιχης στήλης.</para>
+    <para>Για να αντιστρέψετε τη σειρά ταξινόμησης, ξαναπατήστε στην επικεφαλίδα.</para>
+    <para>Για παράδειγμα, για να ταξινομήσετε τη λίστα αρχείων κατά ημερομηνία τροποποίησης, πατήστε στην επικεφαλίδα <guilabel>Ημερομηνία τροποποίησης</guilabel>. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ανακατανέμει τη λίστα αρχείων ώστε να εμφανίζει τα αρχεία κατά ημερομηνία τροποποίησης, ξεκινώντας από το παλαιότερο. Για να εμφανίσετε τα πιο πρόσφατα αρχεία πρώτα, πατήστε ξανά στην επικεφαλίδα <guilabel>Ημερομηνία τροποποίησης</guilabel>.</para>
+    <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> πάντα εφαρμόζει μια δευτερεύσουσα ταξινόμηση βάσει του ονόματος αρχείου. Για παράδειγμα, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> ταξινομεί κατά όνομα όλα τα αρχεία που έχουν την ίδια ημερομηνία τροποποίησης.</para>
+  </sect2>
+
+  <sect2 id="file-roller-extra-info">
+    <title>Για να εμφανίσετε επιπρόσθετες λεπτομέρειες</title>
+      <para>Για να ανοίξετε το διάλογο <guilabel>Τελευταία έξοδος</guilabel>, επιλέξτε <menuchoice><guimenu>Προβολή</guimenu><guimenuitem>Τελευταία έξοδος</guimenuitem></menuchoice>: <itemizedlist>
+              <listitem>
+                <para>Αν δοκιμάσατε το συμπιεσμένο αρχείο στην τρέχουσα συνεδρία του <application>Διαχειριστή συμπιεσμένων αρχείων</application>, ο διάλογος <guilabel>Τελευταία έξοδος</guilabel> εμφανίζει τα αποτελέσματα από τη τελευταία δοκιμή.</para>
+              </listitem>
+              <listitem>
+                <para>Αν δε δοκιμάσατα το συμπιεσμένο αρχείο στην τρέχουσα συνεδρία του <application>Διαχειριστή συμπιεσμένων αρχείων</application>, ο διάλογος <guilabel>Τελευταία έξοδος</guilabel> εμφανίζει μια λίστα με όλα τα αρχεία στο συμπιεσμένο αρχείο, αλλά δεν υποδεικνύει την κατάστασή τους. Αντί γι' αυτό, ο διάλογος <guilabel>Τελευταία έξοδος</guilabel> παρέχει το συμπιεσμένο μέγεθος κάθε αρχείου και το ποσοστό συμπίεσης, και την ημερομηνία και ώρα της πιο πρόσφατης τροποποίησης του αρχείου.</para>
+              </listitem>
+            </itemizedlist></para>
+  </sect2>
+</sect1>
+
+<!-- ====== Using the File Manager Popup Menu to Manipulate an Archive ===== -->
+
+<sect1 id="file-roller-fmgr"> 
+    <title>Χρησιμοποιώντας τον Περιηγητή αρχείων για να δουλέψετε με συμπιεσμένα αρχεία</title> 
+    <para>Μπορείτε να χρησιμοποιήσετε τον περιηγητή αρχείων για να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο, ή για να αποσυμπιέσετε αρχεία από ένα συμπιεσμένο αρχείο.</para>
+
+<!-- ======= Adding files Using File Manager Menu  ============= --> 
+    <sect2 id="file-roller-fmgr-add">
+      <title>Για να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο με τον Περιηγητή αρχείων</title>
+           <para>Μπορείτε να χρησιμοποιήσετε τον περιηγητή αρχείων για να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο, με τους εξής τρόπους: <itemizedlist>
+             <listitem><para>Σύρετε τα αρχεία σε ένα παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application> από ένα παράθυρο του περιηγητή αρχείων.</para>
+             </listitem>
+             <listitem><para>Χρησιμοποιηστε το αναδυόμενο μενού του περιηγητή αρχείων για να προσθέσετε αρχεία στο συμπιεσμένο αρχείο.</para>
+             </listitem>
+          </itemizedlist></para>
+      <para>Για να χρησιμοποιήσετε το αναδυόμενο μενού του περιηγητή αρχείων για να προσθέσετε αρχεία σε ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα:</para>
+      <orderedlist>
+        <listitem><para>Κάντε δεξί κλικ στα αρχεία ή τους φακέλους στο παράθυρο του περιηγητή αρχείων.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε <guimenuitem>Δημιουργία συμπιεσμένου αρχείου</guimenuitem> από το αναδυόμενο μενού του περιηγητή αρχείων για να εμφανίσετε το διάλογο <guilabel>Δημιουργία συμπιεσμένου αρχείου</guilabel> του <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+        </listitem>
+        <listitem><para>Εισάγετε το όνομα του συμπιεσμένου αρχείου, χωρίς την επέκταση του αρχείου, στο πεδίο <guilabel>Συμπιεσμένο αρχείο</guilabel>.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε τον τύπο του συμπιεσμένου αρχείου από τη αναδιπλούμενη λίστα.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε την τοποθεσία που θέλετε να αποθηκεύσετε το συμπιεσμένο αρχείο, από την αναδιπλούμενη λίστα <guilabel>Τοποθεσία</guilabel>. Αν δεν υπάρχει η τοποθεσία στη λίστα επιλέξτε <guilabel>Άλλο...</guilabel> για να την επιλέξετε από το διάλογο <guilabel>Τοποθεσία</guilabel>.</para>
+        </listitem>
+        <listitem><para>Διαλέξτε τις απαιτούμενες επιλογές πατώντας στο <guilabel>Άλλες επιλογές</guilabel>. Για περισσότερες πληροφορίες για τις επιλογές δημιουργίας, δείτε το <xref linkend="file-roller-create-options"/>.</para>
+        </listitem>
+        <listitem><para>Πατήστε <guilabel>Δημιουργία</guilabel> για να προσθέσετε τα επιλεγμένα αρχεία στο ριζικό φάκελο του καθορισμένου συμπιεσμένου αρχείου.</para>
+                 <note><para>Για να επιλέξετε κάποια από τις προχωρημένες επιλογές προσθήκης, θα πρέπει να εκκινήσετε τον <application>Διαχειριστή συμπιεσμένων αρχείων</application> όπως περιγράφεται στο <xref linkend="file-roller-to-start"/>.</para></note>
+        </listitem>
+      </orderedlist>
+    </sect2>
+
+<!-- ======= Extracting files Using File Manager Menu  ============= --> 
+  <sect2 id="file-roller-fmgr-extract">
+      <title>Για να αποσυμπιέσετε αρχεία από ένα συμπιεσμένο αρχείο χρησιμοποιώντας τον Περιηγητή αρχείων</title>
+           <para>Μπορείτε να χρησιμοποιήσετε τον περιηγητή αρχείων για αποσυμπιέσετε αρχεία από ένα συμπιεσμένο αρχείο, με τους εξής τρόπους: <itemizedlist>
+             <listitem><para>Σύρετε τα αρχεία από ένα παράθυρο του <application>Διαχειριστή συμπιεσμένων αρχείων</application> σε ένα παράθυρο του περιηγητή αρχείων.</para>
+             </listitem>
+             <listitem><para>Χρησιμοποιήστε το αναδυόμενο μενού του περιηγητή αρχείων για να αποσυμπιέσετε τα αρχεία από το συμπιεσμένο αρχείο.</para>
+             </listitem>
+          </itemizedlist></para>
+      <para>Για να χρησιμοποιήσετε το αναδυόμενο μενού του περιηγητή αρχείων για να αποσυμπιέσετε αρχεία από ένα συμπιεσμένο αρχείο, ακολουθήστε τα εξής βήματα: </para>
+      <orderedlist>
+        <listitem><para>Κάντε δεξί κλικ στο συμπιεσμένο αρχείο στο παράθυρο του περιηγητή αρχείων.</para>
+        </listitem>
+        <listitem><para>Επιλέξτε <guimenuitem>Αποσυμπίεση εδώ</guimenuitem> για να αποσυμπιέσετε όλα τα περιεχόμενα του συμπιεσμένου αρχείου στον κατάλογο όπου βρίσκεται το συμπιεσμένο αρχείο.</para>
+        </listitem>
+      </orderedlist>
+      <note><para>Αν το συμπιεσμένο αρχείο είναι κωδικοποιημένο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα σας ζητήσει να εισάγετε τον κωδικό προτού αποσυμπιέσει τα αρχεία.</para></note>
+    </sect2>
+
+</sect1>
+
+<!-- ======= Create Archive Advanced Options  ============= --> 
+    <sect1 id="file-roller-create-options">
+      <title>Επιλογές δημιουργίας</title>
+      <para>When creating a new archive, or when converting an existing archive to another format, click on <guilabel>Other Options</guilabel> to specify the following advanced options: 
+      </para>
+      <variablelist>
+       <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Κωδικός πρόσβασης</guilabel></term>
+	  <listitem>
+	  <para>Πληκτρολογήστε τον κωδικό πρόσβασης που θα χρησιμοποιηθεί για να κωδικοποιηθεί το συμπιεσμένο αρχείο. Αν δεν καθοριστεί κωδικός πρόσβασης, το συμπιεσμένο αρχείο δε θα είναι κωδικοποιημένο.</para>
+	  <note>
+	    <para>Not all archive types support encryption.  For more information about file encryption, see <xref linkend="file-roller-encrypt-files"/>.</para>
+	  </note>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>	  
+	  <term><guilabel>Κρυπτογράφηση και της λίστας αρχείων</guilabel></term>
+	  <listitem>
+	  <para>Αν επιλεγεί, ο κωδικός πρόσβασης θα ζητηθεί ακόμα και για να προβληθεί η λίστα των αρχείων που περιέχονται σε ένα συμπιεσμένο αρχείο, αλλιώς θα ζητηθεί μόνο για να αποσυμπιεστούν τα αρχεία από το συμπιεσμένο αρχείο. Αυτή η επιλογή είναι διαθέσιμη μόνο αν έχει οριστεί ένας κωδικός πρόσβασης.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>	  
+	  <term><guilabel>Διάσπαση σε ενότητες</guilabel></term>
+	  <listitem>
+	  <para>Επιλέξτε το για να διασπάσετε το συμπιεσμένο αρχείο σε περισσότερα αρχεία με το καθορισμένο μέγεθος.</para>
+	  <note>
+	    <para>Μόνο τα συμπιεσμένα αρχεία 7-Zip και RAR υποστηρίζουν αυτό το χαρακτηριστικό.</para>
+	  </note>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect1>
+
+<!-- ======= Add Advanced Options  ============= --> 
+    <sect1 id="file-roller-add-options">
+      <title>Επιλογές προσθήκης</title>
+      <para>Οι διάλογοι <guilabel>Προσθήκη αρχείων</guilabel> και <guilabel>Προσθήκη φακέλων</guilabel> παρέχουν τις ακόλουθες επιλογές:</para>
+      <variablelist>
+       <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Προσθήκη μόνο αν είναι νεότερο</guilabel></term>
+	  <listitem>
+            <para>Επιλέξτε το για να προσθέσετε το καθορισμένο αρχείο στο συμπιεσμένο αρχείο μόνο αν το συμπιεσμένο δεν περιέχει το καθορισμένο αρχείο, ή αν περιέχει μια προηγούμενη έκδοσή του. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> χρησιμοποιεί την ημερομηνία τροποποίησης για να διευκρινίσει ποιό από τα αρχεία είναι το πιο πρόσφατο. Αν η έκδοση του αρχείου μέσα στο συμπιεσμένο αρχείο είναι η πιο πρόσφατη, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δεν προσθέτει το καθορισμένο αρχείο στο συμπιεσμένο αρχείο.</para>
+	    <para>Αν δεν το επιλέξετε, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα προσθέσει το αρχείο στο συμπιεσμένο αρχείο και θα αντικαταστήσει το προηγούμενο περιεχόμενο του συμπιεσμένου.</para>
+	    <tip>
+	      <title>Συμβουλή</title>
+	      <para>Αν χρησιμοποιείτε το <application>Διαχειριστή συμπιεσμένων αρχείων</application> για να κρατάτε αντίγραφα ασφαλείας, τότε η επιλογή <guilabel>Προσθήκη μόνο αν είναι νεότερο</guilabel> είναι πολύ χρήσιμη. Για παράδειγμα, το συμπιεσμένο αρχείο <filename>backup.tar.gz</filename> περιέχει ένα αντίγραφο ασφαλείας του προσωπικού σας φακέλου το οποίο λήφθηκε πριν από μια βδομάδα. Για να το ενημερώσετε ώστε να περιέχει ένα τρέχον αντίγραφο ασφαλείας του προσωπικού σας φακέλου, ακολουθήστε τα εξής βήματα: <orderedlist>
+                      <listitem>
+                        <para>Ανοίξτε το συμπιεσμένο αρχείο <filename>backup.tar.gz</filename> στο <application>Διαχειριστής συμπιεσμένων αρχείων</application>.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Επιλέξτε <menuchoice><guimenu>Επεξεργασία</guimenu><guimenuitem>Προσθήκη</guimenuitem></menuchoice> για να εμφανιστεί ο διάλογος <guilabel>Προσθήκη φακέλου</guilabel>.</para> 
+                      </listitem>
+                      <listitem>
+                        <para>Επιλέξτε τον προσωπικό σας φάκελο.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Επιλέξτε το <guilabel>Προσθήκη μόνο αν είναι νεότερο</guilabel>.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Πατήστε <guibutton>Προσθήκη</guibutton>.</para>
+                      </listitem>
+                    </orderedlist></para>
+                <para>Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> αυτόματα προσθέτει στο συμπιεσμένο αρχείο όλα τα αρχεία που δημιουργήσατε την τελευταία εβδομάδα, και ενημερώνει όλα τα αρχεία που τροποποιήσατε την τελευταία εβδομάδα. Ωστόσο, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δεν αφαιρεί από το συμπιεσμένο αρχείο τα αρχεία που διαγράψατε κατά την τελευταία εβδομάδα. Η λειτουργία ενημέρωσης του συμπιεσμένου αρχείου είναι πολύ γρηγορότερη από τη λήψη ενός πλήρους αντιγράφου ασφαλείας του προσωπικού σας φακέλου.</para>
+	  </tip>
+	</listitem>
+      </varlistentry>
+      </variablelist>
+      <sect2 id="file-roller-add-folder-options">
+      <title>Επιλογές προσθήκης στο φάκελο</title>
+      <para>Οι ακόλουθες επιλογές είναι διαθέσιμες στο διάλογο <guilabel>Προσθήκη φακέλου</guilabel> και επιτρέπουν την αυτόματη επιλογή και προσθήκη όλων των αρχείων που πληρούν ορισμένα κριτήρια:</para>
+      <variablelist>
+       <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Συμπερίληψη αρχείων</guilabel></term>
+	  <listitem>
+            <para>Πληκτρολογήστε ένα κριτήριο ονομάτων αρχείων σ' αυτό το πεδίο για να συμπεριλάβετε αρχεία με ονόματα που πληρούν το συγκεκριμένο κριτήριο. Δείτε το <xref linkend="file-roller-pattern"/> για περισσότερες πληροφορίες σχετικά με τα κριτήρια ονομάτων αρχείων.</para>
+          </listitem>
+	</varlistentry>
+       <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Εξαίρεση αρχείων</guilabel></term>
+	  <listitem>
+            <para>Πληκτρολογήστε ένα κριτήριο ονομάτων αρχείων σ' αυτό το πεδίο για να εξαιρέσετε αρχεία με ονόματα που πληρούν το συγκεκριμένο κριτήριο. Δείτε το <xref linkend="file-roller-pattern"/> για περισσότερες πληροφορίες σχετικά με τα κριτήρια ονομάτων αρχείων.</para>
+          </listitem>
+	</varlistentry>
+        <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Εξαίρεση φακέλων</guilabel></term>
+	  <listitem>
+            <para>Πληκτρολογήστε ένα κριτήριο ονομάτων αρχείων σ' αυτό το πεδίο για να εξαιρέσετε φακέλους με ονόματα που πληρούν το συγκεκριμένο κριτήριο. Δείτε το <xref linkend="file-roller-pattern"/> για περισσότερες πληροφορίες σχετικά με τα κριτήρια ονομάτων αρχείων.</para>
+          </listitem>
+	</varlistentry>      
+       <!-- ============= -->	
+      <varlistentry>
+	<term><guilabel>Συμπερίληψη υποφακέλων</guilabel></term>
+	<listitem>
+          <para>Επιλέξτε το για να προσθέσετε όλα τα αρχεία που πληρούν τα κριτήρια, από τον τρέχοντα φάκελο και τους υποφάκελους.</para>
+          <note>
+          <para>Το όνομα του αρχείου και όχι του υποφακέλου θα πρέπει να πληρεί τα καθορισμένα κριτήρια.</para>
+          </note>
+	  <para>Αν δεν κάνετε αυτή την επιλογή, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα προσθέσει τα αρχεία που ταιριάζουν από τον τρέχοντα φάκελο μόνο.</para>
+        </listitem>
+      </varlistentry>
+       <!-- ============= -->	
+     <varlistentry>
+	<term><guilabel>Εξαίρεση φακέλων που είναι συμβολικοί σύνδεσμοι</guilabel></term>
+	  <listitem>
+            <para>Επιλέξτε το για να παραλείψετε αρχεία από φακέλους που είναι συμβολικοί σύνδεσμοι. Οι συμβολικοί σύνδεσμοι είναι δείκτες ή συντομεύσεις προς άλλους φακέλους.</para>
+	    <para>Αν δεν το επιλέξετε, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα προσθέσει τα αρχεία που ταιριάζουν από τους φακέλους που είναι συμβολικά αρχεία.</para>
+          </listitem>
+	</varlistentry>
+       <!-- ============= -->
+     <varlistentry>
+	<term><guibutton>Επιλογές αποθήκευσης</guibutton></term>
+	  <listitem>
+            <para>Πατήστε αυτό το κουμπί για να αποθηκεύσετε την τρέχουσα συλλογή από προχωρημένες επιλογές προσθήκης σε ένα αρχείο. Εμφανίζεται ο διάλογος <guilabel>Επιλογές αποθήκευσης</guilabel>. Εισάγετε ένα περιγραφικό όνομα αρχείου στο πεδίο <guilabel>Όνομα επιλογών</guilabel>, και μετά πατήστε <guibutton>Αποθήκευση</guibutton>.</para>
+          </listitem>
+	</varlistentry>
+       <!-- ============= -->	
+     <varlistentry>
+	<term><guibutton>Επιλογές φόρτωσης</guibutton></term>
+	  <listitem>
+            <para>Πατήστε αυτό το κουμπί για να φορτώσετε ή να διαγράψετε προηγουμένως αποθηκευμένη συλλογή από προχωρημένες επιλογές προσθήκης. Ο διάλογος <guilabel>Επιλογές φόρτωσης</guilabel> θα εμφανιστεί.</para>
+            <itemizedlist>
+              <listitem>
+                <para>Για να φορτώσετε μια συλλογή από επιλογές, επιλέξτε το αρχείο επιλογών από τη λίστα, και μετά πατήστε <guibutton>Εφαρμογή</guibutton>.</para>
+              </listitem>
+              <listitem>
+                <para>Για να σβήσετε μια συλλογή από επιλογές, επιλέξτε το αρχείο επιλογών από τη λίστα, μετά πατήστε στο <guibutton>Απομάκρυνση</guibutton>. Πατήστε <guibutton>Κλείσιμο</guibutton> για να κλείσετε το διάλογο <guilabel>Φόρτωση επιλογών</guilabel>.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+	</varlistentry>
+       <!-- ============= -->	
+     <varlistentry>
+	<term><guibutton>Επαναφορά επιλογών</guibutton></term>
+	  <listitem>
+            <para>Πατήστε σε αυτό το κουμπί για να επαναφέρετε την τρέχουσα συλλογή από προχωρημένες επιλογές προσθήκης στις προεπιλεγμένες ρυθμίσεις τους.</para>
+          </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+
+<!-- ======= Extract Options  ============= --> 
+  <sect1 id="file-roller-extract-options">
+    <title>Επιλογές αποσυμπίεσης</title>
+      
+    <para>Ο διάλογος <guilabel>Αποσυμπίεση</guilabel> παρέχει τις εξής επιλογές, οι οποίες αποθηκεύονται όταν κλείσετε το <application>Διαχειριστή συμπιεσμένων αρχείων</application>.</para>
+      <variablelist>
+       <!-- ============= -->	
+	<varlistentry>
+	  <term><guilabel>Αποσυμπίεση</guilabel></term>
+	  <listitem>
+            <para>Επιλογή των αρχείων που θα αποσυμπιεστούν:</para>
+            <variablelist>
+              <varlistentry>
+                <term><guilabel>Όλα τα αρχεία</guilabel></term>
+                <listitem>
+                  <para>Αποσυμπίεση όλων των αρχείων από το συμπιεσμένο αρχείο.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><guilabel>Επιλεγμένα αρχεία</guilabel></term>
+                <listitem>
+                  <para>Αποσυμπίεση των επιλεγμένων αρχείων από το συμπιεσμένο αρχείο.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><guilabel>Αρχεία</guilabel></term>
+                <listitem>
+                  <para>Αποσυμπίεση από το συμπιεσμένο αρχείο όλων των αρχείων τα οποία πληρούν ένα καθορισμένο κριτήριο. Δείτε το <xref linkend="file-roller-pattern"/> για περισσότερες πληροφορίες σχετικά με τα κριτήρια ονομάτων αρχείων.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+	  </listitem>
+	</varlistentry>
+	<!-- ============= -->	
+	<varlistentry>
+      <term><guilabel>Ενέργειες</guilabel></term>
+        <listitem>
+          <para>Διαλέξτε τις ακόλουθες επιλογές αποσυμπίεσης:</para>	
+          <variablelist>
+	        <varlistentry>
+	          <term><guilabel>Αναδημιουργία φακέλων</guilabel></term>
+	          <listitem><para>Επιλέξτε το για να αναδημιουργηθεί η δομή των φακέλων όταν θα αποσυμπιεστούν τα καθορισμένα αρχεία.</para> 
+                <para>Για παράδειγμα, έστω ότι ορίζετε το <filename>/tmp</filename> στο πεδίο <guilabel>Όνομα αρχείου</guilabel> και επιλέγετε να αποσυμπιέσετε όλα τα αρχεία. Το συμπιεσμένο αρχείο περιέχει έναν υποφάκελο που ονομάζεται <filename>doc</filename>. <itemizedlist>
+                  <listitem><para>Αν επιλέξετε <guilabel>Αναδημιουργία φακέλων</guilabel>, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα αποσυμπιέσει τα περιεχόμενα του υποφακέλου στο <filename>/tmp/doc</filename>.</para>
+                 </listitem>
+                 <listitem><para>Αν δεν επιλέξετε <guilabel>Αναδημιουργία φακέλων</guilabel>, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε θα δημιουργήσει καθόλου υποφακέλους. Αντί αυτού, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> θα αποσυμπιέσει όλα τα αρχεία από το συμπιεσμένο αρχείο, συμπεριλαμβανομένων και αυτών από τους υποφακέλους, στο <filename>/tmp</filename>.</para>
+                 </listitem>
+               </itemizedlist></para></listitem>
+	         </varlistentry>
+             <!-- ============= -->	
+	         <varlistentry>
+	           <term><guilabel>Αντικατάσταση υπάρχοντων αρχείων</guilabel> </term>
+	           <listitem><para>Επιλέξτε το για να αντικαταστήσετε όλα τα αρχεία στο φάκελο προορισμού έχουν το ίδιο όνομα με τα καθορισμένα αρχεία.</para>
+	             <para>Αν δεν το επιλέξετε, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε θα αποσυμπιέσει τα καθορισμένα αρχεία αν υπάρχει ένα αρχείο με το ίδιο όνομα στο φάκελο προορισμού.</para>
+	           </listitem>
+	         </varlistentry>
+             <!-- ============= -->	
+	         <varlistentry>
+	           <term><guilabel>Να μην αποσυμπιέζονται παλιά αρχεία</guilabel> </term>
+	           <listitem>
+	             <para>Αυτή η επιλογή έχει αποτέλεσμα μόνο όταν είναι επιλεγμένη και η <guilabel>Αντικατάσταση υπάρχοντων αρχείων</guilabel>.</para>
+	             <para>Επιλέξτε <guilabel>Να μην αποσυμπιέζονται παλιά αρχεία</guilabel> για να αποσυμπιεστεί το καθορισμένο αρχείο μόνο αν ο φάκελος προορισμού δεν περιέχει το καθορισμένο αρχείο, ή αν ο φάκελος προορισμού περιέχει μια παλιότερη έκδοση του καθορισμένου αρχείου. Ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> χρησιμοποιεί την ημερομηνία τροποποίησης για να διευκρινίσει ποιό αρχείο είναι το πιο πρόσφατο. Αν η έκδοση του αρχείου στο συμπιεσμένο αρχείο είναι παλιότερη, ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> δε θα το αποσυμπιέσει στο φάκελο προορισμού.</para>
+	             <para>Αν δεν επιλέξετε <guilabel>Να μην αποσυμπιέζονται παλιά αρχεία</guilabel> ενώ είναι επιλεγμένη η <guilabel>Αντικατάσταση υπάρχοντων αρχείων</guilabel>, τότε ο <application>Διαχειριστής συμπιεσμένων αρχείων</application> αποσυμπιέζει τα καθορισμενα αρχεία από το συμπιεσμένο αρχείο και αντικαθιστά τα προηγούμενα περιεχόμενα του φακέλου προορισμού.</para>
+	           </listitem>
+	         </varlistentry>
+	       </variablelist>
+	     </listitem>
+	   </varlistentry>
+     </variablelist>	
+  </sect1>
+
+
+</article>

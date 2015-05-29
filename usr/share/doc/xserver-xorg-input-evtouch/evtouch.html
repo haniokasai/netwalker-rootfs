@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd"><html>
+<head>
+<meta NAME="allow-search" content="YES">
+<meta NAME="searchtitle"  content="Conan's Homepage/X touchscreen
+driver">
+<meta NAME="keywords" CONTENT="conan touchscreen driver Xorg XFree">
+<meta NAME="description" CONTENT="Xorg/XFree touchscreen driver">
+<meta NAME="page-type" CONTENT=""><meta NAME="revisit-after" CONTENT="14 days">
+<meta NAME="ROBOTS" CONTENT="ALL">
+<meta NAME="audience" CONTENT="All">
+<meta NAME="content-language" CONTENT="en">
+<meta NAME="author" content="kenan.esau@conan.de">
+<link rel="StyleSheet" type="text/css" href="../style.css">
+<title>Xorg Touchscreen Driver</title>
+</head>
+<body>
+<div class="header">
+Last updated: 09.06.2007
+</div>
+<h1>Linux-Touchscreen Driver for X</h1>
+<div>
+Evtouch is a Touchscreen-Driver for X. This site contains the <a
+href=#config">configuration and installation</a> description as well as the
+possibility to <a href="#download">download</a> the driver.
+</div>
+<h2><a name="config">Installation/Configuration</a></h2>
+<ol><li>
+<div>
+<a href="#download">Download</a> the tarball and extract it to some
+temporary directory.
+</div>
+<div class="shell">tar xzvf evtouch-xx.yy.tar.gz</div>
+<div>
+Copy the file &quot;evtouch_drv.so&quot; to the appropriate location
+(Some distributions use &quot;/usr/X11R6/lib/modules/input&quot; or
+&quot;/usr/lib/xorg/modules/input/&quot; (for Ubuntu)). 
+</div>
+<div>
+Insert the lines below to the file &quot;/etc/X11/XF86Config-4&quot; or
+&quot;/etc/X11/xorg.conf&quot;.
+</div>
+<div class="code">
+<a name="config"></a>
+Section "InputDevice"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Identifier "touchscreen"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Driver "evtouch"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "Device" "/dev/input/event1"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "DeviceName" "touchscreen"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "MinX" "98"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "MinY" "43"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "MaxX" "940"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "MaxY" "925"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "ReportingMode" "Raw"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "Emulate3Buttons"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "Emulate3Timeout" "50"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "SendCoreEvents" "On"<br>
+EndSection<br>
+</div>
+<li>Beware that some distributions use other names for the device. Some use
+"/dev/input/evdevX" and others use "/dev/input/eventX". </li>
+<li>Add the line below to the file "/etc/X11/XF86Config-4" or
+"/etc/X11/xorg.conf" to the section "ServerLayout".<br>
+<div class="code">InputDevice "touchscreen" "CorePointer"</div>
+</li>
+<li>
+If your Y-axis is interchanged you might have used the wrong
+event-device. Maybe you should try the next few event-devices
+(/dev/event[1-9]).
+</li>
+</ol>
+
+<div class="warning">Since Xorg 7.2 there is always a default-mouse-pointer which will run simultaneously with evtouch if you do not prevent it from loading. It is extremely important that you add the following to your configuration. Otherwise you will get double click events and all kind of strange things.</div>
+
+<ol>
+<li>
+<div>Add the following new input-device to your xorg.conf:</div>
+<div class="code">
+Section "InputDevice"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Identifier "dummy"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Driver "void"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Option "Device" "/dev/input/mice"<br>
+EndSection<br>
+</div>
+</li>
+<li>
+<div>Add the following line your your &quot;ServerLayout&quot;-section:</div>
+<div class="code">InputDevice "dummy"</div>
+</li>
+</ol>
+
+<div>
+Calibration is also supported since V0.6.0. You can also reuse your
+settings from the old driver for the 2.6 driver. Actually you only
+have to exchange the driver name in the "Inputdevice"-section from
+"lbtouch" to "evtouch" and change the "Device".
+</div>
+
+<h2>Button-Events</h2>
+
+<div>
+With the state-machine based code you can have the three types of button actions (button up, down, click) which are issued in different states of the state-machine. So the complete behaviour is configurable.
+</div>
+
+<div>
+Have a look at <a href="libtouch.html">Libtouch</a> to see which default-actions are hard-coded in the driver and what you have to do to change the default-behaviour.
+</div>
+<br>
+
+<h2><a name="advanced">Advanced Configuration</a></h2>
+
+<h3>Changing Timers</h3>
+
+<div>
+If you are not confident with the default behaviour of your touchpanel you
+can configure certain timers which change its behaviour.
+</div>
+
+<table class="options" align="center" cellpadding="5" cellspacing="0">
+  <tr>
+    <th class="even"> Option </th>
+    <th class="even"> Description </th>
+    <th class="even"> Default-Value </td>
+  </tr>
+  <tr>
+    <td class="odd"> TapTimer </td>
+    <td class="odd"> This timer starts when the state MAYBETAPPED is
+entered. When this timer expires a tap-event is issued and the state
+changes to UNTOUCHED.</td>
+    <td class="odd"> 200 ms </td>
+  </tr>
+  <tr>
+    <td class="even"> LongTouchTimer </td>
+    <td class="even"> This timer is always started when the state TOUCHED
+is entered. When the timer expires before you untouch the screen again the
+state moves to LONGTOUCHED and on entering that state a longtouch-event is
+issued.</td>
+    <td class="even"> 400 ms </td>
+  </tr>
+  <tr>
+    <td class="odd"> Emulate3Buttons </td>
+    <td class="odd"> Enable emulation of three button support </td>
+    <td class="odd"> true -- enabled </td>
+  <tr>
+    <td class="even"> Emulate3Timeout </td>
+    <td class="even"> If both buttons are pressed/released before this timer
+expires a
+"middle press/release"-event is generated. This timer starts to run as soon as
+a button is pressed. </td>
+    <td class="even"> 50 ms </td>
+  </tr>
+  <tr>
+    <td class="odd"> MoveLimit </td>
+    <td class="odd"> If the pen moves out of this radius a "mouse-press"-event
+becomes impossible. </td>
+    <td class="odd"> 30 Pixels </td>
+  </tr>
+  <tr>
+    <td class="even"> Rotate </td>
+    <td class="even"> There are two valid values:<br> 
+      <code class="even">CW</code> -- Rotate the screen clockwise<br>
+      <code class="even">CCW</code> -- Rotate the screen counter-clockwise<br>
+      Everything else will be treated as "no rotation".
+    </td>
+    <td class="even"> no rotation </td>
+  </tr>
+  <tr>
+    <td class="odd"> SwapX </td>
+    <td class="odd"> This option is in the driver since V0.61. When set to 1
+the X-axis is
+    swapped. This option is applied BEFORE the rotation-option.
+    </td>
+    <td class="odd"> false -- no swapping </td>
+  </tr>
+  <tr>  
+    <td class="even"> SwapY</td>
+    <td class="even"> This option is in the driver since V0.61. When set to 1
+the Y-axis is
+    swapped. This option is applied BEFORE the rotation-option.
+    </td>
+    <td class="even"> false -- no swapping </td>
+  </tr>
+</table>
+
+<br>
+If you find bugs or if you have comment/wishes please send mail to <a
+href="mailto:lifebook@conan.de" target="Inhalt">lifebook@conan.de</a><br>
+
+<h2>Download<a name="download"></a></h2>
+<div align="center"><h3>Touchscreen-Driver for X</h3></div>
+This driver should work for XFree 4.x and Xorg 6.8.x.<br>
+Have a look at the <a href="CHANGELOG.evtouch">CHANGELOG</a>.<br>
+V0.8.2 was removed since it was broken -- sorry for the inconvenience.<br><br>
+V0.8.4 contains udev-rules for dynamically creating a softlink to the &quot;correct&quot; device. Please feel free to add your rules to this file and send the patches to me.<br>
+<table align="center">
+  <tr>
+    <td>Precompiled driver for X V0.8.6</td>
+    <td><a href="evtouch-0.8.6.tar.gz">evtouch-0.8.6.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Precompiled driver for X V0.8.5</td>
+    <td><a href="evtouch-0.8.5.tar.gz">evtouch-0.8.5.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Precompiled driver for X V0.8.4</td>
+    <td><a href="evtouch-0.8.4.tar.gz">evtouch-0.8.4.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Precompiled driver for X V0.8.3</td>
+    <td><a href="evtouch-0.8.3.tar.gz">evtouch-0.8.3.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Precompiled driver for X V0.8.1</td>
+    <td><a href="evtouch-0.8.1.tar.gz">evtouch-0.8.1.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>Precompiled driver for X V0.8.0</td>
+    <td><a href="evtouch-0.8.0.tar.gz">evtouch-0.8.0.tar.gz</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.6</td>
+    <td><a href="xf86-input-evtouch-0.8.6.tar.bz2">xf86-input-evtouch-0.8.6.tar.bz2</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.5</td>
+    <td><a href="xf86-input-evtouch-0.8.5.tar.bz2">xf86-input-evtouch-0.8.5.tar.bz2</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.4</td>
+    <td><a href="xf86-input-evtouch-0.8.4.tar.bz2">xf86-input-evtouch-0.8.4.tar.bz2</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.3</td>
+    <td><a href="xf86-input-evtouch-0.8.3.tar.bz2">xf86-input-evtouch-0.8.3.tar.bz2</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.1</td>
+    <td><a href="xf86-input-evtouch-0.8.1.tar.bz2">xf86-input-evtouch-0.8.1.tar.bz2</a></td>
+  </tr>
+  <tr>
+    <td>X driver sources V0.8.0</td>
+    <td><a href="evtouch-0.8.0-src.tar.gz">evtouch-0.8.0-src.tar.gz</a></td>
+  </tr>
+</table>
+<a href="evtouch_old.html">Older (obsolete) versions</a> of the evtouch-driver
+can be downloaded <a href="./evtouch_old.html#download">here</a>
+</body>
+</html>

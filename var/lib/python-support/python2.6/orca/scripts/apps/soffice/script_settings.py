@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/scripts/apps/soffice/script_settings.py

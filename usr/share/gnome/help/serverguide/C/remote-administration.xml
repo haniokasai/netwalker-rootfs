@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="remote-administration" status="review">
+	<title>Remote Administration</title>
+	<para>
+	There are many ways to remotely administer a Linux server.  This chapter will cover
+	one of the most popular <application>SSH</application> as well as 
+	<application>eBox</application>, a web based administration framework.
+  	</para>
+	<sect1 id="openssh-server" status="review">
+		<title>OpenSSH Server</title>
+      <sect2 id="openssh-introduction">
+        <title>Introduction</title> 
+           <para>
+            This section of the Ubuntu &sg-title; introduces a powerful collection of tools
+            for the remote control of networked computers and transfer of data between 
+	    networked computers, called <emphasis>OpenSSH</emphasis>. You will also learn
+            about some of the configuration settings possible with the OpenSSH server 
+	    application and how to change them on your Ubuntu system. 
+          </para>
+          <para>
+            OpenSSH is a freely available version of the Secure Shell (SSH) protocol family of 
+            tools for remotely controlling a computer or transferring files between computers.
+            Traditional tools used to accomplish these functions, such as 
+	    <application>telnet</application> or <application>rcp</application>, are insecure 
+	    and transmit the user's password in cleartext when used. OpenSSH provides a server 
+	    daemon and client tools to facilitate secure, encrypted remote control and file 
+	    transfer operations, effectively replacing the legacy tools.
+          </para>
+          <para>
+            The OpenSSH server component, <application>sshd</application>, listens 
+	    continuously for client connections from any of the client tools. When a connection 
+	    request occurs, <application>sshd</application> sets up the correct connection 
+	    depending on the type of client tool connecting. For example, if the remote 
+	    computer is connecting with the <application>ssh</application> client application, 
+	    the OpenSSH server sets up a remote control session after authentication. If a 
+	    remote user connects to an OpenSSH server with <application>scp</application>, the 
+	    OpenSSH server daemon initiates a secure copy of files between the server and 
+	    client after authentication. OpenSSH can use many authentication methods, including             plain password, public key, and <application>Kerberos</application> tickets.
+            </para>
+          </sect2>
+        <sect2 id="openssh-installation">
+        <title>Installation</title>
+        <para>
+        Installation of the OpenSSH client and server applications is simple. To install the 
+	OpenSSH client applications on your Ubuntu system, use this command at a terminal 
+	prompt:
+        </para>
+<screen>
+<command>sudo apt-get install openssh-client</command>
+</screen>
+        <para>
+        To install the OpenSSH server application, and related support files, use this command 
+	at a terminal prompt:
+        </para>
+<screen>
+<command>sudo apt-get install openssh-server</command>
+</screen>
+        <para>
+	The <application>openssh-server</application> package can also be selected to 
+	install during the Server Edition installation process.
+	</para>
+        </sect2>
+        <sect2 id="openssh-configuration">
+          <title>Configuration</title>
+          <para>
+          You may configure the default behavior of the OpenSSH server application, 
+	  <application>sshd</application>, by editing the file 
+	  <filename>/etc/ssh/sshd_config</filename>. For information about the configuration 
+	  directives used in this file, you may view the appropriate manual page with the 
+	  following command, issued at a terminal prompt:
+          </para>
+<screen>
+<command>man sshd_config</command>
+</screen>
+            <para>
+            There are many directives in the <application>sshd</application> configuration 
+	    file controlling such things as communication settings and authentication modes. 
+	    The following are examples of configuration directives that can be changed by 
+	    editing the <filename>/etc/ssh/sshd_config</filename> file.
+            </para>
+            <tip>
+                <para>Prior to editing the configuration file, you should make a copy of the 
+		original file and protect it from writing so you will have the original 
+		settings as a reference and to reuse as necessary.
+                </para>
+                <para>Copy the <filename>/etc/ssh/sshd_config</filename> file and protect it 
+		from writing with the following commands, issued at a terminal prompt:
+                </para>
+	    </tip>
+<screen>
+<command>sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original</command>
+<command>sudo chmod a-w /etc/ssh/sshd_config.original</command>
+</screen>
+            <para>
+            The following are examples of configuration directives you may change:
+            </para>
+           <itemizedlist>
+               <listitem>
+               <para>
+               To set your OpenSSH to listen on TCP port 2222 instead of the default TCP port 
+	       22, change the Port directive as such:
+               </para>
+               <para>
+               Port 2222
+               </para>
+               </listitem>
+	<listitem>
+            <para>
+            To have <application>sshd</application> allow public key-based login credentials, 
+	    simply add or modify the line:
+            </para>
+               <para>
+               PubkeyAuthentication yes
+               </para>
+            <para>
+            In the <filename>/etc/ssh/sshd_config</filename> file, or if already present, 
+	    ensure the line is not commented out.
+            </para>
+            </listitem>
+            <listitem>
+             <para>
+             To make your OpenSSH server display the contents of the 
+	     <filename>/etc/issue.net</filename> file as a pre-login
+             banner, simply add or modify the line:
+             </para>
+               <para>
+               Banner  /etc/issue.net
+               </para>
+               <para>
+               In the <filename>/etc/ssh/sshd_config</filename> file.
+               </para>
+             </listitem>
+             </itemizedlist>
+	    <para>
+            After making changes to the <filename>/etc/ssh/sshd_config</filename> file, save 
+	    the file, and restart the <application>sshd</application> server application to 
+	    effect the changes using the following command at a terminal prompt:
+            </para>
+<screen>
+<command>sudo /etc/init.d/ssh restart</command>
+</screen>
+		<warning>
+                  <para>
+                  Many other configuration directives for <application>sshd</application> are 
+	          available for changing the server application's behavior to fit your needs. 
+		  Be advised, however, if your only method of access to a server is 
+		  <application>ssh</application>, and you make a mistake in configuring 
+		  <application>sshd</application> via the 
+		  <filename>/etc/ssh/sshd_config</filename> file, you may find you
+                  are locked out of the server upon restarting it, or that the 
+		  <application>sshd</application> server refuses to start due to an incorrect 
+		  configuration directive, so be extra careful when editing this file on a 
+		  remote server.
+                  </para>
+                </warning>
+        </sect2>
+   <sect2 id="openssh-keys" status="review">
+     <title>SSH Keys</title>
+     <para>
+     SSH <emphasis>keys</emphasis> allow authentication between two hosts without the need of a password.  SSH key authentication 
+     uses two keys a <emphasis>private</emphasis> key and a <emphasis>public</emphasis> key.
+     </para>
+     <para>
+     To generate the keys, from a terminal prompt enter:
+     </para>
+<screen>
+<command>ssh-keygen -t dsa</command>
+</screen>
+     <para>
+     This will generate the keys using a <emphasis>DSA</emphasis> authentication identity of the user.  During the process you
+     will be prompted for a password.  Simply hit <emphasis>Enter</emphasis> when prompted to create the key.  
+     </para>
+     <para>
+     By default the <emphasis>public</emphasis> key is saved in the file <filename>~/.ssh/id_dsa.pub</filename>, while 
+     <filename>~/.ssh/id_dsa</filename> is the <emphasis>private</emphasis> key.  Now copy the <filename>id_dsa.pub</filename> file
+     to the remote host and append it to <filename>~/.ssh/authorized_keys</filename> by entering:
+     </para>
+<screen>
+<command>ssh-copy-id username@remotehost</command>
+</screen>
+     <para>
+     Finally, double check the permissions on the <filename>authorized_keys</filename> file, only the authenticated user should have read and write permissions.
+     If the permissions are not correct change them by:
+     </para>
+<screen>
+<command>chmod 644 .ssh/authorized_keys</command>
+</screen>
+     <para>
+     You should now be able to SSH to the host without being prompted for a password.
+     </para>
+   </sect2>
+   <sect2 id="openssh-references" status="review">
+      <title>References</title>
+      <para>
+      <ulink url="http://www.openssh.org/">OpenSSH Website</ulink>
+      </para>
+      <para>
+      <ulink url="https://wiki.ubuntu.com/AdvancedOpenSSH">Advanced OpenSSH Wiki Page</ulink>
+      </para>
+   </sect2>
+  </sect1>
+  <sect1 id="ebox" status="review">
+    <title>eBox</title>
+    <para>
+    <application>eBox</application> is a web framework used to manage server application 
+    configuration. The modular design of eBox allows you to pick and choose which services you 
+    want to configure using eBox.
+    </para>
+    <sect2 id="ebox-installation" status="review">
+      <title>Installation</title>
+      <para>
+      The different <application>eBox</application> modules are split into different packages, 
+      allowing you to only install those necessary. One way to view the available packages is 
+      to enter the following from a terminal:
+      </para>
+<screen>
+<command>apt-cache rdepends ebox | uniq</command>
+</screen>
+      <para>
+      To install the <application>ebox</application> package, which contains the default 
+      modules, enter the following:
+      </para>
+<screen>
+<command>sudo apt-get install ebox</command>
+</screen>
+
+      <para>
+      During the installation you will be asked to supply a password for the ebox user. After 
+      installing eBox the web interface can be accessed from: 
+      <emphasis>https://yourserver/ebox</emphasis>.
+      </para>
+
+    </sect2>
+    <sect2 id="ebox-configuration" status="review">
+      <title>Configuration</title>
+      <para>
+      An important thing to remember when using <application>eBox</application> is that when 
+      configuring most modules there is a <emphasis>Change</emphasis> button that implements 
+      the new configuration. After clicking the Change button most, but not all, modules will 
+      then need to be <emphasis>Saved</emphasis>. To save the new configuration click on the 
+      <quote>Save changes</quote> link in the top right hand corner. 
+      </para>
+      <note>
+        <para>
+        Once you make a change that requires a Save, the link will change from green to red. 
+        </para>
+      </note>
+    </sect2>
+    <sect2 id="ebox-modules" status="review">
+      <title>eBox Modules</title>
+      <para>
+      By default all eBox <emphasis>Modules</emphasis> are not enabled, and when a new module 
+      is installed it will not be automatically enabled.
+      </para>
+      <para>
+      To enable a disabled module click on the <emphasis>Module status</emphasis> link in the 
+      left hand menu. Then <emphasis role="italic">check</emphasis> which modules you would 
+      like to enable and click the <quote>Save</quote> link. 
+      </para>
+      <sect3 id="ebox-default-modules" status="review">
+        <title>Default Modules</title>
+	<para>
+	This section provides a quick summary of the default <application>eBox</application> 
+	modules.
+	</para> 
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	    <emphasis>System:</emphasis> contains options allowing configuration of general 
+	    eBox items.
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		<emphasis>General:</emphasis> allows you to set the language, port 
+		number, and contains a change password form.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<emphasis>Disk Usage:</emphasis> displays a graph detailing information about 
+		disk usage.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<emphasis>Backup:</emphasis> is used to backup <application>eBox</application> 
+		configuration information, and the <emphasis>Full Backup</emphasis> option 
+		allows you to save all eBox information not included in the 
+		<emphasis>Configuration</emphasis> option such as log files.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<emphasis>Halt/Reboot:</emphasis> will shutdown the system or reboot it.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<emphasis>Bug Report:</emphasis> creates a file containing details helpful 
+		when reporting bugs to the eBox developers.
+		</para>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	  <listitem>
+            <para>
+            <emphasis>Logs:</emphasis> allows <application>eBox</application> logs to be 
+	    queried depending on the purge time configured.
+	    </para>
+          </listitem>
+	  <listitem>
+	    <para>
+	    <emphasis>Events:</emphasis> this module has the ability to send alerts through 
+	    rss, jabber, and log file.
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		<emphasis>Available Events:</emphasis>
+		</para>
+		<itemizedlist>
+		  <listitem>
+		    <para>
+		    <emphasis>Free Storage Space:</emphasis> will send alert if free disk 
+		    space drops below a configured percentage, 10% by default.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>Log Observer:</emphasis> unfortunately this event does not work 
+		    with the <application>eBox</application> version shipped with Ubuntu 7.10.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>RAID:</emphasis> will monitor the RAID system and send alerts if 
+		    any issues arise.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>Service:</emphasis> sends alerts if a service restarts multiple 
+		    times in a short time period.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>State:</emphasis> alerts on the state of 
+		    <application>eBox</application>, either up or down.
+		    </para>
+		  </listitem>
+		</itemizedlist>
+	      </listitem>
+	      <listitem>
+		<para>
+		<emphasis>Dispatchers:</emphasis>
+		</para>
+		<itemizedlist>
+		  <listitem>
+		    <para>
+                    <emphasis>Log:</emphasis> this dispatcher will send event messages to the 
+		    <application>eBox</application> log file 
+		    <filename>/var/log/ebox/ebox.log</filename>.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>Jabber:</emphasis> before enabling this dispatcher you must
+		    first configure it by clicking on the <quote>Configure</quote> icon.
+		    </para>
+		  </listitem>
+		  <listitem>
+		    <para>
+		    <emphasis>RSS:</emphasis> once this dispatcher is configured you can 
+		    subscribe to the link in order to view event alerts.
+		    </para>
+		  </listitem>
+		</itemizedlist>
+	      </listitem>
+	    </itemizedlist>
+	  </listitem>
+	</itemizedlist>
+      </sect3>
+    </sect2>
+    <sect2 id="ebox-additional-modules" status="review">
+      <title>Additional Modules</title>
+      <para>
+      Here is a quick description of other available <application>eBox</application> modules:
+      </para> 
+      <itemizedlist>
+        <listitem>
+	  <para>
+	  <emphasis>Network:</emphasis> allows configuration of the server's network options 
+	  through eBox.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Firewall:</emphasis> configures firewall options for the eBox host.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>UsersandGroups:</emphasis> this module will manage users and groups 
+	  contained in an <application>OpenLDAP</application> LDAP directory.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>DHCP:</emphasis> provides an interface for configuring a DHCP server. 
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>DNS:</emphasis> provides <application>BIND9</application> DNS server 
+	  configuration options.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Objects:</emphasis> allow configuration of eBox 
+	  <emphasis>Network Objects</emphasis>, which allow you to assign a name to an IP 
+	  address or group of IPs.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Services:</emphasis> displays configuration information for services that 
+	  are available to the network.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Squid:</emphasis> configuration options for the 
+	  <application>Squid</application> proxy server.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>CA:</emphasis> configures a Certificate Authority for the server.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>NTP:</emphasis> set Network Time Protocol options.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Printers:</emphasis> allows the configuration of printers.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>Samba:</emphasis> configuration options for Samba.
+	  </para>
+        </listitem>
+        <listitem>
+	  <para>
+	  <emphasis>OpenVPN:</emphasis> setup options for OpenVPN Virtual Private Network 
+	  application.
+	  </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+    <sect2 id="ebox-resources" status="review">
+      <title>Resources</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+	  For more information see the 
+	  <ulink url="http://ebox-platform.com/">eBox Home Page</ulink>.
+	  </para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1> 
+</chapter>

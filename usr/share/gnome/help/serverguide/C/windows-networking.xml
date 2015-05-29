@@ -1,0 +1,1594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="windows-networking" status="review">
+  <title>Windows Networking</title>
+  
+  <para>
+  Computer networks are often comprised of diverse systems, and while operating a network
+  made up entirely of Ubuntu desktop and server computers would certainly be fun, some network environments
+  must consist of both Ubuntu and <trademark class='registered'>Microsoft</trademark> 
+  <trademark class='registered'>Windows</trademark> systems working together in harmony.  
+  This section of the &ubuntu; &sg-title; introduces principles and tools used in 
+  configuring your Ubuntu Server for sharing network resources with Windows computers.
+  </para>
+
+  <sect1 id="windows-networking-introduction" status="review">
+    <title>Introduction</title>
+    
+    <para>
+    Successfully networking your Ubuntu system with Windows clients involves providing and integrating with services 
+    common to Windows environments. Such services assist the sharing of data and information about the computers 
+    and users involved in the network, and may be classified under three major categories of functionality:
+    </para>
+    
+    <itemizedlist>
+      <listitem>
+        <para>
+        <emphasis role="bold">File and Printer Sharing Services</emphasis>. Using the Server Message Block (SMB) 
+        protocol to facilitate the sharing of files, folders, volumes, and the sharing of printers throughout the network.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis role="bold">Directory Services</emphasis>. Sharing vital information about the computers and users of 
+        the network with such technologies as the Lightweight Directory Access Protocol (LDAP) and Microsoft
+        <trademark class='registered'>Active Directory</trademark>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        <emphasis role="bold">Authentication and Access</emphasis>. Establishing the identity of a computer or user of 
+        the network and determining the information the computer or user is authorized to access using such principles 
+        and technologies as file permissions, group policies, and the Kerberos authentication service.
+        </para>
+      </listitem>
+      </itemizedlist>
+        
+      <para>
+      Fortunately, your Ubuntu system may provide all such facilities to Windows clients and share network resources 
+      among them.  One of the principal pieces of software your Ubuntu system includes for Windows networking is the Samba 
+      suite of SMB server applications and tools.  
+      </para>
+        
+      <para>
+      This section of the &ubuntu; &sg-title; will introduce some of the common Samba use cases, and how to 
+      install and configure the necessary packages.  Additional detailed documentation and information on Samba can be found
+      on the <ulink url="http://www.samba.org">Samba website</ulink>.
+      </para>
+  
+  </sect1>
+  <sect1 id="samba-fileserver" status="review">
+    <title>Samba File Server</title>
+    
+    <para>
+    One of the most common ways to network Ubuntu and Windows computers is to configure Samba as a File Server.  This section 
+    covers setting up a <application>Samba</application> server to share files with Windows clients.
+    </para>
+
+    <para>
+    The server will be configured to share files with any client on the network without prompting for a password.  If
+    your environment requires stricter Access Controls see <xref linkend="samba-fileprint-security"/>
+    </para>
+
+    <sect2 id="samba-fileserver-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      The first step is to install the <application>samba</application> package.  From a terminal prompt enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install samba</command>
+</screen>
+    
+      <para>
+      That's all there is to it; you are now ready to configure Samba to share files.
+      </para>
+
+    </sect2>
+    <sect2 id="samba-fileserver-configuration" status="review">
+      <title>Configuration</title>
+    
+      <para>
+      The main Samba configuration file is located in <filename>/etc/samba/smb.conf</filename>.  The default configuration file
+      has a significant amount of comments in order to document various configuration directives.  
+      </para>
+      <note>
+        <para>
+        Not all the available options are included in the default configuration file.  See the <filename>smb.conf</filename>
+        <application>man</application> page or the 
+        <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink> for more details.
+        </para>
+      </note>
+
+      <procedure>        
+        <step>
+
+        <para>
+        First, edit the following key/value pairs in the <emphasis>[global]</emphasis> section of 
+        <filename>/etc/samba/smb.conf</filename>:
+        </para>
+
+<programlisting>
+   workgroup = EXAMPLE
+   ...
+   security = user
+</programlisting>
+
+        <para>
+        The <emphasis>security</emphasis> parameter is farther down in the [global] section, and is commented by default.
+        Also, change <emphasis>EXAMPLE</emphasis> to better match your environment.  
+        </para>
+
+        </step>
+        <step>
+  
+        <para>
+        Create a new section at the bottom of the file, or uncomment one of the examples, for the directory to be shared:
+        </para>
+
+<programlisting>
+[share]
+    comment = Ubuntu File Server Share
+    path = /srv/samba/share
+    browsable = yes
+    guest ok = yes
+    read only = no
+    create mask = 0755
+</programlisting>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          <emphasis>comment:</emphasis> a short description of the share.  Adjust to fit your needs.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>path:</emphasis> the path to the directory to share. 
+          </para>
+          <para>
+          This example uses <filename>/srv/samba/sharename</filename> because, according to the 
+          <emphasis>Filesystem Hierarchy Standard (FHS)</emphasis>, 
+          <ulink url="http://www.pathname.com/fhs/pub/fhs-2.3.html#SRVDATAFORSERVICESPROVIDEDBYSYSTEM">/srv</ulink>
+          is where site-specific data should be served.  Technically Samba shares can be placed anywhere on the filesystem
+          as long as the permissions are correct, but adhering to standards is recommended.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>browsable:</emphasis> enables Windows clients to browse the shared directory using 
+          <application>Windows Explorer</application>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>guest ok:</emphasis> allows clients to connect to the share without supplying a password.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>read only:</emphasis> gives write access to the shared directory.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>create mask:</emphasis> determines the permissions new files will have when created.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      </step>
+      <step>
+        
+        <para> 
+        Now that <application>Samba</application> is configured, the directory needs to be created and the permissions
+        changed.  From a terminal enter:
+        </para>
+
+<screen>
+<command>sudo mkdir -p /srv/samba/share</command>
+<command>sudo chown nobody.nogroup /srv/samba/share/</command>
+</screen>
+
+      <note>
+        <para>
+        The <emphasis>-p</emphasis> switch tells mkdir to create the entire directory tree if it doesn't exist.  Change the 
+        share name to fit your environment. 
+        </para>
+      </note>
+
+      </step>
+      <step>
+     
+      <para>
+      Finally, restart the <application>samba</application> services to enable the new configuration:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+      </step>
+      </procedure>
+
+      <warning>
+        <para>
+        Once again, the above configuration gives all access to any client on the local network.  For a more secure
+        configuration see <xref linkend="samba-fileprint-security"/>.
+        </para>
+      </warning>
+
+      <para>
+      From a Windows client you should now be able to browse to the Ubuntu file server and see the shared directory.  To 
+      check that everything is working try creating a directory from Windows. 
+      </para>
+
+      <para>
+      To create additional shares simply create new <emphasis>[dir]</emphasis> sections in 
+      <filename>/etc/samba/smb.conf</filename>, and restart <emphasis>Samba</emphasis>.  Just make sure that the directory
+      you want to share actually exists and the permissions are correct.
+      </para>
+    </sect2>
+    <sect2 id="samba-fileserver-resources" status="review">
+      <title>Resources</title>
+ 
+      <itemizedlist>
+        <listitem>
+          <para>
+          For in depth Samba configurations see the 
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The guide is also available in 
+          <ulink url="http://www.amazon.com/exec/obidos/tg/detail/-/0131882228">printed format</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          O'Reilly's <ulink url="http://www.oreilly.com/catalog/9780596007690/">Using Samba</ulink> is another good
+          reference.
+          </para>
+        </listitem>
+      </itemizedlist>
+   
+    </sect2>
+  </sect1>
+  <sect1 id="samba-printserver" status="review">
+    <title>Samba Print Server</title>
+    
+    <para>
+    Another common use of Samba is to configure it to share printers installed, either locally or over the network, on 
+    an Ubuntu server.  Similar to <xref linkend="samba-fileserver"/> this section will configure Samba to allow any client
+    on the local network to use the installed printers without prompting for a username and password.
+    </para>
+
+    <para>
+    For a more secure configuration see <xref linkend="samba-fileprint-security"/>.
+    </para>
+
+    <sect2 id="samba-printserver-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      Before installing and configuring Samba it is best to already have a working <application>CUPS</application> 
+      installation. See <xref linkend="cups"/> for details.
+      </para>
+
+      <para>
+      To install the <application>samba</application> package, from a terminal enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install samba</command>
+</screen>
+
+    </sect2>
+    <sect2 id="samba-printserver-configuration" status="review">
+      <title>Configuration</title>
+    <para>
+    After installing samba edit <filename>/etc/samba/smb.conf</filename>.  Change the <emphasis>workgroup</emphasis> 
+    attribute to what is appropriate for your network, and change <emphasis>security</emphasis> to 
+    <emphasis role="italic">share</emphasis>:
+    </para>
+
+<programlisting>
+   workgroup = EXAMPLE
+   ...
+   security = user
+</programlisting>
+
+    <para>
+    In the <emphasis>[printers]</emphasis> section change the <emphasis>guest ok</emphasis> option to <emphasis role="italic">yes</emphasis>:
+    </para>
+
+<programlisting>
+   browsable = yes
+   guest ok = yes
+</programlisting>
+
+    <para>
+    After editing <filename>smb.conf</filename> restart Samba:
+    </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+    <para>
+    The default Samba configuration will automatically share any printers installed.  Simply install the printer locally 
+    on your Windows clients.
+    </para>
+    
+    </sect2>
+    <sect2 id="samba-printserver-resources" status="review">
+      <title>Resources</title>
+ 
+      <itemizedlist>
+        <listitem>
+          <para>
+          For in depth Samba configurations see the 
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The guide is also available in 
+          <ulink url="http://www.amazon.com/exec/obidos/tg/detail/-/0131882228">printed format</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          O'Reilly's <ulink url="http://www.oreilly.com/catalog/9780596007690/">Using Samba</ulink> is another good
+          reference.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Also, see the <ulink url="http://www.cups.org/">CUPS Website</ulink> for more information on configuring CUPS.
+          </para>
+        </listitem>
+      </itemizedlist>
+   
+    </sect2>
+  </sect1>
+  <sect1 id="samba-fileprint-security" status="review">
+    <title>Securing a Samba File and Print Server</title>
+
+    <sect2 id="samba-security-mode" status="review">
+      <title>Samba Security Modes</title>
+
+      <para>
+      There are two security levels available to the Common Internet Filesystem (CIFS) network protocol 
+      <emphasis>user-level</emphasis> and <emphasis>share-level</emphasis>.  Samba's <emphasis>security mode</emphasis>
+      implementation allows more flexibility, providing four ways of implementing user-level security and one way to 
+      implement share-level:
+      </para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>
+          <emphasis>security = user:</emphasis> requires clients to supply a username and password to connect to shares. 
+          Samba user accounts are separate from system accounts, but the <application>libpam-smbpass</application> 
+          package will sync system users and passwords with the Samba user database.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>security = domain:</emphasis> this mode allows the Samba server to appear to Windows clients as a Primary
+          Domain Controller (PDC), Backup Domain Controller (BDC), or a Domain Member Server (DMS).  See 
+          <xref linkend="samba-dc"/> for further information.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>security = ADS:</emphasis> allows the Samba server to join an Active Directory domain as a native
+          member.  See <xref linkend="samba-ad-integration"/> for details.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>security = server:</emphasis> this mode is left over from before Samba could become a member server, and 
+          due to some security issues should not be used.  See the 
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/ServerType.html#id349531">Server Security</ulink>
+          section of the Samba guide for more details.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <emphasis>security = share:</emphasis> allows clients to connect to shares without supplying a username and 
+          password.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+      <para>
+      The security mode you choose will depend on your environment and what you need the Samba server to accomplish.
+      </para>
+
+    </sect2>
+    <sect2 id="samba-user-security" status="review">
+      <title>Security = User</title>
+
+      <para>
+      This section will reconfigure the Samba file and print server, from <xref linkend="samba-fileserver"/> and
+      <xref linkend="samba-printserver"/>, to require authentication.
+      </para>
+
+      <para>
+      First, install the <application>libpam-smbpass</application> package which will sync the system users to the Samba
+      user database:
+      </para>
+
+<screen>
+<command>sudo apt-get install libpam-smbpass</command>
+</screen>
+
+      <note>
+        <para>
+        If you chose the <emphasis>Samba Server</emphasis> task during installation <application>libpam-smbpass</application>
+        is already installed.
+        </para>
+      </note>
+
+      <para>
+      Edit <filename>/etc/samba/smb.conf</filename>, and in the <emphasis>[share]</emphasis> section change:
+      </para>
+
+<programlisting>
+    guest ok = no
+</programlisting>
+
+      <para>
+      Finally, restart Samba for the new settings to take effect:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+      <para>
+      Now when connecting to the shared directories or printers you should be prompted for a username and password.  
+      </para>
+
+      <note>
+        <para>
+        If you choose to map a network drive to the share you can check the <quote>Reconnect at Logon</quote> check 
+        box, which will require you to only enter the username and password once, at least until the password changes.
+        </para>
+      </note>
+
+    </sect2>
+    <sect2 id="samba-share-security" status="review">
+      <title>Share Security</title>
+
+      <para>
+      There are several options available to increase the security for each individual shared directory.  Using the 
+      <emphasis>[share]</emphasis> example, this section will cover some common options.
+      </para>
+
+      <sect3 id="windows-networking-groups" status="review">
+        <title>Groups</title>
+        
+        <para>
+        Groups define a collection of computers or users which have a common level of access to particular network 
+        resources and offer a level of granularity in controlling access to such resources.  For example, if a group 
+        <emphasis role="italic">qa</emphasis> is defined and contains the users <emphasis role="italic">freda</emphasis>,
+        <emphasis role="italic">danika</emphasis>, and <emphasis role="italic">rob</emphasis> and a second group
+        <emphasis role="italic">support</emphasis> is defined and consists of users <emphasis role="italic">danika</emphasis>,
+        <emphasis role="italic">jeremy</emphasis>, and <emphasis role="italic">vincent</emphasis> then certain network 
+        resources configured to allow access by the <emphasis role="italic">qa</emphasis> group will subsequently enable 
+        access by freda, danika, and rob, but not jeremy or vincent.  Since the user <emphasis role="italic">danika</emphasis>
+        belongs to both the <emphasis role="italic">qa</emphasis> and <emphasis role="italic">support</emphasis> groups, she
+        will be able to access resources configured for access by both groups, whereas all other users will have only access 
+        to resources explicitly allowing the group they are part of.
+        </para>
+
+        <para>
+        By default Samba looks for the local system groups defined in <filename>/etc/group</filename> to determine which users
+        belong to which groups.  For more information on adding and removing users from groups see 
+        <xref linkend="adding-deleting-users"/>.
+        </para>
+
+        <para>
+        When defining groups in the Samba configuration file, <filename>/etc/samba/smb.conf</filename>, the recognized syntax 
+        is to preface the group name with an "@" symbol.  For example, if you wished to define a group named 
+        <emphasis role="italic">sysadmin</emphasis> in a certain section of the <filename>/etc/samba/smb.conf</filename>, 
+        you would do so by entering the group name as <emphasis role="bold">@sysadmin</emphasis>.
+        </para>
+
+      </sect3>
+      <sect3 id="samba-file-permissions" status="review">
+        <title>File Permissions</title>
+
+        <para>
+        File Permissions define the explicit rights a computer or user has to a particular directory, file, or set of
+        files.  Such permissions may be defined by editing the <filename>/etc/samba/smb.conf</filename> file and specifying
+        the explicit permissions of a defined file share.
+        </para>
+
+        <para>
+        For example, if you have defined a Samba share called <emphasis>share</emphasis> and wish to give 
+        <emphasis role="italic">read-only</emphasis> permissions to the group of users known as 
+        <emphasis role="italic">qa</emphasis>, but wanted to allow writing to the share by the group called 
+        <emphasis role="italic">sysadmin</emphasis> and the user named <emphasis role="italic">vincent</emphasis>, 
+        then you could edit the <filename>/etc/samba/smb.conf</filename> file, and add the following entries under 
+        the <emphasis>[share]</emphasis> entry:
+        </para>
+
+<programlisting>
+    read list = @qa
+    write list = @sysadmin, vincent
+</programlisting>
+
+        <para>
+        Another possible Samba permission is to declare <emphasis>administrative</emphasis> permissions to a
+        particular shared resource.  Users having administrative permissions may read, write, or modify any information
+        contained in the resource the user has been given explicit administrative permissions to.
+        </para>
+
+        <para>
+        For example, if you wanted to give the user <emphasis role="italic">melissa</emphasis> administrative permissions to
+        the <emphasis role="italic">share</emphasis> example, you would edit the 
+        <filename>/etc/samba/smb.conf</filename> file, and add the following line under the 
+        <emphasis>[share]</emphasis> entry:
+        </para>
+
+<programlisting>
+    admin users = melissa
+</programlisting>
+
+        <para>
+        After editing <filename>/etc/samba/smb.conf</filename>, restart Samba for the changes to take effect:
+        </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+        <note>
+          <para>
+          For the <emphasis>read list</emphasis> and <emphasis>write list</emphasis> to work the Samba security mode
+          must <emphasis>not</emphasis> be set to <emphasis role="italic">security = share</emphasis>
+          </para>
+        </note> 
+
+        <para>
+        Now that Samba has been configured to limit which groups have access to the shared directory, the filesystem permissions
+        need to be updated.
+        </para>
+
+        <para>
+        Traditional Linux file permissions do not map well to Windows NT Access Control Lists (ACLs).  Fortunately POSIX ACLs
+        are available on Ubuntu servers providing more fine grained control.  For example, to enable ACLs on  
+        <filename>/srv</filename> an EXT3 filesystem, edit <filename>/etc/fstab</filename> adding the 
+        <emphasis>acl</emphasis> option:
+        </para>
+
+<programlisting>
+UUID=66bcdd2e-8861-4fb0-b7e4-e61c569fe17d /srv  ext3    noatime,relatime,acl 0       1
+</programlisting>
+
+        <para>
+        Then remount the partition:
+        </para>
+
+<screen>
+<command>sudo mount -v -o remount /srv</command>
+</screen>
+
+        <note>
+          <para>
+          The above example assumes <filename>/srv</filename> on a separate partition.  If <filename>/srv</filename>,
+          or wherever you have configured your share path, is part of the <filename>/</filename> partition a reboot may be 
+          required.
+          </para>
+        </note>
+
+        <para>
+        To match the Samba configuration above the <emphasis>sysadmin</emphasis> group will be given read, write, and execute
+        permissions to <filename>/srv/samba/share</filename>, the <emphasis>qa</emphasis> group will be given read and execute
+        permissions, and the files will be owned by the username <emphasis>melissa</emphasis>.  Enter the following in a 
+        terminal:
+        </para>
+
+<screen>
+<command>sudo chown -R melissa /srv/samba/share/</command>
+<command>sudo chgrp -R sysadmin /srv/samba/share/</command>
+<command>sudo setfacl -R -m g:qa:rx /srv/samba/share/</command>
+</screen>
+
+        <note>
+          <para>
+          The <application>setfacl</application> command above gives <emphasis>execute</emphasis> permissions to all files in
+          the <filename>/srv/samba/share</filename> directory, which you may or may not want.
+          </para>
+        </note>
+        
+        <para>
+        Now from a Windows client you should notice the new file permissions are implemented.  See the 
+        <application>acl</application> and <application>setfacl</application> man pages for more information on POSIX ACLs.
+        </para>
+
+      </sect3>
+    </sect2>
+    <sect2 id="samba-apparmor" status="review">
+      <title>Samba AppArmor Profile</title>
+     
+      <para>
+      Ubuntu comes with the <application>AppArmor</application> security module, which provides mandatory access controls.
+      The default AppArmor profile for Samba will need to be adapted to your configuration.  For more details on using
+      AppArmor see <xref linkend="apparmor"/>.
+      </para>
+
+      <para>
+      There are default AppArmor profiles for <filename>/usr/sbin/smbd</filename> and <filename>/usr/sbin/nmbd</filename>, the
+      Samba daemon binaries, as part of the <application>apparmor-profiles</application> packages.  To install the package,
+      from a terminal prompt enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install apparmor-profiles</command>
+</screen>
+
+      <note>
+        <para>
+        This package contains profiles for several other binaries.
+        </para>
+      </note>
+
+      <para>
+      By default the profiles for <application>smbd</application> and <application>nmbd</application> are in 
+      <emphasis>complain</emphasis> mode allowing Samba to work without modifying the profile, and only logging errors.
+      To place the <application>smbd</application> profile into <emphasis>enforce</emphasis> mode, and have Samba work as 
+      expected, the profile will need to be modified to reflect any directories that are shared.
+      </para>
+
+      <para>
+      Edit <filename>/etc/apparmor.d/usr.sbin.smbd</filename> adding information for <emphasis>[share]</emphasis> from the
+      file server example:
+      </para>
+
+<programlisting>
+  /srv/samba/share/ r,
+  /srv/samba/share/** rwkix,
+</programlisting>
+
+      <para>
+      Now place the profile into <emphasis>enforce</emphasis> and reload it:
+      </para>
+
+<screen>
+<command>sudo aa-enforce /usr/sbin/smbd</command>
+<command>cat /etc/apparmor.d/usr.sbin.smbd | sudo apparmor_parser -r</command>
+</screen>
+
+      <para>
+      You should now be able to read, write, and execute files in the shared directory as normal, and the
+      <application>smbd</application> binary will have access to only the configured files and direcotories.  
+      Be sure to add entries for each directory you configure Samba to share.  Also, any errors will be logged
+      to <filename>/var/log/syslog</filename>.  
+      </para>
+
+    </sect2>
+    <sect2 id="samba-security-resources" status="review">
+      <title>Resources</title>
+ 
+      <itemizedlist>
+        <listitem>
+          <para>
+          For in depth Samba configurations see the 
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The guide is also available in 
+          <ulink url="http://www.amazon.com/exec/obidos/tg/detail/-/0131882228">printed format</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          O'Reilly's <ulink url="http://www.oreilly.com/catalog/9780596007690/">Using Samba</ulink> is also a good
+          reference.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/securing-samba.html">Chapter 18</ulink> 
+          of the Samba HOWTO Collection is devoted to security.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          For more information on Samba and ACLs see the
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/AccessControls.html#id397568">Samba ACLs page
+          </ulink>.
+          </para>
+        </listitem>
+      </itemizedlist>
+   
+    </sect2>
+  </sect1>
+  <sect1 id="samba-dc" status="review">
+    <title>Samba as a Domain Controller</title>
+    
+    <para>
+    Although it cannot act as an Active Directory Primary Domain Controller (PDC), a Samba server can be configured to
+    appear as a Windows NT4-style domain controller.  A major advantage of this configuration is the ability to centralize 
+    user and machine credentials.  Samba can also use multiple backends to store the user information.
+    </para>
+
+    <sect2 id="samba-pdc-smbpasswd" status="review">
+      <title>Primary Domain Controller</title>
+
+      <para>
+      This section covers configuring Samba as a Primary Domain Controller (PDC) using the default smbpasswd backend.
+      </para> 
+
+      <procedure>
+        <step>
+
+          <para>
+          First, install Samba, and <application>libpam-smbpass</application> to sync the user accounts,
+          by entering the following in a terminal prompt:
+          </para>
+
+<screen>
+<command>sudo apt-get install samba libpam-smbpass</command>
+</screen>
+        
+        </step>
+        <step>
+
+          <para>
+          Next, configure Samba by editing <filename>/etc/samba/smb.conf</filename>. 
+          The <emphasis>security</emphasis> mode should be set to <emphasis role="italic">user</emphasis>, and
+          the <emphasis>workgroup</emphasis> should relate to your organization:
+          </para>
+
+<programlisting>
+   workgroup = EXAMPLE
+   ...
+   security = domain
+</programlisting>
+
+        </step>
+        <step>
+
+          <para>
+          In the commented <quote>Domains</quote> section add or uncomment the following:
+          </para>
+
+<programlisting>
+   domain logons = yes
+   logon path = \\%N\%U\profile
+   logon drive = H:
+   logon home = \\%N\%U
+   logon script = logon.cmd
+   add machine script = sudo /usr/sbin/useradd -n -g machines -c Machine -d /var/lib/samba -s /bin/false %u
+</programlisting>
+ 
+          <itemizedlist>
+            <listitem>
+              <para>
+              <emphasis>domain logons:</emphasis> provides the netlogon service causing Samba to act as a domain controller.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>logon path:</emphasis> places the user's Windows profile into their home directory.  It is also
+              possible to configure a <emphasis>[profiles]</emphasis> share placing all profiles under a single directory.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>logon drive:</emphasis> specifies the home directory local path.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>logon home:</emphasis> specifies the home directory location.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>logon script:</emphasis> determines the script to be run locally once a user has logged in.
+              The script needs to be placed in the <emphasis>[netlogon]</emphasis> share. 
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>add machine script:</emphasis> a script that will automatically create the 
+              <emphasis>Machine Trust Account</emphasis> needed for a workstation to join the domain.
+              </para>
+              <para>
+              In this example the <emphasis>machines</emphasis> group will need to be created using the 
+              <application>addgroup</application> utility see <xref linkend="adding-deleting-users"/> for details.
+              </para>
+            </listitem>
+          </itemizedlist>
+
+          <note>
+            <para>
+            If you wish to not use <emphasis>Roaming Profiles</emphasis> leave the <emphasis>logon home</emphasis>
+            and <emphasis>logon path</emphasis> options commented.
+            </para>
+          </note>
+
+        </step>
+        <step>
+     
+          <para>
+          Uncomment the <emphasis>[homes]</emphasis> share to allow the <emphasis role="italic">logon home</emphasis>
+          to be mapped:
+          </para>
+
+<programlisting>
+[homes]
+   comment = Home Directories
+   browseable = no
+   read only = no
+   create mask = 0700
+   directory mask = 0700
+   valid users = %S
+</programlisting>
+
+        </step>
+        <step>
+
+          <para>
+          When configured as a domain controller a <emphasis>[netlogon]</emphasis> share needs to be configured.  To 
+          enable the share, uncomment:
+          </para>
+
+<programlisting>
+[netlogon]
+   comment = Network Logon Service
+   path = /srv/samba/netlogon
+   guest ok = yes
+   read only = yes
+   share modes = no
+</programlisting>
+
+          <note>
+            <para>
+            The original <emphasis>netlogon</emphasis> share path is <filename>/home/samba/netlogon</filename>, but according 
+            to the Filesystem Hierarchy Standard (FHS), 
+            <ulink url="http://www.pathname.com/fhs/pub/fhs-2.3.html#SRVDATAFORSERVICESPROVIDEDBYSYSTEM">/srv</ulink> is the 
+            correct location for site-specific data provided by the system.
+            </para>
+          </note>
+
+        </step>
+        <step>
+
+          <para>
+          Now create the <filename role="directory">netlogon</filename> directory, and an empty (for now) 
+          <filename>logon.cmd</filename> script file:
+          </para> 
+
+<screen>
+<command>sudo mkdir -p /srv/samba/netlogon</command>
+<command>sudo touch /srv/samba/netlogon/logon.cmd</command>
+</screen>
+ 
+          <para>
+          You can enter any normal Windows logon script commands in <filename>logon.cmd</filename> to customize the
+          client's environment.
+          </para>
+
+        </step>
+        <step>
+
+          <para>
+          With <emphasis>root</emphasis> being disabled by default, in order to join a workstation to the domain, a system
+          group needs to be mapped to the Windows <emphasis>Domain Admins</emphasis> group.  
+          Using the <application>net</application> utility, from a terminal enter:
+          </para>
+
+<screen>
+<command>sudo net groupmap add ntgroup="Domain Admins" unixgroup=sysadmin rid=512 type=d</command>
+</screen>
+
+          <note>
+            <para>
+            Change <emphasis role="italic">sysadmin</emphasis> to whichever group you prefer.  Also, the user
+            used to join the domain needs to be a member of the <emphasis>sysadmin</emphasis> group, as well 
+            as a member of the system <emphasis>admin</emphasis> group.  The <emphasis>admin</emphasis> group allows 
+            <application>sudo</application> use.
+            </para>
+          </note>
+
+        </step>
+        <step>
+
+          <para>
+          Finally, restart Samba to enable the new domain controller:
+          </para> 
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>
+          You should now be able to join Windows clients to the Domain in the same manner as joining them to an 
+          NT4 domain running on a Windows server.
+          </para>
+
+        </step>        
+
+      </procedure>
+    </sect2>
+    <sect2 id="samba-bdc-smbpasswd" status="review">
+      <title>Backup Domain Controller</title>
+
+      <para>
+      With a Primary Domain Controller (PDC) on the network it is best to have a Backup Domain Controller (BDC) as well.
+      This will allow clients to authenticate in case the PDC becomes unavailable.
+      </para>
+
+      <para>
+      When configuring Samba as a BDC you need a way to sync account information with the PDC.  There are multiple ways of 
+      accomplishing this <application>scp</application>, <application>rsync</application>, or by using <application>LDAP</application> as
+      the <emphasis>passdb backend</emphasis>.
+      </para>
+
+      <para>
+      Using LDAP is the most robust way to sync account information, because both domain controllers can use the same information in real time.
+      However, setting up a LDAP server may be overly complicated for a small number of user and computer accounts.  
+      See <xref linkend="samba-ldap"/> for details.
+      </para>
+
+      <procedure>
+        <step>
+   
+          <para>
+          First, install <application>samba</application> and <application>libpam-smbpass</application>.  From a terminal enter:
+          </para>
+
+<screen>
+<command>sudo apt-get install samba libpam-smbpass</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>
+          Now, edit <filename>/etc/samba/smb.conf</filename> and uncomment the following in the <emphasis>[global]</emphasis>:
+          </para>
+
+<programlisting>
+   workgroup = EXAMPLE
+   ...
+   security = user
+</programlisting>
+
+        </step>
+        <step>
+
+        <para>
+        In the commented <emphasis>Domains</emphasis> uncomment or add:
+        </para>
+
+<programlisting>
+   domain logons = yes
+   domain master = no
+</programlisting>
+        
+        </step>
+        <step>
+
+          <para>
+          Make sure a user has rights to read the files in <filename>/var/lib/samba</filename>.  For example, to allow users in the 
+          <emphasis>admin</emphasis> group to <application>scp</application> the files, enter:
+          </para>
+
+<screen>
+<command>sudo chgrp -R admin /var/lib/samba</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>
+          Next, sync the user accounts, using <application>scp</application> to copy the <filename>/var/lib/samba</filename> 
+          directory from the PDC:
+          </para>
+
+<screen>
+<command>sudo scp -r username@pdc:/var/lib/samba /var/lib</command>
+</screen>
+
+          <note>
+            <para>
+            Replace <emphasis>username</emphasis> with a valid username and <emphasis>pdc</emphasis> with the hostname or IP Address of your
+            actual PDC. 
+            </para>
+          </note>
+
+        </step>
+        <step>
+          
+          <para>
+          Finally, restart <application>samba</application>:
+          </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+        </step>
+      </procedure>
+
+      <para>
+      You can test that your Backup Domain controller is working by stopping the Samba daemon on the PDC, then trying to login to a 
+      Windows client joined to the domain.
+      </para>
+
+      <para>
+      Another thing to keep in mind is if you have configured the <emphasis>logon home</emphasis> option as a directory on the PDC,
+      and the PDC becomes unavailable, access to the user's <emphasis>Home</emphasis> drive will also be unavailable.  For this reason
+      it is best to configure the <emphasis>logon home</emphasis> to reside on a separate file server from the PDC and BDC.
+      </para>
+
+    </sect2>
+    <sect2 id="samba-dc-resources" status="review">
+      <title>Resources</title>
+ 
+      <itemizedlist>
+        <listitem>
+          <para>
+          For in depth Samba configurations see the 
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The guide is also available in 
+          <ulink url="http://www.amazon.com/exec/obidos/tg/detail/-/0131882228">printed format</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          O'Reilly's <ulink url="http://www.oreilly.com/catalog/9780596007690/">Using Samba</ulink> is also a good
+          reference.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/samba-pdc.html">Chapter 4</ulink> 
+          of the Samba HOWTO Collection explains setting up a Primary Domain Controller.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <ulink url="http://us3.samba.org/samba/docs/man/Samba-HOWTO-Collection/samba-bdc.html">Chapter 5</ulink> 
+          of the Samba HOWTO Collection explains setting up a Backup Domain Controller.
+          </para>
+        </listitem>
+      </itemizedlist>
+   
+    </sect2>
+  </sect1>
+  <sect1 id="samba-ad-integration" status="review">
+    <title>Samba Active Directory Integration</title>
+
+    <sect2 id="ad-integration-samba-share" status="review">
+      <title>Accessing a Samba Share</title>
+
+      <para>
+      Another, use for Samba is to integrate into an existing Windows network.  Once part of an Active Directory domain,
+      Samba can provide file and print services to AD users.
+      </para> 
+
+      <para>
+      The simplest way to join an AD domain is to use <application>Likewise-open</application>.  For detailed instructions
+      see <xref linkend="likewise-open"/>.
+      </para>
+
+      <para>
+      Once part of the domain, install the following packages:
+      </para>
+
+<screen>
+<command>sudo apt-get install samba smbfs smbclient</command>
+</screen>
+
+      <para>
+      Since the <application>likewise-open</application> and <application>samba</application> packages use separate 
+      <filename>secrets.tdb</filename> files, a symlink will need to be created in <filename role="directory">/var/lib/samba</filename>:
+      </para>
+
+<screen>
+<command>sudo mv /var/lib/samba/secrets.tdb /var/lib/samba/secrets.tdb.orig</command>
+<command>sudo ln -s /etc/samba/secrets.tdb /var/lib/samba</command>
+</screen>
+
+      <para>
+      Next, edit <filename>/etc/samba/smb.conf</filename> changing:
+      </para>
+
+<programlisting>
+   workgroup = EXAMPLE
+   ...
+   security = ads
+   realm = EXAMPLE.COM
+   ...
+   idmap backend = lwopen
+   idmap uid = 50-9999999999
+   idmap gid = 50-9999999999
+</programlisting>
+
+      <para>
+      Restart <application>samba</application> for the new settings to take effect:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+      <para>
+      You should now be able to access any <application>Samba</application> shares from a Windows client.  However, be sure to give
+      the appropriate AD users or groups access to the share directory.  See <xref linkend="samba-fileprint-security"/> for 
+      more details.
+      </para>
+
+    </sect2>
+    <sect2 id="ad-integration-windows-share" status="review">
+      <title>Accessing a Windows Share</title>
+
+      <para>
+      Now that the Samba server is part of the Active Directory domain you can access any Windows server shares:
+      </para>
+
+      <itemizedlist>
+        <listitem>
+
+          <para>
+          To mount a Windows file share enter the following in a terminal prompt:
+          </para>
+<screen>
+<command>mount.cifs //fs01.example.com/share mount_point</command>
+</screen>
+
+          <para>
+          It is also possible to access shares on computers not part of an AD domain, but a username and password 
+          will need to be provided.
+          </para>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          To mount the share during boot place an entry in <filename>/etc/fstab</filename>, for example:
+          </para>
+
+<programlisting>
+//192.168.0.5/share /mnt/windows cifs auto,username=steve,password=secret,rw 0        0
+</programlisting>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          Another way to copy files from a Windows server is to use the <application>smbclient</application> utility.  To 
+          list the files in a Windows share:
+          </para>
+
+<screen>
+<command>smbclient //fs01.example.com/share -k -c "ls"</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          To copy a file from the share, enter:
+          </para>
+
+<screen>
+<command>smbclient //fs01.example.com/share -k -c "get file.txt"</command>
+</screen>
+
+          <para>
+          This will copy the <filename>file.txt</filename> into the current directory.
+          </para>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          And to copy a file to the share:
+          </para>
+
+<screen>
+<command>smbclient //fs01.example.com/share -k -c "put /etc/hosts hosts"</command>
+</screen>
+
+          <para>
+          This will copy the the <filename>/etc/hosts</filename> to <filename>//fs01.example.com/share/hosts</filename>.
+          </para>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          The <emphasis>-c</emphasis> option used above allows you to execute the <application>smbclient</application> command
+          all at once.  This is useful for scripting and minor file operations.  To enter the <emphasis>smb: \&gt;</emphasis>
+          prompt, a FTP like prompt where you can execute normal file and directory commands, simply execute:
+          </para>
+
+<screen>
+<command>smbclient //fs01.example.com/share -k</command>
+</screen>
+
+        </listitem>
+      </itemizedlist>
+
+      <note>
+        <para>
+        Replace all instances of <emphasis>fs01.example.com/share</emphasis>, <emphasis>//192.168.0.5/share</emphasis>, 
+        <emphasis>username=steve,password=secret</emphasis>, and <emphasis>file.txt</emphasis> with your server's IP, hostname, 
+        share name, file name, and an actual username and password with rights to the share.
+        </para>
+      </note>
+
+    </sect2>
+    <sect2 id="ad-integration-resources" status="review">
+      <title>Resources</title>
+
+      <para>
+      For more <application>smbclient</application> options see the man page: <command>man smbclient</command>, also available
+      <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man1/smbclient.1.html">online</ulink>.
+      </para>
+
+      <para>
+      The <application>mount.cifs</application> 
+      <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/mount.cifs.8.html">man page</ulink> is also useful for 
+      more detailed information.
+      </para>
+
+      
+    </sect2>
+  </sect1>  
+  <sect1 id="likewise-open" status="review">
+    <title>Likewise Open</title>
+
+    <para>
+    <application>Likewise Open</application> simplifies the necessary configuration needed to authenticate a Linux machine to an
+    Active Directory domain.  Based on <application>winbind</application>, the <application>likewise-open</application> package
+    takes the pain out of integrating Ubuntu authentication into an existing Windows network.
+    </para>
+
+    <sect2 id="likewise-open-install" status="review">
+      <title>Installation</title>
+    
+      <para>
+      There are two ways to use Likewise Open, <application>likewise-open</application> the command line utility and 
+      <application>likewise-open-gui</application>.  This section focuses on the command line utility.
+      </para>
+
+      <para>
+      To install the <application>likewise-open</application> package, open a terminal prompt and enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install likewise-open</command>
+</screen>
+
+      <para>
+      With Ubuntu 9.04 <application>Likewise Open 5.0</application> is available in the <emphasis>Universe</emphasis> repository.  
+      However, since upgrading from <application>Likewise Open 4.1</application> currently requires the system to leave the 
+      domain and re-join, a separate package for version five was created.
+      </para>
+
+      <para>
+      To install <application>Likewise Open 5.0</application> enter:
+      </para>
+
+<screen>
+<command>sudo apt-get install likewise-open5</command>
+</screen>
+
+      <warning>
+        <para>
+        Installing likewise-open5 over an existing likewise-open (4.1) installation will replace it. You will have to rejoin 
+        the domain after install.
+        </para>
+      </warning>
+
+      <note>
+        <para>
+        The command line tools, and GUI interface, for likewise-open5 are the same as version four.
+        </para>
+      </note>
+
+
+    </sect2>
+    <sect2 id="likewise-open-configuration" status="review">
+      <title>Joining a Domain</title>
+      
+      <para>
+      The main executable file of the <application>likewise-open</application> package is 
+      <filename>/usr/bin/domainjoin-cli</filename>, which is used to join your computer to the domain. Before you join 
+      a domain you will need to make sure you have:
+      </para>
+    
+      <itemizedlist>
+        <listitem>
+	  <para>
+	  Access to an Active Directory user with appropriate rights to join the domain.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	  The <emphasis>Fully Qualified Domain Name</emphasis> (FQDN) of the domain you want to join.  If your AD domain
+          does not match a valid domain such as <emphasis role="italic">example.com</emphasis>, it is likely that it has
+          the form of <emphasis>domainname.local</emphasis>.  
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	  DNS for the domain setup properly.  In a production AD environment this should be the case.  Proper Microsoft 
+          DNS is needed so that client workstations can determine the Active Directory domain is available.
+	  </para>
+          <para>
+          If you don't have a Windows DNS server on your network, see <xref linkend="likewise-open-ms-dns"/> for details.
+          </para>
+          
+	</listitem>
+      </itemizedlist>
+	
+      <para>
+      To join a domain, from a terminal prompt enter:
+      </para>
+
+<screen>
+<command>sudo domainjoin-cli join example.com Administrator</command>
+</screen>
+
+      <note>
+        <para>
+	Replace <emphasis>example.com</emphasis> with your domain name, and <emphasis>Administrator</emphasis> with the
+        appropriate user name.
+	</para>
+      </note>
+
+      <para>
+      You will then be prompted for the user's password.  If all goes well a <emphasis>SUCCESS</emphasis> message should be
+      printed to the console.
+      </para>
+
+      <para>
+      After successfully joining an Ubuntu machine to an Active Directory domain you can authenticate using any valid AD user.  
+      To login you will need to enter the user name as 'domain\username'. For example to ssh to a server joined to the domain
+      enter:
+      </para>
+
+<screen>
+<command>ssh 'example\steve'@hostname</command>
+</screen>
+
+      <note>
+        <para>
+	If configuring a Desktop the user name will need to be prefixed with <emphasis role="italic">domain\</emphasis> in the
+        graphical logon as well.
+        </para>
+      </note>
+
+      <para>
+      To make likewise-open use a default domain, you can add the following statement to <filename>/etc/samba/lwiauthd.conf</filename>:
+      </para>
+
+<programlisting>
+winbind use default domain = yes
+</programlisting>
+
+      <para>
+      Then restart the <application>likewise-open</application> daemons:
+      </para>
+
+<screen>
+<command>sudo /etc/init.d/likewise-open restart</command>
+</screen>
+
+      <note>
+        <para>
+        Once configured for a <emphasis>default domain</emphasis> the <emphasis role="italic">'domain\'</emphasis> is no longer required, 
+        users can login using only their username.
+        </para>
+      </note>
+
+      <para>
+      The <application>domainjoin-cli</application> utility can also be used to leave the domain.  From a terminal:
+      </para>
+
+<screen>
+<command>sudo domainjoin-cli leave</command>
+</screen>
+
+    </sect2>
+    <sect2 id="likewise-open-utilities" status="review">
+      <title>Other Utilities</title>
+     
+      <para>
+      The <application>likewise-open</application> package comes with a few other utilities that may be useful for gathering
+      information about the Active Directory environment.  These utilities are used to join the machine to the domain, and are
+      the same as those available in the <application>samba-common</application> and <application>winbind</application> 
+      packages:
+      </para>
+
+      <itemizedlist>
+	<listitem>
+	  <para>
+	  <application>lwinet</application>:  Returns information about the network and the domain.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	  <application>lwimsg</application>:  Allows interaction with the <application>likewise-winbindd</application> daemon.
+	  </para>
+        </listitem>
+	<listitem>
+	  <para>
+	  <application>lwiinfo</application>:  Displays information about various parts of the Domain.
+	  </para>
+	</listitem>
+      </itemizedlist>
+	
+      <para>
+      Please refer to each utility's man page specific for details.
+      </para>
+
+      </sect2>
+      <sect2 id="likewise-open-troubleshooting" status="review">
+        <title>Troubleshooting</title>
+
+        <itemizedlist>
+          <listitem>  
+            <para>
+            If the client has trouble joining the domain, double check that the Microsoft DNS is listed first in <filename>/etc/resolv.conf</filename>.
+            For example:
+            </para>
+
+<programlisting>
+nameserver 192.168.0.1
+</programlisting>
+          </listitem>
+          <listitem>  
+            <para>
+            For more information when joining a domain, use the <emphasis>--loglevel verbose</emphasis> or <emphasis>--advanced</emphasis> option of the 
+            <application>domainjoin-cli</application> utility:
+            </para>
+
+<screen>
+<command>sudo domainjoin-cli --loglevel verbose join example.com Administrator</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>
+            If an Active Directory user has trouble logging in, check the <filename>/var/log/auth.log</filename> for details.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            When joining an Ubuntu Desktop workstation to a domain, you may need to edit <filename>/etc/nsswitch.conf</filename> if your AD domain 
+            uses the <emphasis role="italic">.local</emphasis> syntax.  In order to join the domain the <emphasis>"mdns4"</emphasis> entry from the
+            <emphasis>hosts</emphasis> option.  For example:
+            </para>
+
+<programlisting>
+hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4
+</programlisting>
+
+            <para>
+            Change the above to:
+            </para>
+
+<programlisting>
+hosts: files dns [NOTFOUND=return]
+</programlisting>
+
+            <para>
+            Then restart networking by entering:
+            </para>
+
+<screen>
+<command>sudo /etc/init.d/networking restart</command>
+</screen>
+        
+            <para>
+            You should now be able to join the Active Directory domain.
+            </para>
+          </listitem>
+        </itemizedlist>
+
+      </sect2>
+      <sect2 id="likewise-open-ms-dns" status="review">
+        <title>Microsoft DNS</title>
+      
+        <para>
+        The following are instructions for installing DNS on an Active Directory domain controller running Windows Server 2003, 
+        but the instructions should be similar for other versions:
+        </para>
+
+        <itemizedlist>
+            <listitem>
+              <para>
+              Click 
+              <menuchoice>
+                <guimenuitem>Start</guimenuitem><guimenuitem>Administrative Tools</guimenuitem><guimenuitem>Manager Your Server</guimenuitem>
+              </menuchoice>.
+              This will open the <application>Server Role Mangement</application> utility.
+              </para>
+             <orderedlist>
+               <listitem><para>Click Add or remove a role</para></listitem>
+               <listitem><para>Click Next</para></listitem>
+               <listitem><para>Select "DNS Server"</para></listitem>
+               <listitem><para>Click Next</para></listitem>
+               <listitem><para>Next</para></listitem>
+               <listitem><para>Select "Create a forward lookup zone" if it is not selected.</para></listitem>
+               <listitem><para>Click Next</para></listitem>
+               <listitem><para>Make sure "This server maintains the zone" is selected and click Next.</para></listitem>
+               <listitem><para>Enter your domain name and click Next</para></listitem>
+               <listitem><para>Click Next to "Allow only secure dynamic updates"</para></listitem>
+               <listitem><para>Click Next to "Allow only secure dynamic updates"</para></listitem>
+               <listitem>
+                 <para>
+                 Enter the IP for DNS servers to forward queries to, or Select "No, it should not forward queries" and click Next.
+                 </para>
+               </listitem>
+               <listitem><para>Click Finish</para></listitem>
+               <listitem><para>Click Finish</para></listitem>
+              </orderedlist>
+              <para>
+              DNS is now installed and can be further configured using the <application>Microsoft Management Console</application> DNS snap-in.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Next, configure the Server to use itself for DNS queries:
+                <orderedlist>
+                  <listitem><para>Click Start</para></listitem>
+                  <listitem><para>Control Panel</para></listitem>
+                  <listitem><para>Network Connections</para></listitem>
+                  <listitem><para>Right Click "Local Area Connection"</para></listitem>
+                  <listitem><para>Click Properties</para></listitem>
+                  <listitem><para>Double click "Internet Protocol (TCP/IP)"</para></listitem>
+                  <listitem><para>Enter the Server's IP Address as the "Preferred DNS server"</para></listitem>
+                  <listitem><para>Click Ok</para></listitem>
+                  <listitem><para>Click Ok again to save the settings</para></listitem>
+                </orderedlist>
+              </para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+      <sect2 id="likewise-open-references" status="review">
+	<title>References</title>
+       
+	<para>
+	Please refer to the <ulink url="http://www.likewisesoftware.com/">Likewise</ulink> home page for further information.
+	</para>	
+
+	<para>
+	For more <application>domainjoin-cli</application> options see the man page: <command>man domainjoin-cli</command>.
+	</para>	
+
+      </sect2>
+  </sect1>
+</chapter>

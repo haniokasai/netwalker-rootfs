@@ -1,0 +1,2417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="network-authentication" status="review">
+	<title>Nätverksautentisering</title>
+
+         <para>Detta avsnitt beskriver olika protokoll för nätverksautentisering.</para>
+	<sect1 id="openldap-server" status="review">
+		<title>OpenLDAP-server</title>
+         <para>LDAP betyder Lightweight Directory Access Protocol, det är en förenklad version av X.500-protokollet. Katalogupplägget i detta avsnitt kommer att användas för autentisering. I vilket fall, kan en LDAP-katalog användas på flera sätt: autentisering, delad katalog (för e-postklienter), adressböcker, etc.</para>
+
+         <para>För att snabbt beskriva LDAP, så sparas all information i en trädstruktur. Med <application>OpenLDAP</application> har du friheten att själv avgöra katalogens trädstruktur (Directory Information Tree= DIT). Vi börjar med ett grundläggande träd med två noder under root :</para>
+
+	 <itemizedlist>
+           <listitem>
+               <para>"People" nod där dina användare kommer sparas</para>
+           </listitem>
+           <listitem>
+               <para>"Groups" nod där dina grupper kommer sparas</para>
+           </listitem>
+         </itemizedlist>
+
+	 <para>Innan du börjar, behöver du fastställa var din LDAP-root skall finnas. Som standard kommer ditt träd bestämmas av ditt kompletta domännamn (FQDN). Om din domän är example.com (som vi kommer att använda i det här exemplet), kommer din root-nod att bli dc=example,dc=com.</para>
+
+	<sect2 id="openldap-server-installation" status="review">
+		<title>Installation</title>
+
+   	<para>Börja med att installera <application>OpenLDAP</application>-serverdemonen <application>slapd</application> och <application>ldap-utils</application>, ett paket som innehåller verktyg för att administrera LDAP:</para>
+<screen>
+<command>sudo apt-get install slapd ldap-utils</command>
+</screen>
+	
+	<para>Under installationsprocessen kommer du tillfrågas om ett administratörslösenord för LDAP-katalogen och en bekräftelse.</para>
+
+	<para>Som standard kommer katalogsuffixet matcha domännamnet för servern. Till exempel, Om maskinens kompletta domännamn (FQDN) är ldap.example.com, kommer standard suffixet bli <emphasis>dc=example,dc=com</emphasis>. Om du behöver en annan suffix, kan katalogen omkonfigureras med hjälp av <application>dpkg-reconfigure</application>. Skriv följande vid en terminalprompt:</para>
+
+<screen>
+<command>sudo dpkg-reconfigure slapd</command>
+</screen>
+
+	<para>Du kommer därefter att följa en menybaserad konfiguration som tillåter dig att konfigurera olika <application>slapd</application> alternativ.</para>
+	
+	</sect2>
+        <sect2 id="openldap-configuration" status="review">
+          <title>Konfiguration</title>
+
+          <para><application>OpenLDAP</application> använder en separat databas som innehåller <emphasis>cn=config</emphasis> Directory Information Tree (DIT). <emphasis>cn=config</emphasis> DIT används till att dynamiskt konfigurera demonen <application>slapd</application>, tillåta modifiering av schemadefinitioner, index, ACLs, etc utan att stoppa tjänsten.</para>
+
+          <para>Trädet <emphasis>cn=config</emphasis> kan manipuleras med hjälp av verktyg från paketet <application>ldap-utils</application>. Till exempel:</para>
+
+          <itemizedlist>
+            <listitem>
+
+              <para>Använd <application>ldapsearch</application> för att visa trädet, ange admin-lösenordet som bestämdes under installationen eller omkonfigurering:</para>
+
+<screen>
+<command>ldapsearch -xLLL -b cn=config -D cn=admin,cn=config -W olcDatabase={1}hdb</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password: 
+dn: olcDatabase={1}hdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcHdbConfig
+olcDatabase: {1}hdb
+olcDbDirectory: /var/lib/ldap
+olcSuffix: dc=example,dc=com
+olcAccess: {0}to attrs=userPassword,shadowLastChange by dn="cn=admin,dc=exampl
+ e,dc=com" write by anonymous auth by self write by * none
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn="cn=admin,dc=example,dc=com" write by * read
+olcLastMod: TRUE
+olcDbCheckpoint: 512 30
+olcDbConfig: {0}set_cachesize 0 2097152 0
+olcDbConfig: {1}set_lk_max_objects 1500
+olcDbConfig: {2}set_lk_max_locks 1500
+olcDbConfig: {3}set_lk_max_lockers 1500
+olcDbIndex: objectClass eq
+</computeroutput>
+</screen>
+
+              <para>Utdatan ovan är de nuvarande konfigurationsalternativen för bakändedatabasen <emphasis>hdb</emphasis>. Vilket i det här fallet innehåller suffixen <emphasis>dc=example,dc=com</emphasis>.</para>
+
+            </listitem>
+            <listitem>
+
+              <para>Förädla sökningen genom att lägga till ett <emphasis role="italic">filter</emphasis>, i det här fallet för att endast visa vilka attribut som är indexerade:</para>
+
+<screen>
+<command>ldapsearch -xLLL -b cn=config -D cn=admin,cn=config -W olcDatabase={1}hdb olcDbIndex</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password: 
+dn: olcDatabase={1}hdb,cn=config
+olcDbIndex: objectClass eq
+</computeroutput>
+</screen>
+
+            </listitem>
+            <listitem>
+
+              <para>Som ett exempel av att modifiera trädet <emphasis>cn=config</emphasis>, lägg till ett annat attribut till indexeringslistan genom att använda <application>ldapmodify</application>:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password:<userinput>
+dn: olcDatabase={1}hdb,cn=config
+add: olcDbIndex
+olcDbIndex: entryUUID eq</userinput>
+
+modifying entry "olcDatabase={1}hdb,cn=config"
+</computeroutput>
+</screen>
+
+              <para>När modifieringen är klar, tryck <emphasis>Ctrl+D</emphasis> för att avsluta verktyget.</para>
+
+            </listitem>
+            <listitem>
+
+              <para><application>ldapmodify</application> kan också läsa ändringar från en fil. Kopiera och klistra in följande i en fil med namnet <filename>uid_index.ldif</filename>:</para>
+
+<programlisting>
+dn: olcDatabase={1}hdb,cn=config
+add: olcDbIndex
+olcDbIndex: uid eq,pres,sub
+</programlisting>
+
+              <para>Verkställ sedan <application>ldapmodify</application>:</para> 
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W -f uid_index.ldif</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password: 
+modifying entry "olcDatabase={1}hdb,cn=config"
+</computeroutput>
+</screen>
+
+              <para>Filmetoden är väldigt användbar för stora ändringar</para>
+
+            </listitem>
+            <listitem>
+
+              <para>För att lägga till ytterligare <emphasis>scheman</emphasis> till <application>slapd</application> krävs att schemat konverteras till formatet LDIF. Lyckligtvis, kan programmet <application>slapd</application> användas till att automatisera konverteringen. Följande exempel kommer att lägga till <emphasis>misc.schema</emphasis>:</para>
+
+              <procedure>
+                <step>
+                  <para>Börja med att skapa konverteringsfilen <filename>schema_convert.conf</filename> som innehåller följande rader:</para>
+
+<programlisting>
+include /etc/ldap/schema/core.schema
+include /etc/ldap/schema/collective.schema
+include /etc/ldap/schema/corba.schema
+include /etc/ldap/schema/cosine.schema
+include /etc/ldap/schema/duaconf.schema
+include /etc/ldap/schema/dyngroup.schema
+include /etc/ldap/schema/inetorgperson.schema
+include /etc/ldap/schema/java.schema
+include /etc/ldap/schema/misc.schema
+include /etc/ldap/schema/nis.schema
+include /etc/ldap/schema/openldap.schema
+include /etc/ldap/schema/ppolicy.schema
+</programlisting>
+
+                </step>
+                <step>
+
+                  <para>Nästa steg, skapa en temporär katalog som skall innehålla utdatan:</para> 
+
+<screen>
+<command>mkdir /tmp/ldif_output</command>
+</screen>
+
+                </step>
+                <step>
+
+                  <para>Använd nu <application>slaptest</application> för att konvertera schemafilerna till LDIF:</para>
+
+<screen>
+<command>slaptest -f schema_convert.conf -F /tmp/ldif_output</command>
+</screen>
+
+                  <para>Justera konfigurationsfilens namn och temporära katalognamnen om dina namn är annorlunda. Dessutom kan det vara värt att behålla katalogen <filename>ldif_output</filename> ifall du vill lägga till ytterligare scheman i framtiden.</para>
+
+                </step>
+                <step>
+
+                  <para>Redigera filen <filename>/tmp/ldif_output/cn=config/cn=schema/cn={8}misc.ldif</filename> och ändra följande attribut:</para> 
+
+<programlisting>
+dn: cn=misc,cn=schema,cn=config
+...
+cn: misc
+</programlisting>
+
+                  <para>Och ta bort följande rader i slutet av filen:</para> 
+
+<programlisting>
+structuralObjectClass: olcSchemaConfig
+entryUUID: 10dae0ea-0760-102d-80d3-f9366b7f7757
+creatorsName: cn=config
+createTimestamp: 20080826021140Z
+entryCSN: 20080826021140.791425Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20080826021140Z
+</programlisting>
+
+                  <note>
+                    <para>Attributvärdena kommer skifta, säkerställ bara att attributen är borttagna.</para>
+                  </note>
+
+                </step>
+                <step>
+
+                  <para>Till sist, använd verktyget <application>ldapadd</application>, för att lägga till det nya schemat i katalogen:</para>
+
+<screen>
+<command>ldapadd -x -D cn=admin,cn=config -W -f /tmp/ldif_output/cn\=config/cn\=schema/cn\=\{8\}misc.ldif</command>
+</screen>
+
+                </step>
+              </procedure>
+
+              <para>Det skall nu finnas en <emphasis>dn: cn={4}misc,cn=schema,cn=config</emphasis> notering i trädet cn=config.</para> 
+
+            </listitem>
+          </itemizedlist>
+
+        </sect2>
+	<sect2 id="openldap-server-populate" status="review">
+		<title>Befolka LDAP</title>
+
+	<para>Katalogen har skapats under installationen och omkonfigureringen och nu är det dags att befolka den. Den kommer befolkas med ett "classical"-schema som kommer vara kompatibelt med adressboksprogram och med Unix Posix konton. Posix-konton kommer tillåta autentisering till olika program, såsom webbprogram och e-postprogram Mail Transfer Agent (MTA), etc.</para>
+	
+	<note>
+	  <para>För att externa program skall kunna autentisera genom att använda LDAP, så måste var och en särskilt konfigureras för detta. Du hänvisas till dokumentationen för respektive program för fler detaljer.</para>
+	</note>
+
+	<para>LDAP katalogen kan befolkas med en LDIF-fil (Ldap Directory Interchange Format). Kopiera följande LDIF filexempel, döp filen till <filename>example.com.ldif</filename> och spara den någonstans i ditt system:</para>
+
+<programlisting>
+dn: ou=people,dc=example,dc=com
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=example,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=john,ou=people,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: john
+sn: Doe
+givenName: John
+cn: John Doe
+displayName: John Doe
+uidNumber: 1000
+gidNumber: 10000
+userPassword: password
+gecos: John Doe
+loginShell: /bin/bash
+homeDirectory: /home/john
+shadowExpire: -1
+shadowFlag: 0
+shadowWarning: 7
+shadowMin: 8
+shadowMax: 999999
+shadowLastChange: 10877
+mail: john.doe@example.com
+postalCode: 31000
+l: Toulouse
+o: Example
+mobile: +33 (0)6 xx xx xx xx
+homePhone: +33 (0)5 xx xx xx xx
+title: System Administrator
+postalAddress: 
+initials: JD
+
+dn: cn=example,ou=groups,dc=example,dc=com
+objectClass: posixGroup
+cn: example
+gidNumber: 10000
+</programlisting>
+
+	<para>I detta exempel har katalogstrukturen för en användare och en grupp konfigurerats. I andra exempel kan du se att <emphasis>objectClass: top</emphasis> är tillagt i varje post, men detta är ett standardbeteende så du behöver inte lägga till det.</para>
+
+	<para>För att lägga till poster i LDAP-katalogen använd verktyget <application>ldapadd</application>:</para>
+
+
+<screen>
+<command>ldapadd -x -D cn=admin,dc=example,dc=com -W -f example.com.ldif</command>
+</screen>
+
+	<para>Vi kan kontrollera att innehållet har blivit korrekt tillagt med verktyg från paketet <application>ldap-utils</application>. För att genomföra en sökning i LDAP-katalogen:</para>
+
+<screen>
+<command>ldapsearch -xLLL -b "dc=example,dc=com" uid=john sn givenName cn</command>
+<computeroutput>
+dn: uid=john,ou=people,dc=example,dc=com
+cn: John Doe
+sn: Doe
+givenName: John
+</computeroutput>
+</screen>
+
+	<para>En snabb förklaring:</para>
+
+	<itemizedlist>
+	    <listitem>
+                <para><emphasis>-x:</emphasis> kommer inte använda autentiseringsmetoden SASL som är standard.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis>-LLL:</emphasis> inaktivera utskrift av LDIF-schemainformation.</para>
+            </listitem>
+        </itemizedlist>
+	
+	</sect2>
+
+	<sect2 id="openldap-server-replication" status="review">
+		<title>LDAP-replikering</title>
+
+	<para>LDAP blir ofta på kort tid en mycket kritisk tjänst i nätverket. Flera system kommer att bli beroende av LDAP för autentisering, auktorisering, konfiguration, etc. Det är en bra idé att sätta upp ett redundant system genom replikering.</para>
+	
+	<para>Replikering uppnås genom att använda <emphasis>Syncrepl</emphasis>-motorn. Syncrepl tillåter att katalogen synkroniseras genom att använda endera ett <emphasis>push</emphasis> eller <emphasis>pull</emphasis>-baserat system. I en push-baserad konfiguration kommer en <quote>primär</quote> server trycka ut kataloguppdateringar till <quote>sekundära</quote> servrar, medans ett pull-baserat tillvägagångssätt tillåter replikerande servrar att synkronisera inom ett tidsintervall.</para>
+
+	<para>Följande är ett exempel på en <emphasis>Multi-Master</emphasis> konfiguration. I denna konfiguration är varje OpenLDAP server konfigurerad för både <emphasis>push</emphasis> och <emphasis>pull</emphasis>-replikering.</para>
+
+        <procedure>
+          <step>
+  
+            <para>Börja med att konfigurera servern till att synkronisera databasen <emphasis>cn=config</emphasis>. Kopiera följande till en fil med namnet <filename>syncrepl_cn-config.ldif</filename>:</para>
+
+<programlisting>
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: syncprov
+
+dn: cn=config
+changetype: modify
+replace: olcServerID
+olcServerID: 1 ldap://ldap01.example.com
+olcServerID: 2 ldap://ldap02.example.com
+
+dn: olcOverlay=syncprov,olcDatabase={0}config,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001 provider=ldap://ldap01.example.com binddn="cn=admin,cn=config" bindmethod=simple
+  credentials=secret searchbase="cn=config" type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+olcSyncRepl: rid=002 provider=ldap://ldap02.example.com binddn="cn=admin,cn=config" bindmethod=simple
+  credentials=secret searchbase="cn=config" type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE
+</programlisting>
+
+          </step>
+          <step>
+
+            <para>Redigera filen och ändra:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>ldap://ldap01.example.com</emphasis> och <emphasis>ldap://ldap02.example.com</emphasis> till dina LDAP-servrars värdnamn.</para>
+                <note>
+                  <para>Du kan ha mer än två LDAP-servrar och när en ändring sker på en av dem kommer ändringen synkroniseras till övriga. Säkerställ att <emphasis>olcServerID</emphasis> ökas för varje server och <emphasis>rid</emphasis> för varje <emphasis>olcSyncRepl</emphasis> notering.</para>
+                </note>
+              </listitem>
+              <listitem>
+                <para>Och justera <emphasis>credentials=secret</emphasis> till att matcha ditt adminlösenord.</para>
+              </listitem>
+            </itemizedlist>
+
+          </step>
+          <step>
+
+
+            <para>Nästa steg, lägg till filen LDIF genom att använda verktyget <application>ldapmodify</application>:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W -f syncrepl_cn-config.ldif</command>
+</screen>
+
+          </step>
+          <step>
+
+            <para>Kopiera filen <filename>syncrepl_cn-config.ldif</filename> till nästa LDAP-server och repetera ovanstående <application>ldapmodify</application> kommando.</para>
+
+          </step>
+          <step>
+
+            <para>Eftersom nya moduler har lagts till, behöver demonen <application>slapd</application> startas om på alla replikerande servrar:</para>
+
+<screen>
+<command>sudo /etc/init.d/slapd restart</command>
+</screen>
+
+          </step>
+          <step>
+
+            <para>Nu när konfigurationsdatabasen är synkroniserad mellan servrarna, behöver <emphasis>bakände-</emphasis>databasen också synkroniseras. Kopiera och klistra in följande till en annan LDIF-fil med namnet <filename>syncrepl_backend.ldif</filename>:</para>
+
+<programlisting>
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+add: olcRootDN
+olcRootDN: cn=admin,dc=example,dc=com
+-
+add: olcSyncRepl
+olcSyncRepl: rid=003 provider=ldap://ldap01.example.com binddn="cn=admin,dc=example,dc=com" 
+ bindmethod=simple credentials=secret searchbase="dc=example,dc=com" type=refreshOnly 
+ interval=00:00:00:10 retry="5 5 300 5" timeout=1
+olcSyncRepl: rid=004 provider=ldap://ldap02.example.com binddn="cn=admin,dc=example,dc=com" 
+ bindmethod=simple credentials=secret searchbase="dc=example,dc=com" type=refreshOnly 
+ interval=00:00:00:10 retry="5 5 300 5" timeout=1
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE
+
+dn: olcOverlay=syncprov,olcDatabase={1}hdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+</programlisting>
+
+          </step>
+          <step>
+
+            <para>Som för den tidigare LDIF-filen, redigera den här och ändra:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><emphasis>searchbase="dc=example,dc=com"</emphasis> till din katalogs sökbas.</para>
+              </listitem>              
+              <listitem>
+                <para>Om du använder en annan användare som administratör, ändra <emphasis>binddn="cn=admin,dc=example,dc=com"</emphasis>.</para>
+              </listitem>
+              <listitem>
+                <para>Dessutom, ersätt <emphasis>credentials=secret</emphasis> med ditt administratörslösenord.</para>
+              </listitem>
+            </itemizedlist>
+
+          </step>
+          <step>
+
+            <para>Lägg till LDIF-filen:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W -f syncrepl_backend.ldif</command>
+</screen>
+
+            <para>Eftersom serverkonfigurationen redan är synkroniserad finns det ingen anledning att kopiera den här LDIF-filen till de andra servrarna.</para>
+
+          </step>
+        </procedure>
+
+        <para>Konfigurations och bakändedatabaserna skall nu synkronisera med de andra servrarna. Du kan vid behov lägga till ytterligare servrar genom att använda verktyget <application>ldapmodify</application>. För detaljer se <xref linkend="openldap-configuration"/>.</para>
+
+        <note>
+  	  <para>Demonen <application>slapd</application> kommer normalt skicka logginformation till <filename>/var/log/syslog</filename>. Så om något går <emphasis>fel</emphasis> kontrollera där efter fel och annan felsökningsinformation. Dessutom, säkerställ att varje server vet sitt kompletta domännamn (FQDN). Detta är konfigurerat i <filename>/etc/hosts</filename> med en liknande rad som: <programlisting>127.0.0.1	ldap01.example.com ldap01</programlisting>.</para>
+        </note>
+		
+	</sect2>
+
+	<sect2 id="openldap-server-acl" status="review">
+              <title>Ställa in ACL</title>
+
+	<para>Autentisering kräver tillgång till lösenordfältet, som inte bör vara tillgängligt som standard. Dessutom, för att användarna skall kunna ändra sin egna lösenord genom att använda <command>passwd</command> eller andra verktyg, behöver <emphasis>shadowLastChange</emphasis> vara tillgänglig så snart en användare har verifierats.</para>
+
+        <para>Om du vill visa åtkomstlistorna (ACL), använd verktyget <application>ldapsearch</application>:</para>
+
+<screen>
+<command>ldapsearch -xLLL -b cn=config -D cn=admin,cn=config -W olcDatabase=hdb olcAccess</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password: 
+dn: olcDatabase={1}hdb,cn=config
+olcAccess: {0}to attrs=userPassword,shadowLastChange by dn="cn=admin,dc=exampl
+ e,dc=com" write by anonymous auth by self write by * none
+olcAccess: {1}to dn.base="" by * read
+olcAccess: {2}to * by dn="cn=admin,dc=example,dc=com" write by * read
+</computeroutput>
+</screen>
+
+	</sect2>
+
+        <sect2 id="openldap-tls" status="review">
+          <title>TLS och SSL</title>
+
+          <para>När du autentiserar en OpenLDAP-server är det bäst att göra det genom att använda en krypterad session. Detta kan åstadkommas med Transport Layer Security (TLS) och/eller Secure Sockets Layer (SSL).</para>
+
+          <para>Första steget i processen är att skaffa eller skapa ett <emphasis>certifikat</emphasis>. För detaljer se <xref linkend="certificates-and-security"/> och <xref linkend="certificate-authority"/>.</para>
+
+          <para>När du har installerat ett certifikat, nyckel och CA-certifikat, använd <application>ldapmodify</application> för att lägga till det nya konfigurationsalternativet:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password:
+<userinput>dn: cn=config
+add: olcTLSCACertificateFile
+olcTLSCACertificateFile: /etc/ssl/certs/cacert.pem
+-
+add: olcTLSCertificateFile
+olcTLSCertificateFile: /etc/ssl/certs/server.crt
+-
+add: olcTLSCertificateKeyFile
+olcTLSCertificateKeyFile: /etc/ssl/private/server.key</userinput>
+
+modifying entry "cn=config"
+</computeroutput>
+</screen>
+
+          <note>
+            <para>Ändra namnen <filename>server.crt</filename>, <filename>server.key</filename> och <filename>cacert.pem</filename> om dina är annorlunda.</para>
+          </note>
+
+          <para>Nästa steg, redigera <filename>/etc/default/slapd</filename> och avkommentera alternativet <emphasis>SLAPD_SERVICES</emphasis>:</para>
+
+<programlisting>
+SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"
+</programlisting>
+
+          <para>Nu behöver användaren <emphasis>openldap</emphasis> åtkomst till certifikatet:</para>
+
+<screen>
+<command>sudo adduser openldap ssl-cert</command>
+<command>sudo chgrp ssl-cert /etc/ssl/private/server.key</command>
+</screen>
+
+          <note>
+            <para>Om <filename role="directory">/etc/ssl/private</filename> och <filename>/etc/ssl/private/server.key</filename> har olika rättigheter, justera kommandona på lämpligt sätt.</para>
+          </note>
+
+          <para>Slutligen, starta om <application>slapd</application>:</para>
+
+<screen>
+<command>sudo /etc/init.d/slapd restart</command>
+</screen>
+
+          <para>Demonen <application>slapd</application> skall nu lyssna efter LDAPS-anslutningar och kunna använda STARTTLS under verifiering.</para>
+
+          <sect3 id="openldap-tls-replication" status="review">
+            <title>TLS replikering</title>
+
+            <para>Om du har satt upp en <application>Syncrepl</application> mellan servrar, är det klokt att kryptera replikeringstrafiken genom att använda <emphasis>Transport Layer Security (TLS)</emphasis>. För detaljer om att etablera replikering, se <xref linkend="openldap-server-replication"/>.</para>
+
+            <para>Efter att du har satt upp replikeringen och följt instruktionerna i <xref linkend="openldap-tls"/>, så finns det ett par saker att komma ihåg:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>Konfigurationen behöver bara modifieras på <emphasis>en</emphasis> server.</para>
+              </listitem>
+              <listitem>
+                <para>Sökvägen till <emphasis>certifikatet</emphasis> och <emphasis>nyckeln</emphasis> måste vara samma på alla servrarna.</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>Så på varje replikerande server: installera ett certifikat, redigera <filename>/etc/default/slapd</filename>, och starta om <application>slapd</application>.</para>
+
+            <para>När <emphasis>TLS</emphasis> har installerats på varje server, modifiera replikeringen <emphasis>cn=config</emphasis> genom att ange följande i en terminal:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password: 
+<userinput>dn: olcDatabase={0}config,cn=config
+replace: olcSyncrepl
+olcSyncrepl: {0}rid=001 provider=ldap://ldap01.example.com binddn="cn=admin,cn
+ =config" bindmethod=simple credentials=secret searchbase="cn=config" type=refre
+ shAndPersist retry="5 5 300 5" timeout=1 starttls=yes
+olcSyncrepl: {1}rid=002 provider=ldap://ldap02.example.com binddn="cn=admin,cn
+ =config" bindmethod=simple credentials=secret searchbase="cn=config" type=refre
+ shAndPersist retry="5 5 300 5" timeout=1 starttls=yes</userinput>
+
+modifying entry "olcDatabase={0}config,cn=config"
+</computeroutput>
+</screen>
+
+            <para>Justera nu <emphasis>bakände-</emphasis>databasens replikering:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+</screen>
+
+<screen>
+<computeroutput>Enter LDAP Password:
+<userinput>dn: olcDatabase={1}hdb,cn=config
+replace: olcSyncrepl
+olcSyncrepl: {0}rid=003 provider=ldap://ldap01.example.com binddn="cn=admin,dc=example,dc=
+ com" bindmethod=simple credentials=secret searchbase="dc=example,dc=com" type=r
+ efreshOnly interval=00:00:00:10 retry="5 5 300 5" timeout=1 starttls=yes
+olcSyncrepl: {1}rid=004 provider=ldap://ldap02.example.com binddn="cn=admin,dc=example,dc=
+ com" bindmethod=simple credentials=secret searchbase="dc=example,dc=com" type=r
+ efreshOnly interval=00:00:00:10 retry="5 5 300 5" timeout=1 starttls=yes</userinput>
+
+modifying entry "olcDatabase={1}hdb,cn=config"</computeroutput>
+</screen>
+
+            <para>Om värdnamnet för LDAP-servern inte matchar ditt kompletta domännamn (FQDN) i certifikatet, så kan du behöva redigera <filename>/etc/ldap/ldap.conf</filename> och lägga till följande TLS alternativ:</para>
+
+<programlisting>
+TLS_CERT /etc/ssl/certs/server.crt
+TLS_KEY /etc/ssl/private/server.key
+TLS_CACERT /etc/ssl/certs/cacert.pem
+</programlisting>
+
+
+              <para>Slutligen, starta om <application>slapd</application> på var och en av servrarna:</para>
+
+<screen>
+<command>sudo /etc/init.d/slapd restart</command>
+</screen>
+
+          </sect3>
+
+        </sect2>
+
+        <sect2 id="openldap-auth-config" status="review">
+          <title>LDAP-autentisering</title>
+
+          <para>Så snart du har en fungerande LDAP-server, underlättar paketen <application>auth-client-config</application> och <application>libnss-ldap</application> konfigureringen av en Ubuntu-klient till att autentisera med hjälp av LDAP. För att installera paketen, skriv från en terminalprompt:</para> 
+
+<screen>
+<command>sudo apt-get install libnss-ldap</command>
+</screen>
+
+         <para>Under installationen kommer en dialogruta att fråga efter anslutningsinformation för din LDAP-server.</para>
+       
+         <para>Om du gör ett misstag när du anger dina uppgifter kan du köra dialogrutan igen med:</para>
+
+<screen>
+<command>sudo dpkg-reconfigure ldap-auth-config</command>
+</screen>
+
+         <para>Resultatet från dialogrutan kan ses i <filename>/etc/ldap.conf</filename>. Om din server kräver information som inte täcks av menyn redigera då den här filen i enlighet med detta.</para>
+
+         <para>Nu när <application>libnss-ldap</application> är konfigurerad, aktivera LDAP-profilen <application>auth-client-config</application> genom att skriva:</para>
+
+<screen>
+<command>sudo auth-client-config -t nss -p lac_ldap</command>
+</screen>
+         
+          <itemizedlist>
+	    <listitem>
+              <para><emphasis>-t:</emphasis> modifierar endast <filename>/etc/nsswitch.conf</filename>.</para>
+            </listitem>
+	    <listitem>
+              <para><emphasis>-p:</emphasis> namnet på profilen som skall aktiveras, inaktiveras, etc.</para>
+	    </listitem>
+	    <listitem>
+              <para><emphasis>lac_ldap:</emphasis> profilen <application>auth-client-config</application> som är en del av paketet <application>ldap-auth-config</application>.</para>
+	    </listitem>
+          </itemizedlist>
+
+          <para>Genom att använda verktyget <application>pam-auth-update</application>, konfigureras systemet till att använda LDAP för autentisering:</para>
+
+<screen>
+<command>sudo pam-auth-update</command>
+</screen>
+
+          <para>Från menyn i <application>pam-auth-update</application>, välj LDAP och vilken annan autentiseringsmekanism som du behöver.</para>
+
+          <para>Du skall nu kunna logga in genom att använda den användaridentitet som är sparad i LDAP-katalogen.</para> 
+
+          <note>
+            <para>Om du skall använda LDAP till att spara Samba-användare behöver du konfigurera servern till att autentisera genom att använda LDAP. Se <xref linkend="samba-ldap"/> för detaljer.</para>
+          </note>
+
+        </sect2>
+        <sect2 id="ldap-usergroup-management" status="review">
+          <title>Användare och grupphantering</title>
+
+          <para>Paketet <application>ldap-utils</application> innehåller flera verktyg för att hantera katalogen, men på grund av den långa raden av alternativ som behövs, kan de vara svåra att använda. Paketet <application>ldapscripts</application> innehåller konfigurationsbara skript för att enkelt kunna hantera användare och grupper i LDAP.</para>
+
+          <para>För att installera paketet, skriv från en terminal:</para>
+
+<screen>
+<command>sudo apt-get install ldapscripts</command>
+</screen>
+
+          <para>Nästa steg, redigera konfigurationsfilen <filename>/etc/ldapscripts/ldapscripts.conf</filename> avkommentera och ändra följande så att det passar din miljö:</para>       
+
+<programlisting>
+SERVER=localhost
+BINDDN='cn=admin,dc=example,dc=com'
+BINDPWDFILE="/etc/ldapscripts/ldapscripts.passwd"
+SUFFIX='dc=example,dc=com'
+GSUFFIX='ou=Groups'
+USUFFIX='ou=People'
+MSUFFIX='ou=Computers'
+GIDSTART=10000
+UIDSTART=10000
+MIDSTART=10000
+</programlisting>
+
+          <para>Skapa nu filen <filename>ldapscripts.passwd</filename> för att tillåta autentiserad åtkomst till katalogen:</para>
+
+<screen>
+<command>sudo sh -c "echo -n 'secret' &gt; /etc/ldapscripts/ldapscripts.passwd"</command>
+<command>sudo chmod 400 /etc/ldapscripts/ldapscripts.passwd</command>
+</screen>
+
+          <note>
+            <para>Ersätt <quote>secret</quote> med det faktiska lösenordet för din LDAP-administratör.</para>
+          </note>
+
+          <para><application>ldapscripts</application> är nu redo att hjälpa till med att hantera din katalog. Följande är några exempel på hur man kan använda skript:</para>
+
+          <itemizedlist>
+	    <listitem>
+              <para>Skapa en ny användare:</para>
+<screen>
+<command>sudo ldapadduser george example</command>
+</screen>
+              <para>Detta skapar en användare med uid <emphasis role="italic">george</emphasis> och sätter användarens primära grupp (gid) till <emphasis role="italic">example</emphasis></para>
+	    </listitem>
+	    <listitem>
+              <para>Ändra en användares lösenord:</para>
+<screen>
+<command>sudo ldapsetpasswd george</command>
+<computeroutput>Ändra lösenord för användare uid=george,ou=People,dc=example,dc=com</computeroutput>
+<userinput>Nytt lösenord: </userinput>
+<userinput>Nytt lösenord (verifiera): </userinput>
+</screen>
+	    </listitem>
+	    <listitem>
+              <para>Ta bort en användare:</para>
+<screen>
+<command>sudo ldapdeleteuser george</command>
+</screen>
+
+	    </listitem>
+	    <listitem>
+              <para>Lägg till en grupp:</para>
+<screen>
+<command>sudo ldapaddgroup qa</command>
+</screen>
+	    </listitem>
+	    <listitem>
+              <para>Ta bort en grupp:</para>
+<screen>
+<command>sudo ldapdeletegroup qa</command>
+</screen>
+	    </listitem>
+	    <listitem>
+              <para>Lägg till en användare i en grupp:</para>
+<screen>
+<command>sudo ldapaddusertogroup george qa</command>
+</screen>
+              <para>Du skall nu kunna se attributet <emphasis>memberUid</emphasis> för gruppen <emphasis role="italic">qa</emphasis> med värdet av <emphasis role="italic">george</emphasis>.</para>
+	    </listitem>
+            <listitem>
+              <para>Ta bort en användare från en grupp:</para>
+<screen>
+<command>sudo ldapdeleteuserfromgroup george qa</command>
+</screen>
+              <para>Attributet <emphasis>memberUid</emphasis> skall nu tas bort från gruppen <emphasis role="italic">qa</emphasis>.</para>
+	    </listitem>
+            <listitem>
+              <para>Skriptet <application>ldapmodifyuser</application> tillåter dig att lägga till, ta bort eller ersätta användarattribut. Skriptet använder samma syntax som verktyget <application>ldapmodify</application>. Till exempel:</para>
+<screen>
+<command>sudo ldapmodifyuser george</command>
+<computeroutput># About to modify the following entry :
+dn: uid=george,ou=People,dc=example,dc=com
+objectClass: account
+objectClass: posixAccount
+cn: george
+uid: george
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /home/george
+loginShell: /bin/bash
+gecos: george
+description: User account
+userPassword:: e1NTSEF9eXFsTFcyWlhwWkF1eGUybVdFWHZKRzJVMjFTSG9vcHk=
+
+# Enter your modifications here, end with CTRL-D.
+dn: uid=george,ou=People,dc=example,dc=com</computeroutput>
+<userinput>replace: gecos
+gecos: George Carlin</userinput>
+</screen>
+              <para>Användaren <emphasis>gecos</emphasis> skall nu vara <quote>George Carlin</quote>.</para>
+	    </listitem>
+            <listitem>
+              <para>En annan viktig egenskap i <application>ldapscripts</application>, är mallsystemet. Med mallar kan du anpassa attributen för användare, grupper och maskinobjekt. Till exempel, för att aktivera mallen <emphasis>user</emphasis> redigera <filename>/etc/ldapscripts/ldapscripts.conf</filename> och ändra:</para>
+
+<programlisting>
+UTEMPLATE="/etc/ldapscripts/ldapadduser.template"
+</programlisting>
+
+              <para>Det finns <emphasis role="italic">provmallar</emphasis> i katalogen <filename>/etc/ldapscripts</filename>. Kopiera och döp om filen <filename>ldapadduser.template.sample</filename> till <filename>/etc/ldapscripts/ldapadduser.template</filename>:</para>
+
+<screen>
+<command>sudo cp /etc/ldapscripts/ldapadduser.template.sample /etc/ldapscripts/ldapadduser.template</command>
+</screen>
+
+              <para>Redigera den nya mallen och lägg till önskade attribut. Följande kommer skapa nya användare med en <emphasis>objectClass</emphasis> av <emphasis>inetOrgPerson</emphasis>:</para>
+
+<programlisting>
+dn: uid=&lt;user&gt;,&lt;usuffix&gt;,&lt;suffix&gt;
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: &lt;user&gt;
+sn: &lt;ask&gt;
+uid: &lt;user&gt;
+uidNumber: &lt;uid&gt;
+gidNumber: &lt;gid&gt;
+homeDirectory: &lt;home&gt;
+loginShell: &lt;shell&gt;
+gecos: &lt;user&gt;
+description: User account
+title: Employee
+</programlisting>
+
+              <para>Notera flaggan <emphasis>&lt;ask&gt;</emphasis> som används för värdet <emphasis>cn</emphasis>. Att använda &lt;ask&gt; kommer konfigurera <application>ldapadduser</application> till att fråga efter attributvärdet när användaren skapas.</para>
+
+	    </listitem>
+          </itemizedlist>
+
+          <para>Paketet innehåller fler användbara skript, skriv följande för att se en komplett lista: <command>dpkg -L ldapscripts | grep bin</command></para>
+
+        </sect2>
+	<sect2 id="openldap-server-resources" status="review">
+	  <title>Resurser</title>
+	  <itemizedlist>
+	    <listitem>
+              <para>För mer information, se webbplatsen för <ulink url="http://www.openldap.org/">OpenLDAP</ulink></para>
+	    </listitem>
+	    <listitem>
+              <para>Även om den börjar bli gammal så är O'Reilly's bok <ulink url="http://www.oreilly.com/catalog/ldapsa/">LDAP System Administration</ulink> en bra källa för detaljerad LDAP-information.</para>
+	    </listitem>
+	    <listitem>
+              <para>Packt's <ulink url="http://www.packtpub.com/OpenLDAP-Developers-Server-Open-Source-Linux/book">Mastering OpenLDAP</ulink> är en utmärkt referens för nyare versioner av OpenLDAP.</para>
+	    </listitem>
+	    <listitem>
+              <para>För mer information om <application>auth-client-config</application> se manualsidan: <command>man auth-client-config</command>.</para>
+	    </listitem>
+	    <listitem>
+              <para>För fler detaljer angående paketet <application>ldapscripts</application> se manualsidorna: <command>man ldapscripts</command>, <command>man ldapadduser</command>, <command>man ldapaddgroup</command>, etc.</para>
+	    </listitem>
+	  </itemizedlist>
+	 
+	</sect2>
+  </sect1>
+  <sect1 id="samba-ldap" status="review">
+    <title>Samba och LDAP</title>
+
+    <para>Detta avsnitt behandlar konfigureringen av Samba till att använda LDAP för användare, grupper och maskinkontoinformation och autentisering. Antagandet är att du redan har en fungerande OpenLDAP-katalog installerad och att servern är konfigurerad till att använda autentisering. Se <xref linkend="openldap-server"/> och <xref linkend="openldap-auth-config"/> för detaljer om installationen av OpenLDAP.</para>
+
+    <sect2 id="samba-ldap-installation" status="review">
+      <title>Installation</title>
+  
+      <para>Det är tre paket som behövs för att integrera Samba med LDAP, <application>samba</application>, <application>samba-doc</application> och <application>smbldap-tools</application>. För att installera paketen, skriv från en terminal:</para>
+
+<screen>
+<command>sudo apt-get install samba samba-doc smbldap-tools</command>
+</screen>
+
+      <para>Paketet <application>smbldap-tools</application> behövs egentligen inte, men om du inte har ett annat paket eller anpassat skript, behövs en metod för att hantera användare, grupper och maskinkonton.</para>
+
+    </sect2>
+    <sect2 id="samba-ldap-openldap-configuration" status="review">
+      <title>OpenLDAP konfigurering</title>
+
+      <para>För att Samba skall använda OpenLDAP som en <emphasis>passdb-bakände</emphasis>, behöver användarobjekten i katalogen ytterligare attribut. Detta avsnitt förutsätter att du vill att Samba skall konfigureras som en Windows NT domänkontrollant och att nödvändiga LDAP-objekt och attribut läggs till.</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>Samba-attributen är definierade i filen <filename>samba.schema</filename> som är en del av paketet <application>samba-doc</application>. Schemafilen behöver packas upp och kopieras till <filename>/etc/ldap/schema</filename>. Skriv från en terminal:</para>
+        
+<screen>
+<command>sudo cp /usr/share/doc/samba-doc/examples/LDAP/samba.schema.gz /etc/ldap/schema/</command>
+<command>sudo gzip -d /etc/ldap/schema/samba.schema.gz</command>
+</screen>
+
+         </listitem> 
+         <listitem>
+
+           <para>Schemat <emphasis>samba</emphasis> behöver läggas till i trädet <emphasis>cn=config</emphasis>. Proceduren för att lägga till ett nytt schema till <application>slapd</application> finns också beskrivet i <xref linkend="openldap-configuration"/>.</para>
+
+           <procedure>
+              <step>
+                <para>Börja med att skapa en konfigurationsfil med namnet <filename>schema_convert.conf</filename>, eller ett liknande beskrivande namn som innehåller följande rader:</para>
+
+<programlisting>
+include /etc/ldap/schema/core.schema
+include /etc/ldap/schema/collective.schema
+include /etc/ldap/schema/corba.schema
+include /etc/ldap/schema/cosine.schema
+include /etc/ldap/schema/duaconf.schema
+include /etc/ldap/schema/dyngroup.schema
+include /etc/ldap/schema/inetorgperson.schema
+include /etc/ldap/schema/java.schema
+include /etc/ldap/schema/misc.schema
+include /etc/ldap/schema/nis.schema
+include /etc/ldap/schema/openldap.schema
+include /etc/ldap/schema/ppolicy.schema
+include /etc/ldap/schema/samba.schema
+</programlisting>
+
+              </step>
+              <step>
+
+                <para>Nästa steg, skapa en temporär katalog som skall innehålla utdatan:</para> 
+
+<screen>
+<command>mkdir /tmp/ldif_output</command>
+</screen>
+
+              </step>
+              <step>
+
+                <para>Använd nu <application>slaptest</application> för att konvertera schemafilerna:</para>
+
+<screen>
+<command>slaptest -f schema_convert.conf -F /tmp/ldif_output</command>
+</screen>
+
+                <para>Ändra ovanstående fil och sökvägar till att matcha dina egna om de är olika.</para>
+
+              </step>
+              <step>
+
+                <para>Redigera den nyss skapade filen <filename>/tmp/ldif_output/cn=config/cn=schema/cn={12}samba.ldif</filename> och ändra följande attribut:</para> 
+
+<programlisting>
+dn: cn=samba,cn=schema,cn=config
+...
+cn: samba
+</programlisting>
+
+                <para>Och ta bort följande rader i slutet av filen:</para> 
+
+<programlisting>
+structuralObjectClass: olcSchemaConfig
+entryUUID: b53b75ca-083f-102d-9fff-2f64fd123c95
+creatorsName: cn=config
+createTimestamp: 20080827045234Z
+entryCSN: 20080827045234.341425Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20080827045234Z
+</programlisting>
+
+                <note>
+                  <para>Attributvärdena kommer skifta, säkerställ bara att attributen är borttagna.</para>
+                </note>
+
+              </step>
+              <step>
+
+                <para>Till sist, använd verktyget <application>ldapadd</application>, för att lägga till det nya schemat i katalogen:</para>
+
+<screen>
+<command>ldapadd -x -D cn=admin,cn=config -W -f /tmp/ldif_output/cn\=config/cn\=schema/cn\=\{12\}samba.ldif</command>
+</screen>
+
+              </step>
+            </procedure>
+
+            <para>Där skall nu finnas en <emphasis>dn: cn={X}misc,cn=schema,cn=config</emphasis>, där "X" är nästa sekventiella schemauppgift i trädet cn=config.</para> 
+
+          </listitem>
+          <listitem>
+
+            <para>Kopiera och klistra in följande i en fil med namnet <filename>samba_indexes.ldif</filename>:</para>
+
+<programlisting>
+dn: olcDatabase={1}hdb,cn=config
+changetype: modify
+add: olcDbIndex
+olcDbIndex: uidNumber eq
+olcDbIndex: gidNumber eq
+olcDbIndex: loginShell eq
+olcDbIndex: uid eq,pres,sub
+olcDbIndex: memberUid eq,pres,sub
+olcDbIndex: uniqueMember eq,pres
+olcDbIndex: sambaSID eq
+olcDbIndex: sambaPrimaryGroupSID eq
+olcDbIndex: sambaGroupType eq
+olcDbIndex: sambaSIDList eq
+olcDbIndex: sambaDomainName eq
+olcDbIndex: default sub
+</programlisting>
+
+            <para>Genom att använda verktyget <application>ldapmodify</application> laddas det nya indexet:</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W -f samba_indexes.ldif</command>
+</screen>
+            <para>Om allt gick bra skall du kunna se det nya indexet genom att använda <application>ldapsearch</application>:</para>
+
+<screen>
+<command>ldapsearch -xLLL -D cn=admin,cn=config -x -b cn=config -W olcDatabase={1}hdb</command>
+</screen>
+
+          </listitem>
+          <listitem>
+ 
+            <para>Nästa steg, konfigurera paketet <application>smbldap-tools</application> så att det matchar din miljö. Paketet levereras med ett konfigurationsskript som kommer ställa frågor om nödvändiga alternativ. För att köra skriptet, skriv:</para>
+
+<screen>
+<command>sudo gzip -d /usr/share/doc/smbldap-tools/configure.pl.gz</command>
+<command>sudo perl /usr/share/doc/smbldap-tools/configure.pl</command>
+</screen>
+
+            <para>När du har svarat på frågorna, kommer dessa filer att finnas <filename>/etc/smbldap-tools/smbldap.conf</filename> och <filename>/etc/smbldap-tools/smbldap_bind.conf</filename>. Dessa filer är skapade av konfigurationsskriptet, så om du gjort några misstag när du körde skriptet kan det vara enklare att på lämpligt sätt redigera filen.</para>
+
+          </listitem>
+          <listitem>
+
+            <para>Skriptet <application>smbldap-populate</application> kommer lägga till nödvändiga användare, grupper och LDAP-objekt som krävs för Samba. Innan du verkställer kommandot är det en bra idé att göra en säkerhetskopia på filen LDAP Data Interchange Format (LDIF) genom att använda <application>slapcat</application>:</para>
+
+<screen>
+<command>sudo slapcat -l backup.ldif</command>
+</screen>
+          
+          </listitem>
+          <listitem>
+
+            <para>När du har en aktuell säkerhetskopia, verkställ <application>smbldap-populate</application> genom att skriva:</para>
+
+<screen>
+<command>sudo smbldap-populate</command>
+</screen>
+
+          <note>
+            <para>Du kan skapa en ny LDIF-fil som innehåller det nya Samba-objektet genom att köra <command>sudo smbldap-populate -e samba.ldif</command>. Detta medför att du kan granska ändringarna och säkerställa att allt är rätt.</para>
+          </note>
+        </listitem>
+      </itemizedlist>
+
+      <para>Din LDAP-katalog har nu den nödvändiga domäninformationen för att kunna autentisera Samba-användare.</para>
+
+    </sect2>
+    <sect2 id="samba-ldap-samba-configuration">
+      <title>Samba konfigurering</title>
+
+      <para>Det finns flera sätt att konfigurera Samba, för information om några vanliga konfigurationer se  <xref linkend="windows-networking"/>. För att konfigurera Samba till att använda LDAP, redigera Samba:s huvudkonfigurationsfil <filename>/etc/samba/smb.conf</filename> kommentera alternativet <emphasis>passdb backend</emphasis> och lägg till följande:</para>
+
+<programlisting>
+#   passdb backend = tdbsam
+
+# LDAP Settings
+   passdb backend = ldapsam:ldap://hostname
+   ldap suffix = dc=example,dc=com
+   ldap user suffix = ou=People
+   ldap group suffix = ou=Groups
+   ldap machine suffix = ou=Computers
+   ldap idmap suffix = ou=Idmap
+   ldap admin dn = cn=admin,dc=example,dc=com
+   ldap ssl = start tls
+   ldap passwd sync = yes
+...
+   add machine script = sudo /usr/sbin/smbldap-useradd -t 0 -w "%u"
+</programlisting>
+
+      <para>Starta om <application>samba</application> för att aktivera de nya inställningarna:</para>
+
+<screen>
+<command>sudo /etc/init.d/samba restart</command>
+</screen>
+
+      <para>Nu behöver Samba veta LDAP-administratörens lösenord. Skriv från en terminalprompt:</para>
+
+<screen>
+<command>sudo smbpasswd -w secret</command>
+</screen>
+
+      <note>
+        <para>Ersätt <emphasis role="italic">secret</emphasis> med din LDAP-administratörs lösenord.</para>
+      </note>
+
+      <para>Om du för närvarande har användare i LDAP och vill att de skall autentisiera genom att använda Samba, då kommer de behöva några Samba-attribut definierade i filen <filename>samba.schema</filename>. Lägg till Samba-attributen för existerande användare genom att använda verktyget <application>smbpasswd</application>, ersätt <emphasis role="italic">username</emphasis> med en verklig användare:</para>
+
+<screen>
+<command>sudo smbpasswd -a användarnamn</command>
+</screen>
+
+      <para>Du kommer därefter tillfrågas om att ange användarens lösenord.</para>
+
+      <para>För att lägga till nya användare, grupper och maskinkonton använd verktygen från paketet <application>smbldap-tools</application>. Här följer ett par exempel:</para> 
+
+      <itemizedlist>
+        <listitem>
+          <para>För att lägga till en ny användare till LDAP med Samba-attribut, ange följande, ersätt username med ett verkligt användarnamn:</para>
+<screen>
+<command>sudo smbldap-useradd -a -P användarnamn</command>
+</screen>
+          <para>Flaggan <emphasis>-a</emphasis> lägger till Samba-attributen och flaggan <emphasis>-P</emphasis> anropar verktyget <application>smbldap-passwd</application> efter det att användaren skapats för att tillåta dig att ange ett lösenord för användaren.</para>
+        </listitem>
+        <listitem>
+          <para>För att ta bort en användare från katalogen, skriv:</para>
+<screen>
+<command>sudo smbldap-userdel användarnamn</command>
+</screen>
+          <para>Verktyget <application>smbldap-userdel</application> har också en <emphasis>-r</emphasis> flagga för att ta bort användarnas hemmakatalog.</para>
+        </listitem>
+        <listitem>
+          <para>Använd <application>smbldap-groupadd</application> för att lägga till en grupp, ersätt gruppnamn med en riktig grupp:</para>
+<screen>
+<command>sudo smbldap-groupadd -a gruppnamn</command>
+</screen>
+          <para>På samma sätt för <application>smbldap-useradd</application>, lägger <emphasis>-a</emphasis> till Samba-attributen.</para>
+        </listitem>
+        <listitem>
+          <para>För att lägga till en användare i en grupp använd <application>smbldap-groupmod</application>:</para>
+<screen>
+<command>sudo smbldap-groupmod -m användarnamn gruppnamn</command>
+</screen>
+          <para>Säkerställ att du ersätter <emphasis>username</emphasis> med en verklig användare. Dessutom kan flaggan <emphasis>-m</emphasis> lägga till mer än en användare åt gången genom att lista dem i ett <emphasis>kommaseparerat</emphasis> format.</para>
+        </listitem>
+        <listitem>
+          <para><application>smbldap-groupmod</application> kan också användas för att ta bort en användare från en grupp:</para>
+<screen>
+<command>sudo smbldap-groupmod -x användarnamn gruppnamn</command>
+</screen>
+        </listitem>
+        <listitem>
+          <para>Dessutom kan verktyget <application>smbldap-useradd</application> lägga till Samba maskinkonton:</para>
+<screen>
+<command>sudo smbldap-useradd -t 0 -w användarnamn</command>
+</screen>
+          <para>Ersätt <emphasis>username</emphasis> med namnet på arbetsstationen. Flaggan <emphasis>-t 0</emphasis> skapar maskinkontot utan fördröjning, medans flaggan <emphasis>-w</emphasis> specificerar användaren som ett maskinkonto. Dessutom, notera att alternativet <emphasis>add machine script</emphasis> i <filename>/etc/samba/smb.conf</filename> har ändrats till att använda <application>smbldap-useradd</application>.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Det finns fler användbara funktioner och alternativ i paketet <application>smbldap-tools</application>. Man-sidan för respektive verktyg innehåller fler detaljer.</para>
+
+    </sect2>
+    <sect2 id="samba-ldap-resources" status="review">
+      <title>Resurser</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>Det finns flera platser som LDAP och Samba är dokumenterade i <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/">Samba HOWTO Collection</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>Se särskilt avsnittet <ulink url="http://samba.org/samba/docs/man/Samba-HOWTO-Collection/passdb.html">passdb</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>En annan bra plats är <ulink url="http://www.iallanis.info/smbldap-tools/docs/samba-ldap-howto/">Samba OpenLDAP HOWTO</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>Återigen, för mer information om <application>smbldap-tools</application> se manualsidorna: <command>man smbldap-useradd</command>, <command>man smbldap-groupadd</command>, <command>man smbldap-populate</command>, etc.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="kerberos" status="review">
+    <title>Kerberos</title>
+    
+    <para><application>Kerberos</application> är ett nätverkautentiseringsystem som bygger på principen om en betrodd tredje part. De två andra parterna är användaren och tjänsten som användaren vill autentisiera till. Inte alla tjänster och tillämpningar kan använda Kerberos, men för de som kan, medför det att nätverksmiljön kommer ett steg närmare till att bli, Single Sign On (SSO).</para>
+
+    <para>Detta avsnitt omfattar installation och konfigurering av en Kerberos-server och några exempel på klientkonfigurationer.</para>
+    
+    <sect2 id="kerberos-overview" status="review">
+      <title>Översikt</title>
+
+      <para>Om du är ny inom Kerberos så finns det några uttryck som är bra att förstå innan man sätter upp en Kerberos-server. De flesta av uttrycken kommer att beröra saker som du kanske känner igen från andra miljöer:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>Principal:</emphasis> användare, datorer och tjänster som tillhandahålls av servrar behöver definieras som principaler i Kerberos.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Instances:</emphasis> används för tjänste-principaler och speciella administrativa principaler.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Realms:</emphasis> är en unik realm-kontroll som tillhandahålls av kerberos installationen. Normalt är det DNS-domänen konverterad till versaler (EXAMPLE.COM).</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Key Distribution Center:</emphasis> (KDC) består av tre delar, en databas över alla principaler, autentiseringsserver och server för certifikatgodkännande (TGS). För varje realm måste det finnas minst en KDC.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Ticket Granting Ticket:</emphasis> utfärdas av autentiseringsservern (AS), Ticket Granting Ticket (TGT) är krypterad inuti användarens lösenord som endast är känt av användaren och KDC:n.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Ticket Granting Server:</emphasis> (TGS) utfärdar vid begäran tjänstcertifikat till användarna.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Tickets:</emphasis> bekräftar identiteten av de två principalerna. En principal är användaren och den andra är en tjänst som begärts av användaren. Certifikatet (Tickets) skapar en krypteringsnyckel som används för en säker kommunikation under den autentiserade sessionen.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Keytab-filer:</emphasis> är filer som extraherats från KDC principal-databasen och som innehåller krypteringsnyckeln för en tjänst eller värd.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>För att sammanfatta det hela, en realm har minst en KDC, helst två för redundans, vilka innehåller principal-databasen. När en användar-principal loggar in på en arbetsstation som är konfigurerad för Kerberos-autentisering, skapar KDC:n en Ticket Granting Ticket (TGT). Om användarens tillhandahållna identitet matchar är användaren autentisierad och kan därefter begära ett certifikat från Ticket Granting Server (TGS) för kerberos-tjänster. Tjänstens certifikat tillåter användaren att autentisera till tjänsten utan att ange något annat användarnamn och lösenord.</para>
+   
+    </sect2>
+    <sect2 id="kerberos-server" status="review">
+      <title>Kerberos server</title>    
+      <sect3 id="kerberos-server-installation" status="review">
+        <title>Installation</title>
+
+        <para>Före installationen av kerberos-servern behövs en rätt konfigurerad DNS-server för din domän. Eftersom en kerberos realm enligt konventionen är samma som domännamnet använder detta avsnitt domänen <emphasis>example.com</emphasis> som konfigurerades i <xref linkend="dns-primarymaster-configuration"/>.</para>
+
+        <para>Dessutom, kerberos är ett tidskänsligt protokoll. Så om den lokala systemtiden mellan en klientmaskin och server skiljer mer än fem minuter (standardvärde), kommer arbetsstationen inte att kunna autentisiera. För att komma tillrätta med problemet, bör alla värdar synkronisera tiden genom att använda <emphasis>Network Time Protocol (NTP)</emphasis>. För detaljer om att installera NTP se <xref linkend="NTP"/>.</para>
+
+        <para>Första steget för att installera en Kerberos realm är att installera paketen <application>krb5-kdc</application> och <application>krb5-admin-server</application>. skriv från en terminal:</para>
+
+<screen>
+<command>sudo apt-get install krb5-kdc krb5-admin-server</command>
+</screen>
+
+        <para>Du kommer i slutet av installationen att tillfrågas efter ange ett namn för kerberos och admin-servrarna, vilka kan men behöver inte vara samma servrar för din realm.</para>
+
+        <para>Nästa steg, skapa en ny realm med verktyget <application>kdb5_newrealm</application>:</para>
+
+<screen>
+<command>sudo krb5_newrealm</command>
+</screen>
+
+      </sect3>
+      <sect3 id="kerberos-server-configuration" status="review">
+        <title>Konfiguration</title>
+      
+        <para>Frågorna som ställs under installationen används till att konfigurera filen <filename>/etc/krb5.conf</filename>. Om du behöver justera inställningarna för Key Distribution Center (KDC) redigera filen och starta om demonen <application>krb5-kdc</application>.</para>
+
+        <procedure>
+          <step>
+
+            <para>Nu när KDC:n är i drift behövs en administratör. Det rekommenderas att använda ett annat användarnamn än ditt vardagliga användarnamn. Skriv följande i en terminalprompt genom att använda verktyget <application>kadmin.local</application>.</para>
+
+<screen>
+<command>sudo kadmin.local</command>
+<computeroutput>Authenticating as principal root/admin@EXAMPLE.COM with password.
+kadmin.local:</computeroutput><userinput> addprinc steve/admin</userinput>
+<computeroutput>WARNING: no policy specified for steve/admin@EXAMPLE.COM; defaulting to no policy
+Enter password for principal "steve/admin@EXAMPLE.COM": 
+Re-enter password for principal "steve/admin@EXAMPLE.COM": 
+Principal "steve/admin@EXAMPLE.COM" created.
+kadmin.local:</computeroutput><userinput> quit</userinput>
+</screen>
+
+            <para>I ovanstående exempel är <emphasis role="italic">steve</emphasis> <emphasis>principalen</emphasis>, <emphasis role="italic">/admin</emphasis> är en <emphasis>instans</emphasis> och <emphasis role="italic">@EXAMPLE.COM</emphasis> betecknar realm:en. Den <emphasis role="italic">"vardagliga"</emphasis> principalen skulle vara <emphasis>steve@EXAMPLE.COM</emphasis> och skall endast ha normala användarrättigheter.</para>
+
+            <note>
+              <para>Ersätt <emphasis>EXAMPLE.COM</emphasis> och <emphasis>steve</emphasis> med namnet för din realm och administratörens användarnamn.</para>
+            </note>
+
+          </step>
+          <step>
+ 
+            <para>Nästa steg, den nya användaren med administratörsrättigheter måste ha korrekta rättigheter i åtkomstlistorna (ACL). Rättigheterna konfigureras i filen <filename>/etc/krb5kdc/kadm5.acl</filename>:</para>
+
+<programlisting>
+steve/admin@EXAMPLE.COM        *
+</programlisting>
+
+            <para>Den här posten godkänner att <emphasis>steve/admin</emphasis> har möjligheten att utföra vilka som helst moment för alla principal:s inom en realm.</para>
+
+          </step>
+          <step>
+
+            <para>Starta nu om <application>krb5-admin-server</application> för att din nya ACL skall påverkas:</para>
+
+<screen>
+<command>sudo /etc/init.d/krb5-admin-server restart</command>
+</screen>
+
+          </step>
+          <step>
+
+            <para>Den nya användaren tillika principal kan testas genom att använda verktyget <application>kinit</application>:</para>
+
+<screen>
+<command>kinit steve/admin</command>
+<computeroutput>steve/admin@EXAMPLE.COM's Password:</computeroutput>
+</screen>          
+
+            <para>Efter att du angett lösenordet, använd verktyget <application>klist</application> för att se information om Ticket Granting Ticket (TGT):</para>
+
+<screen>
+<command>klist</command>
+<computeroutput>Credentials cache: FILE:/tmp/krb5cc_1000
+        Principal: steve/admin@EXAMPLE.COM
+
+  Issued           Expires          Principal
+Jul 13 17:53:34  Jul 14 03:53:34  krbtgt/EXAMPLE.COM@EXAMPLE.COM</computeroutput>
+</screen>
+
+            <para>Du kanske måste lägga till en post i <filename>/etc/hosts</filename> för KDC. Till exempel:</para>
+            
+<programlisting>
+192.168.0.1   kdc01.example.com       kdc01
+</programlisting>
+
+            <para>Ersätt <emphasis>192.168.0.1</emphasis> med IP-adressen till din KDC.</para>
+
+          </step>
+          <step>
+          
+            <para>För att klienter skall  kunna bestämma KDC:n för realm:en så behövs det några DNS SRV poster. Lägg till följande i <filename>/etc/named/db.example.com</filename>:</para>
+
+<programlisting>
+_kerberos._udp.EXAMPLE.COM.     IN SRV 1  0 88  kdc01.example.com.
+_kerberos._tcp.EXAMPLE.COM.     IN SRV 1  0 88  kdc01.example.com.
+_kerberos._udp.EXAMPLE.COM.     IN SRV 10 0 88  kdc02.example.com. 
+_kerberos._tcp.EXAMPLE.COM.     IN SRV 10 0 88  kdc02.example.com. 
+_kerberos-adm._tcp.EXAMPLE.COM. IN SRV 1  0 749 kdc01.example.com.
+_kpasswd._udp.EXAMPLE.COM.      IN SRV 1  0 464 kdc01.example.com.
+</programlisting>
+
+            <note>
+              <para>Ersätt <emphasis>EXAMPLE.COM</emphasis>, <emphasis>kdc01</emphasis> och <emphasis>kdc02</emphasis> med ditt domännamn, primära KDC, och sekundära KDC.</para>
+            </note>
+
+            <para>Se <xref linkend="dns"/> för detaljerade instruktioner om att sätta upp DNS.</para>
+
+          </step>
+        </procedure>
+       
+        <para>Din nya Kerberos Realm är nu redo att autentisiera klienter.</para>
+
+      </sect3>
+    </sect2>
+    <sect2 id="kerberos-secondary-kdc" status="review">
+      <title>Sekundär KDC</title>
+
+      <para>När du på ditt nätverk har en Key Distribution Center (KDC), är det en bra vana att ha en sekundär KDC ifall den primära blir otillgänglig.</para> 
+      
+      <procedure>
+        <step>
+        
+        <para>Börja med att installera paketen och när du tillfrågas efter namnen på kerberos och admin-servern, ange namnen från den primära KDC:</para>
+
+<screen>
+<command>sudo apt-get install krb5-kdc krb5-admin-server</command>
+</screen>
+
+        </step>
+        <step>
+
+        <para>När paketen är installerade, skapa den sekundära KDC:ns värd-principal. Från en terminalprompt, ange:</para>
+
+<screen>
+<command>kadmin -q "addprinc -randkey host/kdc02.example.com"</command>
+</screen>
+    
+        <note>
+          <para>Efter att du utfärdat ett <application>kadmin</application>-kommando kommer du att tillfrågas efter huvudlösenordet för <emphasis>användarnamn/admin@EXAMPLE.COM</emphasis>.</para>
+        </note>
+      
+        </step>
+        <step>
+
+          <para>Extrahera <emphasis>keytab</emphasis>-filen:</para>
+
+<screen>
+<command>kadmin -q "ktadd -k keytab.kdc02 host/kdc02.example.com"</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>I den nuvarande katalogen skall det nu finnas en <filename>keytab.kdc02</filename>, flytta filen till <filename>/etc/krb5.keytab</filename>:</para>
+
+<screen>
+<command>sudo mv keytab.kdc02 /etc/krb5.keytab</command>
+</screen>
+
+          <note>
+            <para>Justera sökvägen till filen <filename>keytab.kdc02</filename> om det är en annan.</para>
+          </note>
+
+          <para>Dessutom kan du lista alla principaler i en keytab-fil genom att använda verktyget <application>klist</application>, vilket kan vara användbart vid felsökning:</para>
+
+<screen>
+<command>sudo klist -k /etc/krb5.keytab</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>Nästa steg, filen <filename>kpropd.acl</filename> måste finnas på varje KDC som skall lista alla KDC:er för realm:en. Till exempel, skapa <filename>/etc/krb5kdc/kpropd.acl</filename> på både den primära och sekundära KDC:n:</para>
+
+<programlisting>
+host/kdc01.example.com@EXAMPLE.COM
+host/kdc02.example.com@EXAMPLE.COM
+</programlisting>
+
+        </step>
+        <step>
+
+          <para>Skapa en tom databas på den <emphasis>sekundära KDC:n</emphasis>:</para>
+
+<screen>
+<command>sudo kdb5_util -s create</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>Starta nu demonen <application>kpropd</application>, som lyssnar efter anslutningar från verktyget <application>kprop</application>. <application>kprop</application> används till att skicka dump-filer:</para>
+
+<screen>
+<command>sudo kpropd -S</command>
+</screen>
+      
+        </step>
+        <step>
+
+          <para>Från en terminal på den <emphasis>Primära KDC:n</emphasis>, skapa en dump-fil av principal-databasen:</para>
+
+<screen>
+<command>sudo kdb5_util dump /var/lib/krb5kdc/dump</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>Extrahera <emphasis>keytab</emphasis>-filen på den Primära KDC:n och kopiera filen till <filename>/etc/krb5.keytab</filename>:</para>
+
+<screen>
+<command>kadmin -q "ktadd -k keytab.kdc01 host/kdc01.example.com"</command>
+<command>sudo mv keytab.kdc01 /etc/kr5b.keytab</command>
+</screen>
+
+          <note>
+            <para>Säkerställ att det finns en <emphasis>värd</emphasis> för <emphasis>kdc01.example.com</emphasis> innan du extraherar Keytab.</para>
+          </note>
+
+        </step>
+        <step>
+
+          <para>Genom att använda verktyget <application>kprop</application> skickas databasen till den sekundära KDCn:</para>
+
+<screen>
+<command>sudo kprop -r EXAMPLE.COM -f /var/lib/krb5kdc/dump kdc02.example.com</command>
+</screen>
+
+          <note>
+            <para>Meddelandet <emphasis>SUCCEEDED</emphasis> skall nu synas om spridningen lyckades. Om det är några felmeddelanden kontrollera då <filename>/var/log/syslog</filename> på den sekundära KDC:n för mer information.</para>
+          </note>
+      
+          <para>Du kanske också vill skapa ett <application>cron</application>-jobb för att periodiskt uppdatera databasen på den sekundära KDC:n. Till exempel, följande kommer skicka databasen varje timma:</para>
+
+<programlisting>
+# m h  dom mon dow   command
+0 * * * * /usr/sbin/kdb5_util dump /var/lib/krb5kdc/dump &amp;&amp; /usr/sbin/kprop -r EXAMPLE.COM -f /var/lib/krb5kdc/dump kdc02.example.com
+</programlisting>
+  
+        </step>
+        <step>
+
+          <para>Tillbaka på den <emphasis>sekundära KDC:n</emphasis>, skapa en<emphasis>stash</emphasis>-fil som kommer innehålla Kerberos huvudnyckel:</para>
+
+<screen>
+<command>sudo kdb5_util stash</command>
+</screen>
+
+        </step>
+        <step>
+
+          <para>Slutligen, starta demonen <application>krb5-kdc</application> på den sekundära KDC:n:</para>
+
+<screen>
+<command>sudo /etc/init.d/krb5-kdc start</command>
+</screen>
+
+        </step>
+      </procedure>
+
+      <para>Nu skall den <emphasis>sekundära KDC:n</emphasis> kunna utfärda certifikat för realm:en. Du kan testa detta genom att stoppa demonen <application>krb5-kdc</application> på den primära KDCn och därefter använda <application>kinit</application> till att begära ett certifikat. Om allt går bra kommer du ta emot ett certifikat från den sekundära KDC:n.</para>
+
+    </sect2>
+    <sect2 id="kerberos-linux-client" status="review">
+      <title>Kerberos Linux klient</title>    
+
+      <para>Detta avsnitt omfattar konfigureringen av ett Linux-system som en <application>Kerberos</application>-klient. Detta kommer att ge tillgång till alla kerberosierade tjänster så snart en användare framgångsrikt loggat in i systemet.</para>
+
+      <sect3 id="kerberos-client-installation" status="review">
+        <title>Installation</title>
+
+        <para>För att autentisiera till en kerberos-sfär så behövs paketen <application>krb5-user</application> och <application>libpam-krb5</application>, tillsammans med en del andra paket som inte är absolut nödvändiga, men som kan göra livet lite lättare. För att installera paketen ange följande i en terminalprompt:</para>
+
+<screen>
+<command>sudo apt-get install krb5-user libpam-krb5 libpam-ccreds auth-client-config</command>
+</screen>
+
+        <para>Paketet <application>auth-client-config</application> tillåter en enkel konfiguration av PAM för autentisering från flera källor och <application>libpam-ccreds</application> cachar autentiseringsreferenser vilket medför att du kan logga in även om Key Distribution Center (KDC) är otillgänglig. Detta paket är också användbart för bärbara datorer som autentisierar med hjälp av Kerberos på företagets nätverk, men som också behöver nås utanför nätverket.</para>
+
+      </sect3>
+      <sect3 id="kerberos-client-configuration" status="review">
+        <title>Konfiguration</title>
+
+        <para>För att konfigurera klienten, skriv i en terminal:</para>
+
+<screen>
+<command>sudo dpkg-reconfigure krb5-config</command>
+</screen>
+
+        <para>Du kommer bli uppmanad att ange namnet på kerberos-realm:en. Dessutom, om du inte har konfigurerat DNS med Kerberos <emphasis>SRV</emphasis>-poster, kommer menyn fråga efter värdnamnet på Key Distribution Center (KDC) och realm:ens  administartionsserver.</para>
+
+        <para><application>dpkg-reconfigure</application> lägger till poster i filen <filename>/etc/krb5.conf</filename> för din realm. Du skall ha poster som liknar följande:</para>
+
+<programlisting>
+[libdefaults]
+        default_realm = EXAMPLE.COM
+...
+[realms]
+        EXAMPLE.COM = }                
+                kdc = 192.168.0.1               
+                admin_server = 192.168.0.1
+        }
+</programlisting>
+
+        <para>Du kan testa konfigurationen genom att begära ett certifikat med hjälp av verktyget <application>kinit</application>. Till exempel:</para>
+
+<screen>
+<command>kinit steve@EXAMPLE.COM</command>
+<computeroutput>Password for steve@EXAMPLE.COM:</computeroutput>
+</screen>
+
+        <para>När ett certifikat är godkänt kan detaljerna visas med hjälp av <application>klist</application>:</para>
+
+<screen>
+<command>klist</command>
+<computeroutput>Ticket cache: FILE:/tmp/krb5cc_1000
+Default principal: steve@EXAMPLE.COM
+
+Valid starting     Expires            Service principal
+07/24/08 05:18:56  07/24/08 15:18:56  krbtgt/EXAMPLE.COM@EXAMPLE.COM
+        renew until 07/25/08 05:18:57
+
+
+Kerberos 4 ticket cache: /tmp/tkt1000
+klist: You have no tickets cached</computeroutput>
+</screen>
+
+        <para>Nästa steg, använd <application>auth-client-config</application> för att konfigurera modulen <application>libpam-krb5</application> till att begära ett certifikat under inloggning:</para>
+
+<screen>
+<command>sudo auth-client-config -a -p kerberos_example</command>
+</screen>
+
+        <para>Du skall nu kunna få ett certifikat vid en lyckad inloggning.</para>
+
+      </sect3>
+    </sect2>
+    <sect2 id="kerberos-resources" status="review">
+      <title>Resurser</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>För mer information om Kerberos, se <ulink url="http://web.mit.edu/Kerberos/">MIT Kerberos</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>O'Reilly's <ulink url="http://oreilly.com/catalog/9780596004033/">Kerberos: The Definitive Guide</ulink> är en annan bra referens för sätta upp Kerberos.</para>
+        </listitem>
+        <listitem>
+          <para>Dessutom, stanna till vid IRC-kanalen <emphasis>#ubuntu-server</emphasis> på <ulink url="http://freenode.net/">Freenode</ulink> om du har frågor om Kerberos.</para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+  <sect1 id="kerberos-ldap" status="review">
+    <title>Kerberos och LDAP</title>
+
+    <para>Replikera en Kerberos principal-databas mellan två servrar kan vara komplicerat och adderar ytterligare en databas till ditt nätverk. lyckligtvis, kan MIT Kerberos konfigureras till att använda en <application>LDAP</application>-katalog som en principal-databas. Detta avsnitt omfattar konfigurationen av en primär och sekundär Kerberos-server till att använda <application>OpenLDAP</application> som principal-databas.</para>
+
+    <sect2 id="kerberos-ldap-openldap" status="review">
+      <title>Konfigurera OpenLDAP</title>
+
+      <para>Först, det nödvändiga <emphasis>schemat</emphasis> måste laddas på en <application>OpenLDAP</application>-server som har en nätverkskoppling till den primära och sekundära KDC:n. Resten av detta avsnitt förutsätter att du också har en LDAP-replikering konfigurerad mellan minst två servrar. För information om att konfigurera OpenLDAP, se <xref linkend="openldap-server"/>.</para>
+
+      
+      <para>Det är också nödvändigt att konfigurera OpenLDAP för TLS- och SSL-anslutningar, så att alla trafik mellan KDC:en och LDAP-servern sker krypterat.</para>
+      
+      <itemizedlist>
+        <listitem>
+          <para>För att ladda schemat till LDAP, på LDAP-servern installera paketet <application>krb5-kdc-ldap</application>. Skriv från en terminal:</para>
+
+<screen>
+<command>sudo apt-get install krb5-kdc-ldap</command>
+</screen>
+
+        </listitem>
+        <listitem>
+          <para>Nästa steg, extahera filen <filename>kerberos.schema.gz</filename>:</para>
+
+<screen>
+<command>sudo gzip -d /usr/share/doc/krb5-kdc-ldap/kerberos.schema.gz</command>
+<command>sudo cp /usr/share/doc/krb5-kdc-ldap/kerberos.schema /etc/ldap/schema/</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+           <para><emphasis>Kerberos</emphasis>-schemat behöver läggas till i trädet <emphasis>cn=config</emphasis>. Proceduren för att lägga till ett nytt schema till <application>slapd</application> är också beskrivet i <xref linkend="openldap-configuration"/>.</para>
+
+           <procedure>
+              <step>
+                <para>Börja med att skapa en konfigurationsfil med namnet <filename>schema_convert.conf</filename>, eller ett liknande beskrivande namn som innehåller följande rader:</para>
+
+<programlisting>
+include /etc/ldap/schema/core.schema
+include /etc/ldap/schema/collective.schema
+include /etc/ldap/schema/corba.schema
+include /etc/ldap/schema/cosine.schema
+include /etc/ldap/schema/duaconf.schema
+include /etc/ldap/schema/dyngroup.schema
+include /etc/ldap/schema/inetorgperson.schema
+include /etc/ldap/schema/java.schema
+include /etc/ldap/schema/misc.schema
+include /etc/ldap/schema/nis.schema
+include /etc/ldap/schema/openldap.schema
+include /etc/ldap/schema/ppolicy.schema
+include /etc/ldap/schema/kerberos.schema
+</programlisting>
+
+
+                </step>
+                <step>
+
+                  <para>Skapa en temporär katalog som skall innehålla LDIF-filerna:</para>
+<screen>
+<command>mkdir /tmp/ldif_output</command>
+</screen>
+
+                </step>
+                <step>
+
+                  <para>Använd nu <application>slaptest</application> för att konvertera schemafilerna:</para>
+
+<screen>
+<command>slaptest -f schema_convert.conf -F /tmp/ldif_output</command>
+</screen>
+
+                  <para>Ändra ovanstående fil och sökvägar till att matcha dina egna om de är olika.</para>
+                
+                </step>
+                <step>
+
+                  <para>Redigera den nyss skapade filen <filename>/tmp/ldif_output/cn=config/cn=schema/cn={12}kerberos.ldif</filename> och ändra följande attribut:</para>
+
+<programlisting>
+dn: cn=kerberos,cn=schema,cn=config
+...
+cn: kerberos
+</programlisting>
+
+                  <para>Och ta bort följande rader i slutet av filen:</para>
+
+<programlisting>
+structuralObjectClass: olcSchemaConfig
+entryUUID: 18ccd010-746b-102d-9fbe-3760cca765dc
+creatorsName: cn=config
+createTimestamp: 20090111203515Z
+entryCSN: 20090111203515.326445Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20090111203515Z
+</programlisting>
+
+                  <note>
+                    <para>Attributvärdena kommer skifta, säkerställ bara att attributen är borttagna.</para>
+                  </note>
+
+                </step>
+                <step>
+
+                  <para>Ladda det nya schemat med <application>ldapadd</application>:</para>
+
+<screen>
+<command>ldapadd -x -D cn=admin,cn=config -W -f /tmp/ldif_output/cn\=config/cn\=schema/cn\=\{12\}kerberos.ldif</command>
+</screen>
+
+                </step>
+                <step>
+        
+                  <para>Lägg till ett index för attributet <emphasis>krb5principalname</emphasis>.</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+<computeroutput>Enter LDAP Password:
+<userinput>dn: olcDatabase={1}hdb,cn=config
+add: olcDbIndex
+olcDbIndex: krbPrincipalName eq,pres,sub</userinput>
+
+modifying entry "olcDatabase={1}hdb,cn=config"</computeroutput>
+</screen>
+      
+                </step>
+                <step>
+        
+                  <para>Slutligen, uppdatera åtkomstlistorna (ACL):</para>
+
+<screen>
+<command>ldapmodify -x -D cn=admin,cn=config -W</command>
+<computeroutput>Enter LDAP Password: 
+<userinput>dn: olcDatabase={1}hdb,cn=config
+replace: olcAccess
+olcAccess: to attrs=userPassword,shadowLastChange,krbPrincipalKey by dn="cn=admin,dc=exampl
+ e,dc=com" write by anonymous auth by self write by * none
+-
+add: olcAccess
+olcAccess: to dn.base="" by * read
+-
+add: olcAccess
+olcAccess: to * by dn="cn=admin,dc=example,dc=com" write by * read</userinput>
+
+modifying entry "olcDatabase={1}hdb,cn=config"
+</computeroutput>
+</screen>
+      
+                </step>
+           </procedure>    
+        </listitem>
+      </itemizedlist>
+
+      <para>Det var allt, din LDAP-katalog är nu redo att tjäna som en Kerberos principal-databas.</para>
+
+    </sect2>
+    <sect2 id="kerberos-ldap-primary-kdc" status="review">
+      <title>Konfiguration av primär KDC</title>
+
+      <para>Med <application>OpenLDAP</application> konfigurerad är det dags att konfigurera KDC:n.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Först, installera nödvändiga paket, skriv från en terminalprompt:</para>
+
+<screen>
+<command>sudo apt-get install krb5-kdc krb5-admin-server krb5-kdc-ldap</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>Redigera nu <filename>/etc/krb5.conf</filename> lägg till följande alternativ under passande avsnitt:</para>
+
+<programlisting>
+[libdefaults]
+        default_realm = EXAMPLE.COM
+
+...
+
+[realms]
+        EXAMPLE.COM = {
+                kdc = kdc01.example.com
+                kdc = kdc02.example.com
+                admin_server = kdc01.example.com
+                admin_server = kdc02.example.com
+                default_domain = example.com
+                database_module = openldap_ldapconf
+        }
+
+...
+
+[domain_realm]
+        .example.com = EXAMPLE.COM
+
+
+...
+
+[dbdefaults]
+        ldap_kerberos_container_dn = dc=example,dc=com
+
+[dbmodules]
+        openldap_ldapconf = {
+                db_library = kldap
+                ldap_kdc_dn = "cn=admin,dc=example,dc=com"
+
+                # this object needs to have read rights on
+                # the realm container, principal container and realm sub-trees
+                ldap_kadmind_dn = "cn=admin,dc=example,dc=com"
+
+                # this object needs to have read and write rights on
+                # the realm container, principal container and realm sub-trees
+                ldap_service_password_file = /etc/krb5kdc/service.keyfile
+                ldap_servers = ldaps://ldap01.example.com ldaps://ldap02.example.com
+                ldap_conns_per_server = 5
+        }
+</programlisting>
+
+          <note>
+            <para>Ändra <emphasis>example.com</emphasis>, <emphasis>dc=example,dc=com</emphasis>, <emphasis>cn=admin,dc=example,dc=com</emphasis>, och <emphasis>ldap01.example.com</emphasis> till en passande domän, LDAP-objekt och LDAP-serverför ditt nätverk.</para>
+          </note>
+
+        </listitem>
+        <listitem>
+        
+          <para>Nästa steg, använd verktyget <application>kdb5_ldap_util</application> för att skapa realm:en:</para>
+
+<screen>
+<command>sudo kdb5_ldap_util -D cn=admin,dc=example,dc=com create -subtrees dc=example,dc=com -r EXAMPLE.COM -s -H ldap://ldap01.example.com</command>
+</screen>
+      
+        </listitem>
+        <listitem>
+        
+          <para>Skapa en stash för lösenordet som används för att ansluta till LDAP-servern. Detta lösenord används av <emphasis>ldap_kdc_dn</emphasis> och <emphasis>ldap_kadmin_dn</emphasis> alternativen i <filename>/etc/krb5.conf</filename>:</para>
+
+<screen>
+<command>sudo kdb5_ldap_util -D cn=admin,dc=example,dc=com stashsrvpw -f /etc/krb5kdc/service.keyfile cn=admin,dc=example,dc=com</command>
+</screen>
+      
+        </listitem>
+        <listitem>
+        
+          <para>Kopiera CA-certifikatet från LDAP-servern:</para>
+
+<screen>
+<command>scp ldap01:/etc/ssl/certs/cacert.pem .</command>
+<command>sudo cp cacert.pem /etc/ssl/certs</command>
+</screen>
+
+          <para>och redigera <filename>/etc/ldap/ldap.conf</filename> till att använda certifikatet:</para>
+
+<programlisting>
+TLS_CACERT /etc/ssl/certs/cacert.pem
+</programlisting>
+
+          <note>
+            <para>Certifikatet kommer även behöva kopieras till den sekundära KDC:n, för att tillåta att anslutningarna till LDAP-servrarna använder LDAPS.</para>
+          </note>
+      
+        </listitem>
+      </itemizedlist>
+
+      <para>Du kan nu lägga till Kerberos principal till LDAP-databasen och de kommer kopieras till vilken annan LDAP-server som är konfigurerad för replikering. För att lägga till en principal genom att använda verktyget <application>kadmin.local</application> skriv:</para>
+
+<screen>
+<command>sudo kadmin.local</command>
+<computeroutput>Authenticating as principal root/admin@EXAMPLE.COM with password.
+kadmin.local:  <userinput>addprinc -x dn="uid=steve,ou=people,dc=example,dc=com" steve</userinput>
+WARNING: no policy specified for steve@EXAMPLE.COM; defaulting to no policy
+Enter password for principal "steve@EXAMPLE.COM": 
+Re-enter password for principal "steve@EXAMPLE.COM": 
+Principal "steve@EXAMPLE.COM" created.</computeroutput>
+</screen>
+
+      <para>Det skall nu finnas krbPrincipalName, krbPrincipalKey, krbLastPwdChange, och krbExtraData attributer adderade till användarobjekten <emphasis>uid=steve,ou=people,dc=example,dc=com</emphasis>. Använd verktygen <application>kinit</application> och <application>klist</application> för att testa så att användaren verkligen tilldelas ett certifikat.</para>
+
+      <note>
+        <para>Om användarobjektet redan har skapats är flaggan <emphasis>-x dn="..."</emphasis> nödvändig för att lägga till  Kerberos-attribut. I annat fall kommer ett nytt <emphasis>principal</emphasis>-objekt att skapas i realm:ens  sidoträd.</para>
+      </note>
+
+    </sect2>
+    <sect2 id="kerberos-ldap-secondary-kdc" status="review">
+      <title>Konfiguration av sekundär KDC</title>
+
+      <para>konfigurera en sekundär KDC som använder LDAP-bakänden är snarlikt som att konfigurera den till att använda en normal Kerberos-databas.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Först, installera nödvändiga paket, skriv från en terminalprompt:</para>
+
+<screen>
+<command>sudo apt-get install krb5-kdc krb5-admin-server krb5-kdc-ldap</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>Nästa steg, redigera <filename>/etc/krb5.conf</filename> till att använda LDAP-bakände:</para>
+
+<programlisting>
+[libdefaults]
+        default_realm = EXAMPLE.COM
+
+...
+
+[realms]
+        EXAMPLE.COM = {
+                kdc = kdc01.example.com
+                kdc = kdc02.example.com
+                admin_server = kdc01.example.com
+                admin_server = kdc02.example.com
+                default_domain = example.com
+                database_module = openldap_ldapconf
+        }
+
+...
+
+[domain_realm]
+        .example.com = EXAMPLE.COM
+
+...
+
+[dbdefaults]
+        ldap_kerberos_container_dn = dc=example,dc=com
+
+[dbmodules]
+        openldap_ldapconf = {
+                db_library = kldap
+                ldap_kdc_dn = "cn=admin,dc=example,dc=com"
+
+                # this object needs to have read rights on
+                # the realm container, principal container and realm sub-trees
+                ldap_kadmind_dn = "cn=admin,dc=example,dc=com"
+
+                # this object needs to have read and write rights on
+                # the realm container, principal container and realm sub-trees
+                ldap_service_password_file = /etc/krb5kdc/service.keyfile
+                ldap_servers = ldaps://ldap01.example.com ldaps://ldap02.example.com
+                ldap_conns_per_server = 5
+        }
+</programlisting>
+
+
+        </listitem>
+        <listitem>
+        
+      <para>Skapa stash:en för det LDAP-anslutna lösenordet:</para>
+
+<screen>
+<command>sudo kdb5_ldap_util -D cn=admin,dc=example,dc=com stashsrvpw -f /etc/krb5kdc/service.keyfile cn=admin,dc=example,dc=com</command>
+</screen>
+      
+        </listitem>
+        <listitem>
+
+          <para>På den <emphasis>primära KDC:n</emphasis> kopiera <filename>/etc/krb5kdc/.k5.EXAMPLE.COM</filename><emphasis>huvudnyckel</emphasis>-stash:en till den sekundära KDC:n. Säkerställ att du kopierar nyckeln över en krypterad anslutning såsom <application>scp</application>, eller på fysisk media.</para>
+
+<screen>
+<command>sudo scp /etc/krb5kdc/.k5.EXAMPLE.COM steve@kdc02.example.com:~</command>
+<command>sudo mv .k5.EXAMPLE.COM /etc/krb5kdc/</command>
+</screen>
+
+        <note>
+          <para>Åter igen, ersätt <emphasis>EXAMPLE.COM</emphasis> med din verkliga realm.</para>
+        </note>
+
+        </listitem>
+        <listitem>
+
+          <para>Slutligen, starta demonen <application>krb5-kdc</application>:</para>
+
+<screen>
+<command>sudo /etc/init.d/krb5-kdc start</command>
+</screen>
+
+        </listitem>
+      </itemizedlist>
+
+      <para>Du har nu redundanta KDC:er på ditt nätverk och med redundanta LDAP-servrar skall du nu kunna autentisera användare om en LDAP-server, en Kerberos-server eller om både en LDAP och Kerberos-server blir otillgänglig.</para>
+
+    </sect2>
+    <sect2 id="kerberos-ldap-resources" status="review">
+      <title>Resurser</title>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink url="http://web.mit.edu/Kerberos/krb5-1.6/krb5-1.6.3/doc/krb5-admin.html#Configuring-Kerberos-with-OpenLDAP-back_002dend"> Kerberos Admin Guide</ulink> har ytterligare detaljer.</para>
+        </listitem>
+        <listitem>
+          <para>För mer information om <application>kdb5_ldap_util</application> se <ulink url="http://web.mit.edu/Kerberos/krb5-1.6/krb5-1.6.3/doc/krb5-admin.html#Global-Operations-on-the-Kerberos-LDAP-Database"> Avsnitt 5.6</ulink> och man-sidan <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/kdb5_ldap_util.8.html">kdb5_ldap_util</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>En annan användbar länk är <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/krb5.conf.5.html">man-sidan krb5.conf</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+</chapter>

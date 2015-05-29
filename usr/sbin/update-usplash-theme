@@ -1,0 +1,24 @@
+#! /bin/sh
+set -e
+
+PATH="/usr/sbin:$PATH"
+
+if [ -f "/usr/lib/usplash/$1.so" ]; then
+	THEME="/usr/lib/usplash/$1.so"
+elif [ -f "/usr/lib/usplash/usplash-theme-$1.so" ]; then
+	THEME="/usr/lib/usplash/usplash-theme-$1.so"
+elif [ -f "/usr/lib/usplash/$1-splash.so" ]; then
+	# Edubuntu uses this naming scheme; sigh
+	THEME="/usr/lib/usplash/$1-splash.so"
+else
+	if [ "$1" ]; then
+		echo "Usplash theme '$1' not recognised. Installed themes:" >&2
+	else
+		echo "Installed themes:" >&2
+	fi
+	find /usr/lib/usplash -name \*.so ! -name usplash-artwork.so -printf '%P\n' | sed 's/\.so$//'
+	exit 1
+fi
+
+update-alternatives --set usplash-artwork.so "$THEME"
+update-initramfs -u

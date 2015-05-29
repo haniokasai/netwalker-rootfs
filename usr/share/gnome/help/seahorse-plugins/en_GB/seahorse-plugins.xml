@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="en_GB">
+	<articleinfo>
+		<title>Encryption and Keyrings Manual</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008, 2009</year>
+			<holder>Jacob Perkins and Adam Schreiber</holder>
+		</copyright><copyright><year>2007</year><holder>David Lodge (dave@cirt.net)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Seahorse Project</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation Licence (GFDL), Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You can find a copy of the GFDL at this <ulink type="help" url="ghelp:fdl">link</ulink> or in the file COPYING-DOCS distributed with this manual.</para>
+         <para>This manual is part of a collection of GNOME manuals distributed under the GFDL. If you want to distribute this manual separately from the collection, you can do so by adding a copy of the licence to the manual, as described in section 6 of the licence.</para>
+
+	<para>Many of the names used by companies to distinguish their products and services are claimed as trademarks. Where those names appear in any GNOME documentation, and the members of the GNOME Documentation Project are made aware of those trademarks, then the names are in capital letters or initial capital letters.</para>
+
+	<para>DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS OF THE GNU FREE DOCUMENTATION LICENCE WITH THE FURTHER UNDERSTANDING THAT: <orderedlist>
+		<listitem>
+		  <para>DOCUMENT IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, WITHOUT LIMITATION, WARRANTIES THAT THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS FREE OF DEFECTS MERCHANTABLE, FIT FOR A PARTICULAR PURPOSE OR NON-INFRINGING. THE ENTIRE RISK AS TO THE QUALITY, ACCURACY AND PERFORMANCE OF THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS WITH YOU. SHOULD ANY DOCUMENT OR MODIFIED VERSION PROVE DEFECTIVE IN ANY RESPECT, YOU (NOT THE INITIAL WRITER, AUTHOR OR ANY CONTRIBUTOR) ASSUME THE COST OF ANY NECESSARY SERVICING, REPAIR OR CORRECTION. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS LICENCE. NO USE OF ANY DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT IS AUTHORISED HEREUNDER EXCEPT UNDER THIS DISCLAIMER; AND</para>
+		</listitem>
+		<listitem>
+		  <para>UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE), CONTRACT OR OTHERWISE, SHALL THE AUTHOR, INITIAL WRITER, ANY CONTRIBUTOR OR ANY DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION OF THE DOCUMENT OR ANY SUPPLIER OF ANY OF SUCH PARTIES, BE LIABLE TO ANY PERSON FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR LOSSES ARISING OUT OF OR RELATING TO USE OF THE DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT, EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF THE POSSIBILITY OF SUCH DAMAGES.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Seahorse Project</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Seahorse Project</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Seahorse Project</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Encryption and Keyrings Manual V0.10.0</revnumber>
+				<date>August 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Encryption and Keyrings Manual V0.9.1</revnumber>
+				<date>November 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Encryption and Keyrings Manual V0.9.0</revnumber>
+				<date>July 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Seahorse Project</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Encryption and Keyrings Manual V0.7.0</revnumber>
+				<date>February 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Seahorse Project</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>This manual describes version 2.24.x of Encryption and Keyrings</releaseinfo>
+		<legalnotice>
+			<title>Feedback</title>
+			<para>To report a bug or make a suggestion regarding the <application>Encryption and Keyrings</application> application or this manual, follow the directions in the <ulink url="ghelp:gnome-feedback" type="help">Gnome Feedback Page</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Encryption and Keyrings</application> is the application for managing your primary encryption key and how the passphrase for your key is stored after performing an encryption operation.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Encryption Keys</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Introduction</title>
+        <para>You can use <application>Encryption and Keyrings</application> to select your primary encryption key and how the passphrase for your key is stored after performing an encryption operation.</para>
+        <para>Additionally, this manual contains information pertaining to encryption plugins provided for: <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Gedit Text Editor</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Nautilus File Manager</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Epiphany Web Browser</ulink></application></para>
+				</listitem>
+			</itemizedlist></para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>File Manager Integration</title>
+    <para><application>Encryption and Keyrings</application> integrates with <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>. You can encrypt, decrypt, sign and verify files as well as import public keys from the file manager window without launching <application>Encryption and Keyrings</application>.</para>
+    <sect2 id="encrypt-fm">
+      <title>Encrypting Files</title>
+      <para>To encrypt files from the file manager, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Select one or more files from the file manager,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Right-click on any selected file and choose <guimenuitem>Encrypt</guimenuitem>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Select the people to whom you would like to encypt the file, and then click <guibutton>OK</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Signing Files</title>
+      <para>To sign files from the file manager, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Select one or more files from the file manager,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Right-click on any selected file and choose <guimenuitem>Sign</guimenuitem>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>If asked, enter the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Decrypting Files</title>
+      <para>To decrypt an encrypted file from the file manager, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Double-click on the file you want to decrypt,</para>
+	  </listitem>
+	  <listitem>
+	    <para>If asked, enter the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Verifying Signatures</title> 
+      <para>To verify files, simply double-click on the the detached signature file.</para>
+      <note><para>Detached signature file names often take the form &lt;file name&gt;.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Text Editor Integration</title>
+    <para>To enable the Text Encryption plugin in <application><ulink url="ghelp:gedit" type="help">Gedit</ulink></application>, the GNOME text editor, perform the following steps: <itemizedlist>
+	<listitem>
+	  <para>Run <application>Gedit</application> by choosing <menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>In the <guilabel>Plugin</guilabel> tab, select the <guilabel>Text Encryption</guilabel> plugin.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-te">
+      <title>Encrypting Text</title>
+      <para>To encrypt a selection of text from <application>Gedit</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Select the text you want to encrypt, and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Encrypt</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Select the people you want to encrypt the text to, and click <guilabel>OK</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> You can now copy or save the encrypted text.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Signing Text</title>
+      <para>To sign a selection of text from <application>Gedit</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Select the text you want to sign and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Sign</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Insert, if asked, the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist> You can now copy or save the signed text.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Decrypting/Verifing Text</title>
+      <para>To decrypt and/or verify a selection of text from <application>Gedit</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Select the text you want to decrypt/verify and choose <menuchoice><guimenu>Edit</guimenu><guimenuitem>Decrypt/Verify</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Insert, if asked, the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist> You can now copy or save the decrypted text.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Web Browser Integration</title>
+    <para>This extension allows encryption, decryption, signing and importing of the contents of text fields.</para>
+    <para>To enable the encryption extension in <application><ulink url="ghelp:epiphany-browser" type="help">Epiphany Web Browser</ulink></application>, the GNOME web browser, perform the following steps: <itemizedlist>
+	<listitem>
+	  <para>Run <application>Epiphany Web Browser</application> by choosing <menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Epiphany Web Browser</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Choose <menuchoice><guimenu>Tools</guimenu><guimenuitem>Extensions</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Select the <guilabel>Seahorse</guilabel> plugin.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-wb">
+      <title>Encrypting Text</title>
+      <para>To encrypt the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Right-click in the text input field you want to encrypt, and choose <menuchoice><guimenuitem>Encrypt</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Select the people you want to encrypt the text to, and click <guilabel>OK</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> The encrypted text will now appear in the text input field.</para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Signing Text</title>
+      <para>To sign the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Right-click in the text input field you want to sign and choose <menuchoice><guimenuitem>Sign</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Insert, if asked, the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist> The signed text will now appear in the text input field.</para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Decrypting/Verifing Text</title>
+      <para>To decrypt and/or verify the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps: <itemizedlist>
+	  <listitem>
+	    <para>Right-click in the text input field you want to decrypt/verify and choose <menuchoice><guimenuitem>Decrypt/Verify</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Insert, if asked, the passphrase of your private key.</para>
+	  </listitem>
+	</itemizedlist> The decrypted text will now appear in the text input field.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Preferences</title>
+    <para>This section describes the preferences settable in <application>Encryption and Keyrings</application>.</para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Encryption Preferences</title>
+      <para>This section describes the preferences settable by choosing <menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Encryption and Keyrings</guimenuitem></menuchoice> from the panel.</para>
+      
+      <sect3 id="prefs">
+	<title>Encryption Settings</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Default Key</guilabel></term>
+	    <listitem>
+	      <para>This is the key that will be used by applications and plugins to sign files. It will also be the key that files will be encrypted to if encrypt to self is selected.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>When encrypting, always include myself as a recipient</guilabel></term>
+	    <listitem>
+	      <para>Sets the encrypt to self option: whether you will be added to the recipients list for all files that are encrypted.</para>
+	      <note>
+		<para>If you do not select this and you do not select yourself as a recipient you will not be unable to decrypt any files you encrypt.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Passphrase Cache</title>
+	<para>Enabling the passphrase caching ability will allow you to perform many operations that require entering your passphrase without re-entering it every time. <command>seahorse-agent</command> takes the place of <command>gpg-agent</command>. Letting the cached passphrases expire is usually a good idea. This will then require re-entering your passphrase, but adds security.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Never remember passphrases</guilabel></term>
+	    <listitem>
+	      <para>Sets to not remember any passphrase.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Remember passphrases for ... minutes</guilabel></term>
+	    <listitem>
+	      <para>Sets the amount of time, in minutes, for storing passphrases. Use the spin box to set the desired time.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Always remember passphrases whenever logged in</guilabel></term>
+	    <listitem>
+	      <para>Sets to remember any passphrases whenever you are logged in the session.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Ask me before using a cached passphrase</guilabel></term>
+	    <listitem>
+	      <para>Sets to ask you before using a stored passphrase.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Automatically load Secure Shell keys</guilabel></term>
+	    <listitem>
+	      <para>Sets to automatically cache any Secure Shell key.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>About Encryption and Keyrings</title>
+    <para><application>Passwords and Encryption Keys</application>, its associated plugins, the preferences applet and the panel applet are known collectively as the Seahorse Project. The original author of the Seahorse Project is Jacob Perkins. The current maintainers are Stef Walter and Adam Schreiber. This manual is by Adam Schreiber. The project's website was designed by Jim Pharis. To find more information about Seahorse Project, the project , please visit the <ulink url="http://www.gnome.org/projects/seahorse/" type="http">Seahorse Project web page</ulink>.</para>
+    <para>To report a bug or make a suggestion regarding this application or this manual, follow the directions in the <ulink url="ghelp:user-guide?feedback-bugs" type="help">Feedback section of the GNOME User Guide</ulink>.</para>
+    <para>This program is distributed under the terms of the GNU General Public licence as published by the Free Software Foundation; either version 2 of the Licence, or (at your option) any later version. A <ulink url="ghelp:gpl" type="help">copy of this licence</ulink> is included with this documentation; another can be found in the file COPYING included with the source code of this program.</para>
+  </sect1>
+</article>

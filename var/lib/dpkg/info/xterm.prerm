@@ -1,0 +1,35 @@
+#!/bin/sh
+# Debian xterm package pre-removal script
+# Copyright 1998, 1999, 2004 Branden Robinson.
+# Licensed under the GNU General Public License, version 2.  See the file
+# /usr/share/common-licenses/GPL or <http://www.gnu.org/copyleft/gpl.txt>.
+# Acknowledgements to Stephen Early, Mark Eichin, and Manoj Srivastava.
+
+# $Id$
+
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
+    update-alternatives --remove x-terminal-emulator /usr/bin/koi8rxterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/uxterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/xterm
+    update-alternatives --remove x-terminal-emulator /usr/bin/lxterm
+fi
+
+# Automatically added by dh_installdocs
+if [ "$1" = remove ] || [ "$1" = upgrade ] && \
+   which install-docs >/dev/null 2>&1; then
+	install-docs -r xterm-ctlseqs
+fi
+# End automatically added section
+# Automatically added by dh_installdocs
+if [ "$1" = remove ] || [ "$1" = upgrade ] && \
+   which install-docs >/dev/null 2>&1; then
+	install-docs -r xterm-faq
+fi
+# End automatically added section
+
+
+exit 0
+
+# vim:set ai et sw=4 ts=4 tw=80:

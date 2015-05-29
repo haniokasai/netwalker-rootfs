@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="installation" status="review">
+	<title>Installation</title>
+  <para>
+  This chapter provides a quick overview of installing Ubuntu &distro-rev; Server Edition. For more detailed instructions, 
+  please refer to the <ulink url="https://help.ubuntu.com/&distro-rev;/installation-guide/">Ubuntu Installation Guide</ulink>.
+  </para>
+	<sect1 id="preparing-to-install" status="review">
+		<title>Preparing to Install</title>
+    <para>
+      This section explains various aspects to consider before starting the
+      installation. </para>
+    		<sect2 id="system-requirements" status="review">
+    			<title>System Requirements</title>
+    			<para>Ubuntu &distro-rev; Server Edition supports two (2) major architectures: Intel x86 and AMD64. The table below lists recommended hardware specifications. Depending on your needs, you might manage with less than this. However, most users risk being frustrated if they ignore these suggestions.</para>
+				<table>
+				<title>Recommended Minimum Requirements</title>
+					<tgroup cols="4">
+						<colspec colname="1"/>
+						<colspec colname="2"/>
+						<colspec colname="3" colwidth="2"/>
+						<colspec colname="4"/>
+						<thead>
+							<row>
+								<entry morerows="1" valign="middle"><para>Install Type</para></entry>
+								<entry morerows="1" valign="middle"><para>RAM</para></entry>
+								<entry namest="3" nameend="4" align="center"><para>Hard Drive Space</para></entry>
+							</row>
+ 							<row>
+								<entry><para>Base System</para></entry>
+								<entry><para>All Tasks Installed</para></entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry><para>Server</para></entry>
+								<entry><para>128 megabytes</para></entry>
+								<entry><para>500 megabytes</para></entry>
+								<entry><para>1 gigabyte</para></entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+				<para>
+				The Server Edition provides a common base for all sorts of server applications. 
+				It is a minimalist design providing a platform for the desired services, such 
+	 			as file/print services, web hosting, email hosting, etc. 
+				</para>
+    		</sect2>
+
+  <sect2 id="intro-server-differences" status="review">
+    <title>Server and Desktop Differences</title>
+    <para>
+    There are a few differences between the <emphasis>Ubuntu Server Edition</emphasis> and the 
+    <emphasis>Ubuntu Desktop Edition</emphasis>.  It should be noted that both editions use the same 
+    <application>apt</application> repositories.  Making it just as easy to install a <emphasis role="italic">server</emphasis> 
+    application on the Desktop Edition as it is on the Server Edition.
+    </para>
+    <para>
+    The differences between the two editions are the lack of an X window environment in the Server Edition, 
+    the installation process, and different Kernel options.
+    </para>	
+    <para>
+    </para>
+    <sect3 id="intro-kernel-diffs" status="review">
+      <title>Kernel Differences:</title>
+      <itemizedlist>
+        <listitem>	
+	  <para>
+	  The Server Edition uses the <emphasis>Deadline</emphasis> I/O scheduler instead of the
+	  <emphasis>CFQ</emphasis> scheduler used by the Desktop Edition.
+	  </para>
+	</listitem>
+	<listitem>	
+	  <para>
+	  <emphasis>Preemption</emphasis> is turned off in the Server Edition. 
+	  </para>
+	</listitem>
+	<listitem>	
+	  <para>
+	  The timer interrupt is 100 Hz in the Server Edition and 250 Hz in the Desktop Edition.
+	  </para>
+	</listitem>	
+	</itemizedlist>
+	  <note>
+	    <para>
+	    When running a 64-bit version of Ubuntu on 64-bit processors you are not limited by memory addressing space.
+	    </para>
+	  </note>
+	
+	<para>
+	To see all kernel configuration options you can look through <filename>/boot/config-&linux-kernel-version;-server</filename>. 
+	Also, <ulink url="http://www.kroah.com/lkn/">Linux Kernel in a Nutshell</ulink> is a great resource on the options 
+	available.
+	</para>
+    </sect3>
+  </sect2>
+
+      <sect2 id="backing-up" status="review">
+        <title>Backing Up</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+	      Before installing <application>Ubuntu Server Edition</application> you should make sure all data on the system 
+              is backed up. See <xref linkend="backups"/> for backup options.
+	      </para>
+	      <para> 
+	      If this is not the first time an operating system has been installed on your
+              computer, it is likely you will need to re-partition your disk to make room for Ubuntu. 
+	      </para>
+	      <para> 
+			  Any time you partition your disk, you should be prepared to 
+			  lose everything on the disk should you make a mistake or 
+			  something goes wrong during partitioning.  The programs used in installation are 
+			  quite reliable, most have seen years of use, but they 
+			  also perform destructive actions.
+              </para>
+            </listitem>
+          </itemizedlist>
+      </sect2>
+    </sect1>
+	<sect1 id="installing-from-cd" status="review">
+  	  <title>Installing from CD</title>
+	  <para>
+	  The basic steps to install Ubuntu Server Edition from CD are the same for installing any operating system from CD.  Unlike
+	  the <emphasis>Desktop Edition</emphasis> the <emphasis>Server Edition</emphasis> does not include a graphical 
+	  installation program.  Instead the Server Edition uses a console menu based process.
+	  </para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      First, download and burn the appropriate ISO file from the <ulink url="http://www.ubuntu.com/getubuntu/download">
+	      Ubuntu web site</ulink>.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Boot the system from the CD-ROM drive.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      At the boot prompt you will be asked to select the language.
+	      Afterwards the installation process begins by asking for your keyboard layout.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      The installer then discovers your hardware configuration, and configures the 
+	      network settings using DHCP.  If you do not wish to use DHCP at the next screen
+              choose "Go Back", and you have the option to "Configure the network manually".
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Next, the installer asks for the system's hostname and Time Zone. 
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      You can then choose from several options to configure the hard drive layout.
+              For advanced disk options see <xref linkend="advanced-installation"/>.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	     The Ubuntu base system is then installed.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      A new user is setup, this user will have <emphasis>root</emphasis> access
+	      through the <application>sudo</application> utility.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+              After the user is setup, you will be asked to encrypt your 
+              <filename role="directory">home</filename> directory. 
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+              The next step in the installation process is to decide how you want to update the system.
+              There are three options: 
+	      </para>
+                <itemizedlist>
+                  <listitem>
+                    <para>
+                    <emphasis>No automatic updates</emphasis>: this requires an administrator to log into
+                    the machine and manually install updates.
+                    </para>
+                  </listitem>
+                  <listitem>
+                    <para>
+                    <emphasis>Install security updates Automatically</emphasis>: will install the 
+                    <application>unattended-upgrades</application> package, which will install security updates without the intervention
+                    of an administrator.  For more details see <xref linkend="automatic-updates"/>.
+                    </para>
+                  </listitem>
+                  <listitem>
+                    <para>
+                    <emphasis>Manage the system with Landscape</emphasis>: Landscape is a paid service provided
+                    by Canonical to help manager your Ubuntu machines.  See the 
+                    <ulink url="http://www.canonical.com/projects/landscape">Landscape</ulink> site for details.
+                    </para>
+                  </listitem>
+                </itemizedlist>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      You now have the option to install, or not install, several package tasks.  See 
+	      <xref linkend="install-tasks"/> for details.  Also, there is an option to launch
+              <application>aptitude</application> to choose specific packages to install.  For more
+              information see <xref linkend="aptitude"/>.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Finally, the last step before rebooting is to set the clock to UTC.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	  <note>
+	    <para>
+            If at any point during installation you are not satisfied by the default setting, use the "Go Back" function at 
+            any prompt to be brought to a detailed installation menu that will allow you to modify the default settings.
+	    </para>
+	  </note>
+          <para>
+          At some point during the installation process you may want to
+          read the help screen provided by the installation system. To
+          do this, press F1.
+          </para>
+	  <para>
+	  Once again, for detailed instructions see the <ulink url="https://help.ubuntu.com/&distro-rev;/installation-guide/">
+	  Ubuntu Installation Guide</ulink>.
+	  </para>
+	   
+	  <sect2 id="install-tasks" status="review">
+	    <title>Package Tasks</title>
+	    <para>
+	    During the Server Edition installation you have the option of installing additional packages from the CD.  The packages
+	    are grouped by the type of service they provide. 
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+		DNS server: Selects the BIND DNS server and its documentation.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		LAMP server: Selects a ready-made Linux/Apache/MySQL/PHP server.	
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		Mail server: This task selects a variety of package useful for a general purpose mail  server system.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		OpenSSH server: Selects packages needed for an OpenSSH server.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		PostgreSQL database: This task selects client and server packages for the PostgreSQL database.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		Print server: This task sets up your system to be a print server.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		Samba File server: This task sets up your system to be a Samba file server, which is 
+		especially suitable in networks with both Windows and Linux systems.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		Tomcat server: Installs the Apache Tomcat and needed dependencies Java, gcj, etc.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		Virtual machine host: Includes packages needed to run KVM virtual machines.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+  	    <para>
+	    Installing the package groups is accomplished using the <application>tasksel</application> utility.  
+	    One of the important difference between Ubuntu (or Debian) and other GNU/Linux distribution is that, when 
+            installed, a package is also configured to reasonable defaults, eventually prompting you for additional required 
+            information. Likewise, when installing a task, the packages are not only installed, but also configured to provided
+            a fully integrated service.
+	    </para>
+	    <para>
+            Once the installation process has finished you can view a list of available tasks by entering the following from a 
+            terminal prompt:
+	    </para>
+<screen>
+<command>tasksel --list-tasks</command>
+</screen>
+	    <note>
+	      <para>
+	      The output will list tasks from other Ubuntu based distributions such as Kubuntu and Edubuntu.
+	      Note that you can also invoke the <command>tasksel</command> command by itself, which will bring up a menu 
+              of the different tasks available.
+	      </para>
+	    </note>
+	    <para>
+	    You can view a list of which packages are installed with each task using the <emphasis>--task-packages</emphasis> option. 
+	    For example, to list the packages installed with the <emphasis>DNS Server</emphasis> task enter the following:
+	    </para>
+<screen>
+<command>tasksel --task-packages dns-server</command>
+</screen>	
+	    <para>
+	    The output of the command should list:
+	    </para>
+<programlisting>
+bind9-doc
+bind9
+</programlisting>
+	    <para>
+	    Also, if you did not install one of the tasks during the installation process, but for example you decide to make your new LAMP server 
+	    a DNS server as well.  Simply insert the installation CD and from a terminal:
+	    </para>
+<screen>
+<command>sudo tasksel install dns-server</command>
+</screen>
+      </sect2>
+    </sect1>
+    <sect1 id="installing-upgrading" status="review">
+      <title>Upgrading</title>
+      <para>
+      There are several ways to upgrade from one Ubuntu release to another.  This section gives an overview of the recommended upgrade method.
+      </para>
+      <sect2 id="do-release-upgrade" status="review">
+        <title>do-release-upgrade</title>
+        <para>
+        The recommended way to upgrade a Server Edition installation is to use the <application>do-release-upgrade</application> utility.
+        Part of the <emphasis>update-manager-core</emphasis> package, it does not have any graphical dependencies and 
+	is installed by default.
+        </para>
+	<para>
+	Debian based systems can also be upgraded by using <command>apt-get dist-upgrade</command>. However, using 
+	<application>do-release-upgrade</application> is recommended because it has the ability to handle system configuration
+	changes sometimes needed between releases.
+	</para>
+	<para>
+	To upgrade to a newer release, from a terminal prompt enter:
+	</para>
+<screen>
+<command>do-release-upgrade</command>
+</screen>
+	<para>
+	It is also possible to use <application>do-release-upgrade</application> to upgrade to a development version of 
+	Ubuntu.  To accomplish this use the <emphasis>-d</emphasis> switch:
+	</para>
+<screen>
+<command>do-release-upgrade -d</command>
+</screen>
+	<warning>
+	  <para>
+	  Upgrading to a development release is <emphasis>not</emphasis> recommended for production environments.
+	  </para>
+	</warning>
+      </sect2>
+    </sect1>
+    <sect1 id="advanced-installation" status="review">
+      <title>Advanced Installation</title>
+ 
+      <sect2 id="software-raid" status="review">
+        <title>Software RAID</title>
+
+        <para>
+        RAID is a method of configuring multiple hard drives to act as one, reducing the 
+        probability of catastrophic data loss in case of drive failure. RAID is implemented in either software 
+        (where the operating system knows about both drives and actively maintains both of them) or hardware 
+        (where a special controller makes the OS think there's only one drive and maintains the drives 'invisibly').
+        </para>
+
+        <para>
+        The RAID software included with current versions of Linux (and Ubuntu) is based on the <application>'mdadm'</application>
+        driver and works very well, better even than many so-called 'hardware' RAID controllers.  This section will guide you 
+        through installing Ubuntu Server Edition using two RAID1 partitions on two physical hard drives, one for 
+        <emphasis>/</emphasis> and another for <emphasis>swap</emphasis>.
+        </para>
+
+        <sect3 id="raid-partitioning" status="review">
+          <title>Partitioning</title>
+
+          <para>
+          Follow the installation steps until you get to the <emphasis>Partition disks</emphasis> step, then:
+          </para>
+
+          <procedure>
+            <step>
+ 
+              <para>
+              Select <emphasis>Manual</emphasis> as the partition method.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Select the first hard drive, and agree to <emphasis>"Create a new empty partition table on this device?"</emphasis>.
+              </para>
+
+              <para>
+              Repeat this step for each drive you wish to be part of the RAID array.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Select the <emphasis>"FREE SPACE"</emphasis> on the first drive then select <emphasis>"Create a new partition"</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Next, select the <emphasis>Size</emphasis> of the partition.  This partition will be the <emphasis>swap</emphasis> partition,
+              and a general rule for swap size is twice that of RAM.  Enter the partition size, then choose <emphasis>Primary</emphasis>,
+              then <emphasis>Beginning</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Select the <emphasis>"Use as:"</emphasis> line at the top.  By default this is 
+              <emphasis role="italic">"Ext3 journaling file system"</emphasis>, change that to <emphasis>"physical volume for RAID"</emphasis>
+              then <emphasis>"Done setting up partition"</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              For the <emphasis>/</emphasis> partition once again select <emphasis>"Free Space"</emphasis> on the first drive then
+              <emphasis>"Create a new partition"</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Use the rest of the free space on the drive and choose <emphasis>Continue</emphasis>, then <emphasis>Primary</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              As with the swap partition, select the <emphasis>"Use as:"</emphasis> line at the top, changing it to 
+              <emphasis>"physical volume for RAID"</emphasis> then choose <emphasis>"Done setting up partition"</emphasis>. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Repeat steps three through eight for the other disk and partitions. 
+              </para>
+
+            </step>
+          </procedure>
+
+        </sect3>
+        <sect3 id="raid-configuration" status="review">
+          <title>RAID Configuration</title>
+
+          <para>
+          With the partitions setup the arrays are ready to be configured:
+          </para>
+
+          <procedure>
+            <step>
+ 
+              <para>
+              Back in the main "Partition Disks" page, select <emphasis>"Configure Software RAID"</emphasis> at the top.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Select <emphasis>"yes"</emphasis> to write the changes to disk.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Choose <emphasis>"Create MD drive"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              For this example, select <emphasis>"RAID1"</emphasis>, but if you are using a different setup choose the appropriate type 
+              (RAID0 RAID1 RAID5).
+              </para>
+
+              <note>
+                <para>
+                In order to use <emphasis>RAID5</emphasis> you need at least <emphasis>three</emphasis> drives.  Using RAID0 or RAID1
+                only <emphasis>two</emphasis> drives are required.
+                </para>
+              </note>
+
+            </step>
+            <step>
+ 
+              <para>
+              Enter the number of active devices <emphasis>"2"</emphasis>, or the amount of hard drives you have, for the array.  Then 
+              select <emphasis>"Continue"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Next, enter the number of spare devices <emphasis>"0"</emphasis> by default, then choose <emphasis>"Continue"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Choose which partitions to use. Generally they will be sda1, sdb1, sdc1, etc. The numbers will usually match and the different 
+              letters correspond to different hard drives.  
+              </para>
+
+              <para>
+              For the <emphasis>swap</emphasis> partition choose <emphasis>sda1</emphasis> and <emphasis>sdb1</emphasis>.
+              Select <emphasis>"Continue"</emphasis> to go to the next step.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Repeat steps <emphasis>three</emphasis> through <emphasis>seven</emphasis> for the <emphasis>/</emphasis> partition choosing 
+              <emphasis>sda2</emphasis> and <emphasis>sdb2</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Once done select <emphasis>"Finish"</emphasis>.
+              </para>
+
+            </step>
+
+          </procedure>
+
+        </sect3>
+        <sect3 id="raid-formatting" status="review">
+          <title>Formatting</title>
+
+          <para>
+          There should now be a list of hard drives and RAID devices. The next step is to format and set the mount point for the RAID devices.
+          Treat the RAID device as a local hard drive, format and mount accordingly.
+          </para>
+
+          <procedure>
+            <step>
+ 
+              <para>
+              Select the <emphasis>RAID1 device #0</emphasis> partition. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Choose <emphasis>"Use as:"</emphasis>.  Then select <emphasis>"swap area"</emphasis>, then 
+              <emphasis>"Done setting up partition"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Next, select the <emphasis>RAID1 device #1</emphasis> partition. 
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Choose <emphasis>"Use as:"</emphasis>.  Then select <emphasis>"Ext3 journaling file system"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Then select the <emphasis>"Mount point"</emphasis> and choose <emphasis>"/ - the root file system"</emphasis>.
+              Change any of the other options as appropriate, then select <emphasis>"Done setting up partition"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Finally, select <emphasis>"Finish partitioning and write changes to disk"</emphasis>.
+              </para>
+
+            </step>
+          </procedure>
+
+          <para>
+          If you choose to place the root partition on a RAID array, the installer will then ask if you would like to boot in
+          a <emphasis>degraded</emphasis> state.  See <xref linkend="raid-degraded"/> for further details.  
+          </para>
+
+          <para>
+          The installation process will then continue normally.
+          </para>
+
+        </sect3>
+        <sect3 id="raid-degraded" status="review">
+          <title>Degraded RAID</title>
+
+          <para>
+          At some point in the life of the computer a disk failure event may occur.  When this happens, using Software RAID, the operating
+          system will place the array into what is known as a <emphasis>degraded</emphasis> state.
+          </para>
+
+          <para>
+          If the array has become degraded, due to the chance of data corruption, by default Ubuntu Server Edition will boot 
+          to <emphasis>initramfs</emphasis> after thirty seconds.  Once the initramfs has booted there is a fifteen second 
+          prompt giving you the option to go ahead and boot the system, or attempt manual recover.  Booting to the initramfs
+          prompt may or may not be the desired behavior, especially if the machine is in a remote location.  Booting to a 
+          degraded array can be configured several ways:
+          </para>
+
+          <itemizedlist>
+            <listitem>
+
+              <para>
+              The <application>dpkg-reconfigure</application> utility can be used to configure the default behavior, and 
+              during the process you will be queried about additional settings related to the array.  Such as monitoring, email 
+              alerts, etc.  To reconfigure <application>mdadm</application> enter the following:  
+              </para>
+
+<screen>
+<command>sudo dpkg-reconfigure mdadm</command>
+</screen>
+
+             </listitem>
+            <listitem>
+
+              <para>
+              The <command>dpkg-reconfigure mdadm</command> process will change the <filename>/etc/initramfs-tools/conf.d/mdadm</filename>
+              configuration file.  The file has the advantage of being able to pre-configure the system's behavior, and can also be manually
+              edited:
+              </para>
+
+<programlisting>
+BOOT_DEGRADED=true
+</programlisting>
+
+          <note>
+            <para>
+            The configuration file can be overridden by using a Kernel argument.
+            </para>
+          </note>          
+
+            </listitem>
+            <listitem>
+    
+              <para>
+              Using a Kernel argument will allow the system to boot to a degraded array as well:
+              </para>
+
+              <itemizedlist>
+                <listitem>
+                  <para>
+                  When the server is booting press <emphasis>ESC</emphasis> to open the <application>Grub</application> menu.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Press <emphasis>"e"</emphasis> to edit your Kernel command options.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Press the <emphasis>DOWN</emphasis> arrow to highlight the kernel line.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Press the <emphasis>"e"</emphasis> key again to edit the kernel line.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Add <emphasis>"bootdegraded=true"</emphasis> (without the quotes) to the end of the line.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Press <emphasis>"ENTER"</emphasis>.
+                  </para>
+                </listitem>
+                <listitem>
+                  <para>
+                  Finally, press <emphasis>"b"</emphasis> to boot the system.
+                  </para>
+                </listitem>
+              </itemizedlist>
+
+            </listitem>
+           </itemizedlist>
+
+           <para>
+           Once the system has booted you can either repair the array see <xref linkend="raid-maintenance"/> for details, or copy 
+           important data to another machine due to major hardware failure.
+           </para>
+
+        </sect3>
+        <sect3 id="raid-maintenance">
+          <title>RAID Maintenance</title>
+
+          <para>
+          The <application>mdadm</application> utility can be used to view the status of an array, add disks to an array, remove 
+          disks, etc:
+          </para>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              To view the status of an array, from a terminal prompt enter:
+              </para>
+<screen>
+<command>sudo mdadm -D /dev/md0</command>
+</screen>
+            
+              <para>
+              The <emphasis>-D</emphasis> tells <application>mdadm</application> to display <emphasis>detailed</emphasis> information
+              about the <filename>/dev/md0</filename> device.  Replace <filename>/dev/md0</filename> with the appropriate RAID device.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              To view the status of a disk in an array:
+              </para>
+<screen>
+<command>sudo mdadm -E /dev/sda1</command>
+</screen>
+              <para>
+              The output if very similar to the <command>mdadm -D</command> command, adjust <filename>/dev/sda1</filename> for each disk.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              If a disk fails and needs to be removed from an array enter:
+              </para>
+<screen>
+<command>sudo mdadm --remove /dev/md0 /dev/sda1</command>
+</screen>
+              <para>
+              Change <filename>/dev/md0</filename> and <filename>/dev/sda1</filename> to the appropriate RAID device and disk.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Similarly, to add a new disk:
+              </para>
+<screen>
+<command>sudo mdadm --add /dev/md0 /dev/sda1</command>
+</screen>
+            </listitem>
+          </itemizedlist>
+
+          <para>
+          Sometimes a disk can change to a <emphasis>faulty</emphasis> state even though there is nothing physically wrong with the drive. 
+          It is usually worthwhile to remove the drive from the array then re-add it.  This will cause the drive to re-sync with the array.
+          If the drive will not sync with the array, it is a good indication of hardware failure.
+          </para>
+
+          <para>
+          The <filename>/proc/mdstat</filename> file also contains useful information about the system's RAID devices:
+          </para>
+
+<screen>
+<command>cat /proc/mdstat</command>
+<computeroutput>Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10] 
+md0 : active raid1 sda1[0] sdb1[1]
+      10016384 blocks [2/2] [UU]
+      
+unused devices: &lt;none&gt;</computeroutput>
+</screen>
+
+          <para>
+          The following command is great for watching the status of a syncing drive:
+          </para>
+
+<screen>
+<command>watch -n1 cat /proc/mdstat</command>
+</screen>
+
+          <para>
+          Press <emphasis>Ctrl+c</emphasis> to stop the <application>watch</application> command.
+          </para>
+
+          <para>
+          If you do need to replace a faulty drive, after the drive has been replaced and synced, <application>grub</application> will need to be 
+          installed.  To install <application>grub</application> on the new drive, enter the following:
+          </para>
+
+<screen>
+<command>sudo grub-install /dev/md0</command>
+</screen>
+
+          <para>
+          Replace <filename>/dev/md0</filename> with the appropriate array device name.
+          </para>
+
+        </sect3>
+        <sect3 id="raid-resources" status="review">
+          <title>Resources</title>
+
+          <para>
+          The topic of RAID arrays is a complex one due to the plethora of ways RAID can be configured.  Please see the following links for 
+          more information:
+          </para>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              <ulink url="http://www.faqs.org/docs/Linux-HOWTO/Software-RAID-HOWTO.html">Software RAID HOWTO</ulink>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <ulink url="http://oreilly.com/catalog/9781565927308/">Managing RAID on Linux</ulink>
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>  
+      <sect2 id="lvm" status="review">
+        <title>Logical Volume Manager (LVM)</title>
+
+        <para>
+        Logical Volume Manger, or <emphasis>LVM</emphasis>, allows administrators to create <emphasis>logical</emphasis> volumes out of
+        one or multiple physical hard disks.  LVM volumes can be created on both software RAID partitions and standard partitions 
+        residing on a single disk.  Volumes can also be extended, giving greater flexibility to systems as requirements change.
+        </para>
+
+        <sect3 id="lvm-overview" status="review">
+          <title>Overview</title>
+
+          <para>
+          A side effect of LVM's power and flexibility is a greater degree of complication.  Before diving into the LVM installation process,
+          it is best to get familiar with some terms.
+          </para>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              <emphasis>Volume Group (VG):</emphasis> contains one or several Logical Volumes (LV). 
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>Logical Volume (LV):</emphasis> is similar to a partition in a non-LVM system.  Multiple Physical Volumes (PV) 
+              can make up one LV, on top of which resides the actual EXT3, XFS, JFS, etc filesystem.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <emphasis>Physical Volume (PV):</emphasis> physical hard disk or software RAID partition.  The Volume Group can be extended
+              by adding more PVs.
+              </para>
+            </listitem>
+          </itemizedlist>
+
+        </sect3>
+        <sect3 id="lvm-installation" status="review">
+          <title>Installation</title>
+
+          <para>
+          As an example this section covers installing Ubuntu Server Edition with <filename role="directory">/srv</filename> mounted
+          on a LVM volume.  During the initial install only one Physical Volume (PV) will be part of the Volume Group (VG).  Another
+          PV will be added after install to demonstrate how a VG can be extended.
+          </para>
+
+          <para>
+          There are several installation options for LVM, <emphasis>"Guided - use the entire disk and setup LVM"</emphasis> which will
+          also allow you to assign a portion of the available space to LVM, <emphasis>"Guided - use entire and setup encrypted LVM"</emphasis>,
+          or <emphasis>Manually</emphasis> setup the partitions and configure LVM.  At this time the only way to configure a system with 
+          both LVM and standard partitions, during installation, is to use the Manual approach.
+          </para>
+
+          <procedure>
+            <step>
+
+              <para>
+              Follow the installation steps until you get to the <emphasis>Partition disks</emphasis> step, then:
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              At the <emphasis>"Partition Disks</emphasis> screen choose <emphasis>"Manual"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Select the hard disk and on the next screen choose "yes" to <emphasis>"Create a new empty partition table on this device"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Next, create standard <emphasis>/boot</emphasis>, <emphasis>swap</emphasis>, and <emphasis>/</emphasis> partitions with whichever
+              filesystem you prefer.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              For the LVM <emphasis>/srv</emphasis>, create a new <emphasis>Logical</emphasis> partition.  Then change <emphasis>"Use as"</emphasis>
+              to <emphasis>"physical volume for LVM"</emphasis> then <emphasis>"Done setting up the partition"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Now select <emphasis>"Configure the Logical Volume Manager"</emphasis> at the top, and choose <emphasis>"Yes"</emphasis> to write 
+              the changes to disk.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              For the <emphasis>"LVM configuration action"</emphasis> on the next screen, choose <emphasis>"Create volume group"</emphasis>.  Enter
+              a name for the VG such as <emphasis>vg01</emphasis>, or something more descriptive. After entering a name, select the partition 
+              configured for LVM, and choose <emphasis>"Continue"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Back at the <emphasis>"LVM configuration action"</emphasis> screen, select <emphasis>"Create logical volume"</emphasis>.  Select 
+              the newly created volume group, and enter a name for the new LV, for example <emphasis>srv</emphasis> since that is the intended
+              mount point.  Then choose a size, which may be the full partition because it can always be extended later. Choose 
+              <emphasis>"Finish"</emphasis> and you should be back at the main <emphasis>"Partition Disks"</emphasis> screen.    
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Now add a filesystem to the new LVM.  Select the partition under <emphasis>"LVM VG vg01, LV srv"</emphasis>, or whatever name
+              you have chosen, the choose <emphasis>Use as</emphasis>.  Setup a file system as normal selecting <emphasis>/srv</emphasis> as
+              the mount point.  Once done, select <emphasis>"Done setting up the partition"</emphasis>.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Finally, select <emphasis>"Finish partitioning and write changes to disk"</emphasis>.  Then confirm the changes and continue
+              with the rest of the installation.
+              </para>
+
+            </step>
+          </procedure>
+
+          <para>
+          There are some useful utilities to view information about LVM: 
+          </para>
+
+          <itemizedlist>
+            <listitem><para><emphasis>vgdisplay:</emphasis> shows information about Volume Groups.</para></listitem>
+            <listitem><para><emphasis>lvdisplay:</emphasis> has information about Logical Volumes.</para></listitem>
+            <listitem><para><emphasis>pvdisplay:</emphasis> similarly displays information about Physical Volumes.</para></listitem>
+          </itemizedlist>
+
+        </sect3>
+        <sect3 id="lvm-extending" status="review">
+          <title>Extending Volume Groups</title>
+
+          <para>
+          Continuing with <emphasis>srv</emphasis> as an LVM volume example, this section covers adding a second hard disk, creating
+          a Physical Volume (PV), adding it to the volume group (VG), extending the logical volume <filename role="directory">srv</filename>
+          and finally extending the filesystem. This example assumes a second hard disk has been added to the system. This hard disk will be 
+          named <filename>/dev/sdb</filename> in our example. BEWARE: make sure you don't already have an existing <filename>/dev/sdb</filename>
+          before issuing the commands below. You could lose some data if you issue those commands on a non-empty disk. In our example we will 
+          use the entire disk as a physical volume (you could choose to create partitions and use them as different physical volumes)
+          </para>
+
+          <procedure>
+            <step>
+ 
+              <para>
+              First, create the physical volume, in a terminal execute:
+              </para>
+
+<screen>
+<command>sudo pvcreate /dev/sdb</command>
+</screen>
+
+            </step>
+            <step>
+
+              <para>
+              Now extend the Volume Group (VG):
+              </para>
+
+<screen>
+<command>sudo vgextend vg01 /dev/sdb</command>
+</screen>
+
+            </step>
+            <step>
+
+              <para>
+              Use <application>vgdisplay</application> to find out the free physical extents - Free PE / size (the size you can allocate). 
+              We will assume a free size of 511 PE (equivalent to 2GB with a PE size of 4MB) and we will use the whole free space available.
+              Use your own PE and/or free space.
+              </para>
+
+              <para>
+              The Logical Volume (LV) can now be extended by different methods, we will only see how to use the PE to extend the LV:
+              </para>
+
+<screen>
+<command>sudo lvextend /dev/vg01/srv -l +511</command>
+</screen>
+
+              <para>
+              The <emphasis>-l</emphasis> option allows the LV to be extended using PE.
+              The <emphasis>-L</emphasis> option allows the LV to be extended using Meg, Gig, Tera, etc bytes.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Even though you are supposed to be able to <emphasis>expand</emphasis> an ext3 or ext4 filesystem without unmounting it first, 
+              it may be a good pratice to unmount it anyway and check the filesystem, so that you don't mess up the day you want to reduce
+              a logical volume (in that case unmounting first is compulsory).
+              </para>
+
+              <para>
+              The following commands are for an <emphasis>EXT3</emphasis> or <emphasis>EXT4</emphasis> filesystem. If you are
+              using another filesystem there may be other utilities available.
+              </para>
+
+<screen>
+<command>sudo umount /srv</command>
+<command>sudo e2fsck -f /dev/vg01/srv</command>
+</screen>
+
+              <para>
+              The <emphasis>-f</emphasis> option of <application>e2fsck</application> forces checking even if the system seems clean.
+              </para>
+
+            </step>
+            <step>
+ 
+              <para>
+              Finally, resize the filesystem:
+              </para>
+
+<screen>
+<command>sudo resize2fs /dev/vg01/srv</command>
+</screen>
+
+            </step>
+            <step>
+ 
+              <para>
+              Now mount the partition and check its size.
+              </para>
+
+<screen>
+<command>mount /dev/vg01/srv /srv &amp;&amp; df -h /srv</command>
+</screen>
+
+            </step>
+          </procedure>
+
+        </sect3>
+        <sect3 id="lvm-resources" status="review">
+          <title>Resources</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              See the <ulink url="http://tldp.org/HOWTO/LVM-HOWTO/index.html">LVM HOWTO</ulink> for more information.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Another good article is 
+              <ulink url="http://www.linuxdevcenter.com/pub/a/linux/2006/04/27/managing-disk-space-with-lvm.html">Managing Disk Space with LVM</ulink>
+              on O'Reilly's linuxdevcenter.com site.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              For more information on <application>fdisk</application> see the
+              <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/fdisk.8.html">fdisk man page</ulink>.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>     
+    </sect1>
+</chapter>

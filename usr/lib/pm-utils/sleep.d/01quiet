@@ -1,0 +1,38 @@
+#!/bin/bash
+
+. /usr/lib/pm-utils/functions
+
+quiet() {
+    # Save the current printk levels
+    orig_printk_vals=`cat /proc/sys/kernel/printk`
+    echo "$orig_printk_vals" > /var/run/printk-settings
+
+    # Set kernel output to a minimum
+    echo '1 4 1 7' > /proc/sys/kernel/printk
+
+    return $?
+}
+
+restore() {
+
+    # If printk settings were stored before suspend/hibernate, restore
+    # them now that we are resuming/thawing
+    if [ -e /var/run/printk-settings ]; then
+        cat /var/run/printk-settings > /proc/sys/kernel/printk
+	rm /var/run/printk-settings
+    fi
+}
+
+
+case "$1" in
+	hibernate|suspend)
+		quiet
+		;;
+	thaw|resume)
+		restore
+		;;
+	*)
+		;;
+esac
+
+exit $?

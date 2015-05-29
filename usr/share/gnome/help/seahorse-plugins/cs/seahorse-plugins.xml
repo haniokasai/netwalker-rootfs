@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="cs">
+	<articleinfo>
+		<title>Příručka k nástroji Šifrování a klíčenky</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins a Adam Schreiber</holder>
+		</copyright><copyright><year>2008.</year><holder>Lucas Lommer (llommer@svn.gnome.org)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Projekt Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Je povoleno kopírovat, šířit a/nebo upravovat tento dokument za podmínek GNU Free Documentation License (GFDL), verze 1.1 nebo jakékoli další verze vydané nadací Free Software Foundation; bez neměnných oddílů, bez textů předních desek a bez textů zadních desek. Kopii licence GFDL naleznete pod <ulink type="help" url="ghelp:fdl">tímto odkazem</ulink> nebo v souboru COPYING-DOCS dodávaném s touto příručkou.</para>
+         <para>Tato příručka je součástí sbírky příruček GNOME šířených za podmínek licence GNU FDL. Pokud chcete tento dokument šířit odděleně od sbírky, musíte přiložit kopii licence dle popisu v oddíle 6 dané licence.</para>
+
+	<para>Mnoho užívaných jmen určených k zviditelnění produktů nebo služeb jsou ochranné známky. Na místech, kde jsou tato jména v dokumentaci užita a členové Dokumentačního projektu GNOME jsou si vědomi skutečnosti, že se jedná o ochrannou známku, je takové jméno psáno velkými písmeny celé nebo s velkým písmenem na začátku.</para>
+
+	<para>DOKUMENT A JEHO UPRAVENÉ VERZE JSOU ŠÍŘENY V SOULADU SE ZNĚNÍM LICENCE GNU FREE DOCUMENTATION LICENSE S NÁSLEDUJÍCÍM USTANOVENÍM: <orderedlist>
+		<listitem>
+		  <para>DOKUMENT JE POSKYTOVÁN V PODOBĚ "JAK JE", BEZ ZÁRUKY JAKÉHOKOLIV DRUHU, NEPOSKYTUJÍ SE ANI ODVOZENÉ ZÁRUKY, ZÁRUKY, ŽE DOKUMENT, NEBO JEHO UPRAVENÁ VERZE, JE BEZCHYBNÝ, NEBO ZÁRUKY PRODEJNOSTI, VHODNOSTI PRO URČITÝ ÚČEL, NEBO NEPORUŠENOSTI. RIZIKO NEKVALITY, NEPŘESNOSTI A ŠPATNÉHO PROVEDENÍ DOKUMENTU, NEBO JEHO UPRAVENÉ VERZE, NESETE VY. POKUD JE TENTO DOKUMENT NEBO JEHO UPRAVENÁ VERZE VADNÁ V JAKÉMKOLIV SMYSLU, VY (NIKOLIV PŮVODCE, AUTOR NEBO JAKÝKOLIV PŘISPĚVATEL) PŘEBÍRÁTE ODPOVĚDNOST ZA JAKÉKOLIV NÁKLADY NA NUTNÉ ÚPRAVY, OPRAVY ČI SLUŽBY. TOTO PROHLÁŠENÍ O ZÁRUCE PŘEDSTAVUJE ZÁKLADNÍ SOUČÁST TÉTO LICENCE. BEZ TOHOTO PROHLÁŠENÍ NENÍ PODLE TÉTO DOHODY POVOLENO UŽÍVÁNÍ ANI ÚPRAVY TOHOTO DOKUMENTU; DÁLE</para>
+		</listitem>
+		<listitem>
+		  <para>UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL
+                       THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE),
+                       CONTRACT, OR OTHERWISE, SHALL THE AUTHOR,
+                       INITIAL WRITER, ANY CONTRIBUTOR, OR ANY
+                       DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION
+                       OF THE DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH
+                       PARTIES, BE LIABLE TO ANY PERSON FOR ANY
+                       DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR
+                       CONSEQUENTIAL DAMAGES OF ANY CHARACTER
+                       INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS
+                       OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR
+                       MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR
+                       LOSSES ARISING OUT OF OR RELATING TO USE OF THE
+                       DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT,
+                       EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF
+                       THE POSSIBILITY OF SUCH DAMAGES.
+		  </para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Projekt Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Projekt Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Projekt Seahorse</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Příručka k aplikaci Šifrování a klíčenky verze 0.10.0</revnumber>
+				<date>Srpen 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Příručka k aplikaci Šifrování a klíčenky verze 0.9.1</revnumber>
+				<date>Prosinec 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Příručka k aplikaci Šifrování a klíčenky verze 0.9.0</revnumber>
+				<date>Červenec 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Projekt Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Příručka k aplikaci Šifrování a klíčenky verze 0.7.0</revnumber>
+				<date>Únor 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Projekt Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Tato příručka popisuje aplikaci Šifrování a klíčenky ve verzi 2.24</releaseinfo>
+		<legalnotice>
+			<title>Ohlasy</title>
+			<para>Pokud chcete oznámit chybu nebo navrhnout vylepšení vztahující se k modulu <application>Klíčenka a Šifrování</application> nebo této příručce, postupujte dle instrukcí na stránce <ulink url="ghelp:gnome-feedback" type="help">Stránka s ohlasy na GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para>Nástroj <application>Šifrování a klíčenky</application> slouží k nastavení primárního šifrovacího klíče a správě ukládání hesel po použití.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Šifrovací klíče</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Úvod</title>
+        <para>Použijte nástroj <application>Šifrování a klíčenky</application> k výběru primárního šifrovacího klíče a správě ukládání hesel po použití.</para>
+        <para>Navíc tato příručka obsahuje informace vztahující se k zásuvným modulům šifrování pro: <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Textový editor gEdit</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Správce souborů Nautilus</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Prohlížeč WWW Epiphany</ulink></application></para>
+				</listitem>
+			</itemizedlist></para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>Integrace do správce souborů</title>
+    <para><application>Šifrování a klíčenky</application> lze integrovat s aplikací <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>. Můžete šifrovat i dešifrovat soubory, podepisovat je a ověřovat. Také lze importovat veřejné klíče přímo ze správce souborů bez spouštění nástroje <application>Šifrování a klíčenky</application>.</para>
+    <sect2 id="encrypt-fm">
+      <title>Šifrování souborů</title>
+      <para>Pokud chcete zašifrovat soubory ze správce souborů, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Ze správce souborů zvolte jeden nebo více souborů.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Klepněte pravým tlačítkem na libovolný z nich a zvolte <guimenuitem>Zašifrovat</guimenuitem>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Zvolte lidi, pro které chcete soubory zašifrovat a klepněte na tlačítko <guibutton>Budiž</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Podepisování souborů</title>
+      <para>Pokud chcete ve správci souborů podepsat soubor, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Ze správce souborů zvolte jeden nebo více souborů.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Klepněte pravým tlačítkem na vybraný soubor a zvolte <guimenuitem>Podepsat</guimenuitem>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud budete dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Dešifrování souborů</title>
+      <para>Pokud chcete dešifrovat soubor ve správci souborů, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Poklepejte na soubor, který chcete dešifrovat.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud budete dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Ověřování podpisů</title> 
+      <para>Pokud chcete podpis ověřit, prostě poklepejte na samostatný soubor s podpisem.</para>
+      <note><para>Samostatné soubory s podpisem jsou obvykle ve tvaru &lt;název souboru&gt;.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Integrace s Textovým editorem</title>
+    <para>Pokud chcete zapnout podporu šifrování v aplikaci <application><ulink url="ghelp:gedit" type="help">Gedit</ulink></application>, textovém editoru pro GNOME, proveďte následující: <itemizedlist>
+	<listitem>
+	  <para>Spusťte <application>Gedit</application> zvolením položky <menuchoice><guimenu>Aplikace</guimenu><guimenuitem>Příslušenství</guimenuitem><guimenuitem>Textový editor</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Zvolte z nabídky <menuchoice><guimenu>Upravit</guimenu><guimenuitem>Nastavení</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Na kartě <guilabel>Zásuvné moduly</guilabel> zvolte zásuvný modul <guilabel>Šifrování textu</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-te">
+      <title>Šifrování textu</title>
+      <para>Pokud chcete zašifrovat vybraný text v aplikaci <application>Gedit</application>, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Označte text, který chcete šifrovat a zvolte z nabídky <menuchoice><guimenu>Upravit</guimenu><guimenuitem>Zašifrovat</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Vyberte lidi, pro které chcete text zašifrovat a klepněte na <guilabel>Budiž</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Nyní můžete zašifrovaný text uložit nebo zkopírovat.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Podepisování textu</title>
+      <para>Pokud chcete podepsat vybraný text v aplikaci <application>Gedit</application>, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Označte text, který chcete šifrovat a zvolte z nabídky <menuchoice><guimenu>Upravit</guimenu><guimenuitem>Podepsat</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud jste dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist> Nyní můžete podepsaný text uložit nebo zkopírovat.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Dešifrování/Ověřování textu</title>
+      <para>Pokud chcete dešifrovat a/nebo ověřit vybraný text v aplikaci <application>Gedit</application>, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Označte text, který chcete dešifrovat nebo ověřit a zvolte z nabídky <menuchoice><guimenu>Upravit</guimenu><guimenuitem>Dešifrovat/Ověřit</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud jste dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist> Nyní můžete dešifrovaný text uložit nebo zkopírovat.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Integrace s prohlížečem WWW</title>
+    <para>Toto rozšíření umožňuje šifrovat, dešifrovat, podepisovat a importovat obsah textových polí.</para>
+    <para>Pokud chcete povolit v <application><ulink url="ghelp:epiphany-browser" type="help">Epiphany</ulink></application>, prohlížeči WWW pro GNOME, rozšíření o šifrovací funkce, proveďte následující: <itemizedlist>
+	<listitem>
+	  <para>Spusťte <application>Prohlížeč WWW Epiphany</application> zvolením položky <menuchoice><guimenu>Aplikace</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Prohlížeč WWW Epiphany</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Z nabídky vyberte <menuchoice><guimenu>Nástroje</guimenu><guimenuitem>Rozšíření</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Vyberte zásuvný modul <guilabel>Seahorse</guilabel></para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-wb">
+      <title>Šifrování textu</title>
+      <para>Pokud chcete v <application>Prohlížeči WWW Epiphany</application> zašifrovat obsah vstupního textového pole, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Klepněte pravým tlačítkem na vstupní pole, které chcete zašifrovat a zvolte <menuchoice><guimenuitem>Zašifrovat</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Vyberte lidi, pro které chcete text zašifrovat a klepněte na <guilabel>Budiž</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Zašifrovaný text se objeví v daném vstupním poli.</para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Podepisování textu</title>
+      <para>Pokud chcete v <application>Prohlížeči WWW Epiphany</application> podepsat obsah vstupního textového pole, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Klepněte pravým tlačítkem na vstupní pole, které chcete zašifrovat a zvolte <menuchoice><guimenuitem>Podepsat</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud jste dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist> Podepsaný text se objeví v daném vstupním poli.</para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Dešifrování/Ověřování textu</title>
+      <para>Pokud chcete v <application>Prohlížeči WWW Epiphany</application> dešifrovat a nebo ověřit obsah vstupního textového pole, proveďte následující: <itemizedlist>
+	  <listitem>
+	    <para>Klepněte pravým tlačítkem na vstupní pole, které chcete dešifrovat/ověřit a zvolte <menuchoice><guimenuitem>Dešifrovat/Ověřit</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Pokud jste dotázáni, zadejte heslo k soukromému klíči.</para>
+	  </listitem>
+	</itemizedlist> Dešifrovaný text se objeví v daném vstupním poli.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Nastavení</title>
+    <para>Tento oddíl popisuje možnosti nastavení aplikace <application>Šifrování a klíčenky</application>.</para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Nastavení šifrování</title>
+      <para>Tento oddíl popisuje možnosti nastavení dostupné pod položkou <menuchoice><guimenu>Systém</guimenu><guimenuitem>Nastavení</guimenuitem><guimenuitem>Šifrování a klíčenky</guimenuitem></menuchoice> v panelu.</para>
+      
+      <sect3 id="prefs">
+	<title>Volby pro šifrování</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Výchozí klíč</guilabel></term>
+	    <listitem>
+	      <para>Toto je klíč, který budou aplikace a zásuvné moduly používat k podepisování souborů. Také bude pomocí něj provedeno zašifrování, pokud tak bude zvoleno.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Vždy mě při šifrování zahrnout mezi příjemce</guilabel></term>
+	    <listitem>
+	      <para>Nastavuje, zda budete přidáni mezi příjemce všech šifrovaných souborů.</para>
+	      <note>
+		<para>Pokud tuto volbu nepovolíte a nepřidáte se ručně do seznamu příjemců, nebudete mít možnost soubor později dešifrovat.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Cache pro hesla</title>
+	<para>Povolením cache pro hesla vám umožní provést více operací vyžadujících heslo bez opětovného zadávání pro každou situaci. <command>seahorse-agent</command> přebírá místo po <command>gpg-agent</command>. Nechat po čase vypršet platnost hesla je dobrý nápad. Sice po vypršení budete muset heslo zadat, ale zvyšuje to bezpečnost.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Nikdy si nepamatovat hesla</guilabel></term>
+	    <listitem>
+	      <para>Zakazuje pamatování hesel.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Pamatovat si hesla po dobu ... minut</guilabel></term>
+	    <listitem>
+	      <para>Určuje dobu, v minutách, po jakou budou hesla uložena. Použijte číselník k určení času.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Pamatovat si hesla, kdykoliv se přihlásím</guilabel></term>
+	    <listitem>
+	      <para>Pokud je položka zvolena, systém si bude hesla po přihlášení pamatovat.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Vždy se mě ptát před použitím kešovaného hesla</guilabel></term>
+	    <listitem>
+	      <para>Pokud je tato položka zvolena, budete vždy dotázáni před použitím kešovaného hesla.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Automaticky nahrávat SSH klíče </guilabel></term>
+	    <listitem>
+	      <para>Pokud je zvoleno, budou SSH klíče automaticky ukládány do cache.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>O Klíčence a Šifrování</title>
+    <para>Nástroj <application>Šifrování a klíčenky</application> a náležející zásuvné moduly, applet nastavení a applet panelu jsou dohromady známy jako projekt Seahorse. Původním tvůrcem projektu Seahorse je Jacob Perkins. V současné době jej udržují Stef Walter a Adam Schreiber, který je zároveň i autorem této příručky. Design WWW stránky projektu vytvořil Jim Pharis. Více informací se dozvíte na <ulink url="http://www.gnome.org/projects/seahorse/" type="http">WWW stránce projektu Seahorse</ulink>.</para>
+    <para>Pokud chcete oznámit chybu nebo navrhnout vylepšení této aplikace nebo příručky, postupujte podle instrukcí v <ulink url="ghelp:user-guide?feedback-bugs" type="help">sekci Zpětná vazba</ulink> nacházející se v Příručce uživatele GNOME.</para>
+    <para>Tento program je šířen podle ustanovení GNU General Public License, vydávané Free Software Foundation; a to buď verze 2 této licence anebo (podle vlastního uvážení) kterékoliv pozdější verze. <ulink url="ghelp:gpl" type="help">Kopie této licence</ulink> je zahrnuta v této dokumentaci; další kopie se nachází v souboru COPYING přiloženém ke zdrojovým kódům tohoto programu.</para>
+  </sect1>
+</article>

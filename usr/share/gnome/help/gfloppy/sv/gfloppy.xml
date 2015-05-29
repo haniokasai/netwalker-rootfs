@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.4">
+<!ENTITY manrevision "2.1">
+<!ENTITY date "January 2003">
+<!ENTITY app "Gfloppy">
+]>
+<!-- =============Document Header ============================= -->
+<article id="index" lang="sv">
+ <articleinfo> 
+    <title>Handbok för Diskettformaterare</title>       
+    <abstract role="description">
+      <para>Diskettformaterare, även känd som Gfloppy, formaterar disketter för användning i Linux.</para>
+    </abstract>
+    <copyright> 
+      <year>2000</year> 
+      <holder>Kenny Graunke</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2002</year> 
+      <holder>John Fleck</holder> 
+    </copyright>
+    <copyright>
+      <year>2003</year>
+      <holder>Baris Cicek</holder>
+		</copyright><copyright><year>2006</year><holder>Daniel Nylander (po@danielnylander.se)</holder></copyright>
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+
+    <publisher> 
+      <publishername>Dokumentationsprojekt för GNOME</publishername> 
+    </publisher> 
+
+      <legalnotice id="legalnotice">
+         <para>Tillstånd att kopiera, distribuera och/eller modifiera detta dokument ges under villkoren i GNU Free Documentation License (GFDL), version 1.1 eller senare, utgivet av Free Software Foundation utan standardavsnitt och omslagstexter.  En kopia av GFDL finns att hämta på denna <ulink type="help" url="ghelp:fdl">länk</ulink> eller i filen COPYING-DOCS som medföljer denna handbok.</para>
+          <para>Denna handbok utgör en av flera GNOME-handböcker som distribueras under villkoren i GFDL.  Om du vill distribuera denna handbok separat från övriga handböcker kan du göra detta genom att lägga till en kopia av licensavtalet i handboken enligt instruktionerna i avsnitt 6 i licensavtalet.</para>
+ 
+         <para>Flera namn på produkter och tjänster är registrerade varumärken. I de fall dessa namn förekommer i GNOME-dokumentation - och medlemmarna i GNOME-dokumentationsprojektet är medvetna om dessa varumärken - är de skrivna med versaler eller med inledande versal.</para>
+ 
+         <para>DOKUMENTET OCH MODIFIERADE VERSIONER AV DOKUMENTET TILLHANDAHÅLLS UNDER VILLKOREN I GNU FREE DOCUMENTATION LICENSE ENDAST UNDER FÖLJANDE FÖRUTSÄTTNINGAR: <orderedlist>
+                 <listitem>
+                   <para>DOKUMENTET TILLHANDAHÅLLS I "BEFINTLIGT SKICK" UTAN NÅGRA SOM HELST GARANTIER, VARE SIG UTTRYCKLIGA ELLER UNDERFÖRSTÅDDA, INKLUSIVE, MEN INTE BEGRÄNSAT TILL, GARANTIER ATT DOKUMENTET ELLER EN MODIFIERAD VERSION AV DOKUMENTET INTE INNEHÅLLER NÅGRA FELAKTIGHETER, ÄR LÄMPLIGT FÖR ETT VISST ÄNDAMÅL ELLER INTE STRIDER MOT LAG. HELA RISKEN VAD GÄLLER KVALITET, EXAKTHET OCH UTFÖRANDE AV DOKUMENTET OCH MODIFIERADE VERSIONER AV DOKUMENTET LIGGER HELT OCH HÅLLET PÅ ANVÄNDAREN. OM ETT DOKUMENT ELLER EN MODIFIERAD VERSION AV ETT DOKUMENT SKULLE VISA SIG INNEHÅLLA FELAKTIGHETER I NÅGOT HÄNSEENDE ÄR DET DU (INTE DEN URSPRUNGLIGA SKRIBENTEN, FÖRFATTAREN ELLER NÅGON ANNAN MEDARBETARE) SOM FÅR STÅ FÖR ALLA EVENTUELLA KOSTNADER FÖR SERVICE, REPARATIONER ELLER KORRIGERINGAR. DENNA GARANTIFRISKRIVNING UTGÖR EN VÄSENTLIG DEL AV DETTA LICENSAVTAL. DETTA INNEBÄR ATT ALL ANVÄNDNING AV ETT DOKUMENT ELLER EN MODIFIERAD VERSION AV ETT DOKUMENT BEVILJAS ENDAST UNDER DENNA ANSVARSFRISKRIVNING;</para>
+                 </listitem>
+                 <listitem>
+                   <para>UNDER INGA OMSTÄNDIGHETER ELLER INOM RAMEN FÖR NÅGON LAGSTIFTNING, OAVSETT OM DET GÄLLER KRÄNKNING (INKLUSIVE VÅRDSLÖSHET), KONTRAKT ELLER DYLIKT, SKA FÖRFATTAREN, DEN URSPRUNGLIGA SKRIBENTEN ELLER ANNAN MEDARBETARE ELLER ÅTERFÖRSÄLJARE AV DOKUMENTET ELLER AV EN MODIFIERAD VERSION AV DOKUMENTET ELLER NÅGON LEVERANTÖR TILL NÅGON AV NÄMNDA PARTER STÄLLAS ANSVARIG GENTEMOT NÅGON FÖR NÅGRA DIREKTA, INDIREKTA, SÄRSKILDA ELLER OFÖRUTSEDDA SKADOR ELLER FÖLJDSKADOR AV NÅGOT SLAG, INKLUSIVE, MEN INTE BEGRÄNSAT TILL, SKADOR BETRÄFFANDE FÖRLORAD GOODWILL, HINDER I ARBETET, DATORHAVERI ELLER NÅGRA ANDRA TÄNKBARA SKADOR ELLER FÖRLUSTER SOM KAN UPPKOMMA PÅ GRUND AV ELLER RELATERAT TILL ANVÄNDNINGEN AV DOKUMENTET ELLER MODIFIERADE VERSIONER AV DOKUMENTET, ÄVEN OM PART SKA HA BLIVIT INFORMERAD OM MÖJLIGHETEN TILL SÅDANA SKADOR.</para>
+                 </listitem>
+           </orderedlist></para>
+   </legalnotice>
+ 
+   
+    <authorgroup> 
+      <author role="maintainer"> 
+		<firstname>Baris</firstname> 
+		<surname>Cicek</surname> 
+		<affiliation> 
+	  		<orgname>Dokumentationsprojekt för GNOME</orgname> 
+	  		<address> <email>bcicek@phreaker.net</email> </address> 
+		</affiliation> 
+      </author> 
+
+      <author> 
+		<firstname>John</firstname> 
+		<surname>Fleck</surname> 
+		<affiliation> 
+	  		<orgname>Dokumentationsprojekt för GNOME</orgname> 
+	  		<address> <email>jfleck@inkstain.net</email> </address> 
+		</affiliation> 
+      </author> 
+      <author> 
+		<firstname>Kenny</firstname> 
+		<surname>Graunke</surname> 
+		<affiliation> 
+	  		<orgname>Dokumentationsprojekt för GNOME</orgname> 
+	</affiliation> 
+      </author> 
+      
+<!-- This is appropriate place for other contributors: translators,
+     maintainers,  etc. Commented out by default.
+     
+      <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  		<orgname>Latin Translation Team</orgname> 
+	  		<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+<!-- Remember to remove the &manrevision; entity from the revision entries other
+-->
+<!-- than the current revision. -->
+<!-- The revision numbering system for GNOME manuals is as follows: -->
+<!-- * the revision number consists of two components -->
+<!-- * the first component of the revision number reflects the release version of the GNOME desktop. -->
+<!-- * the second component of the revision number is a decimal unit that is incremented with each revision of the manual. -->
+<!-- For example, if the GNOME desktop release is V2.x, the first version of the manual that -->
+<!-- is written in that desktop timeframe is V2.0, the second version of the manual is V2.1, etc. -->
+<!-- When the desktop release version changes to V3.x, the revision number of the manual changes -->
+<!-- to V3.0, and so on. -->  
+    <revhistory>
+      <revision> 
+		<revnumber>Handbok för Gfloppy v2.1</revnumber> 
+		<date>Januari 2003</date> 
+		<revdescription> 
+	  		<para role="author">Baris Cicek <email>bcicek@phreaker.net</email></para>
+	  		<para role="publisher">Dokumentationsprojekt för GNOME</para>
+		</revdescription> 
+      </revision> 
+
+      <revision> 
+		<revnumber>Handbok för Gfloppy v4.0</revnumber> 
+		<date>Juni 2002</date> 
+		<revdescription> 
+	  		<para role="author">John Fleck <email>jfleck@inkstain.net</email></para>
+	  		<para role="publisher">Dokumentationsprojekt för GNOME</para>
+		</revdescription> 
+      </revision> 
+
+      <revision> 
+		<revnumber>Handbok för Gfloppy</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Kenny Graunke</para>
+	  		<para role="publisher">Dokumentationsprojekt för GNOME</para>
+		</revdescription> 
+      </revision> 
+    </revhistory> 
+
+    <releaseinfo>Den här handboken beskriver version 2.4 av Handbok för Gfloppy</releaseinfo> 
+    <legalnotice> 
+      <title>Återkoppling</title> 
+      <para>För att rapportera ett fel eller komma med ett förslag angående programmet Gfloppy eller denna handbok, följ instruktionerna på <ulink url="ghelp:gnome-feedback" type="help">GNOME:s återkopplingssida</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo>
+<!--
+  <indexterm zone="index"> 
+    <primary>Gfloppy Manual</primary> 
+  </indexterm> 
+  <indexterm zone="index"> 
+    <primary>gfloppy</primary> 
+  </indexterm>
+-->
+ <!-- ============= Document Body ============================= -->
+
+ <!-- ============= Introduction ============================== -->
+ <sect1 id="intro">
+  <title>Introduktion</title>
+
+  <para><application>GFloppy</application> formaterar disketter för Linux. Nya disketter kan behöva formateras innan de kan användas.</para>
+
+  <para>För att köra <application>GFloppy</application>, välj <guimenuitem>Diskettformaterare</guimenuitem> från undermenyn <guisubmenu>Systemverktyg</guisubmenu> till menyn <guimenu>Huvudmeny</guimenu>, eller ange <command>gfloppy</command> på kommandoraden.</para>
+
+  <para>Det här dokumentet beskriver version 2.4 av <application>GFloppy</application>.</para>
+
+ </sect1>
+
+
+ <!-- ================ Usage ================================ -->
+
+ <sect1 id="usage">
+  <title>Användning av GFloppy</title>
+   <para>När du startar <application>GFloppy</application>, öppnas <interface>Huvudfönstret</interface>, visad i <xref linkend="gfloppymainwindow"/>. <figure id="gfloppymainwindow">
+	<title>Huvudfönster i Gfloppy</title>
+      <screenshot>
+	<screeninfo>Huvudfönster i GFloppy</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/main.png" format="PNG"/>
+	  </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/main.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Huvudfönster i GFloppy</phrase>
+      </textobject>
+      <caption><para>Huvudfönster i GFloppy</para></caption>
+    </mediaobject>
+      
+     </screenshot>
+   </figure></para>
+
+   <para>Mata in en diskett som inte är skrivskyddad.</para>
+
+   <warning>
+    <title>Varning</title>
+    <para>GFloppy kommer att förstöra alla filer på din diskett. Formatera inte disketter som innehåller filer som du önskar behålla.</para>
+   </warning>
+  <para>GFloppy behöver veta densiteten på din diskett samt den mängd data som den kan innehålla. De flesta disketter idag är Hög densitet, 1.44MB 3.5".</para>
+
+   <para>Välj din filsystemstyp. Om du behöver använda din diskett under DOS eller Windows, välj <guibutton>DOS (FAT)</guibutton>. Annars, välj <guibutton>Linuxformat (ext2)</guibutton>. Linuxformatet kan inte läsas av de flesta datorer som inte kör Linux.</para>
+	 <para>Du kan också ge <guibutton>Volymnamn</guibutton> till dina nyligen formaterade disketter. För att göra det här, ange din etikett i textrutan under <guibutton>Filsystemsinställningar</guibutton>.</para>
+
+	 <para>Till slut, du bör välja formateringsläge. <variablelist>
+	  <varlistentry><term><guibutton>Snabb</guibutton></term>
+		<listitem>
+			<para>Snabbformatering är snabbast men kontrollerar inte din diskett efter felaktiga "block". Den raderar endast filtabellen så ditt data teoretiskt är återskapningsbart.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry><term><guibutton>Standard</guibutton></term>
+		<listitem>
+			<para>Standardformatering är en lågnivåformatering, men kontrollerar inte efter felaktiga block. Det innebär att om du har en trasig diskett kommer formateringen att misslyckas.</para>	
+		</listitem>
+		</varlistentry>
+		<varlistentry><term><guibutton>Grundlig</guibutton></term>
+		<listitem>
+			<para>Grundlig formatering kontrollerar disketten efter felaktiga block och lågnivåformaterar den.</para>
+		</listitem>
+		</varlistentry>
+		</variablelist></para>
+<!--
+   <para>
+    Quick format is faster but does not check your floppy disk for bad
+    "blocks". The slower regular format is useful if you have not formatted your
+    floppy before, or if you suspect your disk might be bad.
+   </para>
+-->
+   <para>Klicka på knappen <guibutton>Formatera</guibutton> för att påbörja formateringen av din diskett, enligt dessa figurer.</para>
+
+    <para>Du kommer att se ett antal dialogrutor som informerar dig om att <application>Gfloppy</application> formaterar, validerar och skapar ett filsystem på din diskett.</para>
+
+   <para>Såvida du inte väljer <guibutton>Snabb</guibutton> eller <guibutton>Standard</guibutton>, kommer <application>GFloppy</application> att kontrollera att inga felaktiga "block" finns på din diskett. Om <application>Gfloppy</application> hittar några, är din diskett på väg att gå sönder.</para>
+
+   <para><application>GFloppy</application> kommer att informera dig om åtgärden lyckades och sedan låter dig återgå till huvudfönstret.</para>
+  </sect1>
+
+ <sect1 id="troubleshooting">
+  <title>Problemlösning</title>
+   <para>När ingen diskett har matats in, visar GFloppy en dialogruta som informerar dig om att det inte finns något media som kan formateras.</para>
+	<para>Om din diskett är skrivskyddad, kommer GFloppy att varna dig. För att göra disketten skrivbar, mata ut den och vänd på den. Standard 3.5-tums disketter har en liten svart flik i övre vänstra hörnet. Skjut den nedåt så den täcker hålet. Om disketten inte har en svart flik, är den permanent skrivskyddad.</para>
+<!--
+      <screenshot id="writeprotected">
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/writeprotected.png" format="PNG"/>
+    </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/writeprotected.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Write protected</phrase>
+      </textobject>
+      <caption>
+	<para>Write protected</para>
+      </caption>
+    </mediaobject>
+    </screenshot>
+    </para>
+
+
+   <para>
+    If you cannot choose to format DOS floppies, as shown in <xref
+    linkend="nodos"/>, you need to install <filename>mtools</filename>.
+   </para>
+   <tip>
+    <title>Tip</title>
+    <para>
+     On an RPM based system, such as Red Hat, you can install <filename>
+     mtools</filename> using <ulink
+     url="gnome-help:gnorpm"><application>GnoRPM</application></ulink>, from the
+     <guisubmenu>System</guisubmenu> of
+     the <guimenu>Main Menu</guimenu>.
+    </para>
+   </tip>
+   <para>
+      <screenshot id="nodos">
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/nodos.png" format="PNG"/>
+    </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/nodos.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Cannot format DOS floppies</phrase>
+      </textobject>
+      <caption>
+	<para>Cannot format DOS floppies</para>
+      </caption>
+    </mediaobject>
+    </screenshot>
+   </para>
+-->
+ </sect1>
+
+ <sect1 id="bugs">
+  <title>Kända fel och begränsningar</title>
+  <para>GFloppy fungerar endast på Linux.</para>
+ </sect1>
+
+<!-- ============= Authors ================================ -->
+
+ <sect1 id="authors">
+  <title>Upphovsmän</title>
+  <para><application>GFloppy</application> skrevs av Jonathan Blandford (<email>jrb@redhat.com</email>). Skicka alla kommentarer, förslag, och felrapporter till <ulink url="http://bugzilla.gnome.org" type="http"> GNOME:s felhanteringsdatabas</ulink>. Om du använder GNOME 1.1 eller senare, kan du även använda <application>Felrapporteringsverktyget</application> (<command>bug-buddy</command>), tillgängligt i undermenyn <guisubmenu>Programmering</guisubmenu> under <guimenu>Huvudmeny</guimenu>, för att skicka in felrapporter.</para>
+
+  <para>Den här handboken skrevs av Baris Cicek (<email>bcicek@phreaker.net</email>). Skicka alla kommentarer och förslag angående den här handboken till <ulink type="http" url="http://developer.gnome.org/projects/gdp/">Dokumentationsprojekt för GNOME</ulink> genom att skicka e-post till <email>docs@gnome.org</email>. Du kan även lägga till dina kommentarer genom att använda <ulink type="http" url="http://developer.gnome.org/projects/gdp/doctable/">Statustabell för GNOME-dokumentation</ulink>.</para>
+
+  <!-- For translations: uncomment this:
+
+  <para>
+   Latin translation was done by ME
+   (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+   suggestions regarding this translation to SOMEWHERE.
+  </para>
+
+  -->
+
+ </sect1>
+
+
+ <!-- ============= Application License ============================= -->
+
+ <sect1 id="license">
+  <title>Licens</title>
+  <para>Detta program är fri programvara. Du kan distribuera det och/eller modifiera det under villkoren i <ulink url="ghelp:gpl"><citetitle>GNU General Public License</citetitle></ulink>, publicerad av Free Software Foundation, antingen version 2 eller (om du så vill) någon senare version.</para>
+  <para>Detta program distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se <ulink url="ghelp:gpl"><citetitle>GNU General Public License</citetitle></ulink> för ytterligare information.</para>
+  <para>En kopia av <citetitle>GNU General Public License</citetitle> är inkluderad som ett appendix till <citetitle>Användarguiden för GNOME</citetitle>. Du kan även hämta en kopia av <citetitle>GNU General Public License</citetitle> från Free Software Foundation genom att besöka <ulink type="http" url="http://www.fsf.org">deras webbplats</ulink> eller genom att skriva till <address> Free Software Foundation, Inc. <street>59 Temple Place</street> - Suite 330 <city>Boston</city>, <state>MA</state><postcode>02111-1307</postcode><country>USA</country></address></para>
+ </sect1>
+</article>

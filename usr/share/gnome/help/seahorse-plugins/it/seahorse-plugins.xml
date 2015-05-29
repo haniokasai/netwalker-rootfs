@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="it">
+	<articleinfo>
+		<title>Manuale di Cifratura e portachiavi</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins e Adam Schreiber</holder>
+		</copyright>
+		<publisher role="maintainer">
+			<publishername>Progetto Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Questo documento può essere copiato, distribuito o modificato solo in conformità con i termini della GNU Free Documentation License (GFDL) Versione 1.1 o delle versioni successive pubblicate dalla Free Software Foundation senza sezioni invariabili, frontespizi e testi di copertina. Una copia della GFDL è disponibile su questo <ulink type="help" url="ghelp:fdl">collegamento</ulink> o nel file COPYING-DOCS distribuito con questo manuale.</para>
+         <para>Questo manuale fa parte di una raccolta di manuali GNOME distribuita in conformità con la GFDL. Per poter distribuire questo manuale separatamente, è necessario inserirvi una copia della licenza, come descritto nella sezione 6 della licenza.</para>
+
+	<para>Molti dei nomi usati dalle aziende per distinguere i propri prodotti e servizi sono rivendicati come marchi. Quando questi nomi compaiono nella documentazione di GNOME, e i partecipanti al GNOME Documentation Project sono consapevoli del loro utilizzo, essi vengono scritti in lettere maiuscole o con l'iniziale maiuscola.</para>
+
+	<para>QUESTO DOCUMENTO E LE SUE VERSIONI MODIFICATE VENGONO FORNITI IN BASE AI TERMINI DELLA GNU FREE DOCUMENTATION LICENSE, CON L'INTESA CHE: <orderedlist>
+		<listitem>
+		  <para>IL DOCUMENTO VIENE FORNITO SENZA GARANZIE DI ALCUN TIPO, ESPLICITE O IMPLICITE, INCLUSE, MA SENZA LIMITAZIONE, LE GARANZIE ATTESTANTI CHE IL DOCUMENTO O LE SUE VERSIONI MODIFICATE SIANO PRIVI DI DIFETTI, COMMERCIALIZZABILI, IDONEI A UN DETERMINATO SCOPO O CHE NON VIOLINO DIRITTI DI TERZI. SI DECLINA QUALUNQUE RESPONSABILITÀ RIGUARDO AI RISCHI INERENTI LA QUALITÀ, L'ACCURATEZZA E LE PRESTAZIONI DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA. QUALORA UN DOCUMENTO O UNA SUA VERSIONE MODIFICATA DOVESSERO PRESENTARE QUALUNQUE TIPO DI DIFETTO, IL COSTO DI EVENTUALI INTERVENTI DI ASSISTENZA, RIPARAZIONE O CORREZIONE SARÀ A CARICO DELL'UTENTE (NON DEL REDATTORE INIZIALE, DELL'AUTORE O DI ALTRI COLLABORATORI). QUESTA LIMITAZIONE DELLA GARANZIA COSTITUISCE PARTE ESSENZIALE DELLA LICENZA. L'USO DEL DOCUMENTO O DELLE SUE VERSIONI MODIFICATE È CONSENTITO SOLO ENTRO I TERMINI DI QUESTA LIMITAZIONE DELLA GARANZIA;</para>
+		</listitem>
+		<listitem>
+		  <para>IN NESSUNA CIRCOSTANZA E PER NESSUNA RAGIONE LEGALE, INCLUSI I PRINCIPI DI COLPA (INCLUSA LA NEGLIGENZA), ACCORDO CONTRATTUALE O ALTRO, SARÀ POSSIBILE CONSIDERARE L'AUTORE, IL REDATTORE INIZIALE, GLI ALTRI COLLABORATORI, QUALUNQUE DISTRIBUTORE DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA O QUALUNQUE FORNITORE DELLE PERSONE CITATE, RESPONSABILE NEI CONFRONTI DI QUALUNQUE PERSONA PER DANNI DIRETTI, INDIRETTI, SPECIALI, INCIDENTALI O CONSEGUENTI DI QUALUNQUE NATURA, INCLUSI, MA SENZA LIMITAZIONE, I DANNI PER PERDITA DI AVVIAMENTO, INTERRUZIONE DEL LAVORO, GUASTO O MALFUNZIONAMENTO DEL COMPUTER O QUALUNQUE ALTRO DANNO O PERDITA DERIVANTE O CORRELATA ALL'USO DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA, ANCHE QUALORA LE PERSONE CITATE FOSSERO STATE INFORMATE DELLA POSSIBILITÀ DI TALI DANNI.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Progetto Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Progetto Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Progetto Seahorse</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Manuale V0.10.0 di Cifratura e portachiavi</revnumber>
+				<date>Agosto 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Manuale V0.9.1 di Cifratura e portachiavi</revnumber>
+				<date>Novembre 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Manuale V0.9.0 di Cifratura e portachiavi</revnumber>
+				<date>Luglio 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Progetto Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Manuale V0.7.0 di Cifratura e portachiavi</revnumber>
+				<date>Febbraio 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Progetto Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Questo manuale descrive la versione 2.24.x di Cifratura e portachiavi</releaseinfo>
+		<legalnotice>
+			<title>Commenti</title>
+			<para>Per segnalare un problema o inviare suggerimenti riguardo <application>Cifratura e portachiavi</application> o su questo manuale, seguire le istruzioni presenti alla <ulink url="ghelp:gnome-feedback" type="help">pagina di commenti di GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Cifratura e portachiavi</application> è l'applicazione per gestire la chiave di cifratura principale e come la passphrase della propria chiave viene salvate una volta eseguita un'operazione di cifratura.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Chiavi di cifratura</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Introduzione</title>
+        <para>È possibile usare <application>Cifratura e portachiavi</application> per selezionare la chiave di cifratura principale e come la passphrase per la propria chiave viene salvata dopo aver eseguito un'operazione di cifratura.</para>
+        <para>Questo manuale contiene anche informazioni riguardo i plugin di cifratura forniti per: <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Gedit - Editor di testo</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Nautilus - Gestore di file</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Epiphany - Browser web</ulink></application></para>
+				</listitem>
+			</itemizedlist></para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>Integrazione col file manager</title>
+    <para><application>Cifratura e portachiavi</application> si integra con il file manager <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>. È possibile cifrare, decifrare, firmare e verificare i file, così come importare chiavi pubbliche dal gestore di file senza avviare <application>Cifrature e portachiavi</application>.</para>
+    <sect2 id="encrypt-fm">
+      <title>Cifrare file</title>
+      <para>Per cifrare dei file dal file manager, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>selezionare uno o più file dal file manager,</para>
+	  </listitem>
+	  <listitem>
+	    <para>fare clic col pulsante destro del mouse su uno dei file selezionati e scegliere <guimenuitem>Cifra</guimenuitem>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>selezionare le persone per cui cifrare i file e fare clic su <guibutton>Ok</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Firmare file</title>
+      <para>Per firmare dei file dal file manager, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>selezionare uno o più file dal file manager,</para>
+	  </listitem>
+	  <listitem>
+	    <para>fare clic col pulsante destro del mouse su uno dei file selezionati e scegliere <guimenuitem>Firma</guimenuitem>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Decifrare file</title>
+      <para>Per decifrare un file cifrato dal file manager, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>fare doppio clic sul file che si desidera decifrare,</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Verificare firme</title> 
+      <para>Per verificare un file, basta semplicemente fare clic sul file della firma separato.</para>
+      <note><para>I nomi dei file delle firme separate hanno la forma &lt;nome del file&gt;.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Integrazione con l'editor di testo</title>
+    <para>Per abilitare il plugin di cifratura del testo in <application><ulink url="ghelp:gedit" type="help">Gedit</ulink></application>, l'editor di testo di GNOME, procedere come segue: <itemizedlist>
+	<listitem>
+	  <para>Avviare <application>Gedit</application> scegliendo <menuchoice><guimenu>Applicazioni</guimenu><guimenuitem>Accessori</guimenuitem><guimenuitem>Editor di testo</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Scegliere <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Preferenze</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Nella scheda <guilabel>Plugin</guilabel>, selezionare il plugin <guilabel>Cifratura del testo</guilabel>,</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-te">
+      <title>Cifrare del testo</title>
+      <para>Per cifrare del testo all'interno di <application>Gedit</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>selezionare il testo da cifrare e scegliere <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Cifra</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>selezionare le persone per cui cifrare il testo e fare clic su <guilabel>Ok</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> È ora possibile copiare o salvare il testo cifrato.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Firmare del testo</title>
+      <para>Per firmare del testo selezionato in <application>Gedit</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>selezionare il testo che si desidera firmare e scegliere <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Firma</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist> È ora possibile copiare o salvare il testo firmato.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Decifrare/Verificare del testo</title>
+      <para>Per decifrare o verificare del testo selezionato in <application>Gedit</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>selezionare il testo che si desidera decifrare/verificare e scegliere <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Decifra/Verifica</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist> È ora possibile copiare o salvare il testo decifrato.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Integrazione col browser web</title>
+    <para>Questa estensione consente di cifrare, decifrare, firmare e importare i contenuti dei campi di testo.</para>
+    <para>Per abilitare l'estensione di cifratura in <application><ulink url="ghelp:gedit" type="help">Epiphany</ulink></application>, il browser web predefinito di GNOME, procedere come segue: <itemizedlist>
+	<listitem>
+	  <para>Avviare <application>Epiphany</application> scegliendo <menuchoice><guimenu>Applicazioni</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Epiphany - Browser web</guimenuitem></menuchoice>,</para>
+	</listitem>
+	<listitem>
+	  <para>Scegliere <menuchoice><guimenu>Strumenti</guimenu><guimenuitem>Estensioni</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Selezionare il plugin <guilabel>Seahorse</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-wb">
+      <title>Cifrare del testo</title>
+      <para>Per cifrare il contenuto di un campo di testo in <application>Epiphany</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>Fare clic col pulsante destro del mouse sul campo di testo da cifrare e scegliere <menuchoice><guimenuitem>Cifra</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>selezionare le persone per cui cifrare il testo e fare clic su <guilabel>Ok</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Il testo cifrato appare nel campo di testo.</para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Firmare del testo</title>
+      <para>Per firmare del testo selezionato in <application>Gedit</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>Fare clic col pulsante destro del mouse sul campo di testo che si vuole firmare e scegliere <menuchoice><guimenuitem>Firma</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist> È ora possibile copiare o salvare il testo firmato.</para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Decifrare/Verificare del testo</title>
+      <para>Per decifrare o verificare il contenuto di un campo di testo in <application>Epiphany</application>, procedere come segue: <itemizedlist>
+	  <listitem>
+	    <para>Fare clic col pulsante destro del mouse sul campo di testo da decifrare/verificare e scegliere <menuchoice><guimenuitem>Decifra/Verifica</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>se richiesto, inserire la passphrase per la propria chiave privata.</para>
+	  </listitem>
+	</itemizedlist> Il testo decifrato appare nel campo di testo.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Preferenze di cifratura</title>
+    <para>Questa sezione descrive le preferenze configurabili in <application>Cifratura e portachiavi</application>.</para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Preferenze di cifratura</title>
+      <para>Questa sezione descrive le preferenze configurabili scegliendo <menuchoice><guimenu>Sistema</guimenu><guimenuitem>Preferenze</guimenuitem><guimenuitem>Cifratura e portachiavi</guimenuitem></menuchoice> dal pannello superiore.</para>
+      
+      <sect3 id="prefs">
+	<title>Impostazioni di cifratura</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Chiave predefinita</guilabel></term>
+	    <listitem>
+	      <para>Questa è la chiave che verrà utilizzata dalle applicazioni e dai plugin per firmare i file. È anche la chiave utilizzata per cifrare i file se è stato scelto di cifrare per se stessi.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Durante la cifratura, includi sempre me stesso come destinatario</guilabel></term>
+	    <listitem>
+	      <para>Imposta l'opzione di cifrare per se stessi, indica la possibilità di essere aggiunti tra i destinatari durante la procedura di cifratura.</para>
+	      <note>
+		<para>Se non si seleziona questa opzione e non si seleziona se stessi tra i destinatari, non si sarà in grado di decifrare alcun file cifrato.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Archiviazione della passphrase</title>
+	<para>L'archiviazione delle passphrase consente di eseguire tutte le operazioni che richiedono l'inserimento della passphrase senza inserirla ogni volta. <command>seahorse-agent</command> sostituisce <command>gpg-agent</command>. È buona norma impostare un tempo massimo per l'archiviazione delle passphrase. Questo implica il dover reinserire la propria passphrase, ma aggiunge un grado di sicurezza.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Non ricordare mai la passphrase</guilabel></term>
+	    <listitem>
+	      <para>Indica di non ricordare mai la passphrase.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Ricorda la passphrase per ... minuti</guilabel></term>
+	    <listitem>
+	      <para>Indica il tempo, in minuti, per archiviare le passphrase. Usare il controllo di selezione per impostare il tempo desiderato.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Ricorda sempre le passphrase durante la sessione</guilabel></term>
+	    <listitem>
+	      <para>Indica di ricordare sempre le passphrase per la durata della sessione.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Chiedi prima di utilizzare una passphrase archiviata</guilabel></term>
+	    <listitem>
+	      <para>Indica di chiedere prima di utilizzare una passphrase in memoria.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Caricamento automatico delle chiavi Secure Shell</guilabel></term>
+	    <listitem>
+	      <para>Indica di memorizzare automaticamente qualsiasi chiave Secure Shell.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>Informazioni su Cifratura e portachiavi</title>
+    <para><application>Password e chiavi di cifratura</application>, i plugin associati, l'applet delle preferenze e l'applet da pannello sono conosciuti anche come Seahorse. Seahorse è stato scritto da Jacob Perkins. Gli attuali responsabili sono  Stef Walter e Adam Schreiber. Il sito web del progetto è stato creato da Jim Pharis. Per maggiori informazioni riguardo Seahorse, consultare la <ulink url="http://www.gnome.org/projects/seahorse/" type="http">pagina web di Seahorse</ulink>.</para>
+    <para>Per segnalare un problema o inviare suggerimenti riguardo questa applicazione o su questo manuale, seguire le istruzioni presenti alla <ulink url="ghelp:user-guide?feedback-bugs" type="help">pagina di commenti della guida utente di GNOME</ulink>.</para>
+    <para>Questo programma è distribuito sotto i termini della GNU General Public License come pubblicata dalla Free Software Foundation; o la versione 2 della licenza o (a propria scelta) una versione successiva. Una <ulink url="ghelp:gpl" type="help">copia di questa licenza</ulink> è inclusa in questa documentazione; un'altra copia può essere trovata nel file COPYING incluso con il codice sorgente di questo programma.</para>
+  </sect1>
+</article>

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+DEST_ROOT="$1"
+DEST="$DEST_ROOT/archive"
+PKG_FILE="$DEST_ROOT/pkgs"
+
+APT_OPTIONS="-o Dir=$DEST"
+
+LANGCODE="${LANG%%_*}"
+LANGCODE="${LANGCODE%%.*}"
+LANGCODE="${LANGCODE%%@*}"
+
+LOCALECODE="${LANG%%.*}"
+LOCALECODE="${LOCALECODE%%@*}"
+
+export APT_OPTIONS
+export LANGCODE
+export LOCALECODE
+
+PKGS="$(cat $PKG_FILE)"
+
+apt-get $APT_OPTIONS install -y --force-yes --ignore-missing $PKGS
+
+# Also run any hooks that want to run after oem-config, but before we log in
+run-parts /usr/share/language-installer/hooks
+
+rm -rf /archive
+rm -rf $DEST_ROOT
+
+exit 0

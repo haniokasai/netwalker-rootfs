@@ -1,0 +1,33 @@
+libraw1394 for Debian
+---------------------
+
+Before all, you must verify if your actual linux kernel is built with
+ieee1394 and raw1394 support. Generaly, if you use a debian linux kernel
+package, it is the case, but you can know that with this command:
+        grep IEEE1394 /boot/config-`uname -r`
+
+If theses modules are in you kernel, you may see theses lines:
+	CONFIG_IEEE1394=y
+        CONFIG_IEEE1394_RAWIO=m or CONFIG_IEEE1394_RAWIO=y
+
+When you have CONFIG_IEEE1394_RAWIO=y, you have to do nothing.
+If you have CONFIG_IEEE1394_RAWIO=m, you must load the module.
+You can do that with this command (executed as the root user):
+	modprobe raw1394
+
+The device file /dev/raw1394 will be created for libraw1394.  This library
+is used by applications to access FireWire devices.
+The default access permissions allows only users in the "disk" group.
+This restrictive setting was chosen since raw1394 allows almost full
+access to the FireWire bus and all connected devices are accessible, which
+may include hard disks. You can add your user in the "disk" group with this 
+command:
+      sudo adduser <user> disk
+
+If you don't intend to connect sensitive devices and e.g. only want to get
+video streams out of a camera, you can relax the permissions.  If you
+don't have malicious users on your system, you can allow access for all
+users with this command:
+      sudo chmod 666 /dev/raw1394
+
+ -- Ludovic RESLINGER <lr@cuivres.net>, Sun, 10 Sep 2006 16:08:19 +0200

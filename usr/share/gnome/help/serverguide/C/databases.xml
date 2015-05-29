@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+	<chapter id="databases" status="review">
+		<title>Databases</title>
+          <para>
+            Ubuntu provides two popular database servers. They are:
+	  </para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para><application><trademark>MySQL</trademark></application></para>
+                </listitem>
+                <listitem>
+                    <para><application>PostgreSQL</application></para>
+                </listitem>
+            </itemizedlist>
+	    <para>
+            They are available in the main repository. This section
+            explains how to install and configure these database
+            servers.
+          </para>
+      <sect1 id="mysql" status="review">
+        <title>MySQL</title>
+          <para>
+          MySQL is a fast, multi-threaded, multi-user, and robust SQL
+          database server. It is intended for mission-critical, 
+		  heavy-load production systems as well as for embedding into 
+		  mass-deployed software.
+          </para>
+
+        <sect2 id="mysql-installation" status="review">
+          <title>Installation</title>
+            <para>
+            To install MySQL, run the following command from a terminal prompt:
+            </para>
+
+<screen>
+<command>sudo apt-get install mysql-server</command>
+</screen>
+            <para>
+	    During the installation process you will be prompted to enter a password for the <application>MySQL</application> root 
+	    user.
+            </para>
+
+            <para>
+            Once the installation is complete, the MySQL server should be
+            started automatically. You can run the following command from a terminal prompt to
+            check whether the MySQL server is running:
+            </para>
+
+            <para>
+<screen>
+<command>sudo netstat -tap | grep mysql</command>
+</screen>
+            </para>
+
+            <para>
+            When you run this command, you should see the following line
+            or something similar:
+            </para>
+
+<programlisting>
+tcp        0      0 localhost:mysql         *:*                     LISTEN      2556/mysqld
+</programlisting>
+
+  	    <para>
+            If the server is not running correctly, you can type the following command to start it:
+            </para>
+            
+<screen>
+<command>sudo /etc/init.d/mysql restart</command>
+</screen>
+
+        </sect2>
+        <sect2 id="mysql-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            You can edit the <filename>/etc/mysql/my.cnf</filename> file to configure the basic
+            settings -- log file, port number, etc.  For example, to configure <application>MySQL</application>
+	    to listen for connections from network hosts, change the <emphasis>bind_address</emphasis> directive
+	    to the server's IP address:
+            </para>
+<programlisting>
+bind-address            = 192.168.0.5
+</programlisting>
+	  <note>
+	    <para>
+	    Replace 192.168.0.5 with the appropriate address. 
+            </para>
+	  </note>
+	  <para>
+	  After making a change to <filename>/etc/mysql/my.cnf</filename> the <application>mysql</application>
+	  daemon will need to be restarted:
+          </para>
+<screen>
+<command>sudo /etc/init.d/mysql restart</command>
+</screen>
+
+            <para>
+            If you would like to change the <application>MySQL</application> <emphasis>root</emphasis> password, 
+            in a terminal enter:
+            </para>
+
+<screen>
+<command>sudo dpkg-reconfigure mysql-server-5.0</command>
+</screen>
+
+            <para>
+            The <application>mysql</application> daemon will be stopped, and you will be prompted to enter a new password.
+            </para>
+
+        </sect2>
+	<sect2 id="mysql-resources" status="review">
+	  <title>Resources</title>
+	  <itemizedlist>
+	    <listitem>
+              <para>
+              See the <ulink url="http://www.mysql.com/">MySQL Home Page</ulink> for more information.
+              </para>
+            </listitem> 
+	    <listitem>
+              <para>
+	      The <emphasis>MySQL Handbook</emphasis> is also available in the <application>mysql-doc-5.0</application>
+	      package.  To install the package enter the following in a terminal:
+              </para>
+<screen>
+<command>sudo apt-get install mysql-doc-5.0</command>
+</screen>
+	      <para>
+	      The documentation is in HTML format, to view them enter <command>file:///usr/share/doc/mysql-doc-5.0/refman-5.0-en.html-chapter/index.html</command>
+	      in your browser's address bar.
+	      </para>
+            </listitem> 
+	    <listitem>
+              <para>
+	      For general SQL information see <ulink url="http://www.informit.com/store/product.aspx?isbn=0768664128">Using SQL Special Edition</ulink> by 
+	      Rafe Colburn.
+              </para>
+            </listitem> 
+	  </itemizedlist>
+	</sect2>
+      </sect1>
+      <sect1 id="postgresql" status="review">
+        <title>PostgreSQL</title> 
+          <para>
+          PostgreSQL is an object-relational database system that has
+          the features of traditional commercial database systems with
+          enhancements to be found in next-generation DBMS systems.
+          </para>
+        <sect2 id="postgresql-installation" status="review">
+          <title>Installation</title>
+            <para>
+            To install PostgreSQL, run the following command in the
+            command prompt:
+            </para>
+
+            <para>
+<screen>
+<command>sudo apt-get install postgresql</command>
+</screen>
+            </para>
+
+            <para>
+            Once the installation is complete, you should configure the
+            PostgreSQL server based on your needs, although the default
+            configuration is viable.</para>
+            
+        </sect2>
+        <sect2 id="postgresql-configuration" status="review">
+          <title>Configuration</title>
+            <para>By default, connection via TCP/IP is disabled.
+            PostgreSQL supports multiple client authentication methods.
+            By default, IDENT authentication method is used for <application>postgres</application> and local users.  
+	    Please refer <ulink url="http://www.postgresql.org/docs/8.3/static/admin.html">
+	    the PostgreSQL Administrator's Guide</ulink>.
+	    </para>
+            
+            <para>The following discussion assumes that you wish to enable 
+			TCP/IP connections and use the MD5 method for client 
+			authentication. PostgreSQL configuration files are stored in the
+            <filename>/etc/postgresql/&lt;version&gt;/main</filename>
+            directory. For example, if you install PostgreSQL 8.3, the
+            configuration files are stored in the
+            <filename>/etc/postgresql/8.3/main</filename> directory.
+            </para>
+            
+            <tip>
+            <para>
+             To configure <emphasis>ident</emphasis>
+             authentication, add entries to the <filename>/etc/postgresql/8.3/main/pg_ident.conf</filename>
+             file.
+            </para>
+            </tip>
+
+            <para>To enable TCP/IP connections, edit the file <filename>/etc/postgresql/8.3/main/postgresql.conf</filename></para>
+
+            <para>
+	    Locate the line <emphasis>#listen_addresses = 'localhost'</emphasis> and change it to:
+	    </para>
+<programlisting>
+listen_addresses = 'localhost'
+</programlisting>
+            <note>
+	      <para>
+	      To allow other computers to connect to your <application>PostgreSQL</application> server replace 'localhost' with 
+	      the <emphasis>IP Address</emphasis> of your server.
+              </para>
+            </note>
+	    <para> 
+	    You may also edit all other parameters, if you know what you are doing! 
+            For details, refer to the configuration file or to the PostgreSQL documentation.
+            </para>
+
+            <para>
+	    Now that we can connect to our <application>PostgreSQL</application> server, the next step is to 
+	    set a password for the <emphasis>postgres</emphasis> user.  Run the following command at a terminal 
+	    prompt to connect to the default PostgreSQL template database:
+	    </para>
+
+<screen>
+<command>sudo -u postgres psql template1</command>
+</screen>
+            <para>
+            The above command connects to PostgreSQL database <emphasis>template1</emphasis> as user
+            <emphasis>postgres</emphasis>. Once you connect to the PostgreSQL server, you will be 
+	    at a SQL prompt. You can run the following SQL command at the <application>psql</application> 
+	    prompt to configure the password for the user <emphasis role="italics">postgres</emphasis>.
+	    </para>
+
+<screen>
+<command>ALTER USER postgres with encrypted password 'your_password';</command>
+</screen>
+            <para>
+	    After configuring the password, edit the file
+            <filename>/etc/postgresql/8.3/main/pg_hba.conf</filename> to use
+            <emphasis>MD5</emphasis> authentication with the <emphasis>postgres</emphasis> user:
+            </para>
+
+<programlisting>
+local   all         postgres                          md5 sameuser
+</programlisting>
+
+	    <para>
+	    Finally, you should restart the <application>PostgreSQL</application> service to 
+            initialize the new configuration.  From a terminal prompt enter the following to 
+	    restart <application>PostgreSQL</application>:
+            </para>
+<screen>
+<command>sudo /etc/init.d/postgresql-8.3 restart</command>
+</screen>
+            <warning>
+            <para>
+             The above configuration is not complete by any means. Please
+             refer <ulink url="http://www.postgresql.org/docs/8.3/static/admin.html">
+			 the PostgreSQL Administrator's Guide</ulink> to configure more parameters.
+            </para>
+            </warning>
+        </sect2>
+	<sect2 id="postgresql-resources" status="review">
+	  <title>Resources</title>
+          <itemizedlist>
+	    <listitem>
+              <para>
+  	      As mentioned above the <ulink url="http://www.postgresql.org/docs/8.3/static/admin.html">Administrator's Guide</ulink>
+	      is an excellent resource.  The guide is also available in the <application>postgresql-doc-8.3</application> package.
+	      Execute the following in a terminal to install the package:
+              </para>
+<screen>
+<command>sudo apt-get install postgresql-doc-8.3</command>
+</screen>
+              <para>
+	      To view the guide enter <command>file:///usr/share/doc/postgresql-doc-8.3/html/index.html</command> into the address
+	      bar of your browser. 
+              </para>
+	    </listitem>
+	    <listitem>
+              <para>
+	      For general SQL information see <ulink url="http://www.informit.com/store/product.aspx?isbn=0768664128">Using SQL Special Edition</ulink> by 
+	      Rafe Colburn.
+              </para>
+            </listitem> 
+          </itemizedlist>	
+	</sect2>
+      </sect1>
+    </chapter>
+

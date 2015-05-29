@@ -1,0 +1,89 @@
+#!/bin/sh
+
+# Copyright (C) 2006 - 2008 Debian/Ubuntu wpasupplicant Maintainers 
+# <pkg-wpa-devel@lists.alioth.debian.org>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# On Debian GNU/Linux systems, the text of the GPL license can be
+# found in /usr/share/common-licenses/GPL.
+
+if [ -n "$IF_WPA_ROAM_MAINT_DEBUG" ]; then
+	set -x
+fi
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+	echo "Usage: $0 IFACE ACTION"
+	exit 1
+fi
+
+# network interface
+WPA_IFACE="$1"
+# [CONNECTED|DISCONNECTED|stop|reload|check]
+WPA_ACTION="$2"
+
+if [ -f /etc/wpa_supplicant/functions.sh ]; then
+	. /etc/wpa_supplicant/functions.sh
+else
+	exit 0
+fi
+
+case "$WPA_ACTION" in
+	"CONNECTED")
+		wpa_log_init
+		wpa_hysteresis_check || exit 1
+		wpa_log_action
+		wpa_log_environment
+		ifupdown_check || exit 1
+		wpa_hysteresis_event
+		ifup
+		wpa_cli status
+		ifupdown_status || wpa_cli reassociate
+		;;
+
+	"DISCONNECTED")
+		wpa_log_init
+		wpa_hysteresis_check || exit 1
+		wpa_log_action
+		wpa_log_environment
+		ifupdown_check || exit 1
+		ifdown
+		if_post_down_up
+		;;
+
+	"stop"|"down")
+		test_wpa_cli && kill_wpa_cli
+		ifupdown_check || exit 1
+		ifdown
+		test_wpa_supplicant && kill_wpa_supplicant
+		wpa_log_init
+		wpa_log_action
+		;;
+
+	"restart"|"reload")
+		test_wpa_supplicant || exit 1
+		reload_wpa_supplicant
+		wpa_log_init
+		wpa_log_action
+		;;
+	
+	"check")
+		test_wpa_supplicant || exit 1
+		test_wpa_cli || exit 1
+		;;
+
+	*)
+		echo "Unknown action: \"$WPA_ACTION\""
+		exit 1
+		;;
+esac
+
+exit 0

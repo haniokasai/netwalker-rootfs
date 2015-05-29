@@ -1,0 +1,736 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY language "en">
+<!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+]>
+<article>
+  <articleinfo>
+    <title>Using the Command Line</title>
+	&legalnotice;
+  </articleinfo>
+  <sect1 id="using-this-guide" status="review">
+    <title>Using this Guide</title>
+    <para>
+      <emphasis>
+	"Under Linux there are GUIs (graphical user
+	interfaces), where you can point and click and drag, and
+	hopefully get work done without first reading lots of
+	documentation. The traditional Unix environment is a CLI
+	(command line interface), where you type commands to tell the
+	computer what to do. That is faster and more powerful, but
+	requires finding out what the commands are." -- from 
+	<emphasis role="strong">
+	  man intro(1)
+	</emphasis>
+      </emphasis>
+    </para>
+    <para>
+      This guide will make you familiar with basic GNU/Linux
+      shell commands.
+      It is not intended to be a complete guide to the
+      command line, just an introduction to complement Ubuntu's
+      graphical tools.
+    </para>
+    <para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    All command names, file names or paths to directories will 
+	    be shown using a 
+	    <command>monospace font</command>.
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    All the commands on this guide are to be issued from a
+	    command prompt in a <application>Terminal</application> 
+	    and will be shown as:
+	    <screen>command to type</screen>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <emphasis role="strong">Note that Linux is case
+	      sensitive.</emphasis> User, user, and USER are all different
+	    to Linux.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </para>
+  </sect1>
+
+  <sect1 id="starting-terminal" status="review">
+    <title>Starting a Terminal</title>
+    <para>
+      To open a <application>Terminal</application> do as follow:
+    </para>
+    <para>
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    Choose &terminal;;
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Or press <keycombo>
+	      <keycap>Alt</keycap>
+	      <keycap>F2</keycap>
+	    </keycombo>
+	    and type <command>gnome-terminal</command>.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </para>
+   </sect1>
+  
+  <sect1 id="files-directories-commands" status="review">
+    <title>File and Directory Commands</title>
+
+    <sect2 id="cd" status="review">
+      <title>cd</title>
+      <para>
+	The <command>cd</command> command 
+	changes directories. When you open a
+	terminal you will be in your home directory. To move
+	around the file system you will use 
+	<command>cd</command>.
+      </para>
+	<itemizedlist>
+	  <listitem>
+	    <para>To navigate into the root directory, type:
+	      <screen>cd /</screen>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para>To navigate to your home directory, type:
+	      <screen>cd</screen>
+	      or
+	      <screen>cd ~</screen>
+	    </para>
+	    <note>
+                <para>
+                The <command>~</command> character represents the current user's home directory.
+	        As seen above, <command>cd ~</command> is equivalent to <command>cd /home/username/</command>.
+	        However, when running a command as root (using <command>sudo</command>, for example), <command>~</command>
+	        points instead to <filename class="directory">/root</filename>. When running a command with <command>sudo</command>, the full path to
+                your home directory must be given.
+                </para>
+	  </note>
+	  </listitem>
+
+	  <listitem>
+	    <para>To navigate up one directory level, type:
+	      <screen>cd ..</screen>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para>To navigate to the previous directory (or
+	      back), type: 
+	      <screen>cd -</screen>
+	    </para>
+	  </listitem>
+
+	  <listitem>
+	    <para>To navigate through multiple levels of
+	      directories at once, specify the full directory
+	      path that you want to go to. For example, type: 
+	      <screen>cd /var/www</screen>
+	      to go directly to the <filename class="directory">/www</filename>
+	      subdirectory of <filename
+		class="directory">/var/</filename>. As another
+	      example, type:
+	      <screen>cd ~/Desktop</screen>
+	      to move you to the <filename class="directory">Desktop</filename>
+	      subdirectory inside your home directory.
+	    </para>
+	  </listitem>
+	</itemizedlist>
+    </sect2>
+
+    <sect2 id="pwd" status="review">
+      <title>pwd</title>
+      <para>
+	The 
+	<command>pwd</command> command outputs which directory you are currently located in 
+	(<acronym>pwd</acronym> stands for <quote>print working
+	directory</quote>). For example, typing 
+	<screen>pwd</screen> in the <filename class="directory">Desktop</filename>
+	directory, will show
+	<computeroutput>/home/username/Desktop</computeroutput>.
+	<note>
+	  <para>
+	    <application>GNOME Terminal</application> also 
+	    displays this information in the title bar of its window.
+	  </para>
+	</note>
+      </para>
+    </sect2>
+    
+    <sect2 id="ls" status="review">
+      <title>ls</title>
+      <para>
+	The <command>ls</command> command outputs a list of the files in the current directory.
+	For example, typing 
+	<screen>ls ~</screen> will show you
+	the files that are in your home directory.
+      </para>
+      <para>
+      Used with the <command>-l</command> options, <command>ls</command> outputs 
+      various other information alongside the filename, such as the current permissions
+      on the file, and the file's owner.
+      </para> 
+    </sect2>
+
+    <sect2 id="cp" status="review">
+      <title>cp</title>
+      <para>
+	The <command>cp</command> command makes a
+	copy of a file. For example, type: 
+	<screen>cp foo bar</screen> to make
+	an exact copy of <filename>foo</filename> and name it <filename>bar</filename>.
+	<filename>foo</filename> will be unchanged.	
+      </para>
+    </sect2>
+
+    <sect2 id="mv" status="review">
+      <title>mv</title>
+      <para>
+	The <command>mv</command> command moves a
+	file to a different location or will rename a file.
+	Examples are as follows: 
+	<screen>mv foo bar</screen>
+	will rename the file <filename>foo</filename> to <filename>bar</filename>. 
+	<screen>mv foo ~/Desktop</screen> 
+	will move the file <filename>foo</filename> to your <filename class="directory">Desktop</filename>
+	directory but will not rename it.
+      </para>
+    </sect2>
+
+    <sect2 id="rm" status="review">
+      <title>rm</title>
+      <para>
+	<command>rm</command> is used to delete files.
+	<screen>rm foo</screen>
+	deletes the file <filename>foo</filename> from the current directory.
+      </para>
+      <para>
+	By default, <command>rm</command> will not remove directories. To remove a directory,
+	you must use the <command>-R</command> option. For example,
+	<screen>rm -R foobar</screen>
+	will remove the directory foobar, <emphasis role="strong">and all of its contents!</emphasis>
+      </para>
+    </sect2>
+    
+    <sect2 id="mkdir" status="review">
+      <title>mkdir</title>
+      <para>
+	The <command>mkdir</command> command
+	allows you to create directories. For example, typing: 
+	<screen>mkdir music</screen>
+	will create a directory named <filename class="directory">music</filename> in the current directory.
+      </para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="sys-info-commands" status="review">
+    <title>System Information Commands</title>
+    
+    <sect2 id="df" status="review">
+      <title>df</title>
+      <para>
+	The <command>df</command> command displays
+	filesystem disk space usage for all partitions.
+	<screen>df -h</screen>
+	will give information using megabytes (M) and gigabytes (G)
+	instead of blocks (<emphasis role='strong'>-h</emphasis> means "human-readable").
+      </para>
+    </sect2>
+
+    <sect2 id="free" status="review">
+      <title>free</title>
+      <para>
+	The <command>free</command> command displays
+	the amount of free and used memory in the system. 
+	<screen>free -m</screen>
+	will give the information using megabytes, which is probably most
+	useful for current computers.
+      </para>
+    </sect2>
+
+    <sect2 id="top" status="review">
+      <title>top</title>
+      <para>
+	The <command>top</command> command displays
+	information on your GNU/Linux system, running processes and
+	system resources, including CPU, RAM &amp; swap usage and
+	total number of tasks being run. To exit 
+	<application>top</application>, press <keycap>q</keycap>.
+      </para>
+    </sect2>
+
+    <sect2 id="uname" status="review">
+      <title>uname</title>
+      <para>
+	The <command>uname</command> command with the 
+	<emphasis role='strong'>-a</emphasis> option, prints all
+	system information, including machine name, kernel name
+	&amp; version, and a few other details. Most useful for
+	checking which kernel you're using.
+      </para>
+    </sect2>
+
+    <sect2 id="lsb_release" status="review">
+      <title>lsb_release</title>
+      <para>
+	The <command>lsb_release</command> command
+	with the <emphasis role='strong'>-a</emphasis> option prints
+	version information for the Linux release you're running.
+	For example, typing:
+	<screen>lsb_release -a</screen>
+	will give you:
+<!-- Please leave indentation as is-->
+      <screen>
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu &distro-rev; 
+Release:        &distro-rev;
+Codename:       &distro-short-codename;</screen>
+      </para>
+    </sect2>
+ </sect1>
+
+  <sect1 id="elevated-privileges" status="review">
+    <title>Executing Commands with Elevated Privileges</title>
+    <para>
+      The following commands will need to be
+      prefaced with the 
+      <command>sudo</command> command. Please see <ulink
+      url='https://help.ubuntu.com/community/RootSudo'>RootSudo</ulink>
+      for information on using <command>sudo</command>.
+    </para>
+
+    <sect2 id="add-group" status="review">
+      <title>Adding a New Group</title>
+      <para>
+	The <command>addgroup</command> command is used to create a
+	new group on the system. To create a new group, type:
+	<screen>addgroup newgroup</screen>
+	The above command will create a new group called <emphasis role="strong">newgroup</emphasis>.
+      </para>
+    </sect2>
+    
+    <sect2 id="add-user" status="review">
+      <title>Adding A New User</title>
+      <para>
+	The <command>adduser</command> is used to create new users on
+	the system. To create a new user, type:
+	<screen>adduser newuser</screen>
+	The above command will create a new user called <emphasis
+	role="strong">newuser</emphasis>.
+      </para>
+      <para>
+	To assign a password
+	for the new user use the 
+	<command>passwd</command> command:
+	<screen>passwd newuser</screen>
+      </para>
+      <para>
+	Finally, to assign the new user to the new group, type:
+	<screen>adduser newuser newgroup</screen>
+      </para>
+    </sect2>
+  </sect1>
+
+  <sect1 id="options" status="review">
+    <title>Options</title>
+    <para>The default behavior for a command may usually be
+      modified by adding a 
+      <emphasis role='strong'>--
+	<emphasis>option</emphasis></emphasis> to the command. The 
+      <link linkend="ls"><command>ls</command></link> command, for example, has a
+      <emphasis role='strong'>-s</emphasis> option so that 
+      <command>ls -s</command> will include file
+      sizes in the listing. There is also a 
+      <emphasis role='strong'>-h</emphasis> option to get those sizes
+      in a "human readable" format.
+    </para>
+    <para>
+      Options can be grouped in clusters so 
+      <screen>ls -sh</screen> 
+      is exactly the same command as 
+      <screen>ls -s -h</screen>
+      Most options have a long version, prefixed with two dashes instead of one, so even 
+      <screen>ls --size --human-readable</screen> is the same command.
+    </para>
+  </sect1>
+
+  <sect1 id="man-help" status="review">
+    <title>"Man" and getting help</title>
+    <para>
+      <emphasis role='strong'>
+	<emphasis>command</emphasis> --help</emphasis> and 
+      <emphasis role='strong'>man
+      <emphasis>command</emphasis></emphasis> 
+      are the two most important tools at the command line.
+    </para>
+    <para>
+      Virtually all commands understand the 
+      <emphasis role='strong'>-h</emphasis> (or 
+      <emphasis role='strong'>--help</emphasis>) option which will
+      produce a short usage description of the command and it's
+      options, then exit back to the command prompt. Type 
+      <screen>man -h</screen> or 
+      <screen>man --help</screen> to see this in
+      action.
+    </para>
+    <para>
+      Every command and nearly every application in Linux will
+      have a man (manual) file, so finding them is as simple as
+      typing 
+      <command>man command</command> to bring up a
+      longer manual entry for the specified command. For example, 
+      <screen>man mv</screen> will bring up the 
+      <command>mv</command> (move) manual.
+    </para>
+    <para>
+      Move up and down the man file with the arrow keys, and
+      quit back to the command prompt with 
+      <keycap>q</keycap>.
+    </para>
+    <para>
+      <screen>man man</screen> will bring up the
+      manual entry for the 
+      <command>man</command> command, which is a good
+      place to start.
+    </para>
+    <para>
+      <screen>man intro</screen> is especially
+      useful - it displays the "Introduction to user commands" which
+      is a well-written, fairly brief introduction to the Linux
+      command line.</para>
+    <para>
+      There are also 
+      <command>info</command> pages, which are
+      generally more in-depth than 
+      <command>man</command> pages. Try 
+      <screen>info info</screen> for the
+      introduction to info pages.
+    </para>
+
+    <sect2 id="searching-ma" status="review">
+      <title>Searching for man files</title>
+      <para>
+	If you aren't sure which command or application you
+	need to use, you can try searching the man files.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+	    <command>man -k foo</command>, will search the man
+	    files for 
+	    <emphasis>foo</emphasis>. Try 
+	    <screen>man -k nautilus</screen> to
+	    see how this works.
+	    <note>
+	      <para>
+		This is the same as the <command>apropos</command>
+		command.
+	      </para>
+	    </note>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    <command>man -f foo</command>, searches only the
+	    titles of your system's man files. For example, try 
+	    <screen>man -f gnome</screen>
+	    <note>
+	      <para>
+		This is the same as the <command>whatis</command>
+		command.
+	      </para>
+	    </note>
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+
+<sect1 id="cut-paste" status="review">
+	<title>Cutting and pasting</title>
+    <para>Often, you will be referred to instructions that require commands 
+    to be pasted into the terminal.</para>
+	<para>You might be	wondering why the text you've copied from a web 
+	page using <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo> 
+	won't paste in with <keycombo><keycap>Ctrl</keycap><keycap>V</keycap>
+	</keycombo>, the shell uses a different combination for paste <keycombo>
+	<keycap>Shift</keycap><keycap>Insert</keycap></keycombo>. This can also 
+	be done using the mouse, by right-clicking in the terminal 
+	and clicking <menuchoice><guimenuitem>Paste</guimenuitem></menuchoice> 
+	from the menu.</para>
+	<para>You can also select the required commands in your web browser and
+	then subsequently click the middle button on your mouse (or simply
+	click buttons simultaneously on a two-button mouse) in the terminal
+	to paste in the select command.</para>
+	<note><para>These actions may mean something entirely different to other
+	terminal emulators. Consult your emulator's documentation for details.</para></note>
+</sect1>
+  
+  <sect1 id="other-things" status="review">
+    <title>Other Useful Things</title>
+    <sect2 id="save-typing" status="review">
+      <title>Save on typing</title>
+      <informaltable>
+        <tgroup cols='3'>
+          <colspec colname='col_0' />
+          <colspec colname='col_1' />
+          <colspec colname='col_2' />
+          <tbody>
+            <row>
+              <entry align='left' colsep='1' rowsep='1'>
+                <para>
+		  <keycap>Up Arrow</keycap> or 
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>p</keycap>
+		  </keycombo>
+		</para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>
+		  Scrolls through the commands you've entered
+		  previously.
+		</para>
+              </entry>
+            </row>
+            <row>
+              <entry align='left' colsep='1' rowsep='1'>
+                <para>
+		  <keycap>Down Arrow</keycap> or 
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>n</keycap>
+		  </keycombo>
+		</para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Takes you back to a more recent
+		  command.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+                  <keycap>Enter</keycap>
+                </para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>When you have the command you want.</para>
+              </entry>
+            </row>
+            <row>
+              <entry align='left' colsep='1' rowsep='1'>
+                <para>
+                  <keycap>Tab</keycap>
+                </para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>
+		  A very useful feature. It autocompletes any
+		  commands or filenames, if there's only one option,
+		  or else gives you a list of options.
+		</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect2>
+
+    <sect2 id="change-text" status="review">
+      <title>Change the text</title>
+      <para>
+	The mouse won't work. Use the <keycap>Left/Right arrow</keycap> keys to
+	move around the line.
+      </para>
+      <para>
+	When the cursor is where you want it in the line,
+	typing <emphasis>inserts</emphasis> text, it doesn't overtype
+	what's already there.
+      </para>
+      <informaltable>
+        <tgroup cols='3'>
+          <colspec colname='col_0' />
+          <colspec colname='col_1' />
+          <colspec colname='col_2' />
+          <tbody>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>a</keycap>
+		  </keycombo> or 
+		  <keycap>Home</keycap>
+		</para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Moves the cursor to the 
+		  <emphasis>start</emphasis> of a line.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>e</keycap>
+		  </keycombo> or 
+		  <keycap>End</keycap>
+		</para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Moves the cursor to the 
+		  <emphasis>
+		    end</emphasis>
+		    of a line.
+		</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>k</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Deletes from the current cursor position to
+		  the end of the line.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>u</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Deletes the whole of the current line.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colsep='1' rowsep='1'>
+                <para>
+		  <keycombo>
+		    <keycap>Ctrl</keycap>
+		    <keycap>w</keycap>
+		  </keycombo>
+                </para>
+              </entry>
+              <entry align='left' colsep='1' namest='col_1'
+		rowsep='1' nameend='col_2'>
+                <para>Deletes the word before the cursor.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="more-info" status="review">
+    <title>More Information</title>
+    <para>The following online guides are available:</para>
+    <itemizedlist>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/AptGetHowto'>
+	    AptGetHowto</ulink> - using apt-get to install packages from
+	  the command line.
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/Repositories/CommandLine'>
+	    Commandline Repository Editing</ulink> - adding the
+	  Universe/Multiverse repositories through the command
+	  line.
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/grep'>grep
+	    Howto</ulink> - grep is a powerful command line search
+	  tool.
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/find'>find
+	  </ulink> - locate files on the command line.
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/CommandlineHowto'>
+	    CommandlineHowto</ulink> - longer and more complete than
+	  this basic guide, but still unfinished.
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='https://help.ubuntu.com/community/HowToReadline'>
+	    HowToReadline</ulink> - information on some more advanced
+	  customization for the command line.
+	</para>
+      </listitem>
+    </itemizedlist>
+    <para>
+      For more detailed tutorials on the Linux command line,
+      please see:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+	  <ulink url='http://linuxcommand.org/' />- basic BASH
+	  tutorials, including BASH scripting
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='http://linuxsurvival.com/index.php' />-
+	  Java-based tutorials
+	</para>
+      </listitem>
+      <listitem>
+        <para>
+	  <ulink url='http://rute.2038bug.com/index.html.gz' />- a
+	  massive online book about system administration, almost all
+	  from the command line.
+	</para>
+      </listitem>
+    </itemizedlist>
+  </sect1>
+</article>

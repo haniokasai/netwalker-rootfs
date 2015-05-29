@@ -1,0 +1,1893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="security" status="review">
+	<title>Security</title>
+	<para>
+	Security should always be considered when installing, deploying, and using any type of computer system.  Although a fresh installation of Ubuntu is relatively safe for immediate use on the Internet, it is important to have a balanced understanding of your systems security posture based on how it will be used after deployment.
+	</para>
+	<para>
+	This chapter provides an overview of security related topics as they pertain to Ubuntu &distro-rev; Server Edition, and outlines simple measures you may use to protect your server and network from any number of potential security threats.
+	</para>
+  <sect1 id="user-management" status="review">
+	<title>User Management</title>
+	<para>
+	User management is a critical part of maintaining a secure system.  Ineffective user and privilege management often lead many systems into being compromised.  Therefore, it is important that you understand how you can protect your server through simple and effective user account management techniques.
+	</para>
+  <sect2 id="where-is-root" status="review">
+	<title>Where is root?</title>
+	<para>
+	Ubuntu developers made a conscientious decision to disable the administrative root account by default in all Ubuntu installations.  This does not mean that the root account has been deleted or that it may not be accessed.  It merely has been given a password which matches no possible encrypted value, therefore may not log in directly by itself.
+	</para>
+	<para>
+	Instead, users are encouraged to make use of a tool by the name of <application>sudo</application> to carry out system administrative duties.  <application>Sudo</application> allows an authorized user to  temporarily elevate their privileges using their own password instead of having to know the password belonging to the root account.  This simple yet effective methodology provides accountability for all user actions, and gives the administrator granular control over which actions a user can perform with said privileges.   
+	</para>
+		<itemizedlist>
+		<listitem>
+		<para>
+		If for some reason you wish to enable the root account, simply give it a password:
+		</para>
+<screen>
+<command>sudo passwd</command>
+</screen>
+		<para>Sudo will prompt you for your password, and then ask you to supply a new password for root as shown below:
+		</para>
+<screen>
+<computeroutput>[sudo] password for username: <userinput>(enter your own password)</userinput>
+Enter new UNIX password: <userinput>(enter a new password for root)</userinput>
+Retype new UNIX password: <userinput>(repeat new password for root)</userinput>
+passwd: password updated successfully</computeroutput>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To disable the root account, use the following passwd syntax:
+		</para>
+<screen>
+<command>sudo passwd -l root</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		You should read more on <application>Sudo</application> by checking out it's man page:
+		</para>
+<screen>
+<command>man sudo</command>
+</screen>
+		</listitem>
+		</itemizedlist>
+		<para>
+		By default, the initial user created by the Ubuntu installer is a member of the group "admin" which is added to the file <filename>/etc/sudoers</filename> as an authorized sudo user.  If you wish to give any other account full root access through <application>sudo</application>, simply add them to the admin group.
+		</para>
+  </sect2>
+
+  <sect2 id="adding-deleting-users" status="review">
+	<title>Adding and Deleting Users</title>
+	<para>
+	The process for managing local users and groups is straight forward and  differs very little from most other GNU/Linux operating systems.  Ubuntu and other Debian based distributions, encourage the use of the "adduser" package for account management.
+	</para>
+		<itemizedlist>
+		<listitem>
+		<para>
+		To add a user account, use the following syntax, and follow the prompts to give the account a password and identifiable characteristics such as a full name, phone number, etc.
+		</para>
+<screen>
+<command>sudo adduser username</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To delete a user account and its primary group, use the following syntax:
+		</para>
+<screen>
+<command>sudo deluser username</command>
+</screen>
+		<para>
+		Deleting an account does not remove their respective home folder. It is up to you whether or not you wish to delete the folder manually or keep it according to your desired retention policies.  
+		</para>
+		<para>
+		Remember, any user added later on with the same UID/GID as the previous owner will now have access to this folder if you have not taken the necessary precautions.
+		</para>
+		<para>
+		You may want to change these UID/GID values to something more appropriate, such as the root account, and perhaps even relocate the folder to avoid future conflicts:
+		</para>
+<screen>
+<command>sudo chown -R root:root /home/username/</command>
+<command>sudo mkdir /home/archived_users/</command>
+<command>sudo mv /home/username /home/archived_users/</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To temporarily lock or unlock a user account, use the following syntax, respectively:
+		</para>
+<screen>
+<command>sudo passwd -l username</command>
+<command>sudo passwd -u username</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To add or delete a personalized group, use the following syntax, respectively:
+		</para>
+<screen>
+<command>sudo addgroup groupname</command>
+<command>sudo delgroup groupname</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To add a user to a group, use the following syntax:
+		</para>
+<screen>
+<command>sudo adduser username groupname</command>
+</screen>
+		</listitem>
+		</itemizedlist>
+  </sect2>
+
+  <sect2 id="user-profile-security" status="review">
+	<title>User Profile Security</title>
+	<para>
+	When a new user is created, the adduser utility creates a brand new home directory named <filename class="directory">/home/username</filename>, respectively.  The default profile is modeled after the contents found in the directory of <filename class="directory">/etc/skel</filename>, which includes all profile basics.  
+	</para>
+	<para>
+	If your server will be home to multiple users, you should pay close attention to the user home directory permissions to ensure confidentiality.  By default, user home directories in Ubuntu are created with world read/execute permissions.   This means that all users can browse and access the contents of other users home directories.  This may not be suitable for your environment.
+	</para>
+		<itemizedlist>
+		<listitem>
+		<para>
+		To verify your current users home directory permissions, use the following syntax:
+		</para>
+<screen>
+<command>ls -ld /home/username</command>
+</screen>
+		<para>The following output shows that the directory <filename class="directory">/home/username</filename> has world readable permissions:
+		</para>
+<screen>
+<computeroutput>drwxr-xr-x  2 username username    4096 2007-10-02 20:03 username</computeroutput>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		You can remove the world readable permissions using the following syntax:
+		</para>
+<screen>
+<command>sudo chmod 0750 /home/username</command>
+</screen>
+		<note>
+		<para>
+		Some people tend to use the recursive option (-R) indiscriminately which modifies all child folders and files, but this is not necessary, and may yield other undesirable results.  The parent directory alone is sufficient for preventing unauthorized access to anything below the parent.
+		</para>
+		</note>
+		<para>
+		A much more efficient approach to the matter would be to modify the <application>adduser</application> global default permissions when creating user home folders.  Simply edit the file <filename>/etc/adduser.conf</filename> and modify the <varname>DIR_MODE</varname> variable to something appropriate, so that all new home directories will receive the correct permissions.
+		</para>
+<programlisting>
+DIR_MODE=0750
+</programlisting>
+		</listitem>
+		<listitem>
+		<para>
+		After correcting the directory permissions using any of the previously mentioned techniques, verify the results using the following syntax:
+		</para>
+<screen>
+<command>ls -ld /home/username</command>
+</screen>
+		<para>The results below show that world readable permissions have been removed:
+		</para>
+<screen>
+<computeroutput>drwxr-x---   2 username username    4096 2007-10-02 20:03 username</computeroutput>
+</screen>
+		</listitem>
+		</itemizedlist>
+  </sect2>
+
+  <sect2 id="password-policy" status="review">
+	<title>Password Policy</title>
+	<para>
+	A strong password policy is one of the most important aspects of your security posture.  Many successful security breaches involve simple brute force and dictionary attacks against weak passwords.  If you intend to offer any form of remote access involving your local password system, make sure you adequately address minimum password complexity requirements, maximum password lifetimes, and frequent audits of your authentication systems.
+	</para>
+  <sect3 id="minimum-password-length" status="review">
+	<title>Minimum Password Length</title>
+	<para>
+	By default, Ubuntu requires a minimum password length of 4 characters, as well as some basic entropy checks.  These values are controlled in the file <filename>/etc/pam.d/common-password</filename>, which is outlined below.
+	</para>
+<programlisting>
+password   required   pam_unix.so nullok obscure min=4 max=8 md5
+</programlisting>
+	<para>
+If you would like to adjust the minimum length to 6 characters, change the appropriate variable to min=6.  The modification is outlined below.
+	</para>
+<programlisting>
+password   required   pam_unix.so nullok obscure min=6 max=8 md5
+</programlisting>
+	<note>
+	<para>
+	The <varname>max=8</varname> variable does not represent the maximum length of a password.  It only means that complexity requirements will not be checked on passwords over 8 characters.  You may want to look at the <application>libpam-cracklib</application> package for additional password entropy assistance.
+	</para>
+	</note>
+  </sect3>
+  <sect3 id="password-expiration" status="review">
+	<title>Password Expiration</title>
+	<para>
+	When creating user accounts, you should make it a policy to have a minimum and  maximum password age forcing users to change their passwords when they expire.
+	</para>
+		<itemizedlist>
+		<listitem>
+		<para>
+		To easily view the current status of a user account, use the following syntax:
+		</para>
+<screen>
+<command>sudo chage -l username</command>
+</screen>
+		<para>The output below shows interesting facts about the user account, namely that there are no policies applied:
+		</para>
+<screen>
+<computeroutput>Last password change                                    : Jan 20, 2008
+Password expires                                        : never
+Password inactive                                       : never
+Account expires                                         : never
+Minimum number of days between password change          : 0
+Maximum number of days between password change          : 99999
+Number of days of warning before password expires       : 7</computeroutput>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To set any of these values, simply use the following syntax, and follow the interactive prompts:
+		</para>
+<screen>
+<command>sudo chage username</command>
+</screen>
+		<para>
+		The following is also an example of how you can manually change the explicit expiration date (-E) to 01/31/2008, minimum password age (-m) of 5 days, maximum password  age (-M) of 90 days, inactivity period (-I) of 5 days after password expiration, and a warning time period (-W) of 14 days before password expiration.
+		</para>
+<screen>
+<command>sudo chage -E 01/31/2008 -m 5 -M 90 -I 30 -W 14 username</command>
+</screen>
+		</listitem>
+		<listitem>
+		<para>
+		To verify changes, use the same syntax as mentioned previously:
+		</para>
+<screen>
+<command>sudo chage -l username</command>
+</screen>
+		<para>The output below shows the new policies that have been established for the account:
+		</para>
+<screen>
+<computeroutput>Last password change                                    : Jan 20, 2008
+Password expires                                        : Apr 19, 2008
+Password inactive                                       : May 19, 2008
+Account expires                                         : Jan 31, 2008
+Minimum number of days between password change          : 5
+Maximum number of days between password change          : 90
+Number of days of warning before password expires       : 14</computeroutput>
+</screen>
+		</listitem>
+		</itemizedlist>
+  </sect3>
+
+  </sect2>
+
+
+  <sect2 id="other-security-considerations" status="review">
+	<title>Other Security Considerations</title>
+	<para>
+	Many applications use alternate authentication mechanisms that can be easily  overlooked by even experienced system administrators.  Therefore, it is important to understand and control how users authenticate and gain access to services and  applications on your server.
+	</para>
+
+  <sect3 id="ssh-access-by-disabled-users" status="review">
+	<title>SSH Access by Disabled Users</title>
+	<para>
+	Simply disabling/locking a user account will not prevent a user from logging into your server remotely if they have previously set up RSA public key authentication. They will still be able to gain shell access to the server, without the need for any password.  Remember to check the users home directory for files that will allow for this type of authenticated SSH access.  e.g. <filename>/home/username/.ssh/authorized_keys</filename>.
+	</para>
+	<para>
+	Remove or rename the directory <filename class="directory">.ssh/</filename> in the user's home folder to prevent further SSH authentication capabilities.
+	</para>
+	<para>
+	Be sure to check for any established SSH connections by the disabled user, as it is possible they may have existing inbound or outbound connections.  Kill any that are found.
+	</para>
+	<para>
+	Restrict SSH access to only user accounts that should have it.  For example, you may create a group called "sshlogin" and add the group name as the value associated with the <varname>AllowGroups</varname> variable located in the file <filename>/etc/ssh/sshd_config</filename>.
+	</para>
+<programlisting>
+AllowGroups sshlogin
+</programlisting>
+	<para>
+	Then add your permitted SSH users to the group "sshlogin", and restart the SSH service.
+	</para>
+<screen>
+<command>sudo adduser username sshlogin</command>
+<command>sudo /etc/init.d/ssh restart</command>
+</screen>
+  </sect3>
+  <sect3 id="external-db-auth" status="review">
+	<title>External User Database Authentication</title>
+	<para>
+	Most enterprise networks require centralized authentication and access controls for all system resources.  If you have configured your server to  authenticate users against external databases, be sure to disable the user accounts both externally and locally, this way you ensure that local fallback authentication is not possible.
+	</para>
+  </sect3>
+  </sect2>
+  </sect1>
+
+
+   <sect1 id="console-security" status="review">
+	<title>Console Security</title>
+	<para>
+	As with any other security barrier you put in place to protect your server, it is pretty tough to defend against untold damage caused by someone with physical access to your environment, for example, theft of hard drives, power or service disruption and so on.  Therefore, console security should be addressed merely as one component of your overall physical security strategy.  A locked "screen door" may deter a casual criminal, or at the very least slow down a determined one, so it is still advisable to perform basic precautions with regard to console security.
+	</para>
+	<para>
+	The following instructions will help defend your server against issues that could otherwise yield very serious consequences.
+	</para>
+
+   <sect2 id="disable-ctrl-alt-delete" status="review">
+	<title>Disable Ctrl+Alt+Delete</title>
+	<para>
+	First and foremost, anyone that has physical access to the keyboard can simply use the <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Delete</keycap></keycombo> key combination to reboot the server without having to log on.  Sure, someone could simply unplug the power source, but you should still prevent the use of this key combination on a production server.  This forces an attacker to take more drastic measures to reboot the server, and will prevent accidental reboots at the same time.
+	</para>
+		<itemizedlist>
+	  	<listitem>
+		<para>
+		To disable the reboot action taken by pressing the <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Delete</keycap></keycombo> key combination, comment out the following line in the file <filename>/etc/event.d/control-alt-delete</filename>.
+		</para>
+<programlisting>
+#exec /sbin/shutdown -r now "Control-Alt-Delete pressed"
+</programlisting>
+		</listitem>
+		</itemizedlist>
+   </sect2>
+   <sect2 id="grub-password-security" status="review">
+	<title>GRUB Password Security</title>
+	<para>
+	Ubuntu installs GNU GRUB as its default boot loader, which allows for great flexibility and recovery options.  For example, when you install additional kernel images, these are automatically added as available boot options in the <application>grub</application> menu.  Also, by default, alternate boot options are available for each kernel entry that may be used for system recovery, aptly labeled (recovery mode).  Recovery mode simply boots the corresponding kernel image into single user mode (init 1), which lands the administrator at a root prompt without the need for any password.  
+	</para>
+	<para>
+	Therefore, it is important to control who may edit the <application>grub</application> menu items which, would otherwise allow for someone to perform the following dangerous actions:
+	</para> 
+		<itemizedlist>
+	  	<listitem>
+	  	<para>
+	  	Pass kernel options at boot up.
+	  	</para>
+	  	</listitem>
+		<listitem>
+		<para>
+		Boot the server into single user mode.
+		</para>
+		</listitem>
+		</itemizedlist>
+	<para>
+	You can prevent these actions by adding a password to GRUB's configuration file of <filename>/boot/grub/menu.lst</filename>, which will be required to unlock GRUB's more advanced features prior to use.
+	</para>
+		<itemizedlist>
+	  	<listitem>
+	  	<para>
+		To add a password for use with <application>grub</application>, first you must generate an md5 password hash using the <application>grub-md5-crypt</application> utility:
+		</para>
+<screen>
+<command>grub-md5-crypt</command>
+</screen>
+		<para>The command will ask you to enter a password and offer a resulting hash value as shown below: 
+		</para>
+<screen>
+<computeroutput>Password: <userinput>(enter new password)</userinput>
+Retype password: <userinput>(repeat password)</userinput>
+$1$s3YiK$M3lxAbqA6JLm2FbDWnClQ0</computeroutput>
+</screen>
+	  	</listitem>
+	  	<listitem>
+		<para>
+		Add the resulting hash value to the file <filename>/boot/grub/menu.lst</filename> in the following format:
+		</para>
+<programlisting>password --md5 $1$s3YiK$M3lxAbqA6JLm2FbDWnClQ0</programlisting>
+	  	</listitem>
+	  	<listitem>
+	  	<para>
+		To require use of the password for entering single user mode, change the value of the <varname>lockalternative</varname> variable in the file <filename>/boot/grub/menu.lst</filename> to <varname>true</varname>, as shown in the following example.
+		</para>
+<programlisting># lockalternative=true</programlisting>
+		</listitem>
+		</itemizedlist>
+	<note>
+	<para>
+	This does not prevent someone from booting the server from alternate media.  A determined attacker would simply boot into an alternate environment, overwrite your master boot record, mount or copy your physical volumes, destroy your data, or anything else they can imagine.  Please explore other countermeasures that may help you with these types of attacks.
+	</para>
+	</note>
+   </sect2>
+   </sect1>
+
+	<sect1 id="firewall" status="review">
+	  <title>Firewall</title>
+        <sect2 id="firewall-introduction" status="review">
+          <title>Introduction</title>
+          <para>
+             The Linux kernel includes the <emphasis>Netfilter</emphasis> subsystem,
+			 which is used to manipulate or decide the fate of network traffic headed into or through
+			 your server.  All modern Linux firewall solutions use this system for packet filtering.
+          </para>
+            <para>
+              The kernel's packet filtering system would be of little use to administrators without
+			  a userspace interface to manage it.  This is the purpose of iptables.  When a packet
+			  reaches your server, it will be handed off to the Netfilter subsystem for acceptance,
+			  manipulation, or rejection based on the rules supplied to it from userspace via
+			  iptables.  Thus, iptables is all you need to manage your firewall if you're familiar
+			  with it, but many frontends are available to simplify the task.
+            </para>
+        </sect2>
+          <sect2 id="firewall-ufw" status="review">
+	    <title>ufw - Uncomplicated Firewall</title>  
+	    <para>
+	    The default firewall configuration tool for Ubuntu is <application>ufw</application>.  Developed to ease iptables firewall configuration,
+	    <application>ufw</application> provides a user friendly way to create an IPv4 or IPv6 host-based firewall.
+	    </para>
+	    <para>
+            <application>ufw</application> by default is initially disabled.  From the <application>ufw</application> man page: 
+	    </para>
+	    <para>
+<quote>
+       ufw is not intended to provide complete firewall functionality via its command interface, but instead provides an easy way to add or remove simple rules.  It  is  currently mainly used for host-based firewalls.
+</quote>
+	    </para>
+	    <para>
+	    The following are some examples of how to use <application>ufw</application>:
+	    </para> 
+	    <itemizedlist>
+              <listitem>
+                <para>
+                First, <application>ufw</application> needs to be enabled.  From a terminal prompt enter:
+	        </para>
+<screen>
+<command>sudo ufw enable</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                To open a port (ssh in this example):
+	        </para>
+<screen>
+<command>sudo ufw allow 22</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                Rules can also be added using a <emphasis>numbered</emphasis> format:
+	        </para>
+<screen>
+<command>sudo ufw insert 1 allow 80</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                Similarly, to close an opened port:
+	        </para>
+<screen>
+<command>sudo ufw deny 22</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                To remove a rule, use delete followed by the rule:
+	        </para>
+<screen>
+<command>sudo ufw delete deny 22</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+		It is also possible to allow access from specific hosts or networks to a port.  The following example allows ssh access
+		from host 192.168.0.2 to any ip address on this host:
+	        </para>
+<screen>
+<command>sudo ufw allow proto tcp from 192.168.0.2 to any port 22</command>
+</screen>
+	        <para>
+		Replace 192.168.0.2 with 192.168.0.0/24 to allow ssh access from the entire subnet.
+		</para>
+	      </listitem>
+              <listitem>
+
+                <para>
+                Adding the <emphasis>--dry-run</emphasis> option to a <emphasis>ufw</emphasis> command will output the resulting
+                rules, but not apply them.  For example, the following is what would be applied if opening the HTTP port:
+                </para>
+
+<screen>
+<command> sudo ufw --dry-run allow http</command>
+</screen>
+
+<screen>
+<computeroutput>*filter
+:ufw-user-input - [0:0]
+:ufw-user-output - [0:0]
+:ufw-user-forward - [0:0]
+:ufw-user-limit - [0:0]
+:ufw-user-limit-accept - [0:0]
+### RULES ###
+
+### tuple ### allow tcp 80 0.0.0.0/0 any 0.0.0.0/0
+-A ufw-user-input -p tcp --dport 80 -j ACCEPT
+
+### END RULES ###
+-A ufw-user-input -j RETURN
+-A ufw-user-output -j RETURN
+-A ufw-user-forward -j RETURN
+-A ufw-user-limit -m limit --limit 3/minute -j LOG --log-prefix "[UFW LIMIT]: "
+-A ufw-user-limit -j REJECT
+-A ufw-user-limit-accept -j ACCEPT
+COMMIT
+Rules updated</computeroutput>
+</screen>
+
+              </listitem>
+              <listitem>
+                <para>
+                <application>ufw</application> can be disabled by:
+	        </para>
+<screen>
+<command>sudo ufw disable</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                To see the firewall status, enter:
+	        </para>
+<screen>
+<command>sudo ufw status</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                And for more verbose status information use:
+	        </para>
+<screen>
+<command>sudo ufw status verbose</command>
+</screen>
+	      </listitem>
+              <listitem>
+                <para>
+                To view the <emphasis>numbered</emphasis> format:
+	        </para>
+<screen>
+<command>sudo ufw status numbered</command>
+</screen>
+	      </listitem>
+	    </itemizedlist>
+	    <note>
+	      <para>
+	      If the port you want to open or close is defined in <filename>/etc/services</filename>, you can use the port name instead of the number.
+	      In the above examples, replace <emphasis>22</emphasis> with <emphasis>ssh</emphasis>. 
+              </para>
+	    </note>
+
+  	    <para>
+	    This is a quick introduction to using <application>ufw</application>. Please refer to the <application>ufw</application> man page for 
+            more information.
+	    </para>
+
+            <sect3 id="ufw-application-integration" status="review">
+              <title>ufw Application Integration</title>
+
+              <para>
+              Applications that open ports can include an <application>ufw</application> profile, which details the ports needed for the 
+              application to function properly.  The profiles are kept in <filename role="directory">/etc/ufw/applications.d</filename>,
+              and can be edited if the default ports have been changed.
+              </para>
+
+              <itemizedlist>
+                <listitem>
+
+                  <para>
+                  To view which applications have installed a profile, enter the following in a terminal:
+                  </para>
+
+<screen>
+<command>sudo ufw app list</command>
+</screen>
+
+                </listitem>
+                <listitem>
+
+                  <para>
+                  Similar to allowing traffic to a port, using an application profile is accomplished by entering:
+                  </para>
+
+<screen>
+<command>sudo ufw allow Samba</command>
+</screen>
+
+                </listitem>
+                <listitem>
+
+                  <para>
+                  An extended syntax is available as well:
+                  </para>
+
+<screen>
+<command>ufw allow from 192.168.0.0/24 to any app Samba</command>
+</screen>
+
+                  <para>
+                  Replace <emphasis>Samba</emphasis> and <emphasis>192.168.0.0/24</emphasis> with the application profile you are 
+                  using and the IP range for your network. 
+                  </para>
+
+                  <note>
+                    <para>
+                    There is no need to specify the <emphasis>protocol</emphasis> for the application, because that information is detailed in
+                    the profile.  Also, note that the <emphasis>app</emphasis> name replaces the <emphasis>port</emphasis> number.
+                    </para>
+                  </note>
+
+                </listitem>
+                <listitem>
+
+                  <para>
+                  To view details about which ports, protocols, etc are defined for an application, enter:
+                  </para>
+
+<screen>
+<command>sudo ufw app info Samba</command>
+</screen>
+
+                </listitem>
+              </itemizedlist>
+
+              <para>
+              Not all applications that require opening a network port come with <application>ufw</application> profiles, but if 
+              you have profiled an application and want the file to be included with the package, please file a bug against the 
+              package in <ulink url="https://launchpad.net/">Launchpad</ulink>.
+              </para>
+
+            </sect3>
+	  </sect2>
+        <sect2 id="ip-masquerading" status="review">
+          <title>IP Masquerading</title>
+            <para>
+              The purpose of IP Masquerading is to allow machines with private, non-routable IP
+			  addresses on your network to access the Internet through the machine doing the
+			  masquerading.  Traffic from your private network destined for the Internet must be
+			  manipulated for replies to be routable back to the machine that made the request.
+			  To do this, the kernel must modify the <emphasis>source</emphasis>
+			  IP address of each packet so that replies will be routed back to it, rather than
+			  to the private IP address that made the request, which is impossible over the 
+			  Internet.  Linux uses <emphasis>Connection Tracking</emphasis>
+			  (conntrack) to keep track of which connections belong to which machines and reroute
+			  each return packet accordingly.  Traffic leaving your private network is thus
+			  &quot;masqueraded&quot; as having originated from your Ubuntu gateway machine.
+			  This process is referred to in Microsoft documentation as Internet
+			  Connection Sharing.
+            </para>
+	    <sect3 id="ip-masquerade-ufw" status="review">
+	      <title>ufw Masquerading</title>
+	      <para>
+	      IP Masquerading can be achieved using custom <application>ufw</application> rules.  This is possible because the current
+	      back-end for <application>ufw</application> is <application>iptables-restore</application> with the rules files located in 
+	      <filename>/etc/ufw/*.rules</filename>.  These files are a great place to add legacy iptables rules used 
+              without <application>ufw</application>, and rules that are more network gateway or bridge related.
+	      </para>
+	      <para>
+	      The rules are split into two different files, rules that should be executed before
+	      <application>ufw</application> command line rules, and rules that are executed after <application>ufw</application> command line rules.
+	      </para>
+	      <itemizedlist>
+	        <listitem>
+		  <para>
+		  First, packet forwarding needs to be enabled in <application>ufw</application>.  Two configuration files will need to be adjusted, in
+		  <filename>/etc/default/ufw</filename> change the <emphasis>DEFAULT_FORWARD_POLICY</emphasis> to <quote>ACCEPT</quote>:
+		  </para>
+<programlisting>
+DEFAULT_FORWARD_POLICY="ACCEPT"
+</programlisting>
+		  <para>
+		  Then edit <filename>/etc/ufw/sysctl.conf</filename> and uncomment:
+		  </para>
+<programlisting>
+net.ipv4.ip_forward=1
+</programlisting>
+		  <para>
+		  Similarly, for IPv6 forwarding uncomment:
+		  </para>
+<programlisting>
+net.ipv6.conf.default.forwarding=1
+</programlisting>
+		</listitem>
+	        <listitem>
+		  <para>
+		  Now we will add rules to the <filename>/etc/ufw/before.rules</filename> file.  The default rules only configure the <emphasis>filter</emphasis>
+	          table, and to enable masquerading the <emphasis>nat</emphasis> table will need to be configured.  Add the following to the top of the file
+		  just after the header comments:	          
+		  </para>
+<programlisting>
+# nat Table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+
+# Forward traffic from eth1 through eth0.
+-A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE
+
+# don't delete the 'COMMIT' line or these nat table rules won't be processed
+COMMIT
+</programlisting>
+	          <para>
+	          The comments are not strictly necessary, but it is considered good practice to document your configuration. Also, when modifying 
+		  any of the <emphasis>rules</emphasis> files in <filename class="directory">/etc/ufw</filename>, make sure these lines are the last
+		  line for each table modified:
+	          </para>
+
+<programlisting>
+# don't delete the 'COMMIT' line or these rules won't be processed
+COMMIT
+</programlisting>
+
+                  <para>
+                  For each <emphasis>Table</emphasis> a corresponding <emphasis>COMMIT</emphasis> statement is required.  In these examples 
+                  only the <emphasis>nat</emphasis> and <emphasis>filter</emphasis> tables are shown, but you can also add rules for the 
+                  <emphasis>raw</emphasis> and <emphasis>mangle</emphasis> tables.
+                  </para>
+
+                  <note>
+                   <para>
+                   In the above example replace <emphasis>eth0</emphasis>, <emphasis>eth1</emphasis>, and <emphasis>192.168.0.0/24</emphasis> 
+                   with the appropriate interfaces and IP range for your network.
+                   </para>
+                  </note>
+
+		</listitem>
+	        <listitem>
+		  <para>
+		  Finally, disable and re-enable <application>ufw</application> to apply the changes:
+		  </para>
+<programlisting>
+<command>sudo ufw disable &amp;&amp; sudo ufw enable</command>
+</programlisting>
+		</listitem>
+	      </itemizedlist>
+	      <para>
+	      IP Masquerading should now be enabled. You can also add any additional FORWARD rules
+              to the <filename>/etc/ufw/before.rules</filename>. It is recommended that these additional
+              rules be added to the <emphasis>ufw-before-forward</emphasis> chain.
+	      </para>
+	  </sect3>
+	    <sect3 id="ip-masquerading-iptables" status="review">
+	    <title>iptables Masquerading</title>
+	    <para>
+	    <application>iptables</application> can also be used to enable masquerading.  
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+  	        <para>
+ 	        Similar to <application>ufw</application>, the first step is to enable IPv4 packet forwarding by editing 
+		<filename>/etc/sysctl.conf</filename> and uncomment the following line
+	        </para>
+<programlisting>
+net.ipv4.ip_forward=1
+</programlisting>
+	        <para>
+	        If you wish to enable IPv6 forwarding also uncomment: 
+	        </para>
+<programlisting>
+net.ipv6.conf.default.forwarding=1
+</programlisting>
+ 	      </listitem>
+	        <listitem>
+		  <para>
+		  Next, execute the <application>sysctl</application> command to enable the new settings in the configuration file:
+		  </para>
+<screen>
+<command>sudo sysctl -p</command>
+</screen>
+		</listitem>
+	      <listitem>
+	        <para>
+                IP Masquerading can now be accomplished with a single iptables rule, which may differ slightly based on your network configuration:
+	        </para>
+<screen>
+sudo iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o ppp0 -j MASQUERADE
+</screen>
+	        <para>
+	        The above command assumes that your private address space is 192.168.0.0/16 and
+	        that your Internet-facing device is ppp0.  The syntax is broken down as follows:
+		</para>
+		<itemizedlist>
+		  <listitem><para> -t nat -- the rule is to go into the nat table</para></listitem>
+		  <listitem><para> -A POSTROUTING -- the rule is to be appended (-A) to the POSTROUTING chain</para></listitem>
+  		  <listitem><para> -s 192.168.0.0/16 -- the rule applies to traffic originating from the specified address space</para></listitem>
+  		  <listitem><para> -o ppp0 -- the rule applies to traffic scheduled to be routed through the specified network device</para></listitem>
+  		  <listitem>
+                    <para>
+                    -j MASQUERADE -- traffic matching this rule is to &quot;jump&quot;
+		    (-j) to the MASQUERADE target to be manipulated as described above
+                    </para>
+                  </listitem>
+	        </itemizedlist>
+	      </listitem>
+	      <listitem>
+		<para>
+	        Also, each chain in the filter table (the default table, and where most or all packet
+		filtering occurs) has a default <emphasis>policy</emphasis> of
+		ACCEPT, but if you are creating a firewall in addition to a gateway device, you
+		may have set the policies to DROP or REJECT, in which case your masqueraded
+		traffic needs to be allowed through the FORWARD chain for the above rule to work:
+		</para>
+<screen>
+sudo iptables -A FORWARD -s 192.168.0.0/16 -o ppp0 -j ACCEPT
+sudo iptables -A FORWARD -d 192.168.0.0/16 -m state --state ESTABLISHED,RELATED -i ppp0 -j ACCEPT
+</screen>
+		<para>
+		The above commands will allow all connections from your local network to the
+		Internet and all traffic related to those connections to return to the machine
+		that initiated them.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+	        If you want masquerading to be enabled on reboot, which you probably do, edit <filename>/etc/rc.local</filename> and add any 
+		commands used above.  For example add the first command with no filtering:
+		</para>
+<screen>
+iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o ppp0 -j MASQUERADE
+</screen>
+	      </listitem>
+	    </itemizedlist>
+	    </sect3>
+        </sect2>
+        <sect2 id="firewall-logs" status="review">
+          <title>Logs</title>
+            <para>
+            Firewall logs are essential for recognizing attacks, troubleshooting your
+            firewall rules, and noticing unusual activity on your network.  You must include
+	    logging rules in your firewall for them to be generated, though, and logging
+	    rules must come before any applicable terminating rule (a rule with a target
+	    that decides the fate of the packet, such as ACCEPT, DROP, or REJECT).  
+	     </para>
+	     <para>
+	     If you are using <application>ufw</application>, you can turn on logging by entering the following in a terminal:
+	     </para>
+<screen>
+<command>sudo ufw logging on</command>
+</screen>
+	     <para>
+	     To turn logging off in <application>ufw</application>, simply replace <emphasis role="italic">on</emphasis> with <emphasis role="italic">off</emphasis> in the above command.
+	     </para>
+	     <para>
+	     If using <application>iptables</application> instead of <application>ufw</application>, enter:
+	     </para>
+<screen>
+sudo iptables -A INPUT -m state --state NEW -p tcp --dport 80 -j LOG --log-prefix "NEW_HTTP_CONN: "
+</screen>
+	     <para>
+	     A request on port 80 from the local machine, then, would generate a log in dmesg
+	     that looks like this:
+	     </para>
+			<para>
+			  <programlisting>[4304885.870000] NEW_HTTP_CONN: IN=lo OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:08:00 SRC=127.0.0.1 DST=127.0.0.1 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=58288 DF PROTO=TCP SPT=53981 DPT=80 WINDOW=32767 RES=0x00 SYN URGP=0</programlisting>
+			</para>
+			<para>
+              The above log will also appear in <filename>/var/log/messages</filename>,
+			  <filename>/var/log/syslog</filename>, and <filename>/var/log/kern.log</filename>.
+			  This behavior can be modified by editing <filename>/etc/syslog.conf</filename>
+			  appropriately or by installing and configuring <application>ulogd</application>
+			  and using the ULOG target instead of LOG.  The <application>ulogd</application>
+			  daemon is a userspace server that listens for logging instructions from the kernel
+			  specifically for firewalls, and can log to any file you like, or even to a
+			  <application>PostgreSQL</application> or <application>MySQL</application>
+			  database.  Making sense of your firewall logs can be simplified by using a log
+			  analyzing tool such as <application>fwanalog</application>, <application>
+			  fwlogwatch</application>, or <application>lire</application>.
+            </para>
+        </sect2>	
+        <sect2 id="other-firewall-tools" status="review">
+          <title>Other Tools</title>
+            <para>
+            There are many tools available to help you construct a complete firewall without
+	    intimate knowledge of iptables.  For the GUI-inclined:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+	        <ulink url="http://www.fs-security.com/">Firestarter</ulink> is quite popular and easy to use.
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<ulink url="http://www.fwbuilder.org/">fwbuilder</ulink> is very powerful and will look familiar 
+	        to an administrator who has used a commercial firewall utility such as <application>Checkpoint FireWall-1</application>.  
+		</para>
+	      </listitem>
+	    </itemizedlist>
+	    <para>
+	    If you prefer a command-line tool with plain-text configuration files: 
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+		<para>
+		<ulink url="http://www.shorewall.net/">Shorewall</ulink> is a very powerful solution to help you 
+		configure an advanced firewall for any network.  
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<ulink url="http://www.linuxkungfu.org/">ipkungfu</ulink> should give you a working firewall &quot;out of the box&quot; 
+ 		with zero configuration, and will allow you to easily set up a more advanced firewall by editing simple, well-documented 
+		configuration files.  
+		</para>
+	      </listitem>
+	      <listitem>
+		<para>
+		<ulink url="http://fireflier.sourceforge.net/">fireflier</ulink> is designed to be a desktop firewall 
+		application.  It is made up of a server (fireflier-server) and your choice of GUI clients (GTK or QT), and 
+	        behaves like many popular interactive firewall applications for Windows.
+		</para>
+	      </listitem>
+	    </itemizedlist>
+        </sect2>
+	<sect2 id="firewall-references" status="review">
+	  <title>References</title>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      The <ulink url="https://wiki.ubuntu.com/UbuntuFirewall">Ubuntu Firewall</ulink> wiki page contains information on the development
+	      of <application>ufw</application>.
+	      </para>
+	    </listitem> 
+	    <listitem>
+	      <para>
+              Also, the <application>ufw</application> manual page contains some very useful information: <command>man ufw</command>.
+	      </para>
+	    </listitem> 
+	    <listitem>
+	      <para>
+	      See the <ulink url="http://www.netfilter.org/documentation/HOWTO/packet-filtering-HOWTO.html">packet-filtering-HOWTO</ulink>
+	      for more information on using <application>iptables</application>.
+	      </para>
+	    </listitem> 
+	    <listitem>
+	      <para>
+	      The <ulink url="http://www.netfilter.org/documentation/HOWTO/NAT-HOWTO.html">nat-HOWTO</ulink> contains further details on
+	      masquerading.
+	      </para>
+	    </listitem> 
+	  </itemizedlist>
+	</sect2>
+	</sect1>
+	<sect1 id="apparmor" status="review">
+	  <title>AppArmor</title>
+	  <para>
+	  <application>AppArmor</application> is a Linux Security Module implementation of name-based mandatory access controls.   
+	  AppArmor confines individual programs to a set of listed files and posix 1003.1e draft capabilities.
+	  </para>
+	  <para>
+	  <application>AppArmor</application> is installed and loaded by default.  It uses <emphasis>profiles</emphasis> of 
+	  an application to determine what files and permissions the application requires.  Some packages will install their own profiles,  
+          and additional profiles can be found in the <application>apparmor-profiles</application> package.
+	  </para>
+	  <para>
+	  To install the <application>apparmor-profiles</application> package from a terminal prompt:
+	  </para>
+<screen>
+<command>sudo apt-get install apparmor-profiles</command>
+</screen>
+	  <para>
+	  AppArmor profiles have two modes of execution:
+	  </para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>
+	      Complaining/Learning: profile violations are permitted and logged.  Useful for testing and developing new profiles.
+	      </para>
+	    </listitem>
+	    <listitem>
+	      <para>
+	      Enforced/Confined: enforces profile policy as well as logging the violation.
+	      </para>
+	    </listitem>
+	  </itemizedlist>
+	  <sect2 id="apparmor-usage" status="review">
+	    <title>Using AppArmor</title>
+	    <para>
+	    The <application>apparmor-utils</application> package contains command line utilities that you can use to change the
+	    <application>AppArmor</application> execution mode, find the status of a profile, create new profiles, etc.
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	    	<para>
+	    	<application>apparmor_status</application> is used to view the current status of AppArmor profiles.
+	    	</para>
+<screen>
+<command>sudo apparmor_status</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<application>aa-complain</application> places a profile into <emphasis>complain</emphasis> mode.
+		</para>
+<screen>
+<command>sudo aa-complain /path/to/bin</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<application>aa-enforce</application> places a profile into <emphasis>enforce</emphasis> mode.
+		</para>
+<screen>
+<command>sudo aa-enforce /path/to/bin</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	    	<para>
+	   	The <filename>/etc/apparmor.d</filename> directory is where the AppArmor profiles are located.  It can be used to 
+	    	manipulate the <emphasis>mode</emphasis> of all profiles.
+	    	</para>
+	    	<para>
+	    	Enter the following to place all profiles into complain mode:
+	    	</para>
+<screen>
+<command>sudo aa-complain /etc/apparmor.d/*</command>
+</screen>
+	    <para>
+	    To place all profiles in enforce mode:
+	    </para>
+<screen>
+<command>sudo aa-enforce /etc/apparmor.d/*</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<application>apparmor_parser</application> is used to load a profile into the kernel.  It can also be used to 
+	        reload a currently loaded profile using the <emphasis>-r</emphasis> option.  To load a profile:
+		</para>
+<screen>
+<command>cat /etc/apparmor.d/profile.name | sudo apparmor_parser -a</command>
+</screen>
+		<para>
+		To reload a profile:
+		</para>
+<screen>
+<command>cat /etc/apparmor.d/profile.name | sudo apparmor_parser -r</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	   	<para>
+	   	<filename>/etc/init.d/apparmor</filename> can be used to <emphasis>reload</emphasis> all profiles:
+	   	</para>
+<screen>
+<command>sudo /etc/init.d/apparmor reload</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	    	<para>
+	    	The <filename>/etc/apparmor.d/disable</filename> directory can be used along with the <application>apparmor_parser -R</application> 
+		option to <emphasis>disable</emphasis> a profile.
+	    	</para>
+<screen>
+<command>sudo ln -s /etc/apparmor.d/profile.name /etc/apparmor.d/disable/</command>
+<command>sudo apparmor_parser -R /etc/apparmor.d/profile.name</command>
+</screen>
+	        <para>
+		To <emphasis>re-enable</emphasis> a disabled profile remove the symbolic link to the profile in 
+		<filename>/etc/apparmor.d/disable/</filename>.  Then load the profile using the <emphasis>-a</emphasis> option.
+		</para>
+<screen>
+<command>sudo rm /etc/apparmor.d/disable/profile.name</command>
+<command>cat /etc/apparmor.d/profile.name | sudo apparmor_parser -a</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	    	<para>
+	    	<application>AppArmor</application> can be disabled, and the kernel module unloaded by entering the following:
+	    	</para>
+<screen>
+<command>sudo /etc/init.d/apparmor stop</command>
+<command>sudo update-rc.d -f apparmor remove</command>
+</screen>
+	      </listitem>
+	      <listitem>
+	        <para>
+	   	To re-enable <application>AppArmor</application> enter:
+		</para>
+<screen>
+<command>sudo /etc/init.d/apparmor start</command>
+<command>sudo update-rc.d apparmor defaults</command>
+</screen>
+	      </listitem>
+	    </itemizedlist>
+	    <note>
+	      <para>
+	      Replace <emphasis>profile.name</emphasis> with the name of the profile you want to manipulate.  Also, replace 
+	      <filename>/path/to/bin/</filename> with the actual executable file path.  For example for the <application>ping</application> 
+	      command use <filename>/bin/ping</filename>
+	      </para>
+	    </note>
+	  </sect2>
+	  <sect2 id="apparmor-profiles" status="review">
+	    <title>Profiles</title>
+	    <para>
+	    <application>AppArmor</application> profiles are simple text files located in <filename>/etc/apparmor.d/</filename>.  The 
+	    files are named after the full path to the executable they profile replacing the "/" with ".".
+	    For example <filename>/etc/apparmor.d/bin.ping</filename> is the AppArmor profile for the <filename>/bin/ping</filename>
+	    command.  
+	    </para>
+	    <para>
+ 	    There are two main type of rules used in profiles:
+	    </para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	        <emphasis>Path entries:</emphasis> which detail which files an application can access in the file system.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+	        <emphasis>Capability entries:</emphasis> determine what privileges a confined process is allowed to use.
+	        </para>
+	      </listitem>
+	    </itemizedlist>
+	    <para>
+	    As an example take a look at <filename>/etc/apparmor.d/bin.ping</filename>:
+	    </para>
+<programlisting>
+#include &lt;tunables/global&gt;
+/bin/ping flags=(complain) {
+  #include &lt;abstractions/base&gt;
+  #include &lt;abstractions/consoles&gt;
+  #include &lt;abstractions/nameservice&gt;
+
+  capability net_raw,
+  capability setuid,
+  network inet raw,
+  
+  /bin/ping mixr,
+  /etc/modules.conf r,
+}
+</programlisting>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+		<emphasis>#include &lt;tunables/global&gt;:</emphasis> include statements from other files.  This allows statements pertaining to 
+	        multiple applications to be placed in a common file.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<emphasis>/bin/ping flags=(complain):</emphasis> path to the profiled program, also setting the mode to 
+	        <emphasis>complain</emphasis>.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<emphasis>capability net_raw,:</emphasis> allows the application access to the CAP_NET_RAW Posix.1e capability.
+	        </para>
+	      </listitem>
+	      <listitem>
+	        <para>
+		<emphasis>/bin/ping mixr,:</emphasis> allows the application read and execute access to the file.
+	        </para>
+	      </listitem>
+            </itemizedlist>
+	    <note>
+	      <para>
+	      After editing a profile file the profile must be reloaded.  See <xref linkend="apparmor-usage"/> for details.
+	      </para>
+	    </note>
+	    <sect3 id="apparmor-profiles-new" status="review">
+	      <title>Creating a Profile</title>
+	      <itemizedlist>
+		<listitem>
+	          <para>
+	       	  <emphasis>Design a test plan:</emphasis> Try to think about how the application should be exercised. The test plan should be divided 
+	          into small test cases. Each test case should have a small description and list the steps to follow.
+	          </para>
+		  <para>
+		  Some standard test cases are:
+	          </para>
+	          <itemizedlist>
+		    <listitem>		
+		      <para>
+	              Starting the program.
+    		      </para>
+		    </listitem>
+		    <listitem>		
+		      <para>
+      		      Stopping the program.
+    		      </para>
+		    </listitem>
+		    <listitem>		
+		      <para>
+      		      Reloading the program.
+    		      </para>
+		    </listitem>
+		    <listitem>		
+		      <para>
+      	              Testing all the commands supported by the init script.
+    		      </para>
+		    </listitem>
+		  </itemizedlist>
+		</listitem>
+	        <listitem>
+	          <para>
+		  <emphasis>Generate the new profile:</emphasis> Use <application>aa-genprof</application> to generate a new profile.
+		  From a terminal:
+		  </para>
+<screen>
+<command>sudo aa-genprof executable</command>
+</screen>
+		    <para>
+		    For example:
+		    </para>
+<screen>
+<command>sudo aa-genprof slapd</command>
+</screen>
+		</listitem>
+		<listitem>
+		  <para>
+		  To get your new profile included in the <application>apparmor-profiles</application> package, file a bug in 
+		  <emphasis>Launchpad</emphasis> against the <ulink url="https://bugs.launchpad.net/ubuntu/+source/apparmor/+filebug">AppArmor</ulink> 
+		  package:
+		  </para>
+		  <itemizedlist>
+		    <listitem>
+		      <para>
+		      Include your test plan and test cases.
+  		      </para>
+		    </listitem>
+		    <listitem>
+		      <para>
+		      Attach your new profile to the bug.
+		      </para>
+		    </listitem>
+		  </itemizedlist>
+		</listitem>
+	      </itemizedlist>
+	    </sect3>
+	    <sect3 id="apparmor-profiles-update" status="review">
+	      <title>Updating Profiles</title>
+	      <para>
+	      When the program is misbehaving, audit messages are sent to the log files. The program <application>aa-logprof</application> can be used 
+	      to scan log files for <application>AppArmor</application> audit messages, review them and update the profiles.  From a terminal:
+	      </para>
+<screen>
+<command>sudo aa-logprof</command>
+</screen>
+	    </sect3>
+	  </sect2>	   
+	  <sect2 id="apparmor-references" status="review">
+	    <title>References</title>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+		See the <ulink url="http://www.novell.com/documentation/apparmor/apparmor201_sp10_admin/index.html?page=/documentation/apparmor/apparmor201_sp10_admin/data/book_apparmor_admin.html">AppArmor Administration Guide</ulink> for advanced configuration options.
+  	        </para>
+	      </listitem>
+	    </itemizedlist>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+	        For details using AppArmor with other Ubuntu releases see the <ulink url="https://help.ubuntu.com/community/AppArmor">
+		AppArmor Community Wiki</ulink> page.
+  	        </para>
+	      </listitem>
+	    </itemizedlist>
+	    <itemizedlist>
+	      <listitem>
+	        <para>
+		The <ulink url="http://en.opensuse.org/AppArmor">OpenSUSE AppArmor</ulink> page is another introduction to AppArmor.
+  	        </para>
+	      </listitem>
+	    </itemizedlist>
+	    <itemizedlist>
+	      <listitem>
+	  	<para>
+		A great place to ask for <application>AppArmor</application> assistance, and get involved with the Ubuntu Server community, 
+	  	is the <emphasis>#ubuntu-server</emphasis>  IRC channel on  <ulink url="http://freenode.net">freenode</ulink>.
+          	</para>
+	      </listitem>
+	    </itemizedlist>
+	  </sect2>
+	</sect1>
+
+        <sect1 id="certificates-and-security" status="review">
+          <title>Certificates</title>
+            <para>
+            One of the most common forms of cryptography today is <emphasis>public-key</emphasis> cryptography.
+            Public-key cryptography utilizes a <emphasis>public key</emphasis> and a <emphasis>private key</emphasis>.
+            The system works by <emphasis>encrypting</emphasis> information using the public key.  The information can  
+            then only be <emphasis>decrypted</emphasis> using the private key.
+            </para>
+            <para>
+            A common use for public-key cryptography is encrypting application traffic using a Secure Socket Layer (SSL) or 
+            Transport Layer Security (TLS) connection.  For example, configuring Apache to provide <emphasis>HTTPS</emphasis>, the
+            HTTP protocol over SSL.  This allows a way to encrypt traffic using a protocol that does not itself provide encryption.
+            </para>
+            <para>
+            A <emphasis>Certificate</emphasis> is a method used to distribute a <emphasis>public key</emphasis> and other information
+            about a server and the organization who is responsible for it.  Certificates can be digitally signed by a 
+            <emphasis>Certification Authority</emphasis> or CA.  A CA is a trusted third party that has confirmed that the information
+            contained in the certificate is accurate.
+            </para>
+        <sect2 id="types-of-certificates" status="review">
+          <title>Types of Certificates</title>
+            <para>
+              To set up a secure server using public-key cryptography, in most cases, you
+              send your certificate request (including your public key),
+              proof of your company's identity, and payment to a CA. The
+              CA verifies the certificate request and your identity, and
+              then sends back a certificate for your secure server.  
+             Alternatively, you can create your own <emphasis>self-signed</emphasis>
+             certificate. 
+            </para>
+            <note>
+              <para>
+              Note, that self-signed certificates should not be used in most production environments.
+              </para>
+            </note>
+            <para>
+	    Continuing the HTTPS example, a CA-signed certificate provides two important
+            capabilities that a self-signed certificate does not:
+            </para>
+
+            <itemizedlist>
+            <listitem>
+            <para>
+            Browsers (usually) automatically recognize the certificate
+            and allow a secure connection to be made without prompting
+            the user.
+            </para>
+            </listitem>
+            <listitem>
+            <para>
+             When a CA issues a signed certificate, it is
+             guaranteeing the identity of the organization that is
+             providing the web pages to the browser.
+            </para>
+            </listitem>
+            </itemizedlist>
+	
+            <para>
+             Most Web browsers, and computers, that support SSL have a list of CAs whose
+             certificates they automatically accept. If a browser
+             encounters a certificate whose authorizing CA is not in the
+             list, the browser asks the user to either accept or decline
+             the connection.  Also, other applications may generate an error message when using
+             a self-singed certificate.
+            </para>
+            <para>
+            The process of getting a certificate from a CA is fairly
+            easy. A quick overview is as follows:
+            </para>
+
+            <orderedlist>
+            <listitem>
+               <para>Create a private and public encryption key pair.</para>
+            </listitem>
+            <listitem>
+                 <para>Create a certificate request based on the public key. The
+              certificate request contains information about your server and the
+              company hosting it.</para>
+            </listitem>
+            <listitem>
+                 <para>Send the certificate request, along with documents proving your
+              identity, to a CA. We cannot tell you which certificate authority to
+              choose. Your decision may be based on your past experiences, or on the
+              experiences of your friends or colleagues, or purely on monetary
+              factors.</para>
+
+                    <para>Once you have decided upon a CA, you need to follow the
+              instructions they provide on how to obtain a certificate
+              from them.</para>
+            </listitem>
+            <listitem>
+               <para>When the CA is satisfied that you are indeed who you claim to be,
+            they send you a digital certificate.</para>
+            </listitem>
+            <listitem>
+              <para>
+              Install this certificate on your secure server, and configure the appropriate applications
+              to use the certificate.
+              </para>
+            </listitem>
+            </orderedlist>
+
+        </sect2>
+        <sect2 id="generating-a-csr" status="review">
+          <title>Generating a Certificate Signing Request (CSR)</title>
+
+          <para>
+          Whether you are getting a certificate from a CA or generating your own
+          self-signed certificate, the first step is to generate a key.
+          </para>
+
+          <para>       
+          If the certificate will be used by service daemons, such as Apache, Postfix, Dovecot, etc, 
+          a key without a passphrase is often appropriate.  Not having a passphrase allows the services
+          to start without manual intervention, usually the preferred way to start a daemon.
+          </para>
+
+          <para>                  
+          This section will cover generating a key with a passphrase, and one without.  The non-passphrase 
+          key will then be used to generate a certificate that can be used with various service daemons. 
+          </para>
+
+          <warning>
+            <para>
+            Running your secure service without a passphrase is convenient because you will not 
+            need to enter the passphrase every time you start your secure service. But it is 
+            insecure and a compromise of the key means a compromise of the server as well.
+            </para>
+          </warning>
+
+          <para>
+          To generate the <emphasis>keys</emphasis> for the Certificate Signing Request (CSR) run the 
+          following command from a terminal prompt:
+          </para>
+
+<screen>
+<command>openssl genrsa -des3 -out server.key 1024</command>
+</screen>
+
+<programlisting>
+Generating RSA private key, 1024 bit long modulus
+.....................++++++
+.................++++++
+unable to write 'random state'
+e is 65537 (0x10001)
+Enter pass phrase for server.key:
+</programlisting>
+
+        <para>
+        You can now enter your passphrase. For best security, it should
+        at least contain eight characters. The minimum length when
+        specifying -des3 is four characters. It should include numbers
+        and/or punctuation and not be a word in a dictionary. Also
+        remember that your passphrase is case-sensitive. 
+        </para>
+
+        <para>
+        Re-type the passphrase to verify. Once you have re-typed it
+        correctly, the server key is generated and stored in the
+        <filename>server.key</filename> file.
+        </para>
+      
+        <para>
+        Now create the insecure key, the one without a passphrase, and shuffle 
+        the key names:
+        </para>
+
+<screen>
+<command>openssl rsa -in server.key -out server.key.insecure</command>
+<command>mv server.key server.key.secure</command>
+<command>mv server.key.insecure server.key</command>
+</screen>
+
+        <para>
+        The insecure key is now named <filename>server.key</filename>, and you can use this
+        file to generate the CSR without passphrase.
+        </para>
+
+        <para>
+        To create the CSR, run the following command at a terminal prompt:
+        </para>
+
+<screen>
+<command>openssl req -new -key server.key -out server.csr</command>
+</screen>
+
+        <para>
+        It will prompt you enter the passphrase. If you enter the
+        correct passphrase, it will prompt you to enter Company Name,
+        Once you enter all these details, your
+        CSR will be created and it will be stored in the
+        <filename>server.csr</filename> file.
+        Site Name, Email Id, etc. 
+        </para>
+	<para>
+ 	You can now submit this CSR file
+        to a CA for processing. The CA will use this CSR file and issue
+        the certificate. On the other hand, you can create self-signed
+        certificate using this CSR.</para>
+        
+	</sect2>
+        <sect2 id="creating-a-self-signed-certificate" status="review">
+          <title>Creating a Self-Signed Certificate</title>
+            <para>
+            To create the self-signed certificate, run the
+            following command at a terminal prompt:
+            </para>
+<screen>
+<command>openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</command>
+</screen>
+
+            <para>The above command will prompt you to enter the
+            passphrase. Once you enter the correct passphrase, your
+            certificate will be created and it will be stored in the
+            <filename>server.crt</filename> file.  </para>
+        <warning>
+        <para>
+            If your secure server is to be used in a production environment, you
+            probably need a CA-signed certificate.  It is not
+            recommended to use self-signed certificate.
+        </para>
+        </warning>
+        </sect2>
+        <sect2 id="installing-the-certificate" status="review">
+          <title>Installing the Certificate</title>
+
+            <para>You can install the key file
+            <filename>server.key</filename> and certificate file
+            <filename>server.crt</filename>, or the certificate file issued
+            by your CA, by running following commands at a terminal prompt:
+            </para>
+<screen>
+<command>sudo cp server.crt /etc/ssl/certs</command>
+<command>sudo cp server.key /etc/ssl/private</command>
+</screen>
+        <para>
+        Now simply configure any applications, with the ability to use public-key cryptography, to use
+        the <emphasis>certificate</emphasis> and <emphasis>key</emphasis> files.  For example, <application>Apache</application> can 
+        provide HTTPS, <application>Dovecot</application> can provide IMAPS and POP3S, etc. 
+        </para>
+        </sect2>
+        <sect2 id="certificate-authority" status="review">
+          <title>Certification Authority</title>
+
+          <para>
+          If the services on your network require more than a few self-signed certificates it may be worth the 
+          additional effort to setup your own internal <emphasis>Certification Authority (CA)</emphasis>.  Using 
+          certificates signed by your own CA, allows the various services using the certificates to easily
+          trust other services using certificates issued from the same CA.
+          </para>
+
+          <procedure>
+            <step>
+  
+              <para>
+              First, create the directories to hold the CA certificate and related files:
+              </para>    
+
+<screen>
+<command>sudo mkdir /etc/ssl/CA</command>
+<command>sudo mkdir /etc/ssl/newcerts</command>
+</screen>
+
+            </step>
+            <step>
+  
+              <para>
+              The CA needs a few additional files to operate, one to keep track of the last serial number used by the CA, each 
+              certificate must have a unique serial number, and another file to record which certificates have been
+              issued:
+              </para>    
+
+<screen>
+<command>sudo sh -c "echo '01' > /etc/ssl/CA/serial"</command>
+<command>sudo touch /etc/ssl/CA/index.txt</command>
+</screen>
+
+            </step>
+            <step>
+  
+              <para>
+              The third file is a CA configuration file.  Though not strictly necessary, it is very convenient when
+              issuing multiple certificates.  Edit <filename>/etc/ssl/openssl.cnf</filename>, and in the 
+              <emphasis>[ CA_default ]</emphasis> change:
+              </para>    
+
+<programlisting>
+dir             = /etc/ssl/             # Where everything is kept
+database        = $dir/CA/index.txt     # database index file.
+certificate     = $dir/certs/cacert.pem # The CA certificate
+serial          = $dir/CA/serial        # The current serial number
+private_key     = $dir/private/cakey.pem# The private key
+</programlisting>    
+
+            </step>
+            <step>
+  
+              <para>
+              Next, create the self-singed root certificate:
+              </para>    
+
+<screen>
+<command>openssl req -new -x509 -extensions v3_ca -keyout cakey.pem -out cacert.pem -days 3650</command>
+</screen>
+
+              <para>
+              You will then be asked to enter the details about the certificate.
+              </para>
+
+            </step>
+            <step>
+  
+              <para>
+              Now install the root certificate and key:
+              </para>    
+
+<screen>
+<command>sudo mv cakey.pem /etc/ssl/private/</command>
+<command>sudo mv cacert.pem /etc/ssl/certs/</command>
+</screen>
+
+            </step>
+            <step>
+  
+              <para>
+              You are now ready to start signing certificates.  The first item needed is a Certificate Signing 
+              Request (CSR), see <xref linkend="generating-a-csr"/> for details.  Once
+              you have a CSR, enter the following to generate a certificate signed by the CA:
+              </para>    
+
+<screen>
+<command>sudo openssl ca -in server.csr -config /etc/ssl/openssl.cnf</command>
+</screen>
+
+              <para>
+              After entering the password for the CA key, you will be prompted to sign the certificate, and again
+              to commit the new certificate.  You should then see a somewhat large amount of output related to the 
+              certificate creation.
+              </para>
+
+            </step>
+            <step>
+  
+              <para>
+              There should now be a new file, <filename>/etc/ssl/newcerts/01.pem</filename>, containing the same output.
+              Copy and paste everything between the <emphasis>-----BEGIN CERTIFICATE-----</emphasis> and
+              <emphasis>----END CERTIFICATE-----</emphasis> lines to a file named after the hostname of
+              the server where the certificate will be installed.  For example <filename>mail.example.com.crt</filename>,
+              is a nice descriptive name.
+              </para>    
+
+              <para>
+              Subsequent certificates will be named <filename>02.pem</filename>, <filename>03.pem</filename>, etc.
+              </para>
+
+              <note>
+                <para>
+                Replace <emphasis>mail.example.com.crt</emphasis> with your own descriptive name.
+                </para>
+              </note>
+
+            </step>
+            <step>
+  
+              <para>
+              Finally, copy the new certificate to the host that needs it, and configure the appropriate applications to use it.
+              The default location to install certificates is <filename role="directory">/etc/ssl/certs</filename>.  This
+              enables multiple services to use the same certificate without overly complicated file permissions.
+              </para>    
+
+              <para>
+              For applications that can be configured to use a CA certificate, you should also copy the 
+              <filename>/etc/ssl/certs/cacert.pem</filename> file to the <filename role="directory">/etc/ssl/certs/</filename>
+              directory on each server.
+              </para>
+
+            </step>
+          </procedure>
+
+        </sect2>
+        <sect2 id="certificate-references" status="review">
+          <title>References</title>
+          <itemizedlist>
+            <listitem>
+              <para>
+              For more detailed instructions on using cryptography see the
+              <ulink url="http://tldp.org/HOWTO/SSL-Certificates-HOWTO/index.html">SSL Certificates HOWTO</ulink> by tlpd.org
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <ulink url="http://www.pki-page.org/">The PKI Page</ulink> contains a list of Certificate Authorities.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              The Wikipedia <ulink url="http://en.wikipedia.org/wiki/Https">HTTPS</ulink> page has more information regarding HTTPS.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              For more information on <emphasis>OpenSSL</emphasis> see the <ulink url="http://www.openssl.org/">OpenSSL Home Page</ulink>.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              Also, O'Reilly's <ulink url="http://oreilly.com/catalog/9780596002701/">Network Security with OpenSSL</ulink> is a good
+              in depth reference.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </sect2>
+        </sect1>
+        <sect1 id="ecryptfs" status="review">
+          <title>eCryptfs</title>
+          
+          <para>
+          <emphasis>eCryptfs</emphasis> is a POSIX-compliant enterprise-class stacked cryptographic filesystem for Linux.  Layering on
+          top of the filesystem layer <emphasis>eCryptfs</emphasis> protects files no matter the underlying filesystem, partition 
+          type, etc.
+          </para>
+
+          <para>
+          During installation there is an option to encrypt the <filename role="directory">/home</filename> partition.  This will automatically
+          configure everything needed to encrypt and mount the partition.
+          </para>
+
+          <para>
+          As an example, this section will cover configuring <filename role="directory">/srv</filename> to be encrypted using eCryptfs.
+          </para>
+
+          <sect2 id="ecryptfs-usage" status="review">
+            <title>Using eCryptfs</title>
+
+            <para>
+            First, install the necessary packages.  From a terminal prompt enter:
+            </para>
+
+<screen>
+<command>sudo apt-get install ecryptfs-utils</command>
+</screen>
+
+            <para>
+            Now mount the partition to be encrypted:
+            </para>
+
+<screen>
+<command>sudo mount -t ecryptfs /srv /srv</command>
+</screen>
+
+            <para>
+            You will then be prompted for some details on how <application>ecryptfs</application> should encrypt the data.
+            </para>
+         
+            <para>
+            To test that files placed in <filename>/srv</filename> are indeed encrypted copy the <filename>/etc/default</filename>
+            folder to <filename>/srv</filename>:
+            </para>
+
+<screen>
+<command>sudo cp -r /etc/default /srv</command>
+</screen>
+
+            <para>
+            Now unmount <filename>/srv</filename>, and try to view a file:
+            </para>
+
+<screen>
+<command>sudo umount /srv</command>
+<command>cat /srv/default/cron</command>
+</screen>
+
+            <para>
+            Remounting <filename>/srv</filename> using <application>ecryptfs</application> will make the data viewable once again.
+            </para>
+     
+          </sect2>
+          <sect2 id="ecryptfs-automount" status="review">
+            <title>Automatically Mounting Encrypted Partitions</title>
+            
+            <para>
+            There are a couple of ways to automatically mount an <application>ecryptfs</application> encrypted filesystem 
+            at boot.  This example will use a <filename>/root/.ecryptfsrc</filename> file containing mount options, along with
+            a passphrase file residing on a USB key.
+            </para>
+
+            <para>
+            First, create <filename>/root/.ecryptfsrc</filename> containing:
+            </para>
+
+<programlisting>
+key=passphrase:passphrase_passwd_file=/mnt/usb/passwd_file.txt
+ecryptfs_sig=5826dd62cf81c615
+ecryptfs_cipher=aes
+ecryptfs_key_bytes=16
+ecryptfs_passthrough=n
+ecryptfs_enable_filename_crypto=n
+</programlisting>
+
+            <note>
+              <para>
+              Adjust the <emphasis>ecryptfs_sig</emphasis> to the signature in <filename>/root/.ecryptfs/sig-cache.txt</filename>.
+              </para>
+            </note>
+
+            <para>
+            Next, create the <filename>/mnt/usb/passwd_file.txt</filename> passphrase file:
+            </para>
+
+<programlisting>
+passphrase_passwd=[secrets]
+</programlisting>
+
+            <para>
+            Now add the necessary lines to <filename>/etc/fstab</filename>:
+            </para>
+
+<programlisting>
+/dev/sdb1       /mnt/usb        ext3    ro      0 0
+/srv /srv ecryptfs defaults 0 0
+</programlisting>
+
+            <para>
+            Make sure the USB drive is mounted before the encrypted partition.  
+            </para>
+
+            <para>
+            Finally, reboot and the <filename>/srv</filename> should be mounted using ecryptfs.  
+            </para>
+            
+          </sect2>
+          <sect2 id="ecryptfs-other-utils" status="review">
+            <title>Other Utilities</title>
+
+            <para>
+            The <application>ecryptfs-utils</application> package includes several other useful utilities:
+            </para>
+
+            <itemizedlist>
+              <listitem>
+                <para>
+                <emphasis>ecryptfs-setup-private:</emphasis> creates a <filename>~/Private</filename> directory 
+                to contain encrypted information.  This utility can be run by unprivileged users to keep 
+                data private from other users on the system.
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                <emphasis>ecryptfs-mount-private and ecryptfs-umount-private:</emphasis> will mount and unmount
+                respectively, a users <filename>~/Private</filename> directory.
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                <emphasis>ecryptfs-add-passphrase:</emphasis> adds a new passphrase to the kernel keyring.
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                <emphasis>ecryptfs-manager:</emphasis> manages <application>eCryptfs</application> objects such as keys.
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                <emphasis>ecryptfs-stat:</emphasis> allows you to view the <application>ecryptfs</application> meta information
+                for a file.
+                </para>
+              </listitem>
+            </itemizedlist>
+
+          </sect2>
+          <sect2 id="ecryptfs-references" status="review">
+            <title>References</title>
+            
+            <itemizedlist>
+              <listitem>
+                <para>
+                For more information on eCryptfs see the <ulink url="https://launchpad.net/ecryptfs">Launch Pad project page</ulink>
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                There is also a <ulink url="http://www.linuxjournal.com/article/9400">Linux Journal</ulink> article covering eCryptfs.
+                </para>
+              </listitem>
+              <listitem>
+                <para>
+                Also, for more <application>ecryptfs</application> options see the
+                <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man7/ecryptfs.7.html">ecryptfs man page</ulink>.
+                </para>
+              </listitem>
+            </itemizedlist>
+
+          </sect2>
+        </sect1>
+    </chapter>

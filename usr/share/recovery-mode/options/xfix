@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. /usr/share/recovery-mode/l10n.sh
+
+if [ ! -f /var/lib/dpkg/info/xserver-xorg.templates ]; then
+    # no xserver-xorg template available so nothing to reconfgiure
+    exit 1
+fi
+
+if [ "$1" = "test" ]; then
+  echo $(eval_gettext "Try to auto repair graphic problems")
+  exit 0
+fi
+
+whiptail --infobox $(eval_gettext "The graphics reconfiguration (xserver) is now running.  Your screen may flicker during hardware autodetection.") 8 60
+
+sleep 3
+dpkg-reconfigure -phigh xserver-xorg
+sleep 3
+
+exit 0

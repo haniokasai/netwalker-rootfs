@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/text_attribute_names.py

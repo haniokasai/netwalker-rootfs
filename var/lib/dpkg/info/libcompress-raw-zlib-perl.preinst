@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmodules
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+	if [ -e "/etc/modprobe.d/libcompress-raw-zlib-perl" ]; then
+		if [ "`md5sum \"/etc/modprobe.d/libcompress-raw-zlib-perl\" | sed -e \"s/ .*//\"`" = \
+		     "`dpkg-query -W -f='${Conffiles}' libcompress-raw-zlib-perl | sed -n -e \"\\\\' /etc/modprobe.d/libcompress-raw-zlib-perl's/.* //p\"`" ]
+		then
+			rm -f "/etc/modprobe.d/libcompress-raw-zlib-perl"
+		fi
+	fi
+fi
+# End automatically added section

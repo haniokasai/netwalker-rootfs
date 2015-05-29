@@ -1,0 +1,8 @@
+prefix="/usr"
+datadir="/usr/share"
+localedir=datadir+"/locale"
+pkgdatadir="/usr/share/alacarte"
+libdir="/usr/lib"
+libexecdir="/usr/lib/alacarte"
+PACKAGE="alacarte"
+VERSION="0.11.10"

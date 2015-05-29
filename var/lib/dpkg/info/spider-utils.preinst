@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmodules
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+	if [ -e "/etc/modprobe.d/spider-utils" ]; then
+		if [ "`md5sum \"/etc/modprobe.d/spider-utils\" | sed -e \"s/ .*//\"`" = \
+		     "`dpkg-query -W -f='${Conffiles}' spider-utils | sed -n -e \"\\\\' /etc/modprobe.d/spider-utils's/.* //p\"`" ]
+		then
+			rm -f "/etc/modprobe.d/spider-utils"
+		fi
+	fi
+fi
+# End automatically added section

@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_gconf
+if [ "$1" = "configure" ]; then
+	gconf-schemas --register apturl.schemas 
+fi
+# End automatically added section
+# Automatically added by dh_pycentral
+rm -f /var/lib/pycentral/apturl.pkgremove
+if which pycentral >/dev/null 2>&1; then
+	pycentral pkginstall apturl
+	if grep -qs '^apturl$' /var/lib/pycentral/delayed-pkgs; then
+		sed -i '/^apturl$/d' /var/lib/pycentral/delayed-pkgs
+	fi
+fi
+# End automatically added section

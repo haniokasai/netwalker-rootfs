@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+# Automatically added by installdeb-wordlist
+. /usr/share/debconf/confmodule
+SCRIPT="/usr/sbin/update-default-wordlist"
+
+if [ "$1" = "configure" ] ; then
+    if [ -x "$SCRIPT" ]; then
+	$SCRIPT  --rebuild
+    else
+	echo "Error: $SCRIPT not present or executable. Missing dependency on dictionaries-common?" >&2
+	exit 1
+    fi
+fi
+# End automatically added section

@@ -1,0 +1,78 @@
+# vim:syntax=apparmor
+# $Id: base 949 2007-08-28 00:49:51Z seth_arnold $
+# ------------------------------------------------------------------
+#
+#    Copyright (C) 2002-2005 Novell/SUSE
+#
+#    This program is free software; you can redistribute it and/or
+#    modify it under the terms of version 2 of the GNU General Public
+#    License published by the Free Software Foundation.
+#
+# ------------------------------------------------------------------
+
+
+
+  # (Note that the ldd profile has inlined this file; if you make
+  # modifications here, please consider including them in the ldd
+  # profile as well.)
+
+  # The __canary_death_handler function writes a time-stamped log
+  # message to /dev/log for logging by syslogd. So, /dev/log, timezones,
+  # and localisations of date should be available EVERYWHERE, so
+  # StackGuard, FormatGuard, etc., alerts can be properly logged.
+  /dev/log                       w,
+  /dev/random                    r,
+  /dev/urandom                   r,
+  /etc/locale/**                 r,
+  /etc/locale.alias              r,
+  /etc/localtime                 r,
+  /usr/share/locale/**           r,
+  /usr/share/zoneinfo/**         r,
+  /usr/share/X11/locale/**       r,
+
+  /usr/lib{,32,64}/locale/**             mr,
+  /usr/lib{,32,64}/gconv/*.so            mr,
+  /usr/lib{,32,64}/gconv/gconv-modules*  mr,
+
+  # used by glibc when binding to ephemeral ports
+  /etc/bindresvport.blacklist    r,
+
+  # ld.so.cache and ld are used to load shared libraries; they are best
+  # available everywhere
+  /etc/ld.so.cache               mr,
+  /lib{,32,64}/ld{,32,64}-*.so   mrix,
+  /lib{,32,64}/**/ld{,32,64}-*.so     mrix,
+  /opt/*-linux-uclibc/lib/ld-uClibc*so* mrix,
+
+  # we might as well allow everything to use common libraries
+  /lib{,32,64}/**                r,
+  /lib{,32,64}/lib*.so*          mr,
+  /lib{,32,64}/**/lib*.so*       mr,
+  /usr/lib{,32,64}/**            r,
+  /usr/lib{,32,64}/*.so*         mr,
+  /usr/lib{,32,64}/**/lib*.so*   mr,
+
+  # /dev/null is pretty harmless and frequently used
+  /dev/null                      rw,
+  # as is /dev/zero
+  /dev/zero                      rw,
+  # recent glibc uses /dev/full in preference to /dev/null for programs
+  # that don't have open fds at exec()
+  /dev/full                      rw,
+
+  # Sometimes used to determine kernel/user interfaces to use
+  @{PROC}/sys/kernel/version     r,
+  # Depending on which glibc routine uses this file, base may not be the
+  # best place -- but many profiles require it, and it is quite harmless.
+  @{PROC}/sys/kernel/ngroups_max r,
+
+  # glibc's sysconf(3) routine to determine free memory, etc
+  @{PROC}/meminfo                r,
+  @{PROC}/stat                   r,
+  @{PROC}/cpuinfo                r,
+
+  # glibc's *printf protections read the maps file
+  @{PROC}/*/maps                 r,
+
+  # some applications will display license information
+  /usr/share/common-licenses/**  r,

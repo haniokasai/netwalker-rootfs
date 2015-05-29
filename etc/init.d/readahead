@@ -1,0 +1,69 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          readahead
+# Required-Start:    
+# Required-Stop:
+# X-Start-Before:    mountkernfs hostname
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: init script for readahead
+### END INIT INFO
+
+# Check the package is still installed
+[ -x /sbin/readahead-list ] || exit 0
+
+# Get LSB functions
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+
+# Remember that any major changes to this script need to also be made to
+# readahead-desktop.init
+
+# Remove the boot list to disable this readhead phase
+[ -r /etc/readahead/boot ] || exit 0
+
+case "$1" in
+    start|restart|force-reload)
+	# This can take a while
+	if type usplash_write >/dev/null 2>&1; then
+	    usplash_write "TIMEOUT 360" || true
+	fi
+
+	# If "profile" is placed on the kernel command-line we watch the boot
+	# sequence and generate new readahead lists, rather than read the lists
+	if ! grep -q "profile" /proc/cmdline; then
+	    log_begin_msg "Reading files needed to boot..."
+	    if /sbin/start-stop-daemon --start --quiet \
+		--pidfile /var/run/readahead-list.bogus \
+		--startas /sbin/readahead-list -- -s /etc/readahead/boot; then
+		log_end_msg 0
+	    else
+		log_end_msg $?
+	    fi
+	else
+	    echo 524288 > /proc/sys/fs/inotify/max_user_watches
+
+	    log_begin_msg "Preparing to profile boot sequence..."
+	    if /sbin/start-stop-daemon --start --quiet \
+		--pidfile /var/run/readahead-watch.bogus \
+		--startas /sbin/readahead-watch -- -o /etc/readahead/boot; then
+		log_end_msg 0	
+	    else
+		log_end_msg $? || true
+	    fi 
+	fi
+
+	if type usplash_write >/dev/null 2>&1; then
+	    usplash_write "TIMEOUT 15" || true
+	fi
+	;;
+    stop)
+	;;
+    *)
+	echo "Usage: /etc/init.d/readahead {start|stop|restart|force-reload}"
+	exit 1
+	;;
+esac
+
+exit 0

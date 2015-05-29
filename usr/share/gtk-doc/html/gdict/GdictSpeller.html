@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GdictSpeller</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="index.html" title="GNOME Dictionary Library Reference Manual">
+<link rel="up" href="ch05.html" title="Base widgets">
+<link rel="prev" href="GdictDefbox.html" title="GdictDefbox">
+<link rel="next" href="ch06.html" title="Advanced widgets">
+<meta name="generator" content="GTK-Doc V1.11 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="introduction.html" title="Part I. Introduction">
+<link rel="part" href="gdict.html" title="Part II. The GNOME Dictionary Library">
+<link rel="chapter" href="context.html" title="Dictionary Context">
+<link rel="chapter" href="context-types.html" title="Context Implementations">
+<link rel="chapter" href="sources.html" title="Dictionary Source">
+<link rel="chapter" href="gdict-utils.html" title="Gdict Utilities">
+<link rel="part" href="gdictui.html" title="Part III. The GNOME Dictionary Library Widgets">
+<link rel="chapter" href="ch05.html" title="Base widgets">
+<link rel="chapter" href="ch06.html" title="Advanced widgets">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="index" href="ix02.html" title="Index of deprecated symbols">
+<link rel="index" href="ix03.html" title="Index of new symbols in 0.10">
+<link rel="index" href="ix04.html" title="Index of new symbols in 0.12">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="GdictDefbox.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch05.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">GNOME Dictionary Library Reference Manual</th>
+<td><a accesskey="n" href="ch06.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#GdictSpeller.synopsis" class="shortcut">Top</a>
+                 | 
+                <a href="#GdictSpeller.description" class="shortcut">Description</a>
+                 | 
+                <a href="#GdictSpeller.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                 | 
+                <a href="#GdictSpeller.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                 | 
+                <a href="#GdictSpeller.properties" class="shortcut">Properties</a>
+                 | 
+                <a href="#GdictSpeller.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="GdictSpeller"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GdictSpeller.top_of_page"></a>GdictSpeller</span></h2>
+<p>GdictSpeller — Display matching words</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="GdictSpeller.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+                    <a class="link" href="GdictSpeller.html#GdictSpeller-struct" title="GdictSpeller">GdictSpeller</a>;
+                    <a class="link" href="GdictSpeller.html#GdictSpellerClass" title="GdictSpellerClass">GdictSpellerClass</a>;
+GtkWidget *         <a class="link" href="GdictSpeller.html#gdict-speller-new" title="gdict_speller_new ()">gdict_speller_new</a>                   (void);
+GtkWidget *         <a class="link" href="GdictSpeller.html#gdict-speller-new-with-context" title="gdict_speller_new_with_context ()">gdict_speller_new_with_context</a>      (GdictContext *context);
+void                <a class="link" href="GdictSpeller.html#gdict-speller-set-context" title="gdict_speller_set_context ()">gdict_speller_set_context</a>           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         GdictContext *context);
+GdictContext *      <a class="link" href="GdictSpeller.html#gdict-speller-get-context" title="gdict_speller_get_context ()">gdict_speller_get_context</a>           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);
+void                <a class="link" href="GdictSpeller.html#gdict-speller-set-database" title="gdict_speller_set_database ()">gdict_speller_set_database</a>          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *database);
+const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *       <a class="link" href="GdictSpeller.html#gdict-speller-get-database" title="gdict_speller_get_database ()">gdict_speller_get_database</a>          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);
+void                <a class="link" href="GdictSpeller.html#gdict-speller-set-strategy" title="gdict_speller_set_strategy ()">gdict_speller_set_strategy</a>          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *strategy);
+const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *       <a class="link" href="GdictSpeller.html#gdict-speller-get-strategy" title="gdict_speller_get_strategy ()">gdict_speller_get_strategy</a>          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);
+void                <a class="link" href="GdictSpeller.html#gdict-speller-clear" title="gdict_speller_clear ()">gdict_speller_clear</a>                 (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);
+void                <a class="link" href="GdictSpeller.html#gdict-speller-match" title="gdict_speller_match ()">gdict_speller_match</a>                 (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *word);
+<a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a>                <a class="link" href="GdictSpeller.html#gdict-speller-count-matches" title="gdict_speller_count_matches ()">gdict_speller_count_matches</a>         (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);
+<a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> **            <a class="link" href="GdictSpeller.html#gdict-speller-get-matches" title="gdict_speller_get_matches ()">gdict_speller_get_matches</a>           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gsize"
+>gsize</a> length);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a
+href="/opt/gnome2/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"
+>GObject</a>
+   +----<a
+href="/opt/gnome2/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned"
+>GInitiallyUnowned</a>
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBox
+                                 +----GtkVBox
+                                       +----GdictSpeller
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GdictSpeller implements
+ AtkImplementorIface and  GtkBuildable.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="GdictSpeller.html#GdictSpeller--context" title='The "context" property'>context</a>"                  GdictContext*         : Read / Write / Construct
+  "<a class="link" href="GdictSpeller.html#GdictSpeller--database" title='The "database" property'>database</a>"                 <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*                : Read / Write
+  "<a class="link" href="GdictSpeller.html#GdictSpeller--strategy" title='The "strategy" property'>strategy</a>"                 <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="GdictSpeller.html#GdictSpeller-word-activated" title='The "word-activated" signal'>word-activated</a>"                                 : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a> is a widget showing a list of words returned by a 
+<span class="type">GdictContext</span> query, using a specific database and a matching strategy.</p>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="GdictSpeller-struct"></a><h3>GdictSpeller</h3>
+<pre class="programlisting">typedef struct _GdictSpeller GdictSpeller;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="GdictSpellerClass"></a><h3>GdictSpellerClass</h3>
+<pre class="programlisting">typedef struct {
+  GtkVBoxClass parent_class;
+
+  void (*word_activated) (GdictSpeller *speller,
+		          const gchar  *word,
+			  const gchar  *database);
+
+  /* padding for future expansion */
+  void (*_gdict_speller_1) (void);
+  void (*_gdict_speller_2) (void);
+  void (*_gdict_speller_3) (void);
+  void (*_gdict_speller_4) (void);  
+} GdictSpellerClass;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-new"></a><h3>gdict_speller_new ()</h3>
+<pre class="programlisting">GtkWidget *         gdict_speller_new                   (void);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> FIXME
+
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since </p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-new-with-context"></a><h3>gdict_speller_new_with_context ()</h3>
+<pre class="programlisting">GtkWidget *         gdict_speller_new_with_context      (GdictContext *context);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td> a <span class="type">GdictContext</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> FIXME
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since </p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-set-context"></a><h3>gdict_speller_set_context ()</h3>
+<pre class="programlisting">void                gdict_speller_set_context           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         GdictContext *context);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td> a <span class="type">GdictContext</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since </p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-get-context"></a><h3>gdict_speller_get_context ()</h3>
+<pre class="programlisting">GdictContext *      gdict_speller_get_context           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <span class="type">GdictContext</span>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since </p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-set-database"></a><h3>gdict_speller_set_database ()</h3>
+<pre class="programlisting">void                gdict_speller_set_database          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *database);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>database</code></em> :</span></p></td>
+<td> FIXME
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since </p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-get-database"></a><h3>gdict_speller_get_database ()</h3>
+<pre class="programlisting">const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *       gdict_speller_get_database          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> FIXME
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-set-strategy"></a><h3>gdict_speller_set_strategy ()</h3>
+<pre class="programlisting">void                gdict_speller_set_strategy          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *strategy);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strategy</code></em> :</span></p></td>
+<td> FIXME
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-get-strategy"></a><h3>gdict_speller_get_strategy ()</h3>
+<pre class="programlisting">const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *       gdict_speller_get_strategy          (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> FIXME
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-clear"></a><h3>gdict_speller_clear ()</h3>
+<pre class="programlisting">void                gdict_speller_clear                 (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr></tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-match"></a><h3>gdict_speller_match ()</h3>
+<pre class="programlisting">void                gdict_speller_match                 (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         const <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *word);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>word</code></em> :</span></p></td>
+<td> FIXME
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-count-matches"></a><h3>gdict_speller_count_matches ()</h3>
+<pre class="programlisting"><a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gint"
+>gint</a>                gdict_speller_count_matches         (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="gdict-speller-get-matches"></a><h3>gdict_speller_get_matches ()</h3>
+<pre class="programlisting"><a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> **            gdict_speller_get_matches           (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *speller,
+                                                         <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gsize"
+>gsize</a> length);</pre>
+<p>
+FIXME</p>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>speller</code></em> :</span></p></td>
+<td> a <a class="link" href="GdictSpeller.html" title="GdictSpeller"><span class="type">GdictSpeller</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td> FIXME
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> FIXME
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since FIXME</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="GdictSpeller--context"></a><h3>The <code class="literal">"context"</code> property</h3>
+<pre class="programlisting">  "context"                  GdictContext*         : Read / Write / Construct</pre>
+<p>The GdictContext object used to get the word definition.</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="GdictSpeller--database"></a><h3>The <code class="literal">"database"</code> property</h3>
+<pre class="programlisting">  "database"                 <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*                : Read / Write</pre>
+<p>The database used to query the GdictContext.</p>
+<p>Default value: "*"</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="GdictSpeller--strategy"></a><h3>The <code class="literal">"strategy"</code> property</h3>
+<pre class="programlisting">  "strategy"                 <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>*                : Read / Write</pre>
+<p>The strategy used to query the GdictContext.</p>
+<p>Default value: "."</p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="GdictSpeller.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="GdictSpeller-word-activated"></a><h3>The <code class="literal">"word-activated"</code> signal</h3>
+<pre class="programlisting">void                user_function                      (<a class="link" href="GdictSpeller.html" title="GdictSpeller">GdictSpeller</a> *gdictspeller,
+                                                        <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>        *arg1,
+                                                        <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a>        *arg2,
+                                                        <a
+href="/opt/gnome2/share/gtk-doc/html/glib/glib-Basic-Types.html#gpointer"
+>gpointer</a>      user_data)         : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>gdictspeller</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg2</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.11</div>
+</body>
+</html>

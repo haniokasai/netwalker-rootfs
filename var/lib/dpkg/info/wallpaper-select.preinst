@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmodules
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+	if [ -e "/etc/modprobe.d/wallpaper-select" ]; then
+		if [ "`md5sum \"/etc/modprobe.d/wallpaper-select\" | sed -e \"s/ .*//\"`" = \
+		     "`dpkg-query -W -f='${Conffiles}' wallpaper-select | sed -n -e \"\\\\' /etc/modprobe.d/wallpaper-select's/.* //p\"`" ]
+		then
+			rm -f "/etc/modprobe.d/wallpaper-select"
+		fi
+	fi
+fi
+# End automatically added section

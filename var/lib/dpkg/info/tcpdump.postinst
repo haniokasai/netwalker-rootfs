@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+if [ "$1" = "configure" ]; then
+    # Reload AppArmor profile
+    if [ -x /etc/init.d/apparmor ]; then
+        invoke-rc.d apparmor force-reload || true
+    fi
+fi
+

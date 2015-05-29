@@ -1,0 +1,113 @@
+#!/usr/bin/perl -w
+# used by *ubuntu-docs packages
+
+use strict qw(refs);
+use POSIX;
+our ($yes); map { $yes{$_}=1 }
+#******************************************************************************
+#****  read DapperFirefoxStartPageTranslation before changing this list !  ****
+    qw(
+
+       ar bg_BG bn bn_IN ca cs_CZ da_DK de de_DE el en_GB es es_AR
+       es_ES eu fi_FI fr fr_FR ga_IE gl gu_IN he_IL hu_HU it_IT ja_JP
+       ko ku lt mk_MK mn nb_NO nl nl_NL pa_IN pl_PL pt pt_BR ro_RO ru_RU
+       sk sl_SI sv_SE tr_TR zh_CN zh_TW
+
+       )
+#****  read DapperFirefoxStartPageTranslation before changing this list !  ****
+#******************************************************************************
+    ;
+
+$0 =~ s,.*/,,;
+$usage= <<END;
+$0 is a tool to help with
+ http://wiki.ubuntu.com/DapperFirefoxStartPageTranslation
+
+$0 --list
+  print list of translateable locales
+
+$0 LOCALE
+  maps LOCALE to best translateable locale (`-' means en_US)
+
+$0 SRCDIR PKGSTAGING ALTDIR DSTPATH ENUSLINKSRC
+  for use in debian/rules of a *ubuntu-docs package
+  installs index-*.html files and symlinks.
+   SRCDIR       the directory containing all the index-*.html files
+                 (not symlinks) which are the available translations
+   PKGSTAGING   directory (eg debian/ubuntu-docs) where the package is
+                 being constructed
+   ALTDIR       DapperFirefoxStartPageTranslation's ALTDIR, incl. leading /
+   ENUSLINKSRC  symlink text to use for untranslated but translateable
+                 locales; should be a relative link from ALTDIR to
+                 to the default en_US start page
+END
+
+$yes{'C'}= 1;
+
+#---------- and now the program: ----------
+
+sub maplocale ($\%) {
+    my ($l,$ehash) = @_;
+    return $l if exists $ehash->{$l};
+    if ($l =~ s/_.*$//) { return $l if exists $ehash->{$l}; }
+    $l= $l.'_'.uc $l;
+    return $l if exists $ehash->{$l};
+    return '';
+}
+
+if (@ARGV==1) {
+    our ($want) = @ARGV;
+    if ($want eq '--list') {
+	print join(' ', sort keys %yes),"\n" or die $!;
+    } elsif ($want =~ m/^\-/) {
+	die "$0; unknown option \`$want'\n";
+    } else {
+	our ($got) = maplocale($want, %yes);
+	$got='-' if $got eq '';
+	print "$got\n" or die $!;
+    }
+} elsif (@ARGV==4) {
+    our ($srcdir, $pkgstaging, $altdir, $enuslinksrc) = @ARGV;
+    our (@files, %file, $want, $got, $dstpath, $linksrc, $linkdst);
+    @files= glob "$srcdir/index-*.html";
+    $dstpath= $pkgstaging.$altdir;
+    $!=0; system('install','-m755','-oroot','-groot','-d',$dstpath)
+	and die "$0: create $dstpath: $? $!\n";
+    if (@files) {
+	$!=0; system('install','-m644','-oroot','-groot',@files,"$dstpath/.")
+	    and die "$0: install @files in $dstpath: $? $!\n";
+    }
+    map { m,index-([^/]+)\.html$, or die; $file{$1}=0; } @files;
+    foreach $want (sort keys %yes) {
+	$got= maplocale($want, %file);
+	if (length $got) {
+	    $file{$got}++;
+	    $linksrc= "index-$got.html";
+	} else {
+	    $linksrc= $enuslinksrc;
+	}
+	push @map, [ $want, ($got eq $want ? "=    " :
+			     length $got ? "-> $got" : "-> -") ];
+	next if $want eq $got;
+	$linkdst= "$dstpath/index-$want.html";
+	remove($linkdst) or $!==&ENOENT or die "$0: remove old $linkdst: $!\n";
+	symlink($linksrc, $linkdst)
+	    or die "$0: symlink $linksrc $linkdst: $!\n";
+    }
+    our $cols=4;
+    our $rows= ceil(@map / $cols);
+    for ($row=0; $row<$rows; $row++) {
+	for ($col=0, $i=$col*$rows + $row;
+	     $col<$cols && $i<@map;
+	     $i+=$rows, $col++) {
+	    printf "%s %-5s %s", ($col?"\t":""), @{$map[$i]} or die $!;
+	}
+	print "\n" or die $!;
+    }
+    foreach $got (keys %file) {
+	next if $file{$got} >= 1;
+	print STDERR "$0: installed unuseable translation for $got\n";
+    }
+} else {
+    die "$0: bad usage\n\n$usage\n";
+}

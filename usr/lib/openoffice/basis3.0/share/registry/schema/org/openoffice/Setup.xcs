@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<oor:component-schema xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oor:name="Setup" oor:package="org.openoffice" xml:lang="en-US">
+  <info>
+    <desc>Contains Setup preferences, such as the installed UI locales or the available modules.</desc>
+  </info>
+  <templates>
+    <group oor:name="InstalledLocale">
+      <info>
+        <desc>Describes a language pack that is installed to provide a localized office UI.</desc>
+      </info>
+      <prop oor:name="Origin" oor:type="xs:string">
+        <info>
+          <desc>Identifies the organization, group or person that provided this language pack.</desc>
+        </info>
+      </prop>
+    </group>
+    <group oor:name="MigrationStep">
+      <info>
+        <desc>Describes one step of migration</desc>
+      </info>
+      <prop oor:name="MigrationService" oor:type="xs:string">
+        <info>
+          <desc>an optional uno service that is called after files and nodes have been copied in order to perform custom migration actions. The service needs to support XInitializable and XJob interfaces according do http://specs.openoffice.org/appwide/migration/spec_migration.sxw</desc>
+        </info>
+      </prop>
+      <prop oor:name="ServiceConfigComponents" oor:type="oor:string-list">
+        <info>
+          <desc>a list of config components that are to be passed to service</desc>
+        </info>
+      </prop>
+      <prop oor:name="IncludedFiles" oor:type="oor:string-list">
+        <info>
+          <desc>a list of wildcards relative to the old userdata origin that are to be copied</desc>
+        </info>
+      </prop>
+      <prop oor:name="ExcludedFiles" oor:type="oor:string-list">
+        <info>
+          <desc>a list of wildcards relative to the old userdata origin that are to be copied</desc>
+        </info>
+      </prop>
+      <prop oor:name="IncludedNodes" oor:type="oor:string-list">
+        <info>
+          <desc>a list of configuration node paths that are to be moved from the old user layer to the new user layer</desc>
+        </info>
+      </prop>
+      <prop oor:name="ExcludedNodes" oor:type="oor:string-list">
+        <info>
+          <desc>a list of configuration node paths that are not to be moved from the old user layer to the new user layer</desc>
+        </info>
+      </prop>
+    </group>
+    <group oor:name="Factory">
+      <info>
+        <desc>Describes an application module (a document factory, such as Writer).</desc>
+      </info>
+      <prop oor:name="ooSetupFactoryActualFilter" oor:type="xs:string">
+        <info>
+          <desc>It's the "most actual" filter, which is able to import/export ALL currently implemented features of this office module.
+					      It has to be the programatic name of the filter.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryActualTemplateFilter" oor:type="xs:string">
+        <info>
+          <desc>The same meaning as ooSetupFactoryActualFilter ... but regarding to the actual template format.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryDefaultFilter" oor:type="xs:string">
+        <info>
+          <desc>Specifies the default file format for saving documents inside this office module.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryDocumentService" oor:type="xs:string">
+        <info>
+          <desc>Its the service name of the document model used by this module. E.g. filter match against those service name.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryShortName" oor:type="xs:string">
+        <info>
+          <desc>Specifies the short name of the factory.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryUIName" oor:type="xs:string">
+        <info>
+          <desc>Specifies the UI name of the factory.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryTemplateFile" oor:type="xs:string">
+        <info>
+          <desc>Specifies the name of the standard template file for the factory.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryWindowAttributes" oor:type="xs:string">
+        <info>
+          <desc>Specifies the attributes of the factory window</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryEmptyDocumentURL" oor:type="xs:string">
+        <info>
+          <desc>Specifies the URL for opening an empty document in the factory.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryIcon" oor:type="xs:int">
+        <info>
+          <desc>Specifies the ID of the icon for the factory</desc>
+        </info>
+        <value>0</value>
+      </prop>
+      <prop oor:name="ooSetupFactoryStyleFilter" oor:type="xs:int">
+        <info>
+          <desc>Specifies the ID of the style filter (Stylist) for the factory</desc>
+        </info>
+        <value>-1</value>
+      </prop>
+      <prop oor:name="ooSetupFactoryCommandConfigRef" oor:type="xs:string">
+        <info>
+          <desc>Refer to a configuration file, which contains the list of UI commands, suitable for this module.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryWindowStateConfigRef" oor:type="xs:string">
+        <info>
+          <desc>Refer to a configuration file, which contains the persistent window data, suitable for this module.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryCmdCategoryConfigRef" oor:type="xs:string">
+        <info>
+          <desc>Refers to a configuration file which contains category definitions for user interface commands suitable for this module.</desc>
+          <desc>Refers to a configuration file which contains category definitions for user interface commands suitable for this module.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryHelpBaseURL" oor:type="xs:string">
+        <info>
+          <desc>Describe the base part of a help URL, which can be used to show the start help page according to the used office factory.</desc>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupFactoryHelpOnOpen" oor:type="xs:boolean">
+        <info>
+          <desc>Enable/disable automatic showing of the start help page for this office factory, if any document suitable for this factory is opened.</desc>
+        </info>
+      </prop>
+    </group>
+  </templates>
+  <component>
+    <group oor:name="Product">
+      <info>
+        <desc>Contains common product and version information</desc>
+      </info>
+      <prop oor:name="ooName" oor:type="xs:string">
+        <info>
+          <desc>Specifies the name of a product.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooXMLFileFormatVersion" oor:type="xs:string">
+        <info>
+          <desc>Specifies the version of the SO 6/7 or OOo 1.0 xml file formats.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooXMLFileFormatName" oor:type="xs:string">
+        <info>
+          <desc>Specifies the name of the SO6/7 or OOo1.0 xml file formats.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupVersion" oor:type="xs:string">
+        <info>
+          <desc>Specifies the version number of the product that appears on the user interface.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupVersionAboutBox" oor:type="xs:string">
+        <info>
+          <desc>Specifies the complete (major.minor.micro) version number of the product that appears only on the about box.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupExtension" oor:type="xs:string">
+        <info>
+          <desc>Specifies the version number that appears on the user interface.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooOpenSourceContext" oor:type="xs:int">
+        <info>
+          <desc>Specifies the context of the product. A value greater than 0 is specifying an OpenSource context.</desc>
+        </info>
+        <value>0</value>
+      </prop>
+    </group>
+    <group oor:name="Office">
+      <info>
+        <desc>Specifies the installation location, locales and the available factories for creating documents.</desc>
+      </info>
+      <prop oor:name="ooSetupInstallPath" oor:type="xs:string">
+        <info>
+          <deprecated/>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupInstallURL" oor:type="xs:string">
+        <info>
+          <deprecated/>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupInstCompleted" oor:type="xs:boolean">
+        <info>
+          <deprecated/>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupLocales" oor:type="oor:string-list">
+        <info>
+          <deprecated/>
+        </info>
+      </prop>
+      <set oor:name="InstalledLocales" oor:node-type="InstalledLocale">
+        <info>
+          <desc>Enumerates the application languages that are installed, if a multilingual version is used.</desc>
+        </info>
+      </set>
+      <prop oor:name="ooSetupShowIntro" oor:type="xs:boolean">
+        <info>
+          <deprecated/>
+        </info>
+      </prop>
+      <prop oor:name="ooSetupConnectionURL" oor:type="xs:string">
+        <info>
+          <desc>Specifies the URL for an UNO connection that can be used to script the office from outside.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="LicenseAcceptDate" oor:type="xs:string">
+        <info>
+          <desc>The xsd:datetime (YYYY-MM-DDTHH:MM:SS) on which the user has accepted the license. If the current installation has a license that is newer then this date, the license has to be accepted again.</desc>
+        </info>
+      </prop>
+      <prop oor:name="FirstStartWizardCompleted" oor:type="xs:boolean">
+        <info>
+          <desc>is set to true, when the FirstStartWizard has been completed</desc>
+        </info>
+        <value>false</value>
+      </prop>
+      <prop oor:name="MigrationCompleted" oor:type="xs:boolean">
+        <info>
+          <desc>This should be set to true, as soon as settings from
+                    nother version have been imported into this installation
+                    in order to prevent multiple migrations</desc>
+        </info>
+        <value>false</value>
+      </prop>
+      <set oor:name="Factories" oor:node-type="Factory">
+        <info>
+          <desc>Contains all of the document factories that were installed during setup.</desc>
+        </info>
+      </set>
+    </group>
+    <group oor:name="L10N">
+      <info>
+        <desc>Specifies the installation locales.</desc>
+      </info>
+      <prop oor:name="ooLocale" oor:type="xs:string">
+        <info>
+          <desc>Indicates the Office language selected by the user.</desc>
+          <label>Locale</label>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupSystemLocale" oor:type="xs:string">
+        <info>
+          <desc>Indicates the locale setting defined by the user. By default, this label is empty and the system locale is used.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="ooSetupCurrency" oor:type="xs:string">
+        <info>
+          <desc>Indicates the currency settings defined by the user. By default, this label is empty and the currency defined in the ooSetupSystemLocale is used.</desc>
+        </info>
+        <value/>
+      </prop>
+      <prop oor:name="DecimalSeparatorAsLocale" oor:type="xs:boolean" oor:nillable="false">
+        <info>
+          <desc>Indicates that the decimal separator (dot or commma) is used as appropriate for the selected locale instead of the one related to the default keyboard layout.</desc>
+          <label>Decimal separator key same as locale setting.</label>
+        </info>
+        <value>true</value>
+      </prop>
+    </group>
+    <group oor:name="Configuration">
+      <info>
+        <desc>Contains settings that control configuration data access.</desc>
+      </info>
+      <prop oor:name="TransferUserSettingsOnce" oor:type="xs:boolean" oor:nillable="false">
+        <info>
+          <deprecated/>
+        </info>
+      </prop>
+    </group>
+    <group oor:name="Migration">
+      <info>
+        <desc>Contains settings that control configuration data access.</desc>
+      </info>
+      <set oor:name="MigrationSteps" oor:node-type="MigrationStep">
+        <info>
+          <desc>The enumeration of migration steps that are to be applied on first start</desc>
+        </info>
+      </set>
+      <prop oor:name="SupportedVersions" oor:type="oor:string-list">
+        <info>
+          <desc>version identifiers, that are supported for migration</desc>
+        </info>
+        <value/>
+      </prop>
+    </group>
+  </component>
+</oor:component-schema>

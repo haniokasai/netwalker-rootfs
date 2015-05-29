@@ -1,0 +1,263 @@
+# Orca
+#
+# Copyright 2006-2008 Sun Microsystems Inc.
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Library General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+#
+# You should have received a copy of the GNU Library General Public
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc., Franklin Street, Fifth Floor,
+# Boston MA  02110-1301 USA.
+
+"""Exposes a dictionary, keynames, that maps key events
+into localized words."""
+
+__id__        = "$Id: keynames.py 4045 2008-07-18 13:20:37Z wwalker $"
+__version__   = "$Revision: 4045 $"
+__date__      = "$Date: 2008-07-18 09:20:37 -0400 (Fri, 18 Jul 2008) $"
+__copyright__ = "Copyright (c) 2006-2008 Sun Microsystems Inc."
+__license__   = "LGPL"
+
+import chnames
+
+from orca_i18n import _ # for gettext support
+
+# __keynames is a dictionary where the keys represent a UTF-8
+# string for a keyboard key and the values represent the common
+# phrase used to describe the key.
+#
+__keynames = {}
+
+# Translators: this is how someone would speak the name of the left shift key
+#
+__keynames["Shift_L"]      = _("left shift")
+
+# Translators: this is how someone would speak the name of the left alt key
+#
+__keynames["Alt_L"]        = _("left alt")
+
+# Translators: this is how someone would speak the name of the left ctrl key
+#
+__keynames["Control_L"]    = _("left control")
+
+# Translators: this is how someone would speak the name of the right shift key
+#
+__keynames["Shift_R"]      = _("right shift")
+
+# Translators: this is how someone would speak the name of the right alt key
+#
+__keynames["Alt_R"]        = _("right alt")
+
+# Translators: this is how someone would speak the name of the right ctrl key
+#
+__keynames["Control_R"]    = _("right control")
+
+# Translators: this is how someone would speak the name of the left meta key
+#
+__keynames["Meta_L"]       = _("left meta")
+
+# Translators: this is how someone would speak the name of the right meta key
+#
+__keynames["Meta_R"]       = _("right meta")
+
+# Translators: this is how someone would speak the name of the num lock key
+#
+__keynames["Num_Lock"]     = _("num lock")
+
+# Translators: this is how someone would speak the name of the caps lock key
+#
+__keynames["Caps_Lock"]    = _("caps lock")
+
+# Translators: this is how someone would speak the name of the scroll lock key
+#
+__keynames["Scroll_Lock"]  = _("scroll lock")
+
+# Translators: this is how someone would speak the name of the page up key
+#
+__keynames["Page_Up"]      = _("page up")
+
+# Translators: this is how someone would speak the name of the page up key
+#
+__keynames["KP_Page_Up"]      = _("page up")
+
+# Translators: this is how someone would speak the name of the page up key
+#
+__keynames["Prior"]      = _("page up")
+
+# Translators: this is how someone would speak the name of the page up key
+#
+__keynames["KP_Prior"]      = _("page up")
+
+# Translators: this is how someone would speak the name of the page down key
+#
+__keynames["Page_Down"]    = _("page down")
+
+# Translators: this is how someone would speak the name of the page down key
+#
+__keynames["KP_Page_Down"]    = _("page down")
+
+# Translators: this is how someone would speak the name of the page down key
+#
+__keynames["Next"]    = _("page down")
+
+# Translators: this is how someone would speak the name of the page down key
+#
+__keynames["KP_Next"]    = _("page down")
+
+# Translators: this is how someone would speak the name of the tab key
+#
+__keynames["Tab"] = _("tab")
+
+# Translators: this is how someone would speak the name of the left tab key
+#
+__keynames["ISO_Left_Tab"] = _("left tab")
+
+# Translators: this is how someone would speak the name of the F11 key
+#
+__keynames["SunF36"]       = _("F 11")
+
+# Translators: this is how someone would speak the name of the F12 key
+#
+__keynames["SunF37"]       = _("F 12")
+
+# Translators: this is the spoken word for the space character
+#
+__keynames["space"] = _("space")
+
+# Translators: this is how someone would speak the name of the backspace key
+#
+__keynames["BackSpace"] = _("backspace")
+
+# Translators: this is how someone would speak the name of the return key
+#
+__keynames["Return"] = _("return")
+
+# Translators: this is how someone would speak the name of the enter key
+#
+__keynames["KP_Enter"] = _("enter")
+
+# Translators: this is how someone would speak the name of the up arrow key 
+#
+__keynames["Up"] = _("up")
+
+# Translators: this is how someone would speak the name of the up arrow key 
+#
+__keynames["KP_Up"] = _("up")
+
+# Translators: this is how someone would speak the name of the down arrow key 
+#
+__keynames["Down"] = _("down")
+
+# Translators: this is how someone would speak the name of the down arrow key 
+#
+__keynames["KP_Down"] = _("down")
+
+# Translators: this is how someone would speak the name of the left arrow key 
+#
+__keynames["Left"] = _("left")
+
+# Translators: this is how someone would speak the name of the left arrow key 
+#
+__keynames["KP_Left"] = _("left")
+
+# Translators: this is how someone would speak the name of the right arrow key 
+#
+__keynames["Right"] = _("right")
+
+# Translators: this is how someone would speak the name of the right arrow key 
+#
+__keynames["KP_Right"] = _("right")
+
+# Translators: this is how someone would speak the name of the left super key 
+#
+__keynames["Super_L"] = _("left super")
+
+# Translators: this is how someone would speak the name of the right super key 
+#
+__keynames["Super_R"] = _("right super")
+
+# Translators: this is how someone would speak the name of the menu key 
+#
+__keynames["Menu"] = _("menu")
+
+# Translators: this is how someone would speak the name of the ISO shift key 
+#
+__keynames["ISO_Level3_Shift"] = _("ISO level 3 shift")
+
+# Translators: this is how someone would speak the name of the help key 
+#
+__keynames["Help"] = _("help")
+
+# Translators: this is how someone would speak the name of the multi key 
+#
+__keynames["Multi_key"] = _("multi")
+
+# Translators: this is how someone would speak the name of the mode switch key 
+#
+__keynames["Mode_switch"] = _("mode switch")
+
+# Translators: this is how someone would speak the name of the escape key 
+#
+__keynames["Escape"] = _("escape")
+
+# Translators: this is how someone would speak the name of the insert key
+#
+__keynames["Insert"] = _("insert")
+
+# Translators: this is how someone would speak the name of the insert key
+#
+__keynames["KP_Insert"] = _("insert")
+
+# Translators: this is how someone would speak the name of the delete key
+#
+__keynames["Delete"] = _("delete")
+
+# Translators: this is how someone would speak the name of the delete key
+#
+__keynames["KP_Delete"] = _("delete")
+
+# Translators: this is how someone would speak the name of the home key
+#
+__keynames["Home"] = _("home")
+
+# Translators: this is how someone would speak the name of the home key
+#
+__keynames["KP_Home"] = _("home")
+
+# Translators: this is how someone would speak the name of the end key
+#
+__keynames["End"] = _("end")
+
+# Translators: this is how someone would speak the name of the end key
+#
+__keynames["KP_End"] = _("end")
+
+# Translators: this is how someone would speak the name of the begin key
+#
+__keynames["KP_Begin"] = _("begin")
+
+def getKeyName(key):
+    """Given a keyboard key, return its name as people might refer to it
+    in ordinary conversation.
+
+    Arguments:
+    - key: the key to get the name for
+
+    Returns a string representing the name for the key
+    """
+
+    if isinstance(key, unicode):
+        key = key.encode("UTF-8")
+
+    try:
+        return __keynames[key]
+    except:
+        return chnames.getCharacterName(key)

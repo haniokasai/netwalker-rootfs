@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="ca">
+	<articleinfo>
+		<title>Manual del xifratge i anells de claus</title>
+		<copyright>
+			<year>2005, 2006, 2007 i 2008</year>
+			<holder>Jacob Perkins i Adam Schreiber</holder>
+		</copyright><copyright><year>2008</year><holder>Joan Duran (jodufi@gmail.com)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Projecte Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Teniu permís per a copiar, distribuir i/o modificar aquest document, sota els termes de la Llicència de documentació lliure GNU (GFDL), versió 1.1 o qualsevol versió publicada posteriorment per la Free Software Foundation, sense seccions invariants, sense texts de portada i sense texts de contraportada. Podeu trobar una còpia de la GFDL en aquest <ulink type="help" url="ghelp:fdl">enllaç</ulink> o en el fitxer COPYING-DOCS distribuït amb aquest manual.</para>
+         <para>Aquest manual forma part d'una col·lecció de manuals del GNOME distribuïts sota la GFDL. Si voleu distribuir aquest manual independentment de la col·lecció, podeu fer-ho afegint una còpia de la llicència al manual, tal com es descriu a la secció 6 de la llicència.</para>
+
+	<para>Molts dels noms que les empreses utilitzen per a distingir els seus productes i serveis es consideren marques comercials. Quan aquests noms apareguin en qualsevol documentació del GNOME, si els membres del Projecte de documentació del GNOME han estat avisats pel que fa a les marques, els noms apareixeran en majúscules o amb les inicials en majúscules.</para>
+
+	<para>EL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT S'OFEREIXEN SOTA ELS TERMES DE LA LLICÈNCIA DE DOCUMENTACIÓ LLIURE DE GNU, TENINT EN COMPTE QUE: <orderedlist>
+		<listitem>
+		  <para>EL DOCUMENT S'OFEREIX «TAL COM ÉS», SENSE CAP TIPUS DE GARANTIA, NI EXPLÍCITA NI IMPLÍCITA; AIXÒ INCLOU, SENSE LIMITAR-S'HI, LES GARANTIES QUE EL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT NO TINGUI DEFECTES, SIGUI COMERCIALITZABLE, SIGUI ADEQUAT PER A UN ÚS CONCRET O NO INFRINGEIXI CAP LLEI. TOT EL RISC PEL QUE FA A LA QUALITAT, EXACTITUD I RENDIMENT DEL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT ÉS VOSTRE. EN CAS QUE EL DOCUMENT RESULTÉS DEFECTUÓS EN QUALSEVOL ASPECTE, VÓS (NO PAS L'ESCRIPTOR INICIAL, L'AUTOR O CAP ALTRE COL·LABORADOR) ASSUMIU TOT EL COST DE MANTENIMENT, REPARACIÓ O CORRECCIÓ. AQUESTA RENÚNCIA DE GARANTIA CONSTITUEIX UNA PART ESSENCIAL D'AQUESTA LLICÈNCIA. NO S'AUTORITZA L'ÚS DE CAP DOCUMENT O VERSIÓ MODIFICADA DEL DOCUMENT EXCEPTE SOTA AQUESTA RENÚNCIA DE GARANTIA; I</para>
+		</listitem>
+		<listitem>
+		  <para>EN CAP CAS I SOTA CAP INTERPRETACIÓ LEGAL, JA SIGUI PER AGREUJAMENT (INCLOENT-HI LA NEGLIGÈNCIA), CONTRACTE O ALTRE CAS, L'AUTOR, L'ESCRIPTOR ORIGINAL, QUALSEVOL DELS COL·LABORADORS O DISTRIBUÏDORS DEL DOCUMENT O UNA VERSIÓ MODIFICADA DEL DOCUMENT NI CAP PROVEÏDOR D'AQUESTES PARTS NO SERAN RESPONSABLES DAVANT DE NINGÚ PER CAP DANY DIRECTE, INDIRECTE, ESPECIAL, ACCIDENTAL O CONSECUTIU DE QUALSEVOL TIPUS; AIXÒ INCLOU, SENSE LIMITAR-S'HI, ELS DANYS PER PÈRDUA DE CLIENTS, INTERRUPCIONS DE LA FEINA, FALLADA O MALFUNCIONAMENT DE L'ORDINADOR, O QUALSEVOL ALTRA PÈRDUA O DANY RELACIONAT AMB L'ÚS DEL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT, FINS I TOT SI S'HA INFORMAT AQUESTA PART DE LA POSSIBILITAT D'AQUESTS DANYS.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Projecte Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Projecte Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Projecte Seahorse</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Manual del xifratge i anells de claus v0.10.0</revnumber>
+				<date>Agost de 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Manual del xifratge i anells de claus v0.9.1</revnumber>
+				<date>Novembre de 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Manual del xifratge i anells de claus v0.9.0</revnumber>
+				<date>Juliol de 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Projecte Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Manual del xifratge i anells de claus v0.7.0</revnumber>
+				<date>Febrer de 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Projecte Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Aquest manual descriu la versió 2.24.x del xifratge i anells de claus</releaseinfo>
+		<legalnotice>
+			<title>Comentaris</title>
+			<para>Per a informar d'un error o fer algun suggeriment sobre l'aplicació <application>xifratge i anells de claus</application> o aquest manual, seguiu les indicacions a la <ulink url="ghelp:gnome-feedback" type="help">pàgina de comentaris del GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para>El <application>xifratge i anells de claus</application> és l'aplicació per a gestionar la clau de xifratge primària i com s'emmagatzema la contrasenya de la clau després de realitzar una operació de xifratge.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Claus de xifratge</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Introducció</title>
+        <para>Podeu utilitzar el <application>xifratge i anells de claus</application> per a seleccionar la clau de xifratge primària i com s'emmagatzema la contrasenya de la clau després de realitzar una operació de xifratge.</para>
+        <para>A més, aquest manual conté informació que pertany als connectors de xifratge proporcionats per: <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Editor de text Gedit</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Gestor de fitxers Nautilus</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Navegador web Epiphany</ulink></application></para>
+				</listitem>
+			</itemizedlist></para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>Integració amb el gestor de fitxers</title>
+    <para>El <application>xifratge i anells de claus</application> s'integra amb el <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>. Podeu xifrar, desxifrar, signar i verificar fitxers així com també importar claus públiques des de la finestra del gestor de fitxers sense haver d'executar el <application>xifratge i anells de claus</application>.</para>
+    <sect2 id="encrypt-fm">
+      <title>Com xifrar fitxers</title>
+      <para>Per a xifrar fitxers des del gestor de fitxers, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Seleccioneu un o més fitxers des del gestor de fitxers.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Feu clic amb el botó secundari a qualsevol fitxer seleccionat i trieu <guimenuitem>Xifra</guimenuitem>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Seleccioneu la gent per a la que voleu xifrar el fitxer i feu clic a <guibutton>D'acord</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Com signar fitxers</title>
+      <para>Per a signar fitxers des del gestor de fitxers, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Seleccioneu un o més fitxers des del gestor de fitxers.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Feu clic amb el botó secundari a qualsevol fitxer seleccionat i trieu <guimenuitem>Signa</guimenuitem>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Si se us sol·licita, introduïu la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Com desxifrar fitxers</title>
+      <para>Per a desxifrar un fitxer xifrat des del gestor de fitxers, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Feu doble clic al fitxer que voleu desxifrar.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Si se us sol·licita, introduïu la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Com verificar signatures</title> 
+      <para>Per a verificar fitxers, simplement feu doble clic al fitxer de signatura separat.</para>
+      <note><para>Normalment el nom del fitxer de signatura separat té la forma de &lt;nom del fitxer&gt;.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Integració amb l'editor de text</title>
+    <para>Per a habilitar el connector de xifratge de text en el <application><ulink url="ghelp:gedit" type="help">Gedit</ulink></application>, l'editor de text del GNOME, realitzeu els passos següents: <itemizedlist>
+	<listitem>
+	  <para>Executeu el <application>Gedit</application> en triar <menuchoice><guimenu>Aplicacions</guimenu><guimenuitem>Accessoris</guimenuitem><guimenuitem>Editor de text</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Trieu <menuchoice><guimenu>Edita</guimenu><guimenuitem>Preferències</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>En la pestanya <guilabel>Connectors</guilabel>, seleccioneu el connector <guilabel>Xifratge de text</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-te">
+      <title>Com xifrar text</title>
+      <para>Per a xifrar una selecció de text des del <application>Gedit</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Seleccioneu el text que voleu xifrar i trieu <menuchoice><guimenu>Edita</guimenu><guimenuitem>Xifra</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Seleccioneu la gent per a la que voleu xifrar el fitxer i feu clic a <guibutton>D'acord</guibutton>.</para>
+	  </listitem>
+	</itemizedlist> Ara podeu copiar o desar el text xifrat.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Com signar text</title>
+      <para>Per a signar una selecció de text des del <application>Gedit</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Seleccioneu el text que voleu signar i trieu <menuchoice><guimenu>Edita</guimenu><guimenuitem>Signa</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Inseriu, si se us sol·licita, la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist> Ara podeu copiar o desar el text signat.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Com desxifrar/verificar text</title>
+      <para>Per a desxifrar i/o verificar una selecció de text des del <application>Gedit</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Seleccioneu el text que voleu desxifrar/verificar i trieu <menuchoice><guimenu>Edita</guimenu><guimenuitem>Desxifra/verifica</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Inseriu, si se us sol·licita, la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist> Ara podeu copiar o desar el text desxifrat.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Integració amb el navegador web</title>
+    <para>Aquesta extensió us permet xifrar, desxifrar, signar i importar els continguts dels camps de text.</para>
+    <para>Per a habilitar l'extensió de xifratge en el <application><ulink url="ghelp:epiphany-browser" type="help">Epiphany Web Browser</ulink></application>, el navegador web del GNOME, realitzeu els passos següents: <itemizedlist>
+	<listitem>
+	  <para>Executeu el <application>Navegador web Epiphany</application> en triar <menuchoice><guimenu>Aplicacions</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Navegador web Epiphany</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Trieu <menuchoice><guimenu>Eines</guimenu><guimenuitem>Extensions</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Seleccioneu el connector <guilabel>Seahorse</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-wb">
+      <title>Com xifrar text</title>
+      <para>Per a xifrar els continguts d'un camp d'entrada de text en el <application>Navegador web Epiphany</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Feu clic amb el botó secundari al camp d'entrada de text que voleu xifrar i trieu <menuchoice><guimenuitem>Xifra</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Seleccioneu la gent per a la que voleu xifrar el fitxer i feu clic a <guibutton>D'acord</guibutton>.</para>
+	  </listitem>
+	</itemizedlist> Ara apareixerà el text xifrat al camp d'entrada de text.</para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Com signar text</title>
+      <para>Per a signar els continguts d'un camp d'entrada de text en el <application>Navegador web Epiphany</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Feu clic amb el botó secundari al camp d'entrada de text que voleu signar i trieu <menuchoice><guimenuitem>Signa</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Inseriu, si se us sol·licita, la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist> Ara apareixerà el text signat al camp d'entrada de text.</para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Com desxifrar/verificar text</title>
+      <para>Per a desxifrar i/o verificar els continguts d'un camp d'entrada de text en el <application>Navegador web Epiphany</application>, realitzeu els passos següents: <itemizedlist>
+	  <listitem>
+	    <para>Feu clic amb el botó secundari al camp d'entrada de text que voleu desxifrar/verificar i trieu <menuchoice><guimenuitem>Desxifra/verifica</guimenuitem></menuchoice>.</para>
+	  </listitem>
+	  <listitem>
+	    <para>Inseriu, si se us sol·licita, la contrasenya de la clau privada.</para>
+	  </listitem>
+	</itemizedlist> Ara apareixerà el text desxifrat al camp d'entrada de text.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Preferències</title>
+    <para>Aquesta secció descriu les preferències configurables en el <application>xifratge i anells de claus</application>.</para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Preferències de xifratge</title>
+      <para>Aquesta secció descriu les preferències configurables en triar <menuchoice><guimenu>Sistema</guimenu><guimenuitem>Preferències</guimenuitem><guimenuitem>Xifratge i anells de claus</guimenuitem></menuchoice> des del quadre.</para>
+      
+      <sect3 id="prefs">
+	<title>Paràmetres de xifratge</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Clau predeterminada</guilabel></term>
+	    <listitem>
+	      <para>Aquesta és la clau que utilitzaran les aplicacions i connectors per a signar fitxers. També serà la clau en què es xifraran els fitxers si està seleccionada l'opció de xifrar a un mateix.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>En xifrar, inclou-me sempre entre els destinataris</guilabel></term>
+	    <listitem>
+	      <para>Estableix l'opció de xifrar a un mateix, indica si us afegireu a la llista de destinataris per a tots els fitxers que es xifren.</para>
+	      <note>
+		<para>Si no seleccioneu aquesta opció i no us seleccioneu com a destinatari no podreu desxifrar cap fitxer que xifreu.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Memòria cau de contrasenyes</title>
+	<para>Habilitar la memòria cau de contrasenyes us permetrà realitzar diverses operacions que necessiten introduir la contrasenya sense haver de tornar-la a introduir cada cop. El <command>seahorse-agent</command> agafa la posició del <command>gpg-agent</command>. Normalment permetre que les contrasenyes de la memòria cau vencin és una bona idea. Això requereix que torneu a introduir la contrasenya, però afegeix seguretat.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>No recordis mai les contrasenyes</guilabel></term>
+	    <listitem>
+	      <para>Estableix que no recordi cap contrasenya.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Recorda les contrasenyes durant ... minuts</guilabel></term>
+	    <listitem>
+	      <para>Estableix la quantitat de temps, en minuts, per a emmagatzemar contrasenyes. Utilitzeu el quadre de selecció per a establir el temps desitjat.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Recorda sempre les contrasenyes en estar connectat</guilabel></term>
+	    <listitem>
+	      <para>Estableix recordar qualsevol contrasenya mentre estigueu connectat a la sessió.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Pregunta abans d'emprar una contrasenya encauada</guilabel></term>
+	    <listitem>
+	      <para>Estableix que us pregunti abans d'utilitzar una contrasenya emmagatzemada.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Carrega automàticament les claus de l'intèrpret d'ordres segur</guilabel></term>
+	    <listitem>
+	      <para>Estableix l'opció d'encauar automàticament qualsevol clau de l'intèrpret d'ordres segur.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>Quant al xifratge i anells de claus</title>
+    <para>El <application>contrasenyes i claus de xifratge</application>, els seus connectors associats, la miniaplicació de preferències i la miniaplicació del quadre són coneguts col·lectivament com a Seahorse. En Jacob Perkins és l'autor original del projecte Seahorse. Els mantenidors actuals són en Stef Walter i l'Adam Schreiber. L'Adam Schreiber ha escrit aquest manual. En Jim Pharis ha dissenyat el lloc web del projecte. Per a obtenir més informació sobre el projecte Seahorse, visiteu la <ulink url="http://www.gnome.org/projects/seahorse/" type="http">pàgina web del Seahorse</ulink>.</para>
+    <para>Per a informar d'un error o fer algun suggeriment relacionat amb aquesta aplicació o aquest manual, seguiu les indicacions a la <ulink url="ghelp:user-guide?feedback-bugs" type="help">secció de comentaris de la guia d'usuari del GNOME</ulink>.</para>
+    <para>Aquest programa es distribueix sota els termes de la Llicència pública general de GNU tal com publica la Free Software Foundation; tant en la versió 2 de la llicència, o (a la vostra opció) una versió posterior. S'inclou una <ulink url="ghelp:gpl" type="help">còpia d'aquesta llicència</ulink> amb aquesta documentació; se'n pot trobar una altre en el fitxer COPYING inclòs amb el codi font d'aquest programa.</para>
+  </sect1>
+</article>

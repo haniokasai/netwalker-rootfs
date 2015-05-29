@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# move a conffile if there are modifications
+mv_conffile() {
+    CONFFILE="$1"
+    NEWCONFFILE="$2"
+
+    if [ -e "$CONFFILE" ]; then
+        md5sum="`md5sum \"$CONFFILE\" | sed -e \"s/ .*//\"`"
+        old_md5sum="`sed -n -e \"/^Conffiles:/,/^[^ ]/{\\\\' $CONFFILE '{s/ obsolete$//;s/.* //;p}}\" /var/lib/dpkg/status`"
+        if [ "$md5sum" = "$old_md5sum" ]; then
+            mv -f "$CONFFILE" "$NEWCONFFILE".dpkg-backup
+        else
+            cp -f "$CONFFILE" "$NEWCONFFILE".dpkg-moving
+            mv -f "$CONFFILE" "$NEWCONFFILE"
+        fi
+    fi
+}
+
+# move a conffile if there are modifications
+rm_conffile() {
+    CONFFILE="$1"
+
+    if [ -e "$CONFFILE" ]; then
+        md5sum="`md5sum \"$CONFFILE\" | sed -e \"s/ .*//\"`"
+        old_md5sum="`sed -n -e \"/^Conffiles:/,/^[^ ]/{\\\\' $CONFFILE '{s/ obsolete$//;s/.* //;p}}\" /var/lib/dpkg/status`"
+        if [ "$md5sum" = "$old_md5sum" ]; then
+            mv -f "$CONFFILE" "$CONFFILE".dpkg-backup
+        else
+            cp -f "$CONFFILE" "$CONFFILE".dpkg-removing
+            rm -f "$CONFFILE"
+        fi
+    fi
+}
+
+
+case "$1" in
+    install|upgrade)
+        # Upgrade from nm 0.6.x
+        if dpkg --compare-versions "$2" lt "0.7~~"; then
+             # dont stop the 0.6.x instance as we will ask for reboot
+             rm_conffile /etc/dbus-1/event.d/26NetworkManagerDispatcher
+             mv_conffile /etc/dbus-1/event.d/25NetworkManager \
+                         /etc/init.d/NetworkManager
+
+        fi
+        ;;
+
+    abort-upgrade)
+        ;;
+
+    *)
+        echo "$0 called with unknown argument \`$1'" 1>&2
+        exit 1
+        ;;
+esac
+
+
+
+exit 0

@@ -1,0 +1,70 @@
+gnome-session for DEBIAN
+--------------------------
+
+Splash screen
+-------------
+
+Displaying a splash screen implies a noticeable delay in login for most users,
+hence it's disabled by default.  You can enable the default splash screen by
+setting the splash_image GConf key to a relative path below /usr/share/pixmaps,
+the default splash of the gnome-session package is
+splash/gnome-debian-splash.png:
+    gconftool-2 -s /apps/gnome-session/options/splash_image \
+        --type string splash/gnome-debian-splash.png
+
+Some theme packages might provide other splash pixmaps, notably desktop-base.
+
+
+Using startx/xinit
+------------------
+
+To use the gnome-session manager with startx or xinit, you need to edit your
+.xinitrc file.
+
+The previous maintainers' .xinitrc file looked something like this:
+
+----------------------------------------------------------------------
+# This calls our default window-manager
+/usr/bin/x-window-manager&
+# You can replace the line above by seting a WINDOW_MANAGER environment
+# variable to set your preferred WM.
+export WINDOW_MANAGER=sawfish
+# This starts up GNOME
+exec /usr/bin/gnome-session
+----------------------------------------------------------------------
+
+Note:  If you don't have gnome-session set up at the end of your
+       .xinitrc where it does the "exec" (perhaps your window manager
+       is there) - you won't be able to use the session manager to
+       handle the logging out process (where it will save the state
+       of all your apps).
+
+Jim Pick <jim@jimpick.com>, & James LewisMoss <dres@debian.org>,
+                                 Mon, 16 Mar 1998 15:27:43 -0800
+
+
+Splash Screen
+-------------
+
+Debian's gnome-session uses a Debian-related splash screen instead of
+the original GNOME splash screen by default. You can change the the
+splash screen that should be used using the following gconf key:
+
+  /apps/gnome-session/options/splash_image
+
+This means that you can set your personal splash screen by using
+gconf-editor to edit the value of that key or you can issue the following 
+command:
+
+$ gconftool-2  --type string --set /apps/gnome-session/options/splash_image \
+/usr/share/pixmaps/splash/gnome-splash.png
+
+The last argument is GNOME's default splash screen. You can choose any
+image, of course. To set the system wide default do:
+
+# gconftool-2 --direct \
+--config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+--type string --set /apps/gnome-session/options/splash_image \
+/usr/share/pixmaps/splash/gnome-splash.png
+
+Gustavo Noronha Silva <kov@debian.org>, Sat, 19 Jun 2004 20:51:32 -0300

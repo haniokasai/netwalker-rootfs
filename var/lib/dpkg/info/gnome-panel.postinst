@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# show note for people upgrading about the new fusa applet
+if [ "$1" = configure ] && dpkg --compare-versions "$2" le-nl "1:2.24.0-0ubuntu2" \
+    && [ -e /usr/share/gnome-panel/fusa-applet.note ];
+then
+	cp /usr/share/gnome-panel/fusa-applet.note /var/lib/update-notifier/user.d
+fi
+
+# gconf default for the directory fixup
+if [ "$1" = configure ] && dpkg --compare-versions "$2" le-nl "1:2.24.1-0ubuntu2.1";
+then
+    echo "/apps/panel/need_directory_fixup true" > /usr/share/gconf/defaults/20_gnome_panel_directory_fixup
+    update-gconf-defaults
+fi
+
+# gconf default for the indicator applet
+if [ "$1" = configure ] && dpkg --compare-versions "$2" le-nl "1:2.26.0-0ubuntu2";
+then
+    echo "/apps/panel/need_add_indicator_applet true" > /usr/share/gconf/defaults/25_gnome_panel_indicator_applet
+    update-gconf-defaults
+fi
+
+
+

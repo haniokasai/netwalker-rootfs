@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="ru">
+	<articleinfo>
+		<title>Encryption and Keyrings Manual</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins и Adam Schreiber</holder>
+		</copyright><copyright><year>2008</year><holder>Василий Фаронов (qvvx@yandex.ru)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Проект Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Разрешается копировать, распространять и/или изменять этот документ на условиях лицензии GNU Free Documentation License (GFDL), версии 1.1 или любой более поздней версии, опубликованной Фондом свободного программного обеспечения (Free Software Foundation), без неизменяемых частей и без текстов на обложках. Вы можете найти копию лицензии GFDL по  <ulink type="help" url="ghelp:fdl">этой ссылке</ulink> или в файле COPYING-DOCS, распространяемом с этим документом.</para>
+         <para>Это руководство — часть документации GNOME, которая распространяется на условиях лицензии GFDL. Если вы хотите распространять это руководство отдельно от остальной документации, вам следует приложить к руководству копию лицензии, как описано в разделе 6 лицензии.</para>
+
+	<para>Некоторые имена и марки используются компаниями для обозначения их продуктов и услуг и являются торговыми марками. Там, где эти имена присутствуют в документации и где участники проекта документирования GNOME знают об этом, имена выделяются заглавными буквами или начальной заглавной буквой.</para>
+
+	<para>ДОКУМЕНТ И ИЗМЕНЁННЫЕ ВЕРСИИ ДОКУМЕНТА ПРЕДОСТАВЛЯЮТСЯ ПОЛЬЗОВАТЕЛЮ НА УСЛОВИЯХ ЛИЦЕНЗИИ GNU FREE DOCUMENTATION LICENSE С УВЕДОМЛЕНИЕМ О ТОМ, ЧТО: <orderedlist>
+		<listitem>
+		  <para>ДОКУМЕНТ РАСПРОСТРАНЯЕТСЯ «КАК ЕСТЬ», БЕЗ ВСЯКИХ ГАРАНТИЙ, ЯВНЫХ ИЛИ НЕЯВНЫХ, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЙ, ГАРАНТИИ ТОГО, ЧТО ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА СВОБОДНА ОТ ДЕФЕКТОВ, ПРИГОДНА К ПРОДАЖЕ, ПРИГОДНА К ИСПОЛЬЗОВАНИЮ В ОПРЕДЕЛЁННЫХ ЦЕЛЯХ ИЛИ НЕ НАРУШАЕТ ЗАКОНЫ. ВЕСЬ РИСК, КАСАЮЩИЙСЯ КАЧЕСТВА, ТОЧНОСТИ ИЛИ ПРАВИЛЬНОСТИ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ЛЕЖИТ НА ВАС. ЕСЛИ ДОКУМЕНТ ИЛИ ИЗМЕНЁННАЯ ВЕРСИЯ ДОКУМЕНТА ИМЕЕТ НЕДОСТАТКИ, ВЫ (А НЕ АВТОР ДОКУМЕНТА ИЛИ ЕГО ПОМОЩНИК) БЕРЁТЕ НА СЕБЯ СТОИМОСТЬ ЛЮБОЙ НЕОБХОДИМОЙ ДОРАБОТКИ, КОРРЕКЦИИ ИЛИ ВОССТАНОВЛЕНИЯ. ЭТОТ ОТКАЗ ОТ ГАРАНТИЙ СОСТАВЛЯЕТ ВАЖНУЮ ЧАСТЬ ЛИЦЕНЗИИ. НИКАКОЕ ИСПОЛЬЗОВАНИЕ ДОКУМЕНТА ИЛИ ИЗМЕНЁННОЙ ВЕРСИИ ДОКУМЕНТА НЕ ДОПУСКАЕТСЯ БЕЗ ДАННОГО ПРЕДУПРЕЖДЕНИЯ И</para>
+		</listitem>
+		<listitem>
+		  <para>НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ И НИ ПРИ КАКОМ ЗАКОННОМ СПОСОБЕ, НИ ПО КАКОМУ СОГЛАШЕНИЮ ИЛИ ДРУГОЙ ПРИЧИНЕ, АВТОР, СОЗДАТЕЛЬ, ПОМОЩНИКИ ИЛИ РАСПРОСТРАНИТЕЛИ ДОКУМЕНТА НЕ НЕСУТ ОТВЕТСТВЕННОСТЬ ЗА ПРЯМОЙ, КОСВЕННЫЙ, СПЕЦИАЛЬНЫЙ, СЛУЧАЙНЫЙ ИЛИ ПРЕДНАМЕРЕННЫЙ УЩЕРБ ЛЮБОГО СВОЙСТВА, ВКЛЮЧАЯ, БЕЗ ОГРАНИЧЕНИЯ, ПОТЕРЮ ЖЕЛАНИЯ, РАБОТОСПОСОБНОСТИ, КОМПЬЮТЕРНЫЕ СБОИ ИЛИ ПОЛОМКИ, ИЛИ ЛЮБОЙ ДРУГОЙ УЩЕРБ ИЛИ ПОТЕРИ, ВОЗНИКАЮЩИЕ ВСЛЕДСТВИЕ ИЛИ СВЯЗАННЫЕ С ИСПОЛЬЗОВАНИЕМ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА, ДАЖЕ ЕСЛИ СТОРОНА БЫЛА УВЕДОМЛЕНА О ВОЗМОЖНОСТИ ТАКОГО УЩЕРБА.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Проект Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Проект Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Проект Seahorse</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Encryption and Keyrings Manual V0.10.0</revnumber>
+				<date>August 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Encryption and Keyrings Manual V0.9.1</revnumber>
+				<date>ноябрь 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Encryption and Keyrings Manual V0.9.0</revnumber>
+				<date>июль 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Проект Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Encryption and Keyrings Manual V0.7.0</revnumber>
+				<date>февраль 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Проект Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>This manual describes version 2.24.x of Encryption and Keyrings</releaseinfo>
+		<legalnotice>
+			<title>Обратная связь</title>
+			<para>To report a bug or make a suggestion regarding the
+				<application>Encryption and Keyrings</application> application or this manual, follow the directions in the
+				<ulink url="ghelp:gnome-feedback" type="help">Gnome Feedback Page</ulink>.
+			</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para>
+				<application>Encryption and Keyrings</application> is the application for managing your primary encryption key and how
+				the passphrase for your key is stored after performing an encryption operation. 
+			</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Ключи шифрования</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Введение</title>
+        <para>
+            You can use <application>Encryption and Keyrings</application> to select your primary encryption key and how the 
+            passphrase for your key is stored after performing an encryption operation.
+        </para>
+        <para>
+            Additionally, this manual contains information pertaining to encryption plugins provided for:
+            <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Gedit Text Editor</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Nautilus File Manager</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Epiphany Web Browser</ulink></application></para>
+				</listitem>
+			</itemizedlist>
+        </para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>Интеграция с файловым менеджером</title>
+    <para>
+      <application>Encryption and Keyrings</application> integrates with <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>.  You can encrypt, decrypt, sign and verify files as well as import public keys from the file manager window without launching <application>Encryption and Keyrings</application>.
+    </para>
+    <sect2 id="encrypt-fm">
+      <title>Зашифровка файлов</title>
+      <para>Чтобы зашифровать файлы из файлового менеджера, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>выделите один или несколько файлов в файловом менеджере;</para>
+	  </listitem>
+	  <listitem>
+	    <para>щёлкните правой кнопкой мыши на любом из выделенных файлов и выберите <guimenuitem>Зашифровать</guimenuitem>;</para>
+	  </listitem>
+	  <listitem>
+	    <para>выберите людей, для которых вы хотите зашифровать файл, и нажмите <guibutton>OK</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Подписывание файлов</title>
+      <para>Чтобы подписать файлы из файлового менеджера, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>выделите один или несколько файлов в файловом менеджере;</para>
+	  </listitem>
+	  <listitem>
+	    <para>щёлкните правой кнопкой мыши на любом из выделенных файлов и выберите <guimenuitem>Подписать</guimenuitem>;</para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Расшифровка файлов</title>
+      <para>Чтобы расшифровать зашифрованный файл из файлового менеджера, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>дважды щёлкните на файле, который хотите расшифровать;</para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Проверка подписей</title> 
+      <para>Чтобы проверить файлы, просто дважды щёлкните на откреплённом файле подписи.</para>
+      <note><para>Имена откреплённых файлов подписей часто имеют вид ‹имя файла›.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Интеграция с текстовым редактором</title>
+    <para>
+      To enable the Text Encryption plugin in <application><ulink url="ghelp:gedit" type="help">Gedit</ulink></application>, the GNOME text editor, perform the following steps:
+      <itemizedlist>
+	<listitem>
+	  <para>запустите <application>Gedit</application>, выбрав <menuchoice><guimenu>Приложения</guimenu><guimenuitem>Стандартные</guimenuitem><guimenuitem>Текстовый редактор</guimenuitem></menuchoice>;</para>
+	</listitem>
+	<listitem>
+	  <para>выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Параметры</guimenuitem></menuchoice>;</para>
+	</listitem>
+	<listitem>
+	  <para>на вкладке <guilabel>Модули</guilabel> выберите модуль <guilabel>Шифрование текста</guilabel>.</para>
+	</listitem>
+      </itemizedlist>
+    </para>
+    <sect2 id="encrypt-te">
+      <title>Зашифровка текста</title>
+      <para>Чтобы зашифровать участок текста в <application>Gedit</application>, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>выделите текст, который хотите зашифровать, и выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Зашифровать</guimenuitem></menuchoice>;</para>
+	  </listitem>
+	  <listitem>
+	    <para>выберите людей, для которых хотите зашифровать текст, и нажмите <guilabel>OK</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Теперь вы можете скопировать или сохранить зашифрованный текст.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Подписывание текста</title>
+      <para>Чтобы подписать участок текста в <application>Gedit</application>, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>выделите текст, который хотите подписать, и выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Подписать</guimenuitem></menuchoice>;</para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist> Теперь вы можете скопировать или сохранить подписанный текст.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Расшифровка и проверка текста</title>
+      <para>Чтобы расшифровать и/или проверить участок текста в <application>Gedit</application>, сделайте следующее: <itemizedlist>
+	  <listitem>
+	    <para>выделите текст, который хотите расшифровать или проверить, и выберите <menuchoice><guimenu>Правка</guimenu><guimenuitem>Расшифровать или проверить</guimenuitem></menuchoice>;</para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist> Теперь вы можете скопировать или сохранить расшифрованный текст.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Web Browser Integration</title>
+    <para>
+        This extension allows encryption, decryption, signing and importing of the contents of text fields.
+    </para>
+    <para>
+        To enable the encryption extension in <application><ulink url="ghelp:epiphany-browser" type="help">Epiphany Web Browser</ulink></application>, the GNOME web browser, perform the following steps:
+      <itemizedlist>
+	<listitem>
+	  <para>
+	    Run <application>Epiphany Web Browser</application> by choosing 
+	    <menuchoice>
+	      <guimenu>Applications</guimenu>
+	      <guimenuitem>Internet</guimenuitem>
+	      <guimenuitem>Epiphany Web Browser</guimenuitem>
+	    </menuchoice>,
+	    </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Choose      
+	    <menuchoice>
+	      <guimenu>Tools</guimenu>
+	      <guimenuitem>Extensions</guimenuitem>
+	    </menuchoice>,
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>
+	    Select the <guilabel>Seahorse</guilabel> plugin.
+	  </para>
+	</listitem>
+      </itemizedlist>
+    </para>
+    <sect2 id="encrypt-wb">
+      <title>Зашифровка текста</title>
+      <para>
+	To encrypt the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps:
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Right click in the text input field you want to encrypt, and choose 
+	      <menuchoice>
+		<guimenuitem>Encrypt</guimenuitem>
+	      </menuchoice>,
+	    </para>
+	  </listitem>
+	  <listitem>
+	    <para>выберите людей, для которых хотите зашифровать текст, и нажмите <guilabel>OK</guilabel>.</para>
+	  </listitem>
+	</itemizedlist>
+	The encrypted text will now appear in the text input field.
+      </para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Подписывание текста</title>
+      <para>
+	To sign the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps:
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Right click in the text input field you want to sign and choose 
+	      <menuchoice>
+		<guimenuitem>Sign</guimenuitem>
+	      </menuchoice>,
+	      </para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist>
+	The signed text will now appear in the text input field.
+      </para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Расшифровка и проверка текста</title>
+      <para>
+	To decrypt and/or verify the contents of a text input field in <application>Epiphany Web Browser</application>, perform the following steps:
+	<itemizedlist>
+	  <listitem>
+	    <para>
+	      Right click in the text input field you want to decrypt/verify and choose 
+	      <menuchoice>
+		<guimenuitem>Decrypt/Verify</guimenuitem>
+	      </menuchoice>,
+	      </para>
+	  </listitem>
+	  <listitem>
+	    <para>если нужно, введите пароль своего закрытого ключа.</para>
+	  </listitem>
+	</itemizedlist>
+	The decrypted text will now appear in the text input field.
+      </para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Параметры</title>
+    <para>
+      This section describes the preferences settable in <application>Encryption and Keyrings</application>.
+    </para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Параметры шифрования</title>
+      <para>
+	This section describes the preferences settable by choosing 
+	<menuchoice>
+	  <guimenu>System</guimenu>
+	  <guimenuitem>Preferences</guimenuitem>
+	  <guimenuitem>Encryption and Keyrings</guimenuitem>
+	</menuchoice> from the panel.
+      </para>
+      
+      <sect3 id="prefs">
+	<title>Параметры шифрования</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Ключ по умолчанию</guilabel></term>
+	    <listitem>
+	      <para>
+		This is the key that will be used by applications and plugins to sign files. 
+		It will also be the key that files will be encrypted to 
+		if encrypt to self is selected.
+	      </para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>При шифровании включать меня в список получателей</guilabel></term>
+	    <listitem>
+	      <para>
+		Sets the encrypt to self option, whether or not you will be added to the recipients list for 
+		all files that are encrypted.
+	      </para>
+	      <note>
+		<para>Если вы не выберете этот параметр, и при этом не добавите себя в список получателей сами, вы не сможете расшифровать файлы, которые зашифруете.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Память паролей</title>
+	<para>
+	  Enabling the passphrase caching ability will allow you to 
+	  perform many operations that require entering your passphrase without 
+	  re-entering it every time. <command>seahorse-agent</command> takes the 
+	  place of <command>gpg-agent</command>. Letting the cached passphrases 
+	  expire is usually a good idea. This will then require re-entering your 
+	  passphrase, but adds security.
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Никогда не запоминать пароли</guilabel></term>
+	    <listitem>
+	      <para>Указывает, что пароли никогда не будут запоминаться.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Запоминать пароли на ... минут</guilabel></term>
+	    <listitem>
+	      <para>Указывает длительность памяти паролей, в минутах. Выберите желаемое время с помощью числового поля.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Всегда запоминать пароли на весь сеанс</guilabel></term>
+	    <listitem>
+	      <para>Указывает, что все пароли будут запоминаться на всё время сеанса.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Спрашивать меня перед использованием пароля из памяти</guilabel></term>
+	    <listitem>
+	      <para>Указывает, что надо спрашивать вас, прежде чем использовать пароль из памяти.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Автоматически загружать ключи SSH</guilabel></term>
+	    <listitem>
+	      <para>Указывает, что надо автоматически запоминать любой ключ SSH.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>About Encryption and Keyrings</title>
+    <para> 
+      <application>Passwords and Encryption Keys</application>, its associated plugins, the preferences applet and the panel 
+      applet are known collectively as the Seahorse Project. The original author of the Seahorse Project is Jacob Perkins. The current 
+      maintainers are Stef Walter and Adam Schreiber. This manual is by Adam Schreiber. The project's web 
+      site was designed by Jim Pharis. To find more information about Seahorse Project, the project , please visit 
+      the <ulink url="http://www.gnome.org/projects/seahorse/" type="http">Seahorse Project web page</ulink>.
+    </para>
+    <para>Чтобы сообщить об ошибке или сделать предложение по Seahorse или этому руководству, следуйте указаниям в <ulink url="ghelp:user-guide?feedback-bugs" type="help">разделе обратной связи руководства пользователя GNOME</ulink>.</para>
+    <para>Эта программа распространяется на условиях лицензии GNU General Public License, опубликованной фондом Free Software Foundation; либо версии 2 этой лицензии, либо (на ваш выбор) любой более поздней версии. <ulink url="ghelp:gpl" type="help">Копия этой лицензии</ulink> прилагается к документации; ещё одну можно найти в файле COPYING, который прилагается к исходному тексту программы.</para>
+  </sect1>
+</article>

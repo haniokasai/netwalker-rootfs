@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="version-control-system" status="review">
+		<title>Versionskontrollsystem</title>
+          <para>Versionskontrolle ist die Verwaltung von Veränderungen in Informationen. Diese ist schon lange ein entscheidendes Werkzeug für Programmierer, die ihre Zeit damit verbringen, kleine Änderungen an Software durchzuführen und diese am nächsten Tag wieder zu verwerfen. Der Nutzen von Software zur Versionskontrolle geht aber weit über die Grenzen der Softwareentwicklung hinaus. Nahezu überall gibt es Menschen, die Informationen verwalten, die sich oft ändern. Dieses sind typische Einsatzgebiete für eine Versionskontrolle.</para>
+      <sect1 id="bazaar" status="review">
+        <title>Bazaar</title> 
+          <para>Bazaar ist ein neues Versionskontrollsystem, welches von Canonical, der kommerziellen Firma hinter Ubuntu, finanziert wird. Im Gegensatz zu Subversion und CVS, die nur ein zentrales Ablagemodell unterstützen, unterstützt Bazaar auch <emphasis>verteilte Versionskontrolle</emphasis> (engl. distributed version control), das den Nutzern die Möglichkeit gibt, effizienter zusammenzuarbeiten. Bazaar ist entworfen wurden, um den Grad der Gemeinschaftsarbeit in Open-Source–Projekten zu maximieren.</para>
+        <sect2 id="bzr-installation" status="review">
+          <title>Installation</title>
+            <para>Geben Sie folgendes in ein Terminal ein um <application>bzr</application> zu installieren: <screen>
+<command>sudo apt-get install bzr</command>
+</screen></para>
+        </sect2>
+        <sect2 id="bzr-configuration" status="review">
+          <title>Konfiguration</title>
+            <para>Um sich gegenüber <application>bzr</application> bekannt zu machen, nutzen Sie den &gt;emphasis&gt;whoami</para>
+        </sect2>
+        <sect2 id="bzr-learning" status="review">
+          <title>Bazaar lernen</title>
+            <para>Bazaar wird mit gebündelter Dokumentation geliefert, die standardmäßig in <application>/usr/share/doc/bzr/html</application> installiert ist. Das Tutorium ist hierfür ein guter Ausgangspunkt. Der Befehl <application>bzr</application> bietet auch eine eingebaute Hilfe an: 
+<screen>
+<command>$ bzr help</command>
+</screen></para>
+            <para>Um mehr über den <emphasis>foo</emphasis>-Befehl zu erfahren: <screen>
+<command>$ bzr help foo</command>
+</screen></para>
+        </sect2>
+        <sect2 id="bzr-lp-integration" status="review">
+          <title>Integration in Launchpad</title>
+            <para>Obwohl es auch als autonomes System sehr nützlich ist, hat Bazaar eine gute, optionale Integration in <ulink url="https://launchpad.net/">Launchpad</ulink>, dem gemeinschaftlichen Entwicklungssystem, das von Canonical und der weiteren Open Source–Gemeinschaft benutzt wird, um Ubuntu zu verwalten und zu erweitern. Weitere Informationen darüber, wie Bazaar mit Launchpad benutzt werden kann, um an Open-Source–Projekten mitzuwirken, finden Sie <ulink url="http://bazaar-vcs.org/LaunchpadIntegration/"> http://bazaar-vcs.org/LaunchpadIntegration</ulink> (englisch).</para>
+        </sect2>
+      </sect1>
+      <sect1 id="subversion" status="review">
+        <title>Subversion</title>
+          <para>Subversion ist ein Open Source–Versionskontrollsystem. Mit Subversion können Sie die Versionsgeschichte von Quelldateien und Dokumenten aufzeichnen. Es verwaltet Dateien und Ordner über die Zeit. In einem zentralen Repository ist ein Dateibaum angeordnet. Das Repository ist einem normalen Datenserver sehr ähnlich, mit der Ausnahme, dass es jede Änderung speichert, die jemals an Dateien oder Ordnern durchgeführt wurde.</para>
+        <sect2 id="subversion-installation" status="review">
+          <title>Installation</title>
+            <para>Um auf das Subversion-Repository über das HTTP-Protokoll zugreifen zu können, müssen Sie einen Webserver installieren und konfigurieren. Ein bewährter Webserver hierfür ist Apache2. Schlagen Sie bitte im HTTP-Unterpunkt des Abschnitts über Apache2 nach, um mehr über die Installation</para>
+						<para>Um Subversion zu installieren, geben Sie bitte folgendes in ein Terminal ein:</para>
+	    <para>
+<screen>
+<command>sudo apt-get install subversion libapache2-svn</command>
+</screen>
+	    </para>
+
+        </sect2>
+        <sect2 id="subversion-configuration" status="review">
+          <title>Serverkonfiguration</title>
+            <para>Dieser Schritt setzt voraus, dass Sie die oben genannten Pakete auf Ihrem System installiert haben. Dieser Abschnitt erläutert, wie ein Subversion-Repository erstellt wird und wie auf das Projekt zugegriffen wird.</para>
+			<sect3 id="create-svn-repos" status="review">
+				<title>Subversion-Repository erstellen</title>
+<para>Das Subversion-Repository kann erstellt werden, indem man den folgenden Befehl in ein Terminal eingibt:</para>
+
+        <para>
+<screen>
+<command>svnadmin create /path/to/repos/project</command>
+</screen>
+        </para>
+			</sect3>
+                        <sect3 id="import-svn-files" status="review">
+          		  <title>Dateien importieren</title>
+			    <para>Wenn Sie das Repository erstellt haben, können Sie Dateien in das Repository <emphasis>importieren</emphasis>. Um einen Ordner zu importieren, geben Sie folgenden Befehl in ein Terminal ein: <screen>
+<command>svn import /path/to/import/directory file:///path/to/repos/project</command>
+</screen></para>	
+                        </sect3>
+        </sect2>
+        <sect2 id="access-methods" status="review">
+          <title>Zugriffsmethoden</title>
+<para>Auf Subversion-Repository kann mittels vieler verschiedener Methoden zugegriffen werden - auf einer lokalen Festplatte oder über verschiedene Netzwerkprotokolle. Der Speicherort einer Paketquelle ist immer eine URL. Die Tabelle zeigt wie die verschiedenen URL-Schemata auf die verfügbaren Zugriffsmethoden abbilden.</para>
+				<table><title>Zugriffsmethoden</title>
+
+					<tgroup cols="2">
+						<colspec colname="1"/>
+						<colspec colname="2"/>
+						<thead>
+							<row>
+								<entry><para>Schema</para></entry>
+								<entry><para>Zugriffsmethode</para></entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry><para>file://</para></entry>
+								<entry><para>Direkter Zugriff auf das Repository (auf lokaler Festplatte)</para></entry>
+							</row>
+							<row>
+								<entry><para>http://</para></entry>
+								<entry><para>Zugriff auf einen Subversion-fähigen Apache2 Webserver über das WebDAV-Protokoll</para></entry>
+							</row>
+							<row>
+								<entry><para>https://</para></entry>
+								<entry><para>Das gleiche wie http://, nur mit SSL-Verschlüsselung</para></entry>
+							</row>
+							<row>
+								<entry><para>svn://</para></entry>
+								<entry><para>Zugriff auf einen svnserve-Server über ein spezielles Protokoll</para></entry>
+							</row>
+							<row>
+								<entry><para>svn+ssh://</para></entry>
+								<entry><para>Das gleiche wie svn://, aber durch einen SSH-Tunnel</para></entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+
+				<para>In diesem Abschnitt wird die Konfiguration von Subversion für alle aufgeführten Zugriffsmethoden beleuchtet. Es werden die Grundfunktionen erläutert. Weitere Detail bezüglich erweiterter Funktionen finden Sie unter <ulink url="http://svnbook.red-bean.com/">svn book</ulink>.</para>
+			<sect3 id="direct-repos-access" status="review">
+				<title>Direkter Zugriff auf das Repository (file://)</title>
+<para>Dies ist die einfachste aller Zugriffsmethoden. Sie benötigt keinen laufenden Subversion-Server. Diese Zugriffsmethode wird benutzt, um von der gleichen Maschine aus auf Subversion zuzugreifen. Der Syntax des entsprechenden Terminal-Befehls lautet:</para>
+
+        <para>
+<screen>
+<command>svn co file:///path/to/repos/project</command>
+</screen>
+        </para>
+  <para>oder</para>
+	<para>
+<screen>
+<command>svn co file://localhost/path/to/repos/project</command>
+</screen>
+        </para>
+	<note>
+		<para>Wenn Sie keinen Hostnamen angeben, sind drei Schrägstriche (///) nötig - zwei für das Protokoll (in diesem Fall Datei) und einen Führungsstrich im Pfad. Wenn Sie einen Hostnamen angeben, müssen Sie zwei Schrägstriche verwenden.</para>
+	</note>
+		<para>Zugriffsberechtigungen auf das Repository hängen von den Berechtigungen im Dateisystem ab. Hat der Benutzer Lese- und Schreibrechte, kann er aus der Paketquelle heraus gehen und auch auf sie zugreifen.</para>
+			</sect3>
+			<sect3 id="access-via-webdav" status="review">
+				<title>Zugriff über das WebDAV Protokoll (http://)</title>
+<para>Um über das WebDAV-Protokoll auf das Subversion-Repository zuzugreifen, müssen Sie Ihren Apache2 Webserver konfigurieren. Sie müssen folgendes in Ihre <filename>/etc/apache2/apache2.conf</filename>-Datei einfügen:</para>
+
+	<programlisting> &lt;Location /svn&gt;
+  DAV svn
+  SVNParentPath /home/svn
+  AuthType Basic
+  AuthName "Ihr Repository Name"
+  AuthUserFile /etc/subversion/passwd
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+  Require valid-user
+  &lt;/LimitExcept&gt;
+  &lt;/Location&gt; </programlisting>
+	<note>
+		<para>Der obige Konfigurationstext setzt voraus, dass das Subversion-Repository im <filename>/home/svn/</filename>-Ordner mittels des <command>svnadmin</command>-Kommandos erstellt wurde. Auf sie kann über <command>http://hostname/svn/repos_name</command> zugegriffen werden.</para>
+	</note>
+         <para>Um Dateien in Ihr Subversion-Repository über HTTP zu importieren oder einzuspielen, sollte das Repository im Besitz des HTTP-Benutzers stehen. In Ubuntu-Systemen ist der HTTP-Benutzer normalerweise <command>www-data</command>. Um den Besitz des Repositories zu ändern, geben Sie folgendes in ein Terminal ein:</para>
+<screen>
+<command>sudo chown -R www-data:www-data /path/to/repos</command>
+</screen>
+        <note>
+        <para>Wenn Sie den Besitz des Repositories auf <command>www-data</command> ändern, werden Sie mit keinem Benuter außer <command>www-data</command> in der Lage sein, Dateien über Ausführung des Befehls <command>svn import file:///</command> in das Repository zu importieren oder einzuspielen.</para>
+        </note>
+
+        <para>Anschließend müssen Sie die Datei <filename>/etc/subversion/passwd</filename> erstellen, welches die Benutzer-Anmeldeinformationen enthält. Um die Datei zu erstellen, geben Sie folgenden Befehl (welcher die Datei erstellt und den ersten Benutzer hinzufügt) in eine Befehlszeile ein:</para>
+
+<screen>
+<command>sudo htpasswd -c /etc/subversion/passwd user_name</command>
+</screen>
+
+        <para>Um zusätzliche Benutzer hinzuzufügen, lassen Sie die Option <emphasis>"-c"</emphasis> weg, da diese Option die alte Datei ersetzt. Benutzen Sie stattdessen folgende Form:</para>
+
+<screen>
+<command>sudo htpasswd /etc/subversion/password user_name</command>
+</screen>
+
+
+	<para>Dieser Befehl wird Sie dazu auffordern, Ihr Passwort einzugeben. Wenn Sie dies getan haben, wird der Benutzer hinzugefügt. Um nun auf das Repository zuzugreifen, können Sie den folgenden Befehl ausführen:</para>
+        <screen><command>svn co http://servername/svn</command></screen>
+	<warning>
+		<para>Das Passwort wird als einfacher Text übermittelt. Falls Sie befürchten, dass andere das Passwort ausspähen, sollten Sie SSL-Verschlüsselung benutzen. Weitere Details hierüber erfahren Sie im nächsten Abschnitt.</para>
+	</warning>
+			</sect3>
+			<sect3 id="access-via-webdav-with-ssl" status="review">
+				<title>Zugriff über das SSL-verschlüsselte WebDAV Protokoll (https://)</title>
+					<para>Der Zugriff auf das Subversion-Repository über das SSL-verschlüsselte WebDAV Protokoll (https://) ist vergleichbar mit http://, mit der Ausnahme dass Sie ein digitales Zertifikat in Ihrem Apache2 Webserver installieren und konfigurieren müssen.</para>
+
+					<para>Sie können ein von einer Signatur-Zertifizierungsstelle wie Verisign herausgegebenes digitales Zertifikat installieren. Alternativ können Sie auch Ihr eigenes, selbst signiertes Zertifikat installieren.</para>
+					<para>Dieser Abschnitt setzt voraus, dass Sie auf ihrem Apache 2 Webserver ein digitales Zertifikat installiert und konfiguriert haben. Um nun auf das Subversion-Repository zuzugreifen, lesen Sie bitte den vorangegangen Abschnitt. Die Zugangsmethoden sind, bis auf das Protokoll, exakt die gleichen. Sie müssen https:// benutzen, um auf das Repository Zugriff zu haben.</para>
+
+			</sect3>
+			<sect3 id="access-via-custom-protocol" status="review">
+				<title>Zugriff über spezielles Protokoll (svn://)</title>
+					<para>Wenn das Subversion-Repository erstellt wurde, können Sie die Zugangssteuerung konfigurieren. Sie können die <filename> /path/to/repos/project/conf/svnserve.conf</filename>-Datei editieren, um die Zugangssteuerung zu konfigurieren. Um zum Beispiel die Authentifizierung zu erstellen, können Sie folgende Zeilen in der Konfigurationsdatei auskommentieren:</para>
+					<programlisting># [general]
+# password-db = passwd</programlisting>
+
+					<para>Nachdem Sie obige Zeilen auskommentiert haben, können Sie die Benutzerliste in der Datei »passwd« beibehalten. Ändern Sie die Datei <filename>passwd </filename> im selben Verzeichnis und fügen Sie den neuen Benutzer hinzu. Der Syntax lautet wie folgt:</para>
+					<programlisting>Benutzername = Passwort</programlisting>
+					<para>Weitere Details finden Sie in der Datei</para>
+
+					<para>Um nun auf Subversion über das spezielle svn://-Protokoll entweder von der selben oder einer anderen Maschine aus zuzugreifen, können Sie svnserver mit dem Befehl svnserve ausführen. Der Syntax lautet wie folgt:</para>
+					<programlisting>$ svnserve -d --foreground -r /path/to/repos
+# -d -- Dienst-Modus
+# --foreground -- im Vordergrund ausführen (nützlich für debugging)
+# -r -- Wurzel des bedienten Verzeichnisses
+
+Weitere Details erhalten Sie mit:
+$ svnserve --help</programlisting>
+
+					<para>Wenn Sie diesen Befehl ausführen, fängt Subversion an, auf dem Standard-Port (3690) zu lauschen. Um auf das Projekt-Repository zuzugreifen, müssen Sie folgenden Befehl in einem Terminal ausführen:</para>
+					<para>
+<screen>
+<command>svn co svn://hostname/project project --username user_name</command>
+</screen>
+                                        </para>
+					<para>Abhängig von der Serverkonfiguration, wird ein Passwort abgefragt. Wenn Sie sich authentifiziert haben, wird der Code aus dem Subversion-Repository überprüft. Um das Projekt-Repository mit der lokalen Kopie zu synchronisieren, können Sie den <command>update</command>-Unterbefehl ausführen. Die Syntax des in ein Terminal einzugebenden Befehls lautet wie folgt:</para>
+					<para>
+<screen>
+<command>cd project_dir ; svn update</command>
+</screen>
+                                        </para>
+					<para>Um mehr über die Benutzung jeden einzelnen Subversion Unterbefehls zu erfahren, sollten Sie sich das Handbuch durchlesen. Um beispielsweise mehr über den co (checkout)-Befehl zu erfahren, führen Sie bitte folgenden Befehl in einem Terminal aus:</para>
+                    <para><screen><command>svn co help</command></screen></para>
+
+			</sect3>
+			<sect3 id="access-via-custom-protocol-with-ssl" status="review">
+				<title>Zugriff über das svn-Protokoll mit SSL-Verschlüsselung (svn+ssh://)</title>
+					<para>Der Konfigurationsprozess ist derselbe wie in der svn://-Methode. Weitere Details finden Sie im vorangegangen Abschnitt nach. Der folgende Schritt setzt voraus, dass Sie den vorangegangenen Schritt befolgt haben und den Subversion-Server mit dem <application>svnserve</application>-Befehl gestartet haben.</para>
+
+					<para>Es wird ebenfalls vorausgesetzt, dass der SSH-Server auf dieser Maschine läuft und dass er eingehende Verbindungen erlaubt. Um dies zu bestätigen, versuchen Sie bitte, sich mittels SSH auf dieser Maschine einzuloggen. Wenn Sie sich einloggen können, funktioniert alles wie gewünscht. Wenn Sie sich nicht einloggen können, beheben Sie dies, bevor Sie fortfahren.</para>
+
+					<para>Das svn+ssh://-Protokoll wird benutzt, um auf das Subversion-Repository mittels SSL-Verschlüsselung zuzugreifen. Die Datenübertragung ist mittels dieser Methode verschlüsselt. Um auf das Projekt zugreifen zu können (beispielsweise mit einem Checkout), müssen Sie folgenden Syntax benutzen:</para>
+                                        <para>
+<screen>
+<command>svn co svn+ssh://hostname/var/svn/repos/project</command>
+</screen>
+                                        </para>
+
+					<note><para>Sie müssen den vollständigen Pfad (/Pfad/zu/Repository/Projekt) benutzen, um auf das Subversion-Repository mit dieser Zugriffsmethode zuzugreifen.</para></note>
+					<para>Abhängig von der Serverkonfiguration wird ein Passwort abgefragt. Sie müssen das Passwort eingeben, um den Login über SSH zu verwenden. Wenn Sie authentifiziert sind, wird der Code im Subversion-Repository überprüft.</para>
+			</sect3>
+			</sect2>
+
+      </sect1>
+      <sect1 id="cvs-server" status="review">
+        <title>CVS-Server</title> 
+          <para>CVS ist ein Versionskontrollsystem. Sie können es dazu verwenden den Verlauf ihres Quelltextdateien zu sichern.</para>
+        <sect2 id="cvs-installation" status="review">
+          <title>Installation</title>
+            <para>Um <application>CVS</application> zu installieren, geben Sie folgendes in ein Terminal ein: <screen>
+<command>sudo apt-get install cvs</command>
+</screen> Nach <application>cvs</application>sollten Sie <application>xinetd</application> installieren, um den CVS-Server zu starten/ zu stoppen. Um <application>xinetd</application> zu installieren, geben Sie folgendes ein: <screen>
+<command>sudo apt-get install xinetd</command>
+</screen></para>
+        </sect2>
+        <sect2 id="cvs-configuration" status="review">
+          <title>Konfiguration</title>
+            <para>Wenn Sie cvs installieren, wird das Repository automatisch initialisiert. Das Repository liegt standardmäßig unter dem Verzeichnis <application>/var/lib/cvs</application>. Sie können diesen Pfad ändern, indem Sie folgenden Befehl ausführen: <screen>
+<command>cvs -d /your/new/cvs/repo init</command>
+</screen> Nachdem das Anfangsrepository erstellt wurde, können Sie <application>xinetd</application> konfigurieren, um den CVS-Server zu starten. Sie können die folgenden Zeilen in die Datei <filename> /etc/xinetd.d/cvspserver</filename> kopieren. <programlisting>
+service cvspserver
+{
+     port = 2401
+     socket_type = stream
+     protocol = tcp
+     user = root
+     wait = no
+     type = UNLISTED
+     server = /usr/bin/cvs
+     server_args = -f --allow-root /var/lib/cvs pserver
+     disable = no
+}
+</programlisting><note>
+<para>Stellen Sie sicher, dass die Ordnerangabe angepasst ist, wenn Sie den Standard-Ordner (<application>/var/lib/cvs</application>) geändert haben.</para>
+</note> Wenn Sie <application>xinetd</application> konfiguriert haben, können Sie den CVS-Server mit folgendem Befehl starten: <screen>
+<command>sudo /etc/init.d/xinetd restart</command>
+</screen></para>
+            <para>Um zu überprüfen, ob der CVS-Server läuft, geben Sie folgenden Befehl ein:</para>
+
+            <para>
+<screen>
+<command>sudo netstat -tap | grep cvs</command>
+</screen>
+            </para>
+
+            <para>Wenn Sie diesen Befehl ausführen, sollten Sie eine wie folgt oder ähnlich lautende Zeile sehen:</para>
+
+<programlisting>
+tcp        0      0 *:cvspserver            *:* LISTEN 
+</programlisting>
+
+        <para>Von hier ab können Sie weitere Benutzer oder Projekte hinzufügen und ihren CVS-Server verwalten.</para>
+        <warning>
+<para>CVS erlaubt es, neue Benutzer unabhängig vom zu Grunde liegenden Betriebssystem hinzuzufügen. Der einfachste Weg ist, die Linux-Benutzer für CVS zu nutzen, obwohl dies potenzielle Sicherheitsrisiken darstellt. Bitte lesen Sie die CVS-Bedienungsanleitung für weitere Details.</para>
+        </warning>
+
+        </sect2>
+        <sect2 id="cvs-add-projects" status="review">
+          <title>Projekte hinzufügen</title>
+            <para>Dieser Abschnitt erläutert, wie man ein neues Projekt zur CVS-Paketquelle zufügt. Erstellen Sie das Verzeichnis und fügen Sie notwendige Dokumente und Quelldateien hinzu. Führen Sie dann den folgenden Befehl aus, um das Projekt zur CVS-Paketquelle hinzuzufügen: <screen>
+<command>cd your/project</command>
+<command>cvs -d :pserver:username@hostname.com:/var/lib/cvs import -m "Importing my project to CVS repository" . new_project start</command>
+</screen><tip>
+<para>Sie können die CVSROOT-Umgebungsvariable zum Speichern des CVS-Wurzelverzeichnisses benutzen. Wenn Sie die CVSROOT-Umgebungsvariable exportieren, können Sie auf die »-d«-Option im CVS-Befehl verzichten.</para>
+</tip> Der Ausdruck <emphasis>neues_Projekt</emphasis> ist ein »vendor tag« und <emphasis>start</emphasis> ist ein Freigabekennzeichen (release tag). Beide haben in diesem Kontext keine Bedeutung, da CVS sie aber fordert, müssen Sie enthalten sein. <warning>
+<para>Wenn Sie ein neues Projekt hinzufügen, muss das von Ihnen benutzte Benutzerkonto Schreibzugriff auf das CVS-Repository (<application>/var/lib/cvs</application>) haben. Die <application>src</application>-Gruppe hat standardmäßig Schreibzugriff auf die CVS-Paketquelle. Sie können also Ihr Benutzerkonto zu dieser Gruppe hinzufügen und dann Projekte in der CVS-Paketquelle hinzufügen und verwalten.</para>
+</warning></para>
+        </sect2>
+      </sect1>
+      <sect1 id="version-control-ref" status="review">
+        <title>Referenzen</title> 
+				<para><ulink url="http://bazaar-vcs.org/">Bazaar-Homepage</ulink></para>
+				<para><ulink url="https://launchpad.net/">Launchpad</ulink></para>
+				<para><ulink url="http://subversion.tigris.org/">Subversion-Homepage</ulink></para>
+				<para><ulink url="http://svnbook.red-bean.com/">Subversion-Buch</ulink></para>
+				<para><ulink url="http://ximbiot.com/cvs/manual/cvs-1.11.21/cvs_toc.html">CVS-Handbuch</ulink></para>
+      </sect1>
+    </chapter>

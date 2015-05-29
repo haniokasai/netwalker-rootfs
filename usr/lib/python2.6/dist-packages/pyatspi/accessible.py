@@ -1,0 +1,1 @@
+/usr/share/pyshared/pyatspi/accessible.py

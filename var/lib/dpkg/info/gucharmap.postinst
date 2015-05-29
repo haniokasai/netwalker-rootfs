@@ -1,0 +1,24 @@
+#!/bin/sh
+# -*- coding: utf-8 -*-
+# Post-installation script for gucharmap
+# Copyright © 2003 Colin Walters <walters@debian.org>
+
+set -e
+
+# Automatically added by dh_installmenu
+if [ "$1" = "configure" ] && [ -x "`which update-menus 2>/dev/null`" ]; then
+	update-menus
+fi
+# End automatically added section
+# Automatically added by dh_scrollkeeper
+if [ "$1" = "configure" ] && which scrollkeeper-update >/dev/null 2>&1; then
+	scrollkeeper-update -q
+fi
+# End automatically added section
+# Automatically added by dh_gconf
+if [ "$1" = "configure" ]; then
+	gconf-schemas --register gucharmap.schemas 
+fi
+# End automatically added section
+
+

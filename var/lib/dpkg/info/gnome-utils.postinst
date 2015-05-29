@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmenu
+if [ "$1" = "configure" ] && [ -x "`which update-menus 2>/dev/null`" ]; then
+	update-menus
+fi
+# End automatically added section
+# Automatically added by dh_scrollkeeper
+if [ "$1" = "configure" ] && which scrollkeeper-update >/dev/null 2>&1; then
+	scrollkeeper-update -q
+fi
+# End automatically added section
+# Automatically added by dh_gconf
+if [ "$1" = "configure" ]; then
+	gconf-schemas --register gfloppy.schemas gnome-screenshot.schemas gnome-dictionary.schemas gnome-search-tool.schemas gnome-system-log.schemas baobab.schemas 
+fi
+# End automatically added section
+# Automatically added by dh_desktop
+if [ "$1" = "configure" ] && which update-desktop-database >/dev/null 2>&1 ; then
+	update-desktop-database -q
+fi
+# End automatically added section
+# Automatically added by dh_icons
+if which update-icon-caches >/dev/null 2>&1 ; then
+	update-icon-caches /usr/share/icons/hicolor
+fi
+# End automatically added section

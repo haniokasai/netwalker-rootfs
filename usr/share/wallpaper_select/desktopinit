@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ $USER = "guest" ]; then
+  exit 0
+fi
+
+TEMPDIR="/usr/share/wallpaper_select/"
+TEMPFILE="file:%2F%2F%2Fhome%2Froot%2F%25E3%2583%2587%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%2588%25E3%2583%2583%25E3%2583%2597.xml"
+TARGETFILE="file:%2F%2F%2Fhome%2F$USER%2F%25E3%2583%2587%25E3%2582%25B9%25E3%2582%25AF%25E3%2583%2588%25E3%2583%2583%25E3%2583%2597.xml"
+
+if [ ! -d $HOME/.nautilus ]; then
+    cp -r -f $TEMPDIR/.nautilus $HOME
+    mv -f $HOME/.nautilus/metafiles/$TEMPFILE $HOME/.nautilus/metafiles/$TARGETFILE
+
+    cp -r -f $TEMPDIR/desktop/* $HOME/デスクトップ/
+
+    /usr/bin/wallpaper_select 2>&1 1>/dev/null
+fi
+

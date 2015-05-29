@@ -1,0 +1,36 @@
+1) Drivers
+    1.1) Move drivers to libgnomeprint/drivers/[pdf,ps,fax]
+    1.2) Make them modular (like transports).
+    1.3) Supply --with-drivers=(...) option in configure.in
+    1.4) Clean up interfaces: Don't access the configuration 
+         directly. Implement everything using object 
+         properties.
+    1.5) Convert gnome-print-meta to a proper driver.
+
+2) Transports
+    2.1) Move all transports into the libgnomeprint/transports 
+	  subdirectory:
+	  - common (gnome-print-transport-[fd,pipe].[c,h])
+		- cups (derived from gnome-print-transport-fd)
+		- file (derived from gnome-print-transport-fd)
+		- custom (derived from gnome-print-transport-pipe)
+		- lpr (derived from gnome-print-transport-pipe)
+    2.2) Supply --with-transports=(...) option in configure.in
+    2.3) Make transports read/write. That way, the PostScript
+	 and Meta driver would no longer need to implement the 
+	 logic of creating temporary files - this would all be 
+	 in gnome-print-transport (or in the transport itself 
+	 if the transport does support it).
+    2.4) Split gnome-print-meta into a driver and a transport.
+
+3) Filters
+    3.1) Add the possibility to apply user-defined filters to 
+         the meta data (like printing all pages onto one 
+         index page, selecting only odd pages, printing 'draft'
+         on every page...).
+    3.2) Add a tab "Filter" to the gnome-print-dialog where 
+	 users can apply stock filters or design their own ones.
+
+4) Print Preview
+    4.1) Augment the mouse pointer with a representation of the 
+	 objects being dragged. (HIG)

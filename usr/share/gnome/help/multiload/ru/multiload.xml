@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appletversion "2.10">
+<!ENTITY manrevision "2.10">
+<!ENTITY date "March 2005">
+<!ENTITY applet "System Monitor">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Apr 11, 2002
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ru">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Руководство по апплету "Системный монитор".</title> 
+    <abstract role="description">
+      <para>Системный монитор отображает информацию о загрузке системы в графической форме на панели задач.</para>
+    </abstract>
+    <copyright>
+     <year>2005</year>
+     <holder>Davyd Madeley</holder>
+    </copyright>
+    <copyright>
+      <year>2004</year>
+      <holder>Sun Microsystems</holder>
+    </copyright>
+
+    <copyright> 
+      <year>2003</year> 
+      <year>2004</year> 
+      <holder>Chee Bin HOH</holder> 
+    </copyright><copyright><year>sergo@bk.ru, 2007</year><holder>Сергей В. Миронов</holder></copyright> 
+
+<!-- translators: uncomment this:
+    <copyright>
+    <year>2002</year>
+    <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+    </copyright>
+-->
+
+    <publisher role="maintainer"> 
+      <publishername>Проект документации GNOME</publishername> 
+    </publisher> 
+
+      <legalnotice id="legalnotice">
+	<para>Следующим разрешается копировать и/или модифицировать этот документ при условии соблюдения GNU Free Documentation License (GFDL), версии 1.1 или любой более поздней опубликованной Фондом свободного программного обеспечения версией без неизменяемых частей, без текстов на обложках. Вы можете найти копию лицензии по этой <ulink type="help" url="ghelp:fdl">ссылке</ulink> или в файле COPYING-DOCS, распространяемом с этим документом.</para>
+         <para>Этот документ является частью документации GNOME распространяемой под лицензией GFDL. Если вы хотите распространять этот документ отдельно от общей документации, вы должны приложить копию лицензии к документу, как написано в части 6 лицензии.</para>
+
+	<para>Некоторые имена и марки используются компаниями для различения их продуктов и услуг и являются торговыми марками. Эти марки присутствуют в документации и члены проекта документирования GNOME знают об этом. Имена выделяются заглавными буквами или начальной заглавной буквой.</para>
+
+	<para>ДОКУМЕНТ И ИЗМЕНЁННЫЕ ВЕРСИИ ДОКУМЕНТА ПРЕДСТАВЛЯЮТСЯ ПОЛЬЗОВАТЕЛЮ ПОД ЛИЦЕНЗИЕЙ GNU FREE DOCUMENTATION LICENSE С УВЕДОМЛЕНИЕМ О ТОМ, ЧТО <orderedlist>
+		<listitem>
+		  <para>ДОКУМЕНТ РАСПРОСТРАНЯЕТСЯ "КАК ЕСТЬ", БЕЗ ВСЯКИХ ГАРАНТИЙ, ПРИДУМАННЫХ ИЛИ УНАСЛЕДОВАННЫХ, БЕЗ ОГРАНИЧЕНИЙ, ГАРАНТИЙ ТОГО ЧТО ДОКУМЕНТ ИЛИ МОДИФИЦИРОВАННАЯ ВЕРСИЯ ДОКУМЕНТА СВОБОДНА ОТ ДЕФЕКТОВ, ТОЛЬКО ДЛЯ СПЕЦИАЛЬНОГО ИСПОЛЬЗОВАНИЯ НЕ ЗАКЛЮЧАЮЩЕГО В СЕБЕ РИСКИ КАЧЕСТВА, АККУРАТНОСТИ ИЛИ СООТВЕТСТВИЯ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА ВАШИМ ТРЕБОВАНИЯМ. ЕСЛИ ДОКУМЕНТ ИЛИ МОДИФИЦИРОВАННАЯ ВЕРСИЯ ДОКУМЕНТА ИМЕЕТ НЕДОСТАТКИ, ВЫ (А НЕ АВТОР ДОКУМЕНТА ИЛИ ЕГО ПОМОЩНИК) ДОЛЖНЫ САМИ ПРИЛОЖИТЬ УСИЛИЯ К ЕГО ДОРАБОТКИ, КОРРЕКЦИИ ИЛИ ВОССТАНОВЛЕНИЮ. ЭТО ПРЕДУПРЕЖДЕНИЕ СОСТАВЛЯЕТ СУЩЕСТВЕННУЮ ЧАСТЬ ЛИЦЕНЗИИ. ДОКУМЕНТ НЕ ДОЛЖЕН ИСПОЛЬЗОВАТЬСЯ БЕЗ ДАННОГО ПРЕДУПРЕЖДЕНИЯ И</para>
+		</listitem>
+		<listitem>
+		  <para>НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ И НИ ПРИ КАКОМ ЗАКОННОМ СПОСОБЕ, НИ ПО КАКОМУ СОГЛАШЕНИЮ ИЛИ ДРУГОЙ ПРИЧИНЕ, АВТОР, СОЗДАТЕЛЬ ИЛИ ПОМОЩНИКИ НЕ НЕСУТ ОТВЕТСТВЕННОСТЬ ЗА ПРЯМОЕ, КОСВЕННОЕ, СПЕЦИАЛЬНОЕ, СЛУЧАЙНОЕ ИЛИ ПРЕДНАМЕРЕННОЕ ПОВРЕЖДЕНИЕ ЛЮБОГО СВОЙСТВА, ВКЛЮЧАЯ БЕЗ ОГРАНИЧЕНИЯ ПОТЕРЮ ЖЕЛАНИЯ, РАБОТОСПОСОБНОСТИ, КОМПЬЮТЕРНЫЕ СБОИ ИЛИ НЕПРАВИЛЬНОЕ ВЗАИМОДЕЙСТВИЕ, ВМЕСТЕ ИЛИ ПО-ОТДЕЛЬНОСТИ. НИКАКИЕ ПОВРЕЖДЕНИЯ И ПОТЕРИ НЕ МОГУТ БЫТЬ ВОЗЛОЖЕНЫ НА АВТОРА ДОКУМЕНТА ИЛИ МОДИФИЦИРОВАННОЙ ВЕРСИИ ДОКУМЕНТА, ДАЖЕ ЕСЛИ СТОРОНА БЫЛА ПРОИНФОРМИРОВАНА О ВОЗМОЖНОСТИ ТАКИХ ПОВРЕЖДЕНИЙ.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+<!-- This file  contains link to license for the documentation (GNU FDL), and 
+     other legal stuff such as "NO WARRANTY" statement. Please do not change 
+     any of this. -->
+
+    <authorgroup> 
+
+      <author>
+        <firstname>Angela</firstname>
+        <surname>Boyle</surname>
+	<affiliation><address>
+	 <email>aboyle@aboyle.com</email>
+	</address></affiliation>
+      </author>
+
+      <author> 
+	<firstname>Chee Bin</firstname> 
+	<surname>HOH</surname> 
+	<affiliation> 
+	  <orgname>Проект документации GNOME</orgname> 
+	  <address><email>cbhoh@mimos.my</email></address>
+	</affiliation> 
+      </author>
+
+      <author>
+       <firstname>Davyd</firstname><surname>Madeley</surname>
+       <affiliation>
+        <orgname>Проект GNOME</orgname>
+        <address><email>davyd@madeley.id.au</email></address>
+       </affiliation>
+      </author>
+
+      <!-- This is appropriate place for other contributors: translators,
+           maintainers,  etc. Commented out by default.
+      <othercredit role="translator">
+        <firstname>Latin</firstname> 
+        <surname>Translator 1</surname> 
+        <affiliation> 
+          <orgname>Latin Translation Team</orgname> 
+          <address> <email>translator@gnome.org</email> </address> 
+        </affiliation>
+        <contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision>
+        <revnumber>Version 2.10</revnumber>
+	<date>Март 2005</date>
+	<revdescription>
+	  <para role="author">Davyd Madeley</para>
+	</revdescription>
+      </revision>
+    
+      <revision>
+	<revnumber>Version 2.8</revnumber> 
+	<date>Август 2004</date> 
+	<revdescription> 
+          <para role="author">Angela Boyle</para>
+          <para role="publisher">Проект документации GNOME</para>
+	</revdescription> 
+      </revision> 
+
+      <revision> 
+	<revnumber>Руководство вер. 2.1 по апплету "Системный монитор".</revnumber> 
+	<date>Февраль 2004</date> 
+	<revdescription> 
+          <para role="author">Sun GNOME Documentation Team</para>
+          <para role="publisher">Проект документации GNOME</para>
+	</revdescription> 
+      </revision> 
+
+      <revision> 
+	<revnumber>Руководство вер. 2.0 по апплету "Системный монитор".</revnumber> 
+	<date>Июль 2003</date> 
+	<revdescription> 
+	  <para role="author">Chee Bin HOH <email>cbhoh@mimos.my</email></para> 
+	  <para role="publisher">Проект документации GNOME</para> 
+	</revdescription> 
+      </revision> 
+
+    </revhistory> 
+
+    <releaseinfo>Это руководство описывает Системный монитор версии 2.10</releaseinfo> 
+    <legalnotice> 
+      <title>Обратная связь</title> 
+      <para>Чтобы сообщить об ошибке или сделать предложение, касающееся апплета "Системный монитор" или данного руководства, следуйте инструкциям в <ulink url="ghelp:gnome-feedback" type="help">Страница обратной связи GNOME</ulink>.</para>
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm zone="index"> 
+    <primary>Апплет Системный монитор</primary> 
+  </indexterm> 
+  <indexterm zone="index"> 
+    <primary>Системный монитор</primary> 
+  </indexterm>
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+  <sect1 id="multiload-introduction"> 
+    <title>Введение</title> 
+
+      <!-- ==== Figure ============================================= -->
+      <figure id="system-monitor-applet-fig"> 
+        <title>Системный монитор</title> 
+        <screenshot> 
+        <mediaobject> 
+          <imageobject><imagedata fileref="figures/system-monitor-applet_window.png" format="PNG"/> 
+          </imageobject>
+ 	  <textobject> 
+ 	    <phrase>Показан Системный монитор. Отображается график загрузки центрального процессора.</phrase> 
+          </textobject> 
+        </mediaobject> 
+	</screenshot> 
+      </figure> 
+      <!-- ==== End of Figure ======================================= -->
+
+      <para><application>Системный монитор</application> отображает информацию о загрузке системы в графической форме на панели задач. Вы можете настроить <application>Системный монитор</application>, чтобы отображать следующую информацию о вашей системе:</para>
+      <itemizedlist>
+        <listitem>
+          <para>Время использования CPU (центрального процессора) </para>
+        </listitem>
+        <listitem>
+          <para>Использование памяти</para>
+        </listitem>
+        <listitem>
+          <para>Использование сетевого трафика</para>
+        </listitem>
+        <listitem>
+          <para>Использование подкачки (своп-файла)</para>
+        </listitem>
+        <listitem>
+          <para>Загрузка системы</para>
+        </listitem>
+	<listitem><para>Использование дискового пространства</para></listitem>
+      </itemizedlist>
+
+      <sect2 id="multiload-introduction-add"> 
+        <title>Добавление Системного монитора на панель задач</title> 
+	<para>Чтобы добавить <application>Системный монитор</application> на панель задач, кликните правой кнопкой на ней, после чего выберите <guimenuitem>Добавить на панель</guimenuitem>. Выберите <application>Системный монитор</application> в диалоге <application>Добавить на панель</application>, затем кликните <guibutton>OK</guibutton>.</para>
+        <para>Расположение <application>Системного монитора</application> варьируется в зависимости от размера и типа панели задач, на которой размещается апплет.</para>     
+      </sect2>
+
+  </sect1>
+
+<!-- ================ Usage ================================ -->
+<!-- Use this section to describe how to use the applet to perform the tasks for 
+     which the applet is designed. -->
+  <sect1 id="multiload-usage"> 
+    <title>Просмотр графиков</title> 
+	<!-- ================ displaying addistional graphics======================== -->
+    <sect2 id="multiload-usage-graphs"> 
+      <title>Отображение дополнительных графиков</title> 
+      <para>Чтобы настроить апплет <application>Системный монитор</application>, кликните правой кнопкой на апплете, затем выберите <guimenuitem>Параметры</guimenuitem>. В списке <guilabel>Отслеживаемые ресурсы</guilabel> вы можете выбрать какой график вы хотите отобразить:</para>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <guilabel>Процессор</guilabel>
+              </para>
+              <para>Выберите эту настройку, чтобы отобразить график использования процессора.</para>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Память</guilabel>
+              </para>
+              <para>Выберите эту настройку, чтобы отобразить график использования памяти.</para>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Сеть</guilabel>
+              </para>
+              <para>Выберите эту настройку, чтобы отобразить график использования сетевых ресурсов.</para>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Подкачки</guilabel>
+              </para>
+              <para>Выберите эту настройку, чтобы отобразить график использования файла подкачки.</para>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Загрузка системы</guilabel>
+              </para>
+              <para>Выберите эту настройку, чтобы отобразить график среднего использования системных ресурсов.</para>
+            </listitem>
+	    <listitem>
+	     <para><guilabel>Жёсткий диск</guilabel></para>
+	     <para>Выберите эту настройку, чтобы отобразить график использования дискового пространства.</para>
+	    </listitem>
+          </itemizedlist>
+    </sect2>
+	<!-- ================ displaying current usage of system resources================== -->
+    <sect2 id="multiload-usage-current"> 
+      <title>Отображение текущего использования системных ресурсов</title> 
+      <para>Чтобы отображить текущее использование системных ресурсов, наведите курсор мыши на график апплета. Подсказка отобразит текущее использование в процентах.</para>
+    </sect2>
+	<!-- ================ displaying additional info================== -->
+    <sect2 id="multiload-usage-extra"> 
+      <title>Отображение дополнительной информации Системным монитором</title>
+      <para>Чтобы отобразить дополнительную информацию о системе, кликните правой кнопкой на апплете, потом выберите <guimenuitem>Открыть "Системный монитор"</guimenuitem> для запуска <application>Системного монитора</application>.</para>
+      <para>Апплет <application>Системный монитор</application> предоставляет вам возможность проводить мониторинг системных процессов и использования системных ресурсов. Вы можете использовать <application>Системный монитор</application> чтобы изменить поведение вашей системы.</para>
+    </sect2>
+
+  </sect1>
+
+<!-- ============= Preferences =========================== -->
+  <sect1 id="multiload-prefs">
+    <title>Настройка внешнего вида</title> 
+      <figure id="system-monitor-prefs-fig"> 
+        <title>Диалог Параметры</title> 
+        <screenshot> 
+        <mediaobject> 
+          <imageobject><imagedata fileref="figures/multiload-preferences.png" format="PNG"/> 
+          </imageobject>
+ 	  <textobject> 
+ 	    <phrase>Диалог Параметры</phrase> 
+          </textobject> 
+        </mediaobject> 
+	</screenshot> 
+      </figure> 
+    <sect2 id="multiload-size">
+        <title>Изменение ширины</title>
+              <para>В вызываемом правой кнопкой мыши меню выберите и нажмите на раздел <guimenuitem>Параметры</guimenuitem>. В разделе <guilabel>Параметры</guilabel> (открывшегося окна Параметры Системного монитора)  используйте пункт <guilabel>Ширина Системного монитора</guilabel> для настройки ширины в пикселях каждого графика <application>Системного монитора</application>.</para>
+  </sect2>
+  <sect2 id="multiload-update">
+        <title>Скорость обновления Системного монитора</title>
+              <para>В вызываемом правой кнопкой мыши меню выберите и нажмите на раздел <guimenuitem>Параметры</guimenuitem>. В разделе <guilabel>Параметры</guilabel> (открывшегося окна Параметры Системного монитора) используйте пункт <guilabel>Скорость обновления Системного монитора</guilabel>, для установки интервала в миллисекундах, устанавливаемого для обновления графиков.</para>
+    </sect2>
+	<!-- ================ changing graph colors======================== -->
+    <sect2 id="multiload-usage-colors"> 
+      <title>Изменение цвета графиков</title>
+      <para>Чтобы изменить цвет графиков, выполните следующие действия:</para>
+      <orderedlist>
+        <listitem>
+          <para>Кликнув правой кнопкой на апплете, выберите <guimenuitem>Параметры</guimenuitem>.</para>
+        </listitem>
+        <listitem>
+          <para>Выберите соответствующую закладку в поле "Цвета" диалога <guilabel>Параметры Системного монитора</guilabel>.</para>
+        </listitem>
+        <listitem>
+          <para>Кликните на соответствующей кнопке выбора цвета в нужной закладке.</para>
+        </listitem>
+        <listitem>
+          <para>В диалоге <guilabel>Выберите цвет</guilabel> используйте цветные круг или треугольник для выбора цвета для выбранного параметра.</para>
+        </listitem>
+        <listitem>
+          <para>Нажмите <guibutton>OK</guibutton>.</para>
+        </listitem>
+      </orderedlist>
+      <para>Закладки для каждого ресурса снабжены кнопками выбора цвета, так что вы можете изменить цвет параметров для каждого ресурса. </para>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <guilabel>Процессор</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+                      <entry><para><guilabel>Пользователь</guilabel></para></entry>
+                      <entry><para>Использование процессорного времени задачами, не относящимися к деятельности ядра</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Система</guilabel></para></entry>
+                      <entry><para>Использование процессорного времени под задачи ядра</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Nice</guilabel></para></entry>
+                      <entry><para>Процессорное время используется под процессы с низким приоритетом</para></entry>
+                    </row>
+		    <row valign="top">
+		      <entry><para><guilabel>IOWait</guilabel></para></entry>
+		      <entry>
+		       <para>Процессорное время затрачивается на ожидание I/O</para>
+		      </entry>
+		    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Вхолостую</guilabel></para></entry>
+                      <entry><para>Неиспользованные процессорные возможности</para></entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Память</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+                      <entry><para><guilabel>Пользователь</guilabel></para></entry>
+                      <entry><para>Память используется под задачи, не связанные с ядром</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Распределённые</guilabel></para></entry>
+                      <entry><para>Память используется более чем одним приложением</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Буферы</guilabel></para></entry>
+                      <entry><para>Память используется для временного хранения отправленных или полученных данных</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>В кэше</guilabel></para></entry>
+                      <entry><para>Память используется для хранения данных для быстрого доступа</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Свободная</guilabel></para></entry>
+                      <entry><para>Неиспользованная память</para></entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Сеть</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+                      <entry><para><guilabel>SLIP</guilabel></para></entry>
+                      <entry><para>Последовательный линейный интернет-протокол сетевого соединения</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>PLIP</guilabel></para></entry>
+                      <entry><para>Параллельный линейный интернет-протокол сетевого соединения</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Ethernet</guilabel></para></entry>
+                      <entry><para>Сетевое окружение</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Другие</guilabel></para></entry>
+                      <entry><para>Отличные от SLIP, PLIP или Ethernet сетевые подключения</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>В фоне</guilabel></para></entry>
+                      <entry><para>Сетевое подключение отсутствует</para></entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Подкачки</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+		     <entry><para><guilabel>Использовано</guilabel></para></entry>
+		     <entry>
+		      <para>Файл подкачки используется системой</para>
+		     </entry>
+		    </row>
+		    <row valign="top">
+		     <entry><para><guilabel>Свободная</guilabel></para></entry>
+		     <entry>
+		      <para>Файл подкачки свободен для использования</para>
+		     </entry>
+		    </row>
+		  </tbody>
+		</tgroup>
+              </informaltable>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Загрузка системы</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+		     <entry><para><guilabel>Среднее значение</guilabel></para></entry>
+		     <entry><para>Загрузка системы</para></entry>
+		    </row>
+		    <row valign="top">
+		     <entry><para><guilabel>В фоне</guilabel></para></entry>
+		     <entry><para>это означает, нет загрузки</para></entry>
+		    </row>
+		  </tbody>
+		</tgroup>
+	      </informaltable>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Жёсткий диск</guilabel>
+              </para>
+              <para>Выберите эту закладку, чтобы отобразить кнопки изменения цвета для следующих параметров:</para>
+              <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                  <colspec colname="COLSPEC0" colwidth="50*"/>
+                  <colspec colname="COLSPEC1" colwidth="50*"/>
+                  <thead>
+                    <row valign="top">
+                      <entry colname="COLSPEC0">
+                        <para>Параметр</para></entry>
+                      <entry colname="COLSPEC1">
+                        <para>Описание</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row valign="top">
+                      <entry><para><guilabel>Чтение</guilabel></para></entry>
+                      <entry><para>Скорость чтения диска</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>Запись</guilabel></para></entry>
+                      <entry><para>Скорость записи диска</para></entry>
+                    </row>
+                    <row valign="top">
+                      <entry><para><guilabel>В фоне</guilabel></para></entry>
+                      <entry><para>Время простоя диска</para></entry>
+                    </row>
+		  </tbody>
+		</tgroup>
+	      </informaltable>
+	    </listitem>
+          </itemizedlist>
+    </sect2>
+  </sect1>
+</article>

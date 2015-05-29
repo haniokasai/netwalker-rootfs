@@ -1,0 +1,1 @@
+/usr/share/python-support/python-gdata/gdata/apps/emailsettings/__init__.py

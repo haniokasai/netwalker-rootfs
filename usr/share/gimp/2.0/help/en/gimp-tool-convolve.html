@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.13.  Convolve (Blur/Sharpen)</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="gimp-tools-paint.html" title="3.  Brush Tools" />
+    <link rel="prev" href="gimp-tool-perspective-clone.html" title="3.12.  Perspective Clone" />
+    <link rel="next" href="gimp-tool-smudge.html" title="3.14.  Smudge" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">3.13. 
+    <span lang="en" xml:lang="en">Convolve (Blur/Sharpen)</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="gimp-tool-perspective-clone.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">3. 
+    <span lang="en" xml:lang="en">Brush Tools</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="gimp-tool-smudge.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="gimp-tool-convolve"></a>3.13. 
+    <span lang="en" xml:lang="en">Convolve (Blur/Sharpen)</span>
+  </h3>
+          </div>
+          <div>
+            <div class="revhistory">
+              <table border="1" width="100%" summary="Revision history">
+                <tr>
+                  <th align="left" valign="top" colspan="3">
+                    <b>Revision History</b>
+                  </th>
+                </tr>
+                <tr>
+                  <td align="left">Revision $Revision: 2422 $</td>
+                  <td align="left">2008-02-27</td>
+                  <td align="left">j.h</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="id2635910" class="indexterm"></a>
+      <a id="id2635923" class="indexterm"></a>
+      <div class="figure">
+        <a id="id2635932"></a>
+        <p class="title">
+          <b>Figure 13.78. 
+      <span lang="en" xml:lang="en">Convolve tool icon in the Toolbox</span>
+    </b>
+        </p>
+        <div class="figure-contents">
+          <div class="mediaobject">
+            <img src="../images/toolbox/toolbox-blur.png" alt="Convolve tool icon in the Toolbox" />
+          </div>
+        </div>
+      </div>
+      <br class="figure-break" />
+      <p>
+    The Convolve tool uses the current brush to locally blur or sharpen your
+    image. Blurring with it can be useful if some element of your image stands
+    out too much, and you would like to soften it. If you want to blur a whole
+    layer, or a large part of one, you will probably be better off using one
+    of the <a class="link" href="filters-blur.html" title="2.  Blur Filters">Blur Filters</a>.
+    The direction of a brushstroke has no effect: if you want directional
+    blurring, use the Smudge tool.
+  </p>
+      <p>
+    In “<span class="quote">Sharpen</span>” mode, the tool works by increasing the contrast
+    where the brush is applied.  A little bit of this may be useful, but
+    over-application will produce noise.  Some of the <a class="link" href="filters-enhance.html" title="5.  Enhance Filters">Enhancement Filters</a>, particularly
+    the <a class="link" href="plug-in-unsharp-mask.html" title="5.7.  Unsharp Mask">Unsharp Mask</a>, do a
+    much cleaner job of sharpening areas of a layer.
+  </p>
+      <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+        <table border="0" summary="Tip">
+          <tr>
+            <td rowspan="2" align="center" valign="top" width="25">
+              <img alt="[Tip]" src="../images/tip.png" />
+            </td>
+            <th align="left">Tip</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top">
+              <p>
+      You can create a more sophisticated sharpening brush using the Clone
+      tool. To do this, start by duplicating the layer you want to work on,
+      and run a sharpening filter, such as Unsharp Mask, on the copy. Then
+      activate the Clone tool, and in its Tool Options set Source to
+      “<span class="quote">Image source</span>” and Alignment to “<span class="quote">Registered</span>”.
+      Set the Opacity to a modest value, such as 10. Then Ctrl-click on the
+      copy to make it the source image. If you now paint on the original
+      layer, you will mix together, where the brush is applied, the sharpened
+      version with the unsharpened version.
+    </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <p>
+    Both blurring and sharpening work incrementally: moving the brush
+    repeatedly over an area will increase the effect with each additional
+    pass. The Rate control allows you to determine how quickly the
+    modifications accumulate. The Opacity control, however, can be used to
+    limit the amount of blurring that can be produced by a single brushstroke,
+    regardless of how many passes are made with it.
+  </p>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2636052"></a>3.13.1. 
+      <span lang="en" xml:lang="en">How to Activate</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      The Convolve tool can be activated from an image menu as
+      <span class="guimenu">Tools</span> → <span class="guisubmenu">Paint Tools</span> → <span class="guimenuitem">Convolve</span>;
+      from the Toolbox by clicking on the tool icon
+      <span class="guiicon">
+        <span class="inlinemediaobject"><img src="../images/toolbox/stock-tool-blur-22.png" /></span>
+      </span>;
+      or from the keyboard using the shortcut <span class="keycap"><strong>Shift
+      </strong></span>+<span class="keycap"><strong>U</strong></span>.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2636126"></a>3.13.2. 
+      <span lang="en" xml:lang="en">Key modifiers</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      See the <a class="link" href="gimp-tools-paint.html#gimp-tool-brush" title="3.1.  Common Features">Brush Tools
+      Overview</a> for a description of key modifiers that have the
+      same effect on all brush tools.
+    </p>
+        <div class="itemizedlist">
+          <ul type="disc">
+            <li>
+              <p>
+          <span class="keycap"><strong>Ctrl</strong></span>:
+          Holding down the Ctrl key toggles between Blur and Sharpen
+          modes; it reverses the setting shown in the Tool Options.
+        </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2636173"></a>3.13.3. 
+      <span lang="en" xml:lang="en">Tool Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2636183"></a>
+          <p class="title">
+            <b>Figure 13.79. 
+        <span lang="en" xml:lang="en">Tool Options for the Convolve tool</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/toolbox/tool-options-convolve.png" alt="Tool Options for the Convolve tool" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">
+          Opacity; Brush; Scale; Pressure Sensitivity; Fade Out; Hard Edges
+        </span>
+            </dt>
+            <dd>
+              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                <table border="0" summary="Note">
+                  <tr>
+                    <td rowspan="2" align="center" valign="top" width="25">
+                      <img alt="[Note]" src="../images/note.png" />
+                    </td>
+                    <th align="left">Note</th>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">
+                      <p>
+    See the <a class="link" href="gimp-tools-paint.html#gimp-tool-brush-options" title="3.1.2.  Tool Options">Brush Tools Overview</a> for a
+    description of tool options that apply to many or all brush tools.
+  </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Convolve Type</span>
+            </dt>
+            <dd>
+              <p>
+            <span class="emphasis"><em>Blur</em></span>
+            mode causes each pixel affected by the brush to be blended with
+            neighboring pixels, thereby increasing the similarity of pixels
+            inside the brushstroke area. <span class="emphasis"><em>Sharpen</em></span>
+            mode causes each pixel to become more different from its neighbors
+            than it previously was: it increases contrast inside the
+            brushstroke area. Too much Sharpen ends in an ugly flocculation
+            aspect. Whatever setting you choose here, you can
+            reverse it on-the-fly by holding down the Ctrl key.
+          </p>
+              <p>
+            “<span class="quote">Convolve</span>” refers to a mathematical method using
+            matrices.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">Rate</span>
+            </dt>
+            <dd>
+              <p>
+            The <span class="guilabel">Rate</span>
+            slider sets the strength of the convolve effect.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="gimp-tool-perspective-clone.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="gimp-tools-paint.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="gimp-tool-smudge.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="gimp-tool-perspective-clone.html">3.12. 
+    <span lang="en" xml:lang="en">Perspective Clone</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="gimp-tool-smudge.html">3.14. 
+    <span lang="en" xml:lang="en">Smudge</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

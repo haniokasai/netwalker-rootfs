@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.  A Script-Fu Tutorial</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="gimp-scripting.html" title="Chapter 12.  Scripting" />
+    <link rel="prev" href="ch12s02s06.html" title="2.6.  Image-Dependent Scripts" />
+    <link rel="next" href="gimp-using-script-fu-tutorial-identifier.html" title="3.2.  Variables And Functions" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">3. 
+    <span lang="en" xml:lang="en">A Script-Fu Tutorial</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="ch12s02s06.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">Chapter 12. 
+        <span lang="en" xml:lang="en">Scripting</span>
+      </th>
+          <td width="20%" align="right"> <a accesskey="n" href="gimp-using-script-fu-tutorial-identifier.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="gimp-using-script-fu-tutorial"></a>3. 
+    <span lang="en" xml:lang="en">A Script-Fu Tutorial</span>
+  </h2>
+          </div>
+        </div>
+      </div>
+      <a id="id2616437" class="indexterm"></a>
+      <p>
+    In this training course, we'll introduce you to the fundamentals of Scheme
+    necessary to use Script-Fu, and then build a handy script that you can add
+    to your toolbox of scripts. The script prompts the user for some text,
+    then creates a new image sized perfectly to the text. We will then enhance
+    the script to allow for a buffer of space around the text. We will
+    conclude with a few suggestions for ways to ramp up your knowledge of
+    Script-Fu.
+  </p>
+      <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+        <table border="0" summary="Note">
+          <tr>
+            <td rowspan="2" align="center" valign="top" width="25">
+              <img alt="[Note]" src="../images/note.png" />
+            </td>
+            <th align="left">Note</th>
+          </tr>
+          <tr>
+            <td align="left" valign="top">
+              <p>
+      This section as adapted from a tutorial written for the GIMP 1 User
+      Manual by Mike Terry.
+    </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="gimp-using-script-fu-tutorial-scheme"></a>3.1. 
+      <span lang="en" xml:lang="en">Getting Acquainted With Scheme</span>
+    </h3>
+            </div>
+          </div>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616490"></a>3.1.1. 
+        <span lang="en" xml:lang="en">Let's Start Scheme'ing</span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>The first thing to learn is that:</p>
+          <p>
+        <span class="emphasis"><em>
+          Every statement in Scheme is surrounded by parentheses ().
+        </em></span>
+      </p>
+          <p>The second thing you need to know is that:</p>
+          <p>
+        <span class="emphasis"><em>
+          The function name/operator is always the first item in the
+          parentheses, and the rest of the items are parameters to the
+          function.
+        </em></span>
+      </p>
+          <p>
+        However, not everything enclosed in parentheses is a function -- they
+        can also be items in a list -- but we'll get to that later. This
+        notation is referred to as prefix notation, because the function
+        prefixes everything else. If you're familiar with postfix notation, or
+        own a calculator that uses Reverse Polish Notation (such as most HP
+        calculators), you should have no problem adapting to formulating
+        expressions in Scheme.
+      </p>
+          <p>The third thing to understand is that:</p>
+          <p>
+        <span class="emphasis"><em>
+          Mathematical operators are also considered functions, and thus are
+          listed first when writing mathematical expressions.
+        </em></span>
+      </p>
+          <p>
+        This follows logically from the prefix notation that we just
+        mentioned.
+      </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616572"></a>3.1.2. 
+        <span lang="en" xml:lang="en">
+          Examples Of Prefix, Infix, And Postfix Notations
+        </span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+        Here are some quick examples illustrating the differences between
+        <span class="emphasis"><em>prefix</em></span>, <span class="emphasis"><em>infix</em></span>, and
+        <span class="emphasis"><em>postfix</em></span> notations. We'll add a 1 and 3 together:
+      </p>
+          <div class="itemizedlist">
+            <ul type="disc">
+              <li>
+                <p>
+            Prefix notation: + 1 3 (the way Scheme will want it)
+          </p>
+              </li>
+              <li>
+                <p>
+            Infix notation: 1 + 3 (the way we "normally" write it)
+          </p>
+              </li>
+              <li>
+                <p>
+            Postfix notation: 1 3 + (the way many HP calculators will want it)
+          </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616636"></a>3.1.3. 
+        <span lang="en" xml:lang="en">Practicing In Scheme</span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+        Now, let's practice what we have just learned. Start up GIMP,
+        if you have not already done so, and choose <span class="guimenu">Xtns</span> → <span class="guisubmenu">Script-Fu</span> → <span class="guimenuitem">Console</span>. This will start
+        up the Script-Fu Console window, which allows us to work
+        interactively in Scheme. In a matter of moments, the Script-Fu
+        Console will appear:
+      </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616681"></a>3.1.4. 
+        <span lang="en" xml:lang="en">The Script-Fu Console Window</span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+        At the bottom of this window is an entry-field entitled
+        <span class="guilabel">Current Command</span>.
+        Here, we can test out simple Scheme commands interactively. Let's
+        start out easy, and add some numbers:
+      </p>
+          <pre class="programlisting">(+ 3 5)</pre>
+          <p>
+        Typing this in and hitting <span class="keycap"><strong>Enter</strong></span>
+        yields the expected answer of 8 in the center window.
+      </p>
+          <div class="figure">
+            <a id="id2616726"></a>
+            <p class="title">
+              <b>Figure 12.3. 
+          <span lang="en" xml:lang="en">
+            Use Script-Fu Console.
+          </span>
+        </b>
+            </p>
+            <div class="figure-contents">
+              <div class="mediaobject">
+                <img src="../images/using/script-fu-console.png" alt="Use Script-Fu Console." />
+              </div>
+            </div>
+          </div>
+          <br class="figure-break" />
+          <p>
+        Now, what if we wanted to add more than one number? The “<span class="quote">+</span>”
+        function can take two or more arguments, so this is not a problem:
+      </p>
+          <pre class="programlisting">(+ 3 5 6)</pre>
+          <p>This also yields the expected answer of 14.</p>
+          <p>
+        So far, so good -- we type in a Scheme statement and it's executed
+        immediately in the Script-Fu Console window. Now for a word of
+        caution....
+      </p>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616790"></a>3.1.5. 
+        <span lang="en" xml:lang="en">Watch Out For Extra Parentheses</span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+        If you're like me, you're used to being able to use extra parentheses
+        whenever you want to -- like when you're typing a complex mathematical
+        equation and you want to separate the parts by parentheses to make it
+        clearer when you read it. In Scheme, you have to be careful and not
+        insert these extra parentheses incorrectly. For example, say we wanted
+        to add 3 to the result of adding 5 and 6 together:
+      </p>
+          <pre class="programlisting">3 + (5 + 6) + 7 = ?</pre>
+          <p>
+        Knowing that the + operator can take a list of numbers to add, you
+        might be tempted to convert the above to the following:
+      </p>
+          <pre class="programlisting">(+ 3 (5 6) 7)</pre>
+          <p>
+        However, this is incorrect -- remember, every statement in Scheme
+        starts and ends with parens, so the Scheme interpreter will think that
+        you're trying to call a function named “<span class="quote">5</span>” in the second
+        group of parens, rather than summing those numbers before adding them
+        to 3.
+      </p>
+          <p>
+        The correct way to write the above statement would be:
+      </p>
+          <pre class="programlisting">(+ 3 (+ 5 6) 7)</pre>
+        </div>
+        <div class="sect3" lang="en" xml:lang="en">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h4 class="title"><a id="id2616862"></a>3.1.6. 
+        <span lang="en" xml:lang="en">Make Sure You Have The Proper Spacing, Too</span>
+      </h4>
+              </div>
+            </div>
+          </div>
+          <p>
+        If you are familiar with other programming languages, like C/C++, Perl
+        or Java, you know that you don't need white space around mathematical
+        operators to properly form an expression:
+      </p>
+          <pre class="programlisting">
+            <code class="literal">3+5, 3 +5, 3+ 5</code>
+          </pre>
+          <p>
+        These are all accepted by C/C++, Perl and Java compilers. However, the
+        same is not true for Scheme. You must have a space after a
+        mathematical operator (or any other function name or operator) in
+        Scheme for it to be correctly interpreted by the Scheme interpreter.
+      </p>
+          <p>
+        Practice a bit with simple mathematical equations in the Script-Fu
+        Console until you're totally comfortable with these initial concepts.
+      </p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="ch12s02s06.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="gimp-scripting.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="gimp-using-script-fu-tutorial-identifier.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="ch12s02s06.html">2.6. 
+      <span lang="en" xml:lang="en">Image-Dependent Scripts</span>
+    </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="gimp-using-script-fu-tutorial-identifier.html">3.2. 
+      <span lang="en" xml:lang="en">Variables And Functions</span>
+    </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

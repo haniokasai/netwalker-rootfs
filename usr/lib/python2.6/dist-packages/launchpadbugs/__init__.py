@@ -1,0 +1,1 @@
+/usr/share/pyshared/launchpadbugs/__init__.py

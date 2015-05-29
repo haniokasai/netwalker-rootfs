@@ -1,0 +1,50 @@
+#! /bin/sh
+
+set -e
+
+# update font cache
+fontconfig_cache_update()
+{
+	if [ -x /usr/bin/fc-cache ]; then
+	  fc-cache update
+	fi
+}
+
+
+case "$1" in
+    upgrade|deconfigure)
+	fontconfig_cache_update
+	;;
+    remove) 
+
+	ALT_NAME="ttf-japanese-gothic"
+	FONT_ENTRY="/usr/share/fonts/truetype/LCFont/lcfont.ttf"
+        if [ -f /usr/share/fonts/truetype/"$ALT_NAME" ]; then
+          rm /usr/share/fonts/truetype/"$ALT_NAME"
+        fi
+	update-alternatives --remove $ALT_NAME $FONT_ENTRY
+	update-alternatives --remove $ALT_NAME.ttf $FONT_ENTRY
+
+	ALT_NAME="ttf-japanese-gothic"
+	FONT_ENTRY="/usr/share/fonts/truetype/vlgothic/LCMincho.ttf"
+        if [ -f /usr/share/fonts/truetype/"$ALT_NAME" ]; then
+          rm /usr/share/fonts/truetype/"$ALT_NAME"
+        fi
+	update-alternatives --remove $ALT_NAME $FONT_ENTRY
+	update-alternatives --remove $ALT_NAME.ttf $FONT_ENTRY
+
+	fontconfig_cache_update
+        ;;
+    failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+
+exit 0
+
+

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>3.10.  Clone</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="gimp-tools-paint.html" title="3.  Brush Tools" />
+    <link rel="prev" href="gimp-tool-ink.html" title="3.9.  Ink" />
+    <link rel="next" href="gimp-tool-heal.html" title="3.11.  Heal" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">3.10. 
+    <span lang="en" xml:lang="en">Clone</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="gimp-tool-ink.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">3. 
+    <span lang="en" xml:lang="en">Brush Tools</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="gimp-tool-heal.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="gimp-tool-clone"></a>3.10. 
+    <span lang="en" xml:lang="en">Clone</span>
+  </h3>
+          </div>
+        </div>
+      </div>
+      <a id="id2633619" class="indexterm"></a>
+      <a id="id2633633" class="indexterm"></a>
+      <div class="figure">
+        <a id="id2633642"></a>
+        <p class="title">
+          <b>Figure 13.65. 
+      <span lang="en" xml:lang="en">Clone tool icon in the Toolbox</span>
+    </b>
+        </p>
+        <div class="figure-contents">
+          <div class="mediaobject">
+            <img src="../images/toolbox/toolbox-clone.png" alt="Clone tool icon in the Toolbox" />
+          </div>
+        </div>
+      </div>
+      <br class="figure-break" />
+      <p>
+    The Clone tool uses the current brush to copy from an image or pattern.
+    It has many uses: one of the most important is to repair problem areas in
+    digital photos, by “<span class="quote">painting over</span>” them with pixel data from
+    other areas.
+    This technique takes a while to learn, but in the hands of a skilled user
+    it is very powerful. Another important use is to draw patterned lines or
+    curves: see <a class="link" href="gimp-concepts-patterns.html" title="11.  Patterns">Patterns</a>
+    for examples.
+  </p>
+      <p>
+    If you want to clone from an image, instead of a pattern, you must tell
+    GIMP which image you want to copy from. You do this by holding down the
+    Ctrl key and clicking in the desired source image. Until you have set the
+    source in this way, you will not be able to paint with the Clone tool:
+    the tool cursor tells you this by showing a “<span class="quote">forbidden</span>”
+    symbol.
+  </p>
+      <p>
+    If you clone from a pattern, the pattern is <span class="emphasis"><em>tiled</em></span>;
+    that is, when the point you are copying from moves past one of the
+    edges, it jumps to the opposite edge and continues, as though the pattern
+    were repeated side-by-side, indefinitely. When you clone from an image
+    this does not happen: if you go beyond the edges of the source, the Clone
+    tool stops producing any changes.
+  </p>
+      <p>
+    You can clone from any drawable (that is, any layer, layer mask, or
+    channel) to any other drawable. You can even clone to or from the
+    selection mask, by switching to QuickMask mode. If this means copying
+    colors that the target does not support (for example, cloning from an RGB
+    layer to an Indexed layer or a layer mask), then the colors will be
+    converted to the closest possible approximations.
+  </p>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2633738"></a>3.10.1. 
+      <span lang="en" xml:lang="en">How to Activate</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>You can activate the Clone tool in several ways :</p>
+        <div class="itemizedlist">
+          <ul type="disc">
+            <li>
+              <p>
+          From the image menu through
+          <span class="guimenu">Tools</span> → <span class="guisubmenu">Paint Tools</span> → <span class="guimenuitem">Clone</span>.
+        </p>
+            </li>
+            <li>
+              <p>
+          By clicking on the tool icon
+          <span class="guiicon">
+            <span class="inlinemediaobject"><img src="../images/toolbox/stock-tool-clone-22.png" /></span>
+          </span> in Toolbox.
+        </p>
+            </li>
+            <li>
+              <p>
+          By pressing the <span class="keycap"><strong>c</strong></span> keyboard shortcut.
+        </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2633837"></a>3.10.2. 
+      <span lang="en" xml:lang="en">Key modifiers</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      See the <a class="link" href="gimp-tools-paint.html#gimp-tools-brush-modifiers" title="3.1.1.  Key modifiers">brush tools key
+      modifiers</a> for a description of key modifiers that have the same
+      effect on all brush tools.
+    </p>
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">
+                <span class="keycap">
+                  <strong>Ctrl</strong>
+                </span>
+              </span>
+            </dt>
+            <dd>
+              <p>
+            The Ctrl key is used to select the source, if you are cloning
+            from an image: it has no effect if you are cloning from a
+            pattern. You can clone from any layer of any image, by clicking
+            on the image display, with the Ctrl key held down, while the
+            layer is active (as shown in the Layers dialog). If Alignment is
+            set to “<span class="quote">None</span>”, “<span class="quote">Aligned</span>”, or
+            “<span class="quote">Fixed</span>” in tool options, then the point you click on
+            becomes the origin for cloning: the image data at that point will
+            be used when you first begin painting with the Clone tool. In
+            source-selection mode, the cursor changes to a reticle cross
+            symbol.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2633912"></a>3.10.3. 
+      <span lang="en" xml:lang="en">Tool Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2633923"></a>
+          <p class="title">
+            <b>Figure 13.66. 
+        <span lang="en" xml:lang="en">Tool Options for the Clone tool</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/toolbox/tool-options-clone.png" alt="Tool Options for the Clone tool" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">
+          Mode; Opacity; Brush; Pressure Sensitivity, Fade out, Apply Jitter,
+          Hard Edges
+        </span>
+            </dt>
+            <dd>
+              <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+                <table border="0" summary="Note">
+                  <tr>
+                    <td rowspan="2" align="center" valign="top" width="25">
+                      <img alt="[Note]" src="../images/note.png" />
+                    </td>
+                    <th align="left">Note</th>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">
+                      <p>
+    See the <a class="link" href="gimp-tools-paint.html#gimp-tool-brush-options" title="3.1.2.  Tool Options">Brush Tools Overview</a> for a
+    description of tool options that apply to many or all brush tools.
+  </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Source</span>
+            </dt>
+            <dd>
+              <a id="id2633999" class="indexterm"></a>
+              <p>
+            The choice you make here determines whether data will be copied
+            from the pattern shown above, or from one of the images you have
+            open.
+          </p>
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">Image</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  If you choose “<span class="quote">Image source</span>”,
+                  you must tell GIMP which layer to use as the source, by
+                  Ctrl-clicking on it, before you can paint with the tool.
+                </p>
+                  </dd>
+                  <dt>
+                    <span class="term">Pattern</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  Clicking on the pattern symbol brings up the Patterns
+                  dialog, which you can use to select the pattern to paint
+                  with. This option is only relevant if you are cloning from a
+                  Pattern source.
+                </p>
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+            <dt>
+              <span class="term">Alignment</span>
+            </dt>
+            <dd>
+              <p>
+            The Alignment mode defines the relation between the brush
+            position and the source position.
+          </p>
+              <p>
+            In the following examples, we will use a source image where the
+            sample to be cloned will be taken, and a destination image where
+            the sample will be cloned (it could be a layer in the source
+            image)
+          </p>
+              <div class="figure">
+                <a id="id2634101"></a>
+                <p class="title">
+                  <b>Figure 13.67. 
+              <span lang="en" xml:lang="en">Original images for clone alignment</span>
+            </b>
+                </p>
+                <div class="figure-contents">
+                  <div class="mediaobject">
+                    <img src="../images/toolbox/clone-source.png" alt="Original images for clone alignment" />
+                    <div class="caption">
+                      <p>
+                  We will use the largest brush with the Pencil tool. The
+                  source is represented here with a ringed cross.
+                </p>
+                    </div>
+                  </div>
+                  <div class="mediaobject">
+                    <img src="../images/toolbox/clone-dest.png" alt="Original images for clone alignment" />
+                    <div class="caption">
+                      <p>
+                  An image with a solid background only. We shall draw three
+                  cloning strokes successively.
+                </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br class="figure-break" />
+              <div class="variablelist">
+                <dl>
+                  <dt>
+                    <span class="term">None</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  In this mode, each brushstroke is treated separately. For
+                  each stroke, the point where you first click is copied from
+                  the source origin; there is no relationship between one
+                  brush stroke and another. In non-aligned mode, different
+                  brush strokes will usually clash if they intersect each
+                  other.
+                </p>
+                    <div class="figure">
+                      <a id="id2634190"></a>
+                      <p class="title">
+                        <b>Figure 13.68. 
+                    <span lang="en" xml:lang="en">
+                      “<span class="quote">None</span>” clone alignment
+                    </span>
+                  </b>
+                      </p>
+                      <div class="figure-contents">
+                        <div class="mediaobject">
+                          <img src="../images/toolbox/clone-none.png" alt="None clone alignment" />
+                          <div class="caption">
+                            <p>
+                        At every new brush stroke, the source goes back to
+                        its first position. The same sample is always cloned.
+                      </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br class="figure-break" />
+                  </dd>
+                  <dt>
+                    <span class="term">Aligned</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  In this mode, the first click you make when painting sets
+                  the offset between the source origin and the cloned result,
+                  and all subsequent brushstrokes use the same offset. Thus,
+                  you can use as many brushstrokes as you like, and they will
+                  all mesh smoothly with one another.
+                </p>
+                    <p>
+                  If you want to change the offset, select a new source origin
+                  by clicking with the <span class="keycap"><strong>Ctrl</strong></span> key pressed.
+                </p>
+                    <div class="figure">
+                      <a id="id2634272"></a>
+                      <p class="title">
+                        <b>Figure 13.69. 
+                    <span lang="en" xml:lang="en">
+                      “<span class="quote">Aligned</span>” clone alignment
+                    </span>
+                  </b>
+                      </p>
+                      <div class="figure-contents">
+                        <div class="mediaobject">
+                          <img src="../images/toolbox/clone-aligned.png" alt="Aligned clone alignment" />
+                          <div class="caption">
+                            <p>
+                        At every new brush stroke, the source keeps the
+                        same offset it had with the previous brush stroke.
+                        So, there is no cloning offset for the first brush
+                        stroke. Here, for the following strokes, the source
+                        ends up out of the source image canvas; hence the
+                        truncated aspect.
+                      </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br class="figure-break" />
+                  </dd>
+                  <dt>
+                    <span class="term">Registered</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  The “<span class="quote">Registered</span>” mode is different from the
+                  other alignment modes. When you copy from an image, a
+                  Ctrl-click will register a source layer. Then painting in a
+                  target layer will clone each corresponding pixel (pixel with
+                  the same offset) from the source layer. This is useful when
+                  you want to clone parts of an image from one layer to
+                  another layer within the same image. (But remember that you
+                  can also clone from one image to another image.)
+                </p>
+                    <p>
+                  When you selected a pattern as source, imagine a new layer
+                  filled with this pattern as the registered source layer.
+                </p>
+                    <div class="figure">
+                      <a id="id2634369"></a>
+                      <p class="title">
+                        <b>Figure 13.70. 
+                    <span lang="en" xml:lang="en">
+                      “<span class="quote">Registered</span>” clone alignment
+                    </span>
+                  </b>
+                      </p>
+                      <div class="figure-contents">
+                        <div class="mediaobject">
+                          <img src="../images/toolbox/clone-registered.png" alt="Registered clone alignment" />
+                          <div class="caption">
+                            <p>
+                        At every brush stroke, the source adopts the position
+                        of the mouse pointer in the destination layer. Here,
+                        the destination layer is smaller than the source
+                        layer; so, there is no truncated aspect.
+                      </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br class="figure-break" />
+                  </dd>
+                  <dt>
+                    <span class="term">Fixed</span>
+                  </dt>
+                  <dd>
+                    <p>
+                  Using this mode you will paint with the source origin,
+                  unlike the modes <span class="guilabel">None</span> or
+                  <span class="guilabel">Aligned</span> even when drawing a line. The
+                  source will not be moved.
+                </p>
+                    <div class="figure">
+                      <a id="id2634450"></a>
+                      <p class="title">
+                        <b>Figure 13.71. 
+                    <span lang="en" xml:lang="en">
+                      “<span class="quote">Fixed</span>” clone alignment
+                    </span>
+                  </b>
+                      </p>
+                      <div class="figure-contents">
+                        <div class="mediaobject">
+                          <img src="../images/toolbox/clone-fixed.png" alt="Fixed clone alignment" />
+                          <div class="caption">
+                            <p>
+                        The source remains fixed. The same small sample is
+                        reproduced identically in a tightened way.
+                      </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br class="figure-break" />
+                  </dd>
+                </dl>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="filter-and-history-brushes"></a>3.10.4. 
+      <span lang="en" xml:lang="en">Further Information</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">Transparency</span>
+            </dt>
+            <dd>
+              <p>
+            The effects of the Clone tool on transparency are a bit
+            complicated. You cannot clone transparency: if you try to clone
+            from a transparent source, nothing happens to the target. If you
+            clone from a partially transparent source, the effect is weighted
+            by the opacity of the source. So, assuming 100% opacity and a hard
+            brush:
+          </p>
+              <div class="itemizedlist">
+                <ul type="disc">
+                  <li>
+                    <p>
+                Cloning translucent black onto white produces gray.
+              </p>
+                  </li>
+                  <li>
+                    <p>
+                Cloning translucent black onto black produces black.
+              </p>
+                  </li>
+                  <li>
+                    <p>
+                Cloning translucent white onto white produces white.
+              </p>
+                  </li>
+                  <li>
+                    <p>
+                Cloning translucent white onto black produces gray.
+              </p>
+                  </li>
+                </ul>
+              </div>
+              <p>
+            Cloning can never increase transparency, but, unless “<span class="quote">keep
+            transparency</span>” is turned on for the layer, it can reduce
+            it.
+            Cloning an opaque area onto a translucent area produces an opaque
+            result; cloning a translucent area onto another translucent area
+            causes an increase in opacity.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">“<span class="quote">Filter</span>” brushes</span>
+            </dt>
+            <dd>
+              <p>
+            <a id="id2634620" class="indexterm"></a>
+            There are a few non-obvious ways to use the Clone tool to obtain
+            powerful effects. One thing you can do is to create “<span class="quote">Filter
+            brushes</span>”, that is, create the effect of applying a filter
+            with a brush. To do this, duplicate the layer you want to work
+            on, and apply the filter to the copy. Then activate the Clone
+            tool, setting Source to “<span class="quote">Image source</span>” and Alignment
+            to “<span class="quote">Registered</span>”. Ctrl-click on the filtered layer to
+            set it as the source, and paint on the original layer: you will
+            then in effect be painting the filtered image data onto the
+            original layer.
+          </p>
+            </dd>
+            <dt>
+              <span class="term">History brush</span>
+            </dt>
+            <dd>
+              <p>
+            <a id="id2634675" class="indexterm"></a>
+            You can use a similar approach to imitate Photoshop's
+            “<span class="quote">History brush</span>”, which allows you to selectively
+            undo or redo changes using a brush. To do this, start by
+            duplicating the image; then, in the original, go back to the
+            desired state in the image's history, either by undoing or by
+            using the Undo History dialog. (This must be done in the
+            original, not the copy, because duplicating an image does not
+            duplicate the Undo history.) Now activate the Clone tool,
+            setting Source to “<span class="quote">Image source</span>” and Alignment to
+            “<span class="quote">Registered</span>”. Ctrl-click on a layer from one image,
+            and paint on the corresponding layer from the other image.
+            Depending on how you do it, this gives you either an “<span class="quote">undo
+            brush</span>” or a “<span class="quote">redo brush</span>”.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="gimp-tool-ink.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="gimp-tools-paint.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="gimp-tool-heal.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="gimp-tool-ink.html">3.9. 
+    <span lang="en" xml:lang="en">Ink</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="gimp-tool-heal.html">3.11. 
+    <span lang="en" xml:lang="en">Heal</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+SCIM supports three different input modes -- XIM mode, GTK IM mode, and Qt 3
+IM mode.  The Qt 3 IM mode needs an unofficial patch for Qt 3, because
+Trolltech has said that such patch can't go into Qt 3 as it's considered too
+intrusive.  Debian's Qt maintainers has included this patch into Qt 3 packages
+since version 3:3.3.5-4.
+
+Qt 4 has plans to officially support input methods, but the current status in
+Qt 4.3.2 is still not clear (at least to the author of this README).  And
+there is currently no Qt 4 IM module support for SCIM in Debian.
+
+Therefore, Qt/KDE 3 applications can use either XIM mode or Qt 3 IM mode for
+SCIM.  These can be easily set and changed with the im-switch package.  The
+XIM mode support is included in scim package.  To use Qt 3 IM mode, you also
+need to install scim-qtimm package.  Qt/KDE 4 applications only have the
+option of XIM mode, but it should work just fine.
+
+When using XIM mode in Qt 3, You need to pay extra attention on two things:
+
+1. Both Qt and SCIM has their own settings for XIM style, so you need to make
+sure they match.  There are two commonly used XIM styles, usually called "on
+the spot" and "over the spot".  To change the style in SCIM, run scim-setup
+(or choose "SCIM Input Method Setup" from your menu), and go to the "FrontEnd
+-> Global Setup" page.  The option to change XIM style is "Embed Preedit
+String into client window", when it is selected, you are using "on the spot"
+style; and when it is not selected, you are using "over the spot" style.  To
+change the style in Qt, run qtconfig (or choose "Qt3 Configuration" from your
+menu), go to "Interface" tab, and choose the style in the "XIM Input Style"
+dropdown menu at the bottom.  You usually don't need the "off the spot" or
+"root" style.
+
+2. It is reported that some of the KDE applications don't work very well when
+using "on the spot" style.  So if your application behaves strangely, you may
+want to try switching to "over the spot" style first.
+
+(Last updated by Ming Hua, on Sat, 13 Oct 2007)
+
+vim:textwidth=78:

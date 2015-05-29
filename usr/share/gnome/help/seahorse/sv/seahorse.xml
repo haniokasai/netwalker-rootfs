@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Passwords and Encryption Keys">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="sv">
+	<articleinfo>
+		<title>Handbok för Lösenord och krypteringsnycklar</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins och Adam Schreiber</holder>
+		</copyright><copyright><year>2006, 2007, 2008</year><holder>Daniel Nylander (po@danielnylander.se)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Seahorse-projektet</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Tillstånd att kopiera, distribuera och/eller modifiera detta dokument ges under villkoren i GNU Free Documentation License (GFDL), version 1.1 eller senare, utgivet av Free Software Foundation utan standardavsnitt och omslagstexter.  En kopia av GFDL finns att hämta på denna <ulink type="help" url="ghelp:fdl">länk</ulink> eller i filen COPYING-DOCS som medföljer denna handbok.</para>
+         <para>Denna handbok utgör en av flera GNOME-handböcker som distribueras under villkoren i GFDL.  Om du vill distribuera denna handbok separat från övriga handböcker kan du göra detta genom att lägga till en kopia av licensavtalet i handboken enligt instruktionerna i avsnitt 6 i licensavtalet.</para>
+
+	<para>Flera namn på produkter och tjänster är registrerade varumärken. I de fall dessa namn förekommer i GNOME-dokumentation - och medlemmarna i GNOME-dokumentationsprojektet är medvetna om dessa varumärken - är de skrivna med versaler eller med inledande versal.</para>
+
+	<para>DOKUMENTET OCH MODIFIERADE VERSIONER AV DOKUMENTET TILLHANDAHÅLLS UNDER VILLKOREN I GNU FREE DOCUMENTATION LICENSE ENDAST UNDER FÖLJANDE FÖRUTSÄTTNINGAR: <orderedlist>
+		<listitem>
+		  <para>DOKUMENTET TILLHANDAHÅLLS I "BEFINTLIGT SKICK" UTAN NÅGRA SOM HELST GARANTIER, VARE SIG UTTRYCKLIGA ELLER UNDERFÖRSTÅDDA, INKLUSIVE, MEN INTE BEGRÄNSAT TILL, GARANTIER ATT DOKUMENTET ELLER EN MODIFIERAD VERSION AV DOKUMENTET INTE INNEHÅLLER NÅGRA FELAKTIGHETER, ÄR LÄMPLIGT FÖR ETT VISST ÄNDAMÅL ELLER INTE STRIDER MOT LAG. HELA RISKEN VAD GÄLLER KVALITET, EXAKTHET OCH UTFÖRANDE AV DOKUMENTET OCH MODIFIERADE VERSIONER AV DOKUMENTET LIGGER HELT OCH HÅLLET PÅ ANVÄNDAREN. OM ETT DOKUMENT ELLER EN MODIFIERAD VERSION AV ETT DOKUMENT SKULLE VISA SIG INNEHÅLLA FELAKTIGHETER I NÅGOT HÄNSEENDE ÄR DET DU (INTE DEN URSPRUNGLIGA SKRIBENTEN, FÖRFATTAREN ELLER NÅGON ANNAN MEDARBETARE) SOM FÅR STÅ FÖR ALLA EVENTUELLA KOSTNADER FÖR SERVICE, REPARATIONER ELLER KORRIGERINGAR. DENNA GARANTIFRISKRIVNING UTGÖR EN VÄSENTLIG DEL AV DETTA LICENSAVTAL. DETTA INNEBÄR ATT ALL ANVÄNDNING AV ETT DOKUMENT ELLER EN MODIFIERAD VERSION AV ETT DOKUMENT BEVILJAS ENDAST UNDER DENNA ANSVARSFRISKRIVNING;</para>
+		</listitem>
+		<listitem>
+		  <para>UNDER INGA OMSTÄNDIGHETER ELLER INOM RAMEN FÖR NÅGON LAGSTIFTNING, OAVSETT OM DET GÄLLER KRÄNKNING (INKLUSIVE VÅRDSLÖSHET), KONTRAKT ELLER DYLIKT, SKA FÖRFATTAREN, DEN URSPRUNGLIGA SKRIBENTEN ELLER ANNAN MEDARBETARE ELLER ÅTERFÖRSÄLJARE AV DOKUMENTET ELLER AV EN MODIFIERAD VERSION AV DOKUMENTET ELLER NÅGON LEVERANTÖR TILL NÅGON AV NÄMNDA PARTER STÄLLAS ANSVARIG GENTEMOT NÅGON FÖR NÅGRA DIREKTA, INDIREKTA, SÄRSKILDA ELLER OFÖRUTSEDDA SKADOR ELLER FÖLJDSKADOR AV NÅGOT SLAG, INKLUSIVE, MEN INTE BEGRÄNSAT TILL, SKADOR BETRÄFFANDE FÖRLORAD GOODWILL, HINDER I ARBETET, DATORHAVERI ELLER NÅGRA ANDRA TÄNKBARA SKADOR ELLER FÖRLUSTER SOM KAN UPPKOMMA PÅ GRUND AV ELLER RELATERAT TILL ANVÄNDNINGEN AV DOKUMENTET ELLER MODIFIERADE VERSIONER AV DOKUMENTET, ÄVEN OM PART SKA HA BLIVIT INFORMERAD OM MÖJLIGHETEN TILL SÅDANA SKADOR.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Seahorse-projektet</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Seahorse-projektet</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Seahorse-projektet</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Handbok för Lösenord och krypteringsnycklar v0.10.1</revnumber>
+				<date>Augusti 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Handbok för Lösenord och krypteringsnycklar v0.9.1</revnumber>
+				<date>November 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Handbok för Lösenord och krypteringsnycklar v0.9.0</revnumber>
+				<date>Juli 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Seahorse-projektet</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Handbok för Lösenord och krypteringsnycklar v0.7.0</revnumber>
+				<date>Februari 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Seahorse-projektet</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Den här handboken beskriver version 2.24.x av Lösenord och krypteringsnycklar</releaseinfo>
+		<legalnotice>
+			<title>Återkoppling</title>
+			<para>För att rapportera ett fel eller föreslå någonting angående programmet <application>Lösenord och krypteringsnycklar</application> eller den här handboken, följ anvisningarna på <ulink url="ghelp:gnome-feedback" type="help">Gnome:s återkopplingssida</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Lösenord och krypteringsnycklar</application> är programmet för att hantera krypteringsnycklar på GNOME-skrivbordet</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Krypteringsnycklar</primary>
+	</indexterm>
+
+  <sect1 id="introduction">
+    <title>Introduktion</title>
+    <para>Du kan använda <application>Lösenord och krypteringsnycklar</application> för att skapa och hantera <acronym>PGP</acronym>- och <acronym>SSH</acronym>-nycklar.</para>
+    <para><application>Lösenord och krypteringsnycklar</application> tillhandahåller ett gränssnitt till många av funktionerna i <ulink url="http://www.gnupg.org" type="http">Gnu Privacy Guard (GPG)</ulink> och integrerar med flera komponenter i <ulink url="http://www.gnome.org">GNOME</ulink>-skrivbordet.</para>
+			<para>Med <application>Lösenord och krypteringsnycklar</application> kan du: <itemizedlist>
+				
+				<listitem>
+					<para>Skapa och hantera PGP- och SSH-nycklar,</para>
+				</listitem>
+				<listitem>
+					<para>Exportera och importera PGP- och SSH-nycklar,</para>
+				</listitem>
+				<listitem>
+					<para>Dela dina nycklar med andra.</para>
+				</listitem>
+				<listitem>
+					<para>Säkerhetskopiera dina nycklar och nyckelring.</para>
+				</listitem>
+				</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="seahorse-getting-started">
+		<title>Komma igång</title>
+		<sect2 id="seahorse-start">
+			<title>Starta <application>Lösenord och krypteringsnycklar</application></title>
+			<para>Du kan starta <application>Lösenord och krypteringsnycklar</application> på följande sätt:</para>
+			<variablelist>
+				<varlistentry>
+					<term><guimenu>Program</guimenu>-menyn</term>
+					<listitem>
+						<para>Välj <menuchoice><guimenu>Tillbehör</guimenu><guimenuitem>Lösenord och krypteringsnycklar</guimenuitem></menuchoice>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Kommandorad</term>
+					<listitem>
+						<para>Skriv <command>seahorse</command> och tryck på <keycap>Return</keycap>.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="seahorse-when-start">
+			<title>När du startar <application>Lösenord och krypteringsnycklar</application></title>
+			<para>När du startar <application>Lösenord och krypteringsnycklar</application> kommer fönstret <guilabel>Lösenord och krypteringsnycklar</guilabel> att visas.</para>
+			
+			<figure id="seahorse-window">
+			<title>Fönstret i <application>Lösenord och krypteringsnycklar</application></title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+					<imagedata fileref="figures/seahorse-window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Visa fönstret <application>Lösenord och krypteringsnycklar</application>.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+			</figure>
+			
+			<para><application>Lösenord och krypteringsnycklar</application>-fönstret innehåller följande element:</para>
+			
+	    <variablelist>
+		<varlistentry><term>Menyrad</term>
+		    <listitem>
+			<para>Menyerna på menyraden innehåller alla de kommandon som du behöver för att genomföra uppgifter i <application>Lösenord och krypteringsnycklar</application>.</para>
+		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Verktygsrad</term>
+		    <listitem>
+			<para>Använd verktygsraden för att snabbt komma åt ofta använda kommandon.</para>
+		    </listitem>	
+		</varlistentry> 		
+		<varlistentry><term>Flikarna Nycklar och Lösenord</term>
+  		    <listitem>
+			<para>Tillhandahåller åtkomst till nycklarna och lösenorden i nyckelringen.</para>
+  		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Förstagångsalternativ</term>
+  		    <listitem>
+			<para>Tillhandahåller snabb åtkomst till användbara åtgärder för förstagångsanvändare. Härifrån kan du:</para>
+			<itemizedlist>
+			    <listitem>
+				<para>Bläddra i hjälpsystemet.</para>
+			    </listitem>
+			    <listitem>
+				<para>Importera nycklar till nyckelringen.</para>
+			    </listitem>
+			    <listitem>
+				<para>Skapa nya nycklar.</para>
+			    </listitem>
+			</itemizedlist>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
+	</sect2>
+    </sect1>
+
+  <sect1 id="pgp-generate">
+    <title>Skapa OpenPGP-nycklar</title>
+    <para>OpenPGP är ett öppet protokoll för kryptering av e-post med kryptografi baserat på publika <acronym>PGP</acronym>-nycklar. Den definierar standardformat för krypterade meddelanden, signaturer, privata nycklar och certifikat för utväxling av publika nycklar.</para>
+    <para>Kryptografi med publika nycklar är ett koncept vilket involverar användningen av två nycklar: en <emphasis>publik nyckel</emphasis>, som du kan ge till de personer som du vill kommunicera med, och en <emphasis>privat nyckel</emphasis> vilken är privat och måste hållas hemlig.</para>
+    <para>För att skapa OpenPGP-nycklar: <orderedlist>
+	<listitem>
+	  <para>Välj <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Skapa ny nyckel</guimenuitem></menuchoice></para>
+	</listitem>
+	<listitem>
+	  <para>Välj <guilabel>PGP-nyckel</guilabel> och klicka på <guibutton>Fortsätt</guibutton></para>
+	</listitem>
+	<listitem>
+	  <para>Ange ditt fullständiga namn (förnamn - efternamn), din e-postadress och eventuellt ytterligare information. Du kan även ange avancerade alternativ för nyckeln: se nedan.</para>
+	</listitem>
+	<listitem>
+	  <para>Klicka på <guibutton>Skapa</guibutton> för att skapa det nya nyckelparet.</para>
+	</listitem>
+	<listitem>
+	  <para>Dialogrutan <guilabel>Lösenfras för ny PGP-nyckel</guilabel> öppnas. Ange lösenfrasen två gånger för din nya nyckel.</para>
+	</listitem>
+      </orderedlist></para>
+    <tip>
+      <para>Använd liknande metoder för att generera ett starkt lösenord när du väljer en lösenfras. Största skillnaden mellan ett lösenord och en lösenfras är att, i lösenfraser, blanksteg är giltiga tecken.</para>				
+    </tip>
+    
+    <sect2 id="seahorse-pgp-advanced-mode">
+      <title>Avancerade alternativ</title>
+      <para>Fäll ut sektionen <guibutton>Avancerade nyckelalternativ</guibutton> för att ange följande alternativ för en ny nyckel:</para>
+      <variablelist>
+	<varlistentry>
+	  <term><guilabel>Krypteringstyp</guilabel></term>
+	  <listitem>
+	    <para>Det här fältet anger krypteringsalgoritmerna som används för att generera dina nycklar.</para>
+	    <variablelist>
+	      <varlistentry>
+		<term><acronym>DSA</acronym> ElGamal</term>
+		<listitem>
+		  <para>Det här är ett föreslaget val eftersom det låter dig kryptera, dekryptera, signera och validera vid behov.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>DSA</acronym></term>
+		<listitem>
+		  <para>Kommer endast att tillåta signering.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>RSA</acronym></term>
+		<listitem>
+		  <para>Kommer endast att tillåta signering.</para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Nyckellängd (bitar)</guilabel></term>
+	  <listitem>
+	    <para>Det här är längden på nyckeln i bitar. Desto längre nyckel, ju säkrare kommer den att vara, om en stark lösenfras används. Dock kommer åtgärder med en längre nyckel att kräva mer tid än med en kortare nyckel. Acceptabla värden är mellan 1024 och 4096 bitar. Minst 2048 bitar är rekommenderat.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Utgångsdatum</guilabel></term>
+	  <listitem>
+	    <para>Det här är datumet när nyckeln kommer att upphöra att vara användbar för att genomföra kryptering- eller signeringsåtgärder. En rimlig tid är att ställa in den till 6 månader. Du kommer att antingen behöva ändra utgångsdatumet eller generera en ny nyckel eller undernyckel efter den här tidsperioden. <note>
+		<para>Signera din nya nyckel med din gamla innan den går ut för att behålla din tillitsstatus.</para>
+	      </note></para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+	
+	
+	<sect1 id="ssh-generate">
+	<title>Skapa Secure Shell-nycklar</title>
+	<para>Secure Shell (<acronym>SSH</acronym>) är ett sätt att logga in på ett fjärrdator för att köra kommandon på den maskinen. SSH-nycklar används i nyckelbaserade autentiseringssystem, som ett alternativ till lösenordsbaserade autentiseringssystem. Med nyckelbaserad autentisering behöver man inte manuellt ange ett lösenord för att autentisera sig.</para>
+	<para>Secure Shell-nycklar utgörs av två nycklar: en <emphasis>privat nyckel</emphasis>, som måste hållas hemlig, och en <emphasis>publik nyckel</emphasis> som kan skickas till de datorer som du behöver åtkomst till.</para>
+    <para>För att skapa en Secure Shell-nyckel:</para>
+    <orderedlist>
+      <listitem>
+        <para>Välj <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Skapa ny nyckel</guimenuitem></menuchoice></para>
+      </listitem>
+      <listitem>
+        <para>Välj <guilabel>Secure Shell-nyckel</guilabel> och klicka på <guibutton>Fortsätt</guibutton></para>
+      </listitem>
+      <listitem>
+        <para>Ange en beskrivning av vad nyckeln är tänkt att användas för. Du kan använda din e-postadress eller något annat som påminner dig. Du kan även ange avancerade alternativ för nyckeln: se nedan.</para>
+      </listitem>
+      <listitem>
+        <para>Klicka på <guibutton>Skapa bara nyckel</guibutton> för att skapa den nya nyckeln, eller <guibutton>Skapa och konfigurera</guibutton> för att skapa nyckeln och konfigurera en annan dator till att använda nyckeln för autentisering.</para>
+      </listitem>
+      <listitem>
+        <para>Dialogrutan <guilabel>Lösenfras för ny Secure Shell-nyckel</guilabel> öppnas. Ange lösenfrasen två gånger för din nya nyckel.</para>
+			<tip>
+				<para>Använd liknande metoder för att generera ett starkt lösenord när du väljer en lösenfras. Största skillnaden mellan ett lösenord och en lösenfras är att, i lösenfraser, blanksteg är giltiga tecken.</para>				
+			</tip>
+      </listitem>
+    </orderedlist>
+    
+
+		
+		<sect2 id="seahorse-ssh-advanced-options">
+		<title>Avancerade alternativ</title>
+			<para>Fäll ut sektionen <guilabel>Avancerade nyckelalternativ</guilabel> för att ange följande alternativ för en ny nyckel:</para>
+		
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Krypteringstyp</guilabel></term>
+				<listitem>
+				<para>Det här fältet anger de krypteringsalgoritmer som används för att generera din nyckel.</para>
+				<variablelist>
+					<varlistentry>
+						<term><acronym>RSA</acronym></term>
+						<listitem>
+							<para>Använd algoritmen <emphasis>Rivest-ShamirAdleman</emphasis> (<acronym>RSA</acronym>) för att skapa SSH-nyckeln. Det här är det som föredras och är ett säkrare val.</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><acronym>DSA</acronym></term>
+						<listitem>
+							<para>Använd <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>) för att skapa SSH-nyckeln.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Nyckellängd (bitar)</guilabel></term>
+				<listitem>
+				<para>Det här är längden på nyckeln i bitar. Desto längre nyckel, ju säkrare kommer den att vara, om en stark lösenfras används. Dock kommer åtgärder med en längre nyckel att kräva mer tid än med en kortare nyckel. Acceptabla värden är mellan 1024 och 4096 bitar. Minst 2048 bitar är rekommenderat.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	
+	
+
+	<sect1 id="seahorse-key-properties">
+		<title>Egenskaper för OpenPGP-nyckel</title>
+		<para>Beskrivningarna i det här avsnittet gäller för alla OpenPGP-nycklar.</para>
+		
+		<para>För att visa egenskaperna för en <acronym>PGP</acronym>-nyckel: <itemizedlist>
+			<listitem>
+				<para>Välj <acronym>PGP</acronym>-nyckeln från huvudfönstret,</para>
+			</listitem>
+			<listitem>
+				<para>Dubbelklicka på den eller välj <guilabel>Egenskaper</guilabel> från verktygsraden,</para> 
+			</listitem>
+			<listitem>
+				<para>Välj fliken <guilabel>Detaljer</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="pgp-public-key-properties">
+		<title id="pgp-private-key-properties">Egenskaper</title>
+		<para>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Fingeravtryck</guilabel></term>
+				<listitem>
+					<para>Fingeravtrycket är en unik teckensträng som identifierar en nyckel exakt.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Nyckel-id</guilabel></term>
+				<listitem>
+					<para>Nyckel-id liknar fingeravtryck. Dock innehåller nyckel-id endast de sista 8 tecknen av fingeravtrycket. Oftast är det möjligt att identifiera en nyckel med endast nyckel-id, men ibland händer det att två nycklar har samma id.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Typ</guilabel></term>
+				<listitem>
+					<para>Anger krypteringsalgoritmen som används för att generera en nyckel. DSA-nycklar kan endast signera. ElGamal-nycklar används för att kryptera.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Skapad</guilabel></term>
+				<listitem>
+					<para>Indikerar datumet då nyckeln skapades.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Går ut</guilabel></term>
+				<listitem>
+				<para>Indikerar datumet då nyckeln inte längre kan användas.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Styrka</guilabel></term>
+				<listitem>
+					<para>Indikerar längden i bitar för en nyckel. Generellt sett är en längre nyckel mer säker. <note>
+							<para>En lång nyckel är inte tillräckligt bra om en svag lösenfras används.</para>
+						</note></para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="change-owner-trust">
+		<title>Tillit</title>
+		<para>Tillit är en indikation på hur säker du är på en persons förmåga att på rätt sätt utöka "web of trust" (tillitsnätverk). När du påträffar en nyckel som du inte har signerat, kommer giltigheten på den personens nyckel att bestämmas av de signaturer som de har samlat på sig och hur väl du litar på de personer som har skapat dessa signaturer. Som standard krävs det att en okänd nyckel har 3 signaturer med marginellt tillitsvärde eller en fullständigt betrodd signatur.</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Okänd</guilabel>: Du känner inte till personens förmåga att signera nycklar korrekt.</para></listitem>
+			<listitem><para><guilabel>Aldrig</guilabel>: Den här personen kan inte signera nycklar korrekt.</para></listitem>
+			<listitem><para><guilabel>Marginellt</guilabel>: Den här personen kontrollerar fotoidentifikation innan en nyckel signeras, men undersöker inte identifikationen i detalj.</para></listitem>
+			<listitem><para><guilabel>Fullständigt</guilabel>: Den här personen undersöker varje persons fotoidentifikation i detalj innan signering (t.ex. de signerar endast nycklar som verkligen tillhör personen som frågar efter signaturen).</para></listitem>
+			<listitem><para><guilabel>Förbehållslöst</guilabel>: Den här tillitsnivån bör endast tilldelas dina egna nycklar.</para></listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="disable-key">
+		<title>Aktivera och inaktivera nycklar</title>
+		<para>När en nyckel aktiveras kan den användas för att genomföra krypteringsåtgärder. När en nyckel är inaktiverad kan den inte användas för att kryptera eller validera signaturer som skapats med den.</para>
+	</sect2>
+
+	<sect2 id="change-expires">
+		<title>Utgångsdatum</title>
+		<para>En nyckel kan inte längre användas för att genomföra nyckelåtgärder efter att den har gått ut. Ändra utgångsdatumet för en nyckel till ett framtida datum innebär att den återaktiveras. En bra allmän åtgärd är att ha en huvudnyckel som aldrig går ut och flera undernycklar som gör och är signerade av huvudnyckeln.</para>
+	</sect2>
+
+	<sect2 id="userid-properties">
+		<title>Användaridentiteter</title>
+		<para>Användaridentiteter gör att flera identiteter och e-postadresser kan användas med samma nyckel.</para>
+		<para>De är ofta i formatet: <programlisting>Namn (kommentar) &lt;e-postadress&gt;</programlisting></para>
+			
+		<sect3 id="add-uid">
+			<title>Lägg till en användaridentitet</title>
+				<para>Lägga till en användaridentitet är användbart när du vill ha en identitet för ditt arbete och en för dina vänner.</para>
+				<para>För att lägga till en användaridentitet till en nyckel: <itemizedlist>
+						<listitem>
+							<para>Välj nyckeln från huvudfönstret.</para>
+						</listitem>
+						<listitem>
+							<para>Dubbelklicka på den eller välj <guibutton>Egenskaper</guibutton> från verktygsraden,</para>
+						</listitem>
+						<listitem>
+							<para>Välj fliken <guilabel>Namn och signaturer</guilabel>,</para>
+						</listitem>
+						<listitem>
+							<para>Klicka på <guibutton>Lägg till namn</guibutton>.</para>
+						</listitem>
+					</itemizedlist></para>
+				<para>Efter att ovanstående instruktioner har följts kommer du att presenteras med en dialogruta. Fälten beskrivs nedan.</para>
+				<variablelist>
+					<varlistentry>
+						<term><guilabel>Fullständigt namn</guilabel></term>
+						<listitem>
+							<para>Ange ditt fullständiga namn i formatet <programlisting>&lt;förnamn&gt; &lt;efternamn&gt;</programlisting> Ett mellannamn eller initial är valfritt.</para>
+							<para>
+								<note>
+									<para>Du måste ange minst 5 tecken i det här fältet.</para>
+								</note> 
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>E-postadress</guilabel></term>
+						<listitem>
+							<para>Din e-postadress är det sätt som de flesta personer kan lokalisera din nyckel på en nyckelserver eller andra nyckelleverantörer. Kontrollera att den är korrekt innan du fortsätter.</para>
+							<para>
+								<note>
+									<para>Den ska vara i formatet <programlisting><replaceable>&lt;användarnamn&gt;</replaceable>@<replaceable>&lt;domännamn&gt;</replaceable></programlisting></para>
+								</note>
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Nyckelkommentar</guilabel></term>
+						<listitem>
+							<para>Kommentarsfältet kan användas för att lägga in ytterligare information i det namn som visas för din nya identitet. Den här informationen är sökbar på nyckelservrarna.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</sect3>
+		</sect2>
+
+    <sect2 id="photoid-properties">
+      <title>Fotoidentiteter</title>
+      <para>Fotoidentitet gör att en nyckelägare kan infoga en eller flera bilder på sig själv i en nyckel. Dessa identiteter kan signeras precis som vanliga användaridentiteter. En fotoidentitet måste vara i JPEG-formatet och det rekommenderas att bilden inte är större än 240x288 bildpunkter.</para>
+      <para>Om vald bild inte är av den krävda filtypen eller storleken kan <application>Lösenord och krypteringsnycklar</application> ändra storlek på bilder och kan även direktkonvertera från bildformat som stöds av biblioteket <acronym>GDK</acronym>.</para>
+    </sect2>
+		
+		<sect2 id="change-passphrase">
+			<title>Ändra lösenfrasen</title>
+			<para>För att ändra lösenfrasen som tilldelats en nyckel: <itemizedlist>
+					<listitem>
+						<para>Välj nyckeln från huvudfönstret.</para>
+					</listitem>
+					<listitem>
+						<para>Dubbelklicka på den eller välj <guilabel>Egenskaper</guilabel> från verktygsraden,</para>
+					</listitem>
+					<listitem>
+						<para>Klicka på <guibutton>Ändra lösenfras</guibutton>.</para>
+					</listitem>
+				</itemizedlist></para>
+			<para>Ange den nya lösenfrasen och klicka på <guibutton>OK</guibutton>.</para>
+		</sect2>
+
+		<sect2 id="delete">
+			<title>Ta bort en nyckel</title>
+			<para>För att ta bort en nyckel från din nyckelring: <itemizedlist>
+				<listitem>
+					<para>Välj nyckeln från huvudfönstret.</para>
+				</listitem>
+				<listitem>
+					<para>Högerklicka på den och välj <guilabel>Ta bort nyckel</guilabel> eller välj <menuchoice><guimenu>Redigera</guimenu><guimenuitem>Ta bort nyckel</guimenuitem></menuchoice>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Du an ta bort dina nycklar, betrodda nycklar och insamlade nycklar.</para>		
+			</note> 
+		</sect2>
+	</sect1>
+		
+	<sect1 id="subkey-properties">
+		<title>Egenskaper för OpenPGP-undernyckel</title>
+		<para>Varje OpenPGP-nyckel har en huvudnyckel som endast används för signering. Undernycklar används också för att kryptera och för att signera. På det här sättet behöver du inte spärra din huvudnyckel om din undernyckel blir komprometterad.</para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>ID</guilabel></term>
+			<listitem>
+				<para>Det här är identifieraren för undernyckeln.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Typ</guilabel></term>
+			<listitem>
+				<para>Anger krypteringsalgoritmen som används för att generera en undernyckel. <acronym>DSA</acronym>-nycklar kan endast signera, ElGamal-nycklar används för att kryptera och <acronym>RSA</acronym>-nycklar används för att signera och kryptera.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Skapad</guilabel></term>
+			<listitem>
+				<para>Indikerar datumet då nyckeln skapades.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Går ut</guilabel></term>
+			<listitem>
+				<para>Indikerar datumet då nyckeln inte längre kan användas.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Status</guilabel></term>
+			<listitem>
+				<para>Indikerar statusen för nyckeln.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Styrka</guilabel></term>
+			<listitem>
+				<para>Indikerar längden i bitar på nyckeln. Desto längre nyckel, ju säkrare kommer den att vara. <note>
+						<para>En lång nyckel är inte tillräckligt bra om en svag lösenfras används.</para>
+					</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		
+		<sect2 id="add-subkey">
+			<title>Lägg till en undernyckel</title>
+			<para>För att lägga till en undernyckel till en nyckel, från sektionen <guilabel>Undernycklar</guilabel>, klicka på knappen <guibutton>Lägg till</guibutton>.</para>
+			<para>Efter att ovanstående instruktioner har följts kommer du att presenteras med en dialogruta. Fälten beskrivs nedan.</para>
+			<variablelist>
+			<varlistentry>
+				<term>Nyckeltyp</term>
+				<listitem>
+					<para>Anger krypteringsalgoritmen som används för att generera en undernyckel.</para>
+				<variablelist>
+				<varlistentry>
+					<term><acronym>DSA</acronym></term>
+					<listitem>
+						<para>Använd <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>) för att skapa undernyckeln. Den här undernyckeln kan endast signera.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>ElGamal</term>
+					<listitem>
+						<para>Använd algoritmen <emphasis>ElGamal</emphasis> för att skapa undernyckeln. Den här undernyckeln kan endast kryptera.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RSA</term>
+					<listitem>
+						<para>Använd algoritmen <emphasis>Rivest-Shamir Adleman</emphasis> (<acronym>RSA</acronym>) för att skapa undernyckeln. Den här undernyckeln kan användas för att signera eller kryptera, men du måste skapa två olika undernycklar.</para>
+					</listitem>
+				</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Nyckellängd</term>
+				<listitem>
+					<para>Indikerar längden i bitar på undernyckeln. Desto längre nyckel, ju säkrare kommer den att vara.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Utgångsdatum</term>
+				<listitem>
+					<para>Indikerar datumet när undernyckeln inte längre kan användas.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="change-subkey-expires">
+			<title>Ändra utgångsdatum för en undernyckel</title>
+			<para>För att ändra utgångsdatumet för en undernyckel, markera undernyckeln från sektionen <guilabel>Undernycklar</guilabel>, och sedan: <itemizedlist>
+				<listitem>
+					<para>Klicka på knappen <guibutton>Utgång</guibutton> till vänster,</para>
+				</listitem>
+				<listitem>
+					<para>Välj det nya utgångsdatumet från datumdialogen eller välj <guilabel>Går aldrig ut</guilabel> för att inte ange något utgångsdatum.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+
+		<sect2 id="revoke-subkey">
+			<title>Spärra en undernyckel</title>
+			<para>För att spärra en undernyckel, välj undernyckeln från sektionen <guilabel>Undernycklar</guilabel>, och sedan: <itemizedlist>
+				<listitem>
+					<para>Klicka på knappen <guibutton>Spärra</guibutton> till vänster,</para>
+				</listitem>
+				<listitem>
+					<para>Välj en anledning till varför undernyckeln spärras:</para>
+					<para>
+					<variablelist>
+						<varlistentry>
+							<term>Ingen anledning</term>
+							<listitem>
+								<para>Det finns ingen specifik anledning till att spärra nyckeln.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Komprometterad</term>
+							<listitem>
+								<para>Nyckeln har komprometterats.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Ersatt</term>
+							<listitem>
+								<para>Nyckeln har ersatts av en annan.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Används inte</term>
+							<listitem>
+								<para>Nyckeln används inte längre.</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Ange en beskrivning för varför du spärrar nyckeln,</para>
+				</listitem>
+				<listitem>
+					<para>Klicka på <guibutton>Spärra</guibutton>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Effekten av spärrningen av en nyckel är omedelbar.</para>
+			</note>
+		</sect2>
+
+		<sect2 id="delete-subkey">
+			<title>Ta bort en undernyckel</title>
+			<para>För att ta bort en undernyckel, välj undernyckeln från sektionen <guilabel>Undernycklar</guilabel>, och sedan: <itemizedlist>
+				<listitem>
+					<para>Klicka på knappen <guibutton>Ta bort</guibutton> till vänster.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="ssh-key-properties">
+	    <title>Egenskaper för Secure Shell-nyckel</title>
+	    <para>Beskrivningarna i det här avsnittet gäller för alla <acronym>SSH</acronym>-nycklar.</para>
+	    <para>För att visa egenskaper för en <acronym>SSH</acronym>-nyckel: <itemizedlist>
+			<listitem>
+				<para>Välj Secure Shell-nyckeln från huvudfönstret.</para>
+			</listitem>
+			<listitem>
+				<para>Dubbelklicka på den eller välj <guilabel>Egenskaper</guilabel> från verktygsraden,</para> 
+			</listitem>
+			<listitem>
+				<para>Välj fliken <guilabel>Detaljer</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="properties">
+		<title>Egenskaper</title>
+		<para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Fingeravtryck</guilabel></term>
+			<listitem>
+				<para>Fingeravtrycket är en unik teckensträng som identifierar en nyckel exakt.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Algoritm</guilabel></term>
+			<listitem>
+				<para>Anger krypteringsalgoritmen som används för att generera en nyckel.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Plats</guilabel></term>
+			<listitem>
+				<para>Det här är platsen där den <emphasis>privata nyckeln</emphasis> har lagrats.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Styrka</guilabel></term>
+			<listitem>
+				<para>Indikerar längden i bitar för en nyckel. Generellt sett är en längre nyckel mer säker. <note>
+					<para>En lång nyckel är inte tillräckligt bra om en svag lösenfras används.</para>
+				</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="delete-ssh-key">
+		<title>Ta bort en Secure Shell-nyckel</title>
+		<para>För att ta bort en Secure Shell-nyckel: <itemizedlist>
+				<listitem>
+				<para>Välj <acronym>SSH</acronym>-nyckeln från huvudfönstret,</para>
+			</listitem>
+			<listitem>
+				<para>Högerklicka på den och välj <guilabel>Ta bort nyckel</guilabel> eller välj <menuchoice><guimenu>Redigera</guimenu><guimenuitem>Ta bort nyckel</guimenuitem></menuchoice>.</para>
+			</listitem>
+			</itemizedlist></para>
+	</sect2>
+	</sect1>
+
+        <sect1 id="import">
+		<title>Importera nycklar</title>
+		<para>För att importera nycklar, välj <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Importera</guimenuitem></menuchoice> och välj, från filväljaren, en fil som innehåller åtminstone en publik nyckel i ASCII-skal.</para>
+		<para>Importering kan även genomföras genom att klistra in nycklar i <application>Lösenord och krypteringsnycklar</application>: <itemizedlist>
+		<listitem>
+			<para>Välj ett publikt ASCII-textblock,</para>
+		</listitem>
+		<listitem>
+			<para>Kopiera det till urklipp,</para>
+		</listitem>
+		<listitem>
+			<para>Välj <menuchoice><guimenu>Redigera</guimenu><guimenuitem>Klistra in nycklar</guimenuitem></menuchoice>.</para>
+		</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="export">
+		<title>Exportera nycklar</title>
+		<para>För att exportera nycklar, markera nycklarna i huvudfönstret och välj <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Exportera</guimenuitem></menuchoice>.</para>
+		<para>Du kan även exportera nycklar till urklipp i ett ASCII-textblock: <itemizedlist>
+			<listitem>
+				<para>Välj nycklarna i huvudfönstret,</para>
+			</listitem>
+			<listitem>
+				<para>Välj <menuchoice><guimenu>Redigera</guimenu><guimenuitem>Kopiera nycklar</guimenuitem></menuchoice>.</para>
+			</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="backup">
+		<title>Säkerhetskopiera nyckelringar</title>
+		<para>För att säkerhetskopiera dina publika och privata nyckelringar till en arkivfil: <itemizedlist>
+			<listitem>
+				<para>Välj <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Säkerhetskopiera nyckelringar</guimenuitem></menuchoice>,</para>
+			</listitem>
+			<listitem>
+				<para>Ange ett filnamn med en giltig arkivändelse och ange platsen där arkivet ska sparas.</para>
+			</listitem>
+		</itemizedlist><note>
+				<para>Du kan välja någon av de arkivtyper som <application>file-roller</application> har stöd för.</para>
+			</note></para>
+	</sect1>
+
+	<sect1 id="sign">
+		<title>Signera en nyckel</title>
+		<para>Signering av en annan persons nyckel betyder att du ger tillit till den personen. Innan en nyckel signeras måste du noga kontrollera nyckelns fingeravtryck för att vara säker på att nyckeln verkligen tillhör den personen.</para>
+		<para>För att signera en nyckel i din nyckelring: <itemizedlist>
+				<listitem>
+				<para>Välj nyckeln som du vill signera från flikarna <guilabel>Betrodda nycklar</guilabel> eller <guilabel>Övriga insamlade nycklar</guilabel>,</para>
+				</listitem>
+				<listitem>
+				<para>Välj <guibutton>Signera</guibutton> från verktygsraden eller <menuchoice><guimenu>Nyckel</guimenu><guimenuitem>Signera</guimenuitem></menuchoice>,</para>
+				</listitem>
+				<listitem>
+				<para>Välj hur noggrant som nyckeln har kontrollerats,</para>
+				</listitem>
+				<listitem>
+				<para>Indikera om signeraturen ska vara lokal för din nyckelring, och om signaturen kan spärras,</para>
+				</listitem>
+				<listitem>
+				<para>Klicka på <guibutton>Signera</guibutton>.</para>
+				</listitem>
+			</itemizedlist></para>
+	</sect1>
+  
+  <sect1 id="prefs">
+    <title>Inställningar</title>
+    <para>Det här avsnittet beskriver inställningar man kan ställa in i <application>Lösenord och krypteringsnycklar</application> genom att välja <menuchoice><guimenu>Redigera</guimenu><guimenuitem>Inställningar</guimenuitem></menuchoice> inifrån <application>Lösenord och krypteringsnycklar</application>.</para>
+
+        <sect2 id="keyring">
+        	<title>Lösenordsnyckelringar</title>
+        	<sect3>
+        	    <title>Skapa nyckelringar</title>
+            	<para>Du kan skapa en ny nyckelring genom att trycka på <guibutton>Lägg till nyckelring</guibutton>. Ange ett namn för den nya nyckelringen och tryck på <guibutton>Lägg till</guibutton>.</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Ändra nyckelringslösenord</title>
+            	<para>För att ändra upplåsningslösenordet för nyckelringen ska du först markera den lämpliga nyckelringen och sedan trycka på knappen <guibutton>Ändra upplåsningslösenord</guibutton>. Du kommer då att bli tillfrågad om att ange det gamla lösenordet i textrutan <guilabel>Gammalt lösenord</guilabel>, det nya lösenordet i textrutan <guilabel>Nytt lösenord</guilabel> och bekräfta det i textrutan <guilabel>Bekräfta lösenordet</guilabel>. Tryck på <guibutton>Ändra</guibutton> för att verkställa ändringen. Om det gamla lösenordet är korrekt kommer du att se ett statusmeddelande som indikerar att åtgärden lyckades. Om det gamla lösenordet var felaktigt kommer du att bli informerad om det.</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Ta bort nyckelringar</title>
+        	    <para>För att ta bort en nyckelring kan du först markera den lämpliga nyckelringen och sedan trycka på knappen <guibutton>Ta bort nyckelring</guibutton>.</para>
+        	</sect3>
+        </sect2>
+
+    <sect2 id="key-servers">
+	<title>Nyckelservrar</title>
+	<para>Håll din och andra nycklar uppdaterade genom att synkronisera nycklarna med jämna mellanrum mot fjärrnyckelservrar. Synkronisering ser till att du har de senaste signaturerna som gjorts på alla dina nycklar så att "web of trust" används på bästa sätt.</para>
+	<para><application>Lösenord och krypteringsnycklar</application> tillhandahåller stöd för HKP- och LDAP-nyckelservrar.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis>HKP-servrar</emphasis></term>
+	    <listitem>
+	      <para>HKP-nyckelservrar är vanliga webbaserade nyckelservrar såsom den populära <ulink url="hkp://pgp.mit.edu:11371" type="hkp">hkp://pgp.mit.edu:11371</ulink>, även åtkomlig som <ulink url="http://pgp.mit.edu" type="http">http://pgp.mit.edu</ulink>.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis><acronym>LDAP</acronym> Nyckelservrar</emphasis></term>
+	    <listitem>
+	      <para><acronym>LDAP</acronym>-nyckelservrar är mindre vanliga, men använder standardiserade LDAP-protokollet för att hantera nycklar. <ulink url="ldap://keyserver.pgp.com" type="ldap">ldap://keyserver.pgp.com</ulink> är en bra LDAP-server.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect2>
+
+      <sect2 id="key-sharing">
+	<title>Nyckeldelning</title>
+	<para>Nyckeldelning tillhandahålls av DNS-SD, även känd som Bonjour eller Rendevous. Aktivering av nyckeldelning kommer att lägga till de lokala användarnas publika nyckelringar till fjärrsökningsdialogrutan i <application>Lösenord och krypteringsnycklar</application>. Använda dessa lokala "nyckelservrar" kommer sannolikt att vara snabbare än att komma åt fjärrservrar.</para>
+      </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>Om Lösenord och krypteringsnycklar</title>
+    <para><application>Lösenord och krypteringsnycklar</application>, dess associerade insticksmoduler, panelprogrammet för inställningar och panelprogrammet går under samlingsnamnet Seahorse. Seahorse skrevs av Jacob Perkins. De nuvarande personerna som är ansvariga är Stef Walter och Adam Schreiber. Den här handboken skrevs av Adam Schreiber. Projektets webbplats designades av Jim Pharis. För att hitta mer information om Seahorse-projektet kan du besöka <ulink url="http://www.gnome.org/projects/seahorse/" type="http">webbplatsen för Seahorse</ulink>.</para>
+    <para>För att rapportera ett fel eller föreslå någonting angående det här programmet eller den här handboken, följ anvisningarna i <ulink url="ghelp:user-guide?feedback-bugs" type="help">återkopplingsavsnittet i Användarguide för skrivbordet</ulink>.</para>
+    <para>Det här programmet distribueras under villkoren för GNU General Public License som publicerats av Free Software Foundation; antingen version 2 av licensen, eller (du väljer själv) någon senare version. En <ulink url="ghelp:gpl" type="help">kopia av den här licensen</ulink> finns inkluderad med den här dokumentationen; en annan kan hittas i filen COPYING som inkluderats med källkoden för det här programmet.</para>
+  </sect1>
+</article>

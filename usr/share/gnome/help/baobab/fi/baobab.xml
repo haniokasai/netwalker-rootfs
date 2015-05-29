@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.15">
+<!ENTITY manrevision "1.0">
+<!ENTITY date "April 2006">
+<!ENTITY app "Disk Usage Analyzer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Apr 11, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="fi">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Levynkäytön analysointi -sovelluksen käyttöohje</title>
+
+    <abstract role="description">
+      <para>Levynkäytön analysointi -sovellus on graafinen ja valikko-ohjattava katselin, jota voit käyttää levytilan ja hakemistorakenteen katselemiseen ja tarkkailuun.</para>
+    </abstract>
+
+    <copyright> 
+      <year>2006</year> 
+      <holder>Fabio Marzocca</holder> 
+    </copyright><copyright><year>2008</year><holder>Jukka Heikkilä (jutsco@gmail.com)</holder></copyright> 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+    <publisher> 
+      <publishername>Gnome dokumentointiprojekti</publishername> 
+    </publisher> 
+
+     <legalnotice id="legalnotice">
+	<para>Tätä asiakirjaa saa kopioida, jakaa edelleen ja/tai muokata Free Software Foundationin julkaiseman GNU Free Documentation Licensen (GFDL) version 1.1 tai valinnaisesti myöhemmän version mukaisesti, ilman vaatimuksia muuttamattomista osioista ja etu- tai takakansiteksteistä. Kopion GFDL:stä voi nähdä napsauttamalla <ulink type="help" url="ghelp:fdl">tätä linkkiä</ulink>, tai lukemalla ohjeen mukana toimitetun COPYING-DOCS-nimisen tiedoston.</para>
+         <para>Tämä käyttöohje on osa Gnomen käyttöohjekokoelmaa ja levitetään GFDL-lisenssin alaisena. Jos haluat levittää tätä käyttöohjetta erillään kokoelmasta, voit tehdä sen liittämällä lisenssin kopion ohjeen mukaan, kuten lisenssin luku 6 sanelee.</para>
+
+	<para>Monet tuotteiden ja palveluiden nimet ovat tuotemerkkejä. Gnomen dokumentointiprojektissa nämä nimet pyritään kirjoittamaan suuraakkosin tai isolla alkukirjaimella, sikäli kun projektin jäsenet tietävät kyseisistä tuotemerkeistä.</para>
+
+	<para>ASIAKIRJA SEKÄ MUOKATUT VERSIOT ASIAKIRJASTA TARJOTAAN GNU FREE DOCUMENTATION LICENSEN EHDOIN SEKÄ YMMÄRTÄEN ETTÄ: <orderedlist>
+		<listitem>
+		  <para>ASIAKIRJA TARJOTAAN SELLAISENAAN, ILMAN MINKÄÄNLAISTA KIRJATTUA TAI KONKLUDENTTISTA RAJATONTA TAKUUTA ASIAKIRJAN TAI SEN MUOKATUN VERSION VIRHEETTÖMYYDESTÄ, SOPIVUUDESTA KAUPALLISEEN KÄYTTÖÖN TAI TIETTYYN KÄYTTÖTARKOITUKSEEN TAI LOUKKAAMATTOMUUDESTA. TÄYSI VASTUU ASIAKIRJAN TAI SEN MUOKATUN VERSION LAADUSTA, TARKKUUDESTA JA TOIMIVUUDESTA ON KÄYTTÄJÄLLÄ. JOS ASIAKIRJA TAI SEN MUOKATTU VERSIO OSOITTAUTUU JOLLAKIN TAVALLA VIRHEELLISEKSI, KÄYTTÄJÄ (EI ALKUPERÄINEN KIRJOITTAJA TAI MUU TEKIJÄ) VASTAA PALVELUJEN, KORJAUSTEN TAI OIKAISUJEN KUSTANNUKSISTA. TÄMÄ VASTUUVAPAUSLAUSEKE ON EROTTAMATON OSA LISENSSIÄ. ASIAKIRJAN TAI SEN MUOKATTUJEN VERSIOIDEN KÄYTTÖ ON SALLITTUA VAIN TÄMÄN VASTUUVAPAUSLAUSEKKEEN NOJALLA; SEKÄ</para>
+		</listitem>
+		<listitem>
+		  <para>MISSÄÄN OLOSUHTEISSA TAI MINKÄÄN OIKEUSLAITOKSEN ALAISUUDESSA, NIIN OIKEUSLOUKKAUKSISSA (MUKAAN LUKIEN HUOLIMATTOMUUS), SOPIMUS TAI MUUTOIN, ASIAKIRJAN TAI SEN MUOKATUN VERSION TEKIJÄ, ALKUPERÄINEN KIRJOITTAJA, KUKAAN AVUSTAJAISTA, KUKAAN LEVITTÄJÄ TAIKKA KUKAAN TARJOAJA EI OLE VASTUUSSA KENELLEKKÄÄN SUORASTA, EPÄSUORASTA, ERITYISESTÄ, TAPATURMAISESTA TAI VÄLILLISESTÄ VAHINGOSTA SISÄLTÄEN RAJOITUKSETTA VAHINGOT LIIKEARVON MENETYKSESTÄ, TYÖN KESKEYTYMISESTÄ, TIETOKONEVIRHEESTÄ TAI -HÄIRIÖSTÄ TAIKKA MISTÄÄN MUUSTA VAHINGOSTA TAI MENETYKSESTÄ, JOKA ILMENEE TAI LIITTYY ASIAKIRJAN TAI SEN MUOKATUN VERSION KÄYTTÖÖN EDES SILLOIN KUN OSAPUOLTA ON OLLUT TIETOINEN TÄLLAISEN VAHINGON MAHDOLLISUUDESTA.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+   <authorgroup> 
+   <author> 
+		<firstname>Fabio</firstname> 
+		<surname>Marzocca</surname> 
+		<affiliation> 
+	  	<orgname>Gnome dokumentointiprojekti</orgname> 
+	  	<address> <email>thesaltydog@gmail.com</email> </address> 
+		</affiliation> 
+   </author> 
+
+   <author role="maintainer">
+   	<firstname>Fabio</firstname>
+	<surname>Marzocca</surname>
+	<affiliation>
+	  <address><email>thesaltydog@gmail.com</email></address>
+	</affiliation>
+   </author>
+      
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+   <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  	<orgname>Latin Translation Team</orgname> 
+	  	<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+   </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision> 
+		<revnumber>Levynkäytön analysointi -sovelluksen käyttöohje 1.0</revnumber> 
+		<date>Huhtikuu 2006</date> 
+		<revdescription> 
+	  		<para role="author">Emmanuele Bassi <email>ebassi@gmail.com</email></para>
+	  		<para role="publisher">Gnome dokumentointiprojekti</para>
+		</revdescription> 
+      </revision>
+    </revhistory> 
+
+    <releaseinfo>Tämä käyttöohje kattaa Levynkäytön analysointi -sovelluksen version 2.15</releaseinfo> 
+    
+    <legalnotice> 
+      <title>Palaute</title> 
+      <para>Ilmoittaaksesi viasta tai tehdäksesi ehdotuksen koskien Levynkäytön analysointi -sovellusta tai tätä käyttöohjetta, seuraa ohjeita <ulink url="ghelp:gnome-feedback" type="help">Gnome palautesivulla</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>Levynkäytön analysointi -sovellus</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+
+  <sect1 id="baobab-introduction"> 
+    <title>Johdanto</title> 
+
+      <para><application>Levynkäytön analysointi</application> -sovellus on graafinen ja valikko-ohjattava sovellus levynkäytön analysointiin Gnome -työpöytäympäristössä. <application>Levynkäytön analysoinnilla</application> voit helposti tutkia, joko kokonaista tiedostojärjestelmäpuuta tai määrittää kotikansion puun tarkastelun (paikallisesti tai etänä).</para>
+       <para>Se pystyy myös automaattisesti tunnistamaan kaikki muutokset, jotka olet tehnyt kotihakemistoosi tai mihinkä tahansa liitettyyn/irrotettuun laitteeseen.</para>
+
+  </sect1>
+
+<!-- ================ Getting Started ================================ -->
+	<sect1 id="baobab-getting-started">
+	<title>Aloitustoimet</title>
+
+    <para><application>Levynkäytön analysointi</application> -sovellus voidaan käynnistää kolmella tapaa:</para>
+	 <itemizedlist>
+    <listitem><para>Gnomen päävalikosta <menuchoice><guimenu>Sovellukset</guimenu><guimenuitem>Apuohjelmat</guimenuitem></menuchoice>;</para>
+    		</listitem>
+    <listitem><para>pääteikkunasta;</para>
+    		</listitem>
+    <listitem><para>Nautilus -tiedostoselaimen "Avaa muulla ohjelmalla" ;</para>
+    		</listitem>
+    </itemizedlist> 
+
+
+<para>Jos tahdot käynnistää <application>Levynkäytön analysoinnin</application> pääteikkunasta, kirjoitat vain:</para> 
+  
+<para><command>baobab &lt;koko_polku_hakemistoon&gt;</command> ja painat <keycap>Enter</keycap> -näppäintä.</para>  
+<para/> 
+	<para>Jos käynnistät Gnome päävalikkopalkista, <application>Levynkäytön analysointi</application> -sovellus käynnistyy valmiustilaa odottamaan käyttäjän toimia.</para> 
+    <para>Kun käynnistät <application>Levynkäytön analysointi</application> -sovelluksen Gnomen päävalikkopalkista näkyy kuvan mukainen ikkuna.</para>
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fig"> 
+	<title>Levynkäytön analysoinnin ikkuna</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_window.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Näkymä Levynkäytön analysoinnin pääikkunasta. Sisältää valikkopalkin, sisältöalueen, vierityspalkit ja tilarivin.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+
+<para>Käyttäjä voi tämän jälkeen:</para>
+	<itemizedlist>
+    <listitem><para>käynnistää koko tiedostojärjestelmän kartoituksen</para>
+    		</listitem>
+    <listitem><para>valita tietyn paikallisen tiedostohaaran kartoituksen</para>
+    		</listitem>
+    <listitem><para>valita etäpalvelimen ja hakemiston kartoituksen</para>
+    		</listitem>
+    <listitem><para>muuttaa asetuksia</para>
+    		</listitem>
+	</itemizedlist>
+	
+	<note><para>Jos suoritat koko tiedostojärjestelmän kartoituksen, <application>Levynkäytön analysointi</application> -sovelluksen ikkunaan piirtyy puu heti kun säie alkaa kartoittamaan tiedostojärjestelmää. Mikäli jokin iso tiedostojärjestelmä on liitettynä, myös sekin kartoitetaan.</para></note>
+
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+  <sect1 id="baobab-usage"> 
+    <title>Käyttö</title>
+
+    <sect2 id="baobab-fullscan">
+      <title>Koko tiedostojärjestelmän kartoitus</title>
+        <para>Aloittaaksesi koko tiedostojärjestelmän kartoituksen, valitse <menuchoice><guimenu>Analysaattori</guimenu><guimenuitem> -valikosta <guimenuitem>Kartoita tiedostojärjestelmä</guimenuitem> -valinta tai paina tyKartoita tiedostoj.</guimenuitem></menuchoice></para>
+
+	<para>Kun kartoitusprosessi päättyy, saat näkyviin ohessa olevan kuvan näköisen täyden puunäkymän tiedostojärjestelmästäsi.</para>    
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fullscan-fig"> 
+	<title>Levynkäytön analysoinnin koko järjestelmän kartoitus</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_fullscan.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Näkymä Levynkäytön analysointi -sovelluksen koko järjestelmän kartoitusikkuna. Sisältää valikkopalkin, sisältöalueen, vierityspalkin ja tilarivin.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    	<note><para>Kun suoritat koko tiedostojärjestelmän kartoituksen, <application>Levynkäytön analysointi</application> -sovelluksen ikkunaan piirtyy puu heti kun säie alkaa kartoittamaan tiedostojärjestelmää. Mikäli jokin iso tiedostojärjestelmä on liitettynä, myös sekin kartoitetaan.</para></note>
+    
+    <para><application>Levynkäytön analysointi</application> -sovellus näyttää hakemistopuussa koot varattuna tilana. Tämä tarkoittaa sitä, että näytettävät koot viittaavat todelliseen levynkäyttöön, eikä hakemiston näennäiskokoa.</para>
+    
+    <warning><para><application>Levynkäytön analysointi</application> -sovellus ei laske /proc -hakemiston tai minkään tiedoston kokoa, mikä ei ole "tavalliseen" tiedostoon liittyvä, joten symbolisia linkkejä, merkkilohkoja ja laitelohkoja ei lasketa mukaan hakemiston kokoon.</para></warning>
+   
+    <para>Kovat linkit on hallittu eri tavalla: ensimmäinen kova linkki lasketaan normaaliksi tiedostoksi, mutta myöhemmät linkit samaan pisteeseen ei lasketa kokonaismäärään, mutta korostetaan oikealla puolella ikkunan sarakketta.</para>
+        </sect2>
+	
+	<sect2 id="baobab-folderscan">
+      <title>Yksittäinen hakemistokartoitus</title>
+
+    <para>Käynnistä yksittäisen kansion kartoitus valitsemalla <menuchoice><guimenu>Analysaattori</guimenu><guimenuitem>Kartoita kansio...</guimenuitem></menuchoice> valikosta, tai napsauta <guibutton>Kartoita kansio</guibutton> -työkalupainiketta.</para>
+
+	</sect2>
+
+	<sect2 id="baobab-remotescan">
+      <title>Etäkansion kartoitus</title>
+      
+      <para>Jos sinun täytyy kartoittaa etäpalvelimen kansio, napsauta valikkopalkin kuvaketta <guibutton>Kartoita etäkansio</guibutton> tai valitse <menuchoice><guimenu>Analysaattori</guimenu><guimenuitem>Kartoita etäkansio</guimenuitem></menuchoice> valikosta ja saat eteesi seuraavanlaisen valintalaatikon. <application>Levynkäytön analysointi</application> voi ottaa yhteyden palvelimeen käyttäen protokollia ssh, ftp, smb, http tai https.</para>
+ 
+     <!-- ==== Figure ==== -->
+      <figure id="baobab-remote-fig"> 
+        <title>Levynkäytön analysoinnin etäkansion kartoitus</title> 
+		<screenshot> 
+	 	 <mediaobject> 
+	  	  <imageobject>
+	   	 <imagedata fileref="figures/baobab_remote.png" format="PNG"/> 
+	   	 </imageobject>
+	   	 <textobject> 
+	    	  <phrase>Levynkäytön analysoinnin etäkansion kartoituksen valintaikkuna.</phrase> 
+	   	 </textobject> 
+	 	 </mediaobject> 
+		</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+   
+	</sect2> 
+
+  </sect1>
+
+
+<!-- ============= Preferences =============================== -->
+  <sect1 id="baobab-preferences">
+    <title>Asetukset</title>
+    
+    <para><application>Levynkäytön analysointi</application> -sovelluksen asetuksia pääset muokkaamaan valitsemalla <menuchoice><guimenu>Muokkaa</guimenu><guimenuitem>Asetukset</guimenuitem></menuchoice>.</para>
+ 
+   <!-- ==== Figure ==== -->
+      <figure id="baobab-preferences-fig"> 
+      	<title>Levynkäytön analysoinnin Asetukset -ikkuna</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_prefs.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Asetukset -ikkuna</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+  <sect2 id="baobab-scan-preferences">
+      <title>Valitse kartoitettavat laitteet</title>
+  <para>Ensimmäisessä osassa Asetukset -ikkunaa listattu kaikki järjestelmään liitetyt laitteet. Napsauta valintalaatikkoa liittääksesi/poistaaksesi osion tiedostojärjestelmien kartoitustoimenpiteistä.</para>
+  <note><para>Laite, joka on liitetty "/", ei voida poistaa kartoituksesta.</para></note>
+  </sect2>
+ 
+   <sect2 id="baobab-monitor-preferences">
+      <title>Kotikansion tarkkailun aktivointi</title>
+      <para>Jos tämä valinta on valittuna, <application>Levynkäytön analysointi</application> tarkkailee taukoamatta ulkoisia muutoksia kotihakemistossa ja hälyttää käyttäjää, mikäli tiedostoja on lisätty tai poistettu.</para>  
+   </sect2>  
+	</sect1>
+<!-- ================ Treemaps ================================ -->
+
+  <sect1 id="baobab-treemaps"> 
+  <title>Puukartat</title>
+
+    <para><guilabel>Puukartta</guilabel> on Ben Shneidermanin 90-luvulla kehittämä konsepti. Lue hänen <ulink type="http" url="http://www.cs.umd.edu/hcil/treemap-history/index.shtml">näkemyksensä puukartoista</ulink>.</para>
+    
+       <!-- ==== Figure ==== -->
+      <figure id="baobab-treemap-fig"> 
+        <title>Levynkäytönanalysoinnin Puukartta -ikkuna</title>
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_treemaps.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Puukartan teoria. Kaksi puukartta kaaviota</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+    
+    <para>Kuva esittää esimerkin puukartan teoriasta. Jokaisella haaralla (kuten esitetty puukaaviossa) on nimi (kirjain) ja siihen liittyvä koko (numero). Lehtien koko voi esittää esimerkiksi yksittäisen tiedoston kokoa, lehdettömien yhtymäkohtien koot ovat lapsiosien summia.</para> 
+    
+    <para>Puukartta on rakennettu käyttäen alkuperäisen suorakulmion rekursiivistä alijakoa. Jokainen ali-suorakulmio vastaa alkion kokoa. Alijaon suunta vaihtelee tasoittain: ensimmäinen pystysuuntaisesti, seuraava vaakasuuntaisesti jne. Tuloksena syntyy alkuperäinen suorakulmio, joka on jaettu pienempiin suorakulmioihin siten, että jokaisen suorakulmion koko vastaa lehden kokoa. Puun rakenne on koostettu myös puukartaksi. Lisäinformaation antamiseksi voidaan lehdissä käyttää värejä ja selityksiä.</para>
+
+	<note><para>Puukartat on erittäittäin tehokas esitystapa, kun koko on kaikista tärkein ominaisuus esityksessä.</para></note>
+  </sect1>
+  <!-- ================ Ringschart ================================ -->
+
+  <sect1 id="baobab-ringschart"> 
+  <title>Rengaskaavio</title>
+
+    <para><guilabel>Rengaskaavio</guilabel> on graafinen esitystapa konkreettisen kansion levynkäytöstä. Kun käynnistät sovelluksen, se ilmoittaa tiedostojärjestelmän käyttöasteen, kuten oheisessa kuvassa on esitetty:</para>
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-filesystem_scan"> 
+      <title>Levynkäytön analysoinnin rengaskaavioesitys tiedostojärjestelmän käytöstä.</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart1.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>Sovelluksen käynnistyksen jälkeen se näyttää tiedostojärjestelmän käytöstä. Graafinen esitys on oikealla.</phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+
+    <para>Kun käynnistät kansion kartoituksen, luodaan ja listataan puunäkymä alikansioista vasemmalla puolella. Jokainen rivi sisältää tiedon nimestä, kuinka paljon tilaa se käyttää (prosentteina ja koon kt, Mt tai Gt) ja kohteiden lukumäärän (mukaanlukien tiedostot ja kansiot). Kun prosessi on saatu loppuun, <guilabel>Rengaskaavio</guilabel> piirretään oikealle puolelle. Jos pysäytät sen, ennen kuin se on valmistunut, vain osittaiset tiedot näytetään perustuen kansioihin, joiden käyttö on laskettu.</para>
+
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-folder_scan"> 
+      <title>Levynkäytön analysoinnin rengaskaavioesitys tiedostojärjestelmän käytöstä.</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart2.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>Kansion kartoituksen jälkeen</phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    <para><guilabel>Rengaskaavio</guilabel> koostuu keskiympyrän ympärillä toisissaan kiinniolevista renkaista. Tämä ympyrä symboloi osittaisen puun juurikansiota (tämä on se hakemisto, minkä käyttäjä valitsee kartoitettavaksi). Jokainen rengas esittää hakemistopuun tasoa, joten esimerkiksi juurikansion alikansiot esitetään ensimmäisellä renkaalla ja syvempiä tasoja puussa vastaa ulommat renkaat kaaviossa. Jokainen alikansio esitetään renkaan sektorina, jonka kulma on suhteessa kansion sisällön kokoon ja piirretään eri väreillä hahmottamisen helpottamiseksi. Sovellus voi piirtää aina viiteen tasoon asti; siinä tapauksessa, jos kansio joka on viidennellä tasolla, sisältää lisää alikansioita, tässä tapauksessa kyseisen kansion yläpuolella näytetään musta kaari esittämään alikansioita. Kun on valittuna kansio, jolla ei ole alikansioita, piirretään vain keskimmäinen ympyrä. Kun hiiren osoitin viedään jonkin kansion kuvan päälle, se korostetaan ja näytetään työkaluvihjeessä nimi ja koko. Mikäli kansion alta löytyy alikansiota, pieni ja harmaa työkaluvihje tulee esiin sisältäen niiden nimet. On mahdollista, että kaikkia alikansioiden nimiä ei näytetä, koska pyritään välttämään tietojen päällekkäisyyttä.</para>
+
+    <para>Voit liikkua ylös tai alas listan riveillä (vaihtoehtoisesti laajentaa alikansioihin), graafinen esitys muuttuu sen mukaan, mikä kansio on valittu kartoituksen juurikansioksi. Kansioita voi navigoida myös suoraan <guilabel>rengaskaaviosta</guilabel>. Mikäli napsautat hiiren vasemmalla painikkeella kansion sisällä, siirryt syvemmälle puussa asettamalla kyseisen kansion juurikansioksi. Mikäli painat hiiren keskimmäistä painiketta (kohdalla ei ole väliä, kunhan napsautat <guilabel>rengaskaavio</guilabel> -kehyksen sisällä) saat vastakkaisen toiminnon ja siirryt yhden askeleen taaksepäin hierarkiassa.</para>
+
+    <para>Valitun emokansion säteen prosentuaalisuus on suoraan verrannollinen annetun kansion kokoon suhteessa sen omaan kokoon ja emokansion kokoon. On helppo ymmärtää, että kansion koko on yhtä suuri tai pienempi, kuin sen emokansio. Vaikka vain hakemistot näytetään graafisessa esityksessä, tiedostot otetaan laskuissa mukaan laskettaessa kansioiden tilankäyttöä.</para>
+  </sect1>
+</article>

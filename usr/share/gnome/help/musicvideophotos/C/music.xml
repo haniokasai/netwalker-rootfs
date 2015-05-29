@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD Docbook XML V.4.3//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+	  <!ENTITY % globalent SYSTEM "../../libs/global.ent">
+	  %globalent;
+	  <!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+	  %gnome-menus-C;
+	  <!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+	  %xinclude;
+	  <!ENTITY language "en">
+	  <!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+	  ]>
+	  <?db.chunk.max_depth 4?>
+<?yelp:chunk-depth 4?>
+<chapter id="music" status="review">
+	<title>Music</title>
+	<para>This section describes how to import, organize and use music, videos and 
+    photos with Ubuntu.</para>
+    <sect1 id="music-listen" status="review">
+        <title>Listen</title>
+        <para>
+        You can use <application>Rhythmbox</application> (&rhythmbox;) 
+        and <application>Movie Player</application> (&totem;) to listen 
+        to music on your computer.</para>
+        <para>Audio files will be opened in Movie Player when 
+        double-clicked but Rhythmbox is better at handling large music 
+        collections.</para>
+        <para>Rhythmbox is also able to play audio CDs and work with MP3
+        players. It should open automatically when you insert a CD.</para>
+        <para>See the <ulink type='help' url='ghelp:rhythmbox'>
+        Rhythmbox manual</ulink> for more information.</para>
+        <sect2 id="music-cd-autoplay" status="review">
+			<title>How can I prevent CDs from playing when I insert them?</title>
+			<para>Rhythmbox should start playing a CD automatically when you insert it 
+			into your CD drive.</para>
+			<para>To prevent this from happening, open your Home folder by clicking 
+			&home-folder; on the panel at the top of the screen. Then, click 
+			<menuchoice>
+				<guimenuitem>Edit</guimenuitem>
+				<guimenuitem>Preferences</guimenuitem>
+				<guimenuitem>Media</guimenuitem>
+			</menuchoice> and change the <guilabel>CD Audio</guilabel> option to 
+			<guilabel>Do Nothing</guilabel>. Finally, press <guibutton>Close</guibutton>.
+			</para>
+			<para>See the <ulink type='help' url='ghelp:user-guide#nautilus-preferences'>
+			Nautilus Preferences article</ulink> for more information.</para>
+		</sect2>
+		<sect2 id="music-missingmetadata" status="review">
+			<title>Song names/cover art are missing/wrong for some songs</title>
+			<para>Music player applications fetch cover art and other information about 
+			songs from the Internet. If song names or cover art are missing, make 
+			sure that you are connected to the Internet.</para>
+			<para>Sometimes, your music player may not be able to identify a particular 
+			song or album correctly. If this is the case, you can add the correct 
+			information manually by using a tag editor such as 
+			<ulink url="apt:cowbell">Cowbell</ulink> or 
+			<ulink url="apt:easytag-aac">EasyTAG</ulink>. 
+			Some music players even have their own tag editor.</para>
+			<para><emphasis role='strong'>If only the album cover art is missing for an album:</emphasis>
+			</para>
+			<procedure>
+				<step><para>Find a picture of the album cover on the Internet. 
+				<ulink url="http://www.amazon.com/">Amazon</ulink> 
+				and other music retailers often display pictures of the album 
+				cover; right-click it and click <guibutton>Save Image As</guibutton> 
+				to save it to your computer.</para></step>
+				<step><para>Rename the picture to <filename>cover.jpg</filename> 
+				and copy it into the folder which contains the songs from the album.</para></step>
+				<step><para>Rhythmbox and most other music players should display the correct 
+				cover art when a song from the album is next played.</para></step>
+			</procedure>
+			<para>Rhythmbox and some other music players allow you to drag a picture onto 
+			their cover art display area to change or add cover art for an album.</para>
+		</sect2>
+    </sect1>
+	<sect1 id="music-extract" status="review">
+        <title>Extract from a CD</title>
+        <para>You can extract music from a CD to your computer so that you do not have 
+        to have the CD in the drive to play songs from it. You can then copy 
+        the songs to a digital audio player, such as an MP3 player.</para>
+        <note>
+        	<para>Rhythmbox stores extracted files in the Music folder (&music;).</para>
+        </note>
+        <procedure>
+        	<step><para>Insert an Audio CD.</para></step>
+        	<step><para>You will be prompted to choose which application to launch, 
+        	choose <guilabel>Open Rhythmbox Music Player</guilabel>.</para></step>
+        	<step><para>Click <guibutton>OK</guibutton>.</para></step>
+        	<step><para>In the left hand pane, under <guilabel>Devices</guilabel>, right click
+        	the CD name you want to extract.</para></step>
+        	<step><para>Click <guibutton>Extract to Library</guibutton>.</para></step>
+        </procedure>
+        <para>You can change the default file format used by Rhythmbox when copying 
+        CDs. Click 
+        <menuchoice>
+            <guimenuitem>Edit</guimenuitem>
+            <guimenuitem>Preferences</guimenuitem>
+            <guimenuitem>Music</guimenuitem>
+        </menuchoice> 
+        and change the <guilabel>Preferred Format</guilabel> to the format of 
+        your choice. In future, all CDs copied to your computer will be copied 
+        in this format.
+        </para>
+        <note>
+            <para>
+            If an MP3 option is not shown in the <guilabel>Preferred Format
+            </guilabel> list, <ulink url='apt:gstreamer0.10-plugins-ugly-multiverse'>install the 
+            <application>gstreamer0.10-plugins-ugly-multiverse</application> package</ulink> and restart 
+            Rhythmbox. The option <guilabel>CD Quality, MP3 (.mp3 type)
+            </guilabel> should appear in the <guilabel>Preferred Format
+            </guilabel> list.
+            </para>
+        </note>
+    </sect1>
+    <sect1 id="music-burn" status="review">
+        <title>Copy to a CD</title>
+        <para>
+        You can create your own audio CDs by copying music from your computer 
+        onto a blank disc. CDs that you create in this way should play in any 
+        device that can play standard (manufactured) audio CDs. All that is 
+        required is a CD burner (also called a CD writer). Most computers have 
+        one of these.
+        </para>
+        <para>
+        To begin creating an audio CD, start Brasero (&brasero;) and select 
+        <guibutton>Audio project</guibutton> from the main screen. Then, select 
+        the songs that you want to add to the CD and add them to the project. 
+        Finally, click <guibutton>Burn</guibutton> to copy the songs to a CD.
+        </para>
+        <para>
+        You will also need to select the maximum duration of the CD which you 
+        inserted (e.g. 80 minutes), which can be done by clicking on the small 
+        CD icon near the bottom of the window. Brasero will warn you if you 
+        have selected more files than can fit on the disc.
+        </para>
+        <para>
+        See the <ulink type='help' url='ghelp:brasero'>
+        Brasero manual</ulink> for full instructions.
+        </para>
+    </sect1>
+   <sect1 id="music-portable" status="review">
+        <title>Portable music players</title>
+        <para>
+        Ubuntu will work with most portable audio players, including iPods. 
+        Normally, all you have to do is plug the player into your computer and 
+        then use Rhythmbox to copy songs to and from the player. The audio 
+        player should appear in the <guilabel>Devices</guilabel> section of the 
+        list which is underneath the <guibutton>Play</guibutton> button.
+        See the 
+        <ulink type='help' url='ghelp:rhythmbox'>Rhythmbox manual</ulink> for 
+        more information.
+        </para>
+        <sect2 id="music-portable-ipod" status="review">
+        	<title>iPod</title>
+			<para>
+			If you have a portable music player which can also display photos and 
+			videos, you may prefer to use <ulink url="apt:banshee">Banshee</ulink>, 
+			which is a music player with good support for such devices. 
+			iPod owners may also like to try specialized applications such as 
+			<ulink url="apt:gpixpod">GPixPod</ulink> and 
+			<ulink url="apt:gtkpod">gtkpod</ulink> for handling multimedia.
+			</para>
+		</sect2>
+		<sect2 id="music-portable-mtp" status="review">
+			<title>MTP Media Players</title>
+			<para>A number of MP3 players, such as those produced by Samsung use 
+			Media Transfer Protocol(MTP). These devices, when used with the correct
+			driver, often appear in Windows as a media device but can be accessed as a USB
+			device.</para>
+			<para>Ubuntu supports these devices but requires two steps:</para>
+			<orderedlist>
+				<listitem><para>Install the <ulink url="apt:mtpfs"><application>mtpfs</application></ulink> 
+				and <ulink url="apt:mtpfs"><application>mtp-tools</application></ulink> packages.</para></listitem>
+				<listitem><para>Open &rhythmbox;.</para></listitem>
+				<listitem><para>Click <menuchoice><guimenu>Edit</guimenu><guimenuitem>Plugins</guimenuitem></menuchoice></para></listitem>
+				<listitem><para>Tick the <guilabel>Portable Players - MTP</guilabel> plugin.</para></listitem>
+				<listitem><para>Click <guibutton>Close</guibutton>.</para></listitem>
+			</orderedlist>
+			<para>Your device will now be displayed in the left hand pane under <guilabel>Devices</guilabel> 
+			when connected.</para>
+		</sect2>
+	</sect1>
+	<sect1 id="music-convert" status="review">
+		<title>Converting audio files</title>
+		<para>When you extract music from a CD onto a computer, it must be stored in a 
+		specific <emphasis>audio format</emphasis>. The default format used by 
+		Rhythmbox is Ogg Vorbis (<filename>.ogg</filename> or 
+		<filename>.oga</filename>). This is explained in <xref linkend="music-extract" />.
+		</para>
+		<para>
+		Not all portable audio players are able to play files in the Ogg Vorbis 
+		format; for example, iPods cannot play this format. In order for your 
+		player to recognize your songs, you must convert them to a format which 
+		it supports. Nearly every player on the market supports the MP3 format, 
+		so this is usually a safe bet.
+		</para>
+		<para>
+		You can convert existing audio files to other formats using 
+		<ulink url="apt:soundconverter">Sound Converter</ulink>. The output 
+		format can be selected in the Sound Converter preferences.
+		</para>
+		<para>
+		You can change the default file format used by Rhythmbox when copying 
+		CDs. Click 
+		<menuchoice>
+			<guimenuitem>Edit</guimenuitem>
+			<guimenuitem>Preferences</guimenuitem>
+			<guimenuitem>Music</guimenuitem>
+		</menuchoice> 
+		and change the <guilabel>Preferred Format</guilabel> to the format of 
+		your choice. In future, all CDs copied to your computer will be copied 
+		in this format.
+		</para>
+		<note>
+			<para>
+			If an MP3 option is not shown in the <guilabel>Preferred Format
+			</guilabel> list, <ulink url='apt:gstreamer0.10-plugins-ugly-multiverse'>install the 
+			<application>gstreamer0.10-plugins-ugly-multiverse</application> package</ulink> and restart 
+			Rhythmbox. The option <guilabel>CD Quality, MP3 (.mp3 type)
+			</guilabel> should appear in the <guilabel>Preferred Format
+			</guilabel> list.
+			</para>
+		</note>
+	</sect1>
+	<sect1 id="music-podcasts" status="review">
+        <title>Podcasts and Internet radio stations</title>
+        <para>
+        <emphasis role='strong'>Podcasts</emphasis> are pre-recorded shows 
+        which you can download and listen to on your computer or portable audio 
+        player. Thousands of podcasts are available and most can be downloaded 
+        for free.
+        </para>
+        <para>
+        You can use Rhythmbox to download and play podcasts; select 
+        <guilabel>Podcasts</guilabel> from the <guilabel>Library</guilabel> 
+        section of the Rhythmbox window to get started. The 
+        <ulink type='help' url='ghelp:rhythmbox'>Rhythmbox manual</ulink> has 
+        further instructions. Alternatively, you may prefer to use a dedicated 
+        podcast manager such as <ulink url="apt:gpodder">gPodder</ulink> or 
+        <ulink url="apt:penguintv">PenguinTV</ulink>.
+        </para>
+        <para>
+        <emphasis role='strong'>Internet radio stations</emphasis> are live 
+        <emphasis>audio streams</emphasis>, similar to standard radio but 
+        transmitted over the Internet. You can use Rhythmbox to listen to 
+        Internet radio too; select <guilabel>Radio</guilabel> from the 
+        <guilabel>Library</guilabel> section of the Rhythmbox window to get 
+        started and see the 
+        <ulink type='help' url='ghelp:rhythmbox'>Rhythmbox manual</ulink> for 
+        more details.
+        </para>
+        <para>
+        <emphasis role='strong'>RealAudio streams</emphasis>, as used by some 
+        Internet radio stations, are not supported by Rhythmbox. To listen to 
+        this type of stream, <link linkend="video-realplayer">
+        install RealPlayer</link>.
+        </para>
+    </sect1>
+    
+    <sect1 id="music-download" status="review">
+        <title>Download music from the Internet</title>
+        <para>
+        Many websites which allow you to buy music online and download it onto 
+        your computer are designed to work with Microsoft Windows only. As a 
+        result, some services will not work with Ubuntu.
+        </para>
+        <para>
+        Ubuntu is able to play most audio formats, including MP3, WMA and AAC. 
+        However, it does not support the various DRM (Digital Rights 
+        Management) schemes which stores sometimes use to restrict access to 
+        their music. If you download audio files which are DRM-restricted, they 
+        are unlikely to work in Ubuntu. In particular, nearly all music from 
+        the iTunes music store is DRM-restricted and so cannot be played.
+        </para>
+        <para>
+        Two services which offer unrestricted (DRM-free) music are 
+        <ulink url="http://www.jamendo.com">Jamendo</ulink> and 
+        <ulink url="">Magnatune</ulink>. You can buy songs from both of these 
+        stores online, or directly from within Rhythmbox if the appropriate 
+        plugins are enabled (see the <ulink type='help' url='ghelp:rhythmbox'>
+        Rhythmbox manual</ulink> for more information).
+        </para>
+        <caution>
+            <para>
+            Downloading music from the Internet without the permission of its 
+            copyright holder is considered illegal in many countries. You 
+            should check that you are within your rights to download a music 
+            file before saving it onto your computer.
+            </para>
+        </caution>
+    </sect1>
+    <sect1 id="music-recording" status="review">
+        <title>Recording sounds</title>
+        <para>
+        You can record sounds onto your computer if you have a microphone or 
+        other recording equipment connected to it.
+        </para>
+        <para>
+        To start a basic sound recording application, press 
+        <keycombo><keycap>Alt</keycap><keycap>F2</keycap></keycombo>, 
+        type <userinput>gnome-sound-recorder</userinput> into the text box and 
+        then click <guibutton>Run</guibutton>. See the 
+        <ulink type='help' url="ghelp:gnome-sound-recorder">
+        Sound Recorder manual</ulink> for instructions on how to use it.
+        </para>
+        <para>
+        For more advanced recording needs, you may like to try a multi-track 
+        audio editor such as 
+        <ulink url="apt:jokosher">Jokosher</ulink> or 
+        <ulink url="apt:audacity">Audacity</ulink>.
+        </para>
+        <para>
+        Many other professional-level recording tools are available for Ubuntu. 
+        See the <ulink url="http://ubuntustudio.org/">
+        Ubuntu Studio website</ulink> for more information.
+        </para>
+	</sect1>
+    <sect1 id="music-microphone" status="review">
+        <title>My microphone does not work or is too quiet</title>
+        <para>
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <emphasis role='strong'>
+                    Check that the microphone is connected to the correct socket
+                    </emphasis>
+                </para>
+                <para>
+                Most computers have three or more similar-looking audio 
+                sockets, so you should check that the microphone is plugged 
+                into the correct one. It is usually colored pink and has a 
+                microphone icon next to it.
+                </para>
+                <para>
+                In some rare cases, sockets do not work as labeled. For 
+                example, your microphone socket may act as the 
+                <quote>Line Out</quote> socket and vice versa. If this is the 
+                case, use trial and error to find the correct microphone socket.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role='strong'>
+                    Check that the microphone is not muted in the settings
+                    </emphasis>
+                </para>
+                <para>
+                The microphone input may have been muted or its volume reduced 
+                in the system settings.
+                </para>
+                <procedure>
+                    <step>
+                    <para>
+                    Right-click the speaker icon on the panel at the top of 
+                    your screen and select 
+                    <guilabel>Open Volume Control</guilabel>. If you do not 
+                    have a speaker icon on your panel, press 
+                    <keycombo>
+                        <keycap>Alt</keycap><keycap>F2</keycap>
+                    </keycombo>, type 
+                    <userinput>gnome-volume-control</userinput> and click 
+                    <guibutton>Run</guibutton> instead.
+                    </para>
+                    </step>
+                    <step>
+                    <para>
+                    When the Volume Control opens, click 
+                    <guibutton>Preferences</guibutton>
+                    and make sure that all of the items related to the 
+                    microphone settings are checked. Click 
+                    <guibutton>Close</guibutton> to return to the volume 
+                    control.
+                    </para>
+                    </step>
+                    <step>
+                    <para>
+                    Under the <guilabel>Playback</guilabel> tab, make sure that 
+                    all of the microphone settings are unmuted and that their 
+                    volume is set high enough. If a microphone is muted, a 
+                    speaker icon with a red cross over it will be displayed 
+                    underneath its volume slider; click that icon to unmute the 
+                    microphone.
+                    </para>
+                    </step>
+                    <step>
+                    <para>
+                    You may also find it necessary to change other settings to 
+                    get your microphone to work properly. For example, the 
+                    <guilabel>Mic Boost</guilabel> and 
+                    <guilabel>External Amplifier</guilabel> settings under the 
+                    <guilabel>Switches</guilabel> tab and the 
+                    <guilabel>Mic Select</guilabel> setting under the 
+                    <guilabel>Options</guilabel> tab can all affect the volume 
+                    of your microphone.
+                    </para>
+                    </step>
+                </procedure>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role='strong'>
+                    Check the volume control on the microphone
+                    </emphasis>
+                </para>
+                <para>
+                Some microphones have an integrated volume control. Check that 
+                the volume control on your microphone is turned up.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <emphasis role='strong'>
+                    Check the volume control in the recording application
+                    </emphasis>
+                </para>
+                <para>
+                Some applications allow you to change the volume of the 
+                microphone from within the application. Check the volume 
+                settings in the application that you are using.
+                </para>
+            </listitem>
+        </itemizedlist>
+    </sect1>
+</chapter>

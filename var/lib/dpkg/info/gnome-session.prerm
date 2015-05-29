@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = upgrade ]; then
+  update-alternatives --remove x-session-manager /usr/bin/gnome-session
+  update-alternatives --remove desktop-splash \
+    /usr/share/pixmaps/splash/gnome-splash.png
+  update-alternatives --remove desktop-splash \
+    /usr/share/pixmaps/splash/gnome-debian-splash.png
+fi
+
+# Automatically added by dh_gconf
+if [ "$1" = remove ] || [ "$1" = upgrade ]; then
+	gconf-schemas --unregister gnome-session.schemas 
+fi
+# End automatically added section
+

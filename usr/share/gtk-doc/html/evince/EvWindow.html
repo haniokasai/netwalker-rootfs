@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EvWindow</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evince Programmer's Reference Manual">
+<link rel="up" href="pt01.html" title="Part I.  Evince Frontend">
+<link rel="prev" href="evince-ev-window-title.html" title="ev-window-title">
+<link rel="next" href="ix01.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.10 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="part" href="pt01.html" title="Part I.  Evince Frontend">
+<link rel="index" href="ix01.html" title="Index">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="evince-ev-window-title.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="pt01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evince Programmer's Reference Manual</th>
+<td><a accesskey="n" href="ix01.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts"><nobr><a href="#EvWindow.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EvWindow.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EvWindow.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EvWindow.implemented-interfaces" class="shortcut">Implemented Interfaces</a></nobr></td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="EvWindow"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EvWindow.top_of_page"></a>EvWindow</span></h2>
+<p>EvWindow</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EvWindow.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+enum                <a class="link" href="EvWindow.html#EvWindowRunMode" title="enum EvWindowRunMode">EvWindowRunMode</a>;
+                    <a class="link" href="EvWindow.html#EvPrintRange" title="EvPrintRange">EvPrintRange</a>;
+enum                <a class="link" href="EvWindow.html#EvPrintPageSet" title="enum EvPrintPageSet">EvPrintPageSet</a>;
+                    <a class="link" href="EvWindow.html#EvWindowPrivate" title="EvWindowPrivate">EvWindowPrivate</a>;
+                    <a class="link" href="EvWindow.html#EvWindow-struct" title="EvWindow">EvWindow</a>;
+<a
+href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"
+>GtkWidget</a>*          <a class="link" href="EvWindow.html#ev-window-new" title="ev_window_new ()">ev_window_new</a>                       (void);
+const char*         <a class="link" href="EvWindow.html#ev-window-get-uri" title="ev_window_get_uri ()">ev_window_get_uri</a>                   (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window);
+void                <a class="link" href="EvWindow.html#ev-window-open-uri" title="ev_window_open_uri ()">ev_window_open_uri</a>                  (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window,
+                                                         const char *uri,
+                                                         <a
+href="../libevdocument/libevdocument-ev-link-dest.html#EvLinkDest"
+>EvLinkDest</a> *dest,
+                                                         <a class="link" href="EvWindow.html#EvWindowRunMode" title="enum EvWindowRunMode">EvWindowRunMode</a> mode,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *search_string,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> unlink_temp_file,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *print_settings);
+<a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            <a class="link" href="EvWindow.html#ev-window-is-empty" title="ev_window_is_empty ()">ev_window_is_empty</a>                  (const <a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window);
+void                <a class="link" href="EvWindow.html#ev-window-print-range" title="ev_window_print_range ()">ev_window_print_range</a>               (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window,
+                                                         int first_page,
+                                                         int last_page);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EvWindow.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a
+href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GObject"
+>GObject</a>
+   +----<a
+href="/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html#GInitiallyUnowned"
+>GInitiallyUnowned</a>
+         +----<a
+href="/usr/share/gtk-doc/html/gtk/GtkObject.html"
+>GtkObject</a>
+               +----<a
+href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"
+>GtkWidget</a>
+                     +----<a
+href="/usr/share/gtk-doc/html/gtk/GtkContainer.html"
+>GtkContainer</a>
+                           +----<a
+href="/usr/share/gtk-doc/html/gtk/GtkBin.html"
+>GtkBin</a>
+                                 +----<a
+href="/usr/share/gtk-doc/html/gtk/GtkWindow.html"
+>GtkWindow</a>
+                                       +----EvWindow
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EvWindow.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EvWindow implements
+ <a
+href="/usr/share/gtk-doc/html/gtk/gtk-gtkbuildable.html#GtkBuildable"
+>GtkBuildable</a> and  AtkImplementorIface.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="EvWindow.description"></a><h2>Description</h2>
+<p>
+
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="EvWindow.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="EvWindowRunMode"></a><h3>enum EvWindowRunMode</h3>
+<pre class="programlisting">typedef enum {
+	EV_WINDOW_MODE_NORMAL,
+	EV_WINDOW_MODE_FULLSCREEN,
+	EV_WINDOW_MODE_PRESENTATION,
+	EV_WINDOW_MODE_PREVIEW
+} EvWindowRunMode;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EvPrintRange"></a><h3>EvPrintRange</h3>
+<pre class="programlisting">typedef struct {
+	gint start;
+	gint end;
+} EvPrintRange;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EvPrintPageSet"></a><h3>enum EvPrintPageSet</h3>
+<pre class="programlisting">typedef enum {
+	EV_PRINT_PAGE_SET_ALL,
+	EV_PRINT_PAGE_SET_EVEN,
+	EV_PRINT_PAGE_SET_ODD
+} EvPrintPageSet;
+</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EvWindowPrivate"></a><h3>EvWindowPrivate</h3>
+<pre class="programlisting">typedef struct _EvWindowPrivate EvWindowPrivate;</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EvWindow-struct"></a><h3>EvWindow</h3>
+<pre class="programlisting">typedef struct _EvWindow EvWindow;</pre>
+<p>
+
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ev-window-new"></a><h3>ev_window_new ()</h3>
+<pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"
+>GtkWidget</a>*          ev_window_new                       (void);</pre>
+<p>
+Creates a <a
+href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"
+><span class="type">GtkWidget</span></a> that represents the window.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the <a
+href="/usr/share/gtk-doc/html/gtk/GtkWidget.html"
+><span class="type">GtkWidget</span></a> that represents the window.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ev-window-get-uri"></a><h3>ev_window_get_uri ()</h3>
+<pre class="programlisting">const char*         ev_window_get_uri                   (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window);</pre>
+<p>
+It returns the uri of the document showed in the <a class="link" href="EvWindow.html" title="EvWindow"><span class="type">EvWindow</span></a>.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ev_window</code></em> :</span></p></td>
+<td> The instance of the <a class="link" href="EvWindow.html" title="EvWindow"><span class="type">EvWindow</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the uri of the document showed in the <a class="link" href="EvWindow.html" title="EvWindow"><span class="type">EvWindow</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ev-window-open-uri"></a><h3>ev_window_open_uri ()</h3>
+<pre class="programlisting">void                ev_window_open_uri                  (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window,
+                                                         const char *uri,
+                                                         <a
+href="../libevdocument/libevdocument-ev-link-dest.html#EvLinkDest"
+>EvLinkDest</a> *dest,
+                                                         <a class="link" href="EvWindow.html#EvWindowRunMode" title="enum EvWindowRunMode">EvWindowRunMode</a> mode,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *search_string,
+                                                         <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a> unlink_temp_file,
+                                                         const <a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gchar"
+>gchar</a> *print_settings);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ev_window</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>search_string</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>unlink_temp_file</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>print_settings</code></em> :</span></p></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ev-window-is-empty"></a><h3>ev_window_is_empty ()</h3>
+<pre class="programlisting"><a
+href="/usr/share/gtk-doc/html/glib/glib-Basic-Types.html#gboolean"
+>gboolean</a>            ev_window_is_empty                  (const <a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window);</pre>
+<p>
+It does look if there is any document loaded or if there is any job to load
+a document.</p>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ev_window</code></em> :</span></p></td>
+<td> The instance of the <a class="link" href="EvWindow.html" title="EvWindow"><span class="type">EvWindow</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#TRUE:CAPS"
+><code class="literal">TRUE</code></a> if there isn't any document loaded or any any documente to be
+         loaded, <a
+href="/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html#FALSE:CAPS"
+><code class="literal">FALSE</code></a> in other case.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ev-window-print-range"></a><h3>ev_window_print_range ()</h3>
+<pre class="programlisting">void                ev_window_print_range               (<a class="link" href="EvWindow.html" title="EvWindow">EvWindow</a> *ev_window,
+                                                         int first_page,
+                                                         int last_page);</pre>
+<p>
+
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ev_window</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_page</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>last_page</code></em> :</span></p></td>
+<td>
+
+
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.10</div>
+</body>
+</html>

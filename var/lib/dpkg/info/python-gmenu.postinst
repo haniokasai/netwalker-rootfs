@@ -1,0 +1,14 @@
+#! /bin/sh
+set -e
+
+# Workaround for python-central disaster
+if [ "$1" = "configure" ] && dpkg --compare-versions "$2" lt "2.25.5-0ubuntu3"; then
+	rm -rf /usr/lib/python2.?/site-packages/GMenuSimpleEditor
+fi
+
+# Automatically added by dh_pysupport
+if which update-python-modules >/dev/null 2>&1; then
+	update-python-modules  python-gmenu
+fi
+# End automatically added section
+

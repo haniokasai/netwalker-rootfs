@@ -1,0 +1,61 @@
+#!/usr/bin/python2.6
+
+import warnings
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
+import apt
+
+from UpdateManager.Core.MetaRelease import MetaReleaseCore
+from UpdateManager.Core.DistUpgradeFetcherCore import DistUpgradeFetcherCore
+from optparse import OptionParser
+from gettext import gettext as _
+import time
+import sys
+import urllib2
+from DistUpgrade.utils import init_proxy
+
+if __name__ == "__main__":
+
+  init_proxy()
+
+  parser = OptionParser()
+  parser.add_option ("-d", "--devel-release", action="store_true",
+                     dest="devel_release", default=False,
+                     help=_("Check if upgrading to the latest devel release "
+                          "is possible"))
+  parser.add_option ("-p", "--proposed", action="store_true",
+                     dest="proposed_release", default=False,
+                     help=_("Try upgrading to the latest release using "
+                            "the upgrader from $distro-proposed"))
+  parser.add_option ("-m", "--mode", default="server",
+                     dest="mode", 
+                     help=_("Run in a special upgrade mode.\n"
+                            "Currently 'desktop' for regular upgrades of "
+                            "a desktop system and 'server' for server "
+                            "systems are supported."))
+  parser.add_option ("-f", "--frontend", default="DistUpgradeViewText",
+                     dest="frontend", 
+                     help=_("Run the specified frontend"))
+  parser.add_option ("-s","--sandbox", action="store_true", default=False,
+                     help=_("Test upgrade with a sandbox aufs overlay"))
+
+  (options, args) = parser.parse_args()
+
+  print _("Checking for a new ubuntu release")
+  m = MetaReleaseCore(useDevelopmentRelease=options.devel_release,
+                      useProposed=options.proposed_release)
+  # this will timeout eventually
+  while m.downloading:
+	  time.sleep(0.5)
+  if m.new_dist is None:
+	  print _("No new release found")
+	  sys.exit(1)
+  # we have a new dist
+  progress = apt.progress.TextFetchProgress()
+  fetcher = DistUpgradeFetcherCore(new_dist=m.new_dist,
+				   progress=progress)
+  fetcher.run_options += ["--mode=%s" % options.mode,
+                          "--frontend=%s" % options.frontend,
+                          ]
+  if options.sandbox:
+    fetcher.run_options.append("--sandbox")
+  fetcher.run()

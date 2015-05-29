@@ -1,0 +1,26 @@
+#!/bin/sh
+# Disable or Enable the V4L in suspend mode.
+# TODO: Multi-instance is not supported in this version.
+
+
+case "$1" in
+	hibernate|suspend)
+	    echo "suspend(totem)"
+		echo "01" > /tmp/v4l.pid
+		perl /usr/lib/pm-utils/totemsuspend.pl --pause > /tmp/suspend.log
+		chmod 777 /tmp/v4l.pid
+		
+	  echo "suspend v4l"	
+    cat /tmp/v4l.pid
+		;;
+	thaw|resume) 
+	    echo "resume(totem)"
+		echo "02" > /tmp/v4l.pid
+		chmod 777 /tmp/v4l.pid
+		
+	  echo "resume v4l"	
+		cat /tmp/v4l.pid
+		;;
+	*) exit $NA
+		;;
+esac

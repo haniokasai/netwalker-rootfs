@@ -1,0 +1,1 @@
+/usr/share/python-support/python-gdata/gdata/photos/__init__.py

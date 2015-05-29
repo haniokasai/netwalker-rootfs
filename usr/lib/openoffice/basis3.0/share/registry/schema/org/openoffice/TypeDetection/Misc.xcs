@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<oor:component-schema xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oor:name="Misc" oor:package="org.openoffice.TypeDetection" xml:lang="en-US">
+  <info>
+    <desc>Contains common content types, filters, deep detection services, as well as the frame loader and the content handler for Office.</desc>
+  </info>
+  <templates>
+    <group oor:name="FrameLoader">
+      <info>
+        <desc>Can load a type as visible component into a com.sun.star.frame.Frame.</desc>
+      </info>
+      <prop oor:name="Types" oor:type="oor:string-list">
+        <info>
+          <desc>List of internal type names, which can be interpreted by this loader implementation.</desc>
+        </info>
+        <value/>
+      </prop>
+    </group>
+    <group oor:name="ContentHandler">
+      <info>
+        <desc>Can load a type as non visible component, e.g. sounds.</desc>
+      </info>
+      <prop oor:name="Types" oor:type="oor:string-list">
+        <info>
+          <desc>List of internal type names, which can be interpreted by this handler implementation.</desc>
+        </info>
+        <value/>
+      </prop>
+    </group>
+  </templates>
+  <component>
+    <set oor:name="FrameLoaders" oor:node-type="FrameLoader">
+      <info>
+        <desc>Lists the registered frame loader services.</desc>
+      </info>
+    </set>
+    <set oor:name="ContentHandlers" oor:node-type="ContentHandler">
+      <info>
+        <desc>Lists the registered content handler services.</desc>
+      </info>
+    </set>
+    <group oor:name="Defaults">
+      <info>
+        <desc>Contains default objects that are used if no specialized service was registered or values which specify special behaviour of type/filter environment.</desc>
+      </info>
+      <prop oor:name="DefaultFrameLoader" oor:type="xs:string">
+        <info>
+          <desc>Specify a generic frame loader, which can use filter services for loading documents into frames.</desc>
+        </info>
+        <value>com.sun.star.comp.office.FrameLoader</value>
+      </prop>
+      <prop oor:name="ShowAlienFilterWarning" oor:type="xs:boolean">
+        <info>
+          <desc>Displays a warning when a user tries to set a third-party filter as the default filter in "Tools - Options".</desc>
+        </info>
+        <value>true</value>
+      </prop>
+    </group>
+  </component>
+</oor:component-schema>

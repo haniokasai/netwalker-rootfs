@@ -1,0 +1,1 @@
+../../../../share/pyshared/AppInstall/AppInstall.py

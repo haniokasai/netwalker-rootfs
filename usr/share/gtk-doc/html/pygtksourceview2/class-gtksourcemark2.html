@@ -1,0 +1,62 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>gtksourceview2.Mark</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.73.2"><link rel="start" href="index.html" title="PyGtksourceview2 Reference Manual"><link rel="up" href="index.html" title="PyGtksourceview2 Reference Manual"><link rel="prev" href="class-gtksourcelanguagemanager2.html" title="gtksourceview2.LanguageManager"><link rel="next" href="class-gtksourceprintcompositor2.html" title="gtksourceview2.PrintCompositor"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">gtksourceview2.Mark</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="class-gtksourcelanguagemanager2.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="class-gtksourceprintcompositor2.html">Next</a></td></tr></table><hr></div><div class="refentry" lang="en"><a name="class-gtksourcemark2"></a><div class="titlepage"></div><div class="refnamediv"><h2>gtksourceview2.Mark</h2><p>gtksourceview2.Mark — Mark object for gtksourceview.SourceView</p></div><div class="refsect1" lang="en"><a name="id313712"></a><h2>Synopsis</h2><table bgcolor="#D0E0F0" width="100%"><tr><td><pre class="classsynopsis">class <span class="ooclass"><span class="classname">gtksourceview2.Mark</span></span>(<span class="ooclass"><span class="classname"><a
+href="../pygtk/class-gtktextmark.html"
+>gtk.TextMark</a></span></span>):
+<code class="constructorsynopsis">    <span class="methodname"><a class="link" href="class-gtksourcemark2.html#constructor-gtksourcemark2" title="Constructor">gtksourceview2.Mark</a></span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>name</code></strong></span></span>, <span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code><br><code class="methodsynopsis">    def <span class="methodname"><a class="link" href="class-gtksourcemark2.html#method-gtksourcemark2--get-category" title="gtksourceview2.Mark.get_category">get_category</a></span>(<span class="methodparam"></span>)</code><br><code class="methodsynopsis">    def <span class="methodname"><a class="link" href="class-gtksourcemark2.html#method-gtksourcemark2--next" title="gtksourceview2.Mark.next">next</a></span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code><br><code class="methodsynopsis">    def <span class="methodname"><a class="link" href="class-gtksourcemark2.html#method-gtksourcemark2--prev" title="gtksourceview2.Mark.prev">prev</a></span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code><br></pre></td></tr></table></div><div class="refsect1" lang="en"><a name="id352505"></a><h2>Ancestry</h2><pre class="synopsis">+-- gobject.GObject
+    +-- <a
+href="../pygtk/class-gtktextmark.html"
+>gtk.TextMark</a>
+        +-- <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark">gtksourceview2.Mark</a>
+</pre></div><div class="refsect1" lang="en"><a name="id352544"></a><h2>Properties</h2><div class="blockquote"><table width="100%" border="0" bgcolor="#E0E0E0"><tr><td valign="top"><div class="informaltable"><table width="100%" border="0"><colgroup><col><col><col></colgroup><tbody><tr valign="top"><td valign="top">"category"</td><td valign="top">Read-Write-Construct Only</td><td valign="top">The category of the
+              <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>,
+              classified the mark and control what pixbuf is used and with which priority it is drawn.
+              Default value: <code class="literal">None</code></td></tr></tbody></table></div></td></tr></table></div></div><div class="refsect1" lang="en"><a name="description-gtktextmarker"></a><h2>Description</h2><p>
+    A <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>
+    preserves a position in the text where you want to display additional info. It is based on
+    <a
+href="../pygtk/class-gtktextmark.html"
+><code class="classname">gtk.TextMark</code></a> and thus is still
+    valid after the text has changed though it may change it's position.
+  </p><p>
+    <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a> are organised
+    in categories which you have to set when you create the mark. Each category can have a pixbuf and a
+    priority associated using
+    <code class="methodname">gtksourceview2.View.set_mark_category_pixbuf</code>()
+    and <code class="methodname">gtksourceview2.View.set_mark_category_priority</code>().
+    The pixbuf will be displayed in the margin at the line where the mark residents if the "show-line-marks"
+    property is set to <code class="literal">True</code>. If there are multiple marks in the same line,
+    the pixbufs will be drawn on top of each other. The mark with the highest priority will be drawn on top.
+  </p></div><div class="refsect1" lang="en"><a name="constructor-gtksourcemark2"></a><h2>Constructor</h2><pre class="programlisting"><code class="constructorsynopsis">    <span class="methodname">gtksourceview2.Mark</span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>name</code></strong></span></span>, <span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code></pre><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><p><span class="term"><strong class="parameter"><code>name</code></strong> :</span></p></td><td>name of the <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>,can be
+          <code class="literal">None</code> when not using a name.</td></tr><tr><td><p><span class="term"><strong class="parameter"><code>category</code></strong> :</span></p></td><td>used to classify marks according to common characteristics
+          (e.g. all the marks representing a bookmark could belong to the "bookmark" category,
+          or all the marks representing a compilation error could belong to "error"
+          category).</td></tr><tr><td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td><td>a new <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>.
+          </td></tr></tbody></table><p>
+      Creates a new <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>.
+      Add it to a buffer using
+      <code class="methodname"><a
+href="../pygtk/class-gtktextbuffer.html#method-gtktextbuffer--add-mark"
+>gtk.TextBuffer.add_mark</a></code>().
+      If name is <code class="literal">None</code>, the mark is anonymous; otherwise, the mark can be retrieved by name using
+      <code class="methodname"><a
+href="../pygtk/class-gtktextbuffer.html#method-gtktextbuffer--get-mark"
+>gtk.TextBuffer.get_mark</a></code>().
+      Normally marks are created using the utility function
+      <code class="methodname">gtksourceview2.Buffer.create_mark</code>().
+    </p></div><div class="refsect1" lang="en"><a name="id350129"></a><h2>Methods</h2><div class="refsect2" lang="en"><a name="method-gtksourcemark2--get-category"></a><h3>gtksourceview2.Mark.get_category</h3><pre class="programlisting"><code class="methodsynopsis">    def <span class="methodname">get_category</span>(<span class="methodparam"></span>)</code></pre><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td><td>the category.</td></tr></tbody></table><p>
+      The <code class="methodname">get_category</code>() method returns the category of
+      <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>.
+    </p></div><div class="refsect2" lang="en"><a name="method-gtksourcemark2--next"></a><h3>gtksourceview2.Mark.next</h3><pre class="programlisting"><code class="methodsynopsis">    def <span class="methodname">next</span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code></pre><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><p><span class="term"><strong class="parameter"><code>category</code></strong> :</span></p></td><td>a string specifying the mark category or <code class="literal">None</code>.</td></tr><tr><td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td><td>the next <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>
+              or <code class="literal">None</code>.</td></tr></tbody></table><p>
+      The <code class="methodname">next</code>() method returns the next
+      <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>
+      in the buffer or <code class="literal">None</code> if the mark was not added to a buffer.
+      If there is no next mark, <code class="literal">None</code> will be returned.
+      If category is <code class="literal">None</code>, looks for marks of any category.
+    </p></div><div class="refsect2" lang="en"><a name="method-gtksourcemark2--prev"></a><h3>gtksourceview2.Mark.prev</h3><pre class="programlisting"><code class="methodsynopsis">    def <span class="methodname">prev</span>(<span class="methodparam"><span class="parameter"><strong class="parameter"><code>category</code></strong></span></span>)</code></pre><table border="0" width="100%" bgcolor="#FFECCE"><col align="left" valign="top" width="0*"><tbody><tr><td><p><span class="term"><strong class="parameter"><code>category</code></strong> :</span></p></td><td>a string specifying the mark category or <code class="literal">None</code>.</td></tr><tr><td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td><td>the previous <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>
+              or <code class="literal">None</code>.</td></tr></tbody></table><p>
+      The <code class="methodname">prev</code>() method returns the previous
+      <a class="link" href="class-gtksourcemark2.html" title="gtksourceview2.Mark"><code class="classname">gtksourceview2.Mark</code></a>
+      in the buffer or <code class="literal">None</code> if the mark was not added to a buffer.
+      If there is no next mark, <code class="literal">None</code> will be returned.
+      If category is <code class="literal">None</code>, looks for marks of any category.
+    </p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="class-gtksourcelanguagemanager2.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="class-gtksourceprintcompositor2.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">gtksourceview2.LanguageManager </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> gtksourceview2.PrintCompositor</td></tr></table></div></body></html>

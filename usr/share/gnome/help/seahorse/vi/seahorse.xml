@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Passwords and Encryption Keys">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="vi">
+	<articleinfo>
+		<title>Sổ tay về Mật khẩu và Khoá Mật mã</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins and Adam Schreiber</holder>
+		</copyright>
+		<publisher role="maintainer">
+			<publishername>Dự án Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Bạn có quyền sao chép, phân phối và/hay sửa đổi tài liệu này với điều kiện của Giấy phép Tài Liệu Tự do GNU (<ulink url="http://vi.wikisource.org/wiki/GFDL">GFDL</ulink>), Phiên bản 1.1 hay bất kỳ phiên bản sau nào được xuất bản bởi Tổ chức Phần mềm Tự do (FSF) mà không có Tiết đoạn Bất Biến, không có Đoạn Bìa Trước và không có Đoạn Bìa Sau. Bạn có thể tìm bản sao của GFDL ở  <ulink type="help" url="ghelp:fdl">liên kết</ulink> này hay trong tập tin COPYING-DOCS có sẵn với sổ tay này.</para>
+         <para>Sổ tay này thuộc về một bộ sưu tập các sổ tay GNOME được phân phối với GFDL. Bạn muốn phân phối sổ tay này một cách riêng với bộ sưu tập thì chỉ cần phải thêm vào sổ tay một bản sao của giấy phép như được diễn tả trong phần 6 của giấy phép.</para>
+
+	<para>Công ty tuyên bố nhãn hiệu cho tên sản phẩm nên tài liệu GNOME ghi tên như vậy bằng chữ hoa, hay chữ hoa đầu từ, miễn là Dự án Tài liệu GNOME biết được nó là nhãn hiệu.</para>
+
+	<para>Tài liệu và phiên bản đã sửa đổi nào của tài liệu được cung cấp với điều kiện của Giấy phép Tài liệu Tự do GNU với điều kiện thêm là:<orderedlist>
+		<listitem>
+		  <para>Chúng tôi cung cấp tài liệu này 
+		
+		
+		  H
+		
+	  </para></listitem></orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Dự án Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Dự án Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Dự án Seahorse</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Passwords and Encryption Keys Manual V0.10.1</revnumber>
+				<date>August 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Sổ tay về Mật khẩu và Khoá Mật mã pb0.9.1</revnumber>
+				<date>11/2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Sổ tay về Mật khẩu và Khoá Mã hoá pb0.9.0</revnumber>
+				<date>7/2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Dự án Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Sổ tay về Mật khẩu và Khoá Mật mã pb0.7.0</revnumber>
+				<date>2/2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Dự án Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>This manual describes version 2.24.x of Passwords and Encryption Keys</releaseinfo>
+		<legalnotice>
+			<title>Phản hồi</title>
+			<para>Để thông báo lỗi hay góp ý về ứng dụng <application>Mật khẩu và Khoá Mật mã</application> hay sổ tay này, hãy theo những hướng dẫn trên <ulink url="ghelp:gnome-feedback" type="help">Trang Phản Hồi GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Mật khẩu và Khoá Mật mã</application> là ứng dụng để quản lý các khoá mật mã trong Môi trường GNOME.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Khoá Mật mã</primary>
+	</indexterm>
+
+  <sect1 id="introduction">
+    <title>Giới thiệu</title>
+    <para>Bạn có thể sử dụng ứng dụng <application>Mật khẩu và Khoá Mật mã</application> để tạo và quản lý các khoá kiểu <acronym>PGP</acronym> và <acronym>SSH</acronym>.</para>
+    <para>Ứng dụng <application>Mật khẩu và Khoá Mật mã</application> cung cấp giao diện người dùng đồ họa với nhiều tính năng của phần mềm <ulink url="http://www.gnupg.org" type="http">Bảo vệ sự Riêng tự GNU (GPG)</ulink>, cũng hợp nhất với nhiều thành phần của môi trường <ulink url="http://www.gnome.org">GNOME</ulink>.</para>
+			<para>Bằng ứng dụng <application>Mật khẩu và Khoá Mật mã</application>, bạn có khả năng:<itemizedlist>
+				
+				<listitem>
+					<para>Tạo và quản lý các khoá PGP và SSH.</para>
+				</listitem>
+				<listitem>
+					<para>Nhập/xuất khẩu các khoá PGP và SSH.</para>
+				</listitem>
+				<listitem>
+					<para>Chia các khoá với người khác.</para>
+				</listitem>
+				<listitem>
+					<para>Sao lưu các khoá và vòng khoá.</para>
+				</listitem>
+				</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="seahorse-getting-started">
+		<title>Bắt đầu dùng</title>
+		<sect2 id="seahorse-start">
+			<title>Khởi chạy ứng dụng <application>Mật khẩu và Khoá Mật mã</application></title>
+			<para>Bạn có thể khởi chạy ứng dụng <application>Mật khẩu và Khoá Mật mã</application> bằng những cách theo đây:</para>
+			<variablelist>
+				<varlistentry>
+					<term>Trình đơn <guimenu>Ứng dụng</guimenu></term>
+					<listitem>
+						<para>Chọn mục <menuchoice><guimenu>Khác</guimenu><guimenuitem>Mật khẩu và Khoá Mật mã</guimenuitem></menuchoice>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Dòng lệnh</term>
+					<listitem>
+						<para>Gõ tên <command>seahorse</command>, rồi bấm phím <keycap>Return</keycap>.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="seahorse-when-start">
+			<title>Khi bạn khởi chạy ứng dụng <application>Mật khẩu và Khoá Mật mã</application></title>
+			<para>Khởi chạy ứng dụng <application>Mật khẩu và Khoá Mật mã</application> thì hiển thị cửa sổ <guilabel>Mật khẩu và Khoá Mật mã</guilabel>.</para>
+			
+			<figure id="seahorse-window">
+			<title>Cửa sổ <application>Mật khẩu và Khoá Mật mã</application></title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+					<imagedata fileref="figures/seahorse-window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Hiển thị cửa sổ <application>Mật khẩu và Khoá Mật mã</application>.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+			</figure>
+			
+			<para>Cửa sổ <application>Mật khẩu và Khoá Mật mã</application> chứa những yếu tố theo đây:</para>
+			
+	    <variablelist>
+		<varlistentry><term>Thanh trình đơn</term>
+		    <listitem>
+			<para>Trên thanh trình đơn có các trình đơn chứa tất cả các lệnh cần thiết để làm công việc bằng ứng dụng <application>Mật khẩu và Khoá Mật mã</application>.</para>
+		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Thanh công cụ</term>
+		    <listitem>
+			<para>Hãy sử dụng thanh công cụ để truy cập nhanh các lệnh thường dùng.</para>
+		    </listitem>	
+		</varlistentry> 		
+		<varlistentry><term>Thẻ Khoá và Mật khẩu</term>
+  		    <listitem>
+			<para>Cung cấp truy cập đến các khoá và mật khẩu nằm trong vòng khoá.</para>
+  		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Tùy chọn lần đầu tiên</term>
+  		    <listitem>
+			<para>Cung cấp truy cập nhanh đến các hành động có ích cho người dùng ứng dụng lần đầu tiên. Từ đó, bạn có thể:</para>
+			<itemizedlist>
+			    <listitem>
+				<para>Duyệt qua hệ thống trợ giúp.</para>
+			    </listitem>
+			    <listitem>
+				<para>Nhập khẩu khoá vào vòng khoá.</para>
+			    </listitem>
+			    <listitem>
+				<para>Tạo khoá mới.</para>
+			    </listitem>
+			</itemizedlist>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
+	</sect2>
+    </sect1>
+
+  <sect1 id="pgp-generate">
+    <title>Tạo khoá OpenPGP</title>
+    <para>OpenPGP là một giao thức không phải sở hữu để mã hoá thư điện tử bằng cách sử dụng kỹ thuật mã hóa khóa công cộng dựa vào <acronym>PGP</acronym>. Nó xác định các định dạng tiêu chuẩn cho thư điện tử đã mã hoá, chữ ký, khoá riêng và chứng nhận để trao đổi khoá công.</para>
+    <para>Mã hoá khoá công cộng là một quan niệm đòi hỏi phải sử dụng hai khoá: một <emphasis>khoá công</emphasis> mà bạn có thể cho mỗi người với họ bạn muốn liên lạc, và một <emphasis>khoá riêng</emphasis> mà phải được giữ bí mật.</para>
+    <para>Để tạo khoá OpenPGP: <orderedlist>
+	<listitem>
+	  <para>
+	    Choose <menuchoice><guimenu>Key</guimenu><guimenuitem>Create New Key</guimenuitem></menuchoice>
+	  </para>
+	</listitem>
+	<listitem>
+	  <para>Chọn mục <guilabel>Khoá PGP</guilabel>, rồi bấm cái nút <guibutton>Tiếp tục</guibutton></para>
+	</listitem>
+	<listitem>
+	  <para>Gõ tên họ và địa chỉ thư điện tử của bạn, và thông tin thêm nào. Cũng có thể ghi rõ tùy chọn cấp cao cho khoá: xem dưới.</para>
+	</listitem>
+	<listitem>
+	  <para>Nhấn vào nút <guibutton>Tạo</guibutton> để tạo cặp khoá mới.</para>
+	</listitem>
+	<listitem>
+	  <para>Hộp thoại <guilabel>Cụm từ mật khẩu cho khoá PGP mới</guilabel> sẽ mở. Gõ hai lần cụm từ mật khẩu cho khoá mới.</para>
+	</listitem>
+      </orderedlist></para>
+    <tip>
+      <para>Chọn cụm từ mật khẩu thì giống như cách chọn mật khẩu mạnh. Sự khác nhau chính giữa mật khẩu và cụm từ mật khẩu là dấu cách là ký tự hợp lệ trong cụm từ mật khẩu.</para>				
+    </tip>
+    
+    <sect2 id="seahorse-pgp-advanced-mode">
+      <title>Tùy chọn cấp cao</title>
+      <para>Dãn ra phần <guibutton>Tùy chọn khoá cấp cao</guibutton> để ghi rõ những tùy chọn theo đây đối với một khoá mới:</para>
+      <variablelist>
+	<varlistentry>
+	  <term><guilabel>Kiểu mật mã</guilabel></term>
+	  <listitem>
+	    <para>Trường này xác định các thuật toán mật mã được dùng để tạo ra khoá cho bạn.</para>
+	    <variablelist>
+	      <varlistentry>
+		<term><acronym>DSA</acronym> ElGamal</term>
+		<listitem>
+		  <para>Đây là sự chọn khuyến khích, vì nó sẽ cho bạn có khả năng mã hoá, giải mã, ký tên và hợp lệ hoá khi nào cần thiết.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>DSA</acronym></term>
+		<listitem>
+		  <para>Chỉ cho phép ký tên.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>RSA</acronym></term>
+		<listitem>
+		  <para>Chỉ cho phép ký tên.</para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Độ mạnh khoá (theo bit)</guilabel></term>
+	  <listitem>
+	    <para>Đây là chiều dài của khoá, theo bit. Khoá càng dài càng bảo mật, miễn là bạn sử dụng cụm từ mật khẩu mạnh. Tuy nhiên, thao tác với khoá dài sẽ chạy chậm hơn thao tác với khoá ngắn. Giá trị hợp lệ nằm trong phạm vi 1024 đến 4096 bit: khuyên bạn chọn ít nhất 2048 bit.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Ngày hết hạn</guilabel></term>
+	  <listitem>
+	    <para>Đây là ngày tháng vào đó khoá này sẽ không còn có khả năng sử dụng lại cho thao tác mật mã hay ký tên. 6 tháng là một khoảng thời gian hữu ích. Sau đó, bạn sẽ cần phải điều chỉnh ngày tháng hết hạn, hoặc tạo ra một khoá hay khoá phụ mới.</para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+	
+	
+	<sect1 id="ssh-generate">
+	<title>Tạo khoá SSH</title>
+	<para>Trình bao bảo mật (<acronym>SSH</acronym>) là một phương pháp đăng nhập vào máy tính từ xa để thực hiện lệnh trên máy đó. Khoá SSH được dùng trong hệ thống xác thực dựa vào khoá thì cung cấp cách khác với hệ thống xác thực mật khẩu mặc định. Hệ thống xác thực dựa vào khoá không yêu cầu người dùng gõ mật khẩu để xác thực.</para>
+	<para>Mỗi khoá SSH chứa hai khoá khác nhau : một <emphasis>khoá riêng</emphasis> phải được giữ bí mật, và một <emphasis>khoá công</emphasis> có thể được tải lên bất cứ máy tính nào bạn muốn truy cập.</para>
+    <para>Để tạo một khoá SSH:</para>
+    <orderedlist>
+      <listitem>
+        <para>Choose <menuchoice><guimenu>Key</guimenu><guimenuitem>Create New Key</guimenuitem></menuchoice></para>
+      </listitem>
+      <listitem>
+        <para>Chọn mục trình đơn <guilabel>Khoá SSH</guilabel>, rồi bấm nút <guibutton>Tiếp tục</guibutton></para>
+      </listitem>
+      <listitem>
+        <para>Gõ mô tả về mục đích của khoá. Bạn có thể sử dụng địa chỉ thư điện tử, hay bất cứ lời nhắc nhở khác nhau. Cũng có thể ghi rõ tùy chọn cấp cao cho khoá: xem dưới.</para>
+      </listitem>
+      <listitem>
+        <para>Bấm nút <guibutton>Chỉ tạo khoá</guibutton> để tạo khoá mới, hay<guibutton>Tạo và Thiết lập</guibutton> để tạo khoá và thiết lập máy tính khác để xác thực bằng nó.</para>
+      </listitem>
+      <listitem>
+        <para>Hộp thoại <guilabel>Cụm từ mật khẩu cho khoá SSH mới</guilabel> sẽ mở. Gõ hai lần cụm từ mật khẩu cho khoá mới.</para>
+			<tip>
+				<para>Chọn cụm từ mật khẩu thì giống như cách chọn mật khẩu mạnh. Sự khác nhau chính giữa mật khẩu và cụm từ mật khẩu là dấu cách là ký tự hợp lệ trong cụm từ mật khẩu.</para>				
+			</tip>
+      </listitem>
+    </orderedlist>
+    
+
+		
+		<sect2 id="seahorse-ssh-advanced-options">
+		<title>Tùy chọn cấp cao</title>
+			<para>Dãn ra phần <guilabel>Tùy chọn khoá cấp cao</guilabel> để ghi rõ những tùy chọn theo đây cho khoá mới:</para>
+		
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Kiểu mật mã</guilabel></term>
+				<listitem>
+				<para>Trường này xác định những thuật toán mật mã được dùng để tạo ra khoá cho bạn.</para>
+				<variablelist>
+					<varlistentry>
+						<term><acronym>RSA</acronym></term>
+						<listitem>
+							<para>Dùng thuật toán <emphasis>Rivest-ShamirAdleman</emphasis> (<acronym>RSA</acronym>) để tạo khoá SSH. Đây là sự chọn bảo mật hơn thì khuyến khích.</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><acronym>DSA</acronym></term>
+						<listitem>
+							<para>Dùng thuật toán <emphasis>Digital Signature Algorithm</emphasis> (<acronym>DSA</acronym>) để tạo khoá SSH.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Độ mạnh khoá (theo bit)</guilabel></term>
+				<listitem>
+				<para>Đây là chiều dài của khoá, theo bit. Khoá càng dài càng bảo mật, miễn là bạn sử dụng cụm từ mật khẩu mạnh. Tuy nhiên, thao tác với khoá dài sẽ chạy chậm hơn thao tác với khoá ngắn. Giá trị hợp lệ nằm trong phạm vi 1024 đến 4096 bit: khuyên bạn chọn ít nhất 2048 bit.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	
+	
+
+	<sect1 id="seahorse-key-properties">
+		<title>Thuộc tính khoá OpenPGP</title>
+		<para>Phần này thích hợp với mọi khoá OpenPGP.</para>
+		
+		<para>Để xem các thuộc tính của khoá <acronym>PGP</acronym>: <itemizedlist>
+			<listitem>
+				<para>Trong cửa sổ chính, chọn khoá <acronym>PGP</acronym>.</para>
+			</listitem>
+			<listitem>
+				<para>Nhấn đôi vào nó, hoặc chọn mục <guilabel>Thuộc tính</guilabel> trên thanh công cụ.</para> 
+			</listitem>
+			<listitem>
+				<para>Chọn thẻ <guilabel>Chi tiết</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="pgp-public-key-properties">
+		<title id="pgp-private-key-properties">Thuộc tính</title>
+		<para>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Dấu tay</guilabel></term>
+				<listitem>
+					<para>Dấu tay là một chuỗi ký tự duy nhất nhận diện chính xác mỗi khoá.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>ID khoá</guilabel></term>
+				<listitem>
+					<para>ID khoá tương tự với Dấu tay. Tuy nhiên, ID khoá chỉ chứa 8 ký tự cuối cùng của chuỗi Dấu tay. Thường có thể nhận diện khoá bằng chỉ ID khoá, nhưng thỉnh thoảng hai khoá có cùng ID.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Kiểu</guilabel></term>
+				<listitem>
+					<para>Xác định thuật toán mã hoá được dùng để tạo ra khoá. Khoá kiểu DSA chỉ có khả năng ký tên. Khoá ElGamal có khả năng mã hoá.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Tạo</guilabel></term>
+				<listitem>
+					<para>Khoá được tạo vào ngày tháng này.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Hết hạn</guilabel></term>
+				<listitem>
+				<para>Đến ngày tháng này thì khoá không còn có khả năng sử dụng lại.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Mạnh</guilabel></term>
+				<listitem>
+					<para>Ngụ ý chiều dài của khoá, theo bit. Nói chung, khoá dài hơn cung cấp mức bảo mật cao hơn.<note>
+							<para>Khoá dài không đủ để bù về cụm từ mật khẩu yếu.</para>
+						</note></para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="change-owner-trust">
+		<title>Tin cậy</title>
+		<para>Tình trạng tin cậy trình bày ý kiến của bạn về khả năng của người ấy để mở rộng đúng mạng tin cậy (web of trust). Thấy khoá bạn chưa ký thì độ hợp lệ của khoá đó sẽ được xác định dựa trên số chữ ký họ đã giành được và độ tin cậy của mỗi người cung cấp chữ ký. Mặc định là mỗi khoá lạ cần thiết 3 chữ ký có giá trị độ tin cậy sát giới hạn hay 1 chữ ký đáng tin đầy đủ.</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Không rõ</guilabel> : bạn chưa biết nếu người này có khả năng ký nhận khoá cho đúng không.</para></listitem>
+			<listitem><para><guilabel>Không bao giờ</guilabel> : Người này không thể ký nhận khoá cho đúng.</para></listitem>
+			<listitem><para><guilabel>Sát giới hạn</guilabel>: Người này kiểm tra có thẻ căn cước có ảnh chụp trước khi ký nhận khoá, nhưng không nhất thiết kiểm tra rất cẩn thận.</para></listitem>
+			<listitem><para><guilabel>Đầy</guilabel>: Người này kiểm tra rất cẩn thận thẻ căn cước của mỗi người trước khi ký nhận (tức là họ chỉ ký nhận khoá thật thuộc về người xin chữ ký).</para></listitem>
+			<listitem><para><guilabel>Cuối cùng</guilabel>: Chỉ nên gán mức tin cậy này cho khoá của bạn.</para></listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="disable-key">
+		<title>Bật và Tắt khoá</title>
+		<para>Bật khoá thì có khả năng sử dụng nó trong thao tác mã hoá. Tắt thì không: không thể sử dụng nó để mã hoá, hay để hợp lệ hoá chữ ký thuộc về nó.</para>
+	</sect2>
+
+	<sect2 id="change-expires">
+		<title>Ngày hết hạn</title>
+		<para>Hết hạn dùng thì khoá không còn có khả năng sử dụng lại để làm công việc khoá. Việc thay đổi ngày hết hạn của khoá thành ngày tháng trong tương lai sẽ hiệu lực nó lần nữa. Thường có ích để tạo một khoá chủ không bao giờ hết hạn, với nhiều khoá phụ có phải hết hạn mà được ký bằng khoá chủ.</para>
+	</sect2>
+
+	<sect2 id="userid-properties">
+		<title>UID</title>
+		<para>ID người dùng (UID) thì cho phép dùng nhiều chứng minh và địa chỉ thư điện tử đều trong cùng khoá.</para>
+		<para>Thường có dạng: <programlisting>Tên (chú thích) &lt;địa chỉ thư&gt;</programlisting></para>
+			
+		<sect3 id="add-uid">
+			<title>Thêm UID</title>
+				<para>Có ích để thêm ID người dùng, chẳng hạn, khi bạn muốn tạo một chứng minh cho việc làm, và chứng minh khác cho bạn bè.</para>
+				<para>Để thêm UID vào khoá: <itemizedlist>
+						<listitem>
+							<para>Chọn khoá trong cửa sổ chính.</para>
+						</listitem>
+						<listitem>
+							<para>Nhấn-đôi vào nó, hoặc chọn mục <guibutton>Thuộc tính</guibutton> trên thanh công cụ.</para>
+						</listitem>
+						<listitem>
+							<para>Chọn thẻ <guilabel>Tên và Chữ ký</guilabel>.</para>
+						</listitem>
+						<listitem>
+							<para>Nhấn vào nút <guibutton>Thêm tên</guibutton>.</para>
+						</listitem>
+					</itemizedlist></para>
+				<para>Sau khi theo những hướng dẫn bên trên, bạn sẽ thấy một hộp thoại vào đó cần điền đầy những trường này:</para>
+				<variablelist>
+					<varlistentry>
+						<term><guilabel>Tên đầy đủ</guilabel></term>
+						<listitem>
+							<para>Gõ tên đầy đủ theo dạng <programlisting>&lt;tên&gt; &lt;họ&gt;</programlisting>. Cũng có thể gõ tên đệm hay tên viết tắt.</para>
+							<para>
+								<note>
+									<para>Phải gõ ít nhất 5 ký tự vào trường này.</para>
+								</note> 
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Địa chỉ thư</guilabel></term>
+						<listitem>
+							<para>Địa chỉ thư điện tử là thông tin theo đó phần lớn người sẽ tìm khoá của bạn trên máy phục vụ khoá. Hãy kiểm tra địa chỉ thư là đúng trước khi tiếp tục.</para>
+							<para>
+								<note>
+									<para>Nó nên có dạng <programlisting><replaceable>&lt;tên_người_dùng&gt;</replaceable>@<replaceable>&lt;miền&gt;</replaceable></programlisting></para>
+								</note>
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Ghi chú khoá</guilabel></term>
+						<listitem>
+							<para>Trường ghi chú cho phép bạn nhập thông tin thêm vào tên trình bày của ID mới. Trên máy phục vụ khoá, cũng có thể tìm kiếm theo thông tin này.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</sect3>
+		</sect2>
+
+    <sect2 id="photoid-properties">
+      <title>ID ảnh chụp</title>
+      <para>ID ảnh chụp thì cho phép người sở hữu khoá cũng chèn vào khoá một hay nhiều ảnh chụp của họ. Chứng minh như vậy có thể được ký nhận, đúng như UID chuẩn. ID ảnh chụp phải theo định dạng JPEG, với kích cỡ tối đa 240×288 điểm ảnh (khuyến khích).</para>
+      <para>Ảnh chụp không phải theo định dạng hay kích cỡ thích hợp thì ứng dụng<application>Mật khẩu và Khoá Mật mã</application> có khả năng thay đổi kích cỡ và chuyển đổi nó khi yêu cầu từ bất cứ định dạng ảnh nào được thư viện <acronym>GDK</acronym> hỗ trợ.</para>
+    </sect2>
+		
+		<sect2 id="change-passphrase">
+			<title>Thay đổi cụm từ mật khẩu</title>
+			<para>Để thay đổi cụm từ mật khẩu được gán cho khoá: <itemizedlist>
+					<listitem>
+						<para>Chọn khoá trong cửa sổ chính.</para>
+					</listitem>
+					<listitem>
+						<para>Nhấn đôi vào nó, hoặc chọn mục <guilabel>Thuộc tính</guilabel> trên thanh công cụ.</para>
+					</listitem>
+					<listitem>
+						<para>Nhấn vào nút <guibutton>Đổi cụm từ mật khẩu</guibutton>.</para>
+					</listitem>
+				</itemizedlist></para>
+			<para>Gõ cụm từ mật khẩu mới, rồi bấm nút <guibutton>OK</guibutton>.</para>
+		</sect2>
+
+		<sect2 id="delete">
+			<title>Xoá khoá</title>
+			<para>Để xoá khoá khỏi vòng khoá: <itemizedlist>
+				<listitem>
+					<para>Chọn khoá trong cửa sổ chính.</para>
+				</listitem>
+				<listitem>
+					<para>Nhấn-phải vào nó, rồi chọn lệnh <guilabel>Xoá khoá</guilabel> trong trình đơn phụ, hoặc chọn mục trình đơn chính <menuchoice><guimenu>Sửa</guimenu><guimenuitem>Xoá khoá</guimenuitem></menuchoice>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Bạn có khả năng xoá khoá của mình, khoá đáng tin và khoá đã thu góp.</para>		
+			</note> 
+		</sect2>
+	</sect1>
+		
+	<sect1 id="subkey-properties">
+		<title>Thuộc tính Khoá phụ OpenPGP</title>
+		<para>Mỗi khoá OpenPGP có một khoá chủ riêng lẻ được dùng chỉ để ký tên. Khoá phụ được dùng để ký tên, cũng để mã hoá. Bằng cách này, nếu khoá phụ bị hại thậm, bạn vẫn còn không cần hủy bỏ khoá chủ.</para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>ID</guilabel></term>
+			<listitem>
+				<para>Đây là bộ nhận diện khoá phụ.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Kiểu</guilabel></term>
+			<listitem>
+				<para>Xác định thuật toán mật mã được dùng để tạo ra khoá phụ. Khoá kiểu <acronym>DSA</acronym> chỉ có khả năng ký tên, khoá kiểu ElGamal được dùng để mật mã, còn khoá kiểu<acronym>RSA</acronym> có khả năng làm cả hai (ký tên và mật mã).</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Tạo</guilabel></term>
+			<listitem>
+				<para>Khoá được tạo vào ngày tháng này.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Hết hạn</guilabel></term>
+			<listitem>
+				<para>Đến ngày tháng này thì khoá không còn có khả năng sử dụng lại.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Trạng thái</guilabel></term>
+			<listitem>
+				<para>Ngụ ý trạng thái của khoá.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Mạnh</guilabel></term>
+			<listitem>
+				<para>Ngụ ý chiều dài của khoá, theo bit. Nói chung, khoá dài hơn cung cấp mức bảo mật cao hơn. <note>
+						<para>Khoá dài không đủ để bù về cụm từ mật khẩu yếu.</para>
+					</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		
+		<sect2 id="add-subkey">
+			<title>Thêm khoá phụ</title>
+			<para>Để thêm khoá phụ vào khoá, trong phần <guilabel>Khoá phụ</guilabel> nhấn vào nút <guibutton>Thêm</guibutton>.</para>
+			<para>Sau khi theo những hướng dẫn bên trên, bạn sẽ thấy một hộp thoại vào đó cần điền đầy những trường này:</para>
+			<variablelist>
+			<varlistentry>
+				<term>Kiểu khoá</term>
+				<listitem>
+					<para>Xác định thuật toán mật mã được dùng để tạo ra khoá phụ.</para>
+				<variablelist>
+				<varlistentry>
+					<term><acronym>DSA</acronym></term>
+					<listitem>
+						<para>Dùng <emphasis>Thuật toán chữ ký điện số</emphasis> (<acronym>DSA</acronym>) để tạo khoá phụ. Khoá phụ thì chỉ có khả năng ký tên.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>ElGamal</term>
+					<listitem>
+						<para>Dùng thuật toán <emphasis>ElGamal</emphasis> để tạo khoá phụ. Khoá phụ thì chỉ có khả năng mật mã.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RSA</term>
+					<listitem>
+						<para>Dùng thuật toán <emphasis>Rivest-Shamir Adleman</emphasis> (<acronym>RSA</acronym>) để tạo khoá phụ. Khoá phụ thì có khả năng ký tên hay mật mã, miễn là bạn tạo hai khoá phụ khác nhau.</para>
+					</listitem>
+				</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Dài khoá</term>
+				<listitem>
+					<para>Ngụ ý chiều dài của khoá phụ, theo bit. Nói chung, khoá dài hơn cung cấp mức bảo mật cao hơn.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Ngày hết hạn</term>
+				<listitem>
+					<para>Ngụ ý ngày tháng vào đó khoá phụ không còn có khả năng sử dụng lại.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="change-subkey-expires">
+			<title>Thay đổi ngày tháng hết hạn dùng khoá phụ</title>
+			<para>Để thay đổi ngày tháng hết hạn dùng khoá phụ, chọn khoá phụ trong phần<guilabel>Khoá phụ</guilabel>, rồi: <itemizedlist>
+				<listitem>
+					<para>Nhấn vào nút <guibutton>Hết hạn</guibutton> bên trái.</para>
+				</listitem>
+				<listitem>
+					<para>Trong hộp thoại ngày tháng, chọn ngày tháng hết hạn mới, hoặc chọn mục<guilabel>Vô hạn</guilabel> cho khoá sẽ không bao giờ hết hạn dùng.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+
+		<sect2 id="revoke-subkey">
+			<title>Hủy bỏ khoá phụ</title>
+			<para>Để hủy bỏ khoá phụ, chọn khoá phụ trong phần <guilabel>Khoá phụ</guilabel>, rồi: <itemizedlist>
+				<listitem>
+					<para>Nhấn vào nút <guibutton>Hủy bỏ</guibutton> bên trái.</para>
+				</listitem>
+				<listitem>
+					<para>Chọn lý do tại sao hủy bỏ khoá phụ :</para>
+					<para>
+					<variablelist>
+						<varlistentry>
+							<term>Không lý do</term>
+							<listitem>
+								<para>Không có lý do riêng để hủy bỏ khoá này.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Bị hại thậm</term>
+							<listitem>
+								<para>Khoá đã bị hại thậm.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Bị thay thế</term>
+							<listitem>
+								<para>Khoá bị thay thế bằng khoá khác, vì quá cũ.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Không dùng</term>
+							<listitem>
+								<para>Khoá không còn được dùng lại.</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Gõ mô tả về lý do bạn muốn hủy bỏ khoá.</para>
+				</listitem>
+				<listitem>
+					<para>Nhấn vào nút <guibutton>Hủy bỏ</guibutton>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Hủy bỏ khoá phụ thì có tác động ngay tức khắc.</para>
+			</note>
+		</sect2>
+
+		<sect2 id="delete-subkey">
+			<title>Xoá khoá phụ</title>
+			<para>Để xoá khoá phụ, chọn khoá phụ trong phần <guilabel>Khoá phụ</guilabel>, rồi: <itemizedlist>
+				<listitem>
+					<para>Nhấn vào nút <guibutton>Xoá</guibutton> bên trái.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="ssh-key-properties">
+	    <title>Thuộc tính khoá SSH</title>
+	    <para>Phần này thích hợp với mọi khoá <acronym>SSH</acronym>.</para>
+	    <para>Để xem các thuộc tính của khoá <acronym>SSH</acronym>: <itemizedlist>
+			<listitem>
+				<para>Trong cửa sổ chính, chọn khoá SSH.</para>
+			</listitem>
+			<listitem>
+				<para>Nhấn đôi vào nó, hoặc chọn mục <guilabel>Thuộc tính</guilabel> trên thanh công cụ.</para> 
+			</listitem>
+			<listitem>
+				<para>Chọn thẻ <guilabel>Chi tiết</guilabel>.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="properties">
+		<title>Thuộc tính</title>
+		<para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Dấu tay</guilabel></term>
+			<listitem>
+				<para>Dấu tay là một chuỗi ký tự duy nhất nhận diện chính xác mỗi khoá.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Thuật toán</guilabel></term>
+			<listitem>
+				<para>Xác định thuật toán mã hoá được dùng để tạo ra khoá.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Vị trí</guilabel></term>
+			<listitem>
+				<para>Đây là vị trí ở đó <emphasis>khoá riêng</emphasis> được cất giữ.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Mạnh</guilabel></term>
+			<listitem>
+				<para>Ngụ ý chiều dài của khoá, theo bit. Nói chung, khoá dài hơn cung cấp mức bảo mật cao hơn.<note>
+					<para>Khoá dài không đủ để bù về cụm từ mật khẩu yếu.</para>
+				</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="delete-ssh-key">
+		<title>Xoá khoá SSH</title>
+		<para>Để xoá khoá SSH: <itemizedlist>
+				<listitem>
+				<para>Trong cửa sổ chính, chọn khoá <acronym>SSH</acronym>.</para>
+			</listitem>
+			<listitem>
+				<para>Nhấn-phải vào nó và chọn lệnh <guilabel>Xoá khoá</guilabel> trong trình đơn phụ, hoặc chọn mục trình đơn chính <menuchoice><guimenu>Sửa</guimenu><guimenuitem>Xoá khoá</guimenuitem></menuchoice>.</para>
+			</listitem>
+			</itemizedlist></para>
+	</sect2>
+	</sect1>
+
+        <sect1 id="import">
+		<title>Nhập khoá</title>
+		<para>Để nhập khẩu khoá, chọn mục trình đơn <menuchoice><guimenu>Khoá</guimenu><guimenuitem>Nhập</guimenuitem></menuchoice>, rồi chọn (trong bộ chọn tập tin) một tập tin chứa ít nhất một khoá công được mã hoá bọc sắt ASCII (ASCII armored).</para>
+		<para>Cũng có thể nhập khẩu khoá bằng cách dán các khoá vào ứng dụng <application>Mật khẩu và Khoá Mật mã</application>: <itemizedlist>
+		<listitem>
+			<para>Chọn một khối văn bản được mã hoá bọc sắt ASCII.</para>
+		</listitem>
+		<listitem>
+			<para>Sao chép nó vào bảng nháp.</para>
+		</listitem>
+		<listitem>
+			<para>Chọn mục trình đơn <menuchoice><guimenu>Sửa</guimenu><guimenuitem>Dán khoá</guimenuitem></menuchoice>.</para>
+		</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="export">
+		<title>Xuất khoá</title>
+		<para>Để xuất khẩu khoá, chọn những khoá trong cửa sổ chính, rồi chọn mục trình đơn <menuchoice><guimenu>Khoá</guimenu><guimenuitem>Xuất</guimenuitem></menuchoice>.</para>
+		<para>Cũng có thể xuất khẩu các khoá vào bảng nháp, trong một khối văn bản được mã hoá bọt sắt ASCII: <itemizedlist>
+			<listitem>
+				<para>Trong cửa sổ chính, chọn các khoá</para>
+			</listitem>
+			<listitem>
+				<para>Chọn mục trình đơn <menuchoice><guimenu>Sửa</guimenu><guimenuitem>Chép khoá</guimenuitem></menuchoice>.</para>
+			</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="backup">
+		<title>Sao lưu vòng khoá</title>
+		<para>Để sao lưu các vòng khoá (cả công lẫn riêng đều) của bạn vào tập tin kho :<itemizedlist>
+			<listitem>
+				<para>Chọn mục trình đơn <menuchoice><guimenu>Khoá</guimenu><guimenuitem>Sao lưu các vòng khoá</guimenuitem></menuchoice>.</para>
+			</listitem>
+			<listitem>
+				<para>Gõ tên tập tin có phần mở rộng kho hợp lệ, va ghi rõ vị trí vào đó cần lưu kho này.</para>
+			</listitem>
+		</itemizedlist><note>
+				<para>Bạn có thể chọn bất kỳ kiểu kho được <application>file-roller</application> hỗ trợ.</para>
+			</note></para>
+	</sect1>
+
+	<sect1 id="sign">
+		<title>Ký nhận khoá</title>
+		<para>Việc ký nhận khoá của người khác có nghĩa là bạn đáng tin người ấy, bảo đảm chứng minh của họ cho các người khác. Trước khi ký nhận khoá, bạn cần phải kiểm tra cẩn thận dấu tay của khoá để đảm bảo khoá đó thực sự thuộc về người ấy.</para>
+		<para>Để ký nhận khoá trong vòng khoá: <itemizedlist>
+				<listitem>
+				<para>Chọn khoá cần ký nhận trên thẻ <guilabel>Khoá đáng tin</guilabel> hay <guilabel>Các khoá đã tập hợp khác</guilabel>.</para>
+				</listitem>
+				<listitem>
+				<para>Chọn mục <guibutton>Ký</guibutton> trên thanh công cụ, hay mục trình đơn<menuchoice><guimenu>Khoá</guimenu><guimenuitem>Ký</guimenuitem></menuchoice>,</para>
+				</listitem>
+				<listitem>
+				<para>Chọn mức cẩn thận theo đó bạn đã kiểm tra khoá này.</para>
+				</listitem>
+				<listitem>
+				<para>Ngụ ý nếu chữ ký nên nằm trên cùng máy với vòng khoá của bạn, và nếu chữ ký của bạn có thể bị hủy bỏ không.</para>
+				</listitem>
+				<listitem>
+				<para>Nhấn vào nút <guibutton>Ký</guibutton>.</para>
+				</listitem>
+			</itemizedlist></para>
+	</sect1>
+  
+  <sect1 id="prefs">
+    <title>Tùy thích</title>
+    <para>
+      This section describes the preferences settable in <application>Passwords and Encryption Keys</application> by choosing 
+	<menuchoice>
+	  <guimenu>Edit</guimenu>
+	  <guimenuitem>Preferences</guimenuitem>
+	</menuchoice> from within <application>Passwords and Encryption Keys</application>.
+      </para>
+
+        <sect2 id="keyring">
+        	<title>Password Keyrings</title>
+        	<sect3>
+        	    <title>Creating Keyrings</title>
+            	<para>
+            	    You can create a new keyring by pressing <guibutton>Add Keyring</guibutton>. 
+            	    Enter a name for the new keyring and press <guibutton>Add</guibutton>.
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Changing Keyring Passwords</title>
+            	<para>
+            	  To change the unlock password of the keyring, first select the appropriate keyring and then 
+            	  press <guibutton>Change Unlock Password</guibutton> button. You will then be prompted to
+            	  type the old password in the <guilabel>Old password</guilabel> text box, the new password in the
+            	  <guilabel>New password</guilabel> text box and
+            	  confirm it in the <guilabel>Confirm password</guilabel> text box. 
+            	  To apply the settings, press <guibutton>Change</guibutton>.
+            	  If the old password is correct, you will get a status
+            	  message indicating the success of the operation. If the
+            	  old password is not correct you will be asked to check
+            	  its correctness. 
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Removing Keyrings</title>
+        	    <para>
+        	        To remove a keyring, , first select the appropriate keyring and then 
+            	  press <guibutton>Remove Keyring</guibutton> button.
+        	    </para>
+        	</sect3>
+        </sect2>
+
+    <sect2 id="key-servers">
+	<title>Máy phục vụ khoá</title>
+	<para>Bảo tồn các khoá hiện thời (khoá của bạn và khoá của người khác) bằng cách đồng bộ hoá các khoá với máy phục vụ khoá một cách theo định kỳ. Đồng bộ hoá thì đảm bảo bạn có các chữ ký mới nhất được tạo trên mọi khoá, để mạng tin cậy hữu ích nhất.</para>
+	<para>Ứng dụng <application>Mật khẩu và Khoá Mã hoá</application> cung cấp khả năng hỗ trợ máy phục vụ khoá kiểu HKP và LDAP.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis>Máy phục vụ HKP</emphasis></term>
+	    <listitem>
+	      <para>Máy phục vụ khoá HKP là máy phục vụ khoá chuẩn dựa vào Web như <ulink url="hkp://pgp.mit.edu:11371" type="hkp">hkp://pgp.mit.edu:11371</ulink> ưa chuộng, cũng công bố ở <ulink url="http://pgp.mit.edu" type="http">http://pgp.mit.edu</ulink>.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis>Máy phục vụ khoá <acronym>LDAP</acronym></emphasis></term>
+	    <listitem>
+	      <para>Máy phục vụ <acronym>LDAP</acronym> ít thường dùng hơn, nhưng dùng giao thức LDAP chuẩn để phục vụ khoá. <ulink url="ldap://keyserver.pgp.com" type="ldap">ldap://keyserver.pgp.com</ulink> là một máy phục vụ khoá LDAP hữu ích.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect2>
+
+      <sect2 id="key-sharing">
+	<title>Chia sẻ khoá</title>
+	<para>Dịch vụ chia sẻ khoá được cung cấp bằng DNS-SD, cũng được biết như là Bonjour hay Rendezvous. Hiệu lực khả năng chia sẻ khoá thì thêm vào hộp thoại tìm kiếm từ xa vòng khoá của mỗi người dùng <application>Mật khẩu và Khoá Mã hoá</application> cùng máy. Dùng « máy phục vụ khoá » cục bộ này rất có thể chạy nhanh hơn truy cập máy phục vụ từ xa.</para>
+      </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>Giới thiệu về Mật khẩu và Khoá Mã hoá</title>
+    <para> 
+      <application>Passwords and Encryption Keys</application>, its associated plugins, the preferences applet and the panel 
+      applet are known collectively as Seahorse. Seahorse was written by Jacob Perkins. The current 
+      maintainers are Stef Walter and Adam Schreiber. This manual is by Adam Schreiber. The project's web 
+      site was designed by Jim Pharis. To find more information about Seahorse, the project , please visit 
+      the <ulink url="http://www.gnome.org/projects/seahorse/" type="http">Seahorse web page</ulink>.
+    </para>
+    <para>Để thông báo lỗi hay góp ý về ứng dụng hay sổ tay này, hãy theo những hướng dẫn trên <ulink url="ghelp:user-guide?feedback-bugs" type="help">Phần Phản hồi của Sổ tay Người dùng GNOME</ulink>.</para>
+    <para>Chương trình này được phân phối với điều kiện của Giấy Phép Công Cộng GNU như được xuất bản bởi Tổ Chức Phần Mềm Tự Do; hoặc phiên bản 2 của Giấy Phép này, hoặc (tùy chọn) bất kỳ phiên bản sau nào. Có một <ulink url="ghelp:gpl" type="help">bản sao của giấy phép này</ulink> cùng với tài liệu này, hoặc trong tập tin COPYING có sẵn với mã nguồn của chương trình này.</para>
+  </sect1>
+</article>

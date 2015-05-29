@@ -1,0 +1,18 @@
+#! /bin/sh
+
+set -e
+
+if [ "$1" != "upgrade" ]; then
+  update-alternatives --remove editor /bin/ed
+fi
+
+case "$1" in
+       remove|upgrade|remove-in-favour|deconfigure-in-favour)
+               #
+               #       Remove the info documentation
+               #
+	       install-info --quiet --remove /usr/share/info/ed.info.gz
+               ;;
+       failed-upgrade)
+               ;;
+esac

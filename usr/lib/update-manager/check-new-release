@@ -1,0 +1,49 @@
+#!/usr/bin/python2.6
+
+import warnings
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
+import apt
+import time
+import sys
+
+from DistUpgrade.utils import init_proxy
+from UpdateManager.Core.MetaRelease import MetaReleaseCore
+from optparse import OptionParser
+from gettext import gettext as _
+
+RELEASE_AVAILABLE=0
+NO_RELEASE_AVAILABLE=1
+
+if __name__ == "__main__":
+
+  init_proxy()
+
+  parser = OptionParser()
+  parser.add_option ("-d", "--devel-release", action="store_true",
+                     dest="devel_release", default=False,
+                     help=_("Check if upgrading to the latest devel release "
+                          "is possible"))
+  parser.add_option ("-p", "--proposed", action="store_true",
+                     dest="proposed_release", default=False,
+                     help=_("Try upgrading to the latest release using "
+                            "the upgrader from $distro-proposed"))
+  parser.add_option ("-q", "--quiet", default=False,
+                     dest="quiet", 
+                     help=_("Do not output anything, just return %s "
+		            "if there is a new release and %s "
+			    "if there is none.") % (RELEASE_AVAILABLE,
+                                                    NO_RELEASE_AVAILABLE))
+  (options, args) = parser.parse_args()
+  
+  # main work
+  m = MetaReleaseCore(useDevelopmentRelease=options.devel_release,
+                      useProposed=options.proposed_release)
+
+  while m.downloading:
+    time.sleep(0.5)
+  if m.new_dist is not None:
+    if not options.quiet:
+      print _("New release '%s' available.") % m.new_dist.name
+      print _("Run 'do-release-upgrade' to upgrade to it.")
+      sys.exit(RELEASE_AVAILABLE)
+  sys.exit(NO_RELEASE_AVAILABLE)

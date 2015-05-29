@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD Docbook XML V.4.3//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+	  <!ENTITY % globalent SYSTEM "../../libs/global.ent">
+	  %globalent;
+	  <!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+	  %gnome-menus-C;
+	  <!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+	  %xinclude;
+	  <!ENTITY language "en">
+	  <!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+	  ]>
+	  <?db.chunk.max_depth 4?>
+<?yelp:chunk-depth 4?>
+<chapter id="adsl" status="review">
+	<title>ADSL Modems</title>
+	<sect1 id="modems-adsl-usb" status="review">
+		<title>USB ADSL Modems</title>				
+		<para>Often parts of ADSL USB modem drivers are proprietary, closed source software and so cannot be supplied with Ubuntu. To get a modem to work with these drivers, you will need to download files from Internet with a computer having a working connection, then transfer the downloaded files to your Ubuntu installation.</para>
+		<para>If you have a modem that can connect both via USB and ethernet, or an ethernet router, you should use the ethernet connection.</para>
+		<para>USB modem installation will require Internet access to download the necessary proprietary drivers. Configuration is beyond the scope of this guide; please see the links to the relevant installation instructions on the Ubuntu community help site, below.</para>
+		<para>To identify model of your modem, note the name and number on the front. You may have to look for a label to discover the exact model. Consult the list below to see which driver your modem requires, and note the link.</para>
+		<para>When you go online to download the necessary drivers, you can download the relevant drivers using the links provided.</para>
+
+		<orderedlist numeration='arabic'>
+			<listitem><para>Speedtouch modems:</para>
+			<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/SpeedTouch">https://help.ubuntu.com/community/UsbAdslModem/SpeedTouch</ulink></para></listitem>
+			<listitem>
+				<para>Modems using the Analog Devices Inc. eagle-usb I, II or III chipset (such as Sagem Fast 800, Comtrend ct 350 etc.):</para>
+				<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/ueagle-atm">https://help.ubuntu.com/community/UsbAdslModem/ueagle-atm</ulink></para>
+				<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/EagleUsb">https://help.ubuntu.com/community/UsbAdslModem/EagleUsb</ulink></para>
+			</listitem>
+			<listitem>
+				<para>Connexant AccessRunner based modems:</para>
+				<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/EciAdsl">https://help.ubuntu.com/community/UsbAdslModem/EciAdsl</ulink></para>
+				<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/AccessRunner">https://help.ubuntu.com/community/UsbAdslModem/AccessRunner</ulink></para>
+				<para><ulink url="https://help.ubuntu.com/community/UsbAdslModem/e-techV2">https://help.ubuntu.com/community/UsbAdslModem/e-techV2</ulink></para>
+			</listitem>
+		</orderedlist>
+	</sect1>
+	<sect1 id="modems-adsl-pppoe" status="review">
+		<title>PPPoE Modems</title>
+		<para>This section is about setting up an ADSL Internet connection using an ethernet PPPoE modem.</para>
+		<para>You will require a subscription with an <emphasis>Internet Service Provider</emphasis>, and an installed, functional Internet connection. Most modems have a light which will be lit if it is currently connected to the Internet. You will also need your username and password for the Internet account.</para>
+		
+		<sect2 id="modems-adsl-pppoe-setup" status="review">
+			<title>Setting up PPPoE</title>
+			<para>To set up the modem:</para>
+			<procedure>
+				<step><para>Open a terminal (&terminal;)</para></step>
+				<step><para>In the terminal, type <screen>sudo pppoeconf</screen></para></step>
+				<step><para>A text-based menu program will guide you through the following steps:
+					<orderedlist numeration='arabic'>
+						<listitem><para>Confirm that your Ethernet card is detected. </para></listitem>
+						<listitem><para>Enter your username. </para></listitem>
+						<listitem><para>Enter your password. </para></listitem>
+						<listitem><para>If you already have a PPPoE Connection configured, you will be asked if it may be modified. </para></listitem>
+						<listitem><para>Popular options: you are asked if you want the <quote>noauth</quote> and <quote>defaultroute</quote> options and to remove <quote>nodetach</quote>. Choose <guibutton>Yes</guibutton>. </para></listitem>
+						<listitem><para>Use peer DNS - choose <guibutton>Yes</guibutton>. </para></listitem>
+						<listitem><para>Limited MSS problem - choose <guibutton>Yes</guibutton>. </para></listitem>
+						<listitem><para>When you are asked if you want to connect at start up, you will probably want to say yes. </para></listitem>
+						<listitem><para>Finally you are asked if you want to establish the connection immediately. </para></listitem>
+					</orderedlist></para>
+				</step>
+				<step><para>Once you have finished these steps, your connection should be working. </para></step>
+			</procedure>
+		</sect2>
+		<sect2 id="modems-adsl-pppoe-run" status="review">
+			<title>Starting the connection</title>
+			<para>To start your ADSL connection on demand, in a terminal (&terminal;) type:</para>
+				<screen>sudo pon dsl-provider</screen>
+		</sect2>
+		<sect2 id="modems-adsl-pppoe-stop" status="review">
+			<title>Stopping the connection</title>
+			<para>To stop your ADSL connection, in a terminal (&terminal;) type:</para>
+				<screen>sudo poff dsl-provider</screen>
+		</sect2>
+	</sect1>
+</chapter>

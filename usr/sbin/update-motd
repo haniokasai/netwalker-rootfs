@@ -1,0 +1,148 @@
+#!/bin/sh -e
+
+###########################################################################
+# /usr/sbin/update-motd
+#
+# A convenient wrapper for running the scripts located in
+# /etc/update-motd.d and concatenating their output to the Message of the
+# Day file (usually linked to /etc/motd)
+#
+# Copyright (C) 2008 Canonical Ltd.
+#  * Original: Aug 2008 - Dustin Kirkland <kirkland@canonical.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# On Debian GNU/Linux systems, the complete text of the GNU General
+# Public License can be found in `/usr/share/common-licenses/GPL'.
+###########################################################################
+
+NAME="update-motd"
+NEW=/var/run/motd.new
+SKEL=/etc/motd.tail
+REAL=/var/run/motd
+DIR=/etc/$NAME.d
+FREQ=
+DISABLED=/var/lib/$NAME/disabled
+LASTRUN=/var/run/$NAME.lastrun
+FORCE=0
+
+if [ -f "$NEW" ]; then
+	# If /var/run/motd.new exists, another instance is running
+	echo "Another update-motd is running ($NEW exists)" 1>&2
+	exit 0
+fi
+
+usage() {
+	echo "Usage:
+
+  update-motd [--disable|--enable|--force] [d|hourly|daily|weekly|monthly]
+
+    --disable - will prevent update-motd from running; useful for
+                temporarily disabling automatic updates of /etc/motd
+                by the /etc/cron.d/update-motd cronjob.
+    --enable  - will allow update-motd to run; useful for enabling
+                automatic updates of /etc/motd through the
+                /etc/cron.d/update-motd cronjob.
+    --force   - will override a disabled update-motd for a single
+                update of /etc/motd.
+    d         - will run the scripts in /etc/$NAME.d        (Default)
+    hourly    - will run the scripts in /etc/$NAME.d/hourly
+    daily     - will run the scripts in /etc/$NAME.d/daily
+    weekly    - will run the scripts in /etc/$NAME.d/weekly
+    monthly   - will run the scripts in /etc/$NAME.d/monthly
+" 1>&2
+}
+
+FORCE=0
+for arg in $@; do
+	case $arg in
+		"--disable"|"-d")
+			touch "$DISABLED"
+			echo "$NAME is now disabled." 1>&2
+			# Regenerate motd created at boot by
+			# /etc/init.d/bootmisc.sh
+			uname -snrvm > $REAL
+			[ -f $SKEL ] && cat $SKEL >> $REAL
+			exit 0
+		;;
+		"--enable"|"-e")
+			rm -f "$DISABLED"
+			echo "$NAME is now enabled." 1>&2
+			# Do not exit here, as we want to update the MOTD
+			# immediately upon enabling
+		;;
+		"--force"|"-f")
+			FORCE=1
+		;;
+		"d")
+			FREQ=
+		;;
+		"hourly"|"daily"|"weekly"|"monthly")
+			FREQ=$arg
+		;;
+		*)
+			usage
+			exit 1
+		;;
+	esac
+done
+DIR="$DIR/$FREQ"
+
+if [ -f "$DISABLED" ] && [ "$FORCE" != "1" ]; then
+	echo "$NAME is currently disabled.
+You might try:
+  * update-motd --enable
+  * update-motd --force" 1>&2
+	exit 1
+fi
+
+# Make sure we clean up the motd.new lock file if we exit for any reason
+trap "rm -f $NEW 2>/dev/null || true" EXIT HUP INT QUIT TERM
+
+if [ "$FORCE" != "1" ]; then
+	# Be *really* nice, if we're running in the background (not forced)
+	# But don't fail the script if we're not able to 'nice'
+	renice 10 $$ >/dev/null 2>&1 || true
+	ionice -c3 -p $$ >/dev/null 2>&1 || true
+fi
+
+# Start with the motd header
+# This is identical to the motd-building code used in
+#   /etc/init.d/bootmisc.sh
+uname -snrvm > $NEW
+[ -f $SKEL ] && cat $SKEL >> $NEW
+
+# Create a directory to cache the script output across update-motd
+# runs of different frequencies
+mkdir -p "/var/run/$NAME"
+# Obtain a list of the current scripts "due" to run
+scripts=`run-parts --lsbsysinit --test $DIR`
+for script in $scripts; do
+	file=`basename "$script"`
+	# Run each script, writing to a cache file, of the same num-name
+	# of the script executing
+	$script > "/var/run/$NAME/$file" 2>/dev/null
+done
+# Now, concatenate ALL of the cached update-motd output, thus collecting
+# ordered output across update-motd runs of different frequencies
+for file in `ls /var/run/$NAME`; do
+	cat "/var/run/$NAME/$file" >> $NEW
+done
+
+# Move the new motd into place
+mv -f $NEW $REAL
+
+# Write out the current timestamp to the lastrun file
+echo -n "Last run completed: " > "$LASTRUN"
+date >> "$LASTRUN"

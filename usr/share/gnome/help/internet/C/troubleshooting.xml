@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "en">
+<!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+]>
+
+<chapter id="troubleshooting" status="review">
+<title>Troubleshooting</title>
+<para>Since the introduction of NetworkManager, connections can be enabled and disabled from the NetworkManager
+icon in the <guilabel>System Notification Area</guilabel>.</para>
+<important>
+	<para>Before attempting any troubleshooting, ensure that the connection is enabled:</para>
+	<orderedlist>
+		<listitem><para>Right click the <guiicon>NetworkManager</guiicon> icon in the notification area.</para></listitem>
+		<listitem><para>Check <guilabel>Enable Networking</guilabel>.</para></listitem>
+		<listitem><para>Check <guilabel>Enable Wireless</guilabel>.</para></listitem>
+	</orderedlist>
+</important>
+	<sect1 id="troubleshooting-lan" status="review">
+		<title>Wired troubleshooting</title>
+		<para>If you have a network connection which is not working properly, you can use a few tools to help 
+		diagnose what the problem is.</para>
+		<para>Most of the tools in this section require use of the Terminal, which you can open by pressing 
+		&terminal;.</para>
+
+		<sect2 id="network-troubleshooting-ifconfig" status="review">
+			<title>Get information about the current connection</title>
+			<para><application>ifconfig</application> is intended to allow you to change the settings of your 
+			network connections, but it can also be used to list information about the current connection.</para>
+			<orderedlist>
+				<listitem><para>Press &terminal; to open a Terminal</para></listitem>
+				<listitem>
+					<para>Type <userinput>ifconfig eth1</userinput> in the Terminal and press <keycap>Enter</keycap>, replacing <emphasis>eth1</emphasis> with the name of your network interface if it is different.</para>
+					<itemizedlist>
+						<listitem><para><emphasis>inet addr</emphasis> gives the current <emphasis>IP address</emphasis> of the connection</para></listitem>
+						<listitem><para><emphasis>HWaddr</emphasis> gives the <emphasis>MAC address</emphasis> of your network device</para></listitem>
+					</itemizedlist>
+				</listitem>
+			</orderedlist>
+		</sect2>
+		
+		<sect2 id="network-troubleshooting-ping" status="review">
+			<title>Check if a connection is working properly</title>
+			<para>A good way of checking if a connection is working properly is to <emphasis>ping</emphasis> another computer on the network or the Internet.</para>
+			<para>To check if you are connected to the Internet:</para>
+			<orderedlist>
+				<listitem><para>Press &network-tools;</para></listitem>
+				<listitem><para>Select the <guilabel>Ping</guilabel> tab</para></listitem>
+				<listitem><para>Type <userinput>ubuntu.com</userinput> into the <guilabel>Network address</guilabel> box and then press <guibutton>Ping</guibutton></para></listitem>
+				<listitem>
+					<para>After a while, a graph should appear. Look at the number for <guilabel>Successful packets</guilabel> under <guilabel>Transmission Statistics</guilabel></para>
+					<itemizedlist>
+						<listitem><para><emphasis>100% successful packets</emphasis> - Your computer should have a good connection to the Internet</para></listitem>
+						<listitem><para><emphasis>Less than 100% successful</emphasis> - Your computer probably has a poor connection to the Internet or a poor wireless signal</para></listitem>
+						<listitem><para><emphasis>0% successful packets</emphasis> - Your computer has a very bad connection, or is connected to an access point or router which is not connected to the Internet</para></listitem>
+					</itemizedlist>
+				</listitem>
+			</orderedlist>
+			<para>If you get an error message which says <emphasis>The address &apos;ubuntu.com&apos; cannot be found</emphasis>, then your computer is probably not connected to the Internet or cannot reach a <emphasis>DNS server</emphasis>.</para>
+		</sect2>
+	</sect1>
+	
+	<sect1 id="troubleshooting-wireless" status="review">
+		<title>Wireless troubleshooting</title>
+		<para>While not exhaustive, this section covers some common problems faced with wireless support.</para>
+		<para>There is much more information available from the <ulink url="https://help.ubuntu.com/community/WifiDocs">Community Documentation</ulink>.</para>
+		<note><para>This troubleshooting guide is designed to be carried out in order. If you reach the end of a section
+		and are not directed to another - then try <xref linkend="connecting-wireless"/> and should it fail begin at the start again.</para></note>
+		<sect2 id="troubleshooting-wireless-disabled" status="review">
+			<title>Check that the device is on</title>
+			<orderedlist>
+				<listitem><para>Many wireless network devices can be turned on or off. Check to see if there is a hardware switch, some devices can be switched off from Windows and may need to be turned back on from Windows.</para></listitem>
+				<listitem><para>If it is turned on then see <xref linkend="troubleshooting-wireless-device"/>.</para></listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="troubleshooting-wireless-device" status="review">
+			<title>Check for device recognition</title>
+			<orderedlist>
+				<listitem><para>Open a <application>Terminal</application> (&terminal;) and type the command: <code>sudo lshw -C network</code></para></listitem>
+			</orderedlist>
+			<para>You should see an output, along with the words "CLAIMED, UNCLAIMED, ENABLED or DISABLED"</para>
+			<orderedlist>				
+				<listitem><para>Claimed - this indicates a driver is loaded but not functioning, see <xref linkend="troubleshooting-wireless-ndiswrapper"/></para></listitem>
+				<listitem><para>Unclaimed - there is no driver loaded, see <xref linkend="troubleshooting-wireless-ndiswrapper"/>.</para></listitem>
+				<listitem><para>Enabled - there is a driver loaded, see <xref linkend="troubleshooting-wireless-connection" />.</para></listitem>
+				<listitem><para>Disabled - see <xref linkend="troubleshooting-wireless-disabled"/>.</para></listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="troubleshooting-wireless-ndiswrapper" status="review">
+			<title>Using Windows Wireless Drivers</title>
+			<para>Ubuntu supports a system known as NDISWrapper. This allows you to use a Windows wireless device driver under Ubuntu.</para>
+			<orderedlist>
+				<listitem><para>Obtain the Windows Driver for your system and locate the file that ends with <code>.inf</code>.</para></listitem>
+				<listitem><para><ulink url="apt:ndisgtk">Install the <application>ndisgtk</application> package</ulink>.</para></listitem>
+				<listitem><para>Open <application>ndisgtk</application> (&ndisgtk;).</para></listitem>
+				<listitem><para>Select <guilabel>Install new driver</guilabel>.</para></listitem>
+				<listitem><para>Choose the location of your Windows .inf file and click <guibutton>Install</guibutton>.</para></listitem>
+				<listitem><para>Click <guibutton>OK</guibutton>.</para></listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="troubleshooting-wireless-connection" status="review">
+			<title>Check for a connection to the router</title>
+			<orderedlist>
+				<listitem><para>Open a <application>Terminal</application> (&terminal;) and type the command: <code>iwconfig</code>.</para></listitem>
+				<listitem><para>If the ESSID for our router is shown there may be a problem with ACPI support. Boot the kernel with the <code>pci=noacpi</code> option.</para></listitem>
+			</orderedlist>
+		</sect2>	
+		<sect2 id="troubleshooting-wireless-ip" status="review">
+			<title>Check IP assignment</title>
+			<orderedlist>
+				<listitem><para>Open a <application>Terminal</application> (&terminal;) and type the command: <code>ifconfig</code>.</para></listitem>
+				<listitem><para>If there is an IP address shown see <xref linkend="troubleshooting-wireless-dns"/>.</para></listitem>
+				<listitem><para>From the <application>Terminal</application> enter the command: <code>sudo dhclient if_name</code> where if_name is the connection listed earlier.</para></listitem>
+				<listitem><para>If you receive a message that says <code>bound to xxx.xxx.xxx.xxx</code> then see <xref linkend="troubleshooting-wireless-dns"/></para></listitem>
+				<listitem><para>If not then reboot the system.</para></listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="troubleshooting-wireless-dns" status="review">
+			<title>Check DNS</title>
+			<orderedlist>
+				<listitem><para>Open a <application>Terminal</application> (&terminal;) and type the command: <code>ping -c3 85.190.27.2</code>.</para></listitem>
+				<listitem><para>Now type the command: <code>ping www.ubuntu.com</code>. If you get a response from the both then see <xref linkend="troubleshooting-wireless-ipv6"/>.</para></listitem>
+				<listitem><para>Type the command: <code>cat /etc/resolv.conf</code>. If there is no nameserver listed then contact your ISP and find out your primary and secondary domain name servers. Once you have this information see <xref linkend="connecting-wireless"/>.</para></listitem>
+			</orderedlist>
+		</sect2>
+		<sect2 id="troubleshooting-wireless-ipv6" status="review">
+			<title>IPv6 Not Supported</title>
+			<orderedlist>
+				<listitem><para>IPv6 is supported by default in Ubuntu and can sometimes cause problems.</para></listitem>
+				<listitem><para>To disable it, open a <application>Terminal</application> (&terminal;) and type the command: <code>gksudo gedit /etc/modprobe.d/aliases</code>.</para></listitem>
+				<listitem><para>Find the line <code>alias net-pf-10 ipv6</code> and change it to read <code>alias net-pf-10 off</code>.</para></listitem>
+				<listitem><para>Reboot Ubuntu.</para></listitem>
+			</orderedlist>
+		</sect2>	
+	</sect1>
+</chapter>

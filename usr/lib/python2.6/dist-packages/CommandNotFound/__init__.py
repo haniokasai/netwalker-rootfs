@@ -1,0 +1,1 @@
+/usr/share/pyshared/CommandNotFound/__init__.py

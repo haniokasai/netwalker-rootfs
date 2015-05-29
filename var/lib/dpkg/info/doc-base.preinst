@@ -1,0 +1,62 @@
+#!/bin/sh
+# $Id: preinst 180 2009-01-23 23:01:19Z robert $
+# preinst for doc-base
+
+# Abort if any command returns an error value
+set -e
+
+package=doc-base
+infodir="/var/lib/$package/info"
+docsdir="/var/lib/$package/documents"
+omfdir="/var/lib/$package/omf"
+
+
+remove_obsolete() {
+	# remove old dhelp files (from versions <= 0.8.4)
+	find $infodir -maxdepth 1 -type f -name "*.list" -print0 | xargs -0 grep -h '^/.*/.dhelp' |  \
+	while read f; do
+		[ -e "$f" ] || continue;
+#		[ -x /usr/sbin/dhelp_parse ] && /usr/sbin/dhelp_parse -d "`dirname "$f"`" || true
+		rm -f "$f"
+	done
+
+	# remove old scrollkeeper files
+	find $infodir -maxdepth 1 -type f -name "*.status" -print0 | \
+	xargs -0 sed -ne 's/^Scrollkeeper-omf-file: *"*\(.*-C.omf\)"* *$/\1/p'  |  \
+	while read f; do
+		[ -e "$f" ] || continue;
+		rm -f "$f"
+		rmdir --ignore-fail-on-non-empty "`dirname "$f"`" || true
+	done
+
+
+	# remove newer dhelp files
+	find $infodir -maxdepth 1 -type f -name "*.status" -print0 | \
+	xargs -0 sed -ne 's/^Dhelp-file: *"*\(.*\.dhelp\)"* *$/\1/p'  |  \
+	while read f; do
+		[ -e "$f" ] || continue;
+		rm -f "$f"
+	done
+
+	# remove newer scrollkeeper files
+	find $infodir -maxdepth 2 -type f -name "*.omf" -print0 | xargs -0 rm -f
+	find $infodir -maxdepth 1 -type d -print0 | xargs -0 rmdir --ignore-fail-on-non-empty
+
+
+	# remove status/list files
+	find $infodir -maxdepth 1 -type f \( -name "*.status" -o -name "*.list" -o -name "*.db" \) -print0 | \
+	xargs -0 rm -f
+	
+	# remove generated documents
+	find $docsdir -maxdepth 1 -type f -print0  | xargs -0 rm -f
+}
+
+if [ "$1" = "upgrade" ] &&  dpkg --compare-versions "$2" lt-nl "0.8.12"; then
+	remove_obsolete
+fi
+
+
+
+
+exit 0
+

@@ -1,0 +1,66 @@
+#!/bin/sh
+set -e
+
+update-rc.d cron start 89 2 3 4 5 . stop 11 1 . >/dev/null
+# Copy existing allow/deny files
+crondir="/var/spool/cron"
+pausemessage="F"
+for fname in allow deny ; do
+    if [ -f $crondir/$fname ] ; then
+	if [ ! -f $/etc/cron.$fname ] ; then
+	    mv $crondir/$fname /etc/cron.$fname
+	    echo " "
+	    echo "Moving $crondir/$fname to /etc/cron.$fname to comply with Debian policy"
+	    pausemessage="T"
+	else
+	    echo " "
+	    echo "Warning:"
+	    echo "Both $crondir/$fname and /etc/cron.$fname exist -- cron will"
+	    echo "use /etc/cron.$fname"
+	    pausemessage="T"
+	fi
+    fi
+done
+#
+# Move dpkg status file backups, if necessary/possible.
+#
+( cd /var/lib/dpkg ;
+for oldstat in status.yesterday.* ; do
+    if [ -f $oldstat ] ; then
+        newstat=`echo $oldstat | sed 's/yesterday\.//'`;
+        newstat=/var/backups/dpkg.$newstat;            
+        if [ ! -f $newstat ] ; then
+            mv $oldstat $newstat ;
+        fi
+    fi                        
+done)
+
+# Add group for crontabs
+getent group crontab > /dev/null 2>&1 || addgroup --system crontab
+
+# Fixup crontab binary, directory and files for new group 'crontab'.
+
+if ! dpkg-statoverride --list /usr/bin/crontab > /dev/null ; then
+    chgrp crontab /usr/bin/crontab
+    chmod g+s /usr/bin/crontab
+    chgrp crontab $crondir/crontabs
+    chmod 1730 $crondir/crontabs
+    if dpkg --compare-versions "$2" lt "3.0pl1-81" ; then
+        cd $crondir/crontabs
+        set +e
+        ls -1 |  xargs -r -n 1 --replace=xxx  chown 'xxx:crontab' 'xxx'
+        set -e
+    fi
+fi
+
+if [ -x /etc/init.d/cron ]; then
+	if [ -x /usr/sbin/invoke-rc.d ] ; then
+	       invoke-rc.d cron start
+	else
+	       /etc/init.d/cron start
+	fi
+fi
+
+
+
+

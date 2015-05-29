@@ -1,0 +1,1 @@
+/usr/share/python-support/python-gnome2/gtk-2.0/bonobo/__init__.py

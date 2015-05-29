@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="lamp-applications" status="review">
+  <title>LAMP Applications</title>
+
+
+  <sect1 id="lamp-overview">
+    <title>Overview</title>
+  
+    <para>
+    LAMP installations (Linux + Apache + MySQL + PHP) are a popular setup for Ubuntu 
+    servers.  There is a plethora of Open Source applications written using the
+    LAMP application stack.  Some popular LAMP applications are Wiki's, Content Management Systems,
+    and Management Software such as phpMyAdmin.
+    </para> 
+
+    <para>
+    One advantage of LAMP is the substantial flexibility for different database, web server, and 
+    scripting languages.  Popular substitutes for MySQL include Posgresql and SQLite.  Python, Perl,
+    and Ruby are also frequently used instead of PHP.
+    </para>
+
+    <para>
+    The traditional way to install most <emphasis>LAMP</emphasis> applications is:
+    </para>    
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        Download an archive containing the application source files.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Unpack the archive, usually in a directory accessible to a web server.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Depending on where the source was extracted, configure a web browser to serve the files.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Configure the application to connect to the database.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Run a script, or browse to a page of the application, to install the database needed by the application.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+        Once the steps above, or similar steps, are completed you are ready to begin using the application.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+    A disadvantage of using this approach is that the application files are not placed in the file system in a 
+    standard way, which can cause confusion as to where the application is installed.  Another larger disadvantage
+    is updating the application.  When a new version is released, the same process used to install the application 
+    is needed to apply updates.
+    </para>
+
+    <para>
+    Fortunately, a number of <emphasis>LAMP</emphasis> applications are already packaged for Ubuntu, and are available
+    for installation in the same way as non-LAMP applications.  Depending on the application some extra configuration and
+    setup steps may be needed, however.
+    </para>
+
+    <para>
+    This section covers howto install and configure the Wiki applications <application>MoinMoin</application>,
+    <application>MediaWiki</application>, and the MySQL management application <application>phpMyAdmin</application>.
+    </para>
+
+    <note>
+      <para>
+      A Wiki is a website that allows the visitors to easily add,
+      remove and modify available content easily. The ease of interaction
+      and operation makes Wiki an effective tool for mass collaborative
+      authoring. The term Wiki is also referred to the collaborative
+      software.
+      </para>
+    </note>
+
+
+  </sect1>
+  <sect1 id="moinmoin" status="review">
+    <title>Moin Moin</title>
+
+    <para>
+    MoinMoin is a Wiki engine implemented in Python, based on the
+    PikiPiki Wiki engine, and licensed under the GNU GPL.
+    </para>
+
+    <sect2 id="moinmoin-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      To install <application>MoinMoin</application>, run the following
+      command in the command prompt:
+      </para>
+
+<screen>
+<command>sudo apt-get install python-moinmoin</command>
+</screen>
+
+       <para>
+       You should also install <application>apache2</application> web
+       server.  For installing <application>apache2</application> web
+       server, please refer to <xref linkend="http-installation"/>
+       sub-section in <xref linkend="httpd"/> section.
+       </para> 
+
+     </sect2>
+    <sect2 id="moinmoin-configuration" status="review">
+      <title>Configuration</title>
+
+      <para>
+      For configuring your first Wiki application, please run the
+      following set of commands. Let us assume that you are creating a
+      Wiki named <emphasis>mywiki</emphasis>:
+      </para>
+
+<screen>
+<command>cd /usr/share/moin</command>
+<command>sudo mkdir mywiki</command>
+<command>sudo cp -R data mywiki</command>
+<command>sudo cp -R underlay mywiki</command>
+<command>sudo cp server/moin.cgi mywiki</command>
+<command>sudo chown -R www-data.www-data mywiki</command>
+<command>sudo chmod -R ug+rwX mywiki</command>
+<command>sudo chmod -R o-rwx mywiki</command>
+</screen>
+
+       <para>
+       Now you should configure <application>MoinMoin</application> to find
+       your new Wiki <emphasis>mywiki</emphasis>. To configure
+       <application>MoinMoin</application>, open
+       <filename>/etc/moin/mywiki.py</filename> file and change the following
+       line:
+       </para>
+
+<programlisting>data_dir = '/org/mywiki/data'</programlisting>
+
+       <para>
+       to
+       </para>
+
+<programlisting>data_dir = '/usr/share/moin/mywiki/data'</programlisting>
+
+       <para>
+       Also, below the <emphasis>data_dir</emphasis> option add the <emphasis>data_underlay_dir</emphasis>:
+       </para>
+
+<programlisting>
+data_underlay_dir='/usr/share/moin/mywiki/underlay'
+</programlisting>
+
+       <note>
+         <para>
+         If the <filename>/etc/moin/mywiki.py</filename> file does not exists,
+         you should copy <filename>/etc/moin/moinmaster.py</filename> file to
+         <filename>/etc/moin/mywiki.py</filename> file and do the above mentioned
+         change.
+         </para>
+        </note>
+
+        <note>
+          <para>
+          If you have named your Wiki as <emphasis>my_wiki_name</emphasis> you
+          should insert a line <quote>("my_wiki_name", r".*")</quote> in
+          <filename>/etc/moin/farmconfig.py</filename> file after the line
+          <quote>("mywiki", r".*")</quote>.
+          </para>
+        </note>
+
+        <para>
+        Once you have configured <application>MoinMoin</application> to find
+        your first Wiki application <emphasis>mywiki</emphasis>, you should
+        configure <application>apache2</application> and make it ready for
+        your Wiki application.
+        </para>
+
+        <para>
+        You should add the following lines in
+        <filename>/etc/apache2/sites-available/default</filename> file inside
+        the <quote>&lt;VirtualHost *&gt;</quote> tag:
+        </para>
+
+<programlisting>
+### moin
+  ScriptAlias /mywiki "/usr/share/moin/mywiki/moin.cgi"
+  alias /moin_static181 "/usr/share/moin/htdocs"
+  &lt;Directory /usr/share/moin/htdocs&gt;
+  Order allow,deny
+  allow from all
+  &lt;/Directory&gt;
+### end moin
+</programlisting>
+
+         <para>
+         Once you configure the <application>apache2</application> web server and
+         make it ready for your Wiki application, you should restart it. You
+         can run the following command to restart the
+         <application>apache2</application> web server:
+         </para>
+
+<screen>
+<command>sudo /etc/init.d/apache2 restart</command>
+</screen>
+
+  </sect2>
+  <sect2 id="moinmoin-verification" status="review">
+    <title>Verification</title>
+
+    <para>You can verify the Wiki application and see if it works by
+    pointing your web browser to the following URL:
+    </para>
+
+<programlisting>
+http://localhost/mywiki
+</programlisting>
+
+    <para>
+    You can also run the test command by pointing your web browser to the
+    following URL:
+    </para>
+
+<programlisting>
+http://localhost/mywiki?action=test
+</programlisting>
+
+    <para>
+    For more details, please refer to the <ulink
+    url="http://moinmo.in/">MoinMoin</ulink> web site.
+    </para>
+
+  </sect2>
+  <sect2 id="moinmoin-references" status="review">
+    <title>References</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        For more information see the <ulink url="http://moinmo.in/">moinmoin Wiki</ulink>.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+  </sect2>
+  </sect1>
+  <sect1 id="mediawiki" status="review">
+    <title>MediaWiki</title>
+    
+    <para>
+    MediaWiki is an web based Wiki software written in the PHP
+    language. It can either use <application>MySQL</application> or
+    <application>PostgreSQL</application> Database Management
+    System.
+    </para>
+
+    <sect2 id="mediawiki-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      Before installing <application>MediaWiki</application> you should also install 
+      <application>Apache2</application>, the <application>PHP5</application> scripting language 
+      and Database a Management System.  <application>MySQL</application> or <application>PostgreSQL</application>
+      are the most common, choose one depending on your need.  Please refer to those 
+      sections in this manual for installation instructions.
+      </para>
+
+      <para>
+      To install <application>MediaWiki</application>, run the following
+      command in the command prompt:
+      </para>
+  
+<screen>
+<command>sudo apt-get install mediawiki php5-gd</command>
+</screen>
+
+       <para>
+       For additional <application>MediaWiki</application> functionality see the <application>mediawiki-extensions</application>
+       package.
+       </para>
+  
+     </sect2>
+
+    <sect2 id="mediawiki-configuration" status="review">
+      <title>Configuration</title>
+
+      <para>
+      Run the following commands to configure MediaWiki:
+      </para>
+
+<screen>
+<command>sudo ln -s /var/lib/mediawiki /var/www/mediawiki</command>
+</screen>
+
+      <para>
+      Point your web browser to the following URL for MediaWiki setup:
+      </para>
+
+<programlisting>
+http://localhost/mediawiki/config/index.php
+</programlisting>
+
+      <tip>
+        <para>
+        Please read the <quote>Checking environment...</quote> section in this
+        page.  You should be able to fix many issues by carefully reading this
+        section.
+        </para>
+      </tip>
+
+    </sect2>
+    <sect2 id="mediawiki-references" status="review">
+      <title>References</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          For more details, please refer to the <ulink
+          url="http://www.mediawiki.org">MediaWiki</ulink> web site.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The <ulink url="http://www.packtpub.com/Mediawiki/book">MediaWiki Administrators’ Tutorial Guide</ulink>
+          contains a wealth of information for new MediaWiki administrators.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+  <sect1 id="phpmyadmin" status="review">
+    <title>phpMyAdmin</title>
+
+    <para>
+    <application>phpMyAdmin</application> is a LAMP application specifically written for administering 
+    <application>MySQL</application> servers.  Written in <application>PHP</application>, and accessed through a 
+    web browser, phpMyAdmin provides a graphical interface for database administration tasks. 
+    </para>
+
+    <sect2 id="phpmyadmin-installation" status="review">
+      <title>Installation</title>
+
+      <para>
+      Before installing <application>phpMyAdmin</application> you will need access to a <application>MySQL</application>
+      database either on the same host as that phpMyAdmin is installed on, or on a host accessible over the network.
+      For more information see <xref linkend="mysql"/>. From a terminal prompt enter:  
+      </para>
+
+<screen>
+<command>sudo apt-get install phpmyadmin</command>
+</screen>
+
+      <para>
+      At the prompt choose which web server to be configured for <application>phpMyAdmin</application>.  The rest of 
+      this section will use <application>Apache2</application> for the web server.
+      </para>
+
+      <para>
+      In a browser go to <emphasis>http://servername/phpmyadmin</emphasis>, replacing <emphasis role="italic">serveranme</emphasis>
+      with the server's actual hostname.  At the login, page enter <emphasis>root</emphasis> for the <emphasis>username</emphasis>,
+      or another <application>MySQL</application> user if you any setup, and enter the <application>MySQL</application> user's 
+      password.
+      </para>
+
+      <para>
+      Once logged in you can reset the <emphasis>root</emphasis> password if needed, create users, create/destroy databases and tables, etc.
+      </para>
+
+    </sect2>
+    <sect2 id="phpmyadmin-configuration" status="review">
+      <title>Configuration</title>
+
+      <para>
+      The configuration files for <application>phpMyAdmin</application> are located in <filename>/etc/phpmyadmin</filename>.  The main 
+      configuration file is <filename>/etc/phpmyadmin/config.inc.php</filename>.  This file contains configuration options that apply 
+      globally to <application>phpMyAdmin</application>.  
+      </para>
+
+      <para>
+      To use <application>phpMyAdmin</application> to administer a MySQL database hosted on another server, adjust the 
+      following in <filename>/etc/phpmyadmin/config.inc.php</filename>:
+      </para>
+
+<programlisting>
+$cfg['Servers'][$i]['host'] = 'db_server';
+</programlisting>
+
+      <note>
+        <para>
+        Replace <emphasis role="italic">db_server</emphasis> with the actual remote database server name or IP address.  
+        Also, be sure that the <application>phpMyAdmin</application> host has permissions to access the remote database.
+        </para>
+      </note>
+
+      <para>
+      Once configured, log out of <application>phpMyAdmin</application> and back in, and you should be accessing the new server.
+      </para>
+
+      <para>
+      The <filename>config.header.inc.php</filename> and <filename>config.footer.inc.php</filename> files are used to add a HTML 
+      header and footer to <application>phpMyAdmin</application>.
+      </para>
+
+      <para>
+      Another important configuration file is <filename>/etc/phpmyadmin/apache.conf</filename>, this file is symlinked to 
+      <filename>/etc/apache2/conf.d/phpmyadmin.conf</filename>, and is used to configure <application>Apache2</application> 
+      to serve the <application>phpMyAdmin</application> site. The file contains directives for loading 
+      <application>PHP</application>, directory permissions, etc.  For more information on configuring 
+      <application>Apache2</application> see <xref linkend="httpd"/>.
+      </para>
+     
+    </sect2>
+    <sect2 id="phpmyadmin-references">
+      <title>References</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          The <application>phpMyAdmin</application> documentation comes installed with the package and can be accessed from the
+          <emphasis>phpMyAdmin Documentation</emphasis> link (a question mark with a box around it) under the phpMyAdmin logo.
+          The official docs can also be access on the <ulink url="http://www.phpmyadmin.net/home_page/docs.php">phpMyAdmin</ulink> site.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Also, <ulink url="http://www.packtpub.com/phpmyadmin-3rd-edition/book">Mastering phpMyAdmin</ulink> is a great resource.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+</chapter>

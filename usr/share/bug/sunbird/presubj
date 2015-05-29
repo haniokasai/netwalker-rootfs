@@ -1,0 +1,41 @@
+*** Please submit non packaging issue (e.g. feature requests) bugs to
+the Debian BTS and the upstream bugzilla
+(https://bugzilla.mozilla.org/enter_bug.cgi?product=Firefox) and put a
+reference to the bugzilla bug in the Debian bug report, to ease bug
+triage for the maintainers. Thank you. ***
+
+Firefox extensions being a big source of problems, please either try to
+reproduce your bug with a clean user of with you current user in safe
+mode, with the "firefox -safe-mode" command line before filing any bugs.
+If your bug disappears with a clean user or in safe mode, you might want
+to find which extension is responsible for it and file a bug to the
+appropriate package, bug tracking system, or author.
+
+Also, please try running firefox with MOZ_DISABLE_PANGO=1 set in your
+environment to test with Pango rendering disabled, which can cause
+problems in some cases.
+
+If your Firefox installation pre-dates 1.0, you might have had problems
+Firefox not really cleanly supporting upgrade from one release to another.
+Please try moving around your ~/.mozilla/firefox directory to see if it
+helps with your issue.
+
+Firefox requires the loopback interface (lo) to be up and unfiltered
+to accept keyboard input and function correctly. Please make sure this
+is the case before filing any bugs.
+
+If you get crashes and none of the above hints did avoid the crash, please
+first try to remove plugins from the /usr/lib/firefox/plugins,
+/usr/lib/mozilla-firefox/plugins and ~/.mozilla/plugins directories.
+
+If Firefox still crashes, please install the firefox-dbg package and run
+firefox with gdb with the "firefox -g" command line. On the gdb prompt, type
+the following commands:
+set pagination off
+run
+bt full
+And attach the resulting backtrace to your bug report.
+
+If you are seeing XML parsing errors, please make sure you kill all
+running Firefoxes and reload before filing any bugs. 
+

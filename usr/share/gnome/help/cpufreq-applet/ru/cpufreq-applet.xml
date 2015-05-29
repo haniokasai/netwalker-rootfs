@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appletversion "2.12.0">
+<!ENTITY applet "CPU Frequency Scaling Monitor">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 06, 2003
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ru">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+	<title>Руководство Монитора изменения частоты процессора</title> 
+        <abstract role="description">
+	  <para>Монитор изменения частоты процессора отображает текущую тактовую частоту центрального процессора и, если процессор поддерживает, предоставляет возможность для изменения частоты.</para>
+	</abstract>
+	<copyright>
+	  <year>2005</year>
+	  <holder>Davyd Madeley</holder>
+	</copyright>
+        <copyright>
+	   <year>2004</year>
+            <holder>GNOME Foundation</holder>
+        </copyright><copyright><year>2007</year><holder>Сергей В. Миронов (sergo@bk.ru)</holder></copyright>
+
+<!-- translators: uncomment this:
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+   -->
+
+	 <publisher role="maintainer"> 
+		<publishername>Проект документации GNOME</publishername> 
+	 </publisher> 
+
+  <legalnotice id="legalnotice">
+	<para>Следующим разрешается копировать и/или модифицировать этот документ при условии соблюдения GNU Free Documentation License (GFDL), версии 1.1 или любой более поздней опубликованной Фондом свободного программного обеспечения версией без неизменяемых частей, без текстов на обложках. Вы можете найти копию лицензии по этой <ulink type="help" url="ghelp:fdl">ссылке</ulink> или в файле COPYING-DOCS, распространяемом с этим документом.</para>
+         <para>Этот документ является частью документации GNOME распространяемой под лицензией GFDL. Если вы хотите распространять этот документ отдельно от общей документации, вы должны приложить копию лицензии к документу, как написано в части 6 лицензии.</para>
+
+	<para>Многие имена и марки используются компаниями для различения их продуктов и услуг и являются торговыми марками. Эти марки присутствуют в документации и члены проекта документирования GNOME знают об этом. Имена выделяются заглавными буквами или начальной заглавной буквой.</para>
+
+	<para>ДОКУМЕНТ И ИЗМЕНЁННЫЕ ВЕРСИИ ДОКУМЕНТА ПРЕДСТАВЛЯЮТСЯ ПОЛЬЗОВАТЕЛЮ ПОД ЛИЦЕНЗИЕЙ GNU FREE DOCUMENTATION LICENSE С УВЕДОМЛЕНИЕМ О ТОМ, ЧТО: <orderedlist>
+		<listitem>
+		  <para>ДОКУМЕНТ РАСПРОСТРАНЯЕТСЯ "КАК ЕСТЬ", БЕЗ ВСЯКИХ ГАРАНТИЙ, ПРИДУМАННЫХ ИЛИ УНАСЛЕДОВАННЫХ, БЕЗ ОГРАНИЧЕНИЙ, ГАРАНТИЙ ТОГО ЧТО ДОКУМЕНТ ИЛИ МОДИФИЦИРОВАННАЯ ВЕРСИЯ ДОКУМЕНТА СВОБОДНА ОТ ДЕФЕКТОВ, ТОЛЬКО ДЛЯ СПЕЦИАЛЬНОГО ИСПОЛЬЗОВАНИЯ НЕ ЗАКЛЮЧАЮЩЕГО В СЕБЕ РИСКИ КАЧЕСТВА, АККУРАТНОСТИ ИЛИ СООТВЕТСТВИЯ ДОКУМЕНТА ИЛИ ИЗМЕНЁННЫХ ВЕРСИЙ ДОКУМЕНТА ВАШИМ ТРЕБОВАНИЯМ. ЕСЛИ ДОКУМЕНТ ИЛИ МОДИФИЦИРОВАННАЯ ВЕРСИЯ ДОКУМЕНТА ИМЕЕТ НЕДОСТАТКИ, ВЫ (А НЕ АВТОР ДОКУМЕНТА ИЛИ ЕГО ПОМОЩНИК) ДОЛЖНЫ САМИ ПРИЛОЖИТЬ УСИЛИЯ К ЕГО ДОРАБОТКИ, КОРРЕКЦИИ ИЛИ ВОССТАНОВЛЕНИЮ. ЭТО ПРЕДУПРЕЖДЕНИЕ СОСТАВЛЯЕТ СУЩЕСТВЕННУЮ ЧАСТЬ ЛИЦЕНЗИИ. ДОКУМЕНТ НЕ ДОЛЖЕН ИСПОЛЬЗОВАТЬСЯ БЕЗ ДАННОГО ПРЕДУПРЕЖДЕНИЯ И</para>
+		</listitem>
+		<listitem>
+		  <para>НИ ПРИ КАКИХ ОБСТОЯТЕЛЬСТВАХ И НИ ПРИ КАКОМ ЗАКОННОМ СПОСОБЕ, НИ ПО КАКОМУ СОГЛАШЕНИЮ ИЛИ ДРУГОЙ ПРИЧИНЕ, АВТОР, СОЗДАТЕЛЬ ИЛИ ПОМОЩНИКИ НЕ НЕСУТ ОТВЕТСТВЕННОСТЬ ЗА ПРЯМОЕ, КОСВЕННОЕ, СПЕЦИАЛЬНОЕ, СЛУЧАЙНОЕ ИЛИ ПРЕДНАМЕРЕННОЕ ПОВРЕЖДЕНИЕ ЛЮБОГО СВОЙСТВА, ВКЛЮЧАЯ БЕЗ ОГРАНИЧЕНИЯ ПОТЕРЮ ЖЕЛАНИЯ, РАБОТОСПОСОБНОСТИ, КОМПЬЮТЕРНЫЕ СБОИ ИЛИ НЕПРАВИЛЬНОЕ ВЗАИМОДЕЙСТВИЕ, ВМЕСТЕ ИЛИ ПО-ОТДЕЛЬНОСТИ. НИКАКИЕ ПОВРЕЖДЕНИЯ И ПОТЕРИ НЕ МОГУТ БЫТЬ ВОЗЛОЖЕНЫ НА АВТОРА ДОКУМЕНТА ИЛИ МОДИФИЦИРОВАННОЙ ВЕРСИИ ДОКУМЕНТА, ДАЖЕ ЕСЛИ СТОРОНА БЫЛА ПРОИНФОРМИРОВАНА О ВОЗМОЖНОСТИ ТАКИХ ПОВРЕЖДЕНИЙ.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+<!-- This file  contains link to license for the documentation (GNU FDL), and 
+     other legal stuff such as "NO WARRANTY" statement. Please do not change 
+     any of this. -->
+
+	 <authorgroup> 
+            <author>
+	       <firstname>Carlos</firstname>
+	       <surname>Garcia Campos</surname>
+	       <affiliation>
+                  <orgname>Проект GNOME</orgname>
+		  <address><email>carlosgc@gnome.org</email></address>
+	       </affiliation>
+            </author>
+	    <author>
+	      <firstname>Davyd</firstname>
+	      <surname>Madeley</surname>
+	      <affiliation>
+	        <orgname>Проект GNOME</orgname>
+		<address><email>davyd@madeley.id.au</email></address>
+	      </affiliation>
+	    </author>
+      <!-- This is appropriate place for other contributors: translators,
+           maintainers,  etc. Commented out by default.
+        <othercredit role="translator">
+	      <firstname>Latin</firstname> 
+	      <surname>Translator 1</surname> 
+	      <affiliation> 
+	      	<orgname>Latin Translation Team</orgname> 
+	       	<address> <email>translator@gnome.org</email> </address> 
+	      </affiliation>
+	      <contrib>Latin translation</contrib>
+        </othercredit>
+-->
+	 </authorgroup>
+
+	 <revhistory>
+	   <revision>
+	     <revnumber>GNOME 2.12</revnumber>
+	     <date>Август 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+	   <revision>
+	     <revnumber>GNOME 2.10</revnumber>
+	     <date>Март 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+		<revision> 
+		  <revnumber>Руководство апплета Монитор изменения частоты процессора вер. 0.3</revnumber> 
+		  <date>Октябрь 2004</date> 
+		  <revdescription> 
+                    <para role="author">Carlos Garcia Campos</para>
+                    <para role="publisher">Проект документации GNOME</para>
+		  </revdescription> 
+		</revision> 
+	 </revhistory> 
+
+	 <releaseinfo>Это руководство описывает Монитор изменения частоты процессора версии 2.12.0.</releaseinfo> 
+
+		<legalnotice> 
+		<title>Обратная связь</title> 
+		<para>Чтобы сообщить об ошибке или сделать предложение, касающееся апплета "Монитор изменения частоты процессора" или данного руководства, следуйте инструкциям в <ulink url="ghelp:gnome-feedback" type="help">Страница обратной связи GNOME</ulink>.</para>
+	     </legalnotice>
+
+  </articleinfo> 
+
+  <indexterm zone="index"> 
+	 <primary>Монитор изменения частоты процессора</primary> 
+  </indexterm>
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<sect1 id="cpufreq-applet-introduction"> 
+	 <title>Введение</title> 
+	 <figure id="cpufreq-applet-figure"> 
+	    <title>Монитор изменения частоты процессора</title> 
+		<screenshot> 
+		  <mediaobject> 
+		     <imageobject>
+			<imagedata fileref="figures/cpufreq-applet.png" format="PNG"/> 
+		     </imageobject>
+		  </mediaobject>
+	       </screenshot>
+	 </figure> 
+    <!-- ==== End of Figure ======================================= -->
+    <para>Апплет <application>Монитор изменения частоты процессора</application> предоставляет удобную возможность отслеживать частоту процессора для каждого ЦПУ.</para> 
+	 <para>Чтобы добавить <application>Монитор изменения частоты процессора</application> на панель, щёлкните правой кнопкой на панели для появления контекстного меню панели, после чего выберите <menuchoice><guimenu>Добавить на панель</guimenu><guimenuitem>Монитор изменения частоты процессора</guimenuitem></menuchoice>.</para> 
+	
+    <note><para>К сожалению, изменение частоты процессора в настоящий момент может быть осуществлено только на Линукс-системах, которые имеют поддержку в ядре. Однако, при этом в ядре возможна поддержка нескольких поколений интерфейсов изменения частоты.</para></note>
+   
+   <para>Если поддержка изменения частоты процессора в системе отсутствует, Монитор изменения частоты процессора только отобразит текущую частоту процессора.</para>
+   <para>Если поддержка изменения частоты процессора в системе присутствует, Монитор изменения частоты процессора отображает значок процессора с индикатором прогресса. Состояние индикатора прогресса представляет текущую частоту процессора по отношению к максимальной частоте.</para>
+   <para>По умолчанию, Монитор изменения частоты процессора отображает текущую частоту процессора значением в Герцах (стандартная единица измерения частоты), но вместо этого может быть настроен для отображения в процентах. Для большей информации о том, как настроить Монитор изменения частоты процессора, смотрите <xref linkend="cpufreq-applet-prefs"/>.</para>
+   <para>Каждая запущенная копия Монитора изменения частоты процессора может отслеживать только один процессор. Если у вас многопроцессорная (SMP) система, вам нужно запустить копию Монитора изменения частоты процессора для каждого процессора, частоту которого вы хотите отслеживать.</para>
+
+   <sect2 id="gnome-cpufreq-icons">
+     <title>Что символизируют значки</title>
+     <para>Монитор изменения частоты процессора содержит несколько значков, которые графически отображают уровень текущего состояния процессора. Это:</para>
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Значок</para></entry>
+              <entry colname="COLSPEC1">
+                <para>Описание</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-100.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>100%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>Частота процессора составляет 100% от возможной.</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-75.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>75%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>Частота процессора составляет 75% от возможной.</para>
+	      </entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-50.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>50%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>Частота процессора составляет 50% от возможной.</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-25.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>25%</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>Частота процессора составляет 25% от возможной.</para></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+   </sect2>
+   
+   <sect2 id="gnome-cpufreq-selector">
+      <title>Переключатель частот и регулятор</title>
+      <warning><para>Функциональность переключателя частоты может быть не доступна по умолчанию в вашем рабочем столе GNOME. Пожалуйста, свяжитесь к вашим системным администратором, составителем документации или обратитесь к документации, которая поставляется с данным программным обеспечением.</para></warning>
+      <para>Чтобы установить частоту процессора, щёлкните левой кнопкой мыши на значке Монитора, и отобразится меню. В этом меню вам предлагается список доступных частот и/или частотных регуляторов для вашего компьютера.</para>
+      <tip><para>Вы можете выбрать, хотите ли вы, чтобы отображались доступные частоты или регуляторы в <guilabel>Параметрах</guilabel>. Смотрите <xref linkend="cpufreq-applet-prefs"/> для большей информации.</para></tip>
+
+      <figure id="cpufreq-applet-selector-img">
+	 <title>Переключатель частоты только отображает частоты.</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+
+      <figure id="cpufreq-applet-selector-both-img">
+	 <title>Переключатель частоты отображает частоты и регуляторы.</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+   </sect2>
+</sect1>
+
+<!-- ============= Customization ============================= -->
+<!-- Use this section to describe how to customize the applet. -->
+<sect1 id="cpufreq-applet-prefs"> 
+	 <title>Параметры</title> 
+	 <para>Чтобы настроить <application>Монитор изменения частоты процессора</application>, щёлкните правой кнопкой на апплете, затем из контекстного меню выберите <guimenuitem>Параметры</guimenuitem>.</para> 
+	 <para>Диалоговое окно <guimenuitem>Параметры</guimenuitem> содержит следующие части:</para> 
+	 <figure id="cpufreq-applet-preferences">
+	    <title>Диалоговое окно Параметры Монитора частоты ЦПУ</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Диалоговое окно Параметры Монитора частоты процессора</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+
+	 <variablelist> 
+	   <varlistentry> 
+	      <term><guilabel>Отслеживаемый ЦПУ (только в многопроцессорных системах)</guilabel></term> 
+	     <listitem> 
+		<para>Используйте этот выпадающий список для выбора процессора, который вы хотите отслеживать.</para>
+	 <figure id="cpufreq-applet-preferences-smp">
+	    <title>Выбор процессора для отслеживания</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences-smp.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Переключатель процессора в диалоговом окне Параметров Монитора</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+	<note><para>Параметр <guilabel>Отслеживаемый ЦПУ</guilabel> появляется только на многопроцессорных (SMP) системах.</para></note>
+	 
+	     </listitem>
+	   </varlistentry> 
+	   <varlistentry> 
+	      <term><guilabel>Внешний вид</guilabel></term> 
+	     <listitem> 
+		<para>Используйте этот выпадающий список для выбора режима, которым вы хотите отображать апплет. Доступные режимы: График, Текст, График и текст.</para> 
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Показывать частоту ЦП как частоту</guilabel></term>
+	    <listitem>
+	       <para>Выберите этот параметр для отображения текущей частоты процессора.</para>
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Показывать единицы частоты</guilabel></term>
+	    <listitem>
+	       <para>Выберите этот параметр для отображения единиц измерения частоты в частотном режиме отображения.</para>
+	    </listitem>
+	 </varlistentry>
+	  <varlistentry>
+	     <term><guilabel>Показывать частоту ЦП в процентах</guilabel></term>
+	     <listitem>
+		<para>Выберите этот параметр для отображения текущей частоты процессора в процентах.</para>
+	     </listitem>
+	  </varlistentry>
+
+	  <varlistentry><term><guilabel>Показать меню</guilabel></term>
+	   <listitem>
+	    <para>Этот параметр позволяет вам выбрать, что должно отображаться в выпадающем переключателе частоты (смотрите <xref linkend="gnome-cpufreq-selector"/>). Вы можете выбрать отображение <guilabel>Частоты</guilabel>, <guilabel>Регуляторы</guilabel> или и то и другое, выбрав <guilabel>Частоты и регуляторы</guilabel>. <figure id="cpufreq-applet-selector-both-2">
+	    <title>Переключатель настроен на Частоты и Регуляторы</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Регуляторы ЦПУ</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure></para>
+	  </listitem></varlistentry>
+       </variablelist>
+  </sect1>
+
+</article>

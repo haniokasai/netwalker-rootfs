@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -eu
+
+case "$1" in
+    	configure)
+                # if you come from a really old network manager we have
+                # to comment the auto dhcp lines as a best effort approach
+
+		if dpkg --compare-versions "$2" "lt-nl" "0.6.5-0ubuntu12"; then
+		    sh /usr/lib/network-manager/ifblacklist_migrate.sh
+		    sleep 2
+                fi
+
+		if dpkg --compare-versions "$2" "le-nl" "0.7.1~20090213+gitf142e15-0ubuntu1"; then
+		    update-rc.d -f NetworkManager remove
+                fi
+
+		update-rc.d NetworkManager start 50 2 3 4 5 .
+
+		# request a reboot (NM tears down interfaces on restart
+		# which is not the way we want to go)
+		/usr/share/update-notifier/notify-reboot-required
+
+		[ -x /etc/dbus-1/event.d/25NetworkManager.dpkg-moving ] && \
+			rm -f /etc/dbus-1/event.d/25NetworkManager.dpkg-moving
+		[ -x /etc/dbus-1/event.d/25NetworkManager.dpkg-removing ] && \
+			rm -f /etc/dbus-1/event.d/25NetworkManager.dpkg-removing
+
+		[ -x /etc/dbus-1/event.d/26NetworkManagerDispatcher.dpkg-moving ] && \
+			rm -f /etc/dbus-1/event.d/26NetworkManagerDispatcher.dpkg-moving
+		[ -x /etc/dbus-1/event.d/26NetworkManagerDispatcher.dpkg-removing ] && \
+			rm -f /etc/dbus-1/event.d/26NetworkManagerDispatcher.dpkg-removing
+    	;;
+esac
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+	ldconfig
+fi
+# End automatically added section
+
+
+exit 0

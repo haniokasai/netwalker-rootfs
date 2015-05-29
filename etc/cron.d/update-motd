@@ -1,0 +1,10 @@
+# /etc/cron.d/update-motd: crontab fragment for update-motd
+#
+# Running 'update-motd' dynamically generates the /etc/motd with
+# a concatenation of output from each script in /etc/update-motd.d/*
+
+*/10 * * * *	root	[ -x /usr/sbin/update-motd ] && /usr/sbin/update-motd 2>/dev/null
+0 * * * *	root	[ -x /usr/sbin/update-motd ] && /usr/sbin/update-motd hourly 2>/dev/null
+0 0 * * *	root	[ -x /usr/sbin/update-motd ] && /usr/sbin/update-motd daily 2>/dev/null
+0 0 * * 0	root	[ -x /usr/sbin/update-motd ] && /usr/sbin/update-motd weekly 2>/dev/null
+0 0 1 * *	root	[ -x /usr/sbin/update-motd ] && /usr/sbin/update-motd monthly 2>/dev/null

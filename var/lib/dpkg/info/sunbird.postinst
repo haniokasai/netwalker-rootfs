@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+
+if [ -x /usr/sbin/update-desktop-database ]; then
+    /usr/sbin/update-desktop-database
+fi
+
+# Automatically added by dh_makeshlibs
+if [ "$1" = "configure" ]; then
+	ldconfig
+fi
+# End automatically added section
+
+
+echo "Please restart any running Sunbirds, or you will experience problems."
+
+unud=/var/lib/update-notifier/user.d
+
+if pgrep sunbird-bin >/dev/null 2>&1 && test -d $unud; then
+    cp -f /usr/share/sunbird/sunbird-restart-required.update-notifier \
+        "$unud/sunbird-restart-required"
+fi
+
+crd=/usr/lib/sunbird/components/compreg.dat
+if test -f $crd; then
+    cat >&2 <<'END'
+Warning: something created compreg.dat!
+Your system was affected by this bug: https://launchpad.net/bugs/30791
+compreg.dat has now been removed again, which should fix the symptoms.
+END
+    rm $crd
+fi

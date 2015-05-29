@@ -1,0 +1,1 @@
+/usr/share/pyshared/launchpadbugs/xmlrpc_bug.py

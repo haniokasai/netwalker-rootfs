@@ -1,0 +1,45 @@
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:          stop-readahead
+# Required-Start:    $all readahead-desktop
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: init script for stopping readahead profiling
+### END INIT INFO
+
+# Check the package is still installed
+[ -x /sbin/readahead-list ] || exit 0
+
+# Get LSB functions
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+# This is only necessary if "profile" was on the kernel command-line,
+# and thus readahead-watch is running.
+grep -q "profile" /proc/cmdline || exit 0
+
+
+case "$1" in
+    start)
+	if [ -f /var/run/readahead-watch-boot.pid ]; then
+	    /sbin/start-stop-daemon --stop --quiet --oknodo \
+		--pidfile /var/run/readahead-watch-boot.pid
+
+	    rm -f /var/run/readahead-watch-boot.pid
+	fi
+
+	/sbin/start-stop-daemon --stop --quiet --oknodo \
+	    --pidfile /var/run/readahead-watch.pid
+
+	rm -f /var/run/readahead-watch.pid
+	;;
+    stop|restart|force-reload)
+	;;
+    *)
+	echo "Usage: /etc/init.d/stop-readahead {start|stop|restart|force-reload}"
+	exit 1
+	;;
+esac
+
+exit 0

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appletversion "2.12.0">
+<!ENTITY applet "CPU Frequency Scaling Monitor">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Feb 06, 2003
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="ca">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+	<title>Manual del monitor de l'escalat de la freqüència de la CPU</title> 
+        <abstract role="description">
+	  <para>El monitor de l'escalat de la freqüència de la CPU mostra la velocitat de rellotge actual de la CPU i proporciona una interfície per canviar-la (si la CPU ho permet).</para>
+	</abstract>
+	<copyright>
+	  <year>2005</year>
+	  <holder>Davyd Madeley</holder>
+	</copyright>
+        <copyright>
+	   <year>2004</year>
+            <holder>Fundació GNOME</holder>
+        </copyright><copyright><year>2007</year><holder>Gil Forcada (gilforcada@guifi.net)</holder></copyright>
+
+<!-- translators: uncomment this:
+  <copyright>
+   <year>2003</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+   -->
+
+	 <publisher role="maintainer"> 
+		<publishername>Projecte de documentació del GNOME</publishername> 
+	 </publisher> 
+
+  <legalnotice id="legalnotice">
+	<para>Teniu permís per a copiar, distribuir i/o modificar aquest document, sota els termes de la Llicència de documentació lliure GNU (GFDL), versió 1.1 o qualsevol versió publicada posteriorment per la Free Software Foundation, sense seccions invariants, sense texts de portada i sense texts de contraportada. Podeu trobar una còpia de la GFDL en aquest <ulink type="help" url="ghelp:fdl">enllaç</ulink> o en el fitxer COPYING-DOCS distribuït amb aquest manual.</para>
+         <para>Aquest manual forma part d'una col·lecció de manuals del GNOME distribuïts sota la GFDL. Si voleu distribuir aquest manual independentment de la col·lecció, podeu fer-ho afegint una còpia de la llicència al manual, tal com es descriu a la secció 6 de la llicència.</para>
+
+	<para>Molts dels noms que les empreses utilitzen per a distingir els seus productes i serveis es consideren marques comercials. Quan aquests noms apareguin en qualsevol documentació del GNOME, si els membres del Projecte de documentació del GNOME han estat avisats pel que fa a les marques, els noms apareixeran en majúscules o amb les inicials en majúscules.</para>
+
+	<para>EL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT S'OFEREIXEN SOTA ELS TERMES DE LA LLICÈNCIA DE DOCUMENTACIÓ LLIURE DE GNU, TENINT EN COMPTE QUE: <orderedlist>
+		<listitem>
+		  <para>EL DOCUMENT S'OFEREIX «TAL COM ÉS», SENSE CAP TIPUS DE GARANTIA, NI EXPLÍCITA NI IMPLÍCITA; AIXÒ INCLOU, SENSE LIMITAR-S'HI, LES GARANTIES QUE EL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT NO TINGUI DEFECTES, SIGUI COMERCIALITZABLE, SIGUI ADEQUAT PER A UN ÚS CONCRET O NO INFRINGEIXI CAP LLEI. TOT EL RISC PEL QUE FA A LA QUALITAT, EXACTITUD I RENDIMENT DEL DOCUMENT O LA VERSIÓ MODIFICADA DEL DOCUMENT ÉS VOSTRE. EN CAS QUE EL DOCUMENT RESULTÉS DEFECTUÓS EN QUALSEVOL ASPECTE, VÓS (NO PAS L'ESCRIPTOR INICIAL, L'AUTOR O CAP ALTRE COL·LABORADOR) ASSUMIU TOT EL COST DE MANTENIMENT, REPARACIÓ O CORRECCIÓ. AQUESTA RENÚNCIA DE GARANTIA CONSTITUEIX UNA PART ESSENCIAL D'AQUESTA LLICÈNCIA. NO S'AUTORITZA L'ÚS DE CAP DOCUMENT O VERSIÓ MODIFICADA DEL DOCUMENT EXCEPTE SOTA AQUESTA RENÚNCIA DE GARANTIA; I </para>
+		</listitem>
+		<listitem>
+		  <para>EN CAP CAS I SOTA CAP INTERPRETACIÓ LEGAL, JA SIGUI PER AGREUJAMENT (INCLOENT-HI LA NEGLIGÈNCIA), CONTRACTE O ALTRE CAS, L'AUTOR, L'ESCRIPTOR ORIGINAL, QUALSEVOL DELS COL·LABORADORS O DISTRIBUÏDORS DEL DOCUMENT O UNA VERSIÓ MODIFICADA DEL DOCUMENT NI CAP PROVEÏDOR D'AQUESTES PARTS NO SERAN RESPONSABLES DAVANT DE NINGÚ PER CAP DANY DIRECTE, INDIRECTE, ESPECIAL, ACCIDENTAL O CONSECUTIU DE QUALSEVOL TIPUS; AIXÒ INCLOU, SENSE LIMITAR-S'HI, ELS DANYS PER PÈRDUA DE CLIENTS, INTERRUPCIONS DE LA FEINA, FALLADA O MALFUNCIONAMENT DE L'ORDINADOR, O QUALSEVOL ALTRA PÈRDUA O DANY RELACIONAT AMB L'ÚS DEL DOCUMENT I LES VERSIONS MODIFICADES DEL DOCUMENT, FINS I TOT SI S'HA INFORMAT AQUESTA PART DE LA POSSIBILITAT D'AQUESTS DANYS.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+<!-- This file  contains link to license for the documentation (GNU FDL), and 
+     other legal stuff such as "NO WARRANTY" statement. Please do not change 
+     any of this. -->
+
+	 <authorgroup> 
+            <author>
+	       <firstname>Carlos</firstname>
+	       <surname>Garcia Campos</surname>
+	       <affiliation>
+                  <orgname>Projecte GNOME</orgname>
+		  <address><email>carlosgc@gnome.org</email></address>
+	       </affiliation>
+            </author>
+	    <author>
+	      <firstname>Davyd</firstname>
+	      <surname>Madeley</surname>
+	      <affiliation>
+	        <orgname>Projecte GNOME</orgname>
+		<address><email>davyd@madeley.id.au</email></address>
+	      </affiliation>
+	    </author>
+      <!-- This is appropriate place for other contributors: translators,
+           maintainers,  etc. Commented out by default.
+        <othercredit role="translator">
+	      <firstname>Latin</firstname> 
+	      <surname>Translator 1</surname> 
+	      <affiliation> 
+	      	<orgname>Latin Translation Team</orgname> 
+	       	<address> <email>translator@gnome.org</email> </address> 
+	      </affiliation>
+	      <contrib>Latin translation</contrib>
+        </othercredit>
+-->
+	 </authorgroup>
+
+	 <revhistory>
+	   <revision>
+	     <revnumber>GNOME 2.12</revnumber>
+	     <date>Agost de 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+	   <revision>
+	     <revnumber>GNOME 2.10</revnumber>
+	     <date>Març de 2005</date>
+	     <revdescription>
+	      <para role="author">Davyd Madeley</para>
+	     </revdescription>
+	   </revision>
+		<revision> 
+		  <revnumber>Manual de la miniaplicació del monitor de l'escalat de la freqüència de la CPU (Versió 0.3)</revnumber> 
+		  <date>Octubre de 2004</date> 
+		  <revdescription> 
+                    <para role="author">Carlos Garcia Campos</para>
+                    <para role="publisher">Projecte de documentació del GNOME</para>
+		  </revdescription> 
+		</revision> 
+	 </revhistory> 
+
+	 <releaseinfo>Aquest manual descriu la versió 2.12.0 del monitor de l'escalat de la freqüència de la CPU.</releaseinfo> 
+
+		<legalnotice> 
+		<title>Comentaris</title> 
+		<para>Per a informar d'un error o fer un suggeriment sobre la miniaplicació del monitor de l'escalat de la freqüència de la CPU o aquest manual, seguiu les indicacions de la <ulink url="ghelp:gnome-feedback" type="help">Pàgina de suggeriments del GNOME</ulink>.</para>
+	     </legalnotice>
+
+  </articleinfo> 
+
+  <indexterm zone="index"> 
+	 <primary>Monitor de l'escalat de la freqüència de la CPU</primary> 
+  </indexterm>
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+<sect1 id="cpufreq-applet-introduction"> 
+	 <title>Introducció</title> 
+	 <figure id="cpufreq-applet-figure"> 
+	    <title>Monitor de l'escalat de la freqüència de la CPU</title> 
+		<screenshot> 
+		  <mediaobject> 
+		     <imageobject>
+			<imagedata fileref="figures/cpufreq-applet.png" format="PNG"/> 
+		     </imageobject>
+		  </mediaobject>
+	       </screenshot>
+	 </figure> 
+    <!-- ==== End of Figure ======================================= -->
+    <para>El <application>monitor de l'escalat de la freqüència de la CPU</application> proporciona una manera amigable de monitoritzar l'escalat de la freqüència de la CPU per a cada CPU.</para> 
+	 <para>Per a afegir el <application>monitor de l'escalat de la freqüència de la CPU</application> a un quadre, feu clic amb el botó secundari en el quadre per a obrir el menú contextual d'aquest, després escolliu <menuchoice><guimenu>Afegeix al quadre</guimenu><guimenuitem>Monitor de l'escalat de la freqüència de la CPU</guimenuitem></menuchoice>.</para> 
+	
+    <note><para>Desgraciadament, l'escalat de la freqüència de la CPU només es pot monitoritzar en ordinadors amb Linux que ho tinguin habilitat en el nucli. Tot i així, sap utilitzar les diferents generacions d'interfícies del nucli d'escalat de la freqüència.</para></note>
+   
+   <para>Quan el sistema no permet modificar l'escalat de la freqüència de la CPU, el monitor de l'escalat de la freqüència de la CPU només mostra la freqüència actual de la CPU.</para>
+   <para>Quan el sistema permet modificar l'escalat de la freqüència de la CPU, el monitor de l'escalat de la freqüència de la CPU mostra la icona de la CPU amb una barra de progrés. L'estat de la barra de progrés representa la freqüència actual de la CPU respecte la freqüència màxima.</para>
+   <para>Per defecte el monitor de l'escalat de la freqüència de la CPU mostra la freqüència actual de la CPU en Hertz (la unitat de mesura de freqüències estàndard), però es pot configurar perquè ho mostri en percentatges. Vegeu la <xref linkend="cpufreq-applet-prefs"/> per a més informació sobre com configurar el monitor de l'escalat de la freqüència de la CPU.</para>
+   <para>Cada instància del monitor de l'escalat de la freqüència de la CPU només pot monitoritzar una CPU. Si teniu un sistema multiprocessador (SMP), haureu d'iniciar una altra instància del monitor de l'escalat de la freqüència de la CPU per a cada CPU que vulgueu monitoritzar.</para>
+
+   <sect2 id="gnome-cpufreq-icons">
+     <title>El significat de cada icona</title>
+     <para>El monitor de l'escalat de la freqüència de la CPU te unes quantes icones que representen gràficament el nivell d'escalat actual del processador que es monitoritza. Són:</para>
+      <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+          <colspec colname="COLSPEC0" colwidth="50*"/>
+          <colspec colname="COLSPEC1" colwidth="50*"/>
+          <thead>
+            <row valign="top">
+              <entry colname="COLSPEC0">
+                <para>Icona</para></entry>
+              <entry colname="COLSPEC1">
+                <para>Descripció</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-100.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>100% de la potència</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>La CPU està funcionant, o s'hi acosta, al 100%</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-75.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>75% de la potència</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>La CPU està funcionant, o s'hi acosta, al 75%</para>
+	      </entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-50.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>50% de la potència</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>La CPU està funcionant, o s'hi acosta, al 50%</para></entry>
+	    </row>
+            <row valign="top">
+              <entry><para><inlinemediaobject><imageobject>
+               <imagedata fileref="figures/cpufreq-25.png" format="PNG"/>
+               </imageobject><textobject>
+                <phrase>25% de la potència</phrase>
+              </textobject></inlinemediaobject></para></entry>
+	      <entry><para>La CPU està funcionant, o s'hi acosta, al 25%</para></entry>
+	    </row>
+	  </tbody>
+	</tgroup>
+      </informaltable>
+   </sect2>
+   
+   <sect2 id="gnome-cpufreq-selector">
+      <title>Freqüència i el selector del governador</title>
+      <warning><para>És possible que no disposeu de la funcionalitat per a seleccionar la freqüència en el vostre escriptori GNOME. Consulteu l'administrador del sistema, la documentació del venedor o la documentació d'aquest mateix programari.</para></warning>
+      <para>Per a establir la freqüència de la CPU, feu clic en el monitor i es mostrarà un menú. Aquest menú us oferirà una llista de les freqüències i/o governadors de freqüència per a l'ordinador.</para>
+      <tip><para>Podeu escollir si voleu visualitzar les freqüències disponibles o els governadors en les <guilabel>Preferències</guilabel>. Per a més informació vegeu la <xref linkend="cpufreq-applet-prefs"/>.</para></tip>
+
+      <figure id="cpufreq-applet-selector-img">
+	 <title>El selector de freqüència mostra només les freqüències</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+
+      <figure id="cpufreq-applet-selector-both-img">
+	 <title>El selector de freqüència mostra tan les freqüències com els governadors</title>
+	 <screenshot>
+	    <mediaobject>
+	       <imageobject>
+		  <imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+	       </imageobject>
+	    </mediaobject>
+	</screenshot>
+      </figure>
+   </sect2>
+</sect1>
+
+<!-- ============= Customization ============================= -->
+<!-- Use this section to describe how to customize the applet. -->
+<sect1 id="cpufreq-applet-prefs"> 
+	 <title>Preferències</title> 
+	 <para>Per a configurar el <application>monitor de l'escalat de la freqüència de la CPU</application>, feu clic amb el botó secundari sobre la miniaplicació i després escolliu <guimenuitem>Preferències</guimenuitem> en el menú contextual.</para> 
+	 <para>El diàleg de <guimenuitem>Preferències</guimenuitem> conté els components següents:</para> 
+	 <figure id="cpufreq-applet-preferences">
+	    <title>Diàleg de les preferències del monitor de l'escalat de la freqüència de la CPU</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Diàleg de les preferències del monitor de l'escalat de la freqüència de la CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+
+	 <variablelist> 
+	   <varlistentry> 
+	      <term><guilabel>CPU monitoritzada (només en sistemes multiprocessadors)</guilabel></term> 
+	     <listitem> 
+		<para>Utilitzeu la llista desplegable per a seleccionar la CPU que voleu monitoritzar.</para>
+	 <figure id="cpufreq-applet-preferences-smp">
+	    <title>Selecció de la CPU a monitoritzar</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-preferences-smp.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Diàleg de selecció de la CPU del monitor de l'escalat de la freqüència de la CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure>
+	<note><para>L'opció <guilabel>CPU monitoritzada</guilabel> només apareix en sistemes multiprocessador (SMP).</para></note>
+	 
+	     </listitem>
+	   </varlistentry> 
+	   <varlistentry> 
+	      <term><guilabel>Aparença</guilabel></term> 
+	     <listitem> 
+		<para>Utilitzeu aquesta llista desplegable per a seleccionar el mode amb el qual visualitzar la miniaplicació. Els modes disponibles són: Gràfic, Text i ambdós (Gràfic i text)</para> 
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Mostra la freqüència de la CPU com a freqüència</guilabel></term>
+	    <listitem>
+	       <para>Seleccioneu aquesta opció per a visualitzar la freqüència actual de la CPU.</para>
+	    </listitem>
+	 </varlistentry>
+	 <varlistentry>
+	    <term><guilabel>Mostra les unitats de la freqüència</guilabel></term>
+	    <listitem>
+	       <para>Seleccioneu aquesta opció per a visualitzar les unitats de la freqüència en el mode de freqüència.</para>
+	    </listitem>
+	 </varlistentry>
+	  <varlistentry>
+	     <term><guilabel>Mostra la freqüència de la CPU com a percentatge</guilabel></term>
+	     <listitem>
+		<para>Seleccioneu aquesta opció per a mostrar la freqüència actual de la CPU com a percentatge.</para>
+	     </listitem>
+	  </varlistentry>
+
+	  <varlistentry><term><guilabel>Mostra el menú</guilabel></term>
+	   <listitem>
+	    <para>Aquesta opció us permet escollir quina informació es mostra en el desplegable de la selecció de freqüència (vegeu la <xref linkend="gnome-cpufreq-selector"/>). Podeu seleccionar visualitzar <guilabel>Freqüències</guilabel>, <guilabel>Governadors</guilabel> o ambdós <guilabel>Freqüències i governadors</guilabel>. <figure id="cpufreq-applet-selector-both-2">
+	    <title>El selector configurat a freqüències i governadors</title>
+	    <screenshot>
+	       <mediaobject>
+		  <imageobject><imagedata fileref="figures/cpufreq-applet-selector-both.png" format="PNG"/>
+		  </imageobject>
+		  <textobject>
+		     <phrase>Selector del governador de la CPU</phrase>
+		  </textobject>
+	       </mediaobject>
+	    </screenshot>
+	 </figure></para>
+	  </listitem></varlistentry>
+       </variablelist>
+  </sect1>
+
+</article>

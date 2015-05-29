@@ -1,0 +1,55 @@
+#!/usr/bin/python
+
+import os
+import re
+import sys
+
+
+def error(message):
+    sys.stderr.write("ERROR: %s\n" % message)
+    sys.exit(1)
+
+def check_ati():
+    command = "lsmod | grep fglrx"
+    fglrx_lines = os.popen(command).readlines()
+    if len(fglrx_lines) != 0:
+        print "impossible with fglrx"
+        return True
+
+    return False
+
+def check_resolution():
+    if check_ati():
+        return True
+
+    command = "xrandr -q"
+    xrandr_lines = os.popen(command).readlines()
+    star_lines = [l for l in xrandr_lines if "*" in l]
+    if len(star_lines) != 1:
+        error("%s should return a single line with '*'" % command)
+
+    star_line = star_lines[0]
+    match = re.search(r"(\d+)\s?x\s?(\d+)", star_line)
+    if not match:
+        error("%s should return pixels like '1024 x 768'" % command)
+
+    horizontal = match.group(1)
+    vertical = match.group(2)
+
+    fields = re.split(r"\s+", star_line)
+    star_fields = [f for f in fields if "*" in f]
+    if len(star_fields) < 1:
+        error("%s should return a refresh rate with '*'" % command)
+
+    print "%s x %s" % (horizontal, vertical)
+    return True
+
+def main(args):
+    if check_resolution():
+        return 0
+
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

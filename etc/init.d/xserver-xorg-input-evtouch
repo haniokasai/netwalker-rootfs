@@ -1,0 +1,59 @@
+#!/bin/sh
+
+[ -x /usr/bin/hal-set-property ] || exit 0
+[ -x /usr/bin/hal-find-by-property ] || exit 0
+
+. /etc/evtouch/config > /dev/null 2>&1 || exit 0
+
+do_start() {
+    UDI=$(/usr/bin/hal-find-by-property --key input.x11_driver --string evtouch)
+
+    hal_set () {
+        if [ -n "$2" ]; then
+     /usr/bin/hal-set-property --udi "$UDI" --key input.x11_options.$1 --string "$2" >/dev/null 2>&1
+        else
+     /usr/bin/hal-set-property --udi "$UDI" --key input.x11_options.$1 --remove >/dev/null 2>&1
+        fi
+    }
+
+    hal_set minx $MINX
+    hal_set miny $MINY
+    hal_set maxx $MAXX
+    hal_set maxy $MAXY
+    hal_set x0 $X0
+    hal_set y0 $Y0
+    hal_set x1 $X1
+    hal_set y1 $Y1
+    hal_set x2 $X2
+    hal_set y2 $Y2
+    hal_set x3 $X3
+    hal_set y3 $Y3
+    hal_set x4 $X4
+    hal_set y4 $Y4
+    hal_set x5 $X5
+    hal_set y5 $Y5
+    hal_set x6 $X6
+    hal_set y6 $Y6
+    hal_set x7 $X7
+    hal_set y7 $Y7
+    hal_set x8 $X8
+    hal_set y8 $Y8
+}
+
+case "$1" in
+  start|"")
+        do_start
+        ;;
+  restart|reload|force-reload)
+        echo "Error: argument '$1' not supported" >&2
+        exit 3
+        ;;
+  stop)
+        # No-op
+        ;;
+  *)
+        echo "Usage: evtouch [start|stop]" >&2
+        exit 3
+        ;;
+esac
+

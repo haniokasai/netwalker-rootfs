@@ -1,0 +1,1 @@
+/usr/share/pyshared/launchpadbugs/attachmentsbase.py

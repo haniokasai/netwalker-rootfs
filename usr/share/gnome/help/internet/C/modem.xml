@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD Docbook XML V.4.3//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+	  <!ENTITY % globalent SYSTEM "../../libs/global.ent">
+	  %globalent;
+	  <!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+	  %gnome-menus-C;
+	  <!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+	  %xinclude;
+	  <!ENTITY language "en">
+	  <!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+	  ]>
+	  <?db.chunk.max_depth 4?>
+<?yelp:chunk-depth 4?>
+<chapter id="modem" status="review">
+	<title>Modems</title>
+	<sect1 id="modem-identify" status="review">
+		<title>Identifying your modem</title>	
+		<para>Most dialup modems are not supported by Ubuntu, but drivers can be found that will enable the use of some such modems. First you need to identify what chipset your dialup modem is:</para>
+		<procedure>
+			<step>
+				<para>Download <application>scanmodem</application> (<ulink url="&scanmodem-url;">&scanmodem-url;</ulink>) using a computer with an Internet connection.</para>
+			</step>
+			<step>
+				<para>Copy the downloaded file to the Home folder of the computer with the dialup modem you wish to use.</para>
+			</step>
+			<step>
+				<para>Open a Terminal (&terminal;) and type the following commands, pressing <keycap>Enter</keycap> after each line:</para>
+				<screen>
+gunzip -c &scanmodem-gz; &gt; scanModem 
+chmod +x scanModem
+sudo ./scanModem 
+gedit Modem/ModemData.txt
+		</screen>
+			</step>
+			<step>
+				<para>A file containing information on the chipsets used by any detected modems should open. Print or save the information.</para>
+			</step>
+		</procedure>
+		<para>Much more detailed information is available <ulink url="https://help.ubuntu.com/community/DialupModemHowto"> on the community wiki.</ulink></para>
+	</sect1>
+	<sect1 id="modem-connect" status="review">
+		<title>Connecting with a modem</title>
+		<para>NetworkManager doesn't currently support modem connections, so you will need to <ulink url="apt:gnome-network-admin">install the gnome-network-admin package</ulink>.
+		If you have no working Internet connection, then you will need to obtain this package and install it, see <ulink url="ghelp:add-applications#installing-deb">Downloading and installing a .deb package</ulink> for more information.</para>
+		<important>
+			<para>You will need to know the following information:</para>
+			<para>ISP Phone Number; Username; Password; Domain Name Server (DNS) addresses.</para>
+		</important>
+		<procedure>
+			<step><para>Open &networking;</para></step>
+			<step><para>Press <guibutton>Unlock</guibutton> and type your password to unlock the settings</para></step>
+			<step><para>Select the <guilabel>Connections</guilabel> tab.</para></step>
+			<step><para>Select <guilabel>Point to point connection</guilabel> and press <guibutton>Properties</guibutton>.</para></step>
+			<step><para>Tick <guilabel>Enable this connection</guilabel></para></step>
+			<step><para>Choose <guilabel>Serial Modem</guilabel> from the <guilabel>Connection Type</guilabel> drop down.</para></step>
+			<step><para>Under Internet Service Provider data, enter the phone number and dial prefix.</para></step>
+			<step><para>Under Account Data enter your password and username.</para></step>
+			<step><para>Click the <guilabel>Modem tab</guilabel>.</para></step>
+			<step><para>Choose the modem settings you require.</para></step>
+			<step><para>Click <guibutton>OK</guibutton>.</para></step>
+			<step><para>Select the <guilabel>DNS</guilabel> tab and enter the DNS addresses of your ISP.</para></step>
+			<step><para>click <guibutton>Close</guibutton>.</para></step>
+		</procedure>
+	</sect1>
+</chapter>

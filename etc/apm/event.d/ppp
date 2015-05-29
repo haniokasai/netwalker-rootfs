@@ -1,0 +1,45 @@
+#!/bin/sh -e
+# Stop/restart PPP connection at suspend/resume.
+
+[ -x /usr/sbin/pppd ] || exit 0
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+RESTART_FILE=/var/run/pppd-restart
+
+# Currently it's too hard to reliably detect which connections are active
+# and should be restarted later, so we will restart the network only if a
+# specific peer is configured. Set $RESTART_PEER in /etc/ppp/apm.conf .
+[ -f /etc/ppp/apm.conf ] && . /etc/ppp/apm.conf
+
+# this should match all processes started by pon
+suspend() {
+    for pidfile in /var/run/ppp[0-9].pid; do
+	[ "$pidfile" = "/var/run/ppp[0-9].pid" ] && break
+	kill $(cat $pidfile) 2> /dev/null
+        KILLED=yes
+    done
+    if [ "$KILLED" ]; then
+	: > $RESTART_FILE
+    else
+	rm -f $RESTART_FILE
+    fi
+}
+
+resume() {
+    [ "$RESTART_PEER" -a -f $RESTART_FILE ] || return 0
+    pon $RESTART_PEER || true
+    rm -f $RESTART_FILE
+}
+
+case "$1,$2" in
+suspend,*)
+    suspend
+    ;;
+resume,suspend)
+    resume
+    ;;
+esac
+
+exit 0
+

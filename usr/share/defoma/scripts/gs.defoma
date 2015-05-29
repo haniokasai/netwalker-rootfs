@@ -1,0 +1,930 @@
+#
+# gs.defoma: Defoma support for Ghostscripts
+#
+
+@ACCEPT_CATEGORIES = qw(type1 type3 gsfontderivative truetype cid
+			cmap psprint);
+
+package gs;
+use strict;
+use POSIX;
+
+use vars qw($DEFOMA_TEST_DIR $ROOTDIR);
+
+use Debian::Defoma::Common;
+use Debian::Defoma::Font;
+use Debian::Defoma::Id;
+use Debian::Defoma::Subst;
+import Debian::Defoma::Font;
+import Debian::Defoma::Id;
+import Debian::Defoma::Subst;
+import Debian::Defoma::Common;
+
+my $Id;
+my $IdCmap;
+my $Sb1;
+my $Sb2;
+
+my $PkgDir = "$ROOTDIR/gs.d";
+my $CidDir = "$PkgDir/dirs/CIDFont";
+my $CMapDir = "$PkgDir/dirs/CMap";
+my $TTCidDir = "$PkgDir/dirs/TTCIDFont";
+my $FontDir = "$PkgDir/dirs/fonts";
+my $FontMap = "$FontDir/Fontmap";	# F
+my $CIDFontMap = "$FontDir/CIDFnmap";	# FF
+my $Subst4psprint = 0;
+# For Ghostscript 8 or later
+my $FAPIfmap = "$FontDir/FAPIfontmap";	# FFF
+my $Cidfmap = "$FontDir/cidfmap";	# FFFF
+
+sub init {
+  unless ($Id) {
+    $Id = defoma_id_open_cache();
+  }
+  unless ($IdCmap) {
+    $IdCmap = defoma_id_open_cache('cmap');
+  }
+  unless ($Sb1) {
+    $Sb1 = defoma_subst_open(rulename => 'psprint', threshold => 50,
+			     idobject => $Id, private => 1);
+  }
+  unless ($Sb2) {
+    $Sb2 = defoma_subst_open(rulename => 'ghostscript', threshold => 30,
+			     idobject => $Id);
+  }
+  
+  return 0;
+}
+
+sub term {
+  my @list;
+  my $i;
+  
+  if ($Id) {
+    if (open(F, '>' . $FontMap) && open(FF, '>' . $CIDFontMap) &&
+	open(FFF, '>' . $FAPIfmap) && open(FFFF, '>' . $Cidfmap)) {
+	  @list = defoma_id_get_font($Id, 'installed');
+	  
+	  foreach $i (@list) {
+	    next if ($Id->{2}->[$i] ne 'SrI');
+	    my $c = $Id->{4}->[$i];
+	    my $f;
+	    my @h;
+	    my $cmap;
+	    my @cmaplist;
+	    my $j;
+	    my @ch;
+	    my %hh;
+	    
+	    if ($c =~ /^(type1|type3|gsfontderivative)$/) {
+	      $f = $Id->{1}->[$i];
+	      $f =~ s/^.*\///;
+	      #
+	      # Spit out $FontDir/Fontmap
+	      #
+	      print F '/', $Id->{0}->[$i], ' (', $f, ") ;\n";
+	    } elsif ($c =~ /^truetype$/) {
+	      $f = $Id->{1}->[$i];
+	      #
+	      # Spit out $FontDir/FAPIfontmap
+	      #
+	      # FIXME: need to support the sub font id for the collection.
+	      print FFF '/', $Id->{0}->[$i], ' << /Path (', $f, ') /FontType 1 /FAPI /FreeType /SubfontId ', '0' , " >> ;\n"
+	    } elsif ($c =~ /^(truetype-cjk|cid)$/) {
+	      $f = $Id->{1}->[$i];
+	      @h = split(/ +/, $Id->{7}->[$i]);
+	      #
+	      # Spit out $FontDir/CIDFnmap
+	      #
+	      print FF '/', $Id->{0}->[$i], ' (', $f, ') ';
+	      if ($c eq 'truetype-cjk') {
+		print FF '/', $h[0], '-', $h[1], '-', $h[2];
+	      }
+	      print FF " ;\n";
+	      # For Ghostscript 8 or later
+	      if ($c eq 'truetype-cjk') {
+		my @hints = defoma_id_get_hints( $Id, $i );
+		my $cidsupplement;
+		while (@hints) {
+		  my $var = shift @hints;
+		  if ($var eq "--CIDSupplement") {
+		    $cidsupplement = shift @hints;
+		    last;
+		  }
+		}
+		unless (defined $cidsupplement) {
+		  print STDERR "No CIDSupplement specified for $Id->{0}->[$i], defaulting to 0.\n";
+		  $cidsupplement = 0;
+		}
+		#
+		# Spit out $FontDir/cidfmap
+		#
+		# FIXME: need to support the sub font id for the collection.
+		print FFFF '/', $Id->{0}->[$i], ' << /FileType /TrueType /Path (', $f, ') /SubfontID ', '0', ' /CSI [(', $h[6], ') ', $cidsupplement, "] >> ;\n";
+	      }
+	    }
+	  }
+	  
+	  @list = defoma_id_get_font($Id, 'installed');
+	  
+	  foreach $i (@list) {
+	    next if ($Id->{2}->[$i] !~ /^.[aS]/);
+	    
+	    my $c = $Id->{4}->[$i];
+	    #
+	    # Spit out aliases
+	    #	    
+	    if ($c =~ /^(truetype|type1|type3|gsfontderivative)$/) {
+	      print F '/', $Id->{0}->[$i], ' /', $Id->{5}->[$i], " ; \n";
+	      print FFF '/', $Id->{0}->[$i], ' /', $Id->{5}->[$i], " ; \n";
+	    } elsif ($c =~ /^(truetype-cjk|cid)$/) {
+	      print FF '/', $Id->{0}->[$i], ' /', $Id->{5}->[$i], " ;\n";
+	      print FFFF '/', $Id->{0}->[$i], ' /', $Id->{5}->[$i], " ;\n";
+	    }
+	    
+	  }
+	  
+	  close F;
+	  close FF;
+	  close FFF;
+	  close FFFF;
+	  unlink($FontMap) unless(-s $FontMap);
+	  unlink($CIDFontMap) unless(-s $CIDFontMap);
+	  unlink($FAPIfmap) unless(-s $FAPIfmap);
+	  unlink($Cidfmap) unless(-s $Cidfmap);
+	}
+    
+    defoma_id_close_cache($Id);
+    $Id = 0;
+  }
+  if ($IdCmap) {
+    defoma_id_close_cache($IdCmap);
+    $IdCmap = 0;
+  }
+  if ($Sb1) {
+    defoma_subst_close($Sb1);
+    $Sb1 = 0;
+  }
+  if ($Sb2) {
+    defoma_subst_close($Sb2);
+    $Sb2 = 0;
+  }
+  
+  return 0;
+}
+
+sub create_symlink {
+  my $font = shift;
+  my $dir = shift || $FontDir;
+  
+  if ($font =~ /^(.*)\/(.+)$/) {
+    my $fontpath = $1;
+    my $fontfile = $2;
+    my $newfile = $dir . '/' . $fontfile;
+    
+    return 1 if (-e $newfile);
+    
+    symlink($font, $newfile) || return 1;
+  } else {
+    return 1;
+  }
+  
+  return 0;
+}
+
+sub remove_symlink {
+  my $font = shift;
+  my $dir = shift || $FontDir;
+  
+  if ($font =~ /^(.*)\/(.+)$/) {
+    my $fontpath = $1;
+    my $fontfile = $2;
+    my $newfile = $dir . '/' . $fontfile;
+    
+    return 1 unless (-l $newfile);
+    
+    unlink($newfile);
+  } else {
+    return 1;
+  }
+  
+  return 0;
+}
+
+sub register_ps {
+  my $id = shift;
+  
+  defoma_font_register('postscript', '<gs>/' . $id, @_);
+}
+
+sub unregister_ps {
+  my $id = shift;
+  
+  if (defoma_font_if_register('postscript', '<gs>/' . $id)) {
+    defoma_font_unregister('postscript', '<gs>/' . $id);
+  }
+}
+
+sub t1_register {
+  my $type = shift;
+  my $font = shift;
+  my $h = parse_hints_start(@_);
+  
+  my $fontname = $h->{FontName};
+  return 1 unless ($fontname);
+  $fontname =~ s/ .*//;
+  
+  my $priority = $h->{Priority} || 0;
+  
+  my %add;
+  $add{hints} = join(' ', @_);
+  
+  if ($type eq 'gsfontderivative') {
+    my $ofont = $h->{'GSF-OriginFont'};
+    my $oid = $h->{'GSF-OriginID'};
+    
+    if ($ofont && $oid) {
+      $add{depend} = $ofont.' '.$oid;
+    } else {
+      return 2;
+    }
+  }
+  
+  return 3 if (create_symlink($font));
+  
+  defoma_id_register($Id, type => 'real', font => $font, id => $fontname,
+		     priority => $priority, %add);
+  
+  my @alias = ($h->{Alias}) ? split(/ +/, $h->{Alias}) : ();
+  my $i;
+  
+  foreach $i (@alias) {
+    defoma_id_register($Id, type => 'alias', font => $font, id => $i,
+		       priority => $priority, origin => $fontname);
+  }
+  
+  defoma_subst_register($Sb1, $font, $fontname);
+  defoma_subst_register($Sb2, $font, $fontname);
+  
+  return 0;
+}
+
+sub t1_unregister {
+  my $font = shift;
+  
+  defoma_subst_unregister($Sb1, $font);
+  defoma_subst_unregister($Sb2, $font);
+  defoma_id_unregister($Id, type => 'alias', font => $font);
+  defoma_id_unregister($Id, type => 'real', font => $font);
+  
+  remove_symlink($font);
+  
+  return 0;
+}
+
+sub t1_install {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  my @add = ();
+  
+  if ($type eq 'real') {
+    return 0 if (grep($_ eq '--Alias', @_));
+    
+    $add[0] = '--RealName';
+  }
+  
+  register_ps($id, @_, @add);
+  
+  return 0;
+}
+
+sub t1_remove {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  
+  unregister_ps($id);
+  
+  return 0;
+}
+
+sub type1 {
+  my $com = shift;
+  
+  if ($com eq 'register') {
+    return t1_register('type1', @_);
+  } elsif ($com eq 'unregister') {
+    return t1_unregister(@_);
+  } elsif ($com =~ /^do-install-(.*)$/) {
+    return t1_install($1, @_);
+  } elsif ($com =~ /^do-remove-(.*)$/) {
+    return t1_remove($1, @_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+  
+  return 0;
+}
+
+sub type3 {
+  return type1(@_);
+}
+
+sub gsfontderivative {
+  my $com = shift;
+  
+  if ($com eq 'register') {
+    return t1_register('gsfontderivative', @_);
+  } else {
+    return type1($com, @_);
+  }
+}
+
+sub tt_register_cjk {
+  my %addstr = ('Japanese' => '-Ja',
+		'Korean' => '-Ko',
+		'Chinese-China' => '-GB',
+		'Chinese-Taiwan' => '-CNS');
+  my %ordering = ('Japanese' => 'Japan1',
+		  'Korean' => 'Korea1',
+		  'Chinese-China' => 'GB1',
+		  'Chinese-Taiwan' => 'CNS1');
+  my %coding = ('Unicode' => 'Unicode',
+		'BIG5' => 'Big5',
+		'ShiftJIS' => 'ShiftJIS',
+		'WanSung' => 'WanSung',
+		'Johab' => 'Johab');
+  
+  my $cnt = shift;
+  my $loc = shift;
+  my $font = shift;
+  my $fontname = shift;
+  my $alias = shift;
+  my $charset = shift;
+  my $encoding = shift;
+  my $priority = shift;
+  
+  return $cnt unless (exists($addstr{$loc}) && exists($ordering{$loc}) &&
+		      exists($coding{$encoding}));
+  my $ord = $ordering{$loc};
+  my $enc = $coding{$encoding};
+  
+  my $add = '';
+  $add = $addstr{$loc} if ($cnt > 0);
+  
+  my @hints = ('Adobe', $ord, $enc,
+	       '--CIDRegistry', 'Adobe', '--CIDOrdering', $ord);
+  
+  defoma_id_register($Id, type => 'real', font => $font,
+		     id => $fontname . $add, priority => $priority,
+		     category => 'truetype-cjk',
+		     hints => join(' ', @hints, @_));
+  
+  foreach my $i (@{$alias}) {
+    defoma_id_register($Id, type => 'alias', font => $font,
+		       id => $i . $add, priority => $priority,
+		       category => 'truetype-cjk',
+		       origin => $fontname . $add);
+  }
+  
+  defoma_subst_register($Sb1, $font, $fontname . $add);
+  defoma_subst_register($Sb2, $font, $fontname . $add);
+  
+  $cnt++;
+  return $cnt unless ($charset =~ /JISX0212/ && $loc eq 'Japanese' &&
+		      $encoding eq 'Unicode');
+  
+  $add = '-JaH';
+  @hints = ('Adobe', 'Japan2', 'Unicode',
+	    '--CIDRegistry', 'Adobe', '--CIDOrdering', 'Japan2');
+  
+  defoma_id_register($Id, type => 'real', font => $font,
+		     id => $fontname . $add, priority => $priority,
+		     category => 'truetype-cjk',
+		     hints => join(' ', @hints, @_));
+  
+  foreach my $i (@{$alias}) {
+    defoma_id_register($Id, type => 'alias', font => $font,
+		       id => $i . $add, priority => $priority,
+		       category => 'truetype-cjk',
+		       origin => $fontname . $add);
+  }
+  
+  defoma_subst_register($Sb1, $font, $fontname . $add);
+  defoma_subst_register($Sb2, $font, $fontname . $add);
+  
+  $cnt++;
+  return $cnt;
+}
+
+sub tt_register {
+  my $font = shift;
+  my $h = parse_hints_start(@_);
+  my $i;
+  
+  my $fontname = $h->{FontName};
+  my $location = $h->{Location};
+  my $encoding = $h->{Encoding};
+  my $priority = $h->{Priority} || 0;
+  my $charset = $h->{Charset};
+  
+  return 1 unless ($fontname && $location && $encoding);
+  $fontname =~ s/ .*//;
+  my @alias = ($h->{Alias}) ? split(/ +/, $h->{Alias}) : ();
+  
+  return 2 if (create_symlink($font));
+  
+  parse_hints_cut($h, 'Encoding', 'Location', 'FontName');
+  my @hints;
+  
+  if ($location !~ /Japanese|Korean|Chinese/) {
+    @hints = parse_hints_build($h);
+    
+    defoma_id_register($Id, type => 'real', font => $font, id => $fontname,
+		       priority => $priority, hints => join(' ', @hints));
+    
+    foreach $i (@alias) {
+      defoma_id_register($Id, type => 'alias', font => $font, id => $i,
+			 priority => $priority, origin => $fontname);
+    }
+    
+    defoma_subst_register($Sb1, $font, $fontname);
+    defoma_subst_register($Sb2, $font, $fontname);
+  } else {
+    parse_hints_cut($h, 'Charset');
+    @hints = parse_hints_build($h);
+    
+    my $loc;
+    my @locs = split(/ /, $location);
+    my $cnt = 0;
+    
+    foreach $loc (@locs) {
+      $cnt = tt_register_cjk($cnt, $loc, $font, $fontname, \@alias,
+			     $charset, $encoding, $priority, @hints);
+    }
+  }
+  
+  return 0;
+}
+
+sub tt_unregister {
+  my $font = shift;
+  
+  defoma_subst_unregister($Sb1, $font);
+  defoma_subst_unregister($Sb2, $font);
+  defoma_id_unregister($Id, type => 'alias', font => $font);
+  defoma_id_unregister($Id, type => 'real', font => $font);
+  
+  remove_symlink($font);
+  
+  return 0;
+}
+
+sub tt_install {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  
+  my @add = ();
+  
+  $add[0] = '--RealName' if ($type eq 'real');
+  
+  register_ps($id, @_, @add);
+  
+  return 0;
+}
+
+sub tt_remove {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  
+  unregister_ps($id);
+  
+  return 0;
+}
+
+sub truetype {
+  my $com = shift;
+  
+  if ($com eq 'register') {
+    return tt_register(@_);
+  } elsif ($com eq 'unregister') {
+    return tt_unregister(@_);
+  } elsif ($com =~ /^do-install-(.*)$/) {
+    return tt_install($1, @_);
+  } elsif ($com =~ /^do-remove-(.*)$/) {
+    return tt_remove($1, @_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+  
+  return 0;
+}
+
+sub truetype_cjk {
+  my $com = shift;
+  
+  if ($com =~ /^do-install-(.*)$/) {
+    return cid_install($1, @_);
+  } elsif ($com =~ /^do-remove-(.*)$/) {
+    return cid_remove($1, @_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+
+  return 0;
+}
+
+sub cid_register {
+  my $type = shift;
+  my $font = shift;
+  my $h = parse_hints_start(@_);
+
+  my $fontname = $h->{FontName};
+  my $registry = $h->{CIDRegistry};
+  my $ordering = $h->{CIDOrdering};
+  my $priority = $h->{Priority} || 0;
+    
+  return 1 unless($fontname && $registry && $ordering);
+  $fontname =~ s/ .*//;
+  $registry =~ s/ .*//;
+  $ordering =~ s/ .*//;
+  my @alias = ($h->{Alias}) ? split(/ +/, $h->{Alias}) : ();
+
+  return 2 if (create_symlink($font));
+
+  parse_hints_cut($h, 'PSCharset', 'PSEncoding', 'Charset', 'Encoding');
+  my @hints = parse_hints_build($h);
+  @hints = ($registry, $ordering, '.', @hints);
+
+  defoma_id_register($Id, type => 'real', font => $font,
+		     id => $fontname, priority => $priority,
+		     category => $type, hints => join(' ', @hints));
+
+  my $i;
+  foreach $i (@alias) {
+    defoma_id_register($Id, type => 'alias', font => $font, id => $i,
+		       priority => $priority, origin => $fontname,
+		       category => $type);
+  }
+
+  defoma_subst_register($Sb1, $font, $fontname);
+  defoma_subst_register($Sb2, $font, $fontname);
+    
+  return 0;
+}
+	
+sub cid_unregister {
+  my $font = shift;
+
+  defoma_subst_unregister($Sb1, $font);
+  defoma_subst_unregister($Sb2, $font);
+  defoma_id_unregister($Id, type => 'alias', font => $font);
+  defoma_id_unregister($Id, type => 'real', font => $font);
+
+  remove_symlink($font);
+
+  return 0;
+}
+
+sub cid_install_all {
+  my $type = shift;
+  my $id = shift;
+  my $registry = shift;
+  my $ordering = shift;
+    
+  my @cmaps = defoma_id_get_font($IdCmap, 'installed');
+  foreach my $c (@cmaps) {
+    my @chs = split(/ +/, $IdCmap->{7}->[$c]);
+
+    next if ($chs[0] ne $registry);
+    next if ($chs[1] ne $ordering && $chs[1] ne 'Identity');
+
+    shift(@chs);
+    shift(@chs);
+	
+    my $psname = $id . '-' . $IdCmap->{0}->[$c];
+
+    my @add = ();
+    $add[0] = '--RealName' if ($type eq 'real');
+	
+    register_ps($psname, @_, @add, @chs);
+  }
+
+  return 0;
+}
+
+sub cid_remove_all {
+  my $type = shift;
+  my $id = shift;
+  my $registry = shift;
+  my $ordering = shift;
+    
+  my @cmaps = defoma_id_get_font($IdCmap, 'installed');
+  foreach my $c (@cmaps) {
+    my @chs = split(/ +/, $IdCmap->{7}->[$c]);
+
+    next if ($chs[0] ne $registry);
+    next if ($chs[1] ne $ordering && $chs[1] ne 'Identity');
+
+    my $psname = $id . '-' . $IdCmap->{0}->[$c];
+
+    unregister_ps($psname);
+  }
+
+  return 0;
+}
+
+sub cid_install {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  my $registry = shift;
+  my $ordering = shift;
+  my $encoding = shift;
+
+  cid_install_all($type, $id, $registry, $ordering, @_);
+
+  return 0;
+}
+
+sub cid_remove {
+  my $type = shift;
+  my $font = shift;
+  my $id = shift;
+  my $depfont = shift;
+  my $depid = shift;
+  my $registry = shift;
+  my $ordering = shift;
+  my $encoding = shift;
+
+  cid_remove_all($type, $id, $registry, $ordering);
+    
+  return 0;
+}
+
+sub cid {
+  my $com = shift;
+
+  if ($com eq 'register') {
+    return cid_register('cid', @_);
+  } elsif ($com eq 'unregister') {
+    return cid_unregister(@_);
+  } elsif ($com =~ /^do-install-(.*)$/) {
+    return cid_install($1, @_);
+  } elsif ($com =~ /^do-remove-(.*)$/) {
+    return cid_remove($1, @_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+
+  return 0;
+}
+
+sub cmap_register {
+  my $font = shift;
+
+  if ($font =~ /\/gs-cjk-resource\//) {
+    return 2 if (create_symlink($font, $CMapDir));
+    return 0;
+  }
+    
+  my $h = parse_hints_start(@_);
+
+  my $cmap = $h->{CMapName};
+  my $reg = $h->{CIDRegistry};
+  my $ord = $h->{CIDOrdering};
+    
+  return 1 unless ($cmap && $reg && $ord);
+  $reg =~ s/ .*//;
+  $ord =~ s/ .*//;
+  $cmap =~ s/ .*//;
+    
+  my @hints = ($reg, $ord, @_);
+
+  defoma_id_register($IdCmap, type => 'real', font => $font, id => $cmap,
+		     priority => 0, hints => join(' ', @hints));
+
+  return 0;
+}
+
+sub cmap_unregister {
+  my $font = shift;
+
+  if ($font =~ /\/gs-cjk-resource\//) {
+    remove_symlink($font, $CMapDir);
+    return 0;
+  }
+    
+  defoma_id_unregister($IdCmap, type => 'real', font => $font);
+
+  return 0;
+}
+
+sub cmap_install {
+  my $font = shift;
+  my $cmap = shift;
+  my $df = shift;
+  my $di = shift;
+  my $reg = shift;
+  my $ord = shift;
+  my %hash;
+  my @nonreal = ();
+    
+  return 1 if (create_symlink($font, $CMapDir));
+
+  my @list = (defoma_id_get_font($Id, 'installed', f4 => 'cid'),
+	      defoma_id_get_font($Id, 'installed', f4 => 'truetype-cjk'));
+    
+  foreach my $i (@list) {
+    my $type = $Id->{2}->[$i];
+    my $id = $Id->{0}->[$i];
+	
+    if ($type ne 'SrI') {
+      push(@nonreal, $i);
+      next;
+    }
+
+    my @hints = split(/ +/, $Id->{7}->[$i]);
+
+    next if ($hints[0] ne $reg);
+    next if ($hints[1] ne $ord && $ord ne 'Identity');
+
+    $hash{$id} = $i;
+
+    shift(@hints);
+    shift(@hints);
+    shift(@hints);
+
+    my $psname = $id . '-' . $cmap;
+
+    register_ps($psname, @hints, '--RealName', @_);
+  }
+
+  foreach my $i (@nonreal) {
+    my $depid = $Id->{5}->[$i];
+    next unless (exists($hash{$depid}));
+	
+    my @hints = split(/ +/, $Id->{7}->[$hash{$depid}]);
+
+    next if ($hints[0] ne $reg);
+    next if ($hints[1] ne $ord && $ord ne 'Identity');
+
+    shift(@hints);
+    shift(@hints);
+    shift(@hints);
+
+    my $psname = $Id->{0}->[$i] . '-' . $cmap;
+
+    register_ps($psname, @hints, @_);
+  }
+
+  return 0;
+}
+
+sub cmap_remove {
+  my $font = shift;
+  my $cmap = shift;
+  my $df = shift;
+  my $di = shift;
+  my $reg = shift;
+  my $ord = shift;
+  my %hash;
+
+  remove_symlink($font, $CMapDir);
+
+  my @list = (defoma_id_get_font($Id, 'installed', f4 => 'cid'),
+	      defoma_id_get_font($Id, 'installed', f4 => 'truetype-cjk'));
+
+  foreach my $i (@list) {
+    my @hints = split(/ +/, $Id->{7}->[$i]);
+
+    if (@hints > 0) {
+      next if ($hints[0] ne $reg);
+      next if ($hints[1] ne $ord && $ord ne 'Identity');
+    }
+	
+    my $psname = $Id->{0}->[$i] . '-' . $cmap;
+
+    unregister_ps($psname);
+  }
+    
+  return 0;
+}
+
+sub cmap {
+  my $com = shift;
+
+  if ($com eq 'register') {
+    return cmap_register(@_);
+  } elsif ($com eq 'unregister') {
+    return cmap_unregister(@_);
+  } elsif ($com eq 'do-install-real') {
+    return cmap_install(@_);
+  } elsif ($com eq 'do-remove-real') {
+    return cmap_remove(@_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+
+  return 0;
+}
+
+sub psprint_register {
+  my $font = shift;
+  return 0 unless ($Subst4psprint);
+  return 1 if ($font !~ /(.+)\/(.+)/);
+
+  return 0 if ($1 eq '<gs>');
+  my $fontname = $2;
+
+  return 2 if ($Sb1->grep_rule('', $fontname));
+
+  my @hints;
+  my $h = parse_hints_start(@_);
+  my $cset = $h->{PSCharset};
+  my $enc = $h->{PSEncoding};
+    
+  if ($cset && $enc && $cset =~ /^Adobe-([^-]+).*$/) {
+    my $ord = $1;
+    $fontname =~ s/-$enc$//;
+
+    parse_hints_cut($h, 'PSCharset', 'PSEncoding', 'Charset', 'Encoding',
+		    'Direction');
+    @hints = parse_hints_build($h);
+    push(@hints, '--CIDRegistry,*', 'Adobe', '--CIDOrdering,*', $ord);
+  } else {
+    @hints = @_;
+  }
+
+  for my $i (@hints) {
+    $i = '--Charset,*' if ($i eq '--Charset');
+    $i = '--Encoding,*' if ($i eq '--Encoding');
+    $i = '--Direction,*' if ($i eq '--Direction');
+    $i = '--Shape,2' if ($i eq '--Shape');
+  }
+    
+  defoma_subst_add_rule($Sb1, $fontname, @hints);
+
+  return 0;
+}
+
+sub psprint_unregister {
+  my $font = shift;
+  return 0 if ($font !~ /(.+)\/(.+)/);
+
+  return 0 if ($1 eq '<gs>');
+  my $fontname = $2;
+
+  my $h = parse_hints_start(@_);
+  my $cset = $h->{PSCharset};
+  my $enc = $h->{PSEncoding};
+
+  if ($cset && $enc && $cset =~ /^Adobe-.*$/) {
+    $fontname =~ s/-$enc$//;
+  }
+
+  defoma_subst_remove_rule($Sb1, $fontname);
+
+  return 0;
+}
+
+sub psprint {
+  my $com = shift;
+  
+  if ($com eq 'register') {
+    return psprint_register(@_);
+  } elsif ($com eq 'unregister') {
+    return psprint_unregister(@_);
+  } elsif ($com eq 'init') {
+    return init();
+  } elsif ($com eq 'term') {
+    return term();
+  }
+  
+  return 0;
+}
+
+1;

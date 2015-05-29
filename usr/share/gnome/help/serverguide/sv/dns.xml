@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="dns" status="review">
+		<title>Domain Name Service (DNS)</title>
+            <para>Domain Name Service (DNS) är en internettjänst som ansluter IP-adresser och kompletta domännamn (FQDN) med varandra. På det här sättet minskar DNS behovet av att komma ihåg IP-adresser. Datorer som kör DNS kallas för <emphasis>namnservrar</emphasis>. Ubuntu innehåller <application>BIND</application> (Berkley Internet Naming Daemon), det vanligaste programmet för att upprätthålla en namnserver på Linux.</para>
+            <!-- things to do: IPv6-->
+      <sect1 id="dns-installation" status="review">
+        <title>Installation</title>
+          <para>Från en terminalprompt, skriv följande kommando för att installera <application>dns</application>:</para>
+<screen>
+<command>sudo apt-get install bind9</command>
+</screen>
+	  <para>Ett väldigt användbart paket för att testa och felsöka DNS-problem är paketet dnsutils. För att installera <application>dnsutils</application> skriv följande:</para>
+<screen>
+<command>sudo apt-get install dnsutils</command>
+</screen>
+      </sect1>
+      <sect1 id="dns-configuration" status="review">
+        <title>Konfiguration</title>
+          <para>Det finns flera sätt att konfigurera <application>BIND9</application>. Några av de vanligaste konfigurationerna är en cachande namnserver, primär huvudserver och som en sekundär huvudserver.</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>När BIND9 är konfigurerad som en cachande namnserver kommer den söka rätt på svaret vid namnförfrågningar och minns svaret när domänen tillfrågas igen.</para>
+	    </listitem>
+	    <listitem>
+	      <para>Som en primär huvudserver läser BIND9 data för en zon från en fil på sin värd och är auktorativ för den zonen.</para>
+	    </listitem>
+	    <listitem>
+	      <para>I en konfiguration där BIND9 är en sekundär huvudserver får den zondata från en annan namnserver som är auktorativ för den zonen.</para>
+	    </listitem>
+	  </itemizedlist>
+	  
+	  <sect2 id="dns-configuration-overview" status="review">
+	    <title>Översikt</title>
+	    <para>Konfigurationsfilerna för DNS sparas i katalogen <filename>/etc/bind</filename>. Den primära konfigurationsfilen är <filename>/etc/bind/named.conf</filename>.</para>
+
+            <para>Raden <emphasis>include</emphasis> specificerar filnamnet som innehåller DNS-alternativen. Raden <emphasis>directory</emphasis> i filen <filename>/etc/bind/named.conf.options</filename> talar om för DNS var den skall söka efter filer. Alla filer som BIND använder kommer relateras till den här katalogen.</para>
+
+            <para>Filen med namnet <filename>/etc/bind/db.root</filename> beskriver de rotnamnservrar som finns i världen. Servarna ändras över tiden, så filen <filename>/etc/bind/db.root</filename> måste underhållas med jämna mellanrum. Detta utförs normalt som uppdateringar av paketet <application>bind9</application>. Sektionen <emphasis>zone</emphasis> definierar en huvudserver och det sparas i en fil som är omnämnd i alternativet <emphasis>file</emphasis>.</para>
+
+            <para>Det är möjligt att konfigurera en server till att vara en cachande namnserver, primär huvudserver och en sekundär huvudserver. En server kan vara SOA (Start of Authority) för en zon, medan den tillhandahåller sekundära tjänster för en annan zon. Allt medan den tillhandahåller cachande tjänster för värdar på det lokala nätverket.</para>	
+	  
+	  </sect2>
+	  <sect2 id="dns-caching-configuration" status="review">
+	    <title>Cachande namnserver</title>
+	    <para>Standardkonfigurationen är uppbyggd för att agera som en cachande server. Allt som krävs är att lägga till IP-adresserna till din ISP:s DNS-servrar. Avkommentera och redigera följande i <filename>/etc/bind/named.conf.options</filename>:</para>
+<programlisting>
+forwarders {
+                1.2.3.4;
+                5.6.7.8;
+           };
+</programlisting>
+	  <note>
+	    <para>Ersätt <emphasis>1.2.3.4</emphasis> och <emphasis>5.6.7.8</emphasis> med IP-adressen för de verkliga namnservrarna.</para>
+	  </note>
+	  <para>Starta nu om DNS-servern för att aktivera den nya konfigurationen. Från en terminalprompt:</para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+          <para>Se <xref linkend="dns-testing-dig"/> för information om testning av en cachande DNS-server.</para>
+	  </sect2> 
+	  <sect2 id="dns-primarymaster-configuration" status="review">
+	    <title>Primär huvudserver</title>
+	    <para>I detta avsnitt kommer <application>BIND9</application> konfigureras som den primära huvudservern för domänen <emphasis>example.com</emphasis>. Ersätt <emphasis role="italic">example.com</emphasis> med din FQDN (Fully Qualified Domain Name).</para>
+	    <sect3 id="dns-forward-zone-file" status="review">
+	      <title>Vidaresändande zonfil</title>
+	      <para>För att lägga till en DNS-zon till BIND9, förändra BIND9 till en primär huvudserver, första steget är att redigera <filename>/etc/bind/named.conf.local</filename>:</para>
+<programlisting>
+zone "example.com" {
+	type master;
+        file "/etc/bind/db.example.com";
+};
+</programlisting>
+	      <para>Använd nu en existerande zonfil som mall för att skapa filen <filename>/etc/bind/db.example.com</filename>:</para>
+<screen>
+<command>sudo cp /etc/bind/db.local /etc/bind/db.example.com</command>
+</screen>
+	      <para>Redigera den  nya zonfilen <filename>/etc/bind/db.example.com</filename> ändra <emphasis>localhost.</emphasis> till din server-FQDN men lämna den extra "." i slutet. Ändra <emphasis>127.0.0.1</emphasis> till namnserverns IP-adress och <emphasis>root.localhost</emphasis> till en giltig e-postadress, men med en "." istället för den vanliga "@" symbolen, återigen lämna "." i slutet.</para>
+	      <para>Dessutom, skapa en <emphasis>A-post</emphasis> för <emphasis role="italic">ns.example.com</emphasis>. Namnservern i detta exempel:</para>
+<programlisting>
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     ns.example.com. root.example.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.example.com.
+@       IN      A       127.0.0.1
+@       IN      AAAA    ::1
+ns      IN      A       192.168.1.10
+</programlisting>
+	       <para>Du måste öka <emphasis>serienumret</emphasis> varje gång du ändrar i zonfilen. Om du gör flera ändringar innan du startar om BIND9, öka serienumret en gång.</para>
+	       <para>Nu kan du lägga till DNS-poster i slutet av zonfilen. För detaljer se <xref linkend="dns-record-types"/>.</para>
+	       <note>
+	         <para>Många administratörer föredrar att använda senaste redigeringsdatumet som serienummer för en zon, såsom <emphasis>2007010100</emphasis> vilket är yyyymmddss (där <emphasis>ss</emphasis> är serienumret)</para>
+	       </note>
+	       <para>När du väl har gjort ändringarna till zonfilen så behöver <application>BIND9</application> startas om för att ändringarna ska börja gälla:</para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </sect3>
+	    <sect3 id="dns-reverse-zone-file" status="review">
+	      <title>Reverserande zonfil</title>
+	      <para>Nu när zonen är uppsatt och översätter namn till IP-adresser så krävs också en <emphasis>reverserande zon</emphasis>. En reverserande zon medger att DNS översätter en adress till ett namn.</para>
+	      <para>Redigera /etc/bind/named.conf.local och lägg till följande:</para>
+<programlisting>
+zone "1.168.192.in-addr.arpa" {
+        type master;
+        notify no;
+        file "/etc/bind/db.192";
+};
+</programlisting>
+	      <note>
+	        <para>Ersätt <emphasis>1.168.192</emphasis> med de första tre oktetterna som ditt nätverk använder. Dessutom, namna zonfilen till något giltigt <filename>/etc/bind/db.192</filename>. Den skall passa ihop med den första oktetten i ditt nätverk.</para>
+	      </note>
+	      <para>Skapa nu filen <filename>/etc/bind/db.192</filename>:</para>
+<screen>
+<command>sudo cp /etc/bind/db.127 /etc/bind/db.192</command>
+</screen>
+	      <para>Nästa steg, redigera <filename>/etc/bind/db.192</filename> genom att ändra i stort sätt samma alternativ som i <filename>/etc/bind/db.example.com</filename>:</para>
+<programlisting>
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     ns.example.com. root.example.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.
+10      IN      PTR     ns.example.com.
+</programlisting>
+	      <para><emphasis>Serienumret</emphasis> i den reverserande zonen måste också ökas vid varje förändring. För varje <emphasis>A-post</emphasis> du konfigurerar i <filename>/etc/bind/db.example.com</filename> måste du skapa en <emphasis>PTR-post</emphasis> i <filename>/etc/bind/db.192</filename>.</para>
+	      <para>Efter du har skapat den reverserande zonfilen, starta om <application>BIND9</application>:</para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </sect3>
+	  </sect2>	  
+	  <sect2 id="dns-secondarymaster-configuration" status="review">
+	    <title>Sekundär huvudserver</title>
+	    <para>Så snart en <emphasis>primär huvudserver</emphasis> har konfigurerats behövs en <emphasis>sekundär huvudserver</emphasis> för att underhålla tillgängligheten av domänen ifall den primära huvudservern är otillgänglig.</para>
+	    <para>Till att börja med, på den primära huvudservern måste zonöverföring tillåtas. lägg till alternativet <emphasis>allow-transfer</emphasis> till exempeldefinitionerna i vidaresändande och reverserande zonerna i <filename>/etc/bind/named.conf.local</filename>:</para>
+<programlisting>
+zone "example.com" {
+        type master;
+	file "/etc/bind/db.example.com";
+        allow-transfer { 192.168.1.11; };
+};
+
+zone "1.168.192.in-addr.arpa" {
+        type master;
+        notify no;
+        file "/etc/bind/db.192";
+	allow-transfer { 192.168.1.11; };
+};
+</programlisting>
+	    <note>
+	      <para>Ersätt <emphasis>192.168.1.11</emphasis> med IP-adressen på din sekundära namnserver.</para>
+            </note>
+	    <para>På den sekundära huvudservern, installera paketet <application>bind9</application> på samma sätt som på den primära. Redigera därefter <filename>/etc/bind/named.conf.local</filename> och lägg till följande deklarationer för de vidaresändande och reverserande zonerna:</para>
+<programlisting>
+zone "example.com" {
+	type slave;
+        file "/var/cache/bind/db.example.com";
+        masters { 192.168.1.10; };
+};        
+      
+zone "1.168.192.in-addr.arpa" {
+	type slave;
+        file "/var/cache/bind/db.192";
+        masters { 192.168.1.10; };
+};
+</programlisting>
+	    <note>
+	      <para>Ersätt <emphasis>192.168.1.10</emphasis> med IP-adressen till din primära namnserver.</para>
+            </note>
+	    <para>Starta om <application>BIND9</application> på den sekundära huvudservern:</para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    <para>I <filename>/var/log/syslog</filename> skall du se något som liknar:</para>
+<programlisting>
+slave zone "example.com" (IN) loaded (serial 6)
+slave zone "100.18.172.in-addr.arpa" (IN) loaded (serial 3)
+</programlisting>
+	    <note>
+	      <para>Notera: En zon överförs endast om <emphasis>serienumret</emphasis> på den primära är större än på den sekundära.</para>
+	    </note>
+
+	    <note>
+	      <para>Standardkatalogen för icke-auktoritativa zonfiler är <filename>/var/cache/bind/</filename>. Denna katalog är också konfigurerad i <application>AppArmor</application> till att tillåta den <application>nämda</application> demonen att skriva till. FFör mer information om AppArmor, se <xref linkend="apparmor"/>.</para>
+	    </note>
+
+	  </sect2>
+      </sect1>
+      <sect1 id="dns-troubleshooting" status="review">
+	<title>Problemlösning</title>
+	<para>Detta avsnitt behandlar sätt för att få hjälp med att fastställa orsaken då ett problem uppstår med DNS och <application>BIND9</application>.</para>
+	<sect2 id="dns-testing" status="review">
+	  <title>Testa</title>
+	  <sect3 id="dns-resolv.conf" status="review">
+	    <title>resolv.conf</title>
+	    <para>Första steget i att testa <application>BIND9</application> är att lägga till namnserverns IP-adress till en värdöversättare. Den primära namnservern skall konfigureras liksom även en annan värd för att dubbelkontrollera saker. Redigera <filename>/etc/resolv.conf</filename> och lägg till följande:</para>
+<programlisting>
+nameserver	192.168.1.10
+nameserver	192.168.1.11
+</programlisting>
+	    <note>
+	      <para>Du skall också lägga till IP-adressen till den sekundära namnservern i fall att den primära blir otillgänglig.</para>
+	    </note>
+	  </sect3>
+	  <sect3 id="dns-testing-dig" status="review">
+	    <title>dig</title>
+	    <para>Om du har installerat paketet <application>dnsutils</application> så kan du testa din konfiguration med DNS-verktyget <application>dig</application>:</para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>Efter installationen av <application>BIND9</application> använd <application>dig</application> mot gränssnittet loopback för att säkerställa att den lyssnar på port 53. Från en terminalprompt:</para>
+<screen>
+<command>dig -x 127.0.0.1</command>
+</screen>
+	        <para>Du skall se rader som liknar följande utdata:</para>
+<programlisting>
+;; Query time: 1 msec
+;; SERVER: 192.168.1.10#53(192.168.1.10)
+</programlisting>
+	      </listitem>
+	      <listitem>
+	        <para>Om du har konfigurerat <application>BIND9</application> som en <emphasis>cachande</emphasis> namnserver "dig" en domän på utsidan för att kontrollera tiden för en förfrågan:</para>
+<screen>
+<command>dig ubuntu.com</command>
+</screen>
+	        <para>Notera tiden för förfrågan som finns i slutet av utdatan från kommandot:</para>
+<programlisting>
+;; Query time: 49 msec
+</programlisting>
+	        <para>Efter en andra dig skall det bli en förbättring:</para>
+<programlisting>
+;; Query time: 1 msec
+</programlisting>
+	      </listitem> 
+	    </itemizedlist>
+	  </sect3>
+	  <sect3 id="dns-testing-ping" status="review">
+	    <title>ping</title>
+
+	    <para>För att nu demonstrera hur program använder DNS till att avgöra ett värdnamn använd verktyget <application>ping</application> till att skicka en ICMP eko-förfrågan. Från en terminalprompt skriv:</para>
+
+<screen>
+<command>ping example.com</command>
+</screen>
+	    <para>Detta testar om namnservern kan översätta namnet <emphasis>ns.example.com</emphasis> till en IP-adress. kommandots utdata bör likna:</para>
+<programlisting>
+PING ns.example.com (192.168.1.10) 56(84) bytes of data.
+64 bytes from 192.168.1.10: icmp_seq=1 ttl=64 time=0.800 ms
+64 bytes from 192.168.1.10: icmp_seq=2 ttl=64 time=0.813 ms
+</programlisting>
+	  </sect3>
+	  <sect3 id="dns-testing-configuration" status="review">
+	    <title>named-checkzone</title>
+	    <para>Ett bra sätt att testa dina zonfiler på är att använda verktyget <application>named-checkzone</application> som installeras med paketet <application>bind9</application>. Det här verktyget hjälper dig att säkerställa att konfigurationen är riktig innan du startar om <application>BIND9</application> och aktiverar ändringarna.</para>
+	    <itemizedlist>
+	      <listitem>
+	        <para>För att testa vår exempel vidaresändande zonfil, skriv följande från en terminalprompt:</para>
+<screen>
+<command>named-checkzone example.com /etc/bind/db.example.com</command>
+</screen>
+	        <para>Om allt är rätt konfigurerat skall resultatet likna:</para>
+<programlisting>
+zone example.com/IN: loaded serial 6
+OK
+</programlisting>
+	      </listitem>
+	      <listitem>
+	        <para>På liknande sätt, för att testa din reverserande zonfil skriv följande:</para>
+<screen>
+<command>named-checkzone example.com /etc/bind/db.192</command>
+</screen>
+	        <para>Utdatan skall likna:</para>
+<programlisting>
+zone example.com/IN: loaded serial 3
+OK
+</programlisting>
+	      </listitem>
+	    </itemizedlist>
+	    <note>
+	     <para><emphasis>Serienumret</emphasis> på din zonfil kommer troligtvis vara en annan.</para>
+	    </note>
+	  </sect3>
+	</sect2>
+	<sect2 id="dns-logging" status="review">
+	  <title>Logga</title>
+	  <para><application>BIND9</application> har flera olika tillgängliga alternativ för loggkonfiguration. Det finns två huvudalternativ. Alternativet <emphasis>channel</emphasis> konfigurerar var loggningen skall genomföras och alternativet <emphasis>category</emphasis> bestämmer vilken information som loggas.</para>
+	  <para>Om inget loggalternativ har konfigurerats är standardalternativet:</para>
+<programlisting>
+logging {
+     category default { default_syslog; default_debug; };
+     category unmatched { null; };
+};
+</programlisting>
+	  <para>Detta avsnitt omfattar konfigurering av <application>BIND9</application> till att skicka <emphasis>debug</emphasis>-meddelanden som är relaterade till DNS-förfrågningar till en separat fil.</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>Först behöver vi konfigurera en kanal till att specificera vilken fil som meddelandet skall skickas till. Redigera <filename>/etc/bind/named.conf.local</filename> och lägg till följande:</para>
+<programlisting>
+logging {
+    channel query.log {      
+        file "/var/log/query.log";
+        severity debug 3; 
+    }; 
+};
+</programlisting>	    
+	    </listitem>
+	    <listitem>
+	      <para>Därefter, konfigurera en kategori som skickar alla DNS-förfrågningar till förfrågningsfilen:</para>
+<programlisting>
+logging {
+    channel query.log {      
+        file "/var/log/query.log"; 
+        severity debug 3; 
+    }; 
+    <emphasis>category queries { query.log; };</emphasis> 
+};
+</programlisting>	    
+	    </listitem>
+	  </itemizedlist>
+	  <note>
+	    <para>Notera: Alternativet <emphasis>debug</emphasis> kan sättas från 1 till 3. Om en nivå inte är nivå 1 standard.</para>
+	  </note>
+	  <itemizedlist>
+	    <listitem>
+	      <para>Eftersom <emphasis>namngiven demon</emphasis> körs körs som användare <emphasis>bind</emphasis> måste filen <filename>/var/log/query.log</filename> skapas och äganderätten ändras:</para>
+<screen>
+<command>sudo touch /var/log/query.log</command>
+<command>sudo chown bind /var/log/query.log</command>
+</screen>
+	    </listitem>
+	    <listitem>
+	      <para>Innan <application>named</application>-demonen kan skriva till den nya loggfilen måste först <application>AppArmor</application>-profilen uppdateras. Börja med att redigera <filename>/etc/apparmor.d/usr.sbin.named</filename> och lägg till:</para>
+<programlisting>
+/var/log/query.log w,
+</programlisting>
+	      <para>Nästa, ladda om profilen:</para>
+<screen>
+<command>cat /etc/apparmor.d/usr.sbin.named | sudo apparmor_parser -r</command>
+</screen>
+	      <para>För mer information om <application>AppArmor</application>, se <xref linkend="apparmor"/></para>
+	    </listitem>
+	    <listitem>
+	      <para>Starta nu om <application>BIND9</application> för att ändringarna ska börja gälla:</para>
+<screen>
+<command>sudo /etc/init.d/bind9 restart</command>
+</screen>
+	    </listitem>
+	  </itemizedlist>
+	  <para>Du bör se filen <filename>/var/log/query.log</filename> fylld med information om förfrågningar. Det här är ett exempel på loggalternativen i <application>BIND9</application>. För information om avancerade alternativ, se <xref linkend="dns-more-info"/>.</para>
+	</sect2>
+      </sect1> 
+      <sect1 id="dns-references" status="review">
+        <title>Referenser</title>
+        <sect2 id="dns-record-types" status="review">
+	  <title>Vanliga post sorter</title>
+	  <para>Det är avsnittet behandlar några av de vanligaste sorterna av DNS-poster.</para>
+	  <itemizedlist>
+	    <listitem>
+	      <para>Posten <emphasis>A</emphasis>: Den här posten avbildar en IP-adress till ett värdnamn.</para>
+<programlisting>
+www      IN    A      192.168.1.12
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>Posten <emphasis>CNAME</emphasis>: Används för att skapa en alias till en existerande A-post. Du kan inte skapa en CNAME post som pekar på en annan CNAME post.</para>
+<programlisting>
+web     IN    CNAME  www
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>Posten <emphasis>MX</emphasis>: Används för att definiera var e-post skall sändas till. Måste peka på en A-post och inte på CNAME.</para>
+<programlisting>
+        IN    MX      mail.example.com.
+mail    IN    A       192.168.1.13
+</programlisting>
+	    </listitem>	
+	    <listitem>
+	      <para>Posten <emphasis>NS</emphasis>: Används för att definiera vilken server som delgiver kopior av en zon. Den måste peka på en A-post och inte en CNAME. Det är här som primära och sekundära servrar definieras.</para>
+<programlisting>
+        IN    NS     ns.example.com.
+	IN    NS     ns2.example.com.
+ns      IN    A      192.168.1.10
+ns2	IN    A	     192.168.1.11
+</programlisting>
+	    </listitem>	
+	  </itemizedlist>
+        </sect2>
+	<sect2 id="dns-more-info" status="review">
+	  <title>Mer information</title>
+          <para>På <ulink url="http://www.tldp.org/HOWTO/DNS-HOWTO.html">DNS HOWTO</ulink> finns förklaringar på mer avancerade alternativ för konfigureringen av BIND9.</para>
+          <para>För heltäckande detaljer om <emphasis>DNS</emphasis> och <application>BIND9</application> se <ulink url="http://www.bind9.net/">Bind9.net</ulink>.</para>
+          <para><ulink url="http://www.oreilly.com/catalog/dns5/index.html">DNS and BIND</ulink> är en populär bok som, nu i sin femte utgåva.</para>
+	  <para>En bra plats att fråga efter <application>BIND9</application> assistans och bli delaktig i Ubuntu Server gemenskapen, är på IRC-kanalen <emphasis>#ubuntu-server</emphasis> på <ulink url="http://freenode.net">freenode</ulink>.</para>
+	</sect2>
+      </sect1>
+    </chapter>

@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="file-servers" status="review">
+	<title>File Servers</title>
+
+        <para>
+        If you have more than one computer on a single network.  At some point you will probably
+        need to share files between them.  In this section we cover installing and configuring 
+        FTP, NFS, and CUPS. 
+        </para>
+
+	<sect1 id="ftp-server" status="review">
+          <title>FTP Server</title> 
+
+          <para>
+          File Transfer Protocol (FTP) is a TCP protocol for uploading and downloading
+          files between computers. FTP works on a client/server model. The server component is
+          called an <emphasis>FTP daemon</emphasis>. It continuously listens for FTP requests
+          from remote clients. When a request is received, it manages the login and sets up
+          the connection. For the duration of the session it executes any of commands sent by
+          the FTP client.
+          </para>
+
+          <para>Access to an FTP server can be managed in two ways:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Anonymous</para>
+            </listitem>
+            <listitem>
+              <para>Authenticated</para>
+            </listitem>
+          </itemizedlist>
+          <para>
+          In the Anonymous mode, remote clients can access the FTP server by using the
+          default user account called &quot;anonymous&quot; or &quot;ftp&quot; and
+          sending an email address as the password. In the Authenticated mode a user must
+          have an account and a password. User access to the FTP server directories and files is
+          dependent on the permissions defined for the account used at login. As a general
+          rule, the FTP daemon will hide the root directory of the FTP server and change it to
+          the FTP Home directory. This hides the rest of the file system from remote
+          sessions.
+          </para>
+
+          <sect2 id="vsftpd-ftp-server-installation" status="review">
+            <title>vsftpd - FTP Server Installation</title>
+
+            <para>
+            vsftpd is an FTP daemon available in
+            Ubuntu. It is easy to install, set up, and
+            maintain.  To install <application>vsftpd</application> you
+            can run the following command:
+            </para>
+      
+<screen>
+<command>sudo apt-get install vsftpd</command>
+</screen>
+                
+
+            </sect2>
+            <sect2 id="vsftpd-anonymous-configuration" status="review">
+              <title>Anonymous FTP Configuration</title>
+
+                <para>
+                By default <application>vsftpd</application> is configured 
+                to only allow anonymous download.  During installation a 
+                <emphasis>ftp</emphasis> user is created with a home directory 
+                of <filename>/home/ftp</filename>.  This is the default FTP directory.
+                </para>
+
+                <para>
+                If you wish to change this location, to <filename>/srv/ftp</filename>
+                for example, simply create a directory in another location and 
+                change the <emphasis>ftp</emphasis> user's home directory:
+                </para>
+
+<screen>
+<command>sudo mkdir /srv/ftp</command>
+<command>sudo usermod -d /srv/ftp ftp</command> 
+</screen>
+
+                <para>
+                After making the change restart <application>vsftpd</application>:
+                </para>
+
+<screen>
+<command>sudo /etc/init.d/vsftpd restart</command>
+</screen>
+
+                <para>
+                Finally, copy any files and directories you would like to make available
+                through anonymous FTP to <filename>/srv/ftp</filename>.
+                </para>
+
+              </sect2>
+              <sect2 id="vsftpd-userauth-configuration" status="review">
+                <title>User Authenticated FTP Configuration</title>
+
+                <para>
+                To configure <application>vsftpd</application> to authenticate
+                system users and allow them to upload files edit
+                <filename>/etc/vsftpd.conf</filename>:
+                </para>
+
+<programlisting>
+local_enable=YES
+write_enable=YES
+</programlisting>
+
+                <para>
+                Now restart <application>vsftpd</application>:
+                </para>
+
+<screen>
+<command>sudo /etc/init.d/vsftpd restart</command>
+</screen>
+
+                <para>
+                Now when system users login to FTP they will start in their 
+                <emphasis>home</emphasis> directories where they can download,
+                upload, create directories, etc.
+                </para>
+
+                <para>
+                Similarly, by default, the anonymous users are not
+                allowed to upload files to FTP server. To change
+                this setting, you should uncomment the following
+                line, and restart <application>vsftpd</application>:
+                </para>
+
+<programlisting>
+anon_upload_enable=YES
+</programlisting>
+
+                <warning>
+                  <para>
+                  Enabling anonymous FTP upload can be an extreme security risk.  It is best to not enable 
+                  anonymous upload on servers accessed directly from the Internet.
+                  </para>
+                </warning>
+
+                <para>
+                The configuration file consists of many
+                configuration parameters. The information about
+                each parameter is available in the configuration
+                file. Alternatively, you can refer to the man
+                page, <command>man 5 vsftpd.conf</command> for
+                details of each parameter. 
+                </para>
+
+                </sect2>
+                <sect2 id="vsftpd-security" status="review">
+                  <title>Securing FTP</title>
+
+                  <para> 
+                  There are options in <filename>/etc/vsftpd.conf</filename> to
+                  help make <application>vsftpd</application> more secure.  For
+                  example users can be limited to their home directories by uncommenting:
+                  </para>
+
+<programlisting>
+chroot_local_user=YES
+</programlisting>
+
+                  <para>
+                  You can also limit a specific list of users to just their home directories:
+                  </para>
+
+<programlisting>
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd.chroot_list
+</programlisting>
+
+                  <para>
+                  After uncommenting the above options, create a <filename>/etc/vsftpd.chroot_list</filename>
+                  containing a list of users one per line.  Then restart <application>vsftpd</application>:
+                  </para>
+
+<screen>
+<command>sudo /etc/init.d/vsftpd restart</command>
+</screen>
+                  
+                  <para>
+                  Also, the <filename>/etc/ftpusers</filename> file is a list of users that
+                  are <emphasis>disallowed</emphasis> FTP access.  The default list 
+                  includes root, daemon, nobody, etc.  To disable FTP access for additional
+                  users simply add them to the list.
+                  </para>
+
+                  <para>
+                  FTP can also be encrypted using <emphasis>FTPS</emphasis>.  Different from <emphasis>SFTP</emphasis>,
+                  <emphasis>FTPS</emphasis> is FTP over Secure Socket Layer (SSL).  <emphasis>SFTP</emphasis> is a FTP 
+                  like session over an encrypted <emphasis>SSH</emphasis> connection.  A major difference is that users
+                  of SFTP need to have a <emphasis>shell</emphasis> account on the system, instead of a 
+                  <emphasis>nologin</emphasis> shell.  Providing all users with a shell may not be ideal for some 
+                  environments, such as a shared web host.
+                  </para>
+
+                  <para>
+                  To configure <emphasis>FTPS</emphasis>, edit <filename>/etc/vsftpd.conf</filename> and at the bottom add:
+                  </para>
+
+<programlisting>
+ssl_enable=Yes
+</programlisting>
+           
+                  <para>
+                  Also, notice the certificate and key related options:
+                  </para>
+
+<programlisting>
+rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+</programlisting>
+
+                  <para>
+                  By default these options are set the the certificate and key provided by the <application>ssl-cert</application>
+                  package.  In a production environment these should be replaced with a certificate and key generated for the specific
+                  host.  For more information on certificates see <xref linkend="certificates-and-security"/>.
+                  </para>
+
+                  <para>
+                  Now restart <application>vsftpd</application>, and non-anonymous users will be forced to use 
+                  <emphasis>FTPS</emphasis>:
+                  </para>
+
+<screen>
+<command>sudo /etc/init.d/vsftpd restart</command>
+</screen>
+
+                  <para>
+                  To allow users with a shell of <filename>/usr/sbin/nologin</filename> access to FTP, but have no shell access, 
+                  edit <filename>/etc/shells</filename> adding the <emphasis>nologin</emphasis> shell:
+                  </para>
+
+<programlisting>
+# /etc/shells: valid login shells
+/bin/csh
+/bin/sh
+/usr/bin/es
+/usr/bin/ksh
+/bin/ksh
+/usr/bin/rc
+/usr/bin/tcsh
+/bin/tcsh
+/usr/bin/esh
+/bin/dash
+/bin/bash
+/bin/rbash
+/usr/bin/screen
+/usr/sbin/nologin
+</programlisting>
+
+                  <para>
+                  This is necessary because, by default <application>vsftpd</application> uses PAM for authentication, and the 
+                  <filename>/etc/pam.d/vsftpd</filename> configuration file contains:
+                  </para>
+
+<programlisting>
+auth    required        pam_shells.so
+</programlisting>
+
+                  <para>
+                  The <emphasis>shells</emphasis> PAM module restricts access to shells listed in the <filename>/etc/shells</filename>
+                  file.
+                  </para>
+
+                  <para>
+                  Most popular FTP clients can be configured connect using FTPS.  The <application>lftp</application> command line FTP
+                  client has the ability to use FTPS as well.
+                  </para>
+
+                </sect2>
+                <sect2 id="vsftpd-references" status="review">
+                  <title>References</title>
+
+                  <itemizedlist>
+                    <listitem>
+                      <para>
+                      See the <ulink url="http://vsftpd.beasts.org/vsftpd_conf.html">vsftpd website</ulink> for more information.
+                      </para>
+                    </listitem>
+                    <listitem>
+                      <para>
+                      For detailed <filename>/etc/vsftpd.conf</filename> options see the 
+                      <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/vsftpd.conf.5.html">vsftpd.conf man page</ulink>.
+                      </para>
+                    </listitem>
+                    <listitem>
+                      <para>
+                      The CodeGurus article <ulink url="http://www.codeguru.com/csharp/.net/net_general/internet/article.php/c14329">
+                      FTPS vs. SFTP: What to Choose</ulink> has useful information contrasting FTPS and SFTP.
+                      </para>
+                    </listitem>
+                  </itemizedlist>
+                  
+                </sect2>
+
+    </sect1>
+	<sect1 id="network-file-system" status="review">
+		<title>Network File System (NFS)</title>
+          <para>
+          NFS allows a system to share directories and files with others
+          over a network. By using NFS, users and programs can access
+          files on remote systems almost as if they were local files.
+          </para>
+
+          <para>
+          Some of the most notable benefits that NFS can provide are:
+          </para>
+
+          <itemizedlist>
+          <listitem>
+      <para>Local workstations use less disk space because commonly used data
+can be stored on a single machine and still remain accessible to others
+over the network.</para>
+          </listitem>
+          <listitem>
+      <para>There is no need for users to have separate home directories on
+every network machine. Home directories could be set up on the NFS
+server and made available throughout the network.</para>
+          </listitem>
+          <listitem>
+
+      <para>Storage devices such as floppy disks, CDROM drives, and USB
+Thumb drives can be used by other machines on the network. This may
+reduce the number of removable media drives throughout the
+network.</para>
+          </listitem>
+          </itemizedlist>
+
+      <sect2 id="nfs-installation" status="review">
+        <title>Installation</title>
+      
+          <para>
+          At a terminal prompt enter the following command to install the NFS
+          Server:
+          </para>
+          <para>
+<screen>
+<command>sudo apt-get install nfs-kernel-server</command>
+</screen>
+          </para>
+      </sect2>
+      <sect2 id="nfs-configuration" status="review">
+        <title>Configuration</title>
+          <para>
+          You can configure the directories to be exported by adding them to
+          the <filename>/etc/exports</filename> file. For example:
+          </para>
+          <para>
+<screen>
+/ubuntu  *(ro,sync,no_root_squash)
+/home    *(rw,sync,no_root_squash)
+</screen>
+          </para>
+
+          <para>
+          You can replace * with one of the hostname formats. Make the
+          hostname declaration as specific as possible so unwanted
+          systems cannot access the NFS mount.
+          </para>
+
+          <para>
+          To start the NFS server, you can run the following command at a terminal prompt:
+          </para>
+          <para>
+<screen>
+<command>sudo /etc/init.d/nfs-kernel-server start</command>
+</screen>
+          </para>
+      </sect2>
+      <sect2 id="nfs-client-configuration" status="review">
+        <title>NFS Client Configuration</title>
+          <para>
+          Use the <application>mount</application> command to mount a shared NFS directory from
+          another machine, by typing a command line similar to the following at a terminal prompt:
+          </para>
+          <para>
+<screen>
+<command>sudo mount example.hostname.com:/ubuntu /local/ubuntu</command>
+</screen>
+</para>
+      <warning>
+      <para>
+      The mount point directory <filename>/local/ubuntu</filename> must
+      exist. There should be no files or subdirectories in the
+      <filename>/local/ubuntu</filename> directory.
+      </para>
+      </warning>
+
+      <para>
+       An alternate way to mount an NFS share from another machine is to
+       add a line to the <filename>/etc/fstab</filename> file. The line must state the
+       hostname of the NFS server, the directory on the server being
+       exported, and the directory on the local machine where the NFS
+       share is to be mounted.
+      </para>
+
+      <para>
+      The general syntax for the line in <filename>/etc/fstab</filename>
+      file is as follows:
+      </para>
+      
+      <para>
+<programlisting>
+example.hostname.com:/ubuntu /local/ubuntu nfs rsize=8192,wsize=8192,timeo=14,intr
+</programlisting>
+      </para>
+          <para>
+          If you have trouble mounting an NFS share, make sure the <application>nfs-common</application> package is 
+          installed on your client.  To install
+          <application>nfs-common</application> enter the following
+          command at the terminal
+          prompt:
+<screen>
+<command>sudo apt-get install nfs-common</command>
+</screen>
+          </para>
+      </sect2>
+      <sect2 id="nfs-references" status="review">
+        <title>References</title>
+				<para><ulink url="http://nfs.sourceforge.net/">Linux NFS faq</ulink></para>
+      </sect2>
+    </sect1>
+
+	<sect1 id="cups" status="review">
+		<title>CUPS - Print Server</title>
+          <para>
+            The primary mechanism for Ubuntu printing and print services is the 
+			<emphasis role="bold">Common UNIX Printing System</emphasis> (CUPS). 
+			This printing system is a freely available, portable printing layer 
+			which has become the new standard for printing in most Linux 
+			distributions.
+          </para>
+          <para>
+          CUPS manages print jobs and queues and provides network printing using 
+		  the standard Internet Printing Protocol (IPP), while offering support 
+		  for a very large range of printers, from dot-matrix to laser and many 
+		  in between.  CUPS also supports PostScript Printer Description (PPD) and 
+		  auto-detection of network printers, and features a simple web-based 
+		  configuration and administration tool. 
+          </para>
+      <sect2 id="cups-installation" status="review">
+        <title>Installation</title>
+          <para>
+            To install CUPS on your Ubuntu computer, simply use <application>sudo</application> with the <application>apt-get</application> command and give the packages to install as the first parameter. A complete CUPS install has many package dependencies, but they may all be specified on the same command line.  Enter the following at a terminal prompt to install CUPS:
+          </para>
+          <para>
+<screen>
+<command>sudo apt-get install cupsys</command>
+</screen>
+          </para>
+          <para>
+          Upon authenticating with your user password, the packages should be downloaded
+		  and installed without error. Upon the conclusion of installation, the CUPS server 
+		  will be started automatically. 
+ 	  </para>
+          <para>
+          For troubleshooting purposes, you can access CUPS 
+		  server errors via the error log file at: <filename>/var/log/cups/error_log</filename>.
+		  If the error log does not show enough information to troubleshoot any problems you
+		  encounter, the verbosity of the CUPS log can be increased by changing the <emphasis
+		  role="bold">LogLevel</emphasis> directive in the configuration file (discussed below)
+		  to "debug" or even "debug2", which logs everything, from the default of "info".  If 
+		  you make this change, remember to change it back once you've solved your problem, to 
+		  prevent the log file from becoming overly large.
+          </para>
+      </sect2>
+      <sect2 id="cups-configuration" status="review">
+        <title>Configuration</title>
+          <para>
+            The Common UNIX Printing System server's behavior is configured through the 
+			directives contained in the file <filename>/etc/cups/cupsd.conf</filename>.  
+			The CUPS configuration file follows the same syntax as the primary configuration 
+			file for the Apache HTTP server, so users familiar with editing Apache's 
+			configuration file should feel at ease when editing the CUPS configuration 
+			file. Some examples of settings you may wish to change initially will be 
+			presented here.
+          </para>
+          <tip>
+               <para>Prior to editing the configuration file, you should make a copy of 
+			   the original file and protect it from writing, so you will have the original 
+			   settings as a reference, and to reuse as necessary.
+               </para>
+               <para>Copy the <filename>/etc/cups/cupsd.conf</filename> file and protect it 
+			   from writing with the following commands, issued at a terminal prompt:
+               </para>
+               </tip>
+               <para>
+<screen>
+<command>sudo cp /etc/cups/cupsd.conf /etc/cups/cupsd.conf.original</command>
+<command>sudo chmod a-w /etc/cups/cupsd.conf.original</command>
+</screen>
+               </para>
+          <itemizedlist>
+                <listitem>
+                <para>
+                <emphasis role="bold">ServerAdmin</emphasis>: To configure the email 
+				address of the designated administrator of the CUPS server, simply 
+				edit the <filename>/etc/cups/cupsd.conf</filename> configuration file 
+				with your preferred text editor, and modify the <emphasis 
+				role="italics">ServerAdmin</emphasis> line accordingly.  For example, 
+				if you are the Administrator for the CUPS server, and your e-mail 
+				address is 'bjoy@somebigco.com', then you would modify the ServerAdmin 
+				line to appear as such:
+                </para>
+                <para>
+<screen>
+ServerAdmin bjoy@somebigco.com
+</screen>
+                </para>
+                </listitem>
+          </itemizedlist>
+                <para>
+                For more examples of configuration directives in the CUPS server 
+				configuration file, view the associated system manual page by entering the 
+				following command at a terminal prompt:
+               </para>
+               <para>
+<screen>
+<command>man cupsd.conf</command>
+</screen>
+               </para>
+                               <note>
+                <para>
+                Whenever you make changes to the <filename>/etc/cups/cupsd.conf</filename> configuration file, you'll need to restart the CUPS server by typing the following command at a terminal prompt:
+                </para>
+                </note>
+                <para>
+<screen>
+<command>sudo /etc/init.d/cupsys restart</command>
+</screen>
+                </para>
+	<para>Some other configuration for the CUPS server is done in the file <filename>/etc/cups/cups.d/ports.conf</filename>:</para>
+          <itemizedlist>
+                <listitem>
+                <para>
+                <emphasis role="bold">Listen</emphasis>: By default on Ubuntu, the CUPS 
+				server installation listens only on the loopback interface at IP address 
+				<emphasis>127.0.0.1</emphasis>. In order to instruct the 
+				CUPS server to listen on an actual network adapter's IP address, you must 
+				specify either a hostname, the IP address, or optionally, an IP 
+				address/port pairing via the addition of a Listen directive.  For example, 
+				if your CUPS server resides on a local network at the IP address <emphasis 
+				role="italics">192.168.10.250</emphasis> and you'd like to make it 
+				accessible to the other systems on this subnetwork, you would edit the 
+				<filename>/etc/cups/cupsd.conf</filename> and add a Listen 
+				directive, as such:
+                </para>
+                <para>
+<screen>
+Listen 127.0.0.1:631           # existing loopback Listen
+Listen /var/run/cups/cups.sock # existing socket Listen
+Listen 192.168.10.250:631      # Listen on the LAN interface, Port 631 (IPP)
+</screen>
+                </para>
+                <para>
+                In the example above, you may comment out or remove the reference to the 
+				Loopback address (127.0.0.1) if you do not wish <application>cupsd
+				</application> to listen on that interface, but would rather have it only 
+				listen on the Ethernet interfaces of the Local Area Network (LAN). To enable 
+				listening for all network interfaces for which a certain hostname is bound, 
+				including the Loopback, you could create a Listen entry for the hostname 
+				<emphasis>socrates</emphasis> as such:
+                </para>
+                <para>
+<screen>
+Listen socrates:631  # Listen on all interfaces for the hostname 'socrates'
+</screen>
+                </para> 
+				<para>or by omitting the Listen directive and using <emphasis>Port</emphasis> instead, as in:</para>
+<para>
+<screen>
+Port 631  # Listen on port 631 on all interfaces
+</screen>
+</para>
+                </listitem>
+	</itemizedlist>
+
+      </sect2>
+      <sect2 id="cups-references" status="review">
+        <title>References</title>
+        <para>
+        <ulink url="http://www.cups.org/">CUPS Website</ulink>
+        </para>
+        </sect2>
+    </sect1>
+
+</chapter>
+

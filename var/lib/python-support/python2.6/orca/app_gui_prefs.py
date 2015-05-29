@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/app_gui_prefs.py

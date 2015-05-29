@@ -1,0 +1,40 @@
+In GTK+ 2.x applications, you can use SCIM in two different modes, XIM mode or
+GTK IM mode.  In order to use GTK IM mode, you need to install package
+scim-gtk2-immodule (which depends on scim-modules-socket).  Then the
+environment variable GTK_IM_MODULE will be used to determine which mode SCIM
+will use.  To use XIM mode, set GTK_IM_MODULE to xim (also remember you need
+to set XMODIFIERS to @im=SCIM); to use GTK IM mode, set it to scim.
+
+Note that all GTK+ applications should work fine with SCIM in XIM mode, so the
+package scim-gtk2-immodule is not essential for using SCIM in GTK+/GNOME
+environments.  A big disadvantage of using GTK IM mode is that it may cause
+mysterious crashes if the GTK+ application (or some module the application
+dynamically loads) is linked to a different version of standard C++ library
+(libstdc++) as SCIM is linked to.  For example, Adobe Reader (acroread)
+version 7 and the official Mozilla Firefox from mozilla.org are both linked to
+libstdc++5, so they will crash if you try to use the SCIM packages in unstable
+(which are linked to libstdc++6) with them in GTK IM mode.  For more details,
+look at Debian bug #323216 [1].
+
+Mainly for this reason, upstream has slightly changed the behavior of SCIM's
+GTK IM mode since version 1.4.3.  Until 1.4.2, SCIM claims to be preferred for
+GTK IM mode in all locales, so if GTK_IM_MODULE is unset, SCIM will use GTK IM
+mode (the same result as GTK_IM_MODULE set to scim) in GTK+ 2.x applications,
+which makes GTK IM mode sort of the "default mode".  Since 1.4.3, however,
+SCIM no longer claims preferred for GTK IM mode in any locale, so unless
+GTK_IM_MODULE is set to scim, SCIM will not use GTK IM mode.  The side effect
+of this change, is that if you have been using GTK IM mode with out setting
+GTK_IM_MODULE, your SCIM will suddenly stop working after you upgrade to a
+version higher than 1.4.2, you need to set GTK_IM_MODULE to scim to resume the
+previous behavior.
+
+The support for XIM mode in GTK+ 2.x has been significantly improved since the
+days of version 2.0.  Although there are still small glitches here an there,
+XIM mode is generally quite usable.  Because of the crash bug mentioned above,
+as well as the default mode change by upstream, the maintainer now recommends
+using XIM mode even in GTK+ applications.  The maintainer himself has been
+mainly using XIM mode for a long time, and it had been serving him well. :-)
+
+1. http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=323216
+
+vim:textwidth=78:

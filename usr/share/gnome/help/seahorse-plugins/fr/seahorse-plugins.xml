@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Encryption and Keyrings">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse Project">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="fr">
+	<articleinfo>
+		<title>Manuel de Mots de passe et clés de chiffrement</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins et Adam Schreiber</holder>
+		</copyright><copyright><year>2007-2008</year><holder>Claude Paroz (claude@2xlibre.net)</holder></copyright><copyright><year>2007</year><holder>Yann Simon (yann.simon.fr@gmail.com)</holder></copyright><copyright><year>2008.</year><holder>Frédéric Péters (fpeters@0d.be)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Projet Seahorse</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Permission vous est donnée de copier, distribuer et/ou modifier ce document selon les termes de la Licence GNU Free Documentation License, Version 1.1 ou ultérieure publiée par la Free Software Foundation sans section inaltérable, sans texte de première page de couverture ni texte de dernière page de couverture. Vous trouverez un exemplaire de cette licence en suivant ce <ulink type="help" url="ghelp:fdl">lien</ulink> ou dans le fichier COPYING-DOCS fourni avec le présent manuel.</para>
+         <para>Ce manuel fait partie de la collection de manuels GNOME distribués selon les termes de la licence de documentation libre GNU. Si vous souhaitez distribuer ce manuel indépendamment de la collection, vous devez joindre un exemplaire de la licence au document, comme indiqué dans la section 6 de celle-ci.</para>
+
+	<para>La plupart des noms utilisés par les entreprises pour distinguer leurs produits et services sont des marques déposées. Lorsque ces noms apparaissent dans la documentation GNOME et que les membres du projet de Documentation GNOME sont informés de l'existence de ces marques déposées, soit ces noms entiers, soit leur première lettre est en majuscule.</para>
+
+	<para>LE PRÉSENT DOCUMENT ET SES VERSIONS MODIFIÉES SONT FOURNIS SELON LES TERMES DE LA LICENCE DE DOCUMENTATION LIBRE GNU SACHANT QUE : <orderedlist>
+		<listitem>
+		  <para>LE PRÉSENT DOCUMENT EST FOURNI « TEL QUEL », SANS AUCUNE GARANTIE, EXPRESSE OU IMPLICITE, Y COMPRIS, ET SANS LIMITATION, LES GARANTIES DE MARCHANDABILITÉ, D'ADÉQUATION À UN OBJECTIF PARTICULIER OU DE NON INFRACTION DU DOCUMENT OU DE SA VERSION MODIFIÉE. L'UTILISATEUR ASSUME TOUT RISQUE RELATIF À LA QUALITÉ, À LA PERTINENCE ET À LA PERFORMANCE DU DOCUMENT OU DE SA VERSION DE MISE À JOUR. SI LE DOCUMENT OU SA VERSION MODIFIÉE S'AVÉRAIT DÉFECTUEUSE, L'UTILISATEUR (ET NON LE RÉDACTEUR INITIAL, L'AUTEUR, NI TOUT AUTRE PARTICIPANT) ENDOSSERA LES COÛTS DE TOUTE INTERVENTION, RÉPARATION OU CORRECTION NÉCESSAIRE. CETTE DÉNÉGATION DE RESPONSABILITÉ CONSTITUE UNE PARTIE ESSENTIELLE DE CETTE LICENCE. AUCUNE UTILISATION DE CE DOCUMENT OU DE SA VERSION MODIFIÉE N'EST AUTORISÉE AUX TERMES DU PRÉSENT ACCORD, EXCEPTÉ SOUS CETTE DÉNÉGATION DE RESPONSABILITÉ ; </para>
+		</listitem>
+		<listitem>
+		  <para>EN AUCUNE CIRCONSTANCE ET SOUS AUCUNE INTERPRÉTATION DE LA LOI, QU'IL S'AGISSE D'UN DÉLIT CIVIL (Y COMPRIS LA NÉGLIGENCE), CONTRACTUEL OU AUTRE, L'AUTEUR, LE RÉDACTEUR INITIAL, TOUT PARTICIPANT OU TOUT DISTRIBUTEUR DE CE DOCUMENT OU DE SA VERSION MODIFIÉE, OU TOUT FOURNISSEUR DE L'UNE DE CES PARTIES NE POURRA ÊTRE TENU RESPONSABLE À L'ÉGARD DE QUICONQUE POUR TOUT DOMMAGE DIRECT, INDIRECT, PARTICULIER, OU ACCIDENTEL DE TOUT TYPE Y COMPRIS, SANS LIMITATION, LES DOMMAGES LIÉS À LA PERTE DE CLIENTÈLE, À UN ARRÊT DE TRAVAIL, À UNE DÉFAILLANCE OU UN MAUVAIS FONCTIONNEMENT INFORMATIQUE, OU À TOUT AUTRE DOMMAGE OU PERTE LIÉE À L'UTILISATION DU DOCUMENT ET DE SES VERSIONS MODIFIÉES, MÊME SI LADITE PARTIE A ÉTÉ INFORMÉE DE L'ÉVENTUALITÉ DE TELS DOMMAGES.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Projet Seahorse</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Projet Seahorse</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Projet Seahorse</publishername>
+		</publisher>
+		<revhistory>
+		    <revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.10.0</revnumber>
+				<date>Août 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+		    <revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.9.1</revnumber>
+				<date>Novembre 2006</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.9.0</revnumber>
+				<date>Juillet 2005</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Projet Seahorse</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Manuel de Mots de passe et clés de chiffrement V0.7.0</revnumber>
+				<date>Février 2003</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Projet Seahorse</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>Ce manuel documente la version 2.24.x de Mots de passe et clés de chiffrement</releaseinfo>
+		<legalnotice>
+			<title>Votre avis</title>
+			<para>Pour rapporter une anomalie ou émettre une suggestion concernant <application>Mots de passe et clés de chiffrement</application> ou ce manuel, procédez comme indiqué sur la <ulink url="ghelp:gnome-feedback" type="help">page de réactions sur GNOME</ulink>.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para><application>Mots de passe et clés de chiffrement</application> est l'application permettant de gérer votre clé principale et la manière dont le mot de passe de celle-ci est stocké après avoir effectué une opération de chiffrement.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Clés de chiffrement</primary>
+	</indexterm>
+
+    <sect1 id="introduction">
+        <title>Introduction</title>
+        <para>Vous pouvez utiliser <application>Mots de passe et clés de chiffrement</application> pour choisir votre clé de chiffrement principale et la manière dont le mot de passe de celle-ci est stocké après avoir effectué une opération de chiffrement.</para>
+        <para>Ce manuel contient également les informations relatives aux greffons fournis par : <itemizedlist>
+				<listitem>
+					<para><application><ulink url="ghelp:gedit" type="help">Éditeur de texte gedit</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?nautilus">Gestionnaire de fichiers Nautilus</ulink></application></para>
+				</listitem>
+				<listitem>
+					<para><application><ulink url="ghelp:user-guide?epiphany-browser">Navigateur Web Epiphany</ulink></application></para>
+				</listitem>
+			</itemizedlist></para>
+    </sect1>
+
+  <sect1 id="file-manager">
+    <title>Intégration au gestionnaire de fichiers</title>
+    <para><application>Chiffrement et trousseau</application> s'intègre à <application><ulink url="ghelp:user-guide?nautilus">Nautilus</ulink></application>. Vous pouvez chiffrer, déchiffrer, signer et vérifier des fichiers, de même qu'importer des clés publiques à partir de la fenêtre du gestionnaire de fichiers sans devoir lancer <application>Chiffrement et trousseaux</application>.</para>
+    <sect2 id="encrypt-fm">
+      <title>Chiffrement de fichiers</title>
+      <para>Pour chiffrer des fichiers à partir du gestionnaire de fichiers, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Sélectionnez un ou plusieurs fichiers dans le gestionnaire de fichiers</para>
+	  </listitem>
+	  <listitem>
+	    <para>Faites un clic-droit sur un des fichiers sélectionnés et choisissez <guimenuitem>Chiffrer</guimenuitem></para>
+	  </listitem>
+	  <listitem>
+	    <para>Sélectionnez les personnes pour lesquelles vous destinez le fichier, puis cliquez sur <guibutton>Valider</guibutton>.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="sign-fm">
+      <title>Signature de fichiers</title>
+      <para>Pour signer des fichiers à partir du gestionnaire de fichiers, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Sélectionnez un ou plusieurs fichiers dans le gestionnaire de fichiers</para>
+	  </listitem>
+	  <listitem>
+	    <para>Faites un clic droit sur un des fichiers sélectionnés et choisissez <guimenuitem>Signer</guimenuitem></para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="decrypt-fm">
+      <title>Déchiffrement de fichiers</title>
+      <para>Pour déchiffrer un fichier chiffré à partir du gestionnaire de fichiers, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Double-cliquez sur le fichier à déchiffrer</para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist></para>
+    </sect2>
+    <sect2 id="verify-fm">
+      <title>Vérification de signatures</title> 
+      <para>Pour vérifier des fichiers, il suffit de double-cliquer sur le fichier de signature à part.</para>
+      <note><para>Les noms de fichiers de signature détachés sont souvent sous la forme &lt;nom-de-fichier&gt;.sig</para></note>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="text-editor">
+    <title>Intégration à l'éditeur de texte</title>
+    <para>Pour activer le greffon Chiffrement de texte dans <application><ulink url="ghelp:gedit" type="help">gedit</ulink></application>, l'éditeur de texte de GNOME, effectuez les opérations suivantes : <itemizedlist>
+	<listitem>
+	  <para>Lancez <application>Gedit</application> en choisissant <menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessoires</guimenuitem><guimenuitem>Éditeur de texte</guimenuitem></menuchoice></para>
+	</listitem>
+	<listitem>
+	  <para>Choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Préférences</guimenuitem></menuchoice></para>
+	</listitem>
+	<listitem>
+	  <para>Dans l'onglet <guilabel>Greffons</guilabel>, cochez le greffon <guilabel>Chiffrement de texte</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-te">
+      <title>Chiffrement de texte</title>
+      <para>Pour chiffrer du texte sélectionné dans <application>Gedit</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Sélectionnez le texte que vous souhaitez chiffrer, puis choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Chiffrer</guimenuitem></menuchoice></para>
+	  </listitem>
+	  <listitem>
+	    <para>Sélectionnez la personne à laquelle vous destinez le texte chiffré, puis cliquez sur <guilabel>Valider</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Vous pouvez maintenant copier ou enregistrer le texte chiffré.</para>
+    </sect2>
+    <sect2 id="sign-te">
+      <title>Signature de texte</title>
+      <para>Pour signer une sélection de texte de <application>Gedit</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Sélectionnez le texte que vous souhaitez signer, puis choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Signer</guimenuitem></menuchoice></para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist> Vous pouvez maintenant copier ou enregistrer le texte signé.</para>
+    </sect2>
+    <sect2 id="decryptverify-te">
+      <title>Déchiffrement et vérification de texte</title>
+      <para>Pour déchiffrer ou vérifier du texte sélectionné dans <application>Gedit</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Sélectionnez le texte à déchiffrer ou à vérifier, puis choisissez <menuchoice><guimenu>Édition</guimenu><guimenuitem>Déchiffrer/Vérifier</guimenuitem></menuchoice></para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist> Vous pouvez maintenant copier ou enregistrer le texte déchiffré.</para>
+    </sect2>
+  </sect1>
+  <sect1 id="web-browser">
+    <title>Intégration au navigateur Web</title>
+    <para>Cette extension permet le chiffrement, le déchiffrement, la signature et l'import du contenu de champs de texte.</para>
+    <para>Pour activer l'extension de chiffrement dans <application><ulink url="ghelp:epiphany-browser" type="help">Epiphany</ulink></application>, le navigateur Web de GNOME, effectuez les opérations suivantes : <itemizedlist>
+	<listitem>
+	  <para>Lancez le <application>navigateur Web Epiphany</application> en choisissant <menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Navigateur Web Epiphany</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Choisissez <menuchoice><guimenu>Outils</guimenu><guimenuitem>Extensions</guimenuitem></menuchoice></para>
+	</listitem>
+	<listitem>
+	  <para>Sélectionnez le greffon <guilabel>Seahorse</guilabel>.</para>
+	</listitem>
+      </itemizedlist></para>
+    <sect2 id="encrypt-wb">
+      <title>Chiffrement de texte</title>
+      <para>Pour chiffrer le contenu d'un champ de texte dans le <application>navigateur Web Epiphany</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Cliquez avec le bouton droit dans le champ de texte que vous souhaitez chiffrer et choisissez <menuchoice><guimenuitem>Chiffrer</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Sélectionnez la personne à laquelle vous destinez le texte chiffré, puis cliquez sur <guilabel>Valider</guilabel>.</para>
+	  </listitem>
+	</itemizedlist> Le texte chiffré apparaîtra dans le champ de texte.</para>
+    </sect2>
+    <sect2 id="sign-wb">
+      <title>Signature de texte</title>
+      <para>Pour signer le contenu d'un champ de texte dans le <application>navigateur Web Epiphany</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Cliquez avec le bouton droit dans le champ de texte que vous souhaitez signer et choisissez <menuchoice><guimenuitem>Signer</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist> Le texte signé apparaîtra dans le champ de texte.</para>
+    </sect2>
+    <sect2 id="decryptverify-wb">
+      <title>Déchiffrement et vérification de texte</title>
+      <para>Pour déchiffrer ou vérifier le contenu d'un champ de texte dans le <application>navigateur Web Epiphany</application>, effectuez les opérations suivantes : <itemizedlist>
+	  <listitem>
+	    <para>Cliquez avec le bouton droit dans le champ de texte que vous souhaitez déchiffrer ou vérifier, et choisissez <menuchoice><guimenuitem>Déchiffrer/Vérifier</guimenuitem></menuchoice>,</para>
+	  </listitem>
+	  <listitem>
+	    <para>Si on vous la demande, saisissez la phrase de passe de votre clé privée.</para>
+	  </listitem>
+	</itemizedlist> Le texte déchiffré apparaîtra dans le champ de texte.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="preferences">
+    <title>Préférences</title>
+    <para>Cette section décrit les préférences configurables dans <application>Mots de passe et clés de chiffrement</application>.</para>
+        
+    <sect2 id="encrypt-pref">
+      <title>Préférences de chiffrement</title>
+      <para>Cette section décrit les préférences configurables en choisissant <menuchoice><guimenu>Système</guimenu><guimenuitem>Préférences</guimenuitem><guimenuitem>Paramètres du chiffrement</guimenuitem></menuchoice> à partir du tableau de bord.</para>
+      
+      <sect3 id="prefs">
+	<title>Paramètres de chiffrement</title>
+	<para>
+	</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Clé par défaut</guilabel></term>
+	    <listitem>
+	      <para>C'est la clé que les applications et les greffons utiliseront pour signer les fichiers. C'est également cette clé qui est employée pour chiffrer des fichiers si « chiffrer pour soi-même » est sélectionné.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Toujours m'inclure comme destinataire lors du chiffrement</guilabel></term>
+	    <listitem>
+	      <para>Active l'option de chiffrement pour soi-même, indépendamment du fait que vous figuriez dans la liste des destinataires de tous les fichiers chiffrés.</para>
+	      <note>
+		<para>Si cette option n'est pas cochée et que vous ne vous incluez pas dans la liste des destinataires, vous ne pourrez pas déchiffrer les fichiers que vous chiffrez.</para>
+	      </note>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>
+      
+      <sect3 id="password-cache">
+	<title>Cache des phrases de passe</title>
+	<para>L'activation du cache des phrases de passe permet d'effectuer un grand nombre d'opérations nécessitant la saisie de la phrase de passe sans devoir la saisir à chaque opération. <command>seahorse-agent</command> prend la place de <command>gpg-agent</command>. L'activation de l'expiration du cache des phrases de passe est généralement une bonne idée. Vous devrez alors périodiquement ressaisir la phrase de passe, mais cela améliore la sécurité.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><guilabel>Ne jamais se souvenir des phrases de passe</guilabel></term>
+	    <listitem>
+	      <para>Avec cette option, les phrases de passe ne sont jamais mises en mémoire.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Se souvenir des phrases de passe durant ... minutes</guilabel></term>
+	    <listitem>
+	      <para>Définit la durée de stockage des phrases de passe, en minutes. Utilisez la zone de sélection numérique pour définir la durée souhaitée.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Toujours se souvenir des phrases de passe lorsque je suis connecté</guilabel></term>
+	    <listitem>
+	      <para>Cette option active la mise en mémoire cache de toute phrase de passe dès votre connexion.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Demander avant d'utiliser une phrase de passe en mémoire cache</guilabel></term>
+	    <listitem>
+	      <para>Cette option vous demande une autorisation avant chaque utilisation d'une phrase de passe mise en cache.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><guilabel>Charger automatiquement les clés Secure Shell</guilabel></term>
+	    <listitem>
+	      <para>Définit la mise en cache automatique des clés Secure Shell.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect3>   
+    </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>À propos de Chiffrement et trousseaux</title>
+    <para><application>Mots de passe et clés de chiffrement</application>, ses greffons, l'applet des préférences et l'applet de tableau de bord sont connus globalement sous le nom de Seahorse. Seahorse a été écrit par Jacob Perkins. Les mainteneurs actuels sont Stef Walter et Adam Schreiber. Ce manuel a été écrit par Adam Schreiber. Le site Web du projet a été conçu par Jim Pharis. Pour trouver plus d'informations à propos du projet Seahorse, consultez la <ulink url="http://www.gnome.org/projects/seahorse/" type="http">page Web de Seahorse</ulink> [en anglais].</para>
+    <para>Pour rapporter une anomalie ou émettre une suggestion concernant cette application ou ce manuel, procédez comme indiqué dans la <ulink url="ghelp:gnome-feedback" type="help">section sur les rapports d'anomalie du Guide d'utilisation du bureau GNOME</ulink>.</para>
+    <para>Ce programme est distribué selon les termes de la GNU General Public License, tels que publiés par la Free Software Foundation ; soit la version 2 de cette licence ou (à votre choix) toute version ultérieure. Une <ulink url="ghelp:gpl" type="help">copie de cette licence</ulink> est inclue dans cette documentation ; une autre se trouve dans le fichier COPYING inclus dans le code source de ce programme.</para>
+  </sect1>
+</article>

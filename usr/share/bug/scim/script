@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# dpkg output of scim-related packages
+echo "Related packages:" >&3
+dpkg-query -l "*scim*" | grep "^ii" >&3
+
+echo >&3
+
+# environment variables
+echo "Related environment variables:" >&3
+echo "\$XMODIFIERS=$XMODIFIERS" >&3
+echo "\$GTK_IM_MODULE=$GTK_IM_MODULE" >&3
+echo "\$QT_IM_MODULE=$QT_IM_MODULE" >&3
+
+echo >&3
+
+# contents in /usr/lib/scim-1.0
+echo "Installed SCIM components:" >&3
+ls -R /usr/lib/scim-1.0 >&3

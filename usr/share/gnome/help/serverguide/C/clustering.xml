@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="clustering" status="review">
+  <title>Clustering</title>
+
+  <sect1 id="drbd" status="review">
+    <title>DRBD</title>
+ 
+    <para>
+    Distributed Replicated Block Device (DRBD) mirrors block devices between multiple hosts.  The replication is 
+    transparent to other applications on the host systems.  Any block device hard disks, partitions, RAID devices,
+    logical volumes, etc can be mirrored.
+    </para>
+
+    <para>
+    To get started using <application>drbd</application>, first install the necessary packages.  From a terminal enter:
+    </para>
+
+<screen>
+<command>sudo apt-get install drbd8-utils</command>
+</screen>
+
+    <para>
+    This section covers setting up a <application>drbd</application> to replicate a separate <filename>/srv</filename>
+    partition, with an <application>ext3</application> filesystem between two hosts.  The partition size is not 
+    particularly relevant, but both partitions need to be the same size.  
+    </para>
+
+    <sect2 id="drbd-configuration" status="review">
+      <title>Configuration</title>
+
+      <para>
+      The two hosts in this example will be called <emphasis>drbd01</emphasis> and <emphasis>drbd02</emphasis>.
+      They will need to have name resolution configured either through DNS or the <filename>/etc/hosts</filename> 
+      file.  See <xref linkend="dns"/> for details.  
+      </para>
+
+      <itemizedlist>
+        <listitem>
+          <para>
+          To configure <application>drbd</application>, on the first host edit <filename>/etc/drbd.conf</filename>:
+          </para>
+
+<programlisting>
+global { usage-count no; }
+common { syncer { rate 100M; } }
+resource r0 {
+        protocol C;
+        startup {
+                wfc-timeout  15;
+                degr-wfc-timeout 60;
+        }
+        net {
+                cram-hmac-alg sha1;
+                shared-secret "secret";
+                allow-two-primaries;
+        }
+        on drbd01 {
+                device /dev/drbd0;
+                disk /dev/sdb1;
+                address 192.168.0.1:7788;
+                meta-disk internal;
+        }
+        on drbd02 {
+                device /dev/drbd0;
+                disk /dev/sdb1;
+                address 192.168.0.2:7788;
+                meta-disk internal;
+        }
+} 
+</programlisting>
+
+          <note>
+            <para>
+            There are many other options in <filename>/etc/drbd.conf</filename>, but for this example their default
+            values are fine.
+            </para>
+          </note>
+        </listitem>
+        <listitem>
+   
+          <para>
+          Now copy <filename>/etc/drbd.conf</filename> to the second host:
+          </para> 
+
+<screen>
+<command>scp /etc/drbd.conf drbd02:~</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          And, on <emphasis>drbd02</emphasis> move the file to <filename>/etc</filename>:
+          </para> 
+
+<screen>
+<command>sudo mv drbd.conf /etc/</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          Next, on both hosts, start the <application>drbd</application> daemon:
+          </para> 
+
+<screen>
+<command>sudo /etc/init.d/drbd start</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          Now using the <application>drbdadm</application> utility initialize the meta data storage.  On each server
+          execute:
+          </para> 
+
+<screen>
+<command>sudo drbdadm create-md r0</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          On the <emphasis>drbd01</emphasis>, or whichever host you wish to be the primary, enter the following:
+          </para> 
+
+<screen>
+<command>sudo drbdadm -- --overwrite-data-of-peer primary all</command>
+</screen>
+
+        </listitem>
+        <listitem>
+
+          <para>
+          After executing the above command, the data will start syncing with the secondary host.  To watch the progresss, on
+          <emphasis>drbd02</emphasis> enter the following:
+          </para> 
+
+<screen>
+<command>watch -n1 cat /proc/drbd</command>
+</screen>
+
+          <para>
+          To stop watching the output press <emphasis>Ctrl+c</emphasis>.
+          </para>
+
+        </listitem>
+        <listitem>
+
+      <para>
+      Finally, add a filesystem to <filename>/dev/drbd0</filename> and mount it:
+      </para> 
+
+<screen>
+<command>sudo mkfs.ext3 /dev/drbd0</command>
+<command>sudo mount /dev/drbd0 /srv</command>
+</screen>
+
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+    <sect2 id="drbd-testing" status="review">
+      <title>Testing</title>
+
+      <para>
+      To test that the data is actually syncing between the hosts copy some files on the <emphasis>drbd01</emphasis>, the 
+      primary, to <filename>/srv</filename>:
+      </para>
+
+<screen>
+<command>sudo cp -r /etc/default /srv</command>
+</screen>
+
+      <para>
+      Next, unmount <filename>/srv</filename>:
+      </para>
+
+<screen>
+<command>sudo umount /srv</command>
+</screen>
+
+      <para>
+      <emphasis>Demote</emphasis> the <emphasis>primary</emphasis> server to the <emphasis>secondary</emphasis> role:
+      </para>
+
+<screen>
+<command>sudo drbdadm secondary r0</command>
+</screen>
+
+      <para>
+      Now on the the <emphasis>secondary</emphasis> server <emphasis>promote</emphasis> it to the <emphasis>primary</emphasis> role:
+      </para>
+
+<screen>
+<command>sudo drbdadm primary r0</command>
+</screen>
+
+      <para>
+      Lastly, mount the partition:
+      </para>
+
+<screen>
+<command>sudo mount /dev/drbd0 /srv</command>
+</screen>
+
+      <para>
+      Using <emphasis>ls</emphasis> you should see <filename>/srv/default</filename> copied from the former <emphasis>primary</emphasis>         
+      host <emphasis>drbd01</emphasis>.
+      </para>
+
+    </sect2>
+    <sect2 id="drbd-references" status="review">
+      <title>References</title>
+     
+      <itemizedlist>
+        <listitem>
+          <para>
+          For more information on <application>DRBD</application> see the <ulink url="http://www.drbd.org/">DRBD web site</ulink>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man5/drbd.conf.5.html">drbd.conf man page</ulink> contains
+          details on the options not covered in this guide.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Also, see the <ulink url="http://manpages.ubuntu.com/manpages/jaunty/en/man8/drbdadm.8.html">drbdadm man page</ulink>.
+          </para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+</chapter>

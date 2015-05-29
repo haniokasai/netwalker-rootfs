@@ -1,0 +1,126 @@
+#! /usr/bin/python
+#
+# ufw: front-end for Linux firewalling (cli)
+#
+# Copyright (C) 2008-2009 Canonical Ltd.
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License version 3,
+#    as published by the Free Software Foundation.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import os
+import re
+import sys
+import warnings
+
+try:
+    import ufw.frontend
+    from ufw.common import UFWError
+    from ufw.util import error, warn, msg
+except:
+    print >> sys.stderr, "ERROR: Could not find required libraries. Aborting."
+    sys.exit(1)
+
+import gettext
+gettext.install(ufw.common.programName)
+
+version = "0.27-0ubuntu2"
+
+# Internationalization
+gettext.bindtextdomain(ufw.common.programName, \
+                       os.path.join(ufw.common.state_dir, 'messages'))
+gettext.textdomain(ufw.common.programName)
+_ = gettext.gettext
+
+if sys.version_info[0] < 2 or \
+   (sys.version_info[0] == 2 and sys.version_info[1] < 5):
+    msg(ufw.common.programName + _(": Need at least python 2.5)\n"), \
+        sys.stderr)
+    sys.exit(1)
+
+if sys.version_info[0] == 2 and sys.version_info[1] < 6:
+    def clean_warning(message, category, filename, lineno, file=None):
+        warn(message)
+else:
+    def clean_warning(message, category, filename, lineno, file=None, line=""):
+        warn(message)
+
+if __name__ == "__main__":
+    warnings.showwarning = clean_warning
+    action = ""
+    rule = ""
+    dryrun = False
+    app_action = False
+    profile = ""
+
+    if len(sys.argv) > 1 and sys.argv[1].lower() == "app":
+        try:
+	    (action, profile, dryrun) = \
+                ufw.frontend.parse_application_command(sys.argv)
+            app_action = True
+        except ValueError:
+            msg(ufw.frontend.get_command_help())
+            sys.exit(1)
+        except UFWError, e:
+            error(e.value)
+        except Exception:
+            raise
+    else:
+        try:
+            (action, rule, ip_version, dryrun) = \
+                ufw.frontend.parse_command(sys.argv)
+        except ValueError:
+            msg(ufw.frontend.get_command_help())
+            sys.exit(1)
+        except UFWError, e:
+            error(e.value)
+        except Exception:
+            raise
+
+    if action == "help" or action == "--help":
+        msg(ufw.frontend.get_command_help())
+        sys.exit(0)
+    elif action == "version" or action == "--version":
+        msg(ufw.common.programName + " " + version)
+        msg("Copyright (C) 2008-2009 Canonical Ltd.")
+        sys.exit(0)
+
+    try:
+        ui = ufw.frontend.UFWFrontend(dryrun)
+    except UFWError, e:
+        error(e.value)
+    except Exception:
+        raise
+
+    res = ""
+    try:
+        if app_action:
+            res = ui.do_application_action(action, profile)
+        else:
+            bailout = False
+            if action == "enable" and not ui.continue_under_ssh():
+                res = _("Aborted")
+                bailout = True
+
+            if not bailout:
+                res = ui.do_action(action, rule, ip_version)
+
+        if res != "":
+            msg(res)
+
+    except UFWError, e:
+        error(e.value)
+    except Exception:
+        raise
+
+    sys.exit(0)
+

@@ -1,0 +1,12 @@
+#!/bin/sh
+# postrm script for app-data-ubuntu
+
+set -e
+
+
+
+if [ "$1" = "remove" ] && [ -x /usr/sbin/update-app-install ]; then
+	# cache the application data
+	/usr/sbin/update-app-install || true
+fi
+

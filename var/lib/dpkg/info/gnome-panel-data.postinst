@@ -1,0 +1,34 @@
+#!/bin/sh
+set -e
+
+# Automatically added by dh_scrollkeeper
+if [ "$1" = "configure" ] && which scrollkeeper-update >/dev/null 2>&1; then
+	scrollkeeper-update -q
+fi
+# End automatically added section
+# Automatically added by dh_gconf
+if [ "$1" = "configure" ]; then
+	gconf-schemas --register panel-toplevel.schemas clock.schemas workspace-switcher.schemas panel-compatibility.schemas panel-global.schemas panel-object.schemas panel-general.schemas fish.schemas window-list.schemas 
+fi
+# End automatically added section
+# Automatically added by dh_icons
+if which update-icon-caches >/dev/null 2>&1 ; then
+	update-icon-caches /usr/share/icons/hicolor
+fi
+# End automatically added section
+
+
+update-gconf-defaults
+
+if [ "$1" = configure ] && [ -n "$2" ] && \
+	dpkg --compare-versions "$2" lt "2.20.1-2"; then
+    rm -f /etc/menu-methods/gnome-panel-data /etc/menu-methods/gnome-vfolder-user
+    rm -f /etc/gnome-vfs-2.0/vfolders/applications.template
+    if [ -d /etc/gnome-vfs-2.0/vfolders ]; then
+        rmdir --ignore-fail-on-non-empty /etc/gnome-vfs-2.0/vfolders
+    fi
+    rm -rf /var/lib/gnome/Debian
+    if [ -d /var/lib/gnome ]; then
+        rmdir --ignore-fail-on-non-empty /var/lib/gnome
+    fi
+fi

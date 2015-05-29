@@ -1,0 +1,40 @@
+#!/bin/bash
+# 機能  :   
+# 作成  :   
+
+str=$(gconftool-2 --get /desktop/gnome/interface/font_name)
+font_name_font1=${str% *}
+rtn=${str##* }
+str=$(gconftool-2 --get /desktop/gnome/interface/monospace_font_name)
+font_name_font2=${str% *}
+font_name_size2=${str##* }
+str=$(gconftool-2 --get /desktop/gnome/interface/document_font_name)
+font_name_font3=${str% *}
+font_name_size3=${str##* }
+str=$(gconftool-2 --get /apps/nautilus/preferences/desktop_font)
+font_name_font4=${str% *}
+font_name_size4=${str##* }
+str=$(gconftool-2 --get /apps/metacity/general/titlebar_font)
+font_name_font5=${str% *}
+font_name_size5=${str##* }
+
+if [ $rtn -lt 16 ]
+then 
+fontsize=$(expr $rtn + 2)
+else
+fontsize=$rtn
+fi
+
+if [ $fontsize -ge 16 ]
+then
+fontsize=16
+fi
+
+gconftool-2 --set\
+ --type string /desktop/gnome/interface/font_name "$font_name_font1 $fontsize"\
+ --type string /desktop/gnome/interface/monospace_font_name "$font_name_font2 $fontsize"\
+ --type string /desktop/gnome/interface/document_font_name "$font_name_font3 $fontsize"\
+ --type string /apps/nautilus/preferences/desktop_font "$font_name_font4 $fontsize"\
+ --type string /apps/metacity/general/titlebar_font "$font_name_font5 $fontsize"
+
+

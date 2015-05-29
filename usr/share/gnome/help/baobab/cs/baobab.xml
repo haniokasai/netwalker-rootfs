@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.15">
+<!ENTITY manrevision "1.0">
+<!ENTITY date "April 2006">
+<!ENTITY app "Disk Usage Analyzer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Apr 11, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="cs">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Příručka nástroje Analyzátor využití disku</title>
+
+    <abstract role="description">
+      <para>Analyzátor využití disku je grafický nástroj založený na nabídkách, který lze použít k prohlížení a sledování využití disku dle adresářové struktury.</para>
+    </abstract>
+
+    <copyright> 
+      <year>2006</year> 
+      <holder>Fabio Marzocca</holder> 
+    </copyright><copyright><year>2009.</year><holder>Lucas Lommer (llommer@svn.gnome.org)</holder></copyright> 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+    <publisher> 
+      <publishername>Dokumentační projekt GNOME</publishername> 
+    </publisher> 
+
+     <legalnotice id="legalnotice">
+	<para>Je povoleno kopírovat, šířit a/nebo upravovat tento dokument za podmínek GNU Free Documentation License (GFDL), verze 1.1 nebo jakékoli další verze vydané nadací Free Software Foundation; bez neměnných oddílů, bez textů předních desek a bez textů zadních desek. Kopii licence GFDL naleznete pod <ulink type="help" url="ghelp:fdl">tímto odkazem</ulink> nebo v souboru COPYING-DOCS dodávaném s touto příručkou.</para>
+         <para>Tato příručka je součástí sbírky příruček GNOME šířených za podmínek licence GNU FDL. Pokud chcete tento dokument šířit odděleně od sbírky, musíte přiložit kopii licence dle popisu v oddíle 6 dané licence.</para>
+
+	<para>Mnoho užívaných jmen určených k zviditelnění produktů nebo služeb jsou ochranné známky. Na místech, kde jsou tato jména v dokumentaci užita a členové Dokumentačního projektu GNOME jsou si vědomi skutečnosti, že se jedná o ochrannou známku, je takové jméno psáno velkými písmeny celé nebo s velkým písmenem na začátku.</para>
+
+	<para>DOKUMENT A JEHO UPRAVENÉ VERZE JSOU ŠÍŘENY V SOULADU SE ZNĚNÍM LICENCE GNU FREE DOCUMENTATION LICENSE S NÁSLEDUJÍCÍM USTANOVENÍM: <orderedlist>
+		<listitem>
+		  <para>DOKUMENT JE POSKYTOVÁN V PODOBĚ "JAK JE", BEZ ZÁRUKY JAKÉHOKOLIV DRUHU, NEPOSKYTUJÍ SE ANI ODVOZENÉ ZÁRUKY, ZÁRUKY, ŽE DOKUMENT, NEBO JEHO UPRAVENÁ VERZE, JE BEZCHYBNÝ, NEBO ZÁRUKY PRODEJNOSTI, VHODNOSTI PRO URČITÝ ÚČEL, NEBO NEPORUŠENOSTI. RIZIKO NEKVALITY, NEPŘESNOSTI A ŠPATNÉHO PROVEDENÍ DOKUMENTU, NEBO JEHO UPRAVENÉ VERZE, NESETE VY. POKUD JE TENTO DOKUMENT NEBO JEHO UPRAVENÁ VERZE VADNÁ V JAKÉMKOLIV SMYSLU, VY (NIKOLIV PŮVODCE, AUTOR NEBO JAKÝKOLIV PŘISPĚVATEL) PŘEBÍRÁTE ODPOVĚDNOST ZA JAKÉKOLIV NÁKLADY NA NUTNÉ ÚPRAVY, OPRAVY ČI SLUŽBY. TOTO PROHLÁŠENÍ O ZÁRUCE PŘEDSTAVUJE ZÁKLADNÍ SOUČÁST TÉTO LICENCE. BEZ TOHOTO PROHLÁŠENÍ NENÍ PODLE TÉTO DOHODY POVOLENO UŽÍVÁNÍ ANI ÚPRAVY TOHOTO DOKUMENTU; DÁLE</para>
+		</listitem>
+		<listitem>
+		  <para>UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL
+                       THEORY, WHETHER IN TORT (INCLUDING NEGLIGENCE),
+                       CONTRACT, OR OTHERWISE, SHALL THE AUTHOR,
+                       INITIAL WRITER, ANY CONTRIBUTOR, OR ANY
+                       DISTRIBUTOR OF THE DOCUMENT OR MODIFIED VERSION
+                       OF THE DOCUMENT, OR ANY SUPPLIER OF ANY OF SUCH
+                       PARTIES, BE LIABLE TO ANY PERSON FOR ANY
+                       DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR
+                       CONSEQUENTIAL DAMAGES OF ANY CHARACTER
+                       INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS
+                       OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR
+                       MALFUNCTION, OR ANY AND ALL OTHER DAMAGES OR
+                       LOSSES ARISING OUT OF OR RELATING TO USE OF THE
+                       DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT,
+                       EVEN IF SUCH PARTY SHALL HAVE BEEN INFORMED OF
+                       THE POSSIBILITY OF SUCH DAMAGES.
+		  </para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+   <authorgroup> 
+   <author> 
+		<firstname>Fabio</firstname> 
+		<surname>Marzocca</surname> 
+		<affiliation> 
+	  	<orgname>Dokumentační projekt GNOME</orgname> 
+	  	<address> <email>thesaltydog@gmail.com</email> </address> 
+		</affiliation> 
+   </author> 
+
+   <author role="maintainer">
+   	<firstname>Fabio</firstname>
+	<surname>Marzocca</surname>
+	<affiliation>
+	  <address><email>thesaltydog@gmail.com</email></address>
+	</affiliation>
+   </author>
+      
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+   <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  	<orgname>Latin Translation Team</orgname> 
+	  	<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+   </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision> 
+		<revnumber>Příručka nástroje Analyzátor využití disku verze 1.0</revnumber> 
+		<date>Duben 2006</date> 
+		<revdescription> 
+	  		<para role="author">Emmanuele Bassi <email>ebassi@gmail.com</email></para>
+	  		<para role="publisher">Dokumentační projekt GNOME</para>
+		</revdescription> 
+      </revision>
+    </revhistory> 
+
+    <releaseinfo>Tato příručka popisuje Analyzátor využití disku ve verzi 2.15</releaseinfo> 
+    
+    <legalnotice> 
+      <title>Ohlasy</title> 
+      <para>Pokud chcete oznámit chybu nebo navrhnout vylepšení vztahující se k nástroji Analyzátor využití disku nebo této příručce, postupujte dle instrukcí na stránce <ulink url="ghelp:gnome-feedback" type="help">Stránka s ohlasy na GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>Analyzátor využití disku</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+
+  <sect1 id="baobab-introduction"> 
+    <title>Úvod</title> 
+
+      <para><application>Disk Usage Analyzer</application> is a graphical, menu-driven
+      application to analyse disk usage in any Gnome environment. <application>Disk Usage Analyzer</application> can easily scan 
+       either the whole filesystem tree, or a specific user-requested directory 
+       branch (local or remote). </para>
+       <para>Také sleduje změny v reálném čase vašeho domácího adresáře a všech připojovaných a odpojovaných zařízení. <application>Analyzátor využití disku</application> také sestavuje pro každý adresář obrázek na bázi konceptu Treemap.</para>
+
+  </sect1>
+
+<!-- ================ Getting Started ================================ -->
+	<sect1 id="baobab-getting-started">
+	<title>Začínáme</title>
+
+    <para><application>Analyzátor využití disku</application> může být spuštěn třemi způsoby:</para>
+	 <itemizedlist>
+    <listitem><para>z nabídky GNOME <menuchoice><guimenu>Aplikace</guimenu><guimenuitem>Příslušenství</guimenuitem></menuchoice>;</para>
+    		</listitem>
+    <listitem><para>z okna příkazové řádky;</para>
+    		</listitem>
+    <listitem><para>ze správce souborů Nautilus pomocí nabídky "Otevřít s..." ;</para>
+    		</listitem>
+    </itemizedlist> 
+
+
+<para>Pokud chcete spustit <application>Analyzátor využití disku</application> z příkazové řádky, prostě napište:</para> 
+  
+<para><command>baobab &lt;celá_cesta_k_adresáři&gt;</command> a stiskněte <keycap>Enter</keycap>.</para>  
+<para/> 
+	<para>Pokud <application>Analyzátor využití disku</application> spustíte z nabídky, nástroj se nastartuje v režimu čekání na akci uživatele.</para> 
+    <para>Při spuštění <application>Analyzátoru využití disku</application> z nabídky GNOME se objeví následující okno.</para>
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fig"> 
+	<title>Okno nástroje Analyzátor využití disku</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_window.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Zobrazuje hlavní okno nástroje Analyzátor využití disku, lze v něm spatřit lištu s nabídkami, prostor zobrazování, posuvníky a stavovou lištu.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+
+<para>Uživatel pak může:</para>
+	<itemizedlist>
+    <listitem><para>spustit prohledávání celého disku</para>
+    		</listitem>
+    <listitem><para>zvolit k prohledání nějaký konkrétní místní adresář</para>
+    		</listitem>
+    <listitem><para>zvolit k prohledání složku vzdáleného serveru</para>
+    		</listitem>
+    <listitem><para>změnit nastavení</para>
+    		</listitem>
+	</itemizedlist>
+	
+	<note><para>Pokud spustíte v nástroji <application>Analyzátoru využití disku</application> prohledání celého souborového systému, zároveň s tím v okně započne sestavování stromu adresářů. Pokud je k souborového systému připojen další diskový oddíl, bude prohledán také.</para></note>
+
+</sect1>
+
+<!-- ================ Usage ================================ -->
+
+  <sect1 id="baobab-usage"> 
+    <title>Používání</title>
+
+    <sect2 id="baobab-fullscan">
+      <title>Prohledání celého souborového systému</title>
+        <para>Pokud chcete spustit analýzu celého souborového systému, zvolte z nabídky <menuchoice><guimenu>Analyzátor</guimenu><guimenuitem>Prohledat souborový systém</guimenuitem></menuchoice> nebo stiskněte tlačítko <guibutton>Prohledat souborový systém</guibutton> na liště nástrojů.</para>
+
+	<para>Když prohledávání skončí, výsledkem bude celý strom souborového systému, podobný, jako na následujícím obrázku.</para>    
+
+    <!-- ==== Figure ==== -->
+      <figure id="baobab-fullscan-fig"> 
+	<title>Prohledávání celého souborového systému v nástroji Analyzátor využití disku</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_fullscan.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Zobrazuje okno prohledání celého souborového systému v nástroji Analyzátor využití disku, lze v něm spatřit lištu s nabídkami, plochu zobrazování, posuvníky a stavovou lištu.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    	<note><para>Když spustíte v nástroji <application>Analyzátoru využití disku</application> prohledání celého souborového systému, zároveň s tím započne v okně sestavování stromu. Pokud je do souborového systému připojen další diskový oddíl, bude prohledán také.</para></note>
+    
+    <para><application>Analyzátor využití disku</application> zobrazuje velikost adresářů dle obsazeného místa. To znamená, že zobrazená velikost odpovídá místu skutečně zabranému a ne zdánlivé velikosti adresářů. Pokud nechcete zobrazovat velikost dle obsazeného místa, vypněte v nabídce volbu <menuchoice><guimenu>Zobrazit</guimenu><guimenuitem>Obsazené místo</guimenuitem></menuchoice>.</para>
+    
+    <warning><para><application>Analyzátor využití disku</application> nebude započítávat adresář /proc ani velikost jiných položek zvláštního typu. To znamená, že například symbolické odkazy, znaková zařízení nebo bloková zařízení nebudou započítány do velikosti adresáře.</para></warning>
+   
+    <para>Pevné odkazy jsou zpracovávány jinak: První pevný odkaz je započítán jako normální soubor a další odkazující na stejný I-uzel nejsou započítány, ale je vpravo v tabulce uvedena poznámka o přítomnosti pevných odkazů.</para>
+        </sect2>
+	
+	<sect2 id="baobab-folderscan">
+      <title>Prohledání konkrétní složky</title>
+
+    <para>Prohledávání konkrétní složky lze spustit zvolením <menuchoice><guimenu>Analyzátor</guimenu><guimenuitem>Prohledat složku...</guimenuitem></menuchoice> z nabídky. Také můžete na nástrojové liště stisknout tlačítko <guibutton>Prohledat složku</guibutton>.</para>
+
+	</sect2>
+
+	<sect2 id="baobab-remotescan">
+      <title>Prohledání vzdálené složky</title>
+      
+      <para>Pokud potřebujete prohledat vzdálenou složku na serveru, klepněte v nástrojové liště na tlačítko <guibutton>Prohledat vzdálenou složku</guibutton> nebo zvolte <menuchoice><guimenu>Analyzátor</guimenu><guimenuitem>Prohledat vzdálenou složku</guimenuitem></menuchoice> z nabídky. Zobrazí se následující okno, pomocí nějž se nástroj <application>Analyzátor využití disku</application> může připojit na server pomocí ssh, ftp, smb, http and https.</para>
+ 
+     <!-- ==== Figure ==== -->
+      <figure id="baobab-remote-fig"> 
+        <title>Prohledání vzdálené složky v nástroji Analyzátor využití disku</title> 
+		<screenshot> 
+	 	 <mediaobject> 
+	  	  <imageobject>
+	   	 <imagedata fileref="figures/baobab_remote.png" format="PNG"/> 
+	   	 </imageobject>
+	   	 <textobject> 
+	    	  <phrase>Zobrazuje okno nástroje Analyzátor využití disku, které slouží k přihlášení ke vzdálenému adresáři.</phrase> 
+	   	 </textobject> 
+	 	 </mediaobject> 
+		</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+   
+	</sect2> 
+
+  </sect1>
+
+
+<!-- ============= Preferences =============================== -->
+  <sect1 id="baobab-preferences">
+    <title>Nastavení</title>
+    
+    <para>Pokud chcete změnit nastavení nástroje <application>Analyzátor využití disku</application>, zvolte z nabídky položku <menuchoice><guimenu>Upravit</guimenu><guimenuitem>Nastavení</guimenuitem></menuchoice>.</para>
+ 
+   <!-- ==== Figure ==== -->
+      <figure id="baobab-preferences-fig"> 
+      	<title>Okno Nastavení Analyzátoru využití disku</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_prefs.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Okno s nastavením</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+  <sect2 id="baobab-scan-preferences">
+      <title>Zvolená zařízení, která prohledat</title>
+  <para>V první části okna Nastavení Analyzátoru využití disku se nachází seznam všech rozpoznaných zařízení. Klepnutím na zaškrtávací pole můžete konkrétní oddíl vyjmout z / zařadit do seznamu, dle kterého bude následně prohledáván souborový systém.</para>
+  <note><para>Zařízení připojené do adresáře "/" nelze z prohledávání vyjmout.</para></note>
+  </sect2>
+ 
+   <sect2 id="baobab-monitor-preferences">
+      <title>Povolit sledování domácího adresáře</title>
+      <para>Pokud je tato volba zaškrtnuta, bude nástroj <application>Analyzátor využití disku</application> neustále sledovat změny domovského adresáře a informovat uživatele při přidání či odebrání souboru.</para>  
+   </sect2>  
+	</sect1>
+<!-- ================ Treemaps ================================ -->
+
+  <sect1 id="baobab-treemaps"> 
+  <title>Koncept Treemap</title>
+
+    <para>Koncept <guilabel>Treemap</guilabel> byl vyvinut v 90. letech 20. století Benem Shneidermanem. Přečtěte si <ulink type="http" url="http://www.cs.umd.edu/hcil/treemap-history/index.shtml">jeho vizi konceptu Treemap</ulink>.</para>
+    
+       <!-- ==== Figure ==== -->
+      <figure id="baobab-treemap-fig"> 
+        <title>Koncept Treemap v nástroji Analyzátoru využití disku</title>
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/baobab_treemaps.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Teorie konceptu Treemap. Zobrazuje dva diagramy konceptu Treemap.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+  
+    
+    <para>Obrázek ukazuje příklad teorie treemap. Každý uzel má název (písmeno) a asociovanou velikost (číslo) dle diagramu. Velikost plochy každého objektu s popiskem je vyjádřením jeho velikosti v rámci nadřazeného celku, plochy, které samy obsahují podřízené položky jsou tvořeny jejich součtem.</para> 
+    
+    <para>Obrázek dle konceptu Treemap je rekurzivní dělení počátečního obdélníku. Velikost každého pod-obdélníku odpovídá velikosti uzlu. Orientace obdélníků se střídá po úrovni, první horizontálně, další vertikálně a tak stále dokola. Výsledkem je na menší části rozkouskovaný původní obdélník a plocha jednotlivých částí odpovídá jejich poměrné velikosti. Struktura rozdělení počátečního obdélníku odráží strukturu stromu. Doplňující informace o jednotlivých částech mohou být sděleny pomocí barev nebo poznámek.</para>
+
+	<note><para>Koncept Treemap je velice efektivní, pokud je údajem s největší důležitostí velikost.</para></note>
+  </sect1>
+  <!-- ================ Ringschart ================================ -->
+
+  <sect1 id="baobab-ringschart"> 
+  <title>Prstencový graf</title>
+
+    <para><guilabel>Ringschart</guilabel> is a graphical
+      representation of the disk usage by a concrete folder. When
+      launching the application, it is notified the usage of
+      the file system as it can be seen in the next figure:</para>
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-filesystem_scan"> 
+      <title>Analyzátoru využití disku zobrazující kruhový graf využití souborového systému</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart1.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>After launching the application, it is showed the
+	    file system usage. Graphical representation on the right. </phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+
+    <para>When you start scanning a folder, the tree of subfolders is
+      created and listed on the left side. Each row contains
+      information for the name, how much space it is taking up
+      (percentage and size in KB, MB or GB) and the number of items
+      (adding files and directories). When this process ends up,
+      the <guilabel>Ringschart</guilabel> is drawn on the right
+      side. If you stop it before it has been completed, only a
+      partial representation is done based on the directories whose
+      usage was computed.</para>
+
+
+    <!-- ==== Figure ==== -->
+    <figure id="baobab-folder_scan"> 
+      <title>Analyzátoru využití disku zobrazující kruhový graf využití adresáře</title>
+      <screenshot> 
+	<mediaobject> 
+	  <imageobject>
+	    <imagedata fileref="figures/baobab_ringschart2.png" format="PNG"/> 
+	  </imageobject>
+	  <textobject> 
+	    <phrase>Po dokončení prohledávání složky.</phrase> 
+	  </textobject> 
+	</mediaobject> 
+      </screenshot> 
+    </figure>
+    <!-- ==== End of Figure ==== -->
+    
+    <para>The <guilabel>Ringschart</guilabel> is composed of a set of 
+      nested rings around a central circle. This circle symbolizes the
+      root folder of the partial tree (that is, the folder that the 
+      user has selected for scanning). Each ring represents a level in
+      the partial tree, so i.e. the subfolders of the root folder will 
+      be represented in the first ring, and deeper levels in the tree 
+      correspond to outer rings in the chart. Each subfolder is 
+      represented by a sector of the ring, its angle being proportional 
+      to the size of the folder's contents, and painted with a different
+      color to ease visualization. Up to five levels can be drawn; in 
+      case that a folder in that last fifth level contains even more 
+      subfolders, this situation will be pointed by the presence of a 
+      black curve close to the edge of that folder's ring sector. When a
+      folder with no further subfolders is selected to be the root of 
+      the partial tree, only the inner circle will be drawn. When the 
+      mouse pointer hovers one of the folders in the graphic, it will be
+      highlighted and a tooltip will appears with information about its 
+      name and size. If there are any subfolders, small grey tooltips 
+      will appear, indicating their names. It's possible that not all of
+      the subfolders' names are displayed, to avoid overlappings.</para>
+
+    <para>You can go up and down the rows in the list (optionally 
+      expanding those with subfolders), the graphic representation will 
+      change using the selected folder as the root of the partial tree 
+      to be represented. The folders can also be navigated from the 
+      <guilabel>ringschart</guilabel> itself. If you click with the left
+      button of your mouse inside a folder, you'll move deeper by 
+      setting the root of the graphic to that folder. If you press the 
+      middle button (no matter the place as long as you click inside the 
+      <guilabel>ringschart</guilabel> frame) you'll get the opposite 
+      behaviour, going back one step in the hierarchy.</para>
+
+    <para>The percentage of its parent's radius that is used by a given
+      folder is directly proportional to the relation between it's own
+      size and its parent's. It's easy to understand that the size of 
+      a folder is equal or smaller than its parent's. Although only 
+      directories are shown in this graphical representation, files are 
+      taken into account to calculate the amount of space occupied by 
+      folders.</para>
+  </sect1>
+</article>

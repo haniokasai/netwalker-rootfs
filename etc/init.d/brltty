@@ -1,0 +1,82 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          brltty
+# Required-Start:    mountkernfs udev
+# Required-Stop:     
+# Should-Start:
+# Should-Stop:
+# Default-Start:     S
+# Default-Stop:      0 6
+# Short-Description: Braille terminal driver 
+# Description: Used to provide access to refreshable braille terminals.
+### END INIT INFO
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/sbin/brltty
+NAME=brltty
+DESC='Braille terminal driver'
+BRLTTY_CONF_PKG_MD5SUM=30ce95fd0392c35eef9adc85b6951df1
+BRLTTY_CONF_MD5SUM=$(md5sum /etc/brltty.conf)
+
+test -f $DAEMON || exit 0
+
+# /etc/brltty.conf may need to be propagated from the initramfs. (This is a
+# pretty awful hack.)
+if [ -e /dev/.initramfs/brltty.conf ] && [ -e /etc/default/brltty ]; then
+	if [ -e /etc/brltty.conf ] && [ "$BRLTTY_CONF_MD5SUM" = "$BRLTTY_CONF_PKG_MD5SUM" ]; then
+		mv /etc/brltty.conf /etc/brltty.conf.orig
+		mv /dev/.initramfs/brltty.conf /etc/brltty.conf
+	fi
+	sed -i -e 's/^RUN_BRLTTY=.*/RUN_BRLTTY=yes/' /etc/default/brltty
+fi
+
+[ ! -f /etc/default/brltty ] || . /etc/default/brltty
+
+# Edit /etc/default/brltty and set RUN_BRLTTY=yes to allow brltty to be
+# started.
+if [ "$RUN_BRLTTY" != yes ]; then
+	exit 0
+fi
+
+set -e
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+	log_daemon_msg "Starting $DESC" "$NAME"
+	if start-stop-daemon --start --oknodo --exec $DAEMON -- -q; then
+	    log_end_msg 0
+	else
+	    log_end_msg 1
+	fi
+	;;
+  stop)
+	log_daemon_msg "Stopping $DESC" "$NAME"
+	if start-stop-daemon --stop --quiet --oknodo --retry 5 --exec $DAEMON; then
+	    log_end_msg 0
+	else
+	    log_end_msg 1
+	fi
+	;;
+  restart|force-reload)
+	log_daemon_msg "Restarting $DESC" "$NAME"
+	start-stop-daemon --stop --quiet --retry 5 --exec $DAEMON
+	if start-stop-daemon --start --quiet --exec $DAEMON -- -q; then
+	    log_end_msg 0
+	else
+	    log_end_msg 1
+	fi
+	;;
+  status)
+	status_of_proc "$DAEMON" "$NAME" && exit 0 || exit $?
+	;;
+  *)
+	echo "Usage: /etc/init.d/$NAME {start|stop|restart|force-reload|status}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installdocs
+if [ "$1" = configure ] && which install-docs >/dev/null 2>&1; then
+	install-docs -i /usr/share/doc-base/packet-filter
+fi
+# End automatically added section
+# Automatically added by dh_installdocs
+if [ "$1" = configure ] && which install-docs >/dev/null 2>&1; then
+	install-docs -i /usr/share/doc-base/nat
+fi
+# End automatically added section
+# Automatically added by dh_installmodules
+if [ "$1" = "configure" ]; then
+	if [ -e "/etc/modprobe.d/iptables" ]; then
+		echo "Preserving user changes to /etc/modprobe.d/iptables.conf ..."
+		if [ -e "/etc/modprobe.d/iptables.conf" ]; then
+			mv -f "/etc/modprobe.d/iptables.conf" "/etc/modprobe.d/iptables.conf.dpkg-new"
+		fi
+		mv -f "/etc/modprobe.d/iptables" "/etc/modprobe.d/iptables.conf"
+	fi
+fi
+# End automatically added section

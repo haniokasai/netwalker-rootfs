@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>15.  Alpha to Logo Filters</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters.html" title="Chapter 16.  Filters" />
+    <link rel="prev" href="python-fu-slice.html" title="14.4.  Slice" />
+    <link rel="next" href="script-fu-alien-glow-logo-alpha.html" title="15.2.  Alien Glow" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">15. 
+    <span lang="en" xml:lang="en">Alpha to Logo Filters</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="python-fu-slice.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">Chapter 16. 
+        <span lang="en" xml:lang="en">Filters</span>
+      </th>
+          <td width="20%" align="right"> <a accesskey="n" href="script-fu-alien-glow-logo-alpha.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="filters-alpha-to-logo"></a>15. 
+    <span lang="en" xml:lang="en">Alpha to Logo Filters</span>
+  </h2>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="filters-alpha-to-logo-introduction"></a>15.1. 
+    <span lang="en" xml:lang="en">Introduction</span>
+  </h3>
+            </div>
+            <div>
+              <div class="revhistory">
+                <table border="1" width="100%" summary="Revision history">
+                  <tr>
+                    <th align="left" valign="top" colspan="3">
+                      <b>Revision History</b>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td align="left">Revision $Revision: 2436 $</td>
+                    <td align="left">2008-02-25</td>
+                    <td align="left">ude</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a id="id2782332" class="indexterm"></a>
+        <div class="figure">
+          <a id="id2782350"></a>
+          <p class="title">
+            <b>Figure 16.292. 
+      <span lang="en" xml:lang="en">The Alpha to Logo filters menu</span>
+    </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/menus/filters-alpha-to-logo.png" alt="The Alpha to Logo filters menu" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+    These filters correspond to the <a class="link" href="standalone-script-fu.html" title="2.5.  Standalone Scripts">logo-generating script-fu scripts</a>.
+    They add all kinds of special effects to the alpha channel of the active
+    layer (that is, to the pixels with a non-zero alpha value).
+  </p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Note">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[Note]" src="../images/note.png" />
+              </td>
+              <th align="left">Note</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+      The menu items and the corresponding functions are enabled only if the
+      active layer has an alpha channel. If you see that the menu items are
+      grayed out, try to <a class="link" href="gimp-layer-alpha-add.html" title="10.32.  Add Alpha Channel">add an alpha
+      channel</a>.
+    </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p>
+    The filter effect will always be applied according to the alpha values.
+    The <a class="link" href="glossary.html#glossary-alpha" title="Alpha">alpha</a> of any pixel has a value
+    ranging from 0 (transparent) to 255 (fully opaque). It is possible to
+    apply a filter only <span class="emphasis"><em>partially</em></span> to some (or all) pixels
+    by using alpha values from 1 to 254.
+  </p>
+        <p>
+    You will notice that this is similar to
+    <a class="link" href="gimp-painting.html#gimp-concepts-selection" title="1.  The Selection">selecting</a> pixels partially.
+    In fact, internally these filters always create a
+    <a class="link" href="gimp-layer-alpha-selection-replace.html" title="10.36.  Alpha to Selection">selection from the
+    alpha channel</a> by transferring the alpha values to the channel which
+    represents the selection, and then work on the selection.
+  </p>
+        <div class="orderedlist">
+          <p class="title">
+            <b>
+      <span lang="en" xml:lang="en">
+        How to apply an “<span class="quote">Alpha to Logo</span>” filter to a selection?
+      </span>
+    </b>
+          </p>
+          <ol type="1">
+            <li>
+              <p>
+        If the active layer is the background layer, make sure that an
+        alpha channel exists, otherwise
+        <a class="link" href="gimp-layer-alpha-add.html" title="10.32.  Add Alpha Channel">add an alpha channel</a>.
+      </p>
+              <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+                <table border="0" summary="Tip">
+                  <tr>
+                    <td rowspan="2" align="center" valign="top" width="25">
+                      <img alt="[Tip]" src="../images/tip.png" />
+                    </td>
+                    <th align="left">Tip</th>
+                  </tr>
+                  <tr>
+                    <td align="left" valign="top">
+                      <p>
+          If a layer name in the Layer Dialog is in bold, then this layer has
+          no Alpha channel.
+        </p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </li>
+            <li>
+              <p>
+        Do
+        <span class="guimenu">Selection</span> → <span class="guimenuitem">Invert</span>
+      </p>
+            </li>
+            <li>
+              <p>
+        Do
+        <span class="guimenu">Edit</span> → <span class="guimenuitem">Clear</span>
+        the (inverted) selection.
+      </p>
+            </li>
+            <li>
+              <p>
+        Apply the “<span class="quote">Alpha to Logo</span>” filter (the filters ignore the
+        selection, you don't need to re-invert the selection).
+      </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="python-fu-slice.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="script-fu-alien-glow-logo-alpha.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="python-fu-slice.html">14.4. 
+    <span lang="en" xml:lang="en">Slice</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="script-fu-alien-glow-logo-alpha.html">15.2. 
+    <span lang="en" xml:lang="en">Alien Glow</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

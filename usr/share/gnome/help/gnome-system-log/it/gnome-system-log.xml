@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.12">
+<!ENTITY manrevision "2.4">
+<!ENTITY date "October 2005">
+<!ENTITY app "System Log Viewer">
+]>
+<!-- 
+      (Do not remove this comment block.)
+  Maintained by the GNOME Documentation Project
+  http://developer.gnome.org/projects/gdp
+  Template version: 2.0 beta
+  Template last modified Apr 11, 2002
+  
+-->
+<!-- =============Document Header ============================= -->
+<article id="index" lang="it">
+<!-- please do not change the id; for translations, change lang to -->
+<!-- appropriate code -->
+  <articleinfo> 
+    <title>Manuale di System Log Viewer</title>
+
+    <abstract role="description">
+      <para>System Log Viewer è un'interfaccia grafica utente per per visualizzare e monitorare i file di registro di sistema.</para>
+    </abstract>
+
+    <copyright> 
+      <year>2003</year> 
+      <holder>Sun Microsystems</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2000</year> 
+      <holder>Judith Samson</holder> 
+    </copyright><copyright><year>2006-2008</year><holder>Andrea Zagli (azagli@inwind.it)</holder></copyright> 
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+    <publisher> 
+      <publishername>Progetto di documentazione di GNOME</publishername> 
+    </publisher> 
+
+     <legalnotice id="legalnotice">
+	<para>Questo documento può essere copiato, distribuito e/o modificato solo in conformità con i termini della GNU Free Documentation License (GFDL) Versione 1.1 o delle versioni successive pubblicate dalla Free Software Foundation senza sezioni invariabili, frontespizi e testi di copertina. Una copia della GFDL è disponibile su questo <ulink type="help" url="ghelp:fdl">collegamento</ulink> o nel file COPYING-DOCS distribuito con questo manuale.</para>
+         <para>Questo manuale fa parte di una raccolta di manuali GNOME distribuita in conformità con la GFDL. Per poter distribuire questo manuale separatamente, è necessario inserirvi una copia della licenza, come descritto nella sezione 6 della licenza.</para>
+
+	<para>Molti dei nomi usati dalle aziende per distinguere i propri prodotti e servizi sono rivendicati come marchi. Quando questi nomi compaiono nella documentazione di GNOME, e i partecipanti al GNOME Documentation Project sono consapevoli del loro utilizzo, essi vengono scritti in lettere maiuscole o con l'iniziale maiuscola.</para>
+
+	<para>QUESTO DOCUMENTO E LE SUE VERSIONI MODIFICATE VENGONO FORNITI IN BASE AI TERMINI DELLA GNU FREE DOCUMENTATION LICENSE, CON L'INTESA CHE:<orderedlist>
+		<listitem>
+		  <para>IL DOCUMENTO VIENE FORNITO SENZA GARANZIE DI ALCUN TIPO, ESPLICITE O IMPLICITE, INCLUSE, MA SENZA LIMITAZIONE, LE GARANZIE ATTESTANTI CHE IL DOCUMENTO O LE SUE VERSIONI MODIFICATE SIANO PRIVI DI DIFETTI, COMMERCIALIZZABILI, IDONEI A UN DETERMINATO SCOPO O CHE NON VIOLINO DIRITTI DI TERZI. SI DECLINA QUALUNQUE RESPONSABILITÀ RIGUARDO AI RISCHI INERENTI LA QUALITÀ, L'ACCURATEZZA E LE PRESTAZIONI DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA. QUALORA UN DOCUMENTO O UNA SUA VERSIONE MODIFICATA DOVESSERO PRESENTARE QUALUNQUE TIPO DI DIFETTO, IL COSTO DI EVENTUALI INTERVENTI DI ASSISTENZA, RIPARAZIONE O CORREZIONE SARÀ A CARICO DELL'UTENTE (NON DEL REDATTORE INIZIALE, DELL'AUTORE O DI ALTRI COLLABORATORI). QUESTA LIMITAZIONE DELLA GARANZIA COSTITUISCE PARTE ESSENZIALE DELLA LICENZA. L'USO DEL DOCUMENTO O DELLE SUE VERSIONI MODIFICATE È CONSENTITO SOLO ENTRO I TERMINI DI QUESTA LIMITAZIONE DELLA GARANZIA; E</para>
+		</listitem>
+		<listitem>
+		  <para>IN NESSUNA CIRCOSTANZA E PER NESSUNA RAGIONE LEGALE, INCLUSI I PRINCIPI DI COLPA (INCLUSA LA NEGLIGENZA), ACCORDO CONTRATTUALE O ALTRO, SARÀ POSSIBILE CONSIDERARE L'AUTORE, IL REDATTORE INIZIALE, GLI ALTRI COLLABORATORI, QUALUNQUE DISTRIBUTORE DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA O QUALUNQUE FORNITORE DELLE PERSONE CITATE, RESPONSABILE NEI CONFRONTI DI QUALUNQUE PERSONA PER DANNI DIRETTI, INDIRETTI, SPECIALI, INCIDENTALI O CONSEGUENTI DI QUALUNQUE NATURA, INCLUSI, MA SENZA LIMITAZIONE, I DANNI PER PERDITA DI AVVIAMENTO, INTERRUZIONE DEL LAVORO, GUASTO O MALFUNZIONAMENTO DEL COMPUTER O QUALUNQUE ALTRO DANNO O PERDITA DERIVANTE O CORRELATA ALL'USO DEL DOCUMENTO O DI UNA SUA VERSIONE MODIFICATA, ANCHE QUALORA LE PERSONE CITATE FOSSERO STATE INFORMATE DELLA POSSIBILITÀ DI TALI DANNI.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+
+   <authorgroup> 
+   <author> 
+		<firstname>Sun</firstname> 
+		<surname>Squadra di documentazione di GNOME</surname> 
+		<affiliation> 
+	  	<orgname>Sun Microsystems</orgname> 
+	  	<address> <email>gdocteam@sun.com</email> </address> 
+		</affiliation> 
+   </author> 
+
+   <author> 
+		<firstname>Judith</firstname> 
+		<surname>Samson</surname> 
+		<affiliation> 
+	  	<orgname>Progetto di documentazione di GNOME</orgname> 
+	  	<address> <email>judith@samsonsource.com</email> </address> 
+		</affiliation> 
+   </author> 
+
+   <author role="maintainer">
+   	<firstname>Vincent</firstname>
+	<surname>Noel</surname>
+	<affiliation>
+	  <address><email>vincent.noel@gmail.com</email></address>
+	</affiliation>
+   </author>
+      
+<!-- This is appropriate place for other contributors: translators,
+      maintainers,  etc. Commented out by default.
+   <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  	<orgname>Latin Translation Team</orgname> 
+	  	<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+   </othercredit>
+-->
+    </authorgroup>
+
+    <revhistory>
+      <revision> 
+		<revnumber>Manuale di System Log Viewer V2.4</revnumber> 
+		<date>Ottobre 2005</date> 
+		<revdescription> 
+	  		<para role="author">Vincent Noel <email>vincent.noel@gmail.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+		</revdescription> 
+      </revision>
+      <revision> 
+		<revnumber>Manuale di System Log Viewer V2.3</revnumber> 
+		<date>Ottobre 2002</date> 
+		<revdescription> 
+	  		<para role="author">Team Sun per la documentazione di GNOME <email>gdocteam@sun.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+		</revdescription> 
+      </revision>
+      <revision> 
+		<revnumber>Manuale di System Log Viewer V2.2</revnumber> 
+		<date>Agosto 2002</date> 
+		<revdescription> 
+	  		<para role="author">Team Sun per la documentazione di GNOME <email>gdocteam@sun.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+		</revdescription> 
+      </revision>
+      <revision> 
+		<revnumber>Manuale di System Log Viewer V2.1</revnumber> 
+		<date>Luglio 2002</date> 
+		<revdescription> 
+	  		<para role="author">Team Sun per la documentazione di GNOME <email>gdocteam@sun.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+		</revdescription> 
+      </revision>
+      <revision> 
+		<revnumber>Manuale di System Log Viewer V2.0</revnumber> 
+		<date>Maggio 2002</date> 
+		<revdescription> 
+	  		<para role="author">Team Sun per la documentazione di GNOME <email>gdocteam@sun.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+		</revdescription> 
+      </revision> 
+      <revision> 
+		<revnumber>Manuale di Logview</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Judith Samson <email>judith@samsonsource.com</email></para>
+	  		<para role="publisher">Progetto di documentazione di GNOME</para>
+			</revdescription> 
+      </revision> 
+    </revhistory> 
+
+    <releaseinfo>Questo manuale descrive la versione 2.12 di System Log Viewer.</releaseinfo> 
+    <legalnotice> 
+      <title>Commenti</title> 
+      <para>Per segnalare un errore o inviare un suggerimento riguardo l'applicazione <application>System Log Viewer</application> o questo manuale, seguire le indicazioni nella <ulink url="ghelp:gnome-feedback" type="help">Pagina dei riscontri GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo> 
+
+  <indexterm> 
+    <primary>System Log Viewer</primary> 
+  </indexterm> 
+
+<!-- ============= Document Body ============================= -->
+<!-- ============= Introduction ============================== -->
+
+  <sect1 id="syslog-introduction"> 
+    <title>Introduzione</title> 
+
+      <para><application>System Log Viewer</application> è un visualizzatore grafico che si può utilizzare per visualizzare e monitorare i registri di sistema. <application>System Log Viewer</application> è provvisto di alcune funzioni che possono aiutare a gestire i registri, incluso un calendario, il monitoraggio dei registri e la visualizzazione delle statistiche.</para>
+
+      <para><application>System Log Viewer</application> è utile se si è nuovi all'amministrazione di sistema perché fornisce una semplice e più amichevole visualizzazione dei registri rispetto a una visualizzazione testuale dei file di registro. È utile anche per amministratori con più esperienza, contenendo un calendario che aiuta a localizzare problemi di andamento, cosi' come per monitorare continuamente registri cruciali.</para>
+
+      <warning><para><application>System Log Viewer</application> è utile solamente a chi ha accesso ai file dei registri di sistema, che in genere richiedono un accesso come root.</para></warning>
+
+  </sect1>
+
+  <sect1 id="syslog-getting-started">
+    <title>Per iniziare</title> 
+
+    <para>Si può avviare <application>System Log Viewer</application> nei modi seguenti:</para> 
+    <variablelist>
+    	<varlistentry>
+    		<term>Menù <guimenu>Applicazioni</guimenu></term>
+    		<listitem>
+    		<para>Scegliere <menuchoice><guisubmenu>Strumenti di sistema</guisubmenu><guimenuitem>Registro di sistema</guimenuitem></menuchoice>.</para>
+    		</listitem>
+    	</varlistentry>
+    	<varlistentry>
+    		<term>Riga di comando</term>
+    		<listitem>
+    		<para>Digitare <command>gnome-system-log<command> e poi premere <keycap>Invio</keycap>-</command></command></para>
+    		<para> 		 
+    		</para> 
+    		</listitem>
+    	</varlistentry>
+    </variablelist>
+
+    <para>Quando si avvia <application>System Log Viewer</application>, viene visualizzata la seguente finestra.</para>
+
+    <!-- ==== Figure ==== -->
+      <figure id="syslog-fig"> 
+	<title>Finestra di System Log Viewer</title> 
+	<screenshot> 
+	  <mediaobject> 
+	    <imageobject>
+	    <imagedata fileref="figures/syslog_window.png" format="PNG"/> 
+	    </imageobject>
+	    <textobject> 
+	      <phrase>Finestra principale di System Log Viewer. Contiene barra del menù, area di visualizzazione, barre di scorrimento e barra di stato.</phrase> 
+	    </textobject> 
+	  </mediaobject> 
+	</screenshot> 
+      </figure>
+    <!-- ==== End of Figure ==== -->
+    <para>La prima volta che si avvia <application>System Log Viewer</application>, l'applicazione visualizza, in modo predefinito, svariati file di registro (come <filename>/var/log/messages</filename>). I registri aperti sono elencati nella parte sinistra della finestra dell'applicazione. Il registro selezionato in questa lista è visualizzato nell'area principale della finestra dell'applicazione.</para>
+
+      <para>In modo predefinito, <application>System Log Viewer</application> monitora ogni registro aperto, e ogni cambiamento appare automaticamente nella finestra principale. Vedere </para>
+
+  </sect1>
+
+<!-- ================ Usage ================================ -->
+
+  <sect1 id="syslog-usage"> 
+    <title>Utilizzo</title>
+
+    <sect2 id="syslog-open">
+    	<title>Visualizzare un registro</title>
+    	<para>Per visualizzare un registro, scegliere <menuchoice><guimenu>File</guimenu><guimenuitem>Apri</guimenuitem></menuchoice>. Nel dialogo <guilabel>Apri registro</guilabel>, selezionare il registro che si vuole aprire e poi fare clic su <guibutton>Apri</guibutton>. Utilizzare le barre di scorrimento per scorrere attraverso il registro.</para>
+
+        <para>Si possono aprire quanti registri si vogliono. <application>System Log Viewer</application> visualizza un registro alla volta nella finestra di <guilabel>System Log Viewer</guilabel>. I registri aperti sono elencati sul lato sinistro della finestra dell'applicazione. Il registro selezionato è visualizzato nell'area principale della finestra dell'applicazione. Per visualizzare un altro registro già aperto nel <application>System Log Viewer</application>, selezionarlo nella lista dei registri.</para>
+
+        <para>Si noti che <application>System Log Viewer</application> permette anche di aprire registri compressi (tutti i nomi di file che terminano in ".gz").</para>
+    </sect2>
+
+    <sect2 id="syslog-selection">
+    <title>Copiare righe del registro negli appunti</title>
+    <para>Per copiare una o più righe del registro negli appunti, basta selezionare le righe nell'area principale e scegliere l'opzione di menu <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Copia</guimenuitem></menuchoice>. Se si vuole copiare l'intero registro negli appunti, selezionarlo completamente utilizzando l'opzione di menu <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Seleziona tutto</guimenuitem></menuchoice>, e poi scegliere <menuchoice><guimenu>Modifica</guimenu><guimenuitem>Copia</guimenuitem></menuchoice>.</para>
+    </sect2>
+
+    <sect2 id="syslog-hide-sidebar">
+    <title>Nascondere il riquadro laterale</title>
+    <para>Per nascondere il riquadro laterale a sinistra, che contiene l'elenco dei registri e il calendario, basta selezionare l'opzione di menù <menuchoice><guimenu>Visualizza</guimenu><guimenuitem>Riquadro laterale</guimenuitem></menuchoice>.</para>
+    </sect2>
+    
+    <sect2 id="syslog-monitor">
+    	<title>Monitorare i registri</title>
+    	<para>Si può utilizzare <application>System Log Viewer</application> per monitorare i registri. In modo predefinito, tutti i registri aperti in <application>System Log Viewer</application> sono monitorati per i cambiamenti. Se nuove righe vengono aggiunte a un registro monitorato da <application>System Log Viewer</application>, il nome del registro apparirà in grassetto nella lista dei registri. Se il registro è correntemente visualizzato nell'area principale, le nuove righe appariranno automaticamente alla fine del registro e, dopo cinque secondi, il nome del registro nella lista ritornerà normale.</para>
+      
+    	<para>Per fermare il monitoraggio di un registro specifico, deselezionare l'opzione <menuchoice><guimenu>Visualizza</guimenu><guimenuitem>Monitoraggio</guimenuitem></menuchoice>. Selezionare ancora questa opzione per riattivare il monitoraggio.</para>
+
+    </sect2>
+    
+    <sect2 id="syslog-calendar">
+    	<title>Usare il calendario</title>
+        <para>In modo predefinito, un calendario è visualizzato nel lato sinistro della finestra di <application>System Log Viewer</application>, sotto la lista dei registri. In questo calendario, le date presenti nel registro correntemente selezionato sono visualizzate in grassetto. Per saltare a una data particolare, selezionarla nel calendario.</para>
+
+    	<para>Per nascondere il calendario, deselezionare l'opzione di menù <menuchoice><guimenu>Visualizza</guimenu><guimenuitem>Calendario</guimenuitem></menuchoice>.</para> 
+    </sect2>
+    
+    <sect2 id="syslog-stats">
+    	<title>Visualizzare le informazioni sul registro</title>
+    	<para>Le informazioni del registro sono generalmente visualizzate nella barra di stato e includono:</para> 
+    	<itemizedlist>
+    		<listitem><para>Numero di righe nel registro.</para>
+    		</listitem>
+    		<listitem><para>Dimensione del registro in byte.</para>
+    		</listitem>
+    		<listitem><para>La data in cui il registro è stato modificato.</para>
+    		</listitem>
+    	</itemizedlist> 
+        <para>La barra di stato può essere visualizzata o nascosta usando l'opzione <menuchoice><guimenu>Visualizza</guimenu><guimenuitem>Barra di stato</guimenuitem></menuchoice>.</para>
+    </sect2>
+    
+    <sect2 id="syslog-close">
+    	<title>Chiudere un registro</title>
+    	<para>Per chiudere un registro, scegliere <menuchoice><guimenu>File</guimenu><guimenuitem>Chiudi</guimenuitem></menuchoice>.</para>
+    </sect2>
+    
+    <sect2 id="syslog-exit">
+    	<title>Uscire da System Log Viewer</title>
+    	<para>Per uscire da <application>System Log Viewer</application>, scegliere <menuchoice><guimenu>File</guimenu><guimenuitem>Esci</guimenuitem></menuchoice>.</para>
+    </sect2>
+ 
+  </sect1>
+
+</article>

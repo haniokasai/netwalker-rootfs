@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+	<chapter id="version-control-system" status="review">
+		<title>Version Control System</title>
+          <para>
+Version control is the art of managing changes to information. It has long been a critical tool for programmers, who typically spend their time making small changes to software and then undoing those changes the next day. But the usefulness of version control software extends far beyond the bounds of the software development world. Anywhere you can find people using computers to manage information that changes often, there is room for version control.</para>
+      <sect1 id="bazaar" status="review">
+        <title>Bazaar</title> 
+          <para>
+          Bazaar is a new version control system sponsored by Canonical, the
+          commercial company behind Ubuntu. Unlike Subversion and CVS that
+          only support a central repository model, Bazaar also supports
+          <emphasis>distributed version control</emphasis>, giving people
+          the ability to collaborate more efficiently. In particular,
+          Bazaar is designed to maximize the level of community participation
+          in open source projects.
+          </para>
+        <sect2 id="bzr-installation" status="review">
+          <title>Installation</title>
+            <para>
+              At a terminal prompt, enter the following command to install
+              <application>bzr</application>:
+
+<screen>
+<command>sudo apt-get install bzr</command>
+</screen>
+            </para>
+        </sect2>
+        <sect2 id="bzr-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            To introduce yourself to <application>bzr</application>,
+            use the <emphasis>whoami</emphasis> command like this:
+<screen>
+<command>$ bzr whoami 'Joe Doe &lt;joe.doe&#64;gmail.com&gt;'</command>
+</screen>
+            </para>
+        </sect2>
+        <sect2 id="bzr-learning" status="review">
+          <title>Learning Bazaar</title>
+            <para>
+            Bazaar comes with bundled documentation installed into
+            <application>/usr/share/doc/bzr/html</application> by default.
+            The tutorial is a good place to start. The
+            <application>bzr</application> command also comes with
+            built-in help:
+<screen>
+<command>$ bzr help</command>
+</screen>
+            </para>
+            <para>
+            To learn more about the <emphasis>foo</emphasis> command:
+<screen>
+<command>$ bzr help foo</command>
+</screen>            
+            </para>
+        </sect2>
+        <sect2 id="bzr-lp-integration" status="review">
+          <title>Launchpad Integration</title>
+            <para>
+            While highly useful as a stand-alone system, Bazaar has good, optional
+            integration with <ulink url="https://launchpad.net/">Launchpad</ulink>,
+            the collaborative development system used by Canonical and the
+            broader open source community to manage and extend Ubuntu itself.
+            For information on how Bazaar can be used with Launchpad to
+            collaborate on open source projects, see
+            <ulink url="http://bazaar-vcs.org/LaunchpadIntegration/">
+            http://bazaar-vcs.org/LaunchpadIntegration</ulink>.</para>
+        </sect2>
+      </sect1>
+      <sect1 id="subversion" status="review">
+        <title>Subversion</title>
+          <para>
+Subversion is an open source version control system. Using Subversion, you can record the history of source files and documents. It manages files and directories over time. A tree of files is placed into a central repository. The repository is much like an ordinary file server, except that it remembers every change ever made to files and directories.
+          </para>
+        <sect2 id="subversion-installation" status="review">
+          <title>Installation</title>
+            <para>
+To access Subversion repository using the HTTP protocol, you must install and 
+configure a web server. Apache2 is proven to work with Subversion. Please 
+refer to the HTTP subsection in the Apache2 section to install and configure 
+Apache2.  To access the Subversion repository using the HTTPS protocol, you 
+must install and configure a digital certificate in your Apache 2 web server. 
+Please refer to the HTTPS subsection in the Apache2 section to install and 
+configure the digital certificate.
+						</para>
+						<para>
+		To install Subversion, run the following command from a terminal prompt:
+            </para>
+	    <para>
+<screen>
+<command>sudo apt-get install subversion libapache2-svn</command>
+</screen>
+	    </para>
+
+        </sect2>
+        <sect2 id="subversion-configuration" status="review">
+          <title>Server Configuration</title>
+            <para>
+	This step assumes you have installed above mentioned packages on your system. This section explains how to create a Subversion repository and access the project.</para>
+			<sect3 id="create-svn-repos" status="review">
+				<title>Create Subversion Repository</title>
+<para>The Subversion repository can be created using the following command from a terminal prompt:</para>
+
+        <para>
+<screen>
+<command>svnadmin create /path/to/repos/project</command>
+</screen>
+        </para>
+			</sect3>
+                        <sect3 id="import-svn-files" status="review">
+          		  <title>Importing Files</title>
+			    <para>
+                            Once you create the repository you can
+                            <emphasis>import</emphasis> files into the
+                            repository.  To import a directory, enter the
+                            following from a terminal prompt:
+<screen>
+<command>svn import /path/to/import/directory file:///path/to/repos/project</command>
+</screen>
+                            </para>	
+                        </sect3>
+        </sect2>
+        <sect2 id="access-methods" status="review">
+          <title>Access Methods</title>
+<para>Subversion repositories can be accessed (checked out) through many 
+different methods --on local disk, or through various network protocols. 
+A repository location, however, is always a URL. The table describes how 
+different URL schemes map to the available access methods.</para>
+				<table><title>Access Methods</title>
+
+					<tgroup cols="2">
+						<colspec colname="1"/>
+						<colspec colname="2"/>
+						<thead>
+							<row>
+								<entry><para>Schema</para></entry>
+								<entry><para>Access Method</para></entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry><para>file://</para></entry>
+								<entry><para>direct repository access (on local disk)</para></entry>
+							</row>
+							<row>
+								<entry><para>http://</para></entry>
+								<entry><para>Access via WebDAV protocol to Subversion-aware Apache2 web server</para></entry>
+							</row>
+							<row>
+								<entry><para>https://</para></entry>
+								<entry><para>Same as http://, but with SSL encryption</para></entry>
+							</row>
+							<row>
+								<entry><para>svn://</para></entry>
+								<entry><para>Access via custom protocol to an svnserve server</para></entry>
+							</row>
+							<row>
+								<entry><para>svn+ssh://</para></entry>
+								<entry><para>Same as svn://, but through an SSH tunnel</para></entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</table>
+
+				<para>
+In this section, we will see how to configure Subversion for all 
+these access methods. Here, we cover the basics. For more advanced 
+usage details, refer to the <ulink 
+url="http://svnbook.red-bean.com/">svn book</ulink>.
+				</para>
+			<sect3 id="direct-repos-access" status="review">
+				<title>Direct repository access (file://)</title>
+<para> This is the simplest of all access methods. It does not 
+require any Subversion server process to be running. This access 
+method is used to access Subversion from the same machine. The 
+syntax of the command, entered at a terminal prompt, is as follows:</para>
+
+        <para>
+<screen>
+<command>svn co file:///path/to/repos/project</command>
+</screen>
+        </para>
+  <para>or</para>
+	<para>
+<screen>
+<command>svn co file://localhost/path/to/repos/project</command>
+</screen>
+        </para>
+	<note>
+		<para>If you do not specify the hostname, there are three forward slashes (///) -- two for the protocol (file, in this case) plus the leading slash in the path. If you specify the hostname, you must use two forward slashes (//).</para>
+	</note>
+		<para>The repository permissions depend on filesystem permissions. If the user has read/write permission, he can checkout from and commit to the repository.</para>
+			</sect3>
+			<sect3 id="access-via-webdav" status="review">
+				<title>Access via WebDAV protocol (http://)</title>
+<para> To access the Subversion repository via WebDAV protocol, you must configure your Apache 2 web server. You must add the following snippet in your <filename>/etc/apache2/apache2.conf</filename> file:</para>
+
+	<programlisting> &lt;Location /svn&gt;
+  DAV svn
+  SVNParentPath /home/svn
+  AuthType Basic
+  AuthName "Your repository name"
+  AuthUserFile /etc/subversion/passwd
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+  Require valid-user
+  &lt;/LimitExcept&gt;
+  &lt;/Location&gt; </programlisting>
+	<note>
+		<para>The above configuration snippet assumes that Subversion
+    repositories are created under <filename>/home/svn/</filename>
+    directory using <command>svnadmin</command> command.  They can be
+    accessible using <command>htpp://hostname/svn/repos_name</command>
+    url.</para>
+	</note>
+         <para>
+         To import or commit files to your Subversion repository over
+         HTTP, the repository should be owned by the HTTP user. In
+         Ubuntu systems, normally the HTTP user is
+         <command>www-data</command>.  To change the ownership of the
+         repository files enter the following command from terminal
+         prompt:
+         </para>
+<screen>
+<command>sudo chown -R www-data:www-data /path/to/repos</command>
+</screen>
+        <note>
+        <para>
+        By changing the ownership of repository as
+        <command>www-data</command> you will not be able to import or
+        commit files into the repository by running <command>svn import
+        file:///</command> command as any user other than
+        <command>www-data</command>.
+        </para>
+        </note>
+
+        <para>
+        Next, you must create the <filename>/etc/subversion/passwd</filename> file that will contain user authentication details. 
+        To create a file issue the following command at a command prompt (which will create the file and add the first user):
+        </para>
+
+<screen>
+<command>sudo htpasswd -c /etc/subversion/passwd user_name</command>
+</screen>
+
+        <para>
+        To add additional users omit the <emphasis>"-c"</emphasis> option as this option replaces the old file. Instead use this form:
+        </para>
+
+<screen>
+<command>sudo htpasswd /etc/subversion/password user_name</command>
+</screen>
+
+
+	<para>This command will prompt you to enter the password. Once you enter the password, the user is added. Now, to access the repository you can run the following command:</para>
+        <screen><command>svn co http://servername/svn</command></screen>
+	<warning>
+		<para>
+			The password is transmitted as plain text. If you are worried about password snooping, you are advised to use SSL encryption. For details, please refer next section.
+		</para>
+	</warning>
+			</sect3>
+			<sect3 id="access-via-webdav-with-ssl" status="review">
+				<title>Access via WebDAV protocol with SSL encryption (https://)</title>
+					<para> 
+						Accessing Subversion repository via WebDAV protocol with SSL 
+						encryption (https://) is similar to http:// except that you 
+						must install and configure the digital certificate in your 
+						Apache2 web server.
+					</para>
+
+					<para>
+						You can install a digital certificate issued by a signing 
+						authority like Verisign. Alternatively, you can install your 
+						own self-signed certificate.
+					</para>
+					<para>
+						This step assumes you have installed and configured a digital 
+						certificate in your Apache 2 web server. Now, to access the 
+						Subversion repository, please refer to the above section! 
+						The access methods are exactly the same, except the protocol. 
+						You must use https:// to access the Subversion repository.
+					</para>
+
+			</sect3>
+			<sect3 id="access-via-custom-protocol" status="review">
+				<title>Access via custom protocol (svn://)</title>
+					<para> 
+					Once the Subversion repository is created, you can configure the 
+					access control. You can edit the <filename>
+					/path/to/repos/project/conf/svnserve.conf</filename> file to 
+					configure the access control.  For example, to set up 
+					authentication, you can uncomment the following lines in the 
+					configuration file: </para>
+					<programlisting># [general]
+# password-db = passwd</programlisting>
+
+					<para>
+					After uncommenting the above lines, you can maintain the user 
+					list in the passwd file. So, edit the file <filename>passwd
+					</filename> in the same directory and add the new user. The 
+					syntax is as follows:
+					</para>
+					<programlisting>username = password</programlisting>
+					<para>
+					For more details, please refer to the file.
+					</para>
+
+					<para>
+					Now, to access Subversion via the svn:// custom protocol, either 
+					from the same machine or a different machine, you can run 
+					svnserver using svnserve command. The syntax is as follows:
+					</para>
+					<programlisting>$ svnserve -d --foreground -r /path/to/repos
+# -d -- daemon mode
+# --foreground -- run in foreground (useful for debugging)
+# -r -- root of directory to serve
+
+For more usage details, please refer to:
+$ svnserve --help</programlisting>
+
+					<para>Once you run this command, Subversion starts listening on default port (3690). To access the project repository, you must run the following command from a terminal prompt: </para>
+					<para>
+<screen>
+<command>svn co svn://hostname/project project --username user_name</command>
+</screen>
+                                        </para>
+					<para>Based on server configuration, it prompts for password. Once 
+					you are authenticated, it checks out the code from Subversion 
+					repository.  To synchronize the project repository with the local 
+					copy, you can run the <command>update</command> sub-command. The 
+					syntax of the command, entered at a terminal prompt, is as follows:
+					</para>
+					<para>
+<screen>
+<command>cd project_dir ; svn update</command>
+</screen>
+                                        </para>
+					<para>For more details about using each Subversion sub-command, you 
+					can refer to the manual. For example, to learn more about the co 
+					(checkout) command, please run the following command from a 
+					terminal prompt:</para>
+                    <para><screen><command>svn co help</command></screen></para>
+
+			</sect3>
+			<sect3 id="access-via-custom-protocol-with-ssl" status="review">
+				<title>Access via custom protocol with SSL encryption (svn+ssh://)</title>
+					<para> The configuration and server process is same as in the
+					svn:// method. For details, please refer to the above section. 
+					This step assumes you have followed the above step and started 
+					the	Subversion server using <application>svnserve</application>  
+					command.</para>
+
+					<para>It is also assumed that the ssh server is running on that 
+					machine and that it is allowing incoming connections. To confirm, 
+					please try to login to that machine using ssh. If you can login, 
+					everything is perfect. If you cannot login, please address it 
+					before continuing further.</para>
+
+					<para>The svn+ssh:// protocol is used to access the Subversion 
+					repository using SSL encryption. The data transfer is encrypted 
+					using this method. To access the project repository (for example 
+					with a checkout), you must use the following command syntax: 
+                                        </para>
+                                        <para>
+<screen>
+<command>svn co svn+ssh://hostname/var/svn/repos/project</command>
+</screen>
+                                        </para>
+
+					<note><para> You must use the full path (/path/to/repos/project) 
+					to access the Subversion repository using this access method. 
+					</para></note>
+					<para>
+					Based on server configuration, it prompts for password. You must 
+					enter the password you use to login via ssh. Once you are 
+					authenticated, it checks out the code from the Subversion 
+					repository.
+					</para>
+			</sect3>
+			</sect2>
+
+      </sect1>
+      <sect1 id="cvs-server" status="review">
+        <title>CVS Server</title> 
+          <para>
+          CVS is a version control system. You can use it to record the
+          history of source files.
+          </para>
+        <sect2 id="cvs-installation" status="review">
+          <title>Installation</title>
+            <para>
+              To install <application>CVS</application>, run the following command from a terminal prompt:
+<screen>
+<command>sudo apt-get install cvs</command>
+</screen>
+
+After you install <application>cvs</application>, you should install
+<application>xinetd</application> to start/stop the cvs server. At the
+prompt, enter the following command to install
+<application>xinetd</application>:
+
+<screen>
+<command>sudo apt-get install xinetd</command>
+</screen>
+            </para>
+        </sect2>
+        <sect2 id="cvs-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            Once you install cvs, the repository will be automatically
+            initialized. By default, the repository resides under the
+            <application>/var/lib/cvs</application> directory. You can
+            change this path by running following command:
+
+<screen>
+<command>cvs -d /your/new/cvs/repo init</command>
+</screen>
+
+Once the initial repository is set up, you can configure
+<application>xinetd</application> to start the CVS server. 
+You can copy the following lines to the <filename>
+/etc/xinetd.d/cvspserver</filename> file.
+
+<programlisting>
+service cvspserver
+{
+     port = 2401
+     socket_type = stream
+     protocol = tcp
+     user = root
+     wait = no
+     type = UNLISTED
+     server = /usr/bin/cvs
+     server_args = -f --allow-root /var/lib/cvs pserver
+     disable = no
+}
+</programlisting>
+
+<note>
+<para>
+Be sure to edit the repository if you have changed the default
+repository (<application>/var/lib/cvs</application>) directory.
+</para>
+</note>
+
+Once you have configured <application>xinetd</application> you 
+can start the cvs server by running following command:
+
+<screen>
+<command>sudo /etc/init.d/xinetd restart</command>
+</screen>
+            </para>
+            <para>
+            You can confirm that the CVS server is running by issuing 
+			the following command:
+            </para>
+
+            <para>
+<screen>
+<command>sudo netstat -tap | grep cvs</command>
+</screen>
+            </para>
+
+            <para>
+            When you run this command, you should see the following line
+            or something similar:
+            </para>
+
+<programlisting>
+tcp        0      0 *:cvspserver            *:* LISTEN 
+</programlisting>
+
+        <para>
+From here you can continue to add users, add new projects,
+and manage the CVS server. 
+        </para>
+        <warning>
+<para>
+          CVS allows the user to add users independently of the
+underlying OS installation. Probably the easiest way is to use the Linux
+Users for CVS, although it has potential security issues. Please refer
+to the CVS manual for details.
+</para>
+        </warning>
+
+        </sect2>
+        <sect2 id="cvs-add-projects" status="review">
+          <title>Add Projects</title>
+            <para>
+            This section explains how to add new project to the CVS 
+			repository. Create the directory and add necessary document 
+			and source files to the directory. Now, run the following 
+			command to add this project to CVS repository:
+<screen>
+<command>cd your/project</command>
+<command>cvs -d :pserver:username@hostname.com:/var/lib/cvs import -m "Importing my project to CVS repository" . new_project start</command>
+</screen>
+
+<tip>
+<para>
+You can use the CVSROOT environment variable to store the CVS root directory.
+Once you export the CVSROOT environment variable, you can avoid using -d option in the
+above cvs command.
+</para>
+</tip>
+The string <emphasis>new_project</emphasis> is a vendor
+tag, and <emphasis>start</emphasis> is a release tag.
+They serve no purpose in this context, but since CVS requires them, they
+must be present.
+
+<warning>
+<para>
+When you add a new project, the CVS user you use must have write access to the
+CVS repository (<application>/var/lib/cvs</application>). By default, the
+<application>src</application> group has write access to the CVS
+repository. So, you can add the user to this group, and he can then add and
+manage projects in the CVS repository.
+</para>
+</warning>
+            </para>
+        </sect2>
+      </sect1>
+      <sect1 id="version-control-ref" status="review">
+        <title>References</title> 
+				<para><ulink url="http://bazaar-vcs.org/">Bazaar Home Page</ulink></para>
+				<para><ulink url="https://launchpad.net/">Launchpad</ulink></para>
+				<para><ulink url="http://subversion.tigris.org/">Subversion Home Page</ulink></para>
+				<para><ulink url="http://svnbook.red-bean.com/">Subversion Book</ulink></para>
+				<para><ulink
+url="http://ximbiot.com/cvs/manual/cvs-1.11.21/cvs_toc.html">CVS Manual</ulink></para>
+      </sect1>
+    </chapter>
+

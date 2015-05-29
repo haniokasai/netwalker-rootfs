@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+<!-- NAMES --><!ENTITY canonical-name "Canonical Ltd.">
+<!ENTITY project-name "Ubuntu Documentation Project">
+<!ENTITY ubuntu "<phrase>Ubuntu</phrase>">
+<!ENTITY sg-title "Server Guide">
+<!-- VERSIONS --><!ENTITY distro-version "Jaunty Jackalope">
+<!ENTITY distro-rev "9.04">
+<!ENTITY distro-release-date "April 2009">
+<!ENTITY distro-short-codename "jaunty">
+<!ENTITY distro-apt-cd-name "Ubuntu 9.04_Jaunty_Jackalope">
+<!ENTITY linux-kernel-version "2.6.27">
+<!ENTITY gcc-version "4.3.1">
+<!ENTITY glibc-version "2.8">
+<!ENTITY python-version "2.5">
+<!ENTITY glossary SYSTEM "../common/C/glossary.xml">
+<!-- LEGAL URLs --><!ENTITY legalnotice SYSTEM "../libs/C/legalnotice.xml">
+<!ENTITY gpl-url '<ulink url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink>'>
+<!ENTITY cc "http://creativecommons.org/">
+<!ENTITY cc-attrib '<ulink url="http://creativecommons.org/licenses/by-sa/2.5/">Attribution-ShareAlike 2.5</ulink>'>
+<!ENTITY cc-fulldeed-url "http://creativecommons.org/licenses/by-sa/2.5/legalcode/">
+<!ENTITY fdl-url '<ulink url="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License</ulink>'>
+<!ENTITY cc-disclaimer-url "http://creativecommons.org/licenses/disclaimer-popup?lang=en">
+<!-- CANONICAL URL RESOURCES --><!ENTITY canonical-url "http://www.canonical.com">
+<!-- OTHER UBUNTU RELATED RESOURCES --><!ENTITY upstart-url "http://upstart.ubuntu.com">
+<!-- UBUNTU IRC INFORMATION --><!ENTITY irc-network "Freenode">
+<!ENTITY irc-server "irc.ubuntu.com">
+<!ENTITY ubuntu-irc "irc.ubuntu.com channel #ubuntu">
+<!ENTITY kubuntu-irc "irc.ubuntu.com channel #kubuntu">
+<!ENTITY xubuntu-irc "irc.ubuntu.com channel #xubuntu">
+<!ENTITY edubuntu-irc "irc.ubuntu.com channel #edubuntu">
+<!-- UBUNTU URL RESOURCES --><!ENTITY ubuntu-packages "http://packages.ubuntu.com">
+<!ENTITY ubuntu-web "http://www.ubuntu.com">
+<!ENTITY ubuntu-main "http://www.ubuntu.com">
+<!ENTITY ubuntu-download "http://www.ubuntu.com/download">
+<!ENTITY ubuntu-forums "http://www.ubuntu.com/community/forums">
+<!ENTITY ubuntu-components "http://www.ubuntu.com/ubuntu/components">
+<!ENTITY ubuntu-lists "http://lists.ubuntu.com">
+<!ENTITY ubuntu-wiki "http://wiki.ubuntu.com">
+<!ENTITY ubuntu-bugzilla "https://launchpad.net/distros/ubuntu/+bugs">
+<!ENTITY ubuntu-doc-bugs "https://launchpad.net/products/ubuntu-doc/+bugs">
+<!ENTITY ubuntu-support "http://www.ubuntu.com/support">
+<!ENTITY ubuntu-paidsupport "http://www.ubuntu.com/support/paid">
+<!ENTITY ubuntu-freesupport "http://www.ubuntu.com/support/free">
+<!ENTITY ubuntu-comments "http://www.ubuntuforums.org/showthread.php?p=21787">
+<!ENTITY ubuntu-documentation "http://help.ubuntu.com">
+<!ENTITY ubuntu-documentation-repos "https://docteam.ubuntu.com/repos/trunk">
+<!ENTITY ubuntu-doc-team "https://wiki.ubuntu.com/DocumentationTeam">
+<!ENTITY ubuntu-doc-list "http://lists.ubuntu.com/mailman/listinfo/ubuntu-doc">
+<!ENTITY ubuntu-shipit "http://shipit.ubuntu.com">
+<!ENTITY ubuntu-launchpad "https://launchpad.ubuntu.com">
+<!ENTITY ubuntu-rosetta "https://launchpad.ubuntu.com/rosetta">
+<!ENTITY ubuntu-planet "http://planet.ubuntu.com">
+<!ENTITY ubuntu-philosophy "http://www.ubuntu.com/ubuntu/philosophy">
+<!ENTITY ubuntu-participate "http://www.ubuntu.com/community/participate/">
+<!ENTITY ubuntu-marketplace "http://www.ubuntu.com/support/marketplace">
+<!ENTITY ubuntu-hwdb "http://hwdb.ubuntu.com">
+<!-- UBUNTU WIKI RESOURCES --><!ENTITY wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY restricted-formats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-RestrictedFormats "https://help.ubuntu.com/community/RestrictedFormats">
+<!ENTITY wiki-XChatHowto "https://help.ubuntu.com/community/XChatHowto">
+<!ENTITY wiki-RootSudo "https://help.ubuntu.com/community/RootSudo">
+<!ENTITY wiki-HowToGetHelp "https://help.ubuntu.com/community/HowToGetHelp">
+<!ENTITY transcode "https://help.ubuntu.com/community/DVDRippingandEncoding">
+<!ENTITY wiki-Wine "https://help.ubuntu.com/community/Wine">
+<!ENTITY wiki-Cedega "https://help.ubuntu.com/community/Cedega">
+<!ENTITY wiki-Nano "https://help.ubuntu.com/community/NanoHowto">
+<!ENTITY wiki-locoteams "https://wiki.ubuntu.com/LoCoTeamList">
+<!ENTITY wiki-BasicCommands "https://help.ubuntu.com/community/BasicCommands">
+<!ENTITY wiki-filepermissions "https://help.ubuntu.com/community/FilePermissions">
+<!-- KUBUNTU URL RESOURCES --><!ENTITY kubuntu-web "http://www.kubuntu.org">
+<!ENTITY kubuntu-main "http://www.kubuntu.org">
+<!ENTITY kubuntu-download "http://releases.ubuntu.com/kubuntu/">
+<!ENTITY kubuntu-packages "http://packages.ubuntu.com/edgy/">
+<!ENTITY kubuntu-cdpackages-nodefault "http://people.ubuntu.com/~cjwatson/seeds/kubuntu-edgy/ship">
+<!ENTITY kubuntu-lists "http://lists.ubuntu.com/archives/kubuntu-users/">
+<!ENTITY kubuntu-lists-users "http://lists.ubuntu.com/mailman/listinfo/kubuntu-users/">
+<!ENTITY kubuntu-lists-devel "http://lists.ubuntu.com/mailman/listinfo/kubuntu-devel/">
+<!ENTITY kubuntu-mirrors "http://distrowatch.com/kubuntu">
+<!ENTITY kubuntu-forums "http://kubuntuforums.net">
+<!ENTITY kubuntu-wiki "https://wiki.kubuntu.org">
+<!ENTITY kubuntu-documentation-site "http://www.kubuntu.org/documentation.php">
+<!ENTITY kubuntu-wiki-UserDocumentation "https://help.ubuntu.com/community/UserDocumentation">
+<!ENTITY kubuntu-support "http://www.kubuntu.org/support.php">
+<!-- XUBUNTU URL RESOURCES --><!ENTITY xubuntu-web "http://www.xubuntu.org">
+<!ENTITY xubuntu-main "http://www.xubuntu.org">
+<!ENTITY xubuntu-web-help "http://www.xubuntu.org/help">
+<!-- DEBIAN RESOURCES --><!ENTITY debian-apt "http://www.debian.org/doc/user-manuals#apt-howto">
+<!-- EXTERNAL URL RESOURCES --><!ENTITY linmodem "http://www.linmodems.org/">
+<!ENTITY gnome "http://www.gnome.org/">
+<!ENTITY linuxorg "http://www.linux.org/">
+<!ENTITY ooo "http://www.openoffice.org/">
+<!ENTITY kde "http://www.kde.org/">
+<!ENTITY lugww "http://lugww.counter.li.org/">
+<!ENTITY ubuntu-watch "http://distrowatch.com/ubuntu/">
+<!ENTITY realplayer-download "http://www.real.com/linux/">
+<!ENTITY nvu-download "http://www.nvu.com/download.html">
+<!ENTITY sunjava-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY xorg "http://www.x.org">
+<!ENTITY dyndns "http://www.dyndns.org">
+<!ENTITY shoutcast "http://www.shoutcast.com/">
+<!ENTITY freedomtoaster "http://www.freedomtoaster.org/">
+<!ENTITY xfce "http://www.xfce.org/">
+<!-- ubuntu-screenshots TODO --><!ENTITY kubuntu-screenshots "http://shots.osdir.com/">
+<!ENTITY mozilla "http://www.mozilla.org/">
+<!ENTITY mozilla-firefox "http://www.mozilla.org/products/firefox/">
+<!ENTITY gnu "http://www.gnu.org/">
+<!ENTITY gnu-philosophy "http://www.gnu.org/philosophy/">
+<!ENTITY win4lin "http://www.win4lin.com">
+<!ENTITY codeweavers "http://www.codeweavers.com">
+<!ENTITY kernel "http://www.kernel.org">
+<!ENTITY google "http://www.google.com">
+<!ENTITY kdelook " http://www.kde-look.org">
+<!ENTITY lulu-store "http://www.lulu.com/ubuntu-doc">
+<!-- this entity controls the url for addons--><!ENTITY java-download "http://java.sun.com/j2se/1.5.0/download.jsp">
+<!ENTITY skype-deb "skype_1.2.0.17-1_i386.deb">
+<!ENTITY skype-download "http://www.skype.com/go/getskype-linux-deb">
+<!ENTITY scanmodem-gz "scanModem.gz">
+<!ENTITY scanmodem-url "http://linmodems.technion.ac.il/packages/scanModem.gz">
+<!ENTITY ext2fs-url "http://www.fs-driver.org/index.html">
+<!ENTITY mvb-tar "mvb_1.6.tgz">
+<!ENTITY mvb-url "http://www.xscd.com/pub/mvb/&mvb-tar;">
+<!-- TLDP --><!ENTITY ldp-pre-install-check "http://tldp.org/HOWTO/Pre-Installation-Checklist/">
+<!-- LANGUAGES (sorted by two letter code)--><!ENTITY Afar "aa">
+<!ENTITY Abkhazian "ab">
+<!ENTITY Afrikaans "af">
+<!ENTITY Amharic "af">
+<!ENTITY Arabic "ar">
+<!ENTITY Assamese "as">
+<!ENTITY Aymara "ay">
+<!ENTITY Azerbaijani "az">
+<!ENTITY Bashkir "ba">
+<!ENTITY Byelorussian "be">
+<!ENTITY Bulgarian "bg">
+<!ENTITY Bihari "bh">
+<!ENTITY Bislama "bi">
+<!ENTITY Bangla "bn">
+<!ENTITY Bengali "bn">
+<!ENTITY Tibetan "bo">
+<!ENTITY Breton "br">
+<!ENTITY Catalan "ca">
+<!ENTITY Corsican "co">
+<!ENTITY Czech "cs">
+<!ENTITY Welsh "cy">
+<!ENTITY Danish "da">
+<!ENTITY German "de">
+<!ENTITY Bhutani "dz">
+<!ENTITY Greek "el">
+<!-- <!ENTITY EnglishAmerican 'en'> --><!ENTITY EnglishAmerican "C">
+<!ENTITY Esperanto "eo">
+<!ENTITY Spanish "es">
+<!ENTITY Estonian "et">
+<!ENTITY Basque "eu">
+<!ENTITY Persian "fa">
+<!ENTITY Finnish "fi">
+<!ENTITY Fiji "fj">
+<!ENTITY Faeroese "fo">
+<!ENTITY French "fr">
+<!ENTITY Frisian "fy">
+<!ENTITY Irish "ga">
+<!ENTITY Gaelic "gd">
+<!ENTITY ScotsGaelic "gd">
+<!ENTITY Galician "gl">
+<!ENTITY Guarani "gn">
+<!ENTITY Gujarati "gu">
+<!ENTITY Hausa "ha">
+<!ENTITY Hindi "hi">
+<!ENTITY Croatian "hr">
+<!ENTITY Hungarian "hu">
+<!ENTITY Armenian "hy">
+<!ENTITY Interlingua "ia">
+<!ENTITY Interlingue "ie">
+<!ENTITY Inupiak "ik">
+<!ENTITY Indonesian "in">
+<!ENTITY Icelandic "is">
+<!ENTITY Italian "it">
+<!ENTITY Hebrew "iw">
+<!ENTITY Japanese "ja">
+<!ENTITY Yiddish "ji">
+<!ENTITY Javanese "jw">
+<!ENTITY Georgian "ka">
+<!ENTITY Kazakh "kk">
+<!ENTITY Greenlandic "kl">
+<!ENTITY Cambodian "km">
+<!ENTITY Kannada "kn">
+<!ENTITY Korean "ko">
+<!ENTITY Kashmiri "ks">
+<!ENTITY Kurdish "ku">
+<!ENTITY Kirghiz "ky">
+<!ENTITY Latin "la">
+<!ENTITY Lingala "ln">
+<!ENTITY Laothian "lo">
+<!ENTITY Lithuanian "lt">
+<!ENTITY Latvian "lv">
+<!ENTITY Lettish "lv">
+<!ENTITY Malagasy "mg">
+<!ENTITY Maori "mi">
+<!ENTITY Macedonian "mk">
+<!ENTITY Malayalam "ml">
+<!ENTITY Mongolian "mn">
+<!ENTITY Moldavian "mo">
+<!ENTITY Marathi "mr">
+<!ENTITY Malay "ms">
+<!ENTITY Maltese "mt">
+<!ENTITY Burmese "my">
+<!ENTITY Nauru "na">
+<!ENTITY Nepali "ne">
+<!ENTITY Dutch "nl">
+<!ENTITY Norwegian "no">
+<!ENTITY Occitan "oc">
+<!ENTITY Afan "om">
+<!ENTITY Oromo "om">
+<!ENTITY Oriya "or">
+<!ENTITY Punjabi "pa">
+<!ENTITY Polish "pl">
+<!ENTITY Pushto "ps">
+<!ENTITY Pashto "ps">
+<!ENTITY Portuguese "pt">
+<!ENTITY Quechua "qu">
+<!ENTITY Rhaeto-Romance "rm">
+<!ENTITY Kirundi "rn">
+<!ENTITY Romanian "ro">
+<!ENTITY Russian "ru">
+<!ENTITY Kinyarwanda "rw">
+<!ENTITY Sanskrit "sa">
+<!ENTITY Sindhi "sd">
+<!ENTITY Sangro "sg">
+<!ENTITY Serbo-Croatian "sh">
+<!ENTITY Singhalese "si">
+<!ENTITY Slovak "sk">
+<!ENTITY Slovenian "sl">
+<!ENTITY Samoan "sm">
+<!ENTITY Shona "sn">
+<!ENTITY Somali "so">
+<!ENTITY Albanian "sq">
+<!ENTITY Serbian "sr">
+<!ENTITY Siswati "ss">
+<!ENTITY Sesotho "st">
+<!ENTITY Sudanese "su">
+<!ENTITY Swedish "sv">
+<!ENTITY Swahili "sw">
+<!ENTITY Tamil "ta">
+<!ENTITY Tegulu "te">
+<!ENTITY Tajik "tg">
+<!ENTITY Thai "th">
+<!ENTITY Tigrinya "ti">
+<!ENTITY Turkmen "tk">
+<!ENTITY Tagalog "tl">
+<!ENTITY Setswana "tn">
+<!ENTITY Tonga "to">
+<!ENTITY Turkish "tr">
+<!ENTITY Tsonga "ts">
+<!ENTITY Tatar "tt">
+<!ENTITY Twi "tw">
+<!ENTITY Ukrainian "uk">
+<!ENTITY Urdu "ur">
+<!ENTITY Uzbek "uz">
+<!ENTITY Vietnamese "vi">
+<!ENTITY Volapuk "vo">
+<!ENTITY Wolof "wo">
+<!ENTITY Xhosa "xh">
+<!ENTITY Yoruba "yo">
+<!ENTITY Chinese "zh">
+<!ENTITY Zulu "zu">
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+<!-- MENUS --><!-- Please keep entries alphabetical, it makes them much easier to find & use --><!ENTITY about-me "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>About-me</guimenuitem></menuchoice>">
+<!ENTITY accessories "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem></menuchoice>">
+<!ENTITY acro-read "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Acrobat Reader</guimenuitem></menuchoice>">
+<!ENTITY administration "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem></menuchoice>">
+<!ENTITY aisleriot "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>AisleRiot Solitaire</guimenuitem></menuchoice>">
+<!ENTITY amule "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY anjuta-ide "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Anjuta IDE</guimenuitem></menuchoice>">
+<!ENTITY archive-man "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Archive Manager</guimenuitem></menuchoice>">
+<!ENTITY assistive-technology-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Assistive Technology Support</guimenuitem></menuchoice>">
+<!ENTITY audacity "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Audacity</guimenuitem></menuchoice>">
+<!ENTITY azureus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Azureus</guimenuitem></menuchoice>">
+<!ENTITY baobab "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Disk Usage Analyzer</guimenuitem></menuchoice>">
+<!ENTITY bittorrent "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Bittorrent</guimenuitem></menuchoice>">
+<!ENTITY blender3d "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Blender 3d modeller</guimenuitem></menuchoice>">
+<!ENTITY bluefish "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Programming</guimenuitem><guimenuitem>Bluefish Editor</guimenuitem></menuchoice>">
+<!ENTITY boot "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Boot</guimenuitem></menuchoice>">
+<!ENTITY brasero "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Brasero Disc Burning</guimenuitem></menuchoice>">
+<!ENTITY bum "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Boot-up Manager</guimenuitem></menuchoice>">
+<!ENTITY bzrgtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Olive bazaar Branch Manager</guimenuitem></menuchoice>">
+<!ENTITY calculator "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Calculator</guimenuitem></menuchoice>">
+<!ENTITY character-map "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Character Map</guimenuitem></menuchoice>">
+<!ENTITY compizconfig "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>CompizConfig Settings Manager</guimenuitem></menuchoice>">
+<!ENTITY computer "<menuchoice><guimenu>Places</guimenu><guimenuitem>Computer</guimenuitem></menuchoice>">
+<!ENTITY connecttoserver "<menuchoice><guimenu>Places</guimenu><guimenuitem>Connect to Server...</guimenuitem></menuchoice>">
+<!ENTITY cowbell "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>Cowbell Music Organizer</guimenuitem>	</menuchoice>">
+<!ENTITY chromium "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Chromium</guisubmenu></menuchoice>">
+<!ENTITY computer-janitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guisubmenu>System Janitor</guisubmenu></menuchoice>">
+<!ENTITY desktop-background "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Desktop Background</guimenuitem></menuchoice>">
+<!ENTITY desktop-effects "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Appearance</guimenuitem><guimenuitem>Visual Effects</guimenuitem></menuchoice>">
+<!ENTITY desktop-preferences "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice>">
+<!ENTITY devhelp "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>Devhelp</guimenuitem></menuchoice>">
+<!ENTITY device-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Hardware Information</guimenuitem></menuchoice>">
+<!ENTITY dictionary "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Dictionary</guimenuitem></menuchoice>">
+<!ENTITY disks "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Disks</guimenuitem></menuchoice>">
+<!ENTITY downloader-x "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Downloader for X</guimenuitem></menuchoice>">
+<!ENTITY eclipse-ide "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Eclipse IDE</guimenuitem></menuchoice>">
+<!ENTITY ekiga "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Internet</guimenuitem><guimenuitem>Ekiga Softphone</guimenuitem></menuchoice>">
+<!ENTITY efax-gtk "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Office</guisubmenu><guimenuitem>Efax-gtk</guimenuitem></menuchoice>">
+<!ENTITY etherape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Etherape</guimenuitem></menuchoice>">
+<!ENTITY evolution-mail "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Evolution Mail</guimenuitem></menuchoice>">
+<!ENTITY file-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>File Management</guimenuitem></menuchoice>">
+<!ENTITY firefox "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Internet</guisubmenu><guimenuitem>Firefox Web Browser</guimenuitem></menuchoice>">
+<!ENTITY firestarter-firewall-tool "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Firestarter</guimenuitem></menuchoice>">
+<!ENTITY five-or-more "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Five or More</guimenuitem></menuchoice>">
+<!ENTITY font "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Font</guimenuitem></menuchoice>">
+<!ENTITY f-spot "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>F-Spot Photo Manager</guimenuitem></menuchoice>">
+<!ENTITY frozen-bubble "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Frozen Bubble</guisubmenu></menuchoice> to play <application>Frozen Bubble</application>">
+<!ENTITY gambas "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>Gambas</guimenuitem></menuchoice>">
+<!ENTITY games "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Games</guimenuitem></menuchoice>">
+<!ENTITY gdesklets "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>gDesklets</guimenuitem></menuchoice>">
+<!ENTITY gftp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>gFTP</guimenuitem></menuchoice>">
+<!ENTITY gimp "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>GIMP Image Editor</guimenuitem></menuchoice>">
+<!ENTITY gnome-app-install "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Add/Remove...</guimenuitem></menuchoice>">
+<!ENTITY gnome-config-editor "<screen><command>gconf-editor</command></screen>">
+<!ENTITY gnome-sound-recorder "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Sound Recorder</guimenuitem></menuchoice>">
+<!ENTITY gparted "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration </guisubmenu><guimenuitem>Gnome Partition Editor</guimenuitem></menuchoice>">
+<!ENTITY graphics "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem></menuchoice>">
+<!ENTITY gthumb "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>gThumb Image Viewer</guimenuitem></menuchoice>">
+<!ENTITY gtkpod "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Sound &amp; Video</guisubmenu><guimenuitem>gtkpod</guimenuitem></menuchoice>">
+<!ENTITY gnucash "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>GnuCash Finance Management</guimenuitem></menuchoice>">
+<!ENTITY gxine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>gxine</guimenuitem></menuchoice>">
+<!ENTITY home-folder "<menuchoice><guimenu>Places</guimenu><guimenuitem>Home Folder</guimenuitem></menuchoice>">
+<!ENTITY homebank "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>HomeBank</guimenuitem></menuchoice>">
+<!ENTITY hubackup "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Backup</guimenuitem></menuchoice>">
+<!ENTITY hurestore "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>Home User Restore</guimenuitem></menuchoice>">
+<!ENTITY inkscape "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>Inkscape SVG Vector Illustrator</guimenuitem></menuchoice>">
+<!ENTITY internet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem></menuchoice>">
+<!ENTITY kdevelop "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Programming</guisubmenu><guimenuitem>KDevelop</guimenuitem></menuchoice>">
+<!ENTITY keyboard "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard</guimenuitem></menuchoice>">
+<!ENTITY keyboard-shortcuts "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Keyboard Shortcuts</guimenuitem></menuchoice>">
+<!ENTITY language-support "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Language Support</guimenuitem></menuchoice>">
+<!ENTITY liferea "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Liferea Feed Reader</guimenuitem></menuchoice>">
+<!ENTITY limewire "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>LimeWire</guimenuitem></menuchoice>">
+<!ENTITY lockscreen "<menuchoice><guimenu>System</guimenu><guimenuitem>Lock Screen</guimenuitem></menuchoice>">
+<!ENTITY login-screen-setup "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Login Window</guimenuitem></menuchoice>">
+<!ENTITY mahjongg "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Games</guimenuitem><guimenuitem>Mahjongg</guimenuitem></menuchoice>">
+<!ENTITY menu-editor "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Accessories</guisubmenu><guimenuitem>Applications Menu Editor</guimenuitem></menuchoice>">
+<!ENTITY menus-and-toolbars "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Menus &amp; Toolbars</guimenuitem></menuchoice>">
+<!ENTITY monodevelop "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDevelop</guimenuitem></menuchoice>">
+<!ENTITY monodoc "<menuchoice><guimenuitem>Applications</guimenuitem><guimenuitem>Programming</guimenuitem><guimenuitem>MonoDoc</guimenuitem></menuchoice>">
+<!ENTITY mouse "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Mouse</guimenuitem></menuchoice>">
+<!ENTITY mtink "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>mtink</guimenuitem></menuchoice>">
+<!ENTITY music "<menuchoice><guimenu>Places</guimenu><guimenuitem>Music</guimenuitem></menuchoice>">
+<!ENTITY multimedia-systems-selector "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Multimedia Systems Selector</guimenuitem></menuchoice>">
+<!ENTITY ndisgtk "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Windows Wireless Drivers</guimenuitem></menuchoice>">
+<!ENTITY network-proxy "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Network Proxy</guimenuitem></menuchoice>">
+<!ENTITY network-tools "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network Tools</guimenuitem></menuchoice>">
+<!ENTITY networking "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY network-servers "<menuchoice><guimenu>Places</guimenu><guimenuitem>Network</guimenuitem></menuchoice>">
+<!ENTITY neverball "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverball</guisubmenu></menuchoice>">
+<!ENTITY neverputt "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Neverputt</guisubmenu></menuchoice>">
+<!ENTITY nexuiz "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Nexuiz</guisubmenu></menuchoice>">
+<!ENTITY open-office "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem></menuchoice>">
+<!ENTITY openoffice-base "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Database</guimenuitem></menuchoice>">
+<!ENTITY openoffice-draw "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>OpenOffice.org Draw</guimenuitem></menuchoice>">
+<!ENTITY openoffice-presentation "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Presentation</guimenuitem></menuchoice>">
+<!ENTITY openoffice-spreadsheet "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Spreadsheet</guimenuitem></menuchoice>">
+<!ENTITY openoffice-writer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>OpenOffice.org Word Processor</guimenuitem></menuchoice>">
+<!ENTITY palmos-devices "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>PalmOS Devices</guimenuitem></menuchoice>">
+<!ENTITY pan "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pan Newsreader</guimenuitem></menuchoice>">
+<!ENTITY photoprint "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>PhotoPrint</guimenuitem></menuchoice>">
+<!ENTITY pidgin "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Pidgin Internet Messenger</guimenuitem></menuchoice>">
+<!ENTITY power-management "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Power Management</guimenuitem></menuchoice>">
+<!ENTITY ppracer "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Planet Penguin Racer</guisubmenu></menuchoice>">
+<!ENTITY preferences "<menuchoice><guimenu>System</guimenu><guisubmenu>Preferences</guisubmenu></menuchoice>">
+<!ENTITY preferred-applications "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Preferred Applications</guimenuitem></menuchoice>">
+<!ENTITY print "<menuchoice><guimenu>File</guimenu><guimenuitem>Print</guimenuitem></menuchoice>">
+<!ENTITY printing "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Printing</guimenuitem></menuchoice>">
+<!ENTITY qtparted "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem><guimenuitem>QTParted</guimenuitem></menuchoice>">
+<!ENTITY remote-desktop "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Remote Desktop</guimenuitem></menuchoice>">
+<!ENTITY removable-drives-and-media "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Removable Drives and Media</guimenuitem></menuchoice>">
+<!ENTITY realplayer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>RealPlayer 11</guimenuitem></menuchoice>">
+<!ENTITY restricted-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Hardware Drivers</guimenuitem></menuchoice>">
+<!ENTITY rhythmbox "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Rhythmbox Music Player</guimenuitem></menuchoice>">
+<!ENTITY route-planner "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>aMule</guimenuitem></menuchoice>">
+<!ENTITY scorched3d "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guimenuitem>Scorched 3D</guimenuitem></menuchoice>">
+<!ENTITY screen-resolution "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screen Resolution</guimenuitem></menuchoice>">
+<!ENTITY screensaver "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Screensaver</guimenuitem></menuchoice>">
+<!ENTITY scribus "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Office</guimenuitem><guimenuitem>Scribus</guimenuitem></menuchoice>">
+<!ENTITY serpentine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Serpentine Audio CD Creator</guimenuitem></menuchoice>">
+<!ENTITY services "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Services</guimenuitem></menuchoice>">
+<!ENTITY sessions "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sessions</guimenuitem></menuchoice>">
+<!ENTITY shared-folders "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Shared Folders</guimenuitem></menuchoice>">
+<!ENTITY skype "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Skype</guimenuitem></menuchoice>">
+<!ENTITY software-properties "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY software-sources "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Software Sources</guimenuitem></menuchoice>">
+<!ENTITY sound "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Sound</guimenuitem></menuchoice>">
+<!ENTITY soundandvideo "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem></menuchoice>">
+<!ENTITY soundjuicer "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Audio CD Extractor</guimenuitem></menuchoice>">
+<!ENTITY supertux "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>SuperTux</guisubmenu></menuchoice>">
+<!ENTITY shutdown "<menuchoice><guimenu>System</guimenu><guimenuitem>Shut Down...</guimenuitem></menuchoice>">
+<!ENTITY synaptic "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Synaptic Package Manager</guimenuitem></menuchoice>">
+<!ENTITY system-monitor "<menuchoice><guimenu>System</guimenu><guisubmenu>Administration</guisubmenu><guimenuitem>System Monitor</guimenuitem></menuchoice>">
+<!ENTITY systemtools "<menuchoice><guimenu>Applications</guimenu><guimenuitem>System Tools</guimenuitem></menuchoice>">
+<!ENTITY terminal "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Terminal</guimenuitem></menuchoice>">
+<!ENTITY text-editor "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Accessories</guimenuitem><guimenuitem>Text Editor</guimenuitem></menuchoice>">
+<!ENTITY theme "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Theme</guimenuitem></menuchoice>">
+<!ENTITY thunderbird "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Mozilla Thunderbird Mail/News</guimenuitem></menuchoice>">
+<!ENTITY time-date "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Time and Date</guimenuitem></menuchoice>">
+<!ENTITY totem "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>Movie Player</guimenuitem></menuchoice>">
+<!ENTITY touchpad "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Touchpad</guimenuitem></menuchoice>">
+<!ENTITY tremulous "<menuchoice><guimenu>Applications</guimenu><guisubmenu>Games</guisubmenu><guisubmenu>Tremulous</guisubmenu></menuchoice>">
+<!ENTITY ubuntu-update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Ubuntu Update Manager</guimenuitem></menuchoice>">
+<!ENTITY update-manager "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Update Manager</guimenuitem></menuchoice>">
+<!ENTITY users "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY users-groups "<menuchoice><guimenu>System</guimenu><guimenuitem>Administration</guimenuitem><guimenuitem>Users and Groups</guimenuitem></menuchoice>">
+<!ENTITY windows "<menuchoice><guimenu>System</guimenu><guimenuitem>Preferences</guimenuitem><guimenuitem>Windows</guimenuitem></menuchoice>">
+<!ENTITY wireshark "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Wireshark</guimenuitem></menuchoice>">
+<!ENTITY xchat-gnome "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Internet</guimenuitem><guimenuitem>Xchat-GNOME IRC Chat</guimenuitem></menuchoice>">
+<!ENTITY xine "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>xine</guimenuitem></menuchoice>">
+<!ENTITY xmms "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Sound &amp; Video</guimenuitem><guimenuitem>XMMS</guimenuitem></menuchoice>">
+<!ENTITY xsane "<menuchoice><guimenu>Applications</guimenu><guimenuitem>Graphics</guimenuitem><guimenuitem>XSane Image Scanner</guimenuitem></menuchoice>">
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+<!ELEMENT xi:include (xi:fallback)?>
+<!ATTLIST xi:include xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ATTLIST xi:include href CDATA #REQUIRED>
+<!ATTLIST xi:include parse (xml | text) "xml">
+<!ATTLIST xi:include xpointer CDATA #IMPLIED>
+<!ATTLIST xi:include encoding CDATA #IMPLIED>
+<!ATTLIST xi:include accept CDATA #IMPLIED>
+<!ATTLIST xi:include accept-charset CDATA #IMPLIED>
+<!ATTLIST xi:include accept-language CDATA #IMPLIED>
+<!ELEMENT xi:fallback ANY>
+<!ATTLIST xi:fallback xmlns:xi CDATA #FIXED "http://www.w3.org/2001/XInclude">
+<!ENTITY % local.preface.class "| xi:include">
+<!ENTITY % local.part.class "| xi:include">
+<!ENTITY % local.chapter.class "| xi:include">
+<!ENTITY % local.divcomponent.mix "| xi:include">
+<!ENTITY % local.para.char.mix "| xi:include">
+<!ENTITY % local.info.class "| xi:include">
+<!ENTITY % local.common.attrib "xmlns:xi            CDATA       #FIXED       'http://www.w3.org/2001/XInclude'">
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="virtualization" status="review">
+  <title>Virtualizzazione</title>
+  <para>La virtualizzazione, al giorno d'oggi, viene utilizzata in diversi ambienti e situazioni. Dal punto di vista dello sviluppatore, la virtualizzazione offre un ambiente sicuro dove poter eseguire qualsiasi tipo di sviluppo, senza compromettere l'ambiente di lavoro. Per l'amministratore di sistema, è possibile usare la virtualizzazione per separare facilmente i propri servizi e spostarli in base alle richieste.</para>
+  <para>La tecnologia di virtualizzazione supportata in modo predefinito in Ubuntu è <application>KVM</application>, una tecnologa che sfrutta le estensioni di virtualizzazione presenti nelle CPU Intel o AMD. Per l'hardware che non è dotato di estensioni di virtualizzazione, <application>Xen</application> e <application>Qemu</application> sono le soluzioni più usate.</para>
+  <sect1 id="libvirt" status="review">
+    <title>libvirt</title>
+    <para>La libreria <application>libvirt</application> è utilizzata per interfacciarsi con differenti tecnologie di virtualizzazione. Prima di iniziare a utilizzare <application>libvirt</application> è utile accertarsi che il proprio hardware supporti le estensioni di virtualizzazione necessarie per <application>KVM</application>. In un terminale, digitare quanto segue:</para>
+<screen> <command>egrep '(vmx|svm)' /proc/cpuinfo</command>
+</screen>
+    <para>Se non viene stampato nulla, la CPU <emphasis>non</emphasis> supporta la virtualizzazione.</para>
+    <note>
+      <para>Sulla maggior parte dei computer i cui processori supportano la virtualizzazione, è necessario attivare un'opzione nel bios per poterla abilitare. Il metodo precedentemente descritto non mostra lo stato della sua attivazione.</para>
+    </note>
+    <sect2 id="virtual-networking" status="review">
+      <title>Rete virtuale</title>
+
+      <para>Esistono diversi modi per consentire accesso alla rete esterna a una macchina virtuale. La configurazione di rete predefinita è <emphasis>usermode</emphasis>, che utilizza il protocollo SLIRP e il traffico è passato attraverso l'interfaccia dell'host verso la rete esterna.</para>
+
+      <para>Affinché gli host esterni possano accedere i servizi su una macchina virtuale, è necessario configurare un <emphasis>bridge</emphasis>. Questo consente alle interfacce virtuali di connettersi alla rete esterna attraverso l'interfaccia fisica, facendole apparire come normali host al resto della rete. Per informazioni su come impostare un bridge, consultare <xref linkend="bridging"/>.</para>
+
+    </sect2>
+    <sect2 id="libvirt-installation" status="review">
+      <title>Installazione</title>
+      <para>Per installare i pacchetti necessari, da un terminale digitare:</para>
+<screen>
+<command>sudo apt-get install kvm libvirt-bin</command>
+</screen>
+      <para>Dopo aver installato <application>libvirt-bin</application>, l'utente usato per la gestione delle macchine virtuali deve essere aggiunto al gruppo <emphasis>libvirtd</emphasis>. In questo modo, all'utente è garantito accesso alle configurazioni avanzate di rete.</para>
+      <para>In un terminale digitare:</para>
+<screen>
+<command>sudo adduser $USER libvirtd</command>
+</screen>
+      <note>
+	<para>Se l'utente scelto è quello corrente, è necessario terminare la sessione e ri-accedervi affinché le modifiche abbiano effetto.</para>
+      </note>
+      <para>È ora possibile installare un sistema operativo <emphasis>ospite</emphasis>. La procedura di installazione di una macchina virtuale è la stessa di un sistema operativo normale ed è quindi necessario automatizzare la procedura oppure avere una tastiera e uno schermo collegati al computer.</para>
+      <para>Nel caso delle macchine virtuali, un'interfaccia grafica è analoga all'uso di una tastiera e di un mouse. Invece di installare un'interfaccia grafica, è possibile usare <application>virt-viewer</application> per connettersi alla console di una macchina virtuale via <application>VNC</application>. Per maggiori informazioni, consultare la <xref linkend="libvirt-virt-viewer"/>.</para>
+      <para>Ci sono diversi modi per automatizzare il processo di installazione di Ubuntu, per esempio tramite l'utilizzo di "preseed", "kickstart", ecc... Per maggior informazioni, fare riferimento alla <ulink url="https://help.ubuntu.com/9.04/installation-guide/">guida all'installazione di Ubuntu</ulink>.</para>
+      <para>Un altro metodo per installare una macchina virtuale Ubuntu consiste nell'usare l'applicazione <application>ubuntu-vm-builder</application>. <application>ubuntu-vm-builder</application> consente di impostare partizioni avanzate, eseguire script personalizzati post-installazione, ecc... Per maggiori informazioni, consultare <xref linkend="jeos-and-vmbuilder"/></para>
+    </sect2>
+    <sect2 id="libvirt-virt-install" status="review">
+      <title>virt-install</title>
+      <para><application>virt-install</application>fa parte del pacchetto <application>python-virtinst</application>. Per installarlo, in un terminale, digitare:</para>
+<screen>
+<command>sudo apt-get install python-virtinst</command>
+</screen>
+      <para>Durante l'uso di <application>virt-install</application> sono disponibili molte azioni, per esempio:</para>
+<screen>
+<command>sudo virt-install -n web_devel -r 256 -f web_devel.img \ -s 4 -c jeos.iso --accelerate \ --connect=qemu:///system --vnc \ --noautoconsole -v</command>
+</screen>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>-n web_devel</emphasis>: il nome della nuova macchine virtuale usato in questo esempio sarà <emphasis>web_devel</emphasis>.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-r 256</emphasis>: specifica la quantità di memoria che la macchina virtuale userà.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-f web_devel.img</emphasis>: indica il percorso al disco virtuale che può essere un file, una partizione o un volume logico. In questo esempio è un file chiamato <filename>web_devel.img</filename>.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-s 4</emphasis>: la dimensione del disco virtuale.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-c jeos.iso</emphasis>: il file usato come CD-ROM virtuale. Il file può essere un file ISO o il percorso al device del CD-ROM nell'host.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>--accelerate</emphasis>: abilita letecnologie di accelerazione nel kernel.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>--vnc</emphasis>: esporta la console virtuale usando VNC.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>--noautoconsole</emphasis>: non si collegherà automaticamente alla console della macchina virtuale.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-v</emphasis>: crea un ospite completamente virtualizzato.</para>
+        </listitem>
+      </itemizedlist>
+      <para>Una volta lanciata <application>virt-install</application> è possibile collegarsi alla console della macchina virtuale utilizzando, localmente, un'interfaccia grafica oppure l'utilità <application>virt-viewer</application>.</para>
+    </sect2>
+    <sect2 id="libvirt-virt-clone" status="review">
+      <title>virt-clone</title>
+      <para>L'applicazione <application>virt-clone</application> può essere usata per copiare una macchina virtuale in un'altra, per esempio:</para>
+<screen>
+<command>sudo virt-clone -o web_devel -n database_devel -f /path/to/database_devel.img --connect=qemu:///system</command> 
+</screen>
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>-o</emphasis>: macchina virtuale originale.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-n</emphasis>: nome della nuova macchina virtuale.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>-f</emphasis>: percorso al file, volume logico o partizione da usare per la nuova macchina virtuale.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>--connect</emphasis>: specifica a quale hypervisor collegarsi.</para>
+        </listitem>
+      </itemizedlist>
+      <para>Usare anche le opzioni <emphasis>-d</emphasis> o <emphasis>--debug</emphasis> per risolvere i problemi che potrebbero verificarsi con <application>virt-clone</application>.</para>
+      <note>
+        <para>Sostituire <emphasis>web_devel</emphasis> e <emphasis>database_devel</emphasis> con i nomi delle macchine virtuali appropriati.</para>
+      </note>
+    </sect2>
+    <sect2 id="libvirt-management" status="review">
+      <title>Gestire la macchina virtuale</title>
+      <sect3 id="virsh" status="review">
+        <title>virsh</title>
+        <para>Sono disponibili diverse utilità per la gestione delle macchine virtuali e di <application>libvirt</application>. L'utilità <application>virsh</application> può essere utilizzata dalla riga di comando. Alcuni esempi:</para>
+        <itemizedlist>
+          <listitem>
+            <para>Per elencare le macchine virtuali in esecuzione:</para>
+<screen>
+<command>virsh -c qemu:///system list</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Per avviare una macchina virtuale:</para>
+<screen>
+<command>virsh -c qemu:///system start web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Similmente, per lanciare una macchina virtuale durante l'avvio del computer:</para>
+<screen>
+<command>virsh -c qemu:///system autostart web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Riavviare una macchina virtuale con:</para>
+<screen>
+<command>virsh -c qemu:///system reboot web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Lo <emphasis>stato</emphasis> di una macchina virtuale può essere salvato in un file per poterlo ripristinare successivamente. Il seguente comando salva lo stato della macchina virtuale in un file nominato in base alla data.</para>
+<screen>
+<command>virsh -c qemu:///system save web_devel web_devel-022708.state</command>
+</screen>
+            <para>Una volta salvata, la macchina virtuale non sarà più in esecuzione.</para>
+          </listitem>
+          <listitem>
+            <para>Per ripristinare una macchina virtuale:</para>
+<screen>
+<command>virsh -c qemu:///system restore web_devel-022708.state</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Per arrestare una macchina virtuale:</para>
+<screen>
+<command>virsh -c qemu:///system shutdown web_devel</command>
+</screen>
+          </listitem>
+          <listitem>
+            <para>Per montare un CD-ROM in una macchina virtuale, digitare:</para>
+<screen>
+<command>virsh -c qemu:///system attach-disk web_devel /dev/cdrom /media/cdrom</command>
+</screen>
+          </listitem>
+        </itemizedlist>
+        <note>
+          <para>Nell'esempio precedente, sostituire <emphasis>web_devel</emphasis> con il nome della macchina virtuale appropriata e <filename>web_devel-022708.state</filename> con un nome file descrittivo.</para>
+        </note>
+      </sect3>
+      <sect3 id="virt-manager" status="review">
+        <title>Gestore macchina virtuale</title>
+        <para>Il pacchetto <application>virt-manager</application> contiene un'utilità grafica per gestire le macchie virtuali locali e remote. Per installare virt-manager digitare:</para>
+<screen>
+<command>sudo apt-get install virt-manager</command>
+</screen>
+        <para>Dato che <application>virt-manager</application> richiede un'interfaccia grafica (GUI), è raccomandato installarlo su una workstation o una postazione di prova invece che un server di produzione. Per connettersi al servizio <application>libvirt</application> locale:</para>
+<screen>
+<command>virt-manager -c qemu:///system</command>
+</screen>
+        <para>È possibile collegarsi al servizio <application>libvirt</application> in esecuzione su un altro host digitando, in un terminale:</para>
+<screen>
+<command>virt-manager -c qemu+ssh://virtnode1.mydomain.com/system</command>
+</screen>
+        <note>
+          <para>L'esempio precedente assume che la connessione <application>SSH</application> tra il sistema di gestione e virtnode1.mydomain.com sia già configurata e utilizzi le chiavi SSH per l'autenticazione. Le <emphasis>chiavi</emphasis> SSH sono necessarie perché <application>libvirt</application> invia il prompt password a un altro processo. Per maggiori informazioni sulla configurazione di <application>SSH</application>, consultare la <xref linkend="openssh-server"/></para>
+        </note>
+      </sect3>
+    </sect2>
+    <sect2 id="libvirt-virt-viewer" status="review">
+      <title>Visualizzatore di macchine virtuali</title> 
+      <para>L'applicazione <application>virt-viewer</application> consente di collegarsi alla console di una macchina virtuale. <application>virt-viewer</application> non richiede un'interfaccia grafica per interagire con la macchina virtuale.</para>
+      <para>Per installare <application>virt-viewer</application>, da un terminale digitare:</para>
+<screen>
+<command>sudo apt-get install virt-viewer</command>
+</screen>
+      <para>Una volta installata e in esecuzione, è possibile connettersi alla console della macchina virtuale digitando:</para>
+<screen>
+<command>virt-viewer -c qemu:///system web_devel</command>
+</screen>
+      <para>Analogamente a <application>virt-manager</application>, <application>virt-viewer</application> può collegarsi a un host remoto utilizzando <emphasis>SSH</emphasis> con chiave di autenticazione:</para>
+<screen>
+<command>virt-viewer -c qemu+ssh://virtnode1.miodominio.it/system web_devel</command>
+</screen>
+      <para>Assicurarsi di sostituire <emphasis role="italic">web_devel</emphasis> con il nome corretto della macchina virtuale.</para>
+      <para>Se configurato per usare un'interfaccia di rete <emphasis>bridged</emphasis>, è anche possibile impostare accesso <application>SSH</application> alla macchina virtuale. Per maggiori informazioni, consultare <xref linkend="openssh-server"/> e <xref linkend="bridging"/>.</para>
+    </sect2>
+    <sect2 id="libvirt-resources" status="review">
+      <title>Risorse</title> 
+      <itemizedlist>
+        <listitem>
+          <para>Per maggiori informazioni, consultare il sito web di <ulink url="http://kvm.qumranet.com/kvmwiki">KVM</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>Per maggiori informazioni su <application>libvirt</application>, consultare <ulink url="http://libvirt.org/">il sito web di libvirt</ulink></para>
+        </listitem>
+        <listitem>
+          <para>Il sito di <ulink url="http://virt-manager.et.redhat.com/">Virtual Machine Manager</ulink> dispone di ulteriori informazioni riguardo lo sviluppo di <application>virt-manager</application>.</para>
+        </listitem>
+        <listitem>
+          <para>È anche possibile passare nel canale IRC <emphasis>#ubuntu-virt</emphasis> su <ulink url="http://freenode.net/">freenode</ulink> per discutere delle tecnologie di virtualizzazione in Ubuntu.</para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="jeos-and-vmbuilder" status="review">
+  <title>JeOS e vmbuilder</title>
+
+  <sect2 id="jeos-introduction" status="review">
+    <title>Introduzione</title>
+
+    <sect3 id="what-is-jeos" status="review">
+      <title>Cos'è JeOS</title>
+
+  <para>Ubuntu <emphasis>JeOS</emphasis> (pronunciato come la parola "juice") è una variante di della versione server di Ubuntu, configurata appositamente per le applicazioni virtuali. Non è disponibile sotto forma di file ISO per CD-ROM, ma solo come opzione:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>durante l'installazione della versione server (premere <emphasis>F4</emphasis> alla prima schermata per scegliere l'opzione "Installa un sistema minimale" che equivale a selezionare JeOS).</para>
+    </listitem>
+    <listitem>
+      <para>oppure può essere generato usando "vmbuilder" come descritto di seguito.</para>
+    </listitem>
+  </itemizedlist>
+      
+  <para>JeOS è un'installazione di Ubuntu Server Edition con un kernel appositamente configurato che contiene gli elementi basilari necessari all'esecuzione di un ambiente virtualizzato.</para>
+
+  <para>Ubuntu JeOS è stato progettato per sfruttare tutte quelle tecnologie chiave, relative alle prestazioni, presenti negli ultimi prodotti di virtualizzazione di VMware. La combinazione di una ridotta dimensione e prestazioni ottimizzate, assicurano che Ubuntu JeOS Edition sia in grado di offrire un uso efficiente delle risorse server in grandi produzioni virtuali.</para>
+  
+  <para>Senza l'utilizzo di driver non necessari e ricorrendo solo ai pacchetti richiesti, gli ISV possono configurare il proprio SO di supporto proprio come desiderano. Inoltre, viene assicurato che gli aggiornamenti, di sicurezza o per miglioramenti, saranno limitati al minimo richiesto dallo specifico ambiente. Gli utenti che sviluppano soluzioni virtuali basate su JeOS, dovranno gestire meno aggiornamenti, e quindi una minor manutenzione, di quanto avrebbero dovuto fare con un'installazione server completa.</para>
+ 
+    </sect3>
+    <sect3 id="what-is-vmbuilder">
+      <title>Cos'è vmbuilder</title>
+
+      <para>Con vmbuilder non è più necessario scaricare l'ISO di JeOS. vmbuilder scarica i diversi pacchetti e costruisce una macchina virtuale su misura in circa un minuto. vmbulder è uno script che automatizza il processo di creazione di una macchina virtuale basata su Linux. Gli hypervisor attualmente supportati sono KVM e Xen.</para>
+
+      <para>È possibile passare opzioni a riga di comando per aggiungere dei pacchetti, per rimuoverne, per scegliere la versione di Ubuntu, quale mirror, ecc... Su piattaforme hardware recenti dotate di molta memoria RAM, con tmpdir in <filename>/dev/shm</filename> o usando un tmpfs e un mirror locale, è possibile avere una macchina virtuale in meno di un minuto.</para>
+
+      <para>Introdotto per le prima volta come script con Ubuntu 8.04 LTS, <application>ubuntu-vm-builder</application> è stato inizialmente un semplice "hack" per aiutare gli sviluppatori a provare il loro codice in una macchina virtuale senza dover iniziare ogni volta da capo. Dopo che alcuni amministratori di sistema di Ubuntu hanno notato questo script, hanno iniziato a migliorarlo e ad adattarlo a molti casi d'uso che Soren Hansen (l'autore dello script e lo specialista di virtualizzazione all'interno di Ubuntu, non il giocatore di golf) ha deciso di riscriverlo da capo, per Intrepid, in Python con diversi nuovi obiettivi:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Svilupparlo affinché possa essere usato anche da altre distribuzioni.</para>
+        </listitem>
+        <listitem>
+          <para>Usare un meccanismo di plugin per tutte le interazioni di virtualizzazione per facilitare l'aggiunta di altri ambienti di virtualizzazione o una logica più complessa.</para>
+        </listitem>
+        <listitem>
+          <para>Fornire un'interfaccia web facile da usare come opzione alla riga di comando.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>I principi generali e i comandi restano sempre gli stessi.</para>
+
+    </sect3>
+  </sect2>
+  <sect2 id="jeos-initial-setup" status="review">
+    <title>Configurazione iniziale</title>
+
+    <para>Si presuppone che siano già stati installati e configurati <application>libvirt</application> e <application>KVM</application> sul computer che si intende usare. Per maggiori informazioni, consultare:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>
+        <xref linkend="libvirt"/>
+        </para>
+      </listitem>
+      <listitem>
+        <para>La pagina relativa a <ulink url="https://help.ubuntu.com/community/KVM">KVM</ulink> nella documentazione (in inglese).</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Si dà per assodato che si sappia utilizzare un editor di testo come nano oppure vi. In caso contrario, è possibile avere una panoramica dei vari editor di testo consultando <ulink url="http://wiki.ubuntu-it.org/Ufficio/EditorDiTesto#powereditor">la documentazione di Ubuntu</ulink>. Questa guida è stata scritta basandosi su KVM, ma il principio dovrebbe essere lo stesso anche per altre tecnologie di virtualizzazione.</para>
+  
+      <sect3 id="install-vmbuilder" status="review">
+        <title>Installare vmbuilder</title>
+
+        <para>Il nome del pacchetto da installare è <application>python-vm-builder</application>. In un terminale digitare:</para>
+
+<screen>
+<command>sudo apt-get install python-vm-builder</command>
+</screen>
+
+        <note>
+          <para>Se si sta eseguendo la versione 8.04 è sempre possibile eseguire queste azioni usando la versione del pacchetto chiamata <application>ubuntu-vm-builder</application>; ci sono solo alcune modifiche nella sintassi da usare con il programma.</para>
+        </note>
+
+      </sect3>
+    </sect2>
+    <sect2 id="defining-vm" status="review">
+      <title>Definire una macchina virtuale</title>
+
+      <para>Definire una macchina virtuale con vmbuilder è molto facile, ma è necessario prendere in considerazione alcuni aspetti:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Se si pianifica di fornire applicativi virtuali, non assumere che l'utente finale sappia come estendere la dimensione del disco secondo le proprie esigenze. Prendere quindi in considerazione l'utilizzo di dischi virtuali di grandi dimensioni per consentire agli applicativi di crescere o spiegare nella documentazione come allocare maggiore spazio. Potrebbe essere una buona idea salvare i dati in un sistema di archiviazione esterno.</para>
+	</listitem>
+        <listitem>
+          <para>Dato che la memoria RAM è più facile da allocare in una MV, la dimensione della RAM dovrebbe essere impostata a un valore minimo sicuro per la propria applicazione.</para>
+	</listitem>
+      </itemizedlist>
+
+      <para>Il comando <application>vmbuilder</application> dispone di due parametri principali: la <emphasis>tecnologia di virtualizzazione (hypervisor)</emphasis> e la <emphasis>distribuzione</emphasis> finale. Sono disponibili molti altri parametri e tutti possono essere visualizzati con il seguente comando:</para>
+
+<screen>
+<command>vmbuilder --help</command>
+</screen>
+
+    <sect3 id="vm-base-parameters" status="review">
+      <title>Parametri base</title>
+
+      <para>Poiché questo esempio è basato su <application>KVM</application> e Ubuntu 9.04 (Jaunty Jackalope) e la macchina virtuale verrà generate più di una volta, il comando vmbuilder viene invocato con i seguenti parametri:</para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite jaunty --flavour virtual --arch i386 -o --libvirt qemu:///system</command>
+</screen>
+
+      <para>Il parametro <emphasis>--suite</emphasis> definisce il rilascio di Ubuntu, <emphasis>--flavour</emphasis> specifica di usare il kernel virtuale (quello usato per generare un'immagine JeOS), <emphasis>--arch</emphasis> indica di usare un computer a 32 bit, <emphasis>-o</emphasis> indica a vmbuilder di sovrascrivere la versione precedente della macchina virtuale e <emphasis>--libvirt</emphasis> aggiunge la macchina virtuale risultante tra quelle disponibili nell'ambiente di virtualizzazione.</para>
+
+      <para>Note:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Data la natura delle operazioni eseguite da vmbuilder, sono necessari i privilegi di root.</para>
+        </listitem>
+        <listitem>
+          <para>Se la macchina virtuale necessita di usare più di 3GB di RAM, è utile generare una macchina a 64 bit (--arch amd64).</para>
+        </listitem>
+        <listitem>
+          <para>Fino a Ubuntu 8.10, il kernel virtuale era generato solo per architetture a 32 bit, per definire quindi una macchina amd64 su Hardy, usare <emphasis>--flavour server</emphasis>.</para>
+        </listitem> 
+      </itemizedlist>
+    </sect3>
+    <sect3 id="jeos-installation-parameters" status="review">
+      <title>Parametri di installazione di JeOS</title>
+
+      <sect4 id="jeos-networking" status="review">
+        <title>Rete con JeOS</title>
+
+      <sect5 id="jeos-fixed-ip" status="review">
+        <title>Assegnare un indirizzo IP fisso</title>
+
+        <para>Come applicazione che verrà messa in produzione all'interno di reti diverse, è molto difficile conoscere la struttura attuale della rete. Per semplificare la configurazione è utile procedere come solitamente procedono i venditori di hardware di rete, assegnando un indirizzo IP fisso all'interno di una classe di rete che verrà descritta all'interno della propria documentazione. Un indirizzo nell'intervallo 192.168.0.0/255 è una buona scelta.</para>
+        
+        <para>Per ottenere questo vengono usati i seguenti parametri:</para>
+	
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>--ip INDIRIZZO</emphasis>: indirizzo IP (il valore predefinito è dhcp se non viene specificato nulla)</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>--mask VALORE</emphasis>: maschera di rete (valore predefinito: 255.255.255.0)</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>--net VALORE</emphasis>: indirizzo IP net (valore predefinito: X.X.X.0)</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>--bcast VALORE</emphasis>: broadcast (valore predefinito: X.X.X.255)</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>--gw INDIRIZZO</emphasis>: indirizzo del gateway (valore predefinito: X.X.X.1)</para>
+	  </listitem>
+          <listitem>
+            <para><emphasis>--dns INDIRIZZO</emphasis>: indirizzo server dei nomi (valore predefinito: X.X.X.1)</para>
+	  </listitem>
+        </itemizedlist>
+
+        <para>Si dà per scontato che i valori predefiniti siano sufficiente. Il comando diventa:</para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite jaunty --flavour virtual --arch i386 -o --libvirt qemu:///system --ip 192.168.0.100</command>
+</screen>
+
+        </sect5>
+        <sect5 id="jeos-bridging" status="review">
+          <title>Modificare il modello libvirt per usare il bridge di rete</title>
+
+          <para>Dato che l'applicativo dovrà garantire accesso agli host remoti, è necessario configurare libvirt in modo che l'applicativo usi il bridge di rete. Per ottenere ciò viene usato il modello di vmbuilder per modificare quello predefinito.</para>
+
+          <para>Nella directory di lavoro, creare la gerarchia del modello e copiare quello predefinito:</para>
+
+<screen>
+<command>mkdir -p VMBuilder/plugins/libvirt/templates</command>
+<command>cp /etc/vmbuilder/libvirt/* VMBuilder/plugins/libvirt/templates/</command>
+</screen>
+
+          <para>È ora possibile aprire il file <filename>VMBuilder/plugins/libvirt/templates/libvirtxml.tmpl</filename> e modificare:</para>
+
+<programlisting>
+          &lt;interface type='network'&gt;
+            &lt;source network='default'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+          <para>In:</para>
+
+<programlisting>
+          &lt;interface type='bridge'&gt;
+            &lt;source bridge='br0'/&gt;
+          &lt;/interface&gt;
+</programlisting>
+
+
+        </sect5>
+      </sect4>
+      <sect4 id="jeos-partitioning" status="review">
+        <title>Partizionamento</title>
+          
+        <para>Il partizionamento dell'applicativo virtuale deve prendere in considerazione cosa si intende fare. Dato che molti applicativi non avranno un sistema di archiviazione separato per i dati, usare una partizione <filename>/var</filename> separata è una buona idea.</para>
+           
+        <para>Per ottenere tutto questo, vmbuilder dispone dell'opzione <emphasis>--part</emphasis>:</para>
+
+<programlisting>
+--part PATH
+  Allows to specify a partition table in partfile each  line  of  partfile  should  specify
+  (root first):
+      mountpoint size
+  where  size  is  in megabytes. You can have up to 4 virtual disks, a new disk starts on a
+  line with ’---’.  ie :
+      root 1000
+      /opt 1000
+      swap 256
+      ---
+      /var 2000
+      /log 1500
+</programlisting>
+
+        <para>In questo caso, creare un file di testo <filename>vmbuilder.partition</filename> contenente quanto segue:</para>
+
+<programlisting>
+root 8000
+swap 4000
+---
+/var 20000
+</programlisting>
+
+        <note>
+          <para>Notare che vengono usate immagini disco virtuali, le dimensioni inserite sono le dimensioni massime dei volumi.</para>
+        </note>
+
+        <para>Il comando diventa quindi:</para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite jaunty --flavour virtual --arch i386 \ -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition</command>
+</screen>
+
+        <note>
+          <para>L'uso di "\" all'interno di un comando consente di scrivere comandi su più righe.</para>
+        </note>
+
+      </sect4>
+      <sect4 id="jeos-user-password" status="review">
+        <title>Utente e password</title>
+
+        <para>È necessario anche impostare un utente e una password predefiniti e generici da poter includere nella documentazione. Successivamente verrà presentato uno script che viene eseguito al primo accesso di un utente che tra le molte cose chiederà di modificare la password. In questo esempio viene usato come nome utente <emphasis>user</emphasis> e <emphasis>default</emphasis> come password.</para>
+
+        <para>Per fare questo vengono usati i seguenti parametri:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><emphasis>--user NOME_UTENTE</emphasis>: imposta il nome utente da aggiungere. Valore predefinito: ubuntu.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>--name NOME_COMPLETO</emphasis>: imposta il nome completo dell'utente da aggiungere. Valore predefinito: Ubuntu.</para>
+          </listitem>
+          <listitem>
+            <para><emphasis>--pass PASSWORD</emphasis>: imposta la password dell'utente: Valore predefinito: ubuntu.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Il comando ora è il seguente:</para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 \ -o --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition \ --user user --name user --pass default</command>
+</screen>
+
+      </sect4>
+    </sect3>
+    <sect3 id="jeos-required-packages" status="review">
+      <title>Installare i pacchetti richiesti</title>
+
+      <para>In questo esempio verrà installato un pacchetto (<application>Limesurvey</application>) che accede a un database <application>MySQL</application> ed è dotato di un'interfaccia web. Il sistema operativo dovrà quindi aver installato:</para>
+
+      <itemizedlist>
+        <listitem><para>Apache</para></listitem>
+        <listitem><para>PHP</para></listitem>
+        <listitem><para>MySQL</para></listitem>
+        <listitem><para>Server OpenSSH</para></listitem>
+        <listitem><para>Limesurvey (un'applicazione di esempio creata appositamente)</para></listitem>
+      </itemizedlist>
+
+      <para>Per fare questo viene usata l'opzione "--addpkg" diverse volte:</para>
+
+<programlisting>
+--addpkg PKG
+  Install PKG into the guest (can be specfied multiple times)
+</programlisting>
+
+      <para>Purtroppo, in base al funzionamento di vmbuilder, i pacchetti che devono porre delle domande nella fase di post-installazione non sono supportati e dovrebbero essere installati successivamente quando è possibile interagirvi. Questo è il caso di Limesurvey che verrà installato successivamente, dopo che l'utente ha eseguito l'accesso.</para>
+
+      <para>Altri pacchetti che pongono delle semplici domande di debconf, come <application>mysql-server</application> che richiede di impostare una password, possono essere installati, ma dovranno essere riconfigurati una volta eseguito l'accesso.</para>
+
+
+     <para>Se alcuni dei pacchetti che si devono installare non sono presenti nel componente "main", è necessario abilitare dei repository aggiuntivi usando le opzioni "--comp" e "--ppa":</para>
+
+<programlisting>
+--components COMP1,COMP2,...,COMPN
+           A comma separated list of distro components to include (e.g. main,universe). This defaults
+           to "main"
+--ppa=PPA  Add ppa belonging to PPA to the vm's sources.list.
+</programlisting>
+
+      <para>Limesurvey non fa parte degli archivi attualmente ed è quindi necessario specificarne l'indirizzo PPA (Personal Package Archive) così da aggiungerlo al file <filename>/etc/apt/source.list</filename> della macchina virtuale. Aggiungere quindi quanto segue al comando:</para>
+
+<screen>
+<command>--addpkg apache2 --addpkg apache2-mpm-prefork --addpkg apache2-utils --addpkg apache2.2-common \ --addpkg dbconfig-common --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \ --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \ --addpkg mysql-server --ppa nijaba</command>
+</screen>
+
+        <sect4 id="jeos-openssh" status="review">
+          <title>OpenSSH</title>
+
+          <para>Un altro strumento utile da avere installato nell'applicativo è OpenSSH, per consentire agli amministratori di accedere da remoto in sicurezza. Mettere in produzione direttamente su Internet un applicativo con una versione preinstallata del server OpenSSH è un rischio per la sicurezza, poiché tutti i server condividono la stessa chiave privata, rendendo l'applicativo una facile preda da parte di malintenzionati. Come per la password utente, viene usato una script che installa OpenSSH al primo accesso di un utente affinché la chiave generata sia diversa per ogni applicativo. Per questo scopo viene usato uno script <emphasis>--firstboot</emphasis> che non richiede alcun intervento da parte dell'utente.</para>
+
+        </sect4>
+      </sect3>
+      <sect3 id="jeos-speed-consideration" status="review">
+        <title>Considerazioni sulla velocità</title>
+        
+        <sect4 id="jeos-package-caching" status="review">
+          <title>Cache dei pacchetti</title>
+
+          <para>Quando vmbuilder genera il sistema, necessita di scaricare dai repository in rete ogni singolo pacchetto di cui il sistema è composto che, in base alla velocità della connessione e al carico del mirror, può avere un forte impatto sui tempi di generazione. Per ridurre questo effetto, è utile avere un repository locale (che è possibile creare usando <application>apt-mirror</application>) o un proxy cache come <application>apt-cache</application>. La seconda opzione, descritta di seguito, è quella più facile da implementare e richiede meno spazio su disco. Per installare il tutto, digitare:</para>
+
+<screen>
+<command>sudo apt-get install apt-proxy</command>
+</screen>
+
+          <para>Una volta completata l'installazione, il proxy (vuoto) è pronto all'indirizzo "http://INDIRIZZO_MIRROR:9999" e trovaerà i repository Ubuntu sotto "/ubuntu". Affinché vmbuilder possa usarlo, è necessario usare l'opzione <emphasis>--mirror</emphasis>:</para>
+
+<programlisting>
+--mirror=URL  Use Ubuntu mirror at URL instead of the default, which
+              is http://archive.ubuntu.com/ubuntu for official
+              arches and http://ports.ubuntu.com/ubuntu-ports
+              otherwise
+</programlisting>
+
+          <para>Aggiungere quindi al comando:</para>
+
+<screen>
+<command>--mirror http://INDIRIZZO_MIRROR:9999/ubuntu</command>
+</screen>
+
+          <note>
+            <para>L'indirizzo del mirror qui specificato verrà usato anche nel file <filename>/etc/apt/source.list</filename> del nuovo ospite creato. È utile quindi specificare un indirizzo che può essere utilizzato dall'ospite oppure pianificare una modifica dello stesso magari in uno script <emphasis>--firstboot</emphasis>.</para>
+          </note>
+
+          </sect4>
+          <sect4 id="jeos-local-mirror" status="review">
+            <title>Installare un mirror locale</title>
+
+            <para>Se si è in un ambiente molto grande, può aver senso creare un mirror locale dei repository di Ubuntu. Il pacchetto "apt-mirror" fornisce uno script per la gestione delle operazioni di mirror. È utile avere almeno 20GB di spazio per ogni rilascio supportato e architettura.</para>
+
+            <para>Il file di configurazione predefinito usato da <application>apt-mirror</application> è <filename>/etc/apt/mirror.list</filename>. Dato che è già impostato, dovrà solamente replicare l'architettura del computer locale. Se è necessario supportare altre architetture all'interno del mirror, basta duplicare le righe che iniziano con “deb”, sostituendo la parola "deb" con "/deb-{arch}", dove "arch" può essere i386, amd64, ecc... Per esempio, su architettura amd64, per avere anche gli archivi per i386:</para>
+
+<programlisting>
+deb  http://archive.ubuntu.com/ubuntu jaunty main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu jaunty main restricted universe multiverse
+
+deb  http://archive.ubuntu.com/ubuntu jaunty-updates main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu jaunty-updates main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu/ jaunty-backports main restricted universe multiverse 
+/deb-i386  http://archive.ubuntu.com/ubuntu jaunty-backports main restricted universe multiverse 
+
+deb http://security.ubuntu.com/ubuntu jaunty-security main restricted universe multiverse 
+/deb-i386  http://security.ubuntu.com/ubuntu jaunty-security main restricted universe multiverse 
+
+deb http://archive.ubuntu.com/ubuntu jaunty main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+/deb-i386 http://archive.ubuntu.com/ubuntu jaunty main/debian-installer restricted/debian-installer universe/debian-installer multiverse/debian-installer 
+</programlisting>
+
+            <para>I pacchetti dei sorgenti non sono stati inclusi nel mirror dato che non sono molto usati quanto i binari e occupano molto spazio. È comunque possibile aggiungerli facilmente all'elenco.</para>
+
+            <para>Una volta terminata l'operazione di duplicazione del mirror (può durare molto), è necessario configurare Apache affinché i file del mirror (in <filename>/var/spool/apt-mirror</filename> se non è stato modificato il valore predefinito) siano pubblicati dal proprio server Apache. Per maggiori informazioni su Apache, consultare <xref linkend="httpd"/>.</para>
+
+          </sect4>
+        </sect3>
+        <sect3 id="jeos-ramdisk" status="review">
+          <title>Installare in un disco RAM</title>
+        
+          <para>Scrivere direttamente nella RAM è <emphasis>molto</emphasis> più veloce dello scrivere su disco. Se si dispone di un po' di memoria libera, far eseguire le operazioni di vmbuilder in un RAMdisk può essere molto utile. Per fare questo, usare l'opzione <emphasis>--tmpfs</emphasis>:</para>
+
+<programlisting>
+--tmpfs OPTS  Use a tmpfs as the working directory, specifying its
+              size or "-" to use tmpfs default (suid,dev,size=1G).
+</programlisting>
+
+          <para>Se si dispone di più di 1GB di RAM, è altamente consigliato l'uso dell'opzione <command>--tmpfs -</command>.</para>
+
+        </sect3>
+      </sect2>
+      <sect2 id="jeos-package-application" status="review">
+        <title>Pacchettizzare l'applicativo</title>
+
+        <para>Sono disponibili due opzioni:</para>
+
+        <itemizedlist>
+          <listitem>
+	    <para>Il metodo raccomandato è quello di creare un pacchetto <emphasis>Debian</emphasis>. Dato che questo argomento esula da questa guida, non verrà spiegato questo metodo e si rimanda alla <ulink url="https://wiki.ubuntu.com/PackagingGuide">Ubuntu Packaging Guide</ulink>. In questo caso è anche utile creare un repository per contenere il pacchetto in modo tale che gli aggiornamenti vengano prelevati da questo. Per ulteriori informazioni, consultare <ulink url="http://www.debian-administration.org/articles/286">Debian Administration</ulink>.</para> 
+          </listitem>
+          <listitem>
+	    <para>Installare l'applicativo nella directory <filename>/opt</filename> come raccomandato dalle <ulink url="http://www.pathname.com/fhs/">linee guida di FHS</ulink>.</para> 
+          </listitem>
+        </itemizedlist>
+
+        <para>In questo caso viene usato <application>Limesurvey</application> come esempio di applicazione web per cui creare un applicativo virtuale. Come accennato precedentemente. è disponibile un pacchetto di questa applicazione attraverso gli archivi PPA (Personal Package Archive).</para>
+
+      </sect2>
+      <sect2 id="jeos-finish-install" status="review">
+        <title>Terminare l'installazione</title>
+  
+        <sect3 id="jeos-first-boot" status="review">
+          <title>Primo avvio</title>
+
+          <para>Al primo avvio della macchina, è necessario installare il pacchetto <application>openssh-server</application>, in modo che la chiave generata sia unica per ogni macchina. Creare quindi uno script, chiamato <filename>boot.sh</filename>, come segue:</para>
+
+<programlisting>
+# Questo script viene eseguito al primo avvio della macchina virtuale
+# È eseguito come utente root.
+
+apt-get update
+apt-get install -qqy --force-yes openssh-server
+</programlisting>
+
+          <para>Aggiungere quindi l'opzione <command>--firstboot boot.sh</command> al comando.</para>
+
+        </sect3>
+        <sect3 id="jeos-first-login" status="review">
+          <title>Primo accesso</title>
+
+          <para>Mysql e Limesurvey necessitano di interagire con l'utente durante l'installazione, per questo è necessario configurarli al primo accesso dell'utente utilizzando uno script chiamato login.sh. Lo stesso script verrà usato affinché l'utente specifichi:</para>
+
+          <itemizedlist>
+            <listitem><para>la propria password</para></listitem>
+            <listitem><para>la tastiera e altre informazioni sulla lingua da usare</para></listitem>
+          </itemizedlist>
+
+          <para>Creare il file <filename>login.sh</filename> e inserirvi:</para>
+
+<programlisting>
+# Questo script è eseguito al primo accesso dell'utente
+
+echo "L'installazione del proprio applicativo è quasi terminata."
+echo "Per concludere l'installazione, è necessario rispondere ad alcune domande,"
+echo "iniziando col cambiare la propria password utente."
+
+passwd
+
+#consentire di cambiare la tastiera
+sudo dpkg-reconfigure console-setup
+
+#configura la password di root del server mysql
+sudo dpkg-reconfigure mysql-server-5.0
+
+#installa limesurvey
+sudo apt-get install -qqy --force-yes limesurvey
+
+echo "L'applicativo è ora configurato. Per poterlo usare, visitare"
+echo "l'indirizzo: http://serverip/limesurvey/admin"
+</programlisting>
+
+          <para>Aggiungere quindi l'opzione <command>--firstlogin login.sh</command> al comando.</para>
+
+        </sect3>
+      </sect2>
+      <sect2 id="jeos-additions" status="review">
+        <title>Utili accorgimenti</title>
+
+      <sect3 id="jeos-automatic-updates" status="review">
+        <title>Configurare gli aggiornamenti automatici</title>
+        
+        <para>Affinché il sistema sia configurato per aggiornarsi automaticamente a scadenze determinate, basta installare il pacchetto <application>unattended-upgrades</application>. Aggiungere quindi quanto segue al comando:</para>
+
+<screen>
+<command>--addpkg unattended-upgrades</command>
+</screen>
+
+      <para>Dato che il pacchetto dell'applicazione è stata inserito nel PPA, il processo di aggiornamento non aggiornerà solamente il sistema, ma anche l'applicazione ogni qualvolta ci sia una versione aggiornata nel PPA.</para>
+ 
+      </sect3>
+      <sect3 id="jeos-acpi" status="review">
+        <title>Gestire gli eventi ACPI</title>
+
+        <para>Affinché la macchina virtuale possa gestire gli eventi come riavvio e arresto che le vengono inviati, è utile installare anche il pacchetto "acpid". Aggiungere quindi quanto segue al comando:</para>
+
+<screen>
+<command>--addpkg acpid</command>
+</screen>
+
+      </sect3>
+    </sect2>
+    <sect2 id="jeos-final-command">
+      <title>Il comando finale</title>
+
+      <para>Questo è il comando finale con tutte le opzioni descritte precedentemente:</para>
+
+<screen>
+<command>sudo vmbuilder kvm ubuntu --suite intrepid --flavour virtual --arch i386 -o \ --libvirt qemu:///system --ip 192.168.0.100 --part vmbuilder.partition --user user \ --name user --pass default --addpkg apache2 --addpkg apache2-mpm-prefork \ --addpkg apache2-utils --addpkg apache2.2-common --addpkg dbconfig-common \ --addpkg libapache2-mod-php5 --addpkg mysql-client --addpkg php5-cli \ --addpkg php5-gd --addpkg php5-ldap --addpkg php5-mysql --addpkg wwwconfig-common \ --addpkg mysql-server --addpkg unattended-upgrades --addpkg acpid --ppa nijaba \ --mirror http://INDIRIZZO_DEL_MIRROR:9999/ubuntu --tmpfs - --firstboot boot.sh \ --firstlogin login.sh es</command>
+</screen>
+
+    </sect2>
+    <sect2 id="jeos-resources" status="review">
+      <title>Risorse</title>
+      <para>Per avere maggiori informaioni, per porre qualche domanda o per lasciare dei suggerimenti, contattare l'«Ubuntu Server Team» presso:</para>
+      <itemizedlist>
+        <listitem>
+          <para>IRC: #ubuntu-server on freenode</para>
+        </listitem>
+        <listitem>
+          <para>Mailing list: <ulink url="https://lists.ubuntu.com/mailman/listinfo/ubuntu-server">ubuntu-server at lists.ubuntu.com</ulink></para>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="eucalyptus" status="review">
+    <title>Eucalyptus</title>
+
+    <sect2 id="eucalyptus-overview" status="review">
+      <title>Panoramica</title>
+
+      <para><emphasis>Eucalyptus</emphasis> è un'infrastruttura open source per l'implementazione su cluster del cosiddetto "cloud computing". Con <emphasis>Eucalyptus</emphasis> è possibile creare un ambiente cloud computing personale per massimizzare le risorse di calcolo e fornire un ambiente cloud agli utenti.</para>
+
+      <para>In questa sezione viene spiegato come configurare un ambiente cloud utilizzando <application>Eucalyptus</application> con <application>KVM</application>. Per maggiori informazioni su KVM, consultare <xref linkend="libvirt"/>.</para>
+
+      <para>L'ambiente cloud di esempio consiste di tre componenti, tipicamente installati su almeno due computer diversi (nel resto della documentazione definiti come «front-end» e i «nodi»).</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><emphasis>Un front-end</emphasis>: detiene un «Cloud Controller», un'interfaccia web di controllo scritta in Java e un «Cluster Controller» che determina dove vanno ospitate le macchine virtuali (VM) e gestisce la rete delle VM a livello di cluster.</para>
+        </listitem>
+        <listitem>
+          <para><emphasis>Uno o più computer nodi</emphasis>: esegue il componente «Node Controller» di Eucalyptus, che consente al computer di far parte del cloud come ho per le macchine virtuali.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>L'opzione di rete <emphasis>System</emphasis> viene usata in modo predefinito. Questo metodo consente alle istanze delle macchine virtuali di ottenere un indirizzo IP dalla rete LAN locale, assumendo la presenza di un server DHCP configurato correttamente; ogni singolo nodo viene quindi configurato come ponte (bridge networking). Per maggiori informazioni, consultare <xref linkend="bridging"/>.</para>
+
+    </sect2>
+    <sect2 id="eucalyptus-configuration" status="review">
+      <title>Configurazione</title>
+
+      <para>Nel <emphasis>front-end</emphasis>, installare i pacchetti necessari. In un terminale, digitare:</para>
+
+<screen>
+<command>sudo apt-get install eucalyptus-cloud eucalyptus-cc</command>
+</screen>
+
+      <para>In ogni <emphasis>nodo</emphasis> installare il pacchetto di controllo del nodo. In un terminale digitare:</para>
+
+<screen>
+<command>sudo apt-get install eucalyptus-nc</command>
+</screen>
+
+      <para>Completata l'installazione (potrebbe impiegare del tempo), nella barra degli indirizzi di un browser web digitare <emphasis>https://front-end:8443</emphasis> per eseguire l'accesso tramite l'interfaccia di amministrazione utilizzando l'utente predefinito e come password <emphasis>admin</emphasis>. Viene richiesto di modificare la password, configurare un indirizzo email per l'amministratore e di impostare l'URL di archiviazione.</para>
+
+      <para>Dall'interfaccia web, scegliere la scheda <emphasis>Configuration</emphasis> e aggiungere un cluster sotto l'intestazione <emphasis>Clusters</emphasis> (in questa configurazione, il controller del cluster risiede sullo stesso sistema del controller dal cloud, digitare "localhost" in questo caso è corretto). Una inserite tutte le informazioni, fare clic su <emphasis>Add Cluster</emphasis>.</para>
+
+      <para>Dal <emphasis>front-end</emphasis>, aggiungere i nodi al cluster:</para>
+
+<screen>
+<command>sudo euca_conf -addnode hostname_of_node</command>
+</screen>
+
+      <para>Viene chiesto di accedere al nodo, di installare il pacchetto <application>eucalyptus-nc</application>, di aggiungere la chiave SSH dell'utente <emphasis>eucalyptus</emphasis> all'interno del file <filename>authorized_keys</filename> del nodo e di confermare l'autenticità dell'impronta RSA della chiave OpenSSH dell'host. Infine, vengono sincronizzate le chiavi di eucalyptus e la registrazione del nodo viene terminata.</para>
+
+      <para>Sul nodo, il file di configurazione <filename>/etc/eucalyptus/eucalyptus.conf</filename> deve essere modificato per utilizzare l'interfaccia ponte (bridge) del nodo (in questo esempio viene considerato come nome dell'interfaccia <emphasis>br0</emphasis>):</para>
+
+<programlisting>
+VNET_INTERFACE="br0"
+...
+VNET_BRIDGE="br0"
+</programlisting>
+
+      <para>Infine, riavviare <application>eucalyptus-nc</application>:</para>
+
+<screen>
+<command>sudo /etc/init.d/eucalyptus-nc restart</command>
+</screen>
+
+
+      <note>
+        <para>Assicurarsi di sostituire <emphasis>nodecontroller</emphasis>, <emphasis>node01</emphasis> e <emphasis>node02</emphasis> con i nomi host reali.</para>
+      </note>
+
+      <para><application>Eucalyptus</application> è ora pronto per ospitare immagini nel cloud.</para>
+
+    </sect2>
+    <sect2 id="eucalyptus-references" status="review">
+      <title>Riferimenti</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>Per maggiori informazioni, consultare il <ulink url="http://eucalyptus.cs.ucsb.edu/">sito web di Eucalyptus</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>Per informazioni sul caricamento delle istanze, consultare la <ulink url="https://help.ubuntu.com/community/Eucalyptus">documentazione della comunità internazionale</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>È anche possibile trovare aiuto nei canali IRC <emphasis>#ubuntu-virt</emphasis>, <emphasis>#eucalyptus</emphasis>e <emphasis>#ubuntu-server</emphasis> sul server <ulink url="http://freenode.net">Freenode</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+      
+    </sect2>
+  </sect1>  
+<sect1 id="opennebula" status="review">
+    <title>OpenNebula</title>
+
+    <para><application>OpenNebula</application> consente di posizionare e riposizionare dinamicamente le macchine virtuali all'interno di un insieme di risorse hardware. In questo modo è possibile disporre le macchine virtuali in qualsiasi posizione disponibile.</para>
+
+    <para>In questa sezione viene indicato come configurare un cluster OpenNebula utilizzando tre computer: un host <emphasis>front-end</emphasis> e due <emphasis>nodi</emphasis> utilizzati per eseguire le macchine virtuali. I nodi necessitano di aver configurato un ponte (bridge) affinché le macchine virtuali possano accedere la rete locale. Per maggiori informazioni, consultare <xref linkend="bridging"/>.</para>
+
+    <sect2 id="opennebula-installation" status="review">
+      <title>Installazione</title>
+
+      <para>Da un front-end, in un terminale, digitare:</para>
+
+<screen>
+<command>sudo apt-get install opennebula</command>
+</screen>
+  
+      <para>Su ogni nodo invece digitare:</para>
+
+<screen>
+<command>sudo apt-get install opennebula-node</command>
+</screen>
+
+      <para>Per copiare le chiavi SSH, l'utente <emphasis>oneadmin</emphasis> necessita di una password. Su tutti i computer eseguire:</para>
+
+<screen>
+<command>sudo passwd oneadmin</command>
+</screen>
+
+      <para>Copiare la chiave SSH dell'utente <emphasis>oneadmin</emphasis> nel file <filename>authorized_keys</filename> dei nodi e del front-end:</para>
+
+<screen>
+<command>sudo scp /var/lib/one/.ssh/id_rsa.pub oneadmin@node01:/var/lib/one/.ssh/authorized_keys</command>
+<command>sudo scp /var/lib/one/.ssh/id_rsa.pub oneadmin@node02:/var/lib/one/.ssh/authorized_keys</command>
+<command>sudo sh -c "cat /var/lib/one/.ssh/id_rsa.pub &gt;&gt; /var/lib/one/.ssh/authorized_keys"</command>
+</screen>  
+
+      <para>La chiave SSH dei nodi deve essere aggiunta al file <filename>/etc/ssh/ssh_known_hosts</filename> sul front-end. Per fare ciò, collegarsi via <application>ssh</application> su ogni nodo con un utente diverso da <emphasis>oneadmin</emphasis>, quindi uscire dalla sessione SSH ed eseguire il seguente comando per copiare la chiave SSH da <filename>~/.ssh/known_hosts</filename> a <filename>/etc/ssh/ssh_known_hosts</filename>:</para>
+
+<screen>
+<command>sudo sh -c "ssh-keygen -f .ssh/known_hosts -F node01 1&gt;&gt; /etc/ssh/ssh_known_hosts"</command>
+<command>sudo sh -c "ssh-keygen -f .ssh/known_hosts -F node02 1&gt;&gt; /etc/ssh/ssh_known_hosts"</command>
+</screen>
+
+      <note>
+        <para>Sostituire <emphasis>node01</emphasis> e <emphasis>node02</emphasis> con i nomi host appropriati.</para>
+      </note>
+
+      <para>In questo modo, l'utente <emphasis>oneadmin</emphasis> può eseguire <application>scp</application> senza l'utilizzo di una password o senza alcun intervento manuale per mettere in produzione un'immagine sui nodi.</para>
+
+      <para>Nel front-end creare una directory per archiviare le immagini delle VM, fornendo accesso a tale directory all'utente <emphasis>oneadmin</emphasis>:</para>
+
+<screen>
+<command>sudo mkdir /var/lib/one/images</command>
+<command>sudo chown oneadmin /var/lib/one/images/</command>
+</screen>
+
+      <para>Infine, copiare il file del disco di una macchina virtuale in <filename>/var/lib/one/images</filename>. È possibile creare una macchina virtuale utilizzando <application>vmbuilder</application>. Per maggiori informazioni, consultare <xref linkend="jeos-and-vmbuilder"/>.</para>
+
+    </sect2>
+    <sect2 id="opennebula-configuration" status="review">
+      <title>Configurazione</title>
+    
+      <para>Il <emphasis>cluster OpenNebula</emphasis> è ora pronto per essere configurato ed è possibile aggiungere le macchine virtuali al cluster.</para>
+
+      <para>Da un terminale digitare:</para>
+
+<screen>
+<command>onehost create node01 im_kvm vmm_kvm tm_ssh</command>
+<command>onehost create node02 im_kvm vmm_kvm tm_ssh</command>
+</screen>
+
+      <para>Creare un file modello di <emphasis>Virtual Network</emphasis> chiamato <filename>vnet01.template</filename>:</para>
+
+<programlisting>
+NAME            = "LAN"
+TYPE            = RANGED
+BRIDGE          = br0
+NETWORK_SIZE    = C
+NETWORK_ADDRESS = 192.168.0.0
+</programlisting>
+
+      <note>
+        <para>Assicurarsi di cambiare l'indirizzo <emphasis>192.168.0.0</emphasis> con quello della propria rete.</para>
+      </note>
+
+      <para>Utilizzando l'utilità <application>onevnet</application>, aggiungere la rete virtuale a OpenNebula:</para>
+
+<screen>
+<command>onevnet create vnet01.template</command>
+</screen>
+
+      <para>Creare un file <emphasis>VM Template</emphasis> chiamato <filename>vm01.template</filename>:</para>
+
+<programlisting>
+NAME   = vm01
+CPU    = 0.5
+MEMORY = 512
+
+OS      = [ BOOT   = hd ]
+
+DISK   = [
+  source   = "/var/lib/one/images/vm01.qcow2",
+  target   = "hda",
+  readonly = "no" ]
+
+NIC    = [ NETWORK="LAN" ]
+
+GRAPHICS = [type="vnc",listen="127.0.0.1",port="-1"]
+</programlisting>
+
+      <para>Avviare la macchina virtuale utilizzando <application>onevm</application>:</para>
+
+<screen>
+<command>onevm submit vm01.template</command>
+</screen>
+
+      <para>Usare il comando <application>onevm list</application> per visualizzare informazioni riguardo le macchine virtuali, inoltre, il comando <application>onevm show vm01</application> visualizza informazioni più dettagliate riguardo una specifica macchina virtuale.</para>
+
+    </sect2>
+    <sect2 id="opennebula-references" status="review">
+      <title>Riferimenti</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>Per maggiori informazioni, consultare <ulink url="http://www.opennebula.org/doku.php?id=start">il sito web di OpenNebula</ulink>.</para>
+        </listitem>
+        <listitem>
+          <para>È anche possibile trovare supporto nei canali IRC <emphasis>#ubuntu-virt</emphasis> e <emphasis>#ubuntu-server</emphasis> sul server <ulink url="http://freenode.net">Freenode</ulink>.</para>
+        </listitem>
+      </itemizedlist>
+
+    </sect2>
+  </sect1>
+</chapter>

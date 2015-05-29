@@ -1,0 +1,14 @@
+#! /bin/sh
+set -e
+
+FLAVOUR=gstreamer
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ] ; then
+    	update-alternatives --quiet --remove gnome-video-thumbnailer \
+		/usr/bin/totem-${FLAVOUR}-video-thumbnailer
+	update-alternatives --quiet --remove totem /usr/bin/totem-${FLAVOUR}
+fi
+
+
+
+exit 0

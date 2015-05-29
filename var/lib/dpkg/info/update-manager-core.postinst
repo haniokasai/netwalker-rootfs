@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_pycentral
+rm -f /var/lib/pycentral/update-manager-core.pkgremove
+if which pycentral >/dev/null 2>&1; then
+	pycentral pkginstall update-manager-core
+	if grep -qs '^update-manager-core$' /var/lib/pycentral/delayed-pkgs; then
+		sed -i '/^update-manager-core$/d' /var/lib/pycentral/delayed-pkgs
+	fi
+fi
+# End automatically added section

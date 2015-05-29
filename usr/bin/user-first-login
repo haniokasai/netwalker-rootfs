@@ -1,0 +1,15 @@
+#!/bin/bash
+
+STAMP_DIR="$HOME/.config"
+STAMP_FILE="$STAMP_DIR/.user-first-login.stamp"
+
+if [ -e "$STAMP_FILE" ]; then
+  exit 0
+fi
+
+run-parts /usr/share/ume-config-base/user-first-login/
+
+mkdir -p "$STAMP_DIR"
+touch "$STAMP_FILE"
+exit 0
+

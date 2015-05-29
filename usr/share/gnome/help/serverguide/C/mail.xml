@@ -1,0 +1,1453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+	<chapter id="email-services" status="review">
+		<title>Email Services</title>
+          <para>
+            The process of getting an email from one person to another over a network or
+			the Internet involves many systems working together.  Each of these systems
+			must be correctly configured for the process to work.  The sender uses a <emphasis>Mail
+			User Agent</emphasis> (MUA), or email client, to send the message through one or more
+			<emphasis>Mail Transfer Agents</emphasis> (MTA), the last of which will hand it off to a 				<emphasis>Mail Delivery Agent</emphasis> (MDA) for delivery to the 
+			recipient's mailbox, from which it
+			will be retrieved by the recipient's email client, usually via a POP3 or IMAP server.
+          </para>
+      <sect1 id="postfix" status="review">
+        <title>Postfix</title>
+          <para>
+            <application>Postfix</application> is the default Mail Transfer Agent (MTA) in Ubuntu. It
+            attempts to be fast and easy to administer and secure. It is
+            compatible with the MTA <application>sendmail</application>. This section explains how
+            to install and configure <application>postfix</application>. It also explains how to
+            set it up as an SMTP server using a secure connection (for sending emails securely).
+          </para>
+        <sect2 id="postfix-installation" status="review">
+          <title>Installation</title>
+            <para>
+            To install <application>postfix</application> run the following command:
+	    </para>
+<screen>
+<command>sudo apt-get install postfix</command>
+</screen>
+	    <para>
+	    Simply press return when the installation process asks questions, the configuration will be done in greater detail in the next stage.
+            </para>
+        </sect2>
+        <sect2 id="postfix-configuration" status="review">
+          <title>Basic Configuration</title>
+            <para>
+            To configure <application>postfix</application>, run the following command:
+	    </para>
+<screen>
+<command>sudo dpkg-reconfigure postfix</command>
+</screen>
+	    <para>
+            The user interface will be displayed. On each screen, select the following
+            values:
+            <itemizedlist spacing="compact">
+            <listitem><para>Internet Site</para></listitem>
+            <listitem><para>mail.example.com</para></listitem>
+            <listitem><para>steve</para></listitem>
+            <listitem><para>mail.example.com, localhost.localdomain, localhost</para></listitem>
+            <listitem><para>No</para></listitem>
+            <listitem><para>127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0/24</para></listitem>
+            <listitem><para>0</para></listitem>
+            <listitem><para>+</para></listitem>
+            <listitem><para>all</para></listitem>
+            </itemizedlist>
+            </para>
+            <note>
+            <para>
+            Replace mail.example.com with your mail server hostname, 192.168.0/24 with the actual network and class 
+	    range of your mail server, and steve with the appropriate username.
+            </para>
+            </note>
+       
+	 </sect2>
+        <sect2 id="postfix-smtp-authentication" status="review">
+          <title>SMTP Authentication</title>
+
+            <para>
+	    SMTP-AUTH allows a client to identify itself through an authentication mechanism (SASL).
+	    Transport Layer Security (TLS) should be used to encrypt the authentication process.
+	    Once authenticated the SMTP server will allow the client to relay mail.  
+            </para>
+
+            <para>
+            Configuring <application>Postfix</application> for SMTP-AUTH is very simple using the <application>dovecot-postfix</application>
+            package.  This package will install <application>Dovecot</application> and configure <application>Postfix</application> to 
+            use it for both SASL authentication and as a Mail Delivery Agent (MDA).  The package also configures <application>Dovecot</application>
+            for IMAP, IMAPS, POP3, and POP3S.
+            </para>
+
+            <para>
+            To install the package, from a terminal prompt enter:
+            </para>
+
+<screen>
+<command>sudo apt-get install dovecot-postfix</command>
+</screen>
+
+            <para>
+            You should now have a working mail server, but there are a few options that you may wish to further customize.  For example, the
+            package uses the certificate and key from the <application>ssl-cert</application> package, and in a production environment you should
+            use a certificate and key generated for the host.  See <xref linkend="certificates-and-security"/> for more details.
+            </para>
+    
+            <para>
+            Once you have a customized certificate and key for the host, change the following options in <filename>/etc/postfix/main.cf</filename>:
+            </para>
+
+<programlisting>
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-mail.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-mail.key
+</programlisting>
+
+            <para>
+            Then restart Postfix:
+            </para>
+
+<screen>
+<command>sudo /etc/init.d/postfix restart</command>
+</screen>
+	
+        </sect2>
+        <sect2 id="postfix-testing" status="review">
+          <title>Testing</title>
+            <para>
+            SMTP-AUTH configuration is complete. Now it is time to test the setup. 
+	    </para>
+	    <para>
+            To see if SMTP-AUTH and TLS work properly, run the following
+            command:
+            </para>
+<screen>
+<command>telnet mail.example.com 25</command>
+</screen>
+	    <para>
+            After you have established the connection to the postfix mail
+            server, type:
+            </para>
+<screen>
+ehlo mail.example.com
+</screen>
+	  <para>
+          If you see the following lines among others, then everything
+          is working perfectly. Type <command>quit</command> to exit.
+          </para>
+<programlisting>
+250-STARTTLS
+250-AUTH LOGIN PLAIN
+250-AUTH=LOGIN PLAIN
+250 8BITMIME
+</programlisting>
+        </sect2>
+		
+	<sect2 id="postfix-troubleshooting">	
+	  <title>Troubleshooting</title>
+	    <para>
+	    This section introduces some common ways to determine the cause if problems arise.
+	    </para>
+	  <sect3 id="postfix-chroot">
+	    <title>Escaping chroot</title>  
+	  <para>
+ 	    The Ubuntu <application>postfix</application> package will by default install into a <emphasis>chroot</emphasis> 
+	    environment for security reasons.  This can add greater complexity when troubleshooting problems.
+	    </para>
+	  <para>
+          To turn off the chroot operation locate for the following line in the
+          <filename>/etc/postfix/master.cf</filename> configuration file:
+          </para>
+<screen>
+smtp      inet  n       -       -       -       -       smtpd
+</screen>
+          <para>
+	  and modify it as follows:
+          </para>
+<screen>
+smtp      inet  n       -       n       -       -       smtpd
+</screen>
+	  <para>
+	  You will then need to restart Postfix to use the new configuration.  From a terminal prompt enter:
+          </para>
+<screen>
+<command>sudo /etc/init.d/postfix restart</command>
+</screen>
+        </sect3>
+	<sect3 id="postfix-logs">
+          <title>Log Files</title>
+	  <para>
+	  <application>Postfix</application> sends all log messages to <filename>/var/log/mail.log</filename>.
+	  However error and warning messages can sometimes get lost in the normal log output so they are also logged to
+          <filename>/var/log/mail.err</filename> and <filename>/var/log/mail.warn</filename> respectively.
+          </para>
+	  <para>
+ 	  To see messages entered into the logs in real time you can use the <application>tail -f</application>
+	  command:
+	  </para>
+<screen>
+<command>tail -f /var/log/mail.err</command>
+</screen>
+	<para>
+	The amount of detail that is recorded in the logs can be increased.  Below are some configuration options for increasing the log level
+	for some of the areas covered above.
+	</para>
+	<itemizedlist spacing="compact">
+	  <listitem>
+	    <para>
+	    To increase <emphasis>TLS</emphasis> activity logging set the <emphasis>smtpd_tls_loglevel</emphasis> option to a value from 1 to 4.
+ 	    </para>
+<screen>
+<command>sudo postconf -e 'smtpd_tls_loglevel = 4'</command>
+</screen>
+	  </listitem>	
+	  <listitem>
+	    <para>
+	    If you are having trouble sending or receiving mail from a specific domain you can add the domain to the <emphasis>debug_peer_list</emphasis>
+	    parameter.
+ 	    </para>
+<screen>
+<command>sudo postconf -e 'debug_peer_list = problem.domain'</command>
+</screen>
+	  </listitem>	
+	  <listitem>
+	    <para>
+	    You can increase the verbosity of any <application>Postfix</application> daemon process by editing the <filename>/etc/postfix/master.cf</filename>
+	    and adding a <emphasis>-v</emphasis> after the entry.  For example edit the <emphasis>smtp</emphasis> entry:
+ 	    </para>
+<programlisting>
+smtp      unix  -       -       -       -       -       smtp -v
+</programlisting>	    
+	  </listitem>	
+	</itemizedlist>
+	<note>
+	  <para>
+	  It is important to note that after making one of the logging changes above the <application>Postfix</application> process will need to be reloaded
+	  in order to recognize the new configuration: <command>sudo /etc/init.d/postfix reload</command>
+	  </para>
+	</note>
+	<itemizedlist spacing="compact">
+	  <listitem>
+	    <para>
+   	    To increase the amount of information logged when troubleshooting <emphasis>SASL</emphasis> issues you can set the following options in 
+	    <filename>/etc/dovecot/dovecot.conf</filename>
+	    </para>
+<programlisting>
+auth_debug=yes
+auth_debug_passwords=yes
+</programlisting>
+	  </listitem>
+	</itemizedlist>
+	<note>
+	  <para>
+	  Just like <application>Postfix</application> if you change a <application>Dovecot</application> configuration the process will need to be
+	  reloaded: <command>sudo /etc/init.d/dovecot reload</command>.
+	  </para>
+	</note>
+	<note>
+	  <para>
+          Some of the options above can drastically increase the amount of information sent to the log files.  Remember to return the log level 
+	  back to normal after you have corrected the problem.  Then reload the appropriate daemon for the new configuration to take affect.
+	  </para>
+	</note>
+	</sect3>
+	<sect3 id="postfix-references" status="review">
+	  <title>References</title>
+	  <para>
+	  Administering a <application>Postfix</application> server can be a very complicated task.  At some point you may
+	  need to turn to the Ubuntu community for more experienced help.
+	  </para> 
+	  <para>
+	  A great place to ask for <application>Postfix</application> assistance, and get involved with the Ubuntu Server community,
+	  is the <emphasis>#ubuntu-server</emphasis>  IRC channel on  <ulink url="http://freenode.net">freenode</ulink>.  You 
+	  can also post a message to one of the <ulink url="http://www.ubuntu.com/support/community/webforums">Web Forums</ulink>.
+          </para>
+	  <para>
+	  For in depth <application>Postfix</application> information Ubuntu developers highly recommend:
+	  <ulink url="http://www.postfix-book.com/">The Book of Postfix</ulink>.
+	  </para>
+	  <para>
+	  Finally, the <ulink url="http://www.postfix.org/documentation.html">Postfix</ulink> website also has great documentation on all
+	  the different configuration options available.
+	  </para>
+	</sect3>
+      </sect2>
+      </sect1>
+
+      <sect1 id="exim4" status="review">
+        <title>Exim4</title>
+          <para>
+            <application>Exim4</application> is another Message Transfer
+            Agent (MTA) developed at the University of Cambridge for use
+            on Unix systems connected to the Internet. Exim can be
+            installed in place of <application>sendmail</application>,
+            although the configuration of
+            <application>exim</application> is quite different to
+            that of <application>sendmail</application>.
+          </para>
+        <sect2 id="exim4-installation" status="review">
+          <title>Installation</title>
+            <para>
+            To install <application>exim4</application>, run the following command:
+<screen>
+<command>sudo apt-get install exim4</command>
+</screen>
+            </para>
+        </sect2>
+        <sect2 id="exim4-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            To configure <application>Exim4</application>, run the following command:
+	    </para>
+<screen>
+<command>sudo dpkg-reconfigure exim4-config</command>
+</screen>
+	    <para>
+            The user interface will be displayed. The user interface
+            lets you configure many parameters. For example, In
+            <application>Exim4</application> the configuration files are
+            split among multiple files. If you wish to have them in one
+            file you can configure accordingly in this user interface.
+            </para>
+
+            <para>
+            All the parameters you configure in the user interface are
+            stored in
+            <filename>/etc/exim4/update-exim4.conf.conf</filename> file.
+            If you wish to re-configure, either you re-run the
+            configuration wizard or manually edit this file
+            using your favourite editor. Once you configure, you can run
+            the following command to generate the master configuration
+            file:
+	    </para>
+<screen>
+<command>sudo update-exim4.conf</command>
+</screen>
+	    <para>
+            The master configuration file, is generated and
+            it is stored in
+            <filename>/var/lib/exim4/config.autogenerated</filename>. 
+            </para>
+            <warning>
+            <para>
+            At any time, you should not edit the master configuration
+            file,
+            <filename>/var/lib/exim4/config.autogenerated</filename>
+            manually. It is updated automatically every time you run
+            <command>update-exim4.conf</command>
+            </para>
+            </warning>
+	    <para>
+            You can run the following command to start
+            <application>Exim4</application> daemon.
+	    </para>
+<screen>
+<command>sudo /etc/init.d/exim4 start</command>
+</screen>
+        </sect2>
+	<sect2 id="exim4-smtp-auth" status="review">
+	  <title>SMTP Authentication</title>
+	  <para>
+	  This section covers configuring Exim4 to use SMTP-AUTH with TLS and SASL.
+	  </para>
+	  <para>
+          The first step is to create a certificate for use with TLS. Enter the following into a terminal prompt: 
+	  </para>
+<screen>
+<command>sudo /usr/share/doc/exim4-base/examples/exim-gencert</command>
+</screen>
+	  <para>
+	  Now Exim4 needs to be configured for TLS by editing <filename>/etc/exim4/conf.d/main/03_exim4-config_tlsoptions</filename>
+	   add the following:
+	  </para>
+<programlisting>
+MAIN_TLS_ENABLE = yes
+</programlisting>
+	  <para>
+	   Next you need to configure <application>Exim4</application> to use the <application>saslauthd</application>
+	   for authentication. Edit <filename>/etc/exim4/conf.d/auth/30_exim4-config_examples</filename> and uncomment
+           the <emphasis>plain_saslauthd_server</emphasis> and <emphasis>login_saslauthd_server</emphasis> sections:
+	  </para>
+<programlisting>
+ plain_saslauthd_server:
+   driver = plaintext
+   public_name = PLAIN
+   server_condition = ${if saslauthd{{$auth2}{$auth3}}{1}{0}}
+   server_set_id = $auth2
+   server_prompts = :
+   .ifndef AUTH_SERVER_ALLOW_NOTLS_PASSWORDS
+   server_advertise_condition = ${if eq{$tls_cipher}{}{}{*}}
+   .endif
+#
+ login_saslauthd_server:
+   driver = plaintext
+   public_name = LOGIN
+   server_prompts = "Username:: : Password::"
+   # don't send system passwords over unencrypted connections
+   server_condition = ${if saslauthd{{$auth1}{$auth2}}{1}{0}}
+   server_set_id = $auth1
+   .ifndef AUTH_SERVER_ALLOW_NOTLS_PASSWORDS
+   server_advertise_condition = ${if eq{$tls_cipher}{}{}{*}}
+   .endif
+</programlisting>
+	  <para>
+	  Finally, update the Exim4 configuration and restart the service:
+	  </para>
+<screen>
+<command>sudo update-exim4.conf</command>
+<command>sudo /etc/init.d/exim4 restart</command>
+</screen>
+	</sect2>
+	<sect2 id="exim4-sasl" status="review">
+	  <title>Configuring SASL</title>
+	  <para>
+	  This section provides details on configuring the saslauthd to provide authentication for <application>Exim4</application>.
+	  </para>
+	  <para>
+  	  The first step is to install the sasl2-bin package.  From a terminal prompt enter the following:
+	  </para>
+<screen>
+<command>sudo apt-get install sasl2-bin</command>
+</screen>
+	  <para>
+	  To configure saslauthd edit the /etc/default/saslauthd configuration file and set START=no to:
+	  </para>
+<programlisting>
+START=yes
+</programlisting>
+	  <para>
+	  Next the <emphasis>Debian-exim</emphasis> user needs to be part of the <emphasis>sasl</emphasis> group in
+          order for Exim4 to use the saslauthd service:
+	  </para>
+<screen>
+<command>sudo adduser Debian-exim sasl</command>
+</screen>
+	  <para>
+	  Now start the <application>saslauthd</application> service:
+	  </para>
+<screen>
+<command>sudo /etc/init.d/saslauthd start</command>
+</screen>
+	  <para>
+	  <application>Exim4</application> is now configured with SMTP-AUTH using TLS and SASL authentication.
+	  </para>
+	</sect2>
+        <sect2 id="exim4-references" status="review">
+          <title>References</title>
+    
+          <itemizedlist>
+            <listitem>
+              <para>
+              See <ulink url="http://www.exim.org/">exim.org</ulink> for more information.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              There is also an <ulink url="http://www.uit.co.uk/content/exim-smtp-mail-server">Exim4 Book</ulink> available.
+              </para>
+            </listitem>
+          </itemizedlist>
+
+        </sect2>
+      </sect1>
+      <sect1 id="dovecot-server" status="review">
+        <title>Dovecot Server</title> 
+          <para>
+          <application>Dovecot</application> is a Mail Delivery Agent, written with security
+          primarily in mind. It supports the major mailbox formats: mbox
+          or Maildir. This section explain how to set it up as an imap or
+          pop3 server.
+          </para>
+        <sect2 id="dovecot-installation" status="review">
+          <title>Installation</title>
+            <para>
+            To install <application>dovecot</application>, run the following command in the
+            command prompt:
+	    </para>
+<screen>
+<command>sudo apt-get install dovecot-imapd dovecot-pop3d</command>
+</screen>
+        </sect2>
+        <sect2 id="dovecot-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            To configure <application>dovecot</application>, you can edit the file
+            <filename>/etc/dovecot/dovecot.conf</filename>. You can
+            choose the protocol you use. It could be pop3, pop3s (pop3
+            secure), imap and imaps (imap secure). A description of these protocols is beyond the scope of this guide. For further information, refer to the Wikipedia articles on <ulink
+            url="http://en.wikipedia.org/wiki/POP3">POP3</ulink> and
+            <ulink
+            url="http://en.wikipedia.org/wiki/Internet_Message_Access_Protocol">IMAP</ulink>.
+            </para>
+
+            <para>
+            IMAPS and POP3S are more secure that the simple IMAP and
+            POP3 because they use SSL encryption to connect. Once you
+            have chosen the protocol, amend the following line in the file
+            <filename>/etc/dovecot/dovecot.conf</filename>:
+	    </para>
+<programlisting>
+protocols = pop3 pop3s imap imaps
+</programlisting>
+	    <para>
+            Next, choose the mailbox you would like to use. <application>Dovecot</application> supports
+            <emphasis role="strong">maildir</emphasis> and <emphasis
+            role="strong">mbox</emphasis> formats. These are the most
+            commonly used mailbox formats. They both have their own
+            benefits and are discussed on <ulink
+            url="http://wiki.dovecot.org/MailboxFormat">the Dovecot web site</ulink>.
+            </para>
+            <para>
+            Once you have chosen your mailbox type, edit the file
+            <filename>/etc/dovecot/dovecot.conf</filename> and change
+            the following line:
+            </para>
+<programlisting>
+mail_location = maildir:~/Maildir # (for maildir)
+or
+mail_location = mbox:~/mail:INBOX=/var/spool/mail/%u # (for mbox)
+</programlisting>
+	  <note>
+	  <para>
+	  You should configure your Mail Transport Agent (MTA) to transfer the
+	  incoming mail to this type of mailbox if it is different from the one
+	  you have configured.
+	  </para>
+	  </note>
+          <para>
+          Once you have configured dovecot, restart the <application>dovecot</application> daemon
+          in order to test your setup:
+	  </para>
+
+<screen>
+<command>sudo /etc/init.d/dovecot restart</command>
+</screen>
+
+	  <para>
+          If you have enabled imap, or pop3, you can also try to log in
+          with the commands <command>telnet localhost pop3</command> or
+          <command>telnet localhost imap2</command>. If you see
+          something like the following, the installation has been
+          successful:
+	  </para>
+<programlisting>
+bhuvan@rainbow:~$ telnet localhost pop3
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
++OK Dovecot ready.
+</programlisting>
+        </sect2>
+        <sect2 id="dovecot-ssl" status="review">
+          <title>Dovecot SSL Configuration</title>
+            <para>
+            To configure <application>dovecot</application> to use SSL, you can edit the file
+            <filename>/etc/dovecot/dovecot.conf</filename> and amend
+            following lines:
+	    </para>
+<programlisting>
+ssl_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+ssl_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+ssl_disable = no
+disable_plaintext_auth = no
+</programlisting>
+	  <para>
+          You can get the SSL certificate from a Certificate Issuing
+          Authority or you can create self signed SSL certificate.
+	  The latter is a good option for email, because SMTP clients rarely
+	  complain about "self-signed certificates".
+	  Please
+          refer to <xref linkend="certificates-and-security"/>
+          for details about how to create self signed SSL certificate. Once
+          you create the certificate, you will have a key file and a
+          certificate file.  Please copy them to the location pointed
+          in the <filename>/etc/dovecot/dovecot.conf</filename>
+          configuration file.
+          </para>
+	</sect2>
+	<sect2>
+	  <title>Firewall Configuration for an Email Server</title>
+          <para>
+          To access your mail server from another computer, you must
+          configure your firewall to allow connections to the server on
+          the necessary ports.
+            <itemizedlist>
+            <listitem><para>IMAP - 143</para></listitem>
+            <listitem><para>IMAPS - 993</para></listitem>
+            <listitem><para>POP3 - 110</para></listitem>
+            <listitem><para>POP3S - 995</para></listitem>
+            </itemizedlist>
+          </para>
+        </sect2>
+        <sect2 id="dovecot-references" status="review">
+          <title>References</title>
+
+          <itemizedlist>
+            <listitem>
+              <para>
+              See the <ulink url="http://www.dovecot.org/">Dovecot website</ulink> for more information.
+              </para>
+            </listitem>
+          </itemizedlist>
+
+        </sect2>
+      </sect1>
+      <sect1 id="mailman" status="review">
+        <title>Mailman</title> 
+          <para>
+          Mailman is an open source program for managing electronic mail
+          discussions and e-newsletter lists. Many open source mailing
+          lists (including all the <ulink
+          url="http://lists.ubuntu.com">Ubuntu mailing lists</ulink>) use
+          Mailman as their mailing list software. It is powerful and easy
+          to install and maintain.
+          </para>
+        <sect2 id="mailman-installation" status="review">
+          <title>Installation</title>
+            <para>
+			Mailman provides a web interface for the administrators and users,
+			using an external mail server to send and receive emails. It works
+			perfectly with the following mail servers:
+            </para>
+            <para>
+            <itemizedlist spacing="compact">
+                <listitem>
+                    <para><application>Postfix</application></para>
+                </listitem>
+                <listitem>
+                    <para><application>Exim</application></para>
+                </listitem>
+                <listitem>
+                    <para><application>Sendmail</application></para>
+                </listitem>
+                <listitem>
+                    <para><application>Qmail</application></para>
+                </listitem>
+            </itemizedlist>
+            </para>
+
+            <para>
+            We will see how to install and configure Mailman with, the Apache web server,
+            and either the Postfix or Exim mail server. If you wish to install Mailman
+            with a different mail server, please refer to the references
+            section. 
+            </para>
+	     <note>
+	       <para>
+		You only need to install one mail server and <application>Postfix</application> is the default Ubuntu Mail Transfer Agent.
+	       </para>
+	     </note>
+          <sect3 id="mailman-apache2">
+            <title>Apache2</title>
+              <para>
+                To install apache2 you refer to <ulink
+                url="./web-servers.xml#http-installation">HTTPD
+                Installation</ulink> section for details.
+              </para>
+          </sect3>
+	  <sect3 id="mailman-postfix">
+	    <title>Postfix</title>
+	    <para>
+	    For instructions on installing and configuring Postfix refer to <xref linkend="postfix"/>
+	    </para>
+	  </sect3>
+          <sect3 id="mailman-exim4">
+            <title>Exim4</title>
+              <para>
+              To install Exim4 refer to <xref linkend="exim4"/>.
+	      </para>
+	      <para>
+	      Once exim4 is installed, the configuration files are stored in
+	      the <filename>/etc/exim4</filename> directory. In Ubuntu, by default, the exim4 configuration files are
+	      split across different files. You can change this behavior by changing
+	      the following variable in the <filename>/etc/exim4/update-exim4.conf</filename> file:
+
+              <itemizedlist spacing="compact">
+              <listitem>
+                <para><application>dc_use_split_config='true'</application></para>
+              </listitem>
+              </itemizedlist>
+              </para>
+          </sect3>
+          <sect3 id="mailman-mailman">
+            <title>Mailman</title>
+              <para>
+              To install <application>Mailman</application>, run following command at a terminal prompt:
+	      </para>
+<screen>
+<command>sudo apt-get install mailman</command> 
+</screen>
+	     <para>
+	     It copies the installation files in
+	     <application>/var/lib/mailman</application> directory. It installs the
+	     CGI scripts in <application>/usr/lib/cgi-bin/mailman</application>
+	     directory.  It creates <emphasis>list</emphasis> linux
+	     user. It creates the <emphasis>list</emphasis> linux
+ 	     group. The mailman process will be owned by this user. 
+             </para>
+          </sect3>
+        </sect2>
+        <sect2 id="mailman-configuration" status="review">
+          <title>Configuration</title>
+            <para>
+            This section assumes you have successfully installed
+            <application>mailman</application>,
+            <application>apache2</application>, and
+	    <application>postfix</application> or <application>exim4</application>. Now you just need
+            to configure them. 
+            </para>
+          <sect3 id="mailman-conf-apache2">
+            <title>Apache2</title>
+              <para>
+	      An example Apache configuration file comes with <application>Mailman</application> and is placed
+	      in <filename>/etc/mailman/apache.conf</filename>. In order for Apache to use the config file it needs
+	      to be copied to <filename>/etc/apache2/sites-available</filename>:
+	      </para>
+<screen>
+<command>sudo cp /etc/mailman/apache.conf /etc/apache2/sites-available/mailman.conf</command>
+</screen>
+	      <para>
+	      This will setup a new Apache <emphasis>VirtualHost</emphasis> for the Mailman administration site.
+	      Now enable the new configuration and restart Apache:
+	      </para>
+<screen>
+<command>sudo a2ensite mailman.conf</command>
+<command>sudo /etc/init.d/apache2 restart</command>
+</screen>
+	      <para>
+	      Mailman uses apache2 to render its CGI scripts. The mailman CGI scripts
+	      are installed in the <application>/usr/lib/cgi-bin/mailman</application>
+	      directory. So, the mailman url will be
+	      http://hostname/cgi-bin/mailman/. You can make changes to the
+	      <filename>/etc/apache2/sites-available/mailman.conf</filename> file if you wish to
+	      change this behavior.
+              </para>
+          </sect3>
+	  <sect3 id="mailman-conf-postfix" status="review">
+	    <title>Postfix</title>
+	    <para>
+	    For <application>Postfix</application> integration, we will associate the domain lists.example.com with the mailing lists.
+	    Please replace <emphasis>lists.example.com</emphasis> with the domain of your choosing.
+	    </para>
+	    <para>
+	    You can use the postconf command to add the necessary configuration to <filename>/etc/postfix/main.cf</filename>:
+	    </para>
+<screen>
+<command>sudo postconf -e 'relay_domains = lists.example.com'</command>
+<command>sudo postconf -e 'transport_maps = hash:/etc/postfix/transport'</command>
+<command>sudo postconf -e 'mailman_destination_recipient_limit = 1'</command>
+</screen>
+	  <para>
+	  In <filename>/etc/postfix/master.cf</filename> double check that you have the following transport:
+	  </para>
+<programlisting>
+mailman   unix  -       n       n       -       -       pipe
+  flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
+  ${nexthop} ${user}
+</programlisting>
+	  <para>
+	  It calls the <emphasis>postfix-to-mailman.py</emphasis> script when a mail is delivered to a list.
+	  </para>
+	  <para>
+	  Associate the domain lists.example.com to the Mailman transport with the transport map. Edit the file <filename>/etc/postfix/transport</filename>: 
+	  </para> 
+<programlisting>
+lists.example.com      mailman:
+</programlisting>
+	  <para>
+	  Now have <application>Postfix</application> build the transport map by entering the following from a terminal prompt:
+	  </para>
+<screen>
+<command>sudo postmap -v /etc/postfix/transport</command>
+</screen>
+	  <para>
+	  Then restart Postfix to enable the new configurations:
+	  </para>
+<screen>
+<command>sudo /etc/init.d/postfix restart</command>
+</screen>
+	  </sect3>
+          <sect3 id="mailman-conf-exim4">
+            <title>Exim4</title>
+              <para>
+              Once Exim4 is installed, you can start the Exim server using the following
+              command from a terminal prompt:
+	      </para>
+<screen>
+<command>sudo /etc/init.d/exim4 start</command>
+</screen>
+	      <para>
+In order to make mailman work with Exim4, you need to configure Exim4.
+As mentioned earlier, by default, Exim4 uses multiple configuration
+files of different types. For details, please refer to the <ulink
+url="http://www.exim.org">Exim</ulink> web site.  To run mailman, we
+should add new a configuration file to the following configuration
+types: 
+              <itemizedlist spacing="compact">
+              <listitem>
+                <para>Main</para>
+              </listitem>
+              <listitem>
+                <para>Transport</para>
+              </listitem>
+              <listitem>
+                <para>Router</para>
+              </listitem>
+              </itemizedlist>
+              Exim creates a master configuration file by sorting all
+              these mini configuration files. So, the order of these
+              configuration files is very important.
+              </para>
+          </sect3>
+          <sect3 id="mailman-conf-main">
+            <title>Main</title>
+              <para>
+              All the configuration files belonging to the main type are
+              stored in the
+              <filename>/etc/exim4/conf.d/main/</filename> directory. You can add
+              the following content to a new file, named <filename>04_exim4-config_mailman</filename>:
+
+<programlisting>
+# start
+# Home dir for your Mailman installation -- aka Mailman's prefix
+# directory.
+# On Ubuntu this should be "/var/lib/mailman"
+# This is normally the same as ~mailman
+MM_HOME=/var/lib/mailman
+#
+# User and group for Mailman, should match your --with-mail-gid
+# switch to Mailman's configure script.  Value is normally "mailman"
+MM_UID=list
+MM_GID=list
+#
+# Domains that your lists are in - colon separated list
+# you may wish to add these into local_domains as well
+domainlist mm_domains=hostname.com
+#
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#
+# These values are derived from the ones above and should not need
+# editing unless you have munged your mailman installation
+#
+# The path of the Mailman mail wrapper script
+MM_WRAP=MM_HOME/mail/mailman
+#
+# The path of the list config file (used as a required file when
+# verifying list addresses)
+MM_LISTCHK=MM_HOME/lists/${lc::$local_part}/config.pck
+# end
+</programlisting>
+          </para>
+          </sect3>
+          <sect3 id="mailman-conf-transport">
+            <title>Transport</title>
+              <para>
+All the configuration files belonging to transport type are stored in
+the <filename>/etc/exim4/conf.d/transport/</filename> directory. You
+can add the following content to a new file named <filename>
+40_exim4-config_mailman</filename>:
+
+<programlisting>
+  mailman_transport:
+   driver = pipe
+   command = MM_WRAP \
+               '${if def:local_part_suffix \
+                     {${sg{$local_part_suffix}{-(\\w+)(\\+.*)?}{\$1}}} \
+                     {post}}' \
+               $local_part
+    current_directory = MM_HOME
+    home_directory = MM_HOME
+    user = MM_UID
+    group = MM_GID
+</programlisting>
+              </para>
+          </sect3>
+          <sect3 id="mailman-conf-router">
+            <title>Router</title>
+              <para>
+All the configuration files belonging to router type are stored in the
+<filename>/etc/exim4/conf.d/router/</filename> directory. You can add the following content
+in to a new file named <filename>101_exim4-config_mailman</filename>:
+<programlisting>
+  mailman_router:
+   driver = accept
+   require_files = MM_HOME/lists/$local_part/config.pck
+   local_part_suffix_optional
+   local_part_suffix = -bounces : -bounces+* : \
+                       -confirm+* : -join : -leave : \
+                       -owner : -request : -admin
+   transport = mailman_transport
+</programlisting>
+
+              </para>
+<warning>
+<para>
+The order of main and transport configuration files can be in any order.
+But, the order of router configuration files must be the same.
+This particular file must appear before the
+<application>200_exim4-config_primary</application> file.
+These two configuration files contain same type of information. The
+first file takes the precedence. For more details, please refer to the
+references section.
+</para>
+</warning>
+          </sect3>
+          <sect3 id="mailman-conf-mailman">
+            <title>Mailman</title>
+              <para>
+	      Once mailman is installed, you can run it using the following command:
+	      </para>
+<screen>
+<command>sudo /etc/init.d/mailman start</command>
+</screen>
+	      <para>
+	      Once mailman is installed, you should create the default mailing list.
+	      Run the following command to create the mailing list:
+	      </para>
+
+<screen>
+<command>sudo /usr/sbin/newlist mailman</command>
+</screen>
+
+<programlisting>
+  Enter the email address of the person running the list: bhuvan at ubuntu.com
+  Initial mailman password:
+  To finish creating your mailing list, you must edit your <filename>/etc/aliases</filename> (or
+  equivalent) file by adding the following lines, and possibly running the
+  `newaliases' program:
+
+  ## mailman mailing list
+  mailman:              "|/var/lib/mailman/mail/mailman post mailman"
+  mailman-admin:        "|/var/lib/mailman/mail/mailman admin mailman"
+  mailman-bounces:      "|/var/lib/mailman/mail/mailman bounces mailman"
+  mailman-confirm:      "|/var/lib/mailman/mail/mailman confirm mailman"
+  mailman-join:         "|/var/lib/mailman/mail/mailman join mailman"
+  mailman-leave:        "|/var/lib/mailman/mail/mailman leave mailman"
+  mailman-owner:        "|/var/lib/mailman/mail/mailman owner mailman"
+  mailman-request:      "|/var/lib/mailman/mail/mailman request mailman"
+  mailman-subscribe:    "|/var/lib/mailman/mail/mailman subscribe mailman"
+  mailman-unsubscribe:  "|/var/lib/mailman/mail/mailman unsubscribe mailman"
+
+  Hit enter to notify mailman owner...
+
+  # 
+</programlisting>
+	     <para>
+	     We have configured either Postfix or Exim4 to recognize all emails from mailman. So, it is
+	     not mandatory to make any new entries in
+	     <filename>/etc/aliases</filename>.  If you have made any changes
+	     to the configuration files, please ensure that you restart those
+	     services before continuing to next section.
+	     </para>
+          </sect3>
+        </sect2>
+        <sect2 id="mailman-admin" status="review">
+          <title>Administration</title>
+<para>
+We assume you have a default installation. The
+mailman cgi scripts are still in the
+<application>/usr/lib/cgi-bin/mailman/</application> directory.  Mailman
+provides a web based administration facility. To access this page, point
+your browser to the following url: 
+
+</para>
+<para>
+http://hostname/cgi-bin/mailman/admin
+</para>
+
+<para>
+The default mailing list, <emphasis>mailman</emphasis>,
+will appear in this screen. If you click the mailing list name, it
+will ask for your authentication password.  If you enter the correct
+password, you will be able to change administrative settings of this
+mailing list.
+
+You can create a new mailing list using the command line utility
+(<command>/usr/sbin/newlist</command>).
+Alternatively, you can create a new mailing list using the web interface. 
+</para>
+        </sect2>
+        <sect2 id="mailman-users" status="review">
+          <title>Users</title>
+<para>
+Mailman provides a web based interface for users. To access this page,
+point your browser to the following url:
+</para>
+
+<para>
+http://hostname/cgi-bin/mailman/listinfo
+</para>
+
+<para>
+The default mailing list, <emphasis>mailman</emphasis>,
+will appear in this screen. If you
+click the mailing list name, it will display the subscription form. You
+can enter your email address, name (optional), and password to subscribe.
+An email invitation will be sent to you. You can follow the
+instructions in the email to subscribe.
+</para>
+        </sect2>
+        <sect2 id="mailman-references" status="review">
+          <title>References</title>
+<para>
+<ulink url="http://www.list.org/mailman-install/index.html"> GNU Mailman
+- Installation Manual</ulink>
+</para>
+<para>
+<ulink url="http://www.exim.org/howto/mailman21.html">HOWTO - Using Exim
+4 and Mailman 2.1 together</ulink>
+</para>
+        </sect2>
+      </sect1>
+      <sect1 id="mail-filtering" status="review">
+	 <title>Mail Filtering</title>
+	 <para>
+	 One of the largest issues with email today is the problem of Unsolicited Bulk Email (UBE).
+	 Also known as SPAM, such messages may also carry viruses and other forms of malware. 
+	 According to some reports these messages make up the bulk of all email traffic on the Internet.
+	 </para>
+	 <para>
+	 This section will cover integrating <application>Amavisd-new</application>,
+	 <application>Spamassassin</application>, and <application>ClamAV</application> with the 
+	 <application>Postfix</application> Mail Transport Agent (MTA).  <application>Postfix</application> can also
+	 check email validity by passing it through external content filters.  These filters can sometimes determine if 
+	 a message is spam without needing to process it with more resource intensive applications.  Two common filters are 
+	 <application>dkim-filter</application> and <application>python-policyd-spf</application>.
+	 </para>
+	 <itemizedlist>
+	   <listitem>
+	     <para>
+ 	     <application>Amavisd-new</application> is a wrapper program that can call any number of content filtering programs
+	     for spam detection, antivirus, etc.
+	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>	
+	     <application>Spamassassin</application> uses a variety of mechanisms to filter email based on the message content.
+	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>
+	     <application>ClamAV</application> is an open source antivirus application.
+	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>
+	     <application>dkim-filter</application> implements a Sendmail Mail Filter (Milter) for the DomainKeys 
+	     Identified Mail (DKIM) standard. 
+	     </para>
+	   </listitem>
+	   <listitem>
+  	     <para>
+	     <application>python-policyd-spf</application> enables Sender Policy Framework (SPF) checking with <application>Postfix</application>.
+	     </para>
+	   </listitem>
+	 </itemizedlist>
+	 <para>
+	 This is how the pieces fit together: 
+	 </para>
+	 <itemizedlist>
+	   <listitem>
+	     <para>
+	     An email message is accepted by <application>Postfix</application>.
+	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>
+     	     The message is passed through any external filters <application>dkim-filter</application> and 
+	     <application>python-policyd-spf</application> in this case. 
+   	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>
+	     <application>Amavisd-new</application> then processes the message.
+	     </para>
+	   </listitem>
+	   <listitem>
+	     <para>
+	       <application>ClamAV</application> is used to scan the message. If the message contains a virus 
+	       <application>Postfix</application> will reject the message. 
+	     </para>
+	   </listitem>  
+	   <listitem>
+	     <para>
+	     Clean messages will then be analyzed by <application>Spamassassin</application> to find out if the message is spam.  
+	     <application>Spamassassin</application> will then add X-Header lines allowing 
+    	     <application>Amavisd-new</application> to further manipulate the message.
+	     </para>
+	   </listitem>
+ 	 </itemizedlist>
+	 <para>
+	 For example, if a message has a Spam score of over fifty the message could be automatically dropped from 
+	 the queue without the recipient ever having to be bothered.  Another, way to handle flagged messages is to deliver
+	 them to the Mail User Agent (MUA) allowing the user to deal with the message as they see fit.
+	 </para>
+	 <sect2 id="mail-filter-installation" status="review">
+	   <title>Installation</title>
+	   <para>
+	   See <xref linkend="postfix"/> for instructions on installing and configuring Postfix.
+	   </para>	  
+	   <para>
+	   To install the rest of the applications enter the following from a terminal prompt:
+	   </para>
+<screen>
+<command>sudo apt-get install amavisd-new spamassassin clamav-daemon</command>
+<command>sudo apt-get install dkim-filter python-policyd-spf</command>
+</screen>
+  	<para>
+	There are some optional packages that integrate with <application>Spamassassin</application> for better spam detection:
+	</para>
+<screen>
+<command>sudo apt-get install pyzor razor</command>
+</screen>
+   <para>
+   Along with the main filtering applications compression utilities are needed to process some email attachments:
+   </para>
+<screen>
+<command>sudo apt-get install arj cabextract cpio lha nomarch pax rar unrar unzip zip zoo</command>
+</screen>
+	 </sect2>
+	 <sect2 id="mail-filter-configuration" status="review">
+	   <title>Configuration</title>
+	   <para>
+	   Now configure everything to work together and filter email.
+	   </para>
+	   <sect3 id="clamav-configuration" status="review">
+	     <title>ClamAV</title>
+	     <para>
+   	     The default behaviour of <application>ClamAV</application> will fit our needs. 
+ 	     For more ClamAV configuration options, check the configuration files in 
+	     <filename>/etc/clamav</filename>.
+	     </para>
+	     <para>
+	     Add the <emphasis>clamav</emphasis> user to the <emphasis>amavis</emphasis> group in order for <application>Amavisd-new</application>
+ 	     to have the appropriate access to scan files:
+ 	     </para>
+<screen>
+<command>sudo adduser clamav amavis</command>
+</screen>
+	   </sect3>
+	   <sect3 id="spamassassin-configuration" status="review">
+	     <title>Spamassassin</title>
+	     <para>
+	     Spamassassin automatically detects optional components and will use them if they are present. This means that there is no need to 
+	     configure <application>pyzor</application> and <application>razor</application>.  
+	     </para>
+	     <para>
+	     Edit <filename>/etc/default/spamassassin</filename> to activate the <application>Spamassassin</application> daemon.
+	     Change <emphasis>ENABLED=0</emphasis> to:
+	     </para>
+<programlisting>
+ENABLED=1
+</programlisting>	
+	     <para>
+	     Now start the daemon:
+	     </para>
+<screen>
+<command>sudo /etc/init.d/spamassassin start</command>
+</screen>
+	   </sect3>
+	   <sect3 id="amavisd-new-configuration" status="review">
+	     <title>Amavisd-new</title>
+	     <para>
+	     First activate spam and antivirus detection in <application>Amavisd-new</application> by editing 
+	     <filename>/etc/amavis/conf.d/15-content_filter_mode</filename>: 	
+	     </para>
+<programlisting>
+use strict;
+
+# You can modify this file to re-enable SPAM checking through spamassassin
+# and to re-enable antivirus checking.
+
+#
+# Default antivirus checking mode
+# Uncomment the two lines below to enable it
+#
+
+@bypass_virus_checks_maps = (
+   \%bypass_virus_checks, \@bypass_virus_checks_acl, \$bypass_virus_checks_re);
+
+
+#
+# Default SPAM checking mode
+# Uncomment the two lines below to enable it
+#
+
+@bypass_spam_checks_maps = (
+   \%bypass_spam_checks, \@bypass_spam_checks_acl, \$bypass_spam_checks_re);
+
+1;  # insure a defined return
+</programlisting>
+   	     <para>
+	     Bouncing spam can be a bad idea as the return address is often faked. Consider editing 
+	     <filename>/etc/amavis/conf.d/20-debian_defaults</filename> to set <emphasis>$final_spam_destiny</emphasis> to D_DISCARD
+	     rather than D_BOUNCE, as follows:
+	     </para>
+<programlisting>
+$final_spam_destiny       = D_DISCARD;
+</programlisting>
+
+             <para>
+             If the server's <emphasis>hostname</emphasis> is different from the domain's MX record you may need to manually set
+             the <emphasis>$myhostname</emphasis> option.  Also, if the server receives mail for multiple domains the 
+             <emphasis>@local_domains_acl</emphasis> option will need to be customized.  Edit the 
+             <filename>/etc/amavis/conf.d/50-user</filename> file:
+             </para>
+
+<programlisting>
+$myhostname = 'mail.example.com';
+@local_domains_acl = ( "example.com", "example.org" );
+</programlisting>
+          
+	     <para>
+	     After configuration <application>Amavisd-new</application> needs to be restarted: 
+	     </para>
+<screen>
+<command>sudo /etc/init.d/amavis restart</command>
+</screen>
+             <sect4 id="amavis-dkim-whitelist" status="review">
+               <title>DKIM Whitelist</title>
+
+               <para>
+               <application>Amavisd-new</application> can be configured to automatically <emphasis>Whitelist</emphasis>
+               addresses from domains with valid Domain Keys.  There are some pre-configured domains in the 
+               <filename>/etc/amavis/conf.d/40-policy_banks</filename>.  
+               </para>
+
+               <para>
+               There are multiple ways to configure the Whitelist for a domain:
+               </para>
+
+               <itemizedlist>
+                 <listitem>
+                   <para>
+                   <emphasis>'example.com' => 'WHITELIST',</emphasis>: will whitelist any address from the "example.com" domain.
+                   </para>
+                 </listitem>
+                 <listitem>
+                   <para>
+                   <emphasis>'.example.com' => 'WHITELIST',</emphasis>: will whitelist any address from any <emphasis>subdomains</emphasis>
+                   of "example.com" that have a valid signature.
+                   </para>
+                 </listitem>
+                 <listitem>
+                   <para>
+                   <emphasis>'.example.com/@example.com' => 'WHITELIST',</emphasis>: will whitelist subdomains of "example.com" that use the 
+                   signature of <emphasis role="italic">example.com</emphasis> the parent domain.
+                   </para>
+                 </listitem>
+                 <listitem>
+                   <para>
+                   <emphasis>'./@example.com' => 'WHITELIST',</emphasis>: adds addresses that have a valid signature from "example.com".  
+                   This is usually used for discussion groups that sign thier messages.
+                   </para>
+                 </listitem>
+               </itemizedlist>
+
+               <para>
+               A domain can also have multiple Whitelist configurations.  After, editing the file restart <application>amaisd-new</application>:
+               </para>
+
+<screen>
+<command>sudo /etc/init.d/amavis restart</command>
+</screen>
+
+               <note>
+                 <para>
+                 In this context, once a domain has been added to the Whitelist the message will not receive any anti-virus or spam filtering. 
+                 This may or may not be the intended behavior you wish for a domain.
+                 </para>
+               </note>
+
+             </sect4>
+	   </sect3>
+	   <sect3 id="postfix-mail-filtering-configuration" status="review">
+	     <title>Postfix</title>
+	     <para>
+	     For <application>Postfix</application> integration, enter the following from a terminal prompt:
+	     </para>
+<screen>
+<command>sudo postconf -e 'content_filter = smtp-amavis:[127.0.0.1]:10024'</command>
+</screen>
+	     <para>
+	     Next edit <filename>/etc/postfix/master.cf</filename> and add the following to the end of the file:	
+	     </para>
+<programlisting>
+smtp-amavis     unix    -       -       -       -       2       smtp
+        -o smtp_data_done_timeout=1200
+        -o smtp_send_xforward_command=yes
+        -o disable_dns_lookups=yes
+        -o max_use=20
+
+127.0.0.1:10025 inet    n       -       -       -       -       smtpd
+        -o content_filter=
+        -o local_recipient_maps=
+        -o relay_recipient_maps=
+        -o smtpd_restriction_classes=
+        -o smtpd_delay_reject=no
+        -o smtpd_client_restrictions=permit_mynetworks,reject
+        -o smtpd_helo_restrictions=
+        -o smtpd_sender_restrictions=
+        -o smtpd_recipient_restrictions=permit_mynetworks,reject
+        -o smtpd_data_restrictions=reject_unauth_pipelining
+        -o smtpd_end_of_data_restrictions=
+        -o mynetworks=127.0.0.0/8
+        -o smtpd_error_sleep_time=0
+        -o smtpd_soft_error_limit=1001
+        -o smtpd_hard_error_limit=1000
+        -o smtpd_client_connection_count_limit=0
+        -o smtpd_client_connection_rate_limit=0
+        -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
+</programlisting>
+	     <para>
+	     Also add the following two lines immediately below the <emphasis>"pickup"</emphasis> transport service:
+	     </para>
+<programlisting>
+         -o content_filter=
+         -o receive_override_options=no_header_body_checks
+</programlisting>
+	     <para>
+	     This will prevent messages that are generated to report on spam from being classified as spam.
+	     </para>
+	     <para>
+	     Now restart <application>Postfix</application>:
+	     </para>
+<screen>
+<command>sudo /etc/init.d/postfix restart</command>
+</screen>
+	   <para>
+           Content filtering with spam and virus detection is now enabled.
+	   </para>
+	   </sect3>
+	 </sect2>	 
+	 <sect2 id="mail-filter-testing" status="review">
+	   <title>Testing</title>
+	   <para>
+	   First, test that the <application>Amavisd-new</application> SMTP is listening:
+	   </para>
+<programlisting>
+telnet localhost 10024
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 [127.0.0.1] ESMTP amavisd-new service ready
+^]
+</programlisting>
+	   <para>
+	   In the Header of messages that go through the content filter you should see: 
+	   </para>
+<programlisting>
+X-Spam-Level: 
+X-Virus-Scanned: Debian amavisd-new at example.com
+X-Spam-Status: No, hits=-2.3 tagged_above=-1000.0 required=5.0 tests=AWL, BAYES_00
+X-Spam-Level: 
+</programlisting>
+	   <note>
+	   <para>
+	   Your output will vary, but the important thing is that there are <emphasis>X-Virus-Scanned</emphasis> and 
+	   <emphasis>X-Spam-Status</emphasis> entries.  
+	   </para>
+	   </note>
+	 </sect2>
+	 <sect2 id="mail-filter-troubleshooting" status="review">
+	   <title>Troubleshooting</title>
+	   <para>
+	   The best way to figure out why something is going wrong is to check the log files.
+	   </para>
+	   <itemizedlist>
+	     <listitem>
+	       <para>
+	       For instructions on <application>Postfix</application> logging see the 
+               <xref linkend="postfix-troubleshooting"/> section.
+	       </para>
+	     </listitem>  
+	     <listitem>
+	       <para>
+	       <application>Amavisd-new</application> uses <application>Syslog</application> to send messages to 
+	       <filename>/var/log/mail.log</filename>.  The amount of detail can be increased by adding the 
+	       <emphasis>$log_level</emphasis> option to <filename>/etc/amavis/conf.d/50-user</filename>, and setting the value from 1 to 5.
+	       </para>      
+<programlisting>
+$log_level = 2;
+</programlisting>
+	     <note>
+ 	       <para>
+	       When the <application>Amavisd-new</application> log output is increased <application>Spamassassin</application> log output is also
+	       increased.
+	       </para>
+	     </note>
+	     </listitem>
+	     <listitem>
+	       <para>
+	       The <application>ClamAV</application> log level can be increased by editing <filename>/etc/clamav/clamd.conf</filename>
+	       and setting the following option:
+	       </para>
+<programlisting>
+LogVerbose true
+</programlisting>
+	       <para>
+	       By default <application>ClamAV</application> will send log messages to <filename>/var/log/clamav/clamav.log</filename>.
+	       </para>
+	      </listitem>
+	          </itemizedlist>
+	   <note>
+	   <para>
+	   After changing an applications log settings remember to restart the service for the new settings to take affect.  Also, 
+	   once the issue you are troubleshooting is resolved it is a good idea to change the log settings back to normal.
+	   </para>
+	   </note>
+	 </sect2>
+	 <sect2 id="mail-filter-references" status="review">
+	   <title>References</title>
+	   <para>
+	   For more information on filtering mail see the following links:
+	   </para>
+	   <itemizedlist>
+	     <listitem>
+	       <para>
+               <ulink url="http://www.ijs.si/software/amavisd/amavisd-new-docs.html">Amavisd-new Documentation</ulink>
+	       </para>
+	     </listitem>
+	     <listitem>
+	       <para>
+               <ulink url="http://www.clamav.org/doc/latest/html/">ClamAV Documentation</ulink> and 
+	       <ulink url="http://wiki.clamav.net/Main/WebHome">ClamAV Wiki</ulink>
+	       </para>
+	     </listitem>
+	     <listitem>
+	       <para>
+               <ulink url="http://wiki.apache.org/spamassassin/">Spamassassin Wiki</ulink>
+	       </para>
+	     </listitem>
+	     <listitem>
+	       <para>
+               <ulink url="http://pyzor.sourceforge.net/">Pyzor Homepage</ulink>
+	       </para>
+	       </listitem>
+	     <listitem>
+	       <para>
+               <ulink url="http://razor.sourceforge.net/">Razor Homepage</ulink>
+  	       </para>
+	     </listitem>
+	     <listitem>
+	       <para>
+               <ulink url="http://dkim.org/">DKIM.org</ulink>
+  	       </para>
+	     </listitem>
+	   </itemizedlist>
+	   <para>
+	   Also, feel free to ask questions in the <emphasis>#ubuntu-server</emphasis> IRC channel on 
+	   <ulink url="http://freenode.net">freenode</ulink>.
+	   </para>
+	 </sect2>
+      </sect1>
+     </chapter>
+

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "/usr/share/sgml/docbook/dtd/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.4">
+<!ENTITY manrevision "2.1">
+<!ENTITY date "January 2003">
+<!ENTITY app "Gfloppy">
+]>
+<!-- =============Document Header ============================= -->
+<article id="index" lang="es">
+ <articleinfo> 
+    <title>Manual del Formateador de disquetes</title>       
+    <abstract role="description">
+      <para>Formateador de disquetes, también conocido como Gfloppy, formatea disquetes para su uso en Linux.</para>
+    </abstract>
+    <copyright> 
+      <year>2000</year> 
+      <holder>Kenny Graunke</holder> 
+    </copyright> 
+    <copyright> 
+      <year>2002</year> 
+      <holder>John Fleck</holder> 
+    </copyright>
+    <copyright>
+      <year>2003</year>
+      <holder>Baris Cicek</holder>
+		</copyright><copyright><year>2007-2008.</year><holder>Jorge González (jorgegonz@svn.gnome.org)</holder></copyright>
+<!-- translators: uncomment this:
+
+  <copyright>
+   <year>2002</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+
+    <publisher> 
+      <publishername>Proyecto de documentación de GNOME</publishername> 
+    </publisher> 
+
+      <legalnotice id="legalnotice">
+         <para>Se concede permiso para copiar, distribuir o modificar este documento según las condiciones de la GNU Free Documentation License (GFDL), versión 1.1 o cualquier versión posterior publicada por la Free Software Foundation, sin Secciones invariantes, Textos de portada y Textos de contraportada. Encontrará una copia de la GFDL en este <ulink type="help" url="ghelp:fdl">enlace</ulink> o en el archivo COPYING-DOCS distribuido con este manual.</para>
+          <para>Este manual forma parte de una colección de documentos de GNOME distribuidos según la GFDL. Si desea distribuir este manual de forma independiente de la colección, puede hacerlo agregando una copia de la licencia al documento, según se describe en la sección 6 de la misma.</para>
+ 
+         <para>Muchos de los nombres utilizados por las empresas para distinguir sus productos y servicios se consideran marcas comerciales. Cuando estos nombres aparezcan en la documentación de GNOME, y siempre que se haya informado a los miembros del Proyecto de documentación de GNOME de dichas marcas comerciales, los nombres aparecerán en mayúsculas o con las iniciales en mayúsculas.</para>
+ 
+         <para>ESTE DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO SE OFRECEN SEGÚN LAS CONDICIONES ESTABLECIDAS EN LA LICENCIA DE DOCUMENTACIÓN LIBRE DE GNU (GFDL) Y TENIENDO EN CUENTA QUE: <orderedlist>
+                 <listitem>
+                   <para>EL DOCUMENTO SE OFRECE «TAL CUAL», SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO, PERO SIN LIMITARSE A ELLA, LA GARANTÍA DE QUE EL DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO ESTÉ LIBRE DE DEFECTOS, GARANTÍA DE COMERCIALIZACIÓN, APTITUD PARA UN USO EN PARTICULAR O INCUMPLIMIENTO. TODOS LOS RIESGOS RELATIVOS A LA CALIDAD, EXACTITUD O RENDIMIENTO DEL DOCUMENTO O LA VERSIÓN MODIFICADA DEL MISMO SON ASUMIDOS POR VD. EN CASO DE QUE EL DOCUMENTO O LA VERSIÓN MODIFICADA SEAN DEFECTUOSOS, VD. (NO EL ESCRITOR ORIGINAL NI EL AUTOR NI NINGUNO DE LOS COLABORADORES) ASUMIRÁ EL COSTE DE CUALQUIER MANTENIMIENTO, REPARACIÓN O CORRECCIÓN QUE SEAN NECESARIOS. ESTA RENUNCIA DE GARANTÍA CONSTITUYE UNA PARTE ESENCIAL DE ESTA LICENCIA NO SE AUTORIZA EL USO DE NINGÚN DOCUMENTO NI VERSIÓN MODIFICADA DEL MISMO, SALVO EN LAS CONDICIONES ESPECIFICADAS EN ESTA RENUNCIA; Y </para>
+                 </listitem>
+                 <listitem>
+                   <para>BAJO NINGUNA CIRCUNSTANCIA NI SUPUESTO LEGAL, YA SEA POR AGRAVIO (INCLUIDA LA NEGLIGENCIA), CONTRATO U OTROS CASOS, SERÁN RESPONSABLES EL AUTOR, EL ESCRITOR ORIGINAL, CUALQUIERA DE LOS COLABORADORES O DISTRIBUIDORES DEL DOCUMENTO O UNA VERSIÓN MODIFICADA DEL MISMO NI CUALQUIER PROVEEDOR DE TALES PARTES ANTE UN TERCERO, POR CUALQUIER PERJUICIO DIRECTO, INDIRECTO, ESPECIAL, ACCIDENTAL O CONSECUTIVO DE CUALQUIER TIPO, INCLUYENDO SIN LIMITACIÓN LOS DAÑOS POR PÉRDIDA DE CLIENTES, INTERRUPCIONES DEL TRABAJO, FALLO DE SISTEMAS O AL FUNCIONAMIENTO, O CUALQUIER OTRO DAÑO O PÉRDIDA CAUSADA O RELACIONADA CON EL USO DEL DOCUMENTO Y LAS VERSIONES MODIFICADAS DEL MISMO, AUN CUANDO SE HAYA INFORMADO DE LA POSIBILIDAD DE DICHOS DAÑOS.</para>
+                 </listitem>
+           </orderedlist></para>
+   </legalnotice>
+ 
+   
+    <authorgroup> 
+      <author role="maintainer"> 
+		<firstname>Baris</firstname> 
+		<surname>Cicek</surname> 
+		<affiliation> 
+	  		<orgname>Proyecto de documentación de GNOME</orgname> 
+	  		<address> <email>bcicek@phreaker.net</email> </address> 
+		</affiliation> 
+      </author> 
+
+      <author> 
+		<firstname>John</firstname> 
+		<surname>Fleck</surname> 
+		<affiliation> 
+	  		<orgname>Proyecto de documentación de GNOME</orgname> 
+	  		<address> <email>jfleck@inkstain.net</email> </address> 
+		</affiliation> 
+      </author> 
+      <author> 
+		<firstname>Kenny</firstname> 
+		<surname>Graunke</surname> 
+		<affiliation> 
+	  		<orgname>Proyecto de documentación de GNOME</orgname> 
+	</affiliation> 
+      </author> 
+      
+<!-- This is appropriate place for other contributors: translators,
+     maintainers,  etc. Commented out by default.
+     
+      <othercredit role="translator">
+		<firstname>Latin</firstname> 
+		<surname>Translator 1</surname> 
+		<affiliation> 
+	  		<orgname>Latin Translation Team</orgname> 
+	  		<address> <email>translator@gnome.org</email> </address> 
+		</affiliation>
+		<contrib>Latin translation</contrib>
+      </othercredit>
+-->
+    </authorgroup>
+
+
+<!-- According to GNU FDL, revision history is mandatory if you are -->
+<!-- modifying/reusing someone else's document.  If not, you can omit it. -->
+<!-- Remember to remove the &manrevision; entity from the revision entries other
+-->
+<!-- than the current revision. -->
+<!-- The revision numbering system for GNOME manuals is as follows: -->
+<!-- * the revision number consists of two components -->
+<!-- * the first component of the revision number reflects the release version of the GNOME desktop. -->
+<!-- * the second component of the revision number is a decimal unit that is incremented with each revision of the manual. -->
+<!-- For example, if the GNOME desktop release is V2.x, the first version of the manual that -->
+<!-- is written in that desktop timeframe is V2.0, the second version of the manual is V2.1, etc. -->
+<!-- When the desktop release version changes to V3.x, the revision number of the manual changes -->
+<!-- to V3.0, and so on. -->  
+    <revhistory>
+      <revision> 
+		<revnumber>Manual del Formateador de disquetes V2.1</revnumber> 
+		<date>Enero de 2003</date> 
+		<revdescription> 
+	  		<para role="author">Baris Cicek <email>bcicek@phreaker.net</email></para>
+	  		<para role="publisher">Proyecto de documentación de GNOME</para>
+		</revdescription> 
+      </revision> 
+
+      <revision> 
+		<revnumber>Manual del Formateador de disquetes V4.0</revnumber> 
+		<date>Junio de 2002</date> 
+		<revdescription> 
+	  		<para role="author">John Fleck <email>jfleck@inkstain.net</email></para>
+	  		<para role="publisher">Proyecto de documentación de GNOME</para>
+		</revdescription> 
+      </revision> 
+
+      <revision> 
+		<revnumber>Manual del Formateador de disquetes</revnumber> 
+		<date>2000</date> 
+		<revdescription> 
+	  		<para role="author">Kenny Graunke</para>
+	  		<para role="publisher">Proyecto de documentación de GNOME</para>
+		</revdescription> 
+      </revision> 
+    </revhistory> 
+
+    <releaseinfo>Este manual describe la versión 2.4 del manual del Formateador de disquetes</releaseinfo> 
+    <legalnotice> 
+      <title>Comentarios</title> 
+      <para>Para informar de un fallo, o hacer alguna sugerencia concerniente a la aplicación Formateador de disquetes o sobre este manual, siga las indicaciones en la <ulink url="ghelp:gnome-feedback" type="help">página de comentarios de GNOME</ulink>.</para>
+<!-- Translators may also add here feedback address for translations -->
+    </legalnotice> 
+  </articleinfo>
+<!--
+  <indexterm zone="index"> 
+    <primary>Gfloppy Manual</primary> 
+  </indexterm> 
+  <indexterm zone="index"> 
+    <primary>gfloppy</primary> 
+  </indexterm>
+-->
+ <!-- ============= Document Body ============================= -->
+
+ <!-- ============= Introduction ============================== -->
+ <sect1 id="intro">
+  <title>Introducción</title>
+
+  <para>El <application>Formateador de disquetes</application> formatea disquetes para Linux. Los disquetes nuevos puede que necesiten ser formateados antes de que puedan ser usados.</para>
+
+  <para>Para ejecutar <application>Formateador de disquetes</application>, seleccione <application>Formateador de disquetes</application> del submenú <guisubmenu>Herramientas del sistema</guisubmenu> del <guimenu>Menú principal</guimenu>, o escriba <command>gfloppy</command> en la línea de comandos.</para>
+
+  <para>Este documento describe la versión 2.4 del <application>Formateador de disquetes</application>.</para>
+
+ </sect1>
+
+
+ <!-- ================ Usage ================================ -->
+
+ <sect1 id="usage">
+  <title>Uso del Formateador de disquetes</title>
+   <para>Cuando inicie el <application>Formateador de disquetes</application>, se abrirá la <interface>ventana principal</interface> mostrada en <xref linkend="gfloppymainwindow"/>. <figure id="gfloppymainwindow">
+	<title>Ventana principal del Formateador de disquetes</title>
+      <screenshot>
+	<screeninfo>Ventana principal del Formateador de disquetes</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/main.png" format="PNG"/>
+	  </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/main.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Ventana principal del Formateador de disquetes</phrase>
+      </textobject>
+      <caption><para>Ventana principal del Formateador de disquetes</para></caption>
+    </mediaobject>
+      
+     </screenshot>
+   </figure></para>
+
+   <para>Introduzca un disquete que no esté protegido contra escritura.</para>
+
+   <warning>
+    <title>Advertencia</title>
+    <para>El Formateador de disquetes destruirá todos los archivos en su disquete. No formatee disquetes que contengan archivos que desea conservar.</para>
+   </warning>
+  <para>El Formateador de archivos necesita saber la densidad de su disquete, la cantidad de datos que puede almacenar. La mayoría de los disquetes de hoy día son de alta densidad, 1.44 MiB 3.5".</para>
+
+   <para>Seleccione el tipo de su sistema de archivos. Si necesita usar su disquete bajo DOS o Windows, elija <guibutton>DOS (FAT)</guibutton>. De otra manera elija <guibutton>Linux nativo (ext2)</guibutton>. Linux nativo no se puede leer en la mayoría de máquinas que no sean Linux.</para>
+	 <para>También puede dar un <guibutton>Nombre del volumen</guibutton> a sus discos recién formateados. Para hacer esto, escriba su etiqueta en la caja de texto bajo <guibutton>Tipo del sistema de archivos</guibutton>.</para>
+
+	 <para>Finalmente debería seleccionar el modo de formateo. <variablelist>
+	  <varlistentry><term><guibutton>Rápido</guibutton></term>
+		<listitem>
+			<para>El formateo rápido es el más rápido pero no comprueba los «bloques» dañados de su disquete. Sólo borra la tabla de archivos de tal forma que sus datos son teóricamente recuperables.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry><term><guibutton>Estándar</guibutton></term>
+		<listitem>
+			<para>El formateo estándar es un formateo a bajo nivel, pero no comprueba los bloques dañados. De tal forma que si tiene un disquete dañado el formateo fallará.</para>	
+		</listitem>
+		</varlistentry>
+		<varlistentry><term><guibutton>Completo</guibutton></term>
+		<listitem>
+			<para>El formateo completo comprueba los bloques dañados del disquete y lo formatea a bajo nivel.</para>
+		</listitem>
+		</varlistentry>
+		</variablelist></para>
+<!--
+   <para>
+    Quick format is faster but does not check your floppy disk for bad
+    "blocks". The slower regular format is useful if you have not formatted your
+    floppy before, or if you suspect your disk might be bad.
+   </para>
+-->
+   <para>Pulse en el botón <guibutton>Formatear</guibutton> para comenzar a formatear su disquete, como se muestra en estas figuras.</para>
+
+    <para>Verá una serie de diálogos informándole de que el <application>Formateador de disquetes</application> está formateando, verificando y creando el sistema de archivos en su disco.</para>
+
+   <para>A no ser que seleccione <guibutton>Formateo rápido</guibutton> o <guibutton>Formateo estándar</guibutton>, <application>Formateador de disquetes</application> comprobará los «bloques» defectuosos de su disquete. Si <application>Formateador de disquetes</application> encuentra alguno su disquete es inservible.</para>
+
+   <para>El <application>Formateador de disquetes</application> le permitirá saber si la operación se realizó con éxito y le devolverá a la ventana principal.</para>
+  </sect1>
+
+ <sect1 id="troubleshooting">
+  <title>Resolución de problemas</title>
+   <para>Cuando no hay un disquete introducido, el Formateador de disquetes muestra un diálogo informándole de que no hay ningún medio para formatear.</para>
+	<para>Si su disco está protegido contra escritura, el Formateador de disquetes también le avisará de ello. Para desproteger su disquete, sáquelo y délo la vuelta. Los disquetes estándar de 3.5 pulgadas tienen un pequeño deslizador negro en la esquina superior izquierda. Deslícela hacia abajo de tal forma que cubra el agujero. Si el disquete no tiene el deslizador negro estará permanentemente protegido contra escritura.</para>
+<!--
+      <screenshot id="writeprotected">
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/writeprotected.png" format="PNG"/>
+    </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/writeprotected.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Write protected</phrase>
+      </textobject>
+      <caption>
+	<para>Write protected</para>
+      </caption>
+    </mediaobject>
+    </screenshot>
+    </para>
+
+
+   <para>
+    If you cannot choose to format DOS floppies, as shown in <xref
+    linkend="nodos"/>, you need to install <filename>mtools</filename>.
+   </para>
+   <tip>
+    <title>Tip</title>
+    <para>
+     On an RPM based system, such as Red Hat, you can install <filename>
+     mtools</filename> using <ulink
+     url="gnome-help:gnorpm"><application>GnoRPM</application></ulink>, from the
+     <guisubmenu>System</guisubmenu> of
+     the <guimenu>Main Menu</guimenu>.
+    </para>
+   </tip>
+   <para>
+      <screenshot id="nodos">
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="figures/nodos.png" format="PNG"/>
+    </imageobject>
+      <imageobject>
+	<imagedata fileref="figures/nodos.eps" format="EPS"/>
+    </imageobject>
+      <textobject>
+	<phrase>Cannot format DOS floppies</phrase>
+      </textobject>
+      <caption>
+	<para>Cannot format DOS floppies</para>
+      </caption>
+    </mediaobject>
+    </screenshot>
+   </para>
+-->
+ </sect1>
+
+ <sect1 id="bugs">
+  <title>Errores conocidos y limitaciones</title>
+  <para>El Formateador de disquetes sólo funciona en Linux.</para>
+ </sect1>
+
+<!-- ============= Authors ================================ -->
+
+ <sect1 id="authors">
+  <title>Autores</title>
+  <para>Jonathan Blandford (<email>jrb@redhat.com</email>) escribió el <application>Formateador de disquetes</application>. Por favor, envíe todos los comentarios, sugerencias e informes de error a la<ulink url="http://bugzilla.gnome.org" type="http">base de datos de seguimiento de errores de GNOME</ulink>. Si está usando GNOME 1.1 o posterior también puede usar la <application>Herramienta de informe de errores</application> (<command>bug-buddy</command>), disponible en el submenú <guisubmenu>Programación</guisubmenu> del <guimenu>Menú principal</guimenu> para enviar informes de error.</para>
+
+  <para>Este manual lo escribió Baris Cicek (<email>bcicek@phreaker.net</email>). Por favor, envíe todos los comentarios, sugerencias e informes de error a <ulink type="http" url="http://developer.gnome.org/projects/gdp/">Proyecto de documentación de GNOME</ulink> enviando un correo electrónico a <email>docs@gnome.org</email>. También puede añadir sus comentarios en línea usando la <ulink type="http" url="http://developer.gnome.org/projects/gdp/doctable/">Tabla de estado de la documentación de GNOME</ulink>.</para>
+
+  <!-- For translations: uncomment this:
+
+  <para>
+   Latin translation was done by ME
+   (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+   suggestions regarding this translation to SOMEWHERE.
+  </para>
+
+  -->
+
+ </sect1>
+
+
+ <!-- ============= Application License ============================= -->
+
+ <sect1 id="license">
+  <title>Licencia</title>
+  <para>Este programa se distribuye bajo los términos de la Licencia Pública General GNU tal como la publica la <ulink url="ghelp:gpl"><citetitle>Free Software Foundation</citetitle></ulink>; tanto en la versión 2 de la Licencia, o (a su opción) cualquier otra versión posterior.</para>
+  <para>Este programa se distribuye con la esperanza de que le sea útil, pero SIN NINGUNA GARANTÍA; sin incluso la garantía implícita de MERCANTILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR. Vea la <ulink url="ghelp:gpl"><citetitle>Licencia Pública General GNU</citetitle></ulink> para más detalles.</para>
+  <para>Una copia de la <citetitle>Licencia Pública General GNU</citetitle> está incluida en el apéndice de la <citetitle>Guía de usuario de GNOME</citetitle>. También puede obtener una copia de la <citetitle>Licencia Pública General GNU</citetitle> de la Free Software Foundation visitando <ulink url="http://www.fsf.org" type="http">su página web</ulink> o escribiendo a la <address>Free Software Foundation, Inc. <street>59 Temple Place</street> - Suite 330 <city>Boston</city>, <state>MA</state><postcode>02111-1307</postcode><country>USA</country></address></para>
+ </sect1>
+</article>

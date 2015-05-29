@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. /usr/share/recovery-mode/l10n.sh
+
+set -e
+
+if [ "$1" = "test" ]; then
+  echo $(eval_gettext "File system check")
+  exit 0
+fi
+
+# ensure we can check /
+mount -o remount,ro /
+fsck -s -f -A -C0
+mount -o remount,rw /
+
+echo ""
+echo $(eval_gettext "Finished, please press ENTER")
+read TMP
+
+exit 0

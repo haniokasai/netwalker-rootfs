@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>4.  Edge-Detect Filters</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters.html" title="Chapter 16.  Filters" />
+    <link rel="prev" href="plug-in-spread.html" title="3.7.  Spread" />
+    <link rel="next" href="plug-in-dog.html" title="4.2.  Difference of Gaussians" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">4. 
+    <span lang="en" xml:lang="en">Edge-Detect Filters</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="plug-in-spread.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">Chapter 16. 
+        <span lang="en" xml:lang="en">Filters</span>
+      </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-dog.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect1" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h2 class="title" style="clear: both"><a id="filters-edge"></a>4. 
+    <span lang="en" xml:lang="en">Edge-Detect Filters</span>
+  </h2>
+          </div>
+        </div>
+      </div>
+      <div class="sect2" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h3 class="title"><a id="filters-edges-introduction"></a>4.1. 
+    <span lang="en" xml:lang="en">Introduction</span>
+  </h3>
+            </div>
+            <div>
+              <div class="revhistory">
+                <table border="1" width="100%" summary="Revision history">
+                  <tr>
+                    <th align="left" valign="top" colspan="3">
+                      <b>Revision History</b>
+                    </th>
+                  </tr>
+                  <tr>
+                    <td align="left">Revision $Revision: 2440 $</td>
+                    <td align="left">2006-11-23</td>
+                    <td align="left">j.h</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a id="id2735122" class="indexterm"></a>
+        <a id="id2735140" class="indexterm"></a>
+        <p>
+    Edge detect filters search for borders between different colors
+    and so can detect contours of objects.
+  </p>
+        <p>
+    They are used to make selections and for many artistic purposes.
+  </p>
+        <div class="mediaobject">
+          <img src="../images/filters/filters-edgedetect-fig.png" />
+        </div>
+        <p>
+    Most of them are based on gradient calculation methods and give thick
+    border lines. Look at fig.1 which represents color intensity
+    variations. On the left is a slow color gradient which is not a border.
+    On the right is a quick variation which is an edge. Now, let us
+    calculate the gradient, the variation speed, of this edge, i.e the first
+    derivative (fig.2). We have to decide that a border is detected when
+    gradient is more than a threshold value (the exact border is at top of
+    the curve, but this top varies according to borders). In most cases,
+    threshold is under top and border is thick.
+  </p>
+        <p>
+    The Laplacian edge detection uses the second derivative (fig.3).
+    The top of the curve is now at zero and clearly identified. That's
+    why Laplace filter renders a thin border, only a pixel wide. But
+    this derivative gives several zeros corresponding to small
+    ripples, resulting in false edges.
+  </p>
+        <p>
+    Some blurring before applying edge filters is often necessary: it
+    flattens small ripples in signal and so prevents false edges.
+  </p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="plug-in-spread.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-dog.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="plug-in-spread.html">3.7. 
+    <span lang="en" xml:lang="en">Spread</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-dog.html">4.2. 
+    <span lang="en" xml:lang="en">Difference of Gaussians</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

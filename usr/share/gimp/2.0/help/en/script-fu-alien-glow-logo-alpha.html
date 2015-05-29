@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>15.2.  Alien Glow</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-alpha-to-logo.html" title="15.  Alpha to Logo Filters" />
+    <link rel="prev" href="filters-alpha-to-logo.html" title="15.  Alpha to Logo Filters" />
+    <link rel="next" href="script-fu-basic1-logo-alpha.html" title="15.3.  Basic I" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">15.2. 
+    <span lang="en" xml:lang="en">Alien Glow</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="filters-alpha-to-logo.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">15. 
+    <span lang="en" xml:lang="en">Alpha to Logo Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="script-fu-basic1-logo-alpha.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="script-fu-alien-glow-logo-alpha"></a>15.2. 
+    <span lang="en" xml:lang="en">Alien Glow</span>
+  </h3>
+          </div>
+          <div>
+            <div class="revhistory">
+              <table border="1" width="100%" summary="Revision history">
+                <tr>
+                  <th align="left" valign="top" colspan="3">
+                    <b>Revision History</b>
+                  </th>
+                </tr>
+                <tr>
+                  <td align="left">Revision $Revision: 2413 $</td>
+                  <td align="left">2007-11-11</td>
+                  <td align="left">ude</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="id2782632" class="indexterm"></a>
+      <a id="id2782650" class="indexterm"></a>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2782659"></a>15.2.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2782669"></a>
+          <p class="title">
+            <b>Figure 16.293. 
+        <span lang="en" xml:lang="en">
+          Example for the “<span class="quote">Alien Glow</span>” filter
+        </span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/logo-alien-glow.jpg" alt="Example for the Alien Glow filter" />
+              <div class="caption">
+                <p>“<span class="quote">Alien Glow</span>” applied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+      This filter adds an eerie glow around the active layer's alpha.
+    </p>
+        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+          <table border="0" summary="Warning">
+            <tr>
+              <td rowspan="2" align="center" valign="top" width="25">
+                <img alt="[Warning]" src="../images/warning.png" />
+              </td>
+              <th align="left">Warning</th>
+            </tr>
+            <tr>
+              <td align="left" valign="top">
+                <p>
+        The image will always be resized to the active layer's size.
+      </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p>
+      The filter is derived from the “<span class="quote">Alien Glow</span>” script
+      (<span class="guimenu"><span class="accel">X</span>tns</span> → <span class="guisubmenu"><span class="accel">L</span>ogo</span> → <span class="guimenuitem">Alien <span class="accel">G</span>low</span> in the toolbox),
+      which creates the following text effect:
+    </p>
+        <div class="mediaobject">
+          <img src="../images/filters/examples/alien-glow-script-fu.jpg" />
+          <div class="caption">
+            <p>The “<span class="quote">Alien Glow</span>” Script-Fu script.</p>
+          </div>
+        </div>
+        <p>
+      Reproducing this glow is easy:
+    </p>
+        <div class="itemizedlist">
+          <ul type="disc">
+            <li>
+              <p>
+          If necessary, create a
+          <a class="link" href="gimp-layer-alpha-selection-replace.html" title="10.36.  Alpha to Selection">selection from
+          the alpha channel</a> of the active layer.
+        </p>
+            </li>
+            <li>
+              <p>
+          Fill the selection with the following
+          <a class="link" href="gimp-tool-blend.html" title="3.4.  Blend">Gradient Blend</a>: Shape =
+          Shaped (spherical); Gradient = FG to BG (RGB), with FG = dark gray
+          (79,79,79), BG = black.
+        </p>
+            </li>
+            <li>
+              <p>
+          Create a <a class="link" href="gimp-layer-new.html" title="10.2.  New Layer">new layer</a>
+          (“<span class="quote">Alien Glow</span>”) below.
+          <a class="link" href="gimp-selection-grow.html" title="7.12.  Grow">Extend</a> the selection
+          slightly,
+          <a class="link" href="gimp-selection-feather.html" title="7.9.  Feather">feather</a> it,
+          and fill it with the <span class="guilabel">Glow color</span>.
+        </p>
+            </li>
+            <li>
+              <p>
+          Create a new background layer filled with black.
+        </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2782896"></a>15.2.2. 
+      <span lang="en" xml:lang="en">Activate the filter</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <p>
+      You can find this filter in the image window menu under
+      <span class="guimenu"><span class="accel">F</span>ilters</span> → <span class="guisubmenu">Alpha to <span class="accel">L</span>ogo</span> → <span class="guimenuitem">Alien <span class="accel">G</span>low</span>.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2782948"></a>15.2.3. 
+      <span lang="en" xml:lang="en">Options</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2782958"></a>
+          <p class="title">
+            <b>Figure 16.294. 
+        <span lang="en" xml:lang="en">“<span class="quote">Alien Glow</span>” options</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/options-logo-alien-glow.png" alt="Alien Glow options" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="variablelist">
+          <dl>
+            <dt>
+              <span class="term">
+        <span lang="en" xml:lang="en">Glow size (pixels * 4)</span>
+        </span>
+            </dt>
+            <dd>
+              <p>
+            This is actually the font size option of the
+            “<span class="quote">Alien Glow</span>” Script-Fu script. However, two values
+            will be set in relation to this size: the glow will be enlarged by
+            “<span class="quote">Glow size</span>” / 30, and feather radius is
+            “<span class="quote">Glow size</span>” / 4. You should probably choose the
+            height of your objects for this option (ignore
+            “<span class="quote">pixels * 4</span>”).
+          </p>
+            </dd>
+            <dt>
+              <span class="term">
+        <span lang="en" xml:lang="en">Glow color</span>
+        </span>
+            </dt>
+            <dd>
+              <p>
+            This is the color of the “<span class="quote">eerie</span>” glowing. Of course
+            it defaults to green (63,252,0), but a click on the swatch
+            button brings up the color selector where you can choose any
+            color.
+          </p>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="filters-alpha-to-logo.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-alpha-to-logo.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="script-fu-basic1-logo-alpha.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="filters-alpha-to-logo.html">15. 
+    <span lang="en" xml:lang="en">Alpha to Logo Filters</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="script-fu-basic1-logo-alpha.html">15.3. 
+    <span lang="en" xml:lang="en">Basic I</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

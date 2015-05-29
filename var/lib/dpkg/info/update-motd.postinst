@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+	configure|reconfigure)
+		if dpkg --compare-versions "$2" lt-nl "1.6"; then
+			# init script from older update-motd's should be removed
+			rm -f /etc/init.d/update-motd
+		fi
+	;;
+esac
+
+

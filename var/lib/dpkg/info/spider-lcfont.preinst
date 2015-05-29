@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+# Automatically added by dh_installmodules
+if [ "$1" = install ] || [ "$1" = upgrade ]; then
+	if [ -e "/etc/modprobe.d/spider-lcfont" ]; then
+		if [ "`md5sum \"/etc/modprobe.d/spider-lcfont\" | sed -e \"s/ .*//\"`" = \
+		     "`dpkg-query -W -f='${Conffiles}' spider-lcfont | sed -n -e \"\\\\' /etc/modprobe.d/spider-lcfont's/.* //p\"`" ]
+		then
+			rm -f "/etc/modprobe.d/spider-lcfont"
+		fi
+	fi
+fi
+# End automatically added section

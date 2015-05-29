@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "&EnglishAmerican;">
+]>
+<chapter id="backups" status="review">
+  <title>Backups</title>
+  <para>
+  There are many ways to backup an Ubuntu installation.  The most important thing about backups is to develop a  
+  <emphasis>backup plan</emphasis> consisting of what to backup, where to back it up to, and how to restore it. 
+  </para>
+  <para>
+  The following sections discuss various ways of accomplishing these tasks.
+  </para>
+  <sect1 id="backup-shellscripts" status="review">
+    <title>Shell Scripts</title>
+    <para>
+    One of the simplest ways to backup a system is using a <emphasis>shell script</emphasis>.  For example, a script can be used to configure 
+    which directories to backup, and use those directories as arguments to the <application>tar</application> utility creating
+    an archive file. The archive file can then be moved or copied to another location.  The archive can also be created on a remote 
+    file system such as an <emphasis>NFS</emphasis> mount.
+    </para>
+    <para>
+    The <application>tar</application> utility creates one archive file out of many files or directories.  <application>tar</application> 
+    can also filter the files through compression utilities reducing the size of the archive file.  
+    </para>
+
+    <sect2 id="backup-shellscript" status="review">
+      <title>Simple Shell Script</title>
+      <para>
+      The following shell script uses <application>tar</application> to create an archive file on a remotely mounted NFS file system. 
+      The archive filename is determined using additional command line utilities.
+      </para>
+<programlisting>
+#!/bin/sh
+####################################
+#
+# Backup to NFS mount script.
+#
+####################################
+
+# What to backup. 
+backup_files="/home /var/spool/mail /etc /root /boot /opt"
+
+# Where to backup to.
+dest="/mnt/backup"
+
+# Create archive filename.
+day=$(date +%A)
+hostname=$(hostname -s)
+archive_file="$hostname-$day.tgz"
+
+# Print start status message.
+echo "Backing up $backup_files to $dest/$archive_file"
+date
+echo
+
+# Backup the files using tar.
+tar czf $dest/$archive_file $backup_files
+
+# Print end status message.
+echo
+echo "Backup finished"
+date
+
+# Long listing of files in $dest to check file sizes.
+ls -lh $dest
+</programlisting>
+      <itemizedlist>
+        <listitem>           
+          <para>
+       	  <emphasis>$backup_files:</emphasis> a variable listing which directories you would like to backup.
+          The list should be customized to fit your needs.  
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+     	  <emphasis>$day:</emphasis> a variable holding the day of the week (Monday, Tuesday, Wednesday, etc).  This is used to create 
+          an archive file for each day of the week, giving a backup history of seven days.  There are other ways to accomplish
+          this including other ways using the <application>date</application> utility. 
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+   	  <emphasis>$hostname:</emphasis> variable containing the <emphasis>short</emphasis> hostname of the system.  Using 
+          the hostname in the archive filename gives you the option of placing daily archive files from multiple systems in the 
+          same directory.
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+     	  <emphasis>$archive_file:</emphasis> the full archive filename.
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+   	  <emphasis>$dest:</emphasis> destination of the archive file.  The directory needs to be created and in this case 
+          <emphasis>mounted</emphasis> before executing the backup script.  See <xref linkend="network-file-system"/> for details
+          using <emphasis>NFS</emphasis>.
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+     	  <emphasis>status messages:</emphasis> optional messages printed to the console using the <application>echo</application>
+          utility.
+          </para>
+        </listitem>
+        <listitem>           
+          <para>
+   	  <emphasis>tar czf $dest/$archive_file $backup_files:</emphasis> the <application>tar</application> command used to create the 
+          archive file.  
+          </para>
+  	  <itemizedlist>
+            <listitem>           
+              <para>
+       	      <emphasis>c:</emphasis> creates an archive. 
+              </para>
+            </listitem>
+            <listitem>           
+              <para>
+     	      <emphasis>z:</emphasis> filter the archive through the <application>gzip</application> utility compressing the archive.   
+              </para>
+            </listitem>
+            <listitem>           
+              <para>
+      	      <emphasis>f:</emphasis> use archive file.  Otherwise the <application>tar</application> output will be sent to STDOUT.
+              </para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+        <listitem>           
+          <para>
+     	  <emphasis>ls -lh $dest:</emphasis> optional statement prints a <emphasis>-l</emphasis> long listing in <emphasis>-h</emphasis>
+          human readable format of the destination directory.  This is useful for a quick file size check of the archive file.  
+          This check should not replace testing the archive file.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+      This is a simple example of a backup shell script.  There are large amount of options that can be included in a backup script.
+      See <xref linkend="backup-shellscript-references"/> for links to resources providing more in depth shell scripting information.
+      </para>
+    </sect2>
+
+    <sect2 id="backup-executing-shellscript" status="review">
+      <title>Executing the Script</title>
+      <sect3 id="backup-script-execute-shell" status="review">
+        <title>Executing from a Terminal</title>
+        <para>
+        The simplest way of executing the above backup script is to copy and paste the contents into a file.  <filename>backup.sh</filename> 
+        for example.  Then from a terminal prompt:  
+        </para>
+<screen>
+<command>sudo bash backup.sh</command>
+</screen>
+        <para>
+        This is a great way to test the script to make sure everything works as expected.
+        </para>
+      </sect3>
+      <sect3 id="backup-script-execute-cron" status="review">
+        <title>Executing with cron</title>
+        <para>
+        The <application>cron</application> utility can be used to automate the script execution.  The <application>cron</application> daemon 
+        allows the execution of scripts, or commands, at a specified time and date.
+        </para>
+        <para>
+        <application>cron</application> is configured through entries in a <filename>crontab</filename> file. 
+        <filename>crontab</filename> files are separated into fields:
+        </para>
+<programlisting>
+# m h dom mon dow   command
+</programlisting>
+        <itemizedlist>
+          <listitem>
+            <para>
+            <emphasis>m:</emphasis> minute the command executes on between 0 and 59.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>h:</emphasis> hour the command executes on between 0 and 23.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>dom:</emphasis> day of month the command executes on.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>mon:</emphasis> the month the command executes on between 1 and 12.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>dow:</emphasis> the day of the week the command executes on between 0 and 7. Sunday may be specified by using 0 or 7, both values are valid.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+            <emphasis>command:</emphasis> the command to execute.
+            </para>
+          </listitem>
+        </itemizedlist>
+        <para>
+        To add or change entries in a <filename>crontab</filename> file the <application>crontab -e</application> command should be used.  Also,
+        the contents of a <filename>crontab</filename> file can be viewed using the <application>crontab -l</application> command.
+        </para>
+        <para>
+        To execute the <application>backup.sh</application> script listed above using <application>cron</application>.  Enter the following 
+        from a terminal prompt:
+        </para>
+<screen>
+<command>sudo crontab -e</command>
+</screen>
+        <note>
+	  <para>
+          Using <application>sudo</application> with the <application>crontab -e</application> command edits the <emphasis>root</emphasis> user's crontab.  
+          This is necessary if you are backing up directories only the root user has access to.
+          </para>
+        </note>
+        <para>
+        Add the following entry to the <filename>crontab</filename> file:
+        </para>
+<programlisting>
+# m h dom mon dow   command
+0 0 * * * bash /usr/local/bin/backup.sh
+</programlisting>
+        <para>
+        The <application>backup.sh</application> script will now be executed every day at 12:00 am. 
+        </para>
+        <note>
+          <para>
+          The <application>backup.sh</application> script will need to be copied to the <filename>/usr/local/bin/</filename> directory in order for 
+          this entry to execute properly.  The script can reside anywhere on the file system simply change the script path appropriately.
+          </para>
+        </note>
+        <para>
+        For more in depth <application>crontab</application> options see <xref linkend="backup-shellscript-references"/>.
+        </para>
+      </sect3>
+    </sect2>
+    <sect2 id="backup-shellscript-archive-testing" status="review">
+      <title>Restoring from the Archive</title>
+      <para>
+      Once an archive has been created it is important to test the archive.  The archive can be tested by listing the files
+      it contains, but the best test is to <emphasis>restore</emphasis> a file from the archive.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          To see a listing of the archive contents.  From a terminal prompt:
+          </para>
+<screen>
+<command>tar -tzvf /mnt/backup/host-Monday.tgz</command>
+</screen>
+        </listitem>
+        <listitem>
+          <para>
+          To restore a file from the archive to a different directory enter:
+          </para>
+<screen>
+<command>tar -xzvf /mnt/backup/host-Monday.tgz -C /tmp etc/hosts</command>
+</screen>
+          <para>
+          The <emphasis>-C</emphasis> option to <application>tar</application> redirects the extracted files to the specified directory.  The above 
+          example will extract the <filename>/etc/hosts</filename> file to <filename>/tmp/etc/hosts</filename>.  <application>tar</application>
+          recreates the directory structure that it contains.
+          </para>
+          <para>
+          Also, notice the leading <emphasis>"/"</emphasis> is left off the path of the file to restore.
+          </para>  
+        </listitem>
+        <listitem>
+          <para>
+          To restore all files in the archive enter the following:
+          </para>
+<screen>
+<command>cd /</command>
+<command>sudo tar -xzvf /mnt/backup/host-Monday.tgz</command>
+</screen>
+        </listitem>
+      </itemizedlist>
+      <note>
+        <para>
+        This will overwrite the files currently on the file system.
+        </para>
+      </note>
+    </sect2>
+    <sect2 id="backup-shellscript-references" status="review">
+      <title>References</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+          For more information on shell scripting see the <ulink url="http://tldp.org/LDP/abs/html/">Advanced Bash-Scripting Guide</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The book <ulink url="http://safari.samspublishing.com/0672323583">Teach Yourself Shell Programming in 24 Hours</ulink> is available
+          online and a great resource for shell scripting.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The <ulink url="https://help.ubuntu.com/community/CronHowto">CronHowto Wiki Page</ulink> contains details on advanced 
+          <application>cron</application>
+          options.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          See the <ulink url="http://www.gnu.org/software/tar/manual/index.html">GNU tar Manual</ulink> for more 
+          <application>tar</application> options.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The Wikipedia <ulink url="http://en.wikipedia.org/wiki/Backup_rotation_scheme">Backup Rotation Scheme</ulink> article contains
+          information on other backup rotation schemes.
+          </para>
+        </listitem>
+        <listitem>
+        <para>
+        The shell script uses <application>tar</application> to create the archive, but there many other command line utilities 
+        that can be used.  For example:
+        </para>
+          <itemizedlist>
+            <listitem>
+              <para>
+	      <ulink url="http://www.gnu.org/software/cpio/">cpio</ulink>: used to copy files to and from archives.
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <ulink url="http://www.gnu.org/software/coreutils/">dd</ulink>: part of the <application>coreutils</application> 
+              package.  A low level utility that can copy data from one format to another 
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+              <ulink url="http://www.rsnapshot.org/">rsnapshot</ulink>: a file system snap shot utility used to create 
+              copies of an entire file system. 
+              </para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </itemizedlist>
+    </sect2>
+  </sect1>
+  <sect1 id="backups-shellscripts-rotation" status="review">
+    <title>Archive Rotation</title>
+    <para>
+    The shell script in section <xref linkend="backup-shellscripts"/> only allows for seven different archives.  For
+    a server whose data doesn't change often this may be enough.  If the server has a large amount of data a more 
+    robust rotation scheme should be used.
+    </para>
+    <sect2 id="backups-nfs-rotation" status="review">
+      <title>Rotating NFS Archives</title>
+      <para>
+      In this section the shell script will be slightly modified to implement a grandfather-father-son rotation scheme 
+      (monthly-weekly-daily): 
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          The rotation will do a <emphasis>daily</emphasis> backup Sunday through Friday. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          On Saturday a <emphasis>weekly</emphasis> backup is done giving you four weekly backups a month.  
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The <emphasis>monthly</emphasis> backup is done on the first of the month rotating two monthly backups based 
+          on if the month is odd or even.  
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+      Here is the new script:
+      </para>
+<programlisting>
+#!/bin/bash
+####################################
+#
+# Backup to NFS mount script with
+# grandfather-father-son rotation.
+#
+####################################
+
+# What to backup. 
+backup_files="/home /var/spool/mail /etc /root /boot /opt"
+
+# Where to backup to.
+dest="/mnt/backup"
+
+# Setup variables for the archive filename.
+day=$(date +%A)
+hostname=$(hostname -s)
+
+# Find which week of the month 1-4 it is.
+day_num=$(date +%d)
+if (( $day_num &lt;= 7 )); then
+        week_file="$hostname-week1.tgz"
+elif (( $day_num &gt; 7 &amp;&amp; $day_num &lt;= 14 )); then
+        week_file="$hostname-week2.tgz"
+elif (( $day_num &gt; 14 &amp;&amp; $day_num &lt;= 21 )); then
+        week_file="$hostname-week3.tgz"
+elif (( $day_num &gt; 21 &amp;&amp; $day_num &lt; 32 )); then
+        week_file="$hostname-week4.tgz"
+fi
+
+# Find if the Month is odd or even.
+month_num=$(date +%m)
+month=$(expr $month_num % 2)
+if [ $month -eq 0 ]; then
+        month_file="$hostname-month2.tgz"
+else
+        month_file="$hostname-month1.tgz"
+fi
+
+# Create archive filename.
+if [ $day_num == 1 ]; then
+	archive_file=$month_file
+elif [ $day != "Saturday" ]; then
+        archive_file="$hostname-$day.tgz"
+else 
+	archive_file=$week_file
+fi
+
+# Print start status message.
+echo "Backing up $backup_files to $dest/$archive_file"
+date
+echo
+
+# Backup the files using tar.
+tar czf $dest/$archive_file $backup_files
+
+# Print end status message.
+echo
+echo "Backup finished"
+date
+
+# Long listing of files in $dest to check file sizes.
+ls -lh $dest/
+</programlisting>
+      <para>
+      The script can be executed using the same methods as in <xref linkend="backup-executing-shellscript"/>.
+      </para>
+      <para> 
+      It is good practice to take backup media off site in case of a disaster.  In the shell script example the backup 
+      media is another server providing an NFS share.  In all likelihood taking the NFS server to another location would not
+      be practical.  
+      Depending upon connection speeds it may be an option to copy the archive file over a WAN link to a server in another location.
+      </para>
+      <para> 
+      Another option is to copy the archive file to an external hard drive which can then be taken off site.  
+      Since the price of external hard drives continue to decrease it may be cost affective to use two drives for each archive level.  
+      This would allow you to have one external drive attached to the backup server and one in another location.
+      </para>
+    </sect2>
+    <sect2 id="backup-shellscript-tapedrive" status="review">
+      <title>Tape Drives</title>
+      <para> 
+      A tape drive attached to the server can be used instead of a NFS share.  Using a tape drive simplifies archive rotation, and
+      taking the media off site as well.  
+      </para>
+      <para> 
+      When using a tape drive the filename portions of the script aren't needed because the date is sent directly to the tape device.
+      Some commands to manipulate the tape are needed.  This is accomplished using <application>mt</application>, a magnetic tape
+      control utility part of the <application>cpio</application> package.
+      </para>
+      <para> 
+      Here is the shell script modified to use a tape drive:
+      </para>
+<programlisting>
+#!/bin/bash
+####################################
+#
+# Backup to tape drive script.
+#
+####################################
+
+# What to backup. 
+backup_files="/home /var/spool/mail /etc /root /boot /opt"
+
+# Where to backup to.
+dest="/dev/st0"
+
+# Print start status message.
+echo "Backing up $backup_files to $dest"
+date
+echo
+
+# Make sure the tape is rewound.
+mt -f $dest rewind
+
+# Backup the files using tar.
+tar czf $dest $backup_files
+
+# Rewind and eject the tape.
+mt -f $dest rewoffl
+
+# Print end status message.
+echo
+echo "Backup finished"
+date
+</programlisting>
+      <note>
+        <para>
+        The default device name for a SCSI tape drive is <filename>/dev/st0</filename>.  Use the appropriate device path for your 
+        system.
+        </para>
+      </note>
+      <para>
+      Restoring from a tape drive is basically the same as restoring from a file.  Simply rewind the tape and use the device path 
+      instead of a file path.  For example to restore the <filename>/etc/hosts</filename> file to <filename>/tmp/etc/hosts</filename>:
+      </para>
+<screen>
+<command>mt -f /dev/st0 rewind</command>
+<command>tar -xzf /dev/st0 -C /tmp etc/hosts</command>
+</screen>
+    </sect2>
+  </sect1>
+  <sect1 id="bacula" status="review">
+    <title>Bacula</title>
+    <para>
+    <application>Bacula</application> is a backup program enabling you to backup, restore, and verify data across your network. There are Bacula 
+    clients for Linux, Windows, and Mac OSX. Making it a cross platform network wide solution.
+    </para> 
+    <sect2 id="bacula-overview" status="review">
+      <title>Overview</title>
+      <para>
+      <application>Bacula</application> is made up of several components and services used to manage which files to backup and where to back 
+      them up to:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          <application>Bacula Director:</application> a service that controls all backup, restore, verify, and archive operations.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          <application>Bacula Console:</application> an application allowing communication with the Director. There are three versions of the 
+          Console:
+          </para>
+	  <itemizedlist>
+            <listitem><para>Text based command line version.</para></listitem>
+            <listitem><para>Gnome based GTK+ Graphical User Interface (GUI) interface.</para></listitem>
+            <listitem><para>wxWidgets GUI interface.</para></listitem>
+          </itemizedlist>
+        </listitem>
+        <listitem>
+          <para>
+          <application>Bacula File:</application> also known as the <application>Bacula Client</application> program. 
+          This application is installed on machines to be backed up, and is responsible for the data requested by the Director. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	  <application>Bacula Storage:</application> the programs that perform the storage and recovery of data to the physical media.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	  <application>Bacula Catalog:</application> is responsible for maintaining the file indexes and volume databases for all files backed up,  
+          enabling quick location and restoration of archived files. The Catalog supports three different databases MySQL, PostgreSQL, and SQLite.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	  <application>Bacula Monitor:</application> allows the monitoring of the Director, File daemons, and Storage daemons. 
+          Currently the Monitor is only available as a GTK+ GUI application.
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+      These services and applications can be run on multiple servers and clients, or they can be installed on one machine if backing up a 
+      single disk or volume.
+      </para>
+    </sect2>
+    <sect2 id="bacula-installation" status="review">
+      <title>Installation</title>
+      <para>
+      There are multiple packages containing the different <application>Bacula</application> components. To install Bacula,
+      from a terminal prompt enter:
+      </para>
+<screen>
+<command>sudo apt-get install bacula</command>
+</screen>
+      <para>
+      By default installing the <application>bacula</application> package will use a 
+      <application>MySQL</application> database for the Catalog. If you want to use SQLite or 
+      PostgreSQL, for the Catalog, install <application>bacula-director-sqlite3</application> 
+      or <application>bacula-director-pgsql</application> respectively.
+      </para>
+      <para>
+      During the install process you will be asked to supply credentials for the 
+      database <emphasis>administrator</emphasis> and the <emphasis>bacula</emphasis> 
+      database <emphasis>owner</emphasis>. The database administrator will need to have 
+      the appropriate rights to create a database, see <xref linkend="mysql"/> for more 
+      information.
+      </para>
+    </sect2>
+    <sect2 id="bacula-configuration" status="review">
+      <title>Configuration</title>
+      <para>
+      <application>Bacula</application> configuration files are formatted based on <emphasis>resources</emphasis> comprising of 
+      <emphasis>directives</emphasis> surrounded by <quote>{}</quote> braces.  Each Bacula component has an individual file in the
+      <filename role="directory">/etc/bacula</filename> directory.
+      </para>
+      <para>
+      The various <application>Bacula</application> components must authorize themselves to each other. This is accomplished using the 
+      <emphasis>password</emphasis> directive. For example, the <emphasis>Storage</emphasis> resource password in the 
+      <filename>/etc/bacula/bacula-dir.conf</filename> file must match the <emphasis>Director</emphasis> resource password in 
+      <filename>/etc/bacula/bacula-sd.conf</filename>.
+      </para>
+      <para>
+      By default the backup job named <emphasis>Client1</emphasis> is configured to archive the <application>Bacula</application> Catalog. 
+      If you plan on using the server to backup more than one client you should change the name of this job to something more descriptive. 
+      To change the name edit <filename>/etc/bacula/bacula-dir.conf</filename>:
+      </para>
+<programlisting>
+#
+# Define the main nightly save backup job
+#   By default, this job will back up to disk in 
+Job {
+  Name = "BackupServer"
+  JobDefs = "DefaultJob"
+  Write Bootstrap = "/var/lib/bacula/Client1.bsr"
+}
+</programlisting>
+      <note>
+        <para>
+	The example above changes the job name to <emphasis>BackupServer</emphasis> matching the machine's host name.  Replace 
+        <quote>BackupServer</quote> with your appropriate hostname, or other descriptive name.
+	</para>
+      </note>
+      <para>
+      The <emphasis>Console</emphasis> can be used to query the <emphasis>Director</emphasis> about jobs, but to use the Console with a 
+      <emphasis>non-root</emphasis> user, the user needs to be in the <emphasis>bacula</emphasis> group. To add a user to the bacula group 
+      enter the following from a terminal:
+      </para>
+<screen>
+<command>sudo adduser $username bacula</command>
+</screen>
+      <note>
+        <para>
+        Replace <emphasis>$username</emphasis> with the actual username.  Also, if you are adding the current user to the group you should 
+        log out and back in for the new permissions to take effect.
+        </para>
+      </note>
+    </sect2>
+    <sect2 id="bacula-localhost-backup" status="review">
+      <title>Localhost Backup</title>
+      <para>
+      This section describes how to backup specified directories on a single host to a local tape drive.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+          First, the <emphasis>Storage</emphasis> device needs to be configured. Edit <filename>/etc/bacula/bacula-sd.conf</filename> add:
+          </para>
+<programlisting>
+Device {
+  Name = "Tape Drive"
+  Device Type = tape
+  Media Type = DDS-4
+  Archive Device = /dev/st0
+  Hardware end of medium = No;
+  AutomaticMount = yes;               # when device opened, read it
+  AlwaysOpen = Yes;
+  RemovableMedia = yes;
+  RandomAccess = no;
+  Alert Command = "sh -c 'tapeinfo -f %c | grep TapeAlert'"
+}
+</programlisting>
+          <para>
+          The example is for a <emphasis>DDS-4</emphasis> tape drive.  Adjust the Media Type and Archive Device to match your hardware.
+          </para>
+          <para>
+          You could also uncomment one of the other examples in the file.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          After editing <filename>/etc/bacula/bacula-sd.conf</filename> the <application>Storage</application> daemon will need to be 
+          restarted:
+          </para>
+<screen>
+<command>sudo /etc/init.d/bacula-sd restart</command>
+</screen>
+        </listitem>
+        <listitem>
+          <para>
+          Now add a <emphasis>Storage</emphasis> resource in <filename>/etc/bacula/bacula-dir.conf</filename> to use the new Device:
+          </para>
+<programlisting>
+# Definition of "Tape Drive" storage device
+Storage {
+  Name = TapeDrive
+  # Do not use "localhost" here    
+  Address = backupserver               # N.B. Use a fully qualified name here
+  SDPort = 9103
+  Password = "Cv70F6pf1t6pBopT4vQOnigDrR0v3LT3Cgkiyj"
+  Device = "Tape Drive"
+  Media Type = tape
+}
+</programlisting>
+          <para>
+          The <emphasis>Address</emphasis> directive needs to be the Fully Qualified Domain Name (FQDN) of the server. 
+          Change <emphasis>backupserver</emphasis> to the actual host name.
+          </para>
+          <para>
+          Also, make sure the <emphasis>Password</emphasis> directive matches the password string in 
+          <filename>/etc/bacula/bacula-sd.conf</filename>. 
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Create a new <emphasis>FileSet</emphasis>, which will determine what directories to backup, by adding:
+          </para>
+<programlisting>
+# LocalhostBacup FileSet.
+FileSet {
+  Name = "LocalhostFiles"
+  Include {
+    Options {
+      signature = MD5
+      compression=GZIP
+    }
+    File = /etc
+    File = /home
+  }
+}
+</programlisting>
+          <para>
+          This <emphasis>FileSet</emphasis> will backup the <filename role="directory">/etc</filename> and 
+          <filename role="directory">/home</filename> directories.  The <emphasis>Options</emphasis> resource directives 
+          configure the FileSet to create a MD5 signature for each file backed up, and to compress the files using GZIP.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Next, create a new <emphasis>Schedule</emphasis> for the backup job:
+          </para>
+<programlisting>
+# LocalhostBackup Schedule -- Daily.
+Schedule {
+  Name = "LocalhostDaily"
+  Run = Full daily at 00:01
+}
+</programlisting>
+          <para>
+          The job will run every day at 00:01 or 12:01 am. There are many other scheduling options available.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Finally create the <emphasis>Job</emphasis>:
+          </para>
+<programlisting>
+# Localhost backup.
+Job {
+  Name = "LocalhostBackup"
+  JobDefs = "DefaultJob"
+  Enabled = yes
+  Level = Full
+  FileSet = "LocalhostFiles"
+  Schedule = "LocalhostDaily"
+  Storage = TapeDrive
+  Write Bootstrap = "/var/lib/bacula/LocalhostBackup.bsr"
+}  
+</programlisting>
+          <para>
+          The job will do a <emphasis>Full</emphasis> backup every day to the tape drive.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          Each tape used will need to have a <emphasis>Label</emphasis>. If the current tape does not have a label 
+          <application>Bacula</application> will send an email letting you know. To label a tape using the 
+          <application>Console</application> enter the following from a terminal:
+          </para>
+<screen>
+<command>bconsole</command>
+</screen>
+        </listitem>
+        <listitem>
+          <para>
+          At the Bacula Console prompt enter:
+          </para>
+<screen>
+<command>label</command>
+</screen>
+        </listitem>
+        <listitem>
+          <para>
+          You will then be prompted for the <emphasis>Storage</emphasis> resource:
+          </para>
+<screen>
+<computeroutput>
+Automatically selected Catalog: MyCatalog
+Using Catalog "MyCatalog"
+The defined Storage resources are:
+     1: File
+     2: TapeDrive
+Select Storage resource (1-2):<userinput>2</userinput>
+</computeroutput>
+</screen>
+        </listitem>
+        <listitem>
+          <para>
+          Enter the new <emphasis>Volume</emphasis> name:
+          </para>
+<screen>
+<computeroutput>
+Enter new Volume name: <userinput>Sunday</userinput>
+Defined Pools:
+     1: Default
+     2: Scratch</computeroutput>
+</screen>
+          <para>
+          Replace <emphasis>Sunday</emphasis> with the desired label.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	  Now, select the <emphasis>Pool</emphasis>:
+          </para>
+<screen>
+<computeroutput>
+Select the Pool (1-2): <userinput>1</userinput>
+Connecting to Storage daemon TapeDrive at backupserver:9103 ...
+Sending label command for Volume "Sunday" Slot 0 ...
+</computeroutput>
+</screen>
+        </listitem>
+      </itemizedlist>
+      <para>
+      Congratulations, you have now configured <emphasis>Bacula</emphasis> to backup the localhost to an attached tape drive.
+      </para>
+    </sect2>
+    <sect2 id="bacula-resources" status="review">
+      <title>Resources</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+	  For more <emphasis>Bacula</emphasis> configuration options refer to the 
+          <ulink url="http://www.bacula.org/en/rel-manual/index.html">Bacula User's Manual</ulink>
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+          The <ulink url="http://www.bacula.org/">Bacula Home Page</ulink> contains the latest Bacula news and developments.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </sect2> 
+  </sect1>
+</chapter>

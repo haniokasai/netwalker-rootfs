@@ -1,0 +1,20 @@
+#! /bin/sh
+set -e
+
+if [ "$1" = configure ] && dpkg --compare-versions "$2" lt 0; then
+	cp -a /usr/share/oem-config/desktop/oem-config-prepare-gtk.desktop \
+		/usr/share/applications/
+fi
+
+# Automatically added by dh_pycentral
+rm -f /var/lib/pycentral/oem-config-gtk.pkgremove
+if which pycentral >/dev/null 2>&1; then
+	pycentral pkginstall oem-config-gtk
+	if grep -qs '^oem-config-gtk$' /var/lib/pycentral/delayed-pkgs; then
+		sed -i '/^oem-config-gtk$/d' /var/lib/pycentral/delayed-pkgs
+	fi
+fi
+# End automatically added section
+
+
+exit 0

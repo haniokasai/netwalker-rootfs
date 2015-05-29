@@ -1,0 +1,1 @@
+/usr/share/python-support/gnome-orca/orca/scripts/toolkits/Gecko/structural_navigation.py

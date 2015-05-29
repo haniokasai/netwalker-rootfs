@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY appversion "2.24.x">
+<!ENTITY manrevision "3.1">
+<!ENTITY date "July 2005">
+<!ENTITY app "Passwords and Encryption Keys">
+<!ENTITY daemon "<application>seahorse-daemon</application>">
+<!ENTITY project "Seahorse">
+<!ENTITY key "<glossterm>key</glossterm>">
+<!ENTITY website "http://www.gnome.org/projects/seahorse/">
+]>
+<article id="index" lang="eu">
+	<articleinfo>
+		<title>Pasahitzen eta enkriptatze-gakoen eskuliburua</title>
+		<copyright>
+			<year>2005, 2006, 2007, 2008</year>
+			<holder>Jacob Perkins eta Adam Schreiber</holder>
+		</copyright><copyright><year>2008.</year><holder>Hizkuntza Politikarako Sailburuordetza (hizpol@ej.gv.es)</holder></copyright>
+		<publisher role="maintainer">
+			<publishername>Seahorse proiektua</publishername>
+		</publisher>
+		<!-- link to document containig the legal notice of GNU FDL  -->
+		  <legalnotice id="legalnotice">
+	<para>Baimena ematen da dokumentu hau kopiatu, banatu eta/edo aldatzeko, Free Software Foundation-ek argitaratutako GNU Dokumentazio Librearen Lizentziaren 1.1 bertsioan edo berriago batean ezarritako baldintzetan, atal aldaezinik gabe, aurreko azaleko testurik gabe eta atzeko azaleko testurik gabe. GFDL lizentziaren kopia <ulink type="help" url="ghelp:fdl">esteka honetan</ulink> edo eskuliburu honekin batera ematen den COPYING-DOCS fitxategian aurkituko duzu.</para>
+         <para>Eskuliburu hau GFDL lizentziarekin banatzen diren GNOME eskuliburuen bildumakoa da. Eskuliburu hau bildumatik bereizita banatu nahi baduzu, banatu dezakezu, baina eskuliburuari lizentziaren kopia bat gehitu beharko diozu lizentzian bertan 6. atalean azaltzen den bezala.</para>
+
+	<para>Enpresek beren produktu eta zerbitzuak bereizteko erabiltzen dituzten izen asko marka erregistratu gisa hartu behar dira. Izen horiek GNOMEren edozein agiritan agertzen direnean, eta GNOMEren Dokumentazio Proiektuko kideak marka komertzialak direla konturatzen direnean, izen horiek maiuskulaz idatzita agertuko dira, osorik edo hasierako letra bakarrik.</para>
+
+	<para>DOKUMENTUA ETA DOKUMENTUAREN BERTSIO ALDATUAK GNU DOKUMENTAZIO LIBREAREN LIZENTZIAREN BALDINTZEN ARABERA EMATEN DIRA, ETA ONDOREN ZEHAZTEN DIRENAK ONARTZERA BEHARTZEN DUTE: <orderedlist>
+		<listitem>
+		  <para>DOKUMENTUA "DAGOEN-DAGOENEAN" EMATEN DA, INOLAKO BERMERIK GABE, EZ ESPRESUKI ADIERAZITAKORIK ETA EZ INPLIZITURIK ERE; BESTEAK BESTE EZ DA BERMATZEN DOKUMENTUA EDO BERTSIO ALDATUA AKATSIK GABEA DENIK, MERKATURATZEKO EDO XEDE JAKIN BATERAKO EGOKIA DENIK EDO ARAURIK HAUSTEN EZ DUENIK, HORI GUZTIA MUGARIK GABE. DOKUMENTUAREN EDO DOKUMENTUAREN BERTSIO ALDATUAREN KALITATEARI, ZEHAZTASUNARI ETA PERFORMANTZIARI BURUZKO ERANTZUKIZUN OSOA ZUREA DA. DOKUMENTUREN BATEK EDO BERTSIO ALDATUREN BATEK EDOZEIN MOTATAKO AKATSIK IZANEZ GERO, ZUK (EZ HASIERAKO IDAZLEAK, EZ EGILEAK ETA EZ INONGO KOLABORATZAILEK) ZEURE GAIN HARTU BEHARKO DUZU BERRIKUSTEKO, KONPONTZEKO EDO ZUZENTZEKO BEHAR DIREN ZERBITZU GUZTIEN KOSTUA. BERME-UKATZE HAU LIZENTZIA HONEN FUNTSEZKO ZATIA DA. EZ DA BAIMENIK EMATEN EZEIN DOKUMENTU EDO BERTSIO ALDATU ERABILTZEKO, BALDIN ETA EZ BADA BERME-UKATZE HAU ONARTZEN.</para>
+		</listitem>
+		<listitem>
+		  <para>EZIN IZANGO DA INONGO ZIRKUNSTANTZIARIK EDO LEGE-TEORIARIK OINARRI HARTU --EZ ERANTZUKIZUN ZIBILARI BURUZKORIK (ZABARKERIA BARNE HARTUTA), EZ KONTRATUARI BURUZKORIK, EZ BESTERIK-- DOKUMENTU HONEN EDO BERTSIO ALDATU BATEN EGILEA, HASIERAKO IDAZLEA, EDOZEIN KOLABORATZAILE EDO BANATZAILE, EDO ALDERDI HORIEN EDOZEIN HORNITZAILE BESTE PERTSONA BATEN AURREAN ERANTZULE EGITEKO, PERTSONA HORREK EDOZEIN MOTATAKO KALTEA JASAN DUELAKO (ZUZENEKOA, ZEHARKAKOA, BEREZIA, INTZIDENTALA EDO ONDORIOZKOA), HALA NOLA (ETA MUGARIK GABE) BEZEROAK GALTZEA, LANA ETEN BEHARRA, ORDENAGAILUAK EZ IBILTZEA EDO GAIZKI IBILTZEA, EDO DOKUMENTUA NAHIZ HAREN BERTSIO ALDATUAK ERABILTZETIK ONDORIOZTATZEN DIREN EDO ERABILERA HORREKIN ZERIKUSIA DUTEN KALTEAK EDO GALERAK, ALDERDIARI KALTE HORIEK GERTA ZITEZKEELA ADITZERA EMAN BAZAIO ERE.</para>
+		</listitem>
+	  </orderedlist></para>
+  </legalnotice>
+
+
+		<authorgroup>
+			<author>
+				<firstname>Jacob</firstname>
+				<surname>Perkins</surname>
+				<affiliation>
+					<orgname>Seahorse proiektua</orgname>
+					<!--
+					<address>
+						<email>jap1@users.sourceforge.net</email>
+					</address>
+					-->
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Adam</firstname>
+				<surname>Schreiber</surname>
+				<affiliation>
+					<orgname>Seahorse proiektua</orgname>
+					<address>
+						<email>sadam@clemson.edu</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+		<publisher role="maintainer">
+			<publishername>Seahorse proiektua</publishername>
+		</publisher>
+		<revhistory>
+			<revision>
+				<revnumber>Passwords and Encryption Keys Manual V0.10.1</revnumber>
+				<date>August 2008</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Pasahitzen eta enkriptatze-gakoen eskuliburuaren 0.9.1 bertsioa</revnumber>
+				<date>2006ko azaroa</date>
+				<revdescription>
+					<para role="author">Milo Casagrande <email>milo_casagrande@yahoo.it</email></para>
+				</revdescription>	
+			</revision>
+			<revision>
+				<revnumber>Pasahitzen eta enkriptatze-gakoen eskuliburuaren 0.9.0 bertsioa</revnumber>
+				<date>2005eko uztaila</date>
+				<revdescription>
+					<para role="author">Adam Schreiber <email>sadam@clemson.edu</email></para>
+					<para role="publisher">Seahorse proiektua</para>
+				</revdescription>
+			</revision>
+			<revision>
+				<revnumber>Pasahitzen eta enkriptatze-gakoen eskuliburuaren 0.7.0 bertsioa</revnumber>
+				<date>2003ko otsaila</date>
+				<revdescription>
+					<para role="author">Jacob Perkins</para>
+					<para role="publisher">Seahorse proiektua</para>
+				</revdescription>
+			</revision>
+		</revhistory>
+		<releaseinfo>This manual describes version 2.24.x of Passwords and Encryption Keys</releaseinfo>
+		<legalnotice>
+			<title>Ohar-bidaltzea</title>
+			<para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioari buruzko akatsen berri emateko edo oharrak bidaltzeko, <ulink url="ghelp:gnome-feedback" type="help">GNOMEra oharrak bidaltzeko orria</ulink>n aurkituko dituzu argibideak.</para>
+		</legalnotice>
+
+		<abstract role="description">
+			<para>GNOMEren mahaigaineko enkriptatze-gakoak kudeatzeko aplikazioa da <application>Pasahitzak eta enkriptatze-gakoak</application>.</para>
+		</abstract> 		
+
+	</articleinfo>
+
+	<indexterm zone="index">
+		<primary>Seahorse</primary>
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>seahorse</primary>	
+	</indexterm>
+
+	<indexterm zone="index">
+		<primary>Enkriptatze-gakoak</primary>
+	</indexterm>
+
+  <sect1 id="introduction">
+    <title>Sarrera</title>
+    <para><application>Pasahitzak eta enkriptatze-gakoak</application> erabil dezakezu <acronym>PGP</acronym> eta <acronym>SSH</acronym> gakoak sortzeko eta kudeatzeko.</para>
+    <para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioak <ulink url="http://www.gnupg.org" type="http">Gnu Privacy Guard (GPG)</ulink>eko elementu askorentzako interfazea ematen du eta <ulink url="http://www.gnome.org">GNOME</ulink>ren mahaigaineko atal askorekin integratzen da.</para>
+			<para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioarekin hau egin dezakezu: <itemizedlist>
+				
+				<listitem>
+					<para>PGP eta SSH gakoak sortzea eta kudeatzea,</para>
+				</listitem>
+				<listitem>
+					<para>PGP eta SSH gakoak esportatzea eta inportatzea,</para>
+				</listitem>
+				<listitem>
+					<para>Gakoak besteekin partekatzea,</para>
+				</listitem>
+				<listitem>
+					<para>Zure gakoen eta gako sortaren babeskopia egitea,</para>
+				</listitem>
+				</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="seahorse-getting-started">
+		<title>Erabiltzen hastea</title>
+		<sect2 id="seahorse-start">
+			<title><application>Pasahitzak eta enkriptatze-gakoak</application> abiaraztea</title>
+			<para>Aukera hauek dituzu <application>Pasahitzak eta enkriptatze-gakoak</application> abiarazteko:</para>
+			<variablelist>
+				<varlistentry>
+					<term><guimenu>Aplikazioak</guimenu> menua</term>
+					<listitem>
+						<para>Aukeratu <menuchoice><guimenu>Bestelakoak</guimenu><guimenuitem>Pasahitzak eta enkriptatze-gakoak</guimenuitem></menuchoice>.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Komando-lerroa</term>
+					<listitem>
+						<para>Idatzi <command>seahorse</command>, eta sakatu <keycap>Sartu</keycap>.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="seahorse-when-start">
+			<title><application>Pasahitzak eta enkriptatze-gakoak</application> abiarazten duzunean</title>
+			<para><application>Pasahitzak eta enkriptatze-gakoak</application> abiarazten duzunean, <guilabel>Pasahitzak eta enkriptatze-gakoak</guilabel> leihoa bistaratuko da.</para>
+			
+			<figure id="seahorse-window">
+			<title><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioaren leihoa</title>
+			<screenshot>
+				<mediaobject>
+					<imageobject>
+					<imagedata fileref="figures/seahorse-window.png" format="PNG"/>
+					</imageobject>
+					<textobject>
+						<phrase>Erakutsi <application>Pasahitzak eta enkriptatze-gakoak</application> leihoa.</phrase>
+					</textobject>
+				</mediaobject>
+			</screenshot>
+			</figure>
+			
+			<para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioaren leihoan elementu hauek daude:</para>
+			
+	    <variablelist>
+		<varlistentry><term>Menu-barra</term>
+		    <listitem>
+			<para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioko atazak egiteko behar dituzun komando guztiak daude menu-barrako menuan.</para>
+		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Tresna-barra</term>
+		    <listitem>
+			<para>Erabili tresna-barra gehien erabiltzen diren komandoetara azkar sartzeko.</para>
+		    </listitem>	
+		</varlistentry> 		
+		<varlistentry><term>Gakoen eta pasahitzen fitxak</term>
+  		    <listitem>
+			<para>Gako sortako gakoetarako eta pasahitzetarako sarbidea ematen du.</para>
+  		    </listitem>
+		</varlistentry>
+		<varlistentry><term>Oinarrizko aukerak</term>
+  		    <listitem>
+			<para>Ekintza erabilgarrietarako sarbide azkarra eskaintzen die erabiltzaile hasiberriei. Aukera honetan, hauek egin ditzakezu:</para>
+			<itemizedlist>
+			    <listitem>
+				<para>Laguntza-sisteman nabigatu,</para>
+			    </listitem>
+			    <listitem>
+				<para>Gakoak gako sortara inportatu,</para>
+			    </listitem>
+			    <listitem>
+				<para>Gako berriak sortu.</para>
+			    </listitem>
+			</itemizedlist>
+		    </listitem>
+		</varlistentry>
+	    </variablelist>
+	</sect2>
+    </sect1>
+
+  <sect1 id="pgp-generate">
+    <title>OpenPGP gakoak sortzea</title>
+    <para>Posta elektronikoa enkriptatzeko jabedun gabeko protokoloa da OpenPGP. <acronym>PGP</acronym>n oinarritutako gako publikoaren kriptografia erabiltzen du. Enkriptatutako mezuen, sinaduren, gako pribatuen eta ziurtagirien formatu estandarrak zehazten ditu, gako publikoak trukatzeko.</para>
+    <para>Gako publikoaren kriptografiak bi gakoren erabilera nahasten du: <emphasis>gako publiko</emphasis> bat (jakinarazi nahi diozun edozeini eman diezaiokezu), eta <emphasis>gako pribatu</emphasis> bat (pribatua da eta ezkutuan gorde behar da).</para>
+    <para>OpenPGP gakoak sortzeko: <orderedlist>
+	<listitem>
+	  <para>Aukeratu <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Sortu gako berria</guimenuitem></menuchoice>.</para>
+	</listitem>
+	<listitem>
+	  <para>Hautatu <guilabel>PGP Gakoa</guilabel> eta egin klik <guibutton>Jarraitu</guibutton> botoian.</para>
+	</listitem>
+	<listitem>
+	  <para>Sar ezazu izen osoa (izena – abizena), helbide elektronikoa eta informazio osagarria. Gakorako aukera aurreratuak ere zehaztu ditzakezu: ikus behean.</para>
+	</listitem>
+	<listitem>
+	  <para>Egin klik <guibutton>Sortu</guibutton> botoian gako pare berri bat sortzeko.</para>
+	</listitem>
+	<listitem>
+	  <para><guilabel>PGP gako berriaren pasaesaldia</guilabel> elkarrizketa-koadroa irekiko da. Idatzi bi bider gako berriaren pasaesaldia.</para>
+	</listitem>
+      </orderedlist></para>
+    <tip>
+      <para>Pasaesaldia aukeratzeko, erabili pasahitz sendo bat aukeratzeko erabiliko zenukeen prozedura bera. Pasahitz baten eta pasaesaldi baten arteko ezberdintasun nagusia da pasaesaldian zuriuneak onartzen direla.</para>				
+    </tip>
+    
+    <sect2 id="seahorse-pgp-advanced-mode">
+      <title>Aukera aurreratuak</title>
+      <para>Zabaldu <guibutton>Gako-aukera aurreratuak</guibutton> atala, gako berri baterako aukera hauek zehazteko:</para>
+      <variablelist>
+	<varlistentry>
+	  <term><guilabel>Enkriptatze mota</guilabel></term>
+	  <listitem>
+	    <para>Alor honek gako berria sortzeko erabiltzen diren enkriptatze-algoritmoak zehazten ditu.</para>
+	    <variablelist>
+	      <varlistentry>
+		<term><acronym>DSA</acronym> ElGamal</term>
+		<listitem>
+		  <para>Hori da aholkatzen dugun aukera, behar duzuna enkriptatzeko, desenkriptatzeko, sinatzeko eta egiaztatzeko aukera emango baitizu.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>DSA</acronym></term>
+		<listitem>
+		  <para>Sinatzeko aukera soilik emango dizu.</para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term><acronym>RSA</acronym></term>
+		<listitem>
+		  <para>Sinatzeko aukera soilik emango dizu.</para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Gakoaren indarra (bitetan)</guilabel></term>
+	  <listitem>
+	    <para>Gakoaren luzera da bitetan. Gakoa zenbat eta handiagoa, orduan eta seguruagoa izango da, baldin eta pasaesaldi sendo bat erabiltzen baduzu. Bestalde, gako handi batekin gako txikiago batekin baino denbora gehiago beharko da eragiketa bat egiteko. 1.024 eta 4.096 bit arteko balioak onartzen dira. Gutxienez, 2.048 bit izatea gomendatzen da.</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><guilabel>Iraungitze-data</guilabel></term>
+	  <listitem>
+	    <para>Data honetatik aurrera gakoa ez da erabilgarri izango enkriptazioak egiteko edo operazioak sinatzeko. 6 hilabete zentzuzko epea da horretarako. Iraungitze-data aldatu edo gako berri bat sortu beharko duzu epe hori igaro denean. <note>
+		<para>Sinatu gako berria gako zaharrarekin (iraungi baino lehenago) fidagarritasun-maila mantentzeko.</para>
+	      </note></para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </sect2>
+  </sect1>
+	
+	
+	<sect1 id="ssh-generate">
+	<title>Shell seguruaren gakoak sortzea</title>
+	<para>Shell segurua (<acronym>SSH</acronym>) urrutiko ordenagailu batera konektatu eta komandoak exekutatzeko modua da. SSH gakoak gakoetan oinarrituriko autentifikazio-sistemetan erabiltzen dira, lehenespenezko pasahitzaren autentifikazio-sistemaren ordezko moduan. Gakoetan oinarritutako autentifikazioan ez da pasahitzik idatzi behar identifikatzeko.</para>
+	<para>Shell seguruaren gakoak bi gakoz osatuta daude: <emphasis>gako pribatu</emphasis> bat, isilpean gorde behar dena, eta <emphasis>gako publiko</emphasis> bat, sartu behar duzun edozein ordenagailutan kargatu dezakezuna.</para>
+    <para>Shell seguruaren gako bat sortzea:</para>
+    <orderedlist>
+      <listitem>
+        <para>Aukeratu <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Sortu gako berria</guimenuitem></menuchoice>.</para>
+      </listitem>
+      <listitem>
+        <para>Hautatu <guilabel>Shell seguruaren gakoa</guilabel> eta egin klik <guibutton>Jarraitu</guibutton> botoian.</para>
+      </listitem>
+      <listitem>
+        <para>Gakoa zertarako erabili behar den deskriba ezazu. Zure helbide elektronikoa edo beste edozein oroigarri erabil dezakezu. Gakorako aukera aurreratuak ere zehaztu ditzakezu: ikus behean.</para>
+      </listitem>
+      <listitem>
+        <para>Egin klik <guibutton>Gakoa sortu soilik</guibutton> botoian gako berria sortzeko, edo <guibutton>Sortu eta konfiguratu</guibutton> botoian gakoa sortu eta beste ordenagailu batek autentifikazioa erabil dezan konfiguratzeko.</para>
+      </listitem>
+      <listitem>
+        <para><guilabel>Shell seguruaren gako berriaren pasaesaldia</guilabel> elkarrizketa-koadroa irekiko da. Idatzi gako berriaren pasaesaldia bi bider.</para>
+			<tip>
+				<para>Pasaesaldia aukeratzeko, erabili pasahitz sendo bat aukeratzeko erabiliko zenukeen prozedura bera. Pasahitz baten eta pasaesaldi baten arteko ezberdintasun nagusia da pasaesaldian zuriuneak onartzen direla.</para>				
+			</tip>
+      </listitem>
+    </orderedlist>
+    
+
+		
+		<sect2 id="seahorse-ssh-advanced-options">
+		<title>Aukera aurreratuak</title>
+			<para>Zabaldu <guibutton>Gako-aukera aurreratuak</guibutton> atala gako berri baten aukerak zehazteko:</para>
+		
+			<variablelist>
+			<varlistentry>
+				<term><guilabel>Enkriptatze mota</guilabel></term>
+				<listitem>
+				<para>Alor honek gako berria sortzeko erabiltzen diren enkriptatze-algoritmoak zehazten ditu.</para>
+				<variablelist>
+					<varlistentry>
+						<term><acronym>RSA</acronym></term>
+						<listitem>
+							<para>Erabili <emphasis>Rivest-ShamirAdleman</emphasis> algoritmoa (<acronym>RSA</acronym>) SSH gakoa sortzeko. Hau da hobesten den eta seguruena den aukera.</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><acronym>DSA</acronym></term>
+						<listitem>
+							<para>Erabili <emphasis>Sinadura digitalaren algoritmoa</emphasis> (<acronym>DSA</acronym>) SSH gakoa sortzeko.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Gakoaren indarra (bitetan)</guilabel></term>
+				<listitem>
+				<para>Gakoaren luzera da bitetan. Gakoa zenbat eta handiagoa, orduan eta seguruagoa izango da, baldin eta pasaesaldi sendo bat erabiltzen baduzu. Bestalde, gako handi batekin gako txikiago batekin baino denbora gehiago beharko da eragiketa bat egiteko. 1.024 eta 4.096 bit arteko balioak onartzen dira. Gutxienez, 2.048 bit izatea gomendatzen da.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+	</sect1>
+	
+	
+
+	<sect1 id="seahorse-key-properties">
+		<title>OpenPGP Gakoaren propietateak</title>
+		<para>Atal honetako deskribapenak OpenPGP gako guztietan aplikatuko dira.</para>
+		
+		<para><acronym>PGP</acronym> gako baten propietateak ikusteko: <itemizedlist>
+			<listitem>
+				<para>Hautatu <acronym>PGP</acronym> gakoa leiho nagusian.</para>
+			</listitem>
+			<listitem>
+				<para>Egin klik bi aldiz edo aukeratu <guilabel>Propietateak</guilabel> tresna-barran.</para> 
+			</listitem>
+			<listitem>
+				<para>Hautatu <guilabel>Xehetasunak</guilabel> fitxa.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="pgp-public-key-properties">
+		<title id="pgp-private-key-properties">Propietateak</title>
+		<para>
+		<variablelist>
+			<varlistentry>
+				<term><guilabel>Hatz-marka</guilabel></term>
+				<listitem>
+					<para>Gakoa identifikatzen duen ezaugarri-kate bat da hatz-marka.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Gakoaren identifikazioa</guilabel></term>
+				<listitem>
+					<para>Gakoaren identifikazioa hatz-markaren antzekoa da. Hala ere, Gakoaren identifikazioak hatz-markaren azken 8 karaktereak soilik ditu. Gehienetan gako bat Gakoaren identifikazioarekin soilik identifikatzeko aukera dago, baina batzuetan bi gakok identifikazio bera izan dezakete.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Mota</guilabel></term>
+				<listitem>
+					<para>Gako bat sortzeko erabilitako enkriptatze-algoritmoa zehazten du. DSA gakoak sinatzeko soilik erabil daitezke. ElGamal gakoak enkriptatzeko erabiltzen dira.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Sortuta</guilabel></term>
+				<listitem>
+					<para>Gakoa sortu zen data adierazten du.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Iraungitze-data</guilabel></term>
+				<listitem>
+				<para>Adierazten du zein datatik aurrera ezingo den gakoa gehiago erabili.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><guilabel>Indarra</guilabel></term>
+				<listitem>
+					<para>Gakoaren luzera adierazten du bitetan. Orokorrean gakoa zenbat eta luzeagoa izan, orduan eta segurtasun gehiago emango dizu. <note>
+							<para>Gako luze bat ez da nahikoa pasaesaldi ahul baten erabilera ordezteko.</para>
+						</note></para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="change-owner-trust">
+		<title>Fidagarritasuna</title>
+		<para>Fidagarritasunak adierazten du zenbateraino zauden ziur pertsona batek gaitasuna duela sare fidagarria zuzen zabaltzeko. Zuk sinatu ez duzun gako baten aurrean aurkitzen zarenean, bildu dituen sinaduretan eta sinatu duten pertsonengan duzun fidagarritasunean oinarrituko da pertsona horren gakoaren balioa. Lehenespenez, gako ezezagun batek garrantzi gutxiko hiru sinadura edo fidagarritasun osoko sinadura bat beharko du.</para>
+		<itemizedlist>
+			<listitem><para><guilabel>Ezezaguna</guilabel>: ez dakizu pertsona hori gai den gakoak zuzen sinatzeko.</para></listitem>
+			<listitem><para><guilabel>Inoiz ere ez</guilabel>: pertsona horrek ezin ditu gakoak zuzen sinatu.</para></listitem>
+			<listitem><para><guilabel>Marjinala</guilabel>: pertsona horrek argazki-identifikazioa egiaztatzen du gako bat sinatu aurretik, baina ez ditu ezinbestean identifikazioak aztertzen.</para></listitem>
+			<listitem><para><guilabel>Osoa</guilabel>: pertsona horrek pertsona guztien identifikazio-argazkiak aztertzen ditu sinatu aurretik (hau da, benetan pertsona bati dagozkion gakoak soilik sinatzen ditu, eta, horretarako, pertsona horren sinadura eskatzen du)</para></listitem>
+			<listitem><para><guilabel>Azkena</guilabel>: fidagarritasun-maila hau zure gakoetan soilik ezarri beharko litzateke.</para></listitem>
+		</itemizedlist>
+	</sect2>
+
+	<sect2 id="disable-key">
+		<title>Gakoak aktibatzea eta desaktibatzea</title>
+		<para>Gako bat aktibatuta baldin badago, enkriptatzeko erabil daiteke. Gako bat desaktibatuta baldin badago, ezin da ez enkriptatzeko ez eta sinadurak egiaztatzeko erabili.</para>
+	</sect2>
+
+	<sect2 id="change-expires">
+		<title>Iraungitze-data</title>
+		<para>Gako bat iraungita baldin badago, ezingo da gehiago erabili. Gako baten iraungitze-data luzatzean, berriro ere aktibatzen da. Onena litzake inoiz iraungitzen ez den gako maisu bat izatea eta gako horrekin sinatutako zenbait azpigako izatea.</para>
+	</sect2>
+
+	<sect2 id="userid-properties">
+		<title>Erabiltzaileen identifikazioa</title>
+		<para>Erabiltzaileen identifikazioak gako berarekin hainbat identitate eta helbide elektroniko erabiltzeko aukera ematen du.</para>
+		<para>Forma hemendik hartzen dute normalean: <programlisting>Izena (iruzkina) &lt;helbide elektronikoa&gt;</programlisting></para>
+			
+		<sect3 id="add-uid">
+			<title>Erabiltzaile-identifikazioa gehitzea</title>
+				<para>Erabiltzaile-identifikazio bat gehitzea erabilgarria da lanerako identitate bat eta lagunentzako beste bat eduki nahi duzunean.</para>
+				<para>Gako batean erabiltzaile-identifikazio bat gehitzea: <itemizedlist>
+						<listitem>
+							<para>Hautatu gakoa leiho nagusitik.</para>
+						</listitem>
+						<listitem>
+							<para>Egin klik bikoitza edo aukeratu tresna-barrako <guilabel>Propietateak</guilabel>,</para>
+						</listitem>
+						<listitem>
+							<para>Hautatu <guilabel>Izenak eta sinadurak</guilabel> fitxa.</para>
+						</listitem>
+						<listitem>
+							<para>Egin klik <guibutton>Gehitu izena</guibutton>.botoian.</para>
+						</listitem>
+					</itemizedlist></para>
+				<para>Gaineko argibideei jarraitu ondoren, elkarrizketa-koadro bat agertzen da. Bete behar dituzun eremuak hemen zehaztuta dauzkazu:</para>
+				<variablelist>
+					<varlistentry>
+						<term><guilabel>Izen-abizenak</guilabel></term>
+						<listitem>
+							<para>Idatzi izen-abizenak <programlisting>&lt;izena&gt; &lt;abizena&gt;</programlisting>-en. Bigarren abizena edo inizialak ez dira beharrezkoak.</para>
+							<para>
+								<note>
+									<para>Gutxienez bost karaktere idatzi behar dituzu eremu honetan.</para>
+								</note> 
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Helbide elektronikoa</guilabel></term>
+						<listitem>
+							<para>Zure helbide elektronikoaren bidez kokatuko du jendeak zure gakoa gako-zerbitzari batean edo beste gako-hornitzaile batean. Ziurtatu zuzen dagoela jarraitu aurretik.</para>
+							<para>
+								<note>
+									<para><programlisting><replaceable>&lt;erabiltzaile-izena&gt;</replaceable>&gt;@<replaceable>&lt;domeinu-izena&gt;</replaceable></programlisting>en formakoa izan beharko luke.</para>
+								</note>
+							</para>
+						</listitem>
+					</varlistentry>
+					<varlistentry>
+						<term><guilabel>Gakoaren iruzkina</guilabel></term>
+						<listitem>
+							<para>Zure identifikazio berriaren izenari informazio gehigarria eransteko, iruzkinaren eremua erabil daiteke. Informazio hori gako-zerbitzarietan bila daiteke.</para>
+						</listitem>
+					</varlistentry>
+				</variablelist>
+			</sect3>
+		</sect2>
+
+    <sect2 id="photoid-properties">
+      <title>Identifikazio-argazkiak</title>
+      <para>Gakoaren jabearen argazki bat edo gehiago txertatzeko aukera ematen du identifikazio-argazkiak Identitate hauek erabiltzaile-identifikazio normalen moduan sina daitezke. Identifikazio-argazkiek JPEG formatuan egon behar dute, eta 240x288 pixel baino gehiagokoak ez izatea gomendatzen da.</para>
+      <para>Aukeratutako irudia ez badago eskatzen den formatuan edo ez badu gomendatzen den tamaina, <application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioak tamainaz alda dezake eta berehala alda dezake <acronym>GDK</acronym> liburutegiak onartzen duen edozein formatutara.</para>
+    </sect2>
+		
+		<sect2 id="change-passphrase">
+			<title>Pasaesaldia aldatzea</title>
+			<para>Gako baten pasaesaldia aldatzeko: <itemizedlist>
+					<listitem>
+						<para>Hautatu gakoa leiho nagusitik.</para>
+					</listitem>
+					<listitem>
+						<para>Egin klik bi aldiz edo aukeratu <guilabel>Propietateak</guilabel> tresna-barran.</para>
+					</listitem>
+					<listitem>
+						<para>Egin klik <guibutton>Aldatu</guibutton> botoian.</para>
+					</listitem>
+				</itemizedlist></para>
+			<para>Idatzi pasaesaldi berria eta sakatu <guibutton>Ados</guibutton>.</para>
+		</sect2>
+
+		<sect2 id="delete">
+			<title>Gako bat ezabatzea</title>
+			<para>Zure gako sortatik gako bat ezabatzeko: <itemizedlist>
+				<listitem>
+					<para>Hautatu gakoa leiho nagusitik.</para>
+				</listitem>
+				<listitem>
+					<para>Egin klik eskuineko botoiaz gainean eta aukeratu <guilabel>Ezabatu gakoa</guilabel> edo aukeratu <menuchoice><guimenu>Editatu</guimenu><guimenuitem>Ezabatu gakoa</guimenuitem></menuchoice>.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Gakoak, gako fidagarriak eta bildutako gakoak ezaba ditzakezu.</para>		
+			</note> 
+		</sect2>
+	</sect1>
+		
+	<sect1 id="subkey-properties">
+		<title>OpenPGP Azpigakoen propietateak</title>
+		<para>OpenPGP gako bakoitzak gako maisu bat erabiltzen du sinatzeko. Azpigakoak enkriptatzeko eta sinatzeko erabiltzen dira. Hala, zure azpigakoa itunduta baldin badago, ez duzu gako maisua errebokatu beharrik.</para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Identifikazioa</guilabel></term>
+			<listitem>
+				<para>Hau da azpigakoaren identifikatzailea.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Mota</guilabel></term>
+			<listitem>
+				<para>Azpigako bat sortzeko erabilitako enkriptatze-algoritmoa zehazten du. <acronym>DSA</acronym> gakoek sinatu soilik egin dezakete, ElGamal gakoak enkriptatzeko erabiltzen dira eta <acronym>RSA</acronym> gakoak sinatzeko edo enkriptatzeko erabiltzen dira.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Sortuta</guilabel></term>
+			<listitem>
+				<para>Gakoa sortu zen data adierazten du.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Iraungitze-data</guilabel></term>
+			<listitem>
+				<para>Adierazten du zein datatik aurrera ezingo den gakoa gehiago erabili.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Egoera</guilabel></term>
+			<listitem>
+				<para>Mezuaren egoera adierazten du.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Indarra</guilabel></term>
+			<listitem>
+				<para>Gakoaren luzera adierazten du bitetan. Orokorrean gakoa zenbat eta luzeagoa izan, orduan eta segurtasun gehiago emango dizu. <note>
+						<para>Gako luze bat ez da nahikoa pasaesaldi ahul baten erabilera ordezteko.</para>
+					</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		
+		<sect2 id="add-subkey">
+			<title>Azpigako bat gehitzea</title>
+			<para>Gako batean azpigako bat gehitzeko, egin klik <guilabel>Azpigakoak</guilabel> menuko <guibutton>Gehitu</guibutton> botoian </para>
+			<para>Gaineko argibideei jarraitu ondoren, elkarrizketa-koadro bat agertzen da. Bete behar dituzun eremuak hemen zehaztuta dauzkazu:</para>
+			<variablelist>
+			<varlistentry>
+				<term>Gako mota</term>
+				<listitem>
+					<para>Azpigako bat sortzeko erabilitako enkriptatze-algoritmoa zehazten du.</para>
+				<variablelist>
+				<varlistentry>
+					<term><acronym>DSA</acronym></term>
+					<listitem>
+						<para>Erabili <emphasis>Sinadura digitalaren algoritmoa</emphasis> (<acronym>DSA</acronym>) azpigakoa sortzeko. Azpigakoak sinatu soilik egin dezake.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>ElGamal</term>
+					<listitem>
+						<para>Erabili <emphasis>ElGamal</emphasis> algoritmoa azpigako bat sortzeko. Azpigakoak enkriptatu soilik egin dezake.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>RSA</term>
+					<listitem>
+						<para>Erabili <emphasis>Rivest-Shamir Adleman</emphasis> algoritmoa (<acronym>RSA</acronym>) azpigakoa sortzeko. Azpigako hori sinatzeko edo enkriptatzeko erabil daiteke, baina bi azpigako sortu beharko dituzu.</para>
+					</listitem>
+				</varlistentry>
+				</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Gakoaren luzera</term>
+				<listitem>
+					<para>Azpigakoaren luzera adierazten du bitetan. Orokorrean gakoa zenbat eta luzeagoa izan, orduan eta segurtasun gehiago emango dizu.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Iraungitze-data</term>
+				<listitem>
+					<para>Adierazten du zer datatik aurrera ezin izango den azpigakoa gehiago erabili.</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</sect2>
+
+		<sect2 id="change-subkey-expires">
+			<title>Azpigakoaren iraungitze-data aldatzea</title>
+			<para>Azpigako baten iraungitze-data aldatzeko, hautatu azpigakoa <guilabel>Azpigakoak</guilabel> sailean, eta: <itemizedlist>
+				<listitem>
+					<para>Egin klik ezkerreko <guibutton>Iraungi</guibutton> botoian.</para>
+				</listitem>
+				<listitem>
+					<para>Dataren elkarrizketa-koadroan aukeratu iraungitze-data berria edo hautatu <guilabel>Ez da iraungitzen</guilabel> iraungitze-datarik izan ez dezan.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+
+		<sect2 id="revoke-subkey">
+			<title>Azpigako bat errebokatzea</title>
+			<para>Azpigako bat errebokatzeko, hautatu azpigakoa <guilabel>Azpigakoak</guilabel> sailean, eta: <itemizedlist>
+				<listitem>
+					<para>Egin klik ezkerreko <guibutton>Errebokatu</guibutton> botoian.</para>
+				</listitem>
+				<listitem>
+					<para>Aukeratu azpigakoa errebokatzeko arrazoia:</para>
+					<para>
+					<variablelist>
+						<varlistentry>
+							<term>Ez dago arrazoirik</term>
+							<listitem>
+								<para>Ez dago arrazoi zehatzik gakoa errebokatzeko.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Itunduta</term>
+							<listitem>
+								<para>Gakoa itundu egin da.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Ordeztuta</term>
+							<listitem>
+								<para>Beste gako batek zure gakoa ordeztu du.</para>
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>Erabili gabe</term>
+							<listitem>
+								<para>Gakoa ez da gehiago erabiliko.</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+					</para>
+				</listitem>
+				<listitem>
+					<para>Idatz ezazu zergatik ari zaren gakoa errebokatzen,</para>
+				</listitem>
+				<listitem>
+					<para>Egin klik <guibutton>Errebokatu</guibutton> botoian.</para>
+				</listitem>
+				</itemizedlist></para>
+			<note>
+				<para>Azpigakoa mementoan errebokatuko da.</para>
+			</note>
+		</sect2>
+
+		<sect2 id="delete-subkey">
+			<title>Azpigako bat ezabatzea</title>
+			<para>Azpigako bat ezabatzeko, hautatu azpigakoa <guilabel>Azpigakoak</guilabel> sailean, eta: <itemizedlist>
+				<listitem>
+					<para>Egin klik ezkerreko <guibutton>Ezabatu</guibutton> botoian.</para>
+				</listitem>
+				</itemizedlist></para>
+		</sect2>
+	</sect1>
+
+	<sect1 id="ssh-key-properties">
+	    <title>Shell seguruaren gakoen propietateak</title>
+	    <para>Atal honetako deskribapenak <acronym>SSH</acronym> gako guztietan aplikatuko dira.</para>
+	    <para><acronym>SSH</acronym> gako baten propietateak ikusteko: <itemizedlist>
+			<listitem>
+				<para>Hautatu Shell seguruaren gakoa leiho nagusian,</para>
+			</listitem>
+			<listitem>
+				<para>Egin klik bi aldiz edo aukeratu <guilabel>Propietateak</guilabel> tresna-barran.</para> 
+			</listitem>
+			<listitem>
+				<para>Hautatu <guilabel>Xehetasunak</guilabel> fitxa.</para>
+			</listitem>
+		</itemizedlist></para>
+
+	<sect2 id="properties">
+		<title>Propietateak</title>
+		<para>
+		<variablelist>
+		<varlistentry>
+			<term><guilabel>Hatz-marka</guilabel></term>
+			<listitem>
+				<para>Gakoa identifikatzen duen ezaugarri-kate bat da hatz-marka.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Algoritmoa</guilabel></term>
+			<listitem>
+				<para>Gako bat sortzeko erabilitako enkriptatze-algoritmoa zehazten du.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Kokalekua</guilabel></term>
+			<listitem>
+				<para>Kokaleku honetan gorde dira <emphasis>gako pribatuak</emphasis>.</para>
+		</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><guilabel>Indarra</guilabel></term>
+			<listitem>
+				<para>Gakoaren luzera adierazten du bitetan. Orokorrean gakoa zenbat eta luzeagoa izan, orduan eta segurtasun gehiago emango dizu. <note>
+					<para>Gako luze bat ez da nahikoa pasaesaldi ahul baten erabilera ordezteko.</para>
+				</note></para>
+			</listitem>
+		</varlistentry>
+		</variablelist>
+		</para>
+	</sect2>
+
+	<sect2 id="delete-ssh-key">
+		<title>Shell seguruaren gako bat ezabatzea</title>
+		<para>Shell seguruaren gako bat ezabatzeko: <itemizedlist>
+				<listitem>
+				<para>Hautatu <acronym>SSH</acronym> gakoa leiho nagusian,</para>
+			</listitem>
+			<listitem>
+				<para>Egin klik eskuineko botoiaz gainean eta hautatu <guilabel>Ezabatu gakoa</guilabel> edo hautatu <menuchoice><guimenu>Editatu</guimenu><guimenuitem>Ezabatu gakoa</guimenuitem></menuchoice>.</para>
+			</listitem>
+			</itemizedlist></para>
+	</sect2>
+	</sect1>
+
+        <sect1 id="import">
+		<title>Gakoak inportatzea</title>
+		<para>Gakoak inportatzeko, aukeratu <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Inportatu</guimenuitem></menuchoice> eta, fitxategi-aukeratzailean, hautatu ASCII armadura duen gako publiko bat gutxienez.</para>
+		<para>Gakoak inportatzeko <application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioaren barruan kopia itzazu. <itemizedlist>
+		<listitem>
+			<para>Hautatu ASCII armadura duen testu-bloke publiko bat,</para>
+		</listitem>
+		<listitem>
+			<para>Kopiatu arbelean,</para>
+		</listitem>
+		<listitem>
+			<para>Aukeratu <menuchoice><guimenu>Editatu</guimenu><guimenuitem>Kopiatu gakoak</guimenuitem></menuchoice>.</para>
+		</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="export">
+		<title>Gakoak esportatzea</title>
+		<para>Gakoak esportatzeko, hautatu gakoak leiho nagusitik eta aukeratu <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Esportatu</guimenuitem></menuchoice>.</para>
+		<para>Gakoak arbelera ere esporta ditzakezu ASCII armadura duen testu-bloke batean: <itemizedlist>
+			<listitem>
+				<para>Hautatu gakoak leiho nagusian,</para>
+			</listitem>
+			<listitem>
+				<para>Aukeratu <menuchoice><guimenu>Editatu</guimenu><guimenuitem>Kopiatu gakoak</guimenuitem></menuchoice>.</para>
+			</listitem>
+		</itemizedlist></para>
+	</sect1>
+
+	<sect1 id="backup">
+		<title>Gako sorten babeskopiak egitea</title>
+		<para>Zure gako sorta publikoen eta pribatuen babeskopiak gordetako fitxategi batean egiteko: <itemizedlist>
+			<listitem>
+				<para>Aukeratu <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Egin gako sortaren babeskopia</guimenuitem></menuchoice>.</para>
+			</listitem>
+			<listitem>
+				<para>Sartu fitxategi-izena luzapen egokiarekin eta zehaztu fitxategia gorde nahi duzun kokalekua.</para>
+			</listitem>
+		</itemizedlist><note>
+				<para><application>file-roller</application> aplikazioak onartzen dituen fitxategi moten artean edozein aukeratu dezakezu.</para>
+			</note></para>
+	</sect1>
+
+	<sect1 id="sign">
+		<title>Gako bat sinatzea</title>
+		<para>Beste norbaiten gakoa sinatzeak esan nahi du pertsona horri fidagarritasuna ematen diozula. Gako bat sinatu baino lehenago, egiaztatu gakoaren hatz-markak seguruak direla eta gakoa benetan pertsona horrena dela.</para>
+		<para>Zure gako sortako gako bat sinatzeko: <itemizedlist>
+				<listitem>
+				<para>Hautatu sinatu nahi duzun gakoa <guilabel>Gako fidagarriak</guilabel> edo <guilabel>Bildutako beste gakoak</guilabel> fitxetan.</para>
+				</listitem>
+				<listitem>
+				<para>Aukeratu <guibutton>Sinatu</guibutton> tresna-barran edo <menuchoice><guimenu>Gakoa</guimenu><guimenuitem>Sinatu</guimenuitem></menuchoice>.</para>
+				</listitem>
+				<listitem>
+				<para>Hautatu gakoa frogatzeko erabili den arreta-maila.</para>
+				</listitem>
+				<listitem>
+				<para>Adierazi ea sinadurak eta gako sortak kokaleku berekoak izan behar duten eta ea sinadura erreboka daitekeen.</para>
+				</listitem>
+				<listitem>
+				<para>Egin klik <guibutton>Sinatu</guibutton> botoian.</para>
+				</listitem>
+			</itemizedlist></para>
+	</sect1>
+  
+  <sect1 id="prefs">
+    <title>Hobespenak</title>
+    <para>
+      This section describes the preferences settable in <application>Passwords and Encryption Keys</application> by choosing 
+	<menuchoice>
+	  <guimenu>Edit</guimenu>
+	  <guimenuitem>Preferences</guimenuitem>
+	</menuchoice> from within <application>Passwords and Encryption Keys</application>.
+      </para>
+
+        <sect2 id="keyring">
+        	<title>Password Keyrings</title>
+        	<sect3>
+        	    <title>Creating Keyrings</title>
+            	<para>
+            	    You can create a new keyring by pressing <guibutton>Add Keyring</guibutton>. 
+            	    Enter a name for the new keyring and press <guibutton>Add</guibutton>.
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Changing Keyring Passwords</title>
+            	<para>
+            	  To change the unlock password of the keyring, first select the appropriate keyring and then 
+            	  press <guibutton>Change Unlock Password</guibutton> button. You will then be prompted to
+            	  type the old password in the <guilabel>Old password</guilabel> text box, the new password in the
+            	  <guilabel>New password</guilabel> text box and
+            	  confirm it in the <guilabel>Confirm password</guilabel> text box. 
+            	  To apply the settings, press <guibutton>Change</guibutton>.
+            	  If the old password is correct, you will get a status
+            	  message indicating the success of the operation. If the
+            	  old password is not correct you will be asked to check
+            	  its correctness. 
+            	</para>
+        	</sect3>
+        	<sect3>
+        	    <title>Removing Keyrings</title>
+        	    <para>
+        	        To remove a keyring, , first select the appropriate keyring and then 
+            	  press <guibutton>Remove Keyring</guibutton> button.
+        	    </para>
+        	</sect3>
+        </sect2>
+
+    <sect2 id="key-servers">
+	<title>Gako-zerbitzariak</title>
+	<para>Zure gakoak eta besteenak eguneratuta edukitzen ditu; horretarako, aldian behin urrutiko gako-zerbitzariekin sinkronizatzen ditu. Sinkronizazioak ziurtatuko du azken sinadurak gako guztietan edukiko dituzula, eta, beraz, sare fidagarria erabilgarriagoa izango da.</para>
+	<para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioak HKP eta LDAP gako-zerbitzariak onartzen ditu.</para>
+	<variablelist>
+	  <varlistentry>
+	    <term><emphasis>HKP Zerbitzariak</emphasis></term>
+	    <listitem>
+	      <para>HKP gako-zerbitzariak gako-zerbitzari arruntak dira, web-ean oinarritzen direnak. Esaterako, <ulink url="hkp://pgp.mit.edu:11371" type="hkp">hkp://pgp.mit.edu:11371</ulink> ezaguna, <ulink url="http://pgp.mit.edu" type="http">http://pgp.mit.edu</ulink>-en ere erabilgarri dagoena.</para>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term><emphasis><acronym>LDAP</acronym> Gako-zerbitzariak</emphasis></term>
+	    <listitem>
+	      <para><acronym>LDAP</acronym> gako-zerbitzariak ez dira hain arruntak, baina LDAP protokolo estandarra erabiltzen dute gakoak zerbitzatzeko. <ulink url="ldap://keyserver.pgp.com" type="ldap">ldap://keyserver.pgp.com</ulink> LDAP zerbitzari ona da.</para>
+	    </listitem>
+	  </varlistentry>
+	</variablelist>
+      </sect2>
+
+      <sect2 id="key-sharing">
+	<title>Gakoak partekatzea</title>
+	<para>DNS-SDk (Bonjour edo Rendevous izenez ere ezaguna) gakoak partekatzeko aukera ematen du. Gakoak partekatzeko aukera aktibatzeak urrutiko bilaketaren elkarrizketa-koadroan gehituko ditu <application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioaren erabiltzaile lokalen gako sorta publikoak. "Gako-zerbitzari" lokal horiek erabiltzea azkarragoa izango da seguruenik urrutiko zerbitzarietatik sartzea baino.</para>
+      </sect2>
+  </sect1>
+      
+    <sect1 id="about">
+    <title>Pasahitzak eta enkriptatze-gakoak aplikazioari buruz</title>
+    <para><application>Pasahitzak eta enkriptatze-gakoak</application> aplikazioak, horrekin erlazionatutako pluginek, ezarpenen miniaplikazioak eta paneleko miniaplikazioak osatzen duten taldea Seahorse izenez ezagutzen da. Seahorse Jacob Perkins-ek idatzi zuen. Mantentze-lanen oraingo arduraduna Stef Walter eta Adam Schreiber dira. Eskuliburua Adam Schreiber-ek idatzi zuen. Proiektuaren webgunea Jim Pharis-ek diseinatu zuen. Seahorse proiektuari buruzko informazio gehiago lortzeko, bisitatu <ulink url="http://www.gnome.org/projects/seahorse/" type="http">Seahorse-n web-orria</ulink>.</para>
+    <para>Programa-errore baten berri emateko, edo aplikazioari nahiz eskuliburuari buruzko iradokizunak egiteko, ikus azalpenak: <ulink url="ghelp:user-guide?feedback-bugs" type="help">GNOMEren erabiltzailearen gida </ulink>.</para>
+    <para>Programa hau Free Software Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan edo (nahiago baduzu) bertsio berriago batean jasotako baldintzen arabera banatzen da. <ulink url="ghelp:gpl" type="help">Lizentzia horren kopia</ulink> dator dokumentazio honekin; beste kopia bat iturburu-kodetan sartutako COPYING fitxategian aurkituko duzu.</para>
+  </sect1>
+</article>

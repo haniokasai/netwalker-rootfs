@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % globalent SYSTEM "../../libs/global.ent">
+%globalent;
+<!ENTITY % gnome-menus-C SYSTEM "../../libs/gnome-menus-C.ent">
+%gnome-menus-C;
+<!ENTITY % xinclude SYSTEM "../../libs/xinclude.mod">
+%xinclude;
+<!ENTITY language "en">
+<!ENTITY ubuntu '<phrase>Ubuntu</phrase>'>
+]>
+<article id="keeping-safe" status="review">
+	<articleinfo>
+	<title>Keeping Your Computer Safe</title>
+    	&legalnotice;
+	</articleinfo>
+	<para>This section describes how to keep your computer safe from security threats.</para>
+		<sect1 id="passwords" status="new">
+			<title>Passwords</title>
+			<para>
+			Keep your password safe. If you want to change it, you can by opening <application>About Me</application> (&about-me;) and clicking <guibutton>Change Password</guibutton>.
+			</para>
+			<para>It is possible to automatically login to Ubuntu.</para>
+			<warning>
+				<para>Automatic login is highly discouraged because it provides less security for your
+				system. Also take care when in the Login Settings application as there are options
+				which may prevent Ubuntu from logging in or starting properly.</para>
+			</warning>
+			<orderedlist>
+				<listitem><para>Open &login-screen-setup;.</para></listitem>
+				<listitem><para>You will be prompted for your password.</para></listitem>
+				<listitem><para>Click <guilabel>Security</guilabel>.</para></listitem>
+				<listitem><para>Tick <guilabel>Enable Automatic Login</guilabel>.</para></listitem>
+				<listitem><para>Choose a <guilabel>Username</guilabel> from the drop down list to login as.</para></listitem>
+				<listitem><para>Click <guibutton>Close</guibutton>.</para></listitem>
+				<listitem><para>Changes will be applied on re-boot.</para></listitem>
+			</orderedlist>
+		</sect1>
+		<sect1 id="users" status="review">
+			<title>Give a separate user account to each person</title>
+			<para>
+				When Ubuntu is installed, it is set up for a single person to use.
+				If more than one person will use the computer,
+				it is best for each person to have their own user account.
+				This way they can have separate settings, documents, and other files.
+				If necessary, files can also be protected
+				from being viewed or changed by non-administrators.
+			</para>
+			<para>
+				To set up user accounts, choose &users-groups;.
+				You must be an
+				<ulink type="help" url="ghelp:administrative">administrator</ulink>
+			  to do this.
+			</para>
+			<para>
+				See the <ulink type='help' url='ghelp:users-admin'>Users Administration Tool manual</ulink> 
+				for more information on setting up user accounts.</para>
+		</sect1>
+		<sect1 id="updates" status="review">
+			<title>Keep your software up to date</title>
+			<para>
+				Ubuntu developers often issue updates to the Ubuntu software.
+				These updates may improve security or fix other problems.
+			</para>
+			<para>
+				When updates are available, the update icon (an orange star) appears in the panel,
+				usually near the top right of the screen.
+				To install updates you must be an <ulink type="help" url="ghelp:administrative">administrator</ulink>
+				and the computer must be connected to the Internet.
+			</para>
+			<procedure>
+				<step>
+					<para>
+						Click the update icon, and enter your password when asked.
+					</para>
+				</step>
+				<step>
+					<para>
+						In the Update Manager window,
+						click <guibutton>Install Updates</guibutton>.
+					</para>
+				</step>
+			</procedure>
+			<para>The update process may take a while if many updates need to be installed.</para>
+			<para>
+				If a pair of blue arrows appears in the panel when the updates have
+				finished,
+				you need to restart the computer to complete the installation.
+			</para>
+			<para>To check for updates yourself, choose &update-manager; and press <guibutton>Check</guibutton>.</para>
+			<para>
+				To change how often Ubuntu checks for updates,
+				or to set updates to install or download automatically,
+				choose &software-properties;,
+				and then <guilabel>Updates</guilabel>.
+			</para>
+		</sect1>
+  <sect1 id="lock-screen" status="review">
+    <title>Lock your screen while away</title>
+    <para>Locking your screen prevents other people from accessing your computer while you are away from it. All of your applications and work remain open while the screen is locked, and the screensaver is displayed.</para>
+    <para>You can lock your screen in one of the following ways:</para>
+    <itemizedlist>
+      <listitem>
+	<para>Press &lockscreen;.</para>
+      </listitem>
+      <listitem>
+	<para>Press
+	  <keycombo><keycap>Control</keycap>
+	    <keycap>Alt</keycap>
+	    <keycap>L</keycap></keycombo>
+	  to lock the screen. This keyboard shortcut can be
+	  changed in &keyboard-shortcuts;.</para>
+      </listitem>
+    </itemizedlist>
+    <note><para>You can add a <guibutton>Lock Screen</guibutton> button to a panel for easy access. Right-click a panel (for example, the panel at the top of the screen), select <guibutton>Add to Panel...</guibutton> and drag the <guibutton>Lock Screen</guibutton> item to the desired location.</para></note>
+		    <para>To unlock the screen, move the mouse or press a key. Then, type your password and either press the <keycap>Enter</keycap> key or press the <guibutton>Unlock</guibutton> button.</para>
+		    <para>If more than one person has a user account on your computer and the screen is locked, other users can press the <guibutton>Switch user...</guibutton> button to use the computer, even while the screen is locked. They will be unable to access your currently-open work, and you will be able to switch back to your locked session when they have finished using the computer.</para>
+		</sect1>
+		<sect1 id="firewall" status="review">
+			<title>Set up a firewall</title>
+			<para>You can optionally install a firewall to protect your computer against unauthorized access by people on the Internet or your network. Firewalls block connections to your computer from unknown sources, which helps to prevent security breaches.</para>
+			<procedure>
+				<step>
+					<para><ulink url="apt:firestarter">Install the <application>firestarter</application> package</ulink> from the <quote>Universe</quote> repository.</para>
+				</step>
+				<step>
+					<para>To start
+					<application>Firestarter</application>,
+					choose &firestarter-firewall-tool;, and enter your administrator password when prompted.
+					</para>
+				</step>
+				<step>
+					<para>The <application>Firewall Wizard</application> should run. If it does not, press <menuchoice><guimenu>Firewall</guimenu><guimenuitem>Run Wizard</guimenuitem></menuchoice>.</para>
+				</step>
+				<step>
+					<para>Follow the steps in the <application>Firewall Wizard</application>. After completing all of the steps, the firewall should be configured and running.</para>
+				</step>
+				<step>
+					<para>To check that your firewall is working correctly, make use of an online firewall testing service such as <ulink url="http://www.grc.com/">ShieldsUP</ulink>.</para>
+				</step>
+			</procedure>
+			<para>For help and advice on the advanced configuration of <application>Firestarter</application>, see the <ulink url='http://www.fs-security.com/docs.php'>Firestarter Online Manual</ulink>.</para>
+			<para>More advanced users may wish to use the UFW firewall, which is installed by default. See the <ulink type="help" url="man:ufw">UFW manual</ulink> for more information.</para>
+			
+		</sect1>
+		<sect1 id="avoid-internet-crime" status="review">
+			<title>Avoid Internet nuisances and crime</title>
+				<para>From time to time, you may be sent an email which carries a virus or links to a fraudulent website. This type of email is very common, and it is important to learn how to deal with it, in order to prevent your computer or your personal details from being compromised or misused.</para>
+				<para>Such messages are often received from total strangers. However, sometimes an email may appear to be from someone you know, when really it is not. This is because it is possible to include a fake sender email address in emails.</para>
+				<para>Unwanted (unsolicited) mail tends to fall in to one of several categories:</para>
+				<itemizedlist>
+					<listitem><para>Spam (junk) email, where people offer unwanted services and products</para></listitem>
+					<listitem><para>Scam emails, where people pretend to ask for help in exchange for large sums of money</para></listitem>
+					<listitem><para>Phishing email, where the message appears to be from a bank or other online service, asking you to enter your personal and financial details, or passwords.</para></listitem>
+				</itemizedlist>
+				
+				<para>Below are some tips for keeping safe online:</para>
+				
+				<itemizedlist>
+				<listitem><para>You should never reply to unsolicited mail, or even click on the links in the mail. Doing so usually results in more junk mail being sent to you.</para></listitem>
+				<listitem><para>Never click on links in emails which lead to websites asking for your password or similar. It is possible for the text of the link to give one address, when really it opens up another (possibly dangerous) address. Instead, type the link into your web browser yourself and proceed from there.</para></listitem>
+				<listitem><para>If a website asks for your financial details, ensure that it is secure. In the <application>Firefox Web browser</application>, secure websites have a <emphasis>yellow</emphasis> address bar with a padlock icon to the right of the address. Click on the padlock to read more information about the security of the website.</para></listitem>
+				<listitem><para>Only download and run software from sources that you trust. By default, you can only download software directly from Ubuntu.</para></listitem>
+				</itemizedlist>
+		</sect1>
+		<sect1 id="backup-files" status="review">
+			<title>Make backup copies of your files</title>
+				<para>A problem which you may occasionally encounter is the unexpected loss of some of your work and settings for one reason or another. The causes of such <emphasis>data loss</emphasis> are many and varied; it could be anything from a power cut to accidentally deleting a file. It is highly recommended that you make regular back-up copies of your important files so that, if you do encounter a problem, you will not have lost those files.</para>
+				
+				<para>It is wise to store back-up copies of files separately from your computer; that is, you should make use of some form of file storage which is not permanently attached to your computer. Options include:</para>
+				<itemizedlist>
+					<listitem><para>Writable CDs and DVDs</para></listitem>
+					<listitem><para>External hard disks and flash memory devices</para></listitem>
+					<listitem><para>Another computer on the network</para></listitem>
+				</itemizedlist>
+				
+				<para>A simple way of backing-up your files is to manually copy them to a safe location (see above) by using the <application>File Browser</application>.</para>
+				<para>Alternatively, you can use a dedicated back-up application, such as <application>HUBackup</application>:</para>
+				
+				<procedure>
+				<step>
+					<para><ulink url="apt:hubackup">Install the <application>hubackup</application> package</ulink> from the <quote>Universe</quote> repository.</para>
+				</step>
+				<step>
+					<para>To make a backup, press &hubackup;.
+					</para>
+				</step>
+				<step>
+					<para>Select the files which you would like to make a backup copy of and choose the location which you would like to save the backup to. If you have a CD or DVD writer, it should be present in this list.</para>
+				</step>
+				<step>
+					<para>Press <guibutton>Backup</guibutton> and follow the instructions given on-screen.</para>
+				</step>
+			</procedure>
+			<para>To restore a backup made with <application>HUBackup</application>, press &hurestore; and follow the instructions on-screen.</para>
+				
+				<para>Some general advice on how to keep good back-ups is given below:</para>
+				<itemizedlist>
+					<listitem><para>Back-up on a regular basis</para></listitem>
+					<listitem><para>Always test your back-ups after you make them, to ensure that they have been made correctly</para></listitem>
+					<listitem><para>Label your back-ups clearly, and keep them in a safe place</para></listitem>
+				</itemizedlist>
+		</sect1>
+</article>

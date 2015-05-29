@@ -1,0 +1,21 @@
+#!/bin/sh
+
+case "$1" in
+  install|upgrade)
+    if dpkg --compare-versions "$2" lt "0.9.14-0ubuntu3"; then
+      if [ -f /etc/xdg/autostart/pulseaudio.desktop ]; then
+        rm /etc/xdg/autostart/pulseaudio.desktop
+      fi
+    fi
+  ;;
+  abort-upgrade)
+  ;;
+  *)
+    echo "preinst called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
+esac
+
+
+
+exit 0

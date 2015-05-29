@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>6.3.  Dilate</title>
+    <link rel="stylesheet" href="gimp-help-plain.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-screen.css" type="text/css" />
+    <link rel="stylesheet" href="gimp-help-custom.css" type="text/css" />
+    <link rel="alternate stylesheet" href="gimp22.css" type="text/css" title="gimp22" />
+    <meta name="generator" content="DocBook XSL Stylesheets V1.73.2" />
+    <link rel="start" href="index.html" title="GNU Image Manipulation Program" />
+    <link rel="up" href="filters-generic.html" title="6.  Generic Filters" />
+    <link rel="prev" href="plug-in-convmatrix.html" title="6.2.  Convolution Matrix" />
+    <link rel="next" href="plug-in-erode.html" title="6.4.  Erode" />
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">6.3. 
+    <span lang="en" xml:lang="en">Dilate</span>
+  </th>
+        </tr>
+        <tr>
+          <td width="20%" align="left"><a accesskey="p" href="plug-in-convmatrix.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <th width="60%" align="center">6. 
+    <span lang="en" xml:lang="en">Generic Filters</span>
+  </th>
+          <td width="20%" align="right"> <a accesskey="n" href="plug-in-erode.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+      </table>
+      <hr />
+    </div>
+    <div class="sect2" lang="en" xml:lang="en">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h3 class="title"><a id="plug-in-dilate"></a>6.3. 
+    <span lang="en" xml:lang="en">Dilate</span>
+  </h3>
+          </div>
+        </div>
+      </div>
+      <a id="id2740830" class="indexterm"></a>
+      <a id="id2740848" class="indexterm"></a>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2740857"></a>6.3.1. 
+      <span lang="en" xml:lang="en">Overview</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2740868"></a>
+          <p class="title">
+            <b>Figure 16.61. 
+        <span lang="en" xml:lang="en">Applying example for the Dilate filter</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/taj_orig.jpg" alt="Applying example for the Dilate filter" />
+              <div class="caption">
+                <p>Original image</p>
+              </div>
+            </div>
+            <div class="mediaobject">
+              <img src="../images/filters/examples/generic-taj-dilate.jpg" alt="Applying example for the Dilate filter" />
+              <div class="caption">
+                <p>Filter “<span class="quote">Dilate</span>” applied</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <p>
+      You can find this filter through
+      <span class="guimenu">Filte<span class="accel">r</span>s</span> → <span class="guisubmenu"><span class="accel">G</span>eneric</span> → <span class="guimenuitem"><span class="accel">D</span>ilate</span>
+    </p>
+        <p>
+      This filter widens and enhances dark areas of the active layer or
+      selection.
+    </p>
+        <p>
+      For every image pixel, it brings the pixel Value (luminosity) into line
+      with the lowest Value (the darkest) of the 8 neighbouring pixels (3x3
+      matrix). So, a dark pixel is added around dark areas. An isolated pixel
+      on a brighter background will be changed to a big “<span class="quote">pixel
+      </span>”, composed of 9 pixels, and that will create some noise in the
+      image.
+    </p>
+        <div class="mediaobject">
+          <img src="../images/filters/filters-dilate-pixel.png" />
+        </div>
+        <p>
+      In this image, the studied pixel has a red border and the studied
+      matrix has a green border. I hope you have understood how to go on
+      with the process and get a 3x3 pixel block: when the “<span class="quote">I</span>”
+      pixel is inside the green border, the studied pixel turns to black.
+    </p>
+        <p>
+      A larger dark area will dilate by one pixel in all directions:
+    </p>
+        <div class="mediaobject">
+          <img src="../images/filters/filters-dilate-zone.png" />
+        </div>
+        <p>
+      The filter was applied 3 times.
+    </p>
+        <p>
+      On more complex images, dark areas are widened and enhanced the same,
+      and somewhat pixellated. Here, the filter was applied 3 times:
+    </p>
+        <div class="mediaobject">
+          <img src="../images/filters/filters-dilate-image.png" />
+        </div>
+        <p>
+      Of course, if background is darker than foreground, it will cover the
+      whole image.
+    </p>
+      </div>
+      <div class="sect3" lang="en" xml:lang="en">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h4 class="title"><a id="id2741080"></a>6.3.2. 
+      <span lang="en" xml:lang="en">Examples</span>
+    </h4>
+            </div>
+          </div>
+        </div>
+        <div class="figure">
+          <a id="id2741093"></a>
+          <p class="title">
+            <b>Figure 16.62. 
+        <span lang="en" xml:lang="en">Dilate text</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/dilate-text.png" alt="Dilate text" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+        <div class="figure">
+          <a id="id2741120"></a>
+          <p class="title">
+            <b>Figure 16.63. 
+        <span lang="en" xml:lang="en">Dilate neon effect</span>
+      </b>
+          </p>
+          <div class="figure-contents">
+            <div class="mediaobject">
+              <img src="../images/filters/examples/dilate-neon.png" alt="Dilate neon effect" />
+            </div>
+          </div>
+        </div>
+        <br class="figure-break" />
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr />
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td width="40%" align="left"><a accesskey="p" href="plug-in-convmatrix.html"><img src="../images/prev.png" alt="Prev" /></a> </td>
+          <td width="20%" align="center">
+            <a accesskey="u" href="filters-generic.html">
+              <img src="../images/up.png" alt="Up" />
+            </a>
+          </td>
+          <td width="40%" align="right"> <a accesskey="n" href="plug-in-erode.html"><img src="../images/next.png" alt="Next" /></a></td>
+        </tr>
+        <tr>
+          <td width="40%" align="left" valign="top"><a accesskey="p" href="plug-in-convmatrix.html">6.2. 
+    <span lang="en" xml:lang="en">Convolution Matrix</span>
+  </a> </td>
+          <td width="20%" align="center">
+            <a accesskey="h" href="index.html">
+              <img src="../images/home.png" alt="Home" />
+            </a>
+          </td>
+          <td width="40%" align="right" valign="top"> <a accesskey="n" href="plug-in-erode.html">6.4. 
+    <span lang="en" xml:lang="en">Erode</span>
+  </a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

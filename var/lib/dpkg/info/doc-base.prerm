@@ -1,0 +1,44 @@
+#!/bin/sh
+# $Id: prerm 115 2008-03-31 18:16:38Z robert $
+# prerm for doc-base
+
+# Abort if any command returns an error value
+set -e
+
+package=doc-base
+ctrldir="/usr/share/$package"
+infodir="/var/lib/$package/info"
+
+if [ "$DEBUG" ]; then
+    echo entering $package prerm
+    set -x
+fi
+
+remove_all_docs ( ) {
+    if which install-docs >/dev/null 2>&1; then
+	install-docs ${VERBOSE}  --remove-all || true
+
+    else
+	# error because this *is* the doc-base package
+	echo "cannot find install-docs on path" 1>&2
+	exit 1
+    fi
+}
+
+
+case "$1" in
+  remove)
+    remove_all_docs
+    ;;
+  upgrade)
+    ;;
+  failed-upgrade)
+    # Prepare to upgrade from version $2 of this package TO THIS VERSION.
+    # This is only used if the old version's prerm couldn't handle it,
+    # and returned non-zero.  (Fix old prerm bugs here.)
+    ;;
+esac
+
+
+
+exit 0
